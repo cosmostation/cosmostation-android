@@ -1,7 +1,8 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.support.v4.view.ViewPager;
 import android.view.View;
+
+import androidx.viewpager.widget.ViewPager;
 
 public class FadePageTransformer implements ViewPager.PageTransformer {
     @Override

@@ -1,12 +1,13 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 
@@ -93,7 +94,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
             mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
-            mValidatorName.setText(WDp.getValidatorInfo(getBaseDao(), getSActivity().mValOpAddress_V1).description.moniker);
+            mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mUnDelegateMemo);
 
         }

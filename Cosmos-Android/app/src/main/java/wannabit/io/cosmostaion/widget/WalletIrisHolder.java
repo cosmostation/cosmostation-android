@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -17,11 +18,9 @@ import wannabit.io.cosmostaion.activities.VoteListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 
@@ -64,11 +63,11 @@ public class WalletIrisHolder extends WalletHolder {
 
         } else if (mainActivity.mBaseChain.equals(IRIS_TEST)) {
             mTvDenomTitle.setText(mainActivity.getString(R.string.s_bif));
-            final BigDecimal availableAmount = WDp.getAvailable(baseData, TOKEN_IRIS_TEST);
-            final BigDecimal delegateAmount = WDp.getDelegationSum(baseData);
-            final BigDecimal unbondingAmount = WDp.getUndelegationSum(baseData);
-            final BigDecimal rewardAmount = WDp.getRewardSum(baseData, TOKEN_IRIS_TEST);
-            final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+            final BigDecimal availableAmount = baseData.getAvailable(TOKEN_IRIS_TEST);
+            final BigDecimal delegateAmount = baseData.getDelegationSum();
+            final BigDecimal unbondingAmount = baseData.getUndelegationSum();
+            final BigDecimal rewardAmount = baseData.getRewardSum(TOKEN_IRIS_TEST);
+            final BigDecimal totalAmount = baseData.getAllMainAsset(TOKEN_IRIS_TEST);
 
             mTvIrisTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
             mTvIrisAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));

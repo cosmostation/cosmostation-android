@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.VoteActivity;

@@ -8,7 +8,7 @@
     android:layout_marginLeft="@dimen/space_12"
     android:layout_marginRight="@dimen/space_12"
     android:orientation="horizontal">
-    <android.support.v7.widget.CardView
+    <androidx.cardview.widget.CardView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -38,8 +38,8 @@
                 style="@style/font_ssl_14_white"
                 android:text="-"/>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-    <android.support.v7.widget.CardView
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
         android:id="@+id/apr_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -83,6 +83,6 @@
                 style="@style/font_ssl_14_white"
                 android:text="-"/>
         </LinearLayout>
-    </android.support.v7.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>

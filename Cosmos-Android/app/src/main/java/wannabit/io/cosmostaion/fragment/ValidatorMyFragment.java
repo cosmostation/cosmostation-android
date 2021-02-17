@@ -3,12 +3,6 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +11,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
@@ -69,8 +71,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
     public final static int SELECT_MY_VALIDATOR_SORTING = 6003;
 
-    private SwipeRefreshLayout          mSwipeRefreshLayout;
-    private RecyclerView                mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerView mRecyclerView;
     private MyValidatorAdapter          mMyValidatorAdapter;
     private TextView                    mValidatorSize, mSortType;
     private LinearLayout                mBtnSort;
@@ -100,6 +102,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
             @Override
             public void onRefresh() {
                 getMainActivity().onFetchAllData();
+                mMyValidatorAdapter.notifyDataSetChanged();
             }
         });
 
@@ -118,7 +121,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if (!isAdded()) return;
         if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-            mValidatorSize.setText(""+getBaseDao().mMyValidators_V1.size());
+            mValidatorSize.setText(""+getBaseDao().mGRpcMyValidators.size());
         } else {
             mValidatorSize.setText(""+getBaseDao().mMyValidators.size());
         }
@@ -174,7 +177,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 final RewardWithdrawHolder holder       = (RewardWithdrawHolder)viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
                 if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                    final BigDecimal allRewardAmount = WDp.getRewardSum(getMainActivity().getBaseDao(), WDp.mainDenom(getMainActivity().mBaseChain));
+                    final BigDecimal allRewardAmount = getBaseDao().getRewardSum(WDp.mainDenom(getMainActivity().mBaseChain));
                     holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, 6, 6));
 
                 } else {
@@ -206,40 +209,40 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_AKASH));
 
                     }
-
-                    holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getMainActivity().onStartRewardAll();
-                        }
-                    });
                 }
+
+                holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        getMainActivity().onStartRewardAll();
+                    }
+                });
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                 if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                    final Validator_V1 validator = getBaseDao().mMyValidators_V1.get(position);
-                    final BigDecimal delegationAmount = WDp.getDelegation(getMainActivity().getBaseDao(), validator.operator_address);
-                    final BigDecimal undelegationAmount = WDp.getUndelegation(getMainActivity().getBaseDao(), validator.operator_address);
-                    final BigDecimal rewardAmount = WDp.getReward(getMainActivity().getBaseDao(), WDp.mainDenom(getMainActivity().mBaseChain)  ,validator.operator_address);
+                    final Staking.Validator validator = getBaseDao().mGRpcMyValidators.get(position);
+                    final BigDecimal delegationAmount = getBaseDao().getDelegation(validator.getOperatorAddress());
+                    final BigDecimal undelegationAmount = getBaseDao().getUndelegation(validator.getOperatorAddress());
+                    final BigDecimal rewardAmount = getBaseDao().getReward(WDp.mainDenom(getMainActivity().mBaseChain), validator.getOperatorAddress());
                     String monikerUrl = "";
                     if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
-                        monikerUrl = COSMOS_VAL_URL + validator.operator_address + ".png";
+                        monikerUrl = COSMOS_VAL_URL + validator.getOperatorAddress() + ".png";
                     } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                        monikerUrl = IRIS_VAL_URL + validator.operator_address + ".png";
+                        monikerUrl = IRIS_VAL_URL + validator.getOperatorAddress() + ".png";
                     }
                     try {
                         Picasso.get().load(monikerUrl).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img) .into(holder.itemAvatar);
                     } catch (Exception e){}
 
-                    holder.itemTvMoniker.setText(validator.description.moniker);
+                    holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                     holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), delegationAmount, 6, 6));
                     holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), undelegationAmount, 6, 6));
                     holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
 
-                    if (validator.jailed) {
+                    if (validator.getJailed()) {
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
                         holder.itemRevoked.setVisibility(View.VISIBLE);
                     } else {
@@ -249,7 +252,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            getMainActivity().onStartValidatorDetailV1(validator.operator_address);
+                            getMainActivity().onStartValidatorDetailV1(validator.getOperatorAddress());
                         }
                     });
 
@@ -376,12 +379,12 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         @Override
         public int getItemCount() {
             if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                if(getBaseDao().mMyValidators_V1 == null || getBaseDao().mMyValidators_V1.size() < 1) {
+                if(getBaseDao().mGRpcMyValidators == null || getBaseDao().mGRpcMyValidators.size() < 1) {
                     return 1;
-                } else if (getBaseDao().mMyValidators_V1.size() == 1) {
+                } else if (getBaseDao().mGRpcMyValidators.size() == 1) {
                     return 1;
-                } else if (getBaseDao().mMyValidators_V1.size() >= 1) {
-                    return getBaseDao().mMyValidators_V1.size() + 1;
+                } else if (getBaseDao().mGRpcMyValidators.size() >= 1) {
+                    return getBaseDao().mGRpcMyValidators.size() + 1;
                 }
 
             } else {
@@ -399,9 +402,9 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         @Override
         public int getItemViewType(int position) {
             if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                if (getBaseDao().mMyValidators_V1 == null ||getBaseDao().mMyValidators_V1.size() < 1) {
+                if (getBaseDao().mGRpcMyValidators == null ||getBaseDao().mGRpcMyValidators.size() < 1) {
                     return TYPE_PROMOTION;
-                } else if (getBaseDao().mMyValidators_V1.size() > 1 && position == getBaseDao().mMyValidators_V1.size()) {
+                } else if (getBaseDao().mGRpcMyValidators.size() > 1 && position == getBaseDao().mGRpcMyValidators.size()) {
                     return TYPE_HEADER_WITHDRAW_ALL;
                 } else {
                     return TYPE_MY_VALIDATOR;
@@ -474,14 +477,14 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
         if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getBaseDao().getMyValSorting() == 2) {
                 mSortType.setText(getString(R.string.str_sorting_by_reward));
-                WUtil.onSortByRewardV1(getBaseDao().mMyValidators_V1, WDp.mainDenom(getMainActivity().mBaseChain), getBaseDao());
+                WUtil.onSortByRewardV1(getBaseDao().mGRpcMyValidators, WDp.mainDenom(getMainActivity().mBaseChain), getBaseDao());
 
             } else if (getBaseDao().getMyValSorting() == 0) {
-                WUtil.onSortByValidatorNameV1(getBaseDao().mMyValidators_V1);
+                WUtil.onSortByValidatorNameV1(getBaseDao().mGRpcMyValidators);
                 mSortType.setText(getString(R.string.str_sorting_by_name));
 
             } else {
-                WUtil.onSortByDelegateV1(getMainActivity().mAccount.id, getBaseDao().mMyValidators_V1, getBaseDao());
+                WUtil.onSortByDelegateV1(getMainActivity().mAccount.id, getBaseDao().mGRpcMyValidators, getBaseDao());
                 mSortType.setText(getString(R.string.str_sorting_by_my_delegated));
 
             }

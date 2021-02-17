@@ -2,13 +2,14 @@ package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -20,8 +21,10 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
@@ -203,6 +206,28 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_AKASH_MAIN + "account/" + mAddress);
             else
                 mWebview.loadUrl(EXPLORER_AKASH_MAIN);
+
+        } else if (mBasechain.equals(BaseChain.COSMOS_TEST)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_COSMOS_TEST + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_COSMOS_TEST + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_COSMOS_TEST + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_COSMOS_TEST);
+
+        } else if (mBasechain.equals(BaseChain.IRIS_TEST)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorIris));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_IRIS_TEST + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_IRIS_TEST + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_IRIS_TEST + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_IRIS_TEST);
 
         }
 

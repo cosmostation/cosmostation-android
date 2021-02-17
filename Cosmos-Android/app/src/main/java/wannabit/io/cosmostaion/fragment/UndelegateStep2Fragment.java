@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +15,8 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -62,11 +63,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 

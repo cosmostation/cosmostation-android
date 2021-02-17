@@ -3,17 +3,17 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import java.util.ArrayList;
 
@@ -22,12 +22,9 @@ import wannabit.io.cosmostaion.activities.HtlcSendActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Accounts;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receivable_Empty;
-import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class HtlcSendStep1Fragment extends BaseFragment implements View.OnClickListener {
     public final static int SELECT_ACCOUNT = 9101;

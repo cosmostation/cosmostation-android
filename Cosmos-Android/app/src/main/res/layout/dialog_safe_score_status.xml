@@ -11,7 +11,7 @@
         android:background="@drawable/dialog_bg"
         android:orientation="vertical"
         android:gravity="center_horizontal">
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
@@ -162,6 +162,6 @@
 
             </LinearLayout>
 
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </LinearLayout>
 </LinearLayout>

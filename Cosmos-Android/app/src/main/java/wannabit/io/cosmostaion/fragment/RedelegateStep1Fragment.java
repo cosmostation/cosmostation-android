@@ -1,13 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,11 +11,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
+import cosmos.staking.v1beta1.Staking;
 import de.hdodenhof.circleimageview.CircleImageView;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RedelegateActivity;
@@ -31,16 +35,20 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleAllRedelegateState;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.ReDelegationsFromToGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -53,6 +61,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_ALL_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO;
 
 public class RedelegateStep1Fragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
@@ -60,8 +69,11 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     private RecyclerView            mRecyclerView;
     private ToValidatorAdapter      mToValidatorAdapter;
     private ArrayList<Validator>    mToValidators = new ArrayList<>();
-
     private Validator               mCheckedValidator = null;
+
+    //gRpc
+    private ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
+    private Staking.Validator                mCheckedGRpcValidator = null;
 
     public static RedelegateStep1Fragment newInstance(Bundle bundle) {
         RedelegateStep1Fragment fragment = new RedelegateStep1Fragment();
@@ -73,6 +85,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mToValidators = getSActivity().mToValidators;
+        mGRpcTopValidators = getSActivity().mGRpcTopValidators;
     }
 
     @Override
@@ -103,28 +116,38 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if(mCheckedValidator == null) {
-                Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
-            } else {
-                if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                        getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                        getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                    new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
-                            getSActivity().mFromValidator.operator_address,
-                            mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+                if (mCheckedGRpcValidator == null) {
 
-                } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                    if (getSActivity().mIrisRedelegateState != null && getSActivity().mIrisRedelegateState.size() > 0) {
-                        for (ResLcdIrisRedelegate state:getSActivity().mIrisRedelegateState) {
-                            if (mCheckedValidator.operator_address.equals(state.validator_dst_addr) &&
-                                getSActivity().mFromValidator.operator_address.equals(state.validator_src_addr)) {
-                                Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
-                                return;
+                } else {
+                    new ReDelegationsFromToGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount,
+                            getSActivity().mValOpAddress, mCheckedGRpcValidator.getOperatorAddress()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                }
+
+            } else {
+                if (mCheckedValidator == null) {
+                    Toast.makeText(getContext(), R.string.error_no_to_validator, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
+                            getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
+                            getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                        new SingleAllRedelegateState(getBaseApplication(), this, getSActivity().mAccount,
+                                getSActivity().mFromValidator.operator_address,
+                                mCheckedValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+                    } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+                        if (getSActivity().mIrisRedelegateState != null && getSActivity().mIrisRedelegateState.size() > 0) {
+                            for (ResLcdIrisRedelegate state:getSActivity().mIrisRedelegateState) {
+                                if (mCheckedValidator.operator_address.equals(state.validator_dst_addr) &&
+                                        getSActivity().mFromValidator.operator_address.equals(state.validator_src_addr)) {
+                                    Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
                             }
                         }
+                        getSActivity().mToValidator = mCheckedValidator;
+                        getSActivity().onNextStep();
                     }
-                    getSActivity().mToValidator = mCheckedValidator;
-                    getSActivity().onNextStep();
                 }
             }
         }
@@ -148,6 +171,18 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 getSActivity().mToValidator = mCheckedValidator;
                 getSActivity().onNextStep();
             }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO ) {
+            List<Staking.RedelegationResponse> redelegates = (List<Staking.RedelegationResponse>) result.resultData;
+            if (redelegates != null && redelegates.size() > 0 && redelegates.get(0).getEntriesCount() >= 7 ) {
+                Toast.makeText(getContext(), R.string.error_redelegate_cnt_over, Toast.LENGTH_SHORT).show();
+                return;
+
+            } else {
+                getSActivity().mToValOpAddress = mCheckedGRpcValidator.getOperatorAddress();
+                getSActivity().onNextStep();
+            }
+
         }
     }
 
@@ -163,140 +198,181 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
-            final Validator validator  = mToValidators.get(position);
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+            if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+                final Staking.Validator mGrpcValidator  = mGRpcTopValidators.get(position);
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), 6, 6));
+                holder.itemTvCommission.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
 
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
-                try {
-                    Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(KAVA_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(IOV_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(CERTIK_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(SECRET_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(AKASH_VAL_URL+validator.operator_address+".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            }
-            holder.itemTvMoniker.setText(validator.description.moniker);
-            holder.itemFree.setVisibility(View.GONE);
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mCheckedValidator = validator;
-                    notifyDataSetChanged();
+                holder.itemTvMoniker.setText(mGrpcValidator.getDescription().getMoniker());
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCheckedGRpcValidator = mGrpcValidator;
+                        notifyDataSetChanged();
+                    }
+                });
+                if (mGrpcValidator.getJailed()) {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemRevoked.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemRevoked.setVisibility(View.GONE);
                 }
-            });
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
+                if (mCheckedGRpcValidator != null && mGrpcValidator.getOperatorAddress().equals(mCheckedGRpcValidator.getOperatorAddress())) {
+                    holder.itemChecked.setColorFilter(WDp.getChainColor(getContext(), getSActivity().mBaseChain), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                }  else {
+                    holder.itemCheckedBorder.setVisibility(View.GONE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                }
 
-            if(validator.jailed) {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-                holder.itemRevoked.setVisibility(View.VISIBLE);
             } else {
-                holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
-                holder.itemRevoked.setVisibility(View.GONE);
-            }
+                final Validator validator  = mToValidators.get(position);
+                if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(COSMOS_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
 
-            holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if ((getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if ((getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorSecret), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAkash), android.graphics.PorterDuff.Mode.SRC_IN);
-                holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-            }  else {
-                holder.itemCheckedBorder.setVisibility(View.GONE);
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
+                    try {
+                        Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(KAVA_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(BAND_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(IOV_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(CERTIK_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(SECRET_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
+                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                    try {
+                        Picasso.get().load(AKASH_VAL_URL+validator.operator_address+".png")
+                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
+                                .into(holder.itemAvatar);
+                    } catch (Exception e){}
+
+                }
+                holder.itemTvMoniker.setText(validator.description.moniker);
+                holder.itemFree.setVisibility(View.GONE);
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mCheckedValidator = validator;
+                        notifyDataSetChanged();
+                    }
+                });
+
+                if(validator.jailed) {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
+                    holder.itemRevoked.setVisibility(View.VISIBLE);
+                } else {
+                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
+                    holder.itemRevoked.setVisibility(View.GONE);
+                }
+
+                holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
+                if (getSActivity().mBaseChain.equals(COSMOS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAtom), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if (getSActivity().mBaseChain.equals(BAND_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorBand), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if ((getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIov), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if ((getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorCertik), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if (getSActivity().mBaseChain.equals(SECRET_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorSecret), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                } else if (getSActivity().mBaseChain.equals(AKASH_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorAkash), PorterDuff.Mode.SRC_IN);
+                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
+                }  else {
+                    holder.itemCheckedBorder.setVisibility(View.GONE);
+                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                }
             }
         }
 
         @Override
         public int getItemCount() {
-            return mToValidators.size();
+            if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+                return mGRpcTopValidators.size();
+
+            } else {
+                return mToValidators.size();
+            }
+
         }
 
         public class ToValidatorHolder extends RecyclerView.ViewHolder {

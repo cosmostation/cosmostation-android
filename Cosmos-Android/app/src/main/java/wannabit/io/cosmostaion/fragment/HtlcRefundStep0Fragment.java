@@ -1,12 +1,13 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.HtlcRefundActivity;
@@ -14,7 +15,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class HtlcRefundStep0Fragment extends BaseFragment implements View.OnClickListener  {
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/bottom_control">
@@ -35,7 +35,7 @@
                     style="@style/font_ss_14_white"
                     android:text="CLOSED"/>
 
-                <android.support.v7.widget.SwitchCompat
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/switch_domain_type"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -116,7 +116,7 @@
 
 
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 
 

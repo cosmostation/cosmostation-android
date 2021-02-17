@@ -2,17 +2,18 @@ package wannabit.io.cosmostaion.activities;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,7 +40,6 @@ import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;

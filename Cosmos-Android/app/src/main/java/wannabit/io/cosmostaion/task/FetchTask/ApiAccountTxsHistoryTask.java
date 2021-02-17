@@ -9,11 +9,15 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
+import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
+
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class ApiAccountTxsHistoryTask extends CommonTask {
 
@@ -104,6 +108,26 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getAkashApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+            }
+
+
+            else if (mChain.equals(COSMOS_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(IRIS_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

@@ -3,12 +3,13 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 
@@ -95,7 +96,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
         } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            mValidatorName.setText(WDp.getValidatorInfo(getBaseDao(), getSActivity().mValOpAddress_V1).description.moniker);
+            mValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mToDelegateMemo);
 
         }

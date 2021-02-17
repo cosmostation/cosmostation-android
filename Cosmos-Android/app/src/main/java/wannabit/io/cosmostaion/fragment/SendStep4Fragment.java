@@ -1,14 +1,14 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 
@@ -337,7 +337,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
                 mTotalPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), feeAmount.add(toSendAmount), getSActivity().mBaseChain));
 
-                BigDecimal currentAvail = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
+                BigDecimal currentAvail = getBaseDao().getAvailable(getSActivity().mDenom);
                 mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvail, 6, 6));
                 mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvail.subtract(toSendAmount).subtract(feeAmount), 6, 6));
                 mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));

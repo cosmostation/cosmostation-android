@@ -3,12 +3,6 @@ package wannabit.io.cosmostaion.fragment.chains.kava;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.squareup.picasso.Picasso;
 
@@ -26,7 +27,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.HarvestDetailActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.RepayCdpActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
@@ -41,7 +41,6 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaHarvestRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARVEST_MARKET_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARVEST_DEPOSIT;

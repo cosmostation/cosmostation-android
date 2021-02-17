@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.starname;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.SwitchCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,6 +12,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SwitchCompat;
 
 import java.math.BigDecimal;
 

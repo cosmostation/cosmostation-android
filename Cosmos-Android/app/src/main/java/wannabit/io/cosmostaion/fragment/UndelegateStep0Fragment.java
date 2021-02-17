@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -12,6 +11,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -189,7 +190,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
 
         if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            mMaxAvailable = WDp.getDelegation(getBaseDao(), getSActivity().mValOpAddress_V1);
+            mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValOpAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else {

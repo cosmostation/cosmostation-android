@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -33,11 +34,7 @@ import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
-import wannabit.io.cosmostaion.model.Delegation_V1;
 import wannabit.io.cosmostaion.model.KavaCDP;
-import wannabit.io.cosmostaion.model.Reward_V1;
-import wannabit.io.cosmostaion.model.Undelegation_V1;
-import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -79,7 +76,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
@@ -383,16 +382,18 @@ public class WDp {
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
         if (chain.equals(COSMOS_TEST)) {
-            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mProvision_V1 == null || baseData.mParamMint_V1 == null) { return result; }
-            BigDecimal provisions = baseData.mProvision_V1;
-            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
-            BigDecimal blocksPerYear = new BigDecimal(baseData.mParamMint_V1.blocks_per_year);
+            //TODO need real test
+            if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
+            BigDecimal provisions = baseData.mGrpcProvision;
+            BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+            BigDecimal blocksPerYear = new BigDecimal(baseData.mGrpcParamMint.getBlocksPerYear());
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
 
         } else if (chain.equals(IRIS_TEST)) {
-            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mParamMint_V1 == null) { return result; }
-            BigDecimal provisions = baseData.mStakingPool_V1.getTotalTokens().multiply(baseData.mParamMint_V1.getInflation());
-            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
+            if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcIrisParamMint == null) { return result; }
+            BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+            BigDecimal unbonded = new BigDecimal(baseData.mGrpcStakingPool.getNotBondedTokens());
+            BigDecimal provisions = (bonded.add(unbonded)).multiply(new BigDecimal(baseData.mGrpcIrisParamMint.getInflation())).movePointLeft(18);
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
 
         } else {
@@ -701,103 +702,6 @@ public class WDp {
     }
 
 
-    //V1 .40 version
-    public static BigDecimal getAvailable(BaseData basedata, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Coin coin : basedata.mBalance_V1) {
-            if (coin.denom.equalsIgnoreCase(denom)) {
-                result = new BigDecimal(coin.amount);
-            }
-        }
-        return result;
-    }
-
-    public static BigDecimal getDelegationSum(BaseData basedata) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Delegation_V1 delegation: basedata.mDelegations_V1) {
-            sum = sum.add(new BigDecimal(delegation.balance.amount));
-        }
-        return sum;
-    }
-
-    public static BigDecimal getDelegation(BaseData basedata, String valOpAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Delegation_V1 delegation: basedata.mDelegations_V1) {
-            if (delegation.delegation.validator_address.equals(valOpAddress)) {
-                result =  new BigDecimal(delegation.balance.amount);
-            }
-        }
-        return result;
-    }
-
-    public static Delegation_V1 getDelegationInfo(BaseData basedata, String valOpAddress) {
-        for (Delegation_V1 delegation: basedata.mDelegations_V1) {
-            if (delegation.delegation.validator_address.equals(valOpAddress)) {
-                return delegation;
-            }
-        }
-        return null;
-    }
-
-
-    public static BigDecimal getUndelegationSum(BaseData basedata) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Undelegation_V1 undelegation: basedata.mUndelegations_V1) {
-            sum = sum.add(undelegation.getAllUnbondingBalance());
-        }
-        return sum;
-    }
-
-    public static BigDecimal getUndelegation(BaseData basedata, String valOpAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Undelegation_V1 undelegation: basedata.mUndelegations_V1) {
-            if (undelegation.validator_address.equals(valOpAddress)) {
-                result = undelegation.getAllUnbondingBalance();
-            }
-        }
-        return result;
-    }
-
-    public static Undelegation_V1 getUndelegationInfo(BaseData basedata, String valOpAddress) {
-        for (Undelegation_V1 undelegation: basedata.mUndelegations_V1) {
-            if (undelegation.validator_address.equals(valOpAddress)) {
-                return undelegation;
-            }
-        }
-        return null;
-    }
-
-    public static BigDecimal getRewardSum(BaseData basedata, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Reward_V1 reward: basedata.mRewards_V1) {
-            sum = sum.add(reward.getRewardByDenom(denom));
-        }
-        return sum;
-    }
-
-    public static BigDecimal getReward(BaseData basedata, String denom, String valOpAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Reward_V1 reward: basedata.mRewards_V1) {
-            if (reward.validator_address.equals(valOpAddress)) {
-                result = reward.getRewardByDenom(denom);
-            }
-        }
-        return result;
-    }
-
-    public static Reward_V1 getRewardInfo(BaseData basedata, String valOpAddress) {
-        for (Reward_V1 reward: basedata.mRewards_V1) {
-            if (reward.validator_address.equals(valOpAddress)) {
-                return reward;
-            }
-        }
-        return null;
-    }
-
-    public static BigDecimal getAllMainAsset(BaseData basedata, String denom) {
-        return getAvailable(basedata, denom).add(getDelegationSum(basedata)).add(getUndelegationSum(basedata)).add(getRewardSum(basedata, denom));
-    }
-
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
@@ -816,17 +720,6 @@ public class WDp {
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - dpDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
-
-    public static Validator_V1 getValidatorInfo(BaseData basedata, String valOpAddress) {
-        for (Validator_V1 val: basedata.mAllValidators_V1) {
-            if (val.operator_address.equals(valOpAddress)) {
-                return val;
-            }
-        }
-        return null;
-    }
-
-
 
     public static Validator selectValidator(ArrayList<Validator> validators, String opAddress) {
         Validator result = null;
@@ -1332,32 +1225,31 @@ public class WDp {
         return  getPercentDp(result);
     }
 
+    public static SpannableString getSelfBondGrpcRate(String total, String self) {
+        BigDecimal result = new BigDecimal(self).movePointLeft(18).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
+        return  getPercentDp(result);
+    }
+
     public static SpannableString getCommissionRate(String rate) {
         BigDecimal result = new BigDecimal(rate).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN);
         return getPercentDp(result);
     }
 
-    public static BigDecimal getCommissionRateDecimal(String rate) {
-        return new BigDecimal(rate).setScale(2, RoundingMode.DOWN);
+    public static SpannableString getDpCommissionGrpcRate(Staking.Validator validator) {
+        BigDecimal result = getCommissionGrpcRate(validator);
+        result = result.movePointRight(2).setScale(2, RoundingMode.DOWN);
+        return getPercentDp(result);
     }
 
-    public static int getCommisionColor(String rateS) {
-        int result = R.color.colorGray1;
-        float rate = Float.parseFloat(rateS);
-        if(rate > 0.1999f) {
-            result = R.color.colorCommision4;
-            return result;
+    public static BigDecimal getCommissionGrpcRate(Staking.Validator validator) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (validator != null && validator.getCommission() != null && validator.getCommission().getCommissionRates() != null &&
+                validator.getCommission().getCommissionRates().getRate() != null) {
+            result = new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18);
         }
-//        if(rate > 0.15f) {
-//            result = R.color.colorCommision3;
-//            return result;
-//        }
-//        if(rate > 0.121f) {
-//            result = R.color.colorCommision3;
-//            return result;
-//        }
         return result;
     }
+
 
     public static BigDecimal uAtomToAtom(BigDecimal uatom) {
         return uatom.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN);
@@ -2630,6 +2522,16 @@ public class WDp {
         }
         return c.getString(R.string.str_bep3_status_open);
 
+    }
+
+    public static String getMonikerImgUrl(BaseChain basechain, String opAddress) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+            return COSMOS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            return IRIS_VAL_URL + opAddress + ".png";
+
+        }
+        return "";
     }
 
 }

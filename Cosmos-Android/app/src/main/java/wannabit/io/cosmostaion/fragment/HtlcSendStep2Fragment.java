@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -27,7 +28,6 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BEP3_RELAY_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;

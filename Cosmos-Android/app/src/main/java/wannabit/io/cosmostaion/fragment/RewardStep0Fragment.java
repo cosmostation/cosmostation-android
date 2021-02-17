@@ -1,8 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,13 +10,16 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+
 import java.math.BigDecimal;
 
+import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -114,19 +115,19 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
         } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
-            for (String opAddress: getSActivity().mValOpAddresses_V1) {
-                rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            for (String opAddress: getSActivity().mValAddresses) {
+                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
             mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
             String monikers = "";
-            for (Validator_V1 validator: getBaseDao().mAllValidators_V1) {
+            for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
                 boolean isMatch = false;
-                for (String myVal: getSActivity().mValOpAddresses_V1) {
-                    if (myVal.equals(validator.operator_address)) { isMatch = true; break; }
+                for (String myVal: getSActivity().mValAddresses) {
+                    if (myVal.equals(validator.getOperatorAddress())) { isMatch = true; break; }
                 }
                 if (isMatch) {
-                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.description.moniker; }
-                    else { monikers = monikers + ",    " + validator.description.moniker; }
+                    if (TextUtils.isEmpty(monikers)) {  monikers = validator.getDescription().getMoniker(); }
+                    else { monikers = monikers + ",    " + validator.getDescription().getMoniker(); }
                 }
             }
             mTvFromValidators.setText(monikers);

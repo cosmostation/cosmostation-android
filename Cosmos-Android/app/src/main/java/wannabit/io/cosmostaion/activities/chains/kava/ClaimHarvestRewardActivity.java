@@ -2,16 +2,17 @@ package wannabit.io.cosmostaion.activities.chains.kava;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,7 +30,6 @@ import wannabit.io.cosmostaion.model.KavaClaimMultiplier;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;

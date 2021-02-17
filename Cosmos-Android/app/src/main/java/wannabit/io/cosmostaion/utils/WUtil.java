@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 import java.util.regex.Matcher;
@@ -35,6 +36,10 @@ import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.distribution.v1beta1.Distribution;
+import cosmos.gov.v1beta1.Gov;
+import cosmos.staking.v1beta1.Staking;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -754,20 +759,20 @@ public class WUtil {
         });
     }
 
-    public static void onSortByValidatorNameV1(ArrayList<Validator_V1> validators) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+    public static void onSortByValidatorNameV1(ArrayList<Staking.Validator> validators) {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                return o1.description.moniker.compareTo(o2.description.moniker);
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if(o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                return o1.getDescription().getMoniker().compareTo(o2.getDescription().getMoniker());
             }
         });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if (o1.getJailed() && !o2.getJailed()) return 1;
+                else if (!o1.getJailed() && o2.getJailed()) return -1;
                 else return 0;
             }
         });
@@ -795,23 +800,23 @@ public class WUtil {
         });
     }
 
-    public static void onSortByValidatorPowerV1(ArrayList<Validator_V1> validators) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+    public static void onSortByValidatorPowerV1(ArrayList<Staking.Validator> validators) {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if(o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
 
-                if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
-                else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
+                if (Double.parseDouble(o1.getTokens()) > Double.parseDouble(o2.getTokens())) return -1;
+                else if (Double.parseDouble(o1.getTokens()) < Double.parseDouble(o2.getTokens())) return 1;
                 else return 0;
             }
         });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if (o1.getJailed() && !o2.getJailed()) return 1;
+                else if (!o1.getJailed() && o2.getJailed()) return -1;
                 else return 0;
             }
         });
@@ -873,23 +878,22 @@ public class WUtil {
         });
     }
 
-    public static void onSortByDelegateV1(final long userId, ArrayList<Validator_V1> validators, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+    public static void onSortByDelegateV1(final long userId, ArrayList<Staking.Validator> validators, final BaseData dao) {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal bondingO1 = WDp.getDelegation(dao, o1.operator_address);
-                BigDecimal bondingO2 = WDp.getDelegation(dao, o2.operator_address);
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if(o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                BigDecimal bondingO1 = dao.getDelegation(o1.getOperatorAddress());
+                BigDecimal bondingO2 = dao.getDelegation(o2.getOperatorAddress());
                 return bondingO2.compareTo(bondingO1);
             }
         });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if (o1.getJailed() && !o2.getJailed()) return 1;
+                else if (!o1.getJailed() && o2.getJailed()) return -1;
                 else return 0;
             }
         });
@@ -917,23 +921,22 @@ public class WUtil {
         });
     }
 
-    public static void onSortByRewardV1(ArrayList<Validator_V1> validators, String denom, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+    public static void onSortByRewardV1(ArrayList<Staking.Validator> validators, String denom, final BaseData dao) {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal rewardO1 = WDp.getReward(dao, denom, o1.operator_address);
-                BigDecimal rewardO2 = WDp.getReward(dao, denom, o2.operator_address);
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if(o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                BigDecimal rewardO1 = dao.getReward(denom, o1.getOperatorAddress());
+                BigDecimal rewardO2 = dao.getReward(denom, o2.getOperatorAddress());
                 return rewardO2.compareTo(rewardO1);
             }
         });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if (o1.getJailed() && !o2.getJailed()) return 1;
+                else if (!o1.getJailed() && o2.getJailed()) return -1;
                 else return 0;
             }
         });
@@ -948,6 +951,35 @@ public class WUtil {
                 return rewardO2.compareTo(rewardO1);
             }
         });
+    }
+
+
+
+    public static void onSortRewardAmount(ArrayList<Distribution.DelegationDelegatorReward> rewards, String denom) {
+        Collections.sort(rewards, new Comparator<Distribution.DelegationDelegatorReward>() {
+            @Override
+            public int compare(Distribution.DelegationDelegatorReward o1, Distribution.DelegationDelegatorReward o2) {
+                BigDecimal rewardO1 = getGrpcRewardAmount(o1, denom);
+                BigDecimal rewardO2 = getGrpcRewardAmount(o2, denom);
+                return rewardO2.compareTo(rewardO1);
+            }
+        });
+    }
+
+    public static BigDecimal getGrpcRewardAmount(Distribution.DelegationDelegatorReward reward, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        result = decCoinAmount(reward.getRewardList(), denom);
+        return result;
+    }
+
+    public static BigDecimal decCoinAmount(List<CoinOuterClass.DecCoin> coins, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (CoinOuterClass.DecCoin coin: coins) {
+            if (coin.getDenom().equals(denom)) {
+                return new BigDecimal(coin.getAmount()).movePointLeft(18);
+            }
+        }
+        return result;
     }
 
     public static void onSortingByCommission(ArrayList<Validator> validators, final BaseChain chain) {
@@ -979,22 +1011,22 @@ public class WUtil {
         });
     }
 
-    public static void onSortingByCommissionV1(ArrayList<Validator_V1> validators) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+    public static void onSortingByCommissionV1(ArrayList<Staking.Validator> validators) {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
-                else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if(o1.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return -1;
+                if(o2.getDescription().getMoniker().equalsIgnoreCase("Cosmostation")) return 1;
+                if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) > Float.parseFloat(o2.getCommission().getCommissionRates().getRate())) return 1;
+                else if (Float.parseFloat(o1.getCommission().getCommissionRates().getRate()) < Float.parseFloat(o2.getCommission().getCommissionRates().getRate())) return -1;
                 else return 0;
             }
         });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
+        Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
+            public int compare(Staking.Validator o1, Staking.Validator o2) {
+                if (o1.getJailed() && !o2.getJailed()) return 1;
+                else if (!o1.getJailed() && o2.getJailed()) return -1;
                 else return 0;
             }
         });
@@ -1028,6 +1060,17 @@ public class WUtil {
                 else if (Integer.parseInt(o1.value.basicProposal.proposal_id) > Integer.parseInt(o2.value.basicProposal.proposal_id)) return -1;
                 else return 0;
 
+            }
+        });
+    }
+
+    public static void onSortingGrpcProposals(ArrayList<Gov.Proposal> proposals) {
+        Collections.sort(proposals, new Comparator<Gov.Proposal>() {
+            @Override
+            public int compare(Gov.Proposal o1, Gov.Proposal o2) {
+                if (o1.getProposalId() < o2.getProposalId()) return 1;
+                else if (o1.getProposalId() > o2.getProposalId()) return -1;
+                return 0;
             }
         });
     }

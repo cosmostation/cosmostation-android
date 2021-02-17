@@ -2,14 +2,15 @@ package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -63,8 +64,8 @@ public class UndelegateActivity extends BaseActivity {
     public Fee                          mUnDelegateFee;
     public String                       mUnDelegateShare;
 
-    //V1 .40 version
-    public String                       mValOpAddress_V1;
+    //gRPC
+    public String                       mValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +90,7 @@ public class UndelegateActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-            mValOpAddress_V1 = getIntent().getStringExtra("valOpAddress");
+            mValOpAddress = getIntent().getStringExtra("valOpAddress");
         } else {
             mValidator = getIntent().getParcelableExtra("validator");
             mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
@@ -200,7 +201,7 @@ public class UndelegateActivity extends BaseActivity {
             intent.putExtra("uAmount", mUnDelegateAmount);
 
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-            intent.putExtra("toAddress", mValOpAddress_V1);
+            intent.putExtra("toAddress", mValOpAddress);
             intent.putExtra("uAmount", mUnDelegateAmount);
         }
 

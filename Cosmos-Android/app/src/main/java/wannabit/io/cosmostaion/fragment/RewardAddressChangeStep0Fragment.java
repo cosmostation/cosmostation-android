@@ -4,7 +4,6 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +14,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -23,7 +24,6 @@ import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class RewardAddressChangeStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -72,7 +72,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                 return;
             }
 
-            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.COSMOS_TEST)) {
                 if (targetAddress.startsWith("cosmos1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
@@ -80,7 +80,7 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.IRIS_TEST)) {
                 if (targetAddress.startsWith("iaa1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();

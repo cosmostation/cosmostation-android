@@ -3,12 +3,13 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 
@@ -19,6 +20,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
+
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -60,9 +64,9 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));

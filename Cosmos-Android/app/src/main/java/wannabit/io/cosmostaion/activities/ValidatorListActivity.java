@@ -2,11 +2,6 @@ package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,10 +9,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.material.tabs.TabLayout;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -29,7 +32,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
-import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -37,11 +39,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.STARGATE_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -53,11 +58,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
 
-    private Toolbar                     mToolbar;
-    private TextView                    mToolbarTitle;
-    private ViewPager                   mValidatorPager;
-    private TabLayout                   mValidatorTapLayer;
-    private ValidatorPageAdapter        mPageAdapter;
+    private Toolbar                 mToolbar;
+    private TextView                mToolbarTitle;
+    private ViewPager               mValidatorPager;
+    private TabLayout               mValidatorTapLayer;
+    private ValidatorPageAdapter    mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -148,7 +153,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
     }
 
     public void onStartRewardAll() {
-        if(!mAccount.hasPrivateKey) {
+        if (!mAccount.hasPrivateKey) {
             Dialog_WatchMode add = Dialog_WatchMode.newInstance();
             add.setCancelable(true);
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
@@ -156,6 +161,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }
 
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
+        ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc
 
         if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
             if (getBaseDao().mRewards == null) {
@@ -473,6 +479,42 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
+            if (getBaseDao().mGrpcRewards == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for (Distribution.DelegationDelegatorReward reward: getBaseDao().mGrpcRewards) {
+                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(new BigDecimal("3750")) >= 0) {
+                    toClaimRewards.add(reward);
+                }
+            }
+            if (toClaimRewards.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WUtil.onSortRewardAmount(toClaimRewards, WDp.mainDenom(mBaseChain));
+            if (toClaimRewards.size() >= 17) {
+                ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimValidators.subList(0,16));
+                toClaimRewards = temp;
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
+            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimRewards.size() - 1));
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+
+            if (available.compareTo(estimateFeeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+
+            for (Distribution.DelegationDelegatorReward reward: toClaimRewards) {
+                toClaimValaddr.add(reward.getValidatorAddress());
+            }
+
         } else {
             Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
             return;
@@ -480,6 +522,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
         claimReward.putExtra("opAddresses", toClaimValidators);
+        claimReward.putStringArrayListExtra("valOpAddresses", toClaimValaddr);
         startActivity(claimReward);
     }
 

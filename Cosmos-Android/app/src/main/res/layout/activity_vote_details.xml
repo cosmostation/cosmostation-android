@@ -12,7 +12,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             style="@style/font_ssm_17_white"
             android:text="@string/str_proposal_detail"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <Button
         android:id="@+id/btn_action"
@@ -50,19 +50,19 @@
         android:layout_above="@+id/btn_action"
         android:paddingBottom="@dimen/space_8">
 
-        <android.support.v4.widget.SwipeRefreshLayout
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/layer_refresher"
             android:layout_below="@+id/layer_sort"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:overScrollMode="never"
                 android:visibility="gone"/>
-        </android.support.v4.widget.SwipeRefreshLayout>
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
         <RelativeLayout

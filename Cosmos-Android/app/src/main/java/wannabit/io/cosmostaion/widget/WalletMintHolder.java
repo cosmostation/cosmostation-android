@@ -1,10 +1,11 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.CardView;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -22,8 +23,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class WalletMintHolder extends WalletHolder {
-    public CardView             mAprCard;
-    public TextView             mInflation, mAPR;
+    public CardView     mAprCard;
+    public TextView     mInflation, mAPR;
 
     public WalletMintHolder(@NonNull View itemView) {
         super(itemView);
@@ -35,11 +36,14 @@ public class WalletMintHolder extends WalletHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
-            if (baseData.mInflation_V1 != null) mInflation.setText(WDp.getPercentDp(baseData.mInflation_V1.multiply(new BigDecimal("100"))));
+            if (baseData.mGrpcInflation != null) mInflation.setText(WDp.getPercentDp(baseData.mGrpcInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
         } else if (mainActivity.mBaseChain.equals(IRIS_TEST)) {
-            if (baseData.mParamMint_V1 != null)  mInflation.setText(WDp.getPercentDp(baseData.mParamMint_V1.getInflation().multiply(new BigDecimal("100"))));
+            if (baseData.mGrpcIrisParamMint != null) {
+                BigDecimal inflation = new BigDecimal(baseData.mGrpcIrisParamMint.getInflation()).movePointLeft(18);
+                mInflation.setText(WDp.getPercentDp(inflation.multiply(new BigDecimal("100"))));
+            }
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
         } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {

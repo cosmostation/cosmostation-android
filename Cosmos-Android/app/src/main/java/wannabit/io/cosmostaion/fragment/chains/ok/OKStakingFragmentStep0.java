@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.ok;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -14,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -25,7 +26,6 @@ import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;

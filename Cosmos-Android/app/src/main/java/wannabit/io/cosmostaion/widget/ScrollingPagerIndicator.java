@@ -5,14 +5,14 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
-import android.support.annotation.ColorInt;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.viewpager.widget.ViewPager;
 
 import wannabit.io.cosmostaion.R;
 

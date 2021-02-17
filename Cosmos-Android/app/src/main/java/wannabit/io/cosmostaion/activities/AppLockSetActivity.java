@@ -1,25 +1,24 @@
 package wannabit.io.cosmostaion.activities;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.hardware.fingerprint.FingerprintManagerCompat;
-import android.support.v7.widget.SwitchCompat;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.hardware.fingerprint.FingerprintManagerCompat;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_LockTime;
-import wannabit.io.cosmostaion.task.TaskListener;
-import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.UserTask.CheckPasswordTask;
 
 public class AppLockSetActivity extends BaseActivity implements View.OnClickListener {
 
@@ -121,8 +120,10 @@ public class AppLockSetActivity extends BaseActivity implements View.OnClickList
         }
     }
 
+    @SuppressLint("MissingSuperCall")
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {
             getBaseDao().setUsingAppLock(false);
         }

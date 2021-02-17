@@ -11,7 +11,7 @@
         android:scaleType="fitXY"
         android:src="@drawable/bg_cosmos"/>
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/tool_bar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_bar_height"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/stakedroptitle"/>
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <RelativeLayout
         android:id="@+id/contents_layer"
@@ -30,7 +30,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/tool_bar"
         android:layout_above="@+id/bottom_control">
-        <android.support.v4.widget.NestedScrollView
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
@@ -120,7 +120,7 @@
                     </LinearLayout>
                 </LinearLayout>
 
-                <android.support.v7.widget.CardView
+                <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/space_12"
@@ -222,9 +222,9 @@
                             style="@style/font_ss_12_white"/>
 
                     </LinearLayout>
-                </android.support.v7.widget.CardView>
+                </androidx.cardview.widget.CardView>
             </RelativeLayout>
-        </android.support.v4.widget.NestedScrollView>
+        </androidx.core.widget.NestedScrollView>
     </RelativeLayout>
 
 

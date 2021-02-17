@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -13,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -57,7 +58,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-
 
 public class SendStep1Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -218,7 +218,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
                 WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(new BigDecimal("2500"));
+                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(new BigDecimal("2500"));
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
             } else {

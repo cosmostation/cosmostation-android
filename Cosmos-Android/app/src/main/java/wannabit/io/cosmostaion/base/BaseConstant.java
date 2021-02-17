@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -194,6 +194,39 @@ public class BaseConstant {
     public final static int TASK_V1_BROAD_UNDELEGATE                    = 3301;
     public final static int TASK_V1_BROAD_CLAIM_REWARDS                 = 3302;
     public final static int TASK_V1_BROAD_SEND                          = 3303;
+
+
+    public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
+    public final static int TASK_GRPC_FETCH_BONDED_VALIDATORS           = 4002;
+    public final static int TASK_GRPC_FETCH_UNBONDED_VALIDATORS         = 4003;
+    public final static int TASK_GRPC_FETCH_UNBONDING_VALIDATORS        = 4004;
+    public final static int TASK_GRPC_FETCH_DELEGATIONS                 = 4005;
+    public final static int TASK_GRPC_FETCH_UNDELEGATIONS               = 4006;
+    public final static int TASK_GRPC_FETCH_ALL_REWARDS                 = 4007;
+    public final static int TASK_GRPC_FETCH_PARAM_MINT                  = 4008;
+    public final static int TASK_GRPC_FETCH_IRIS_PARAM_MINT             = 4009;
+    public final static int TASK_GRPC_FETCH_INFLATION                   = 4010;
+    public final static int TASK_GRPC_FETCH_PROVISION                   = 4011;
+    public final static int TASK_GRPC_FETCH_STAKING_POOL                = 4012;
+    public final static int TASK_GRPC_FETCH_IRIS_TOKEN_LIST             = 4013;
+    public final static int TASK_GRPC_FETCH_VALIDATOR_INFO              = 4014;
+    public final static int TASK_GRPC_FETCH_SELF_BONDING                = 4015;
+    public final static int TASK_GRPC_FETCH_WITHDRAW_ADDRESS            = 4016;
+    public final static int TASK_GRPC_FETCH_REDELEGATIONS_TO            = 4017;
+    public final static int TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO       = 4018;
+    public final static int TASK_GRPC_FETCH_PROPOSALS                   = 4019;
+
+    public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
+    public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
+    public final static int TASK_GRPC_BROAD_CLAIM_REWARDS               = 4302;
+    public final static int TASK_GRPC_BROAD_SEND                        = 4303;
+    public final static int TASK_GRPC_BROAD_REDELEGATE                  = 4304;
+    public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
+    public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
+
+
+
+
 
     public final static String COSMOS_AUTH_TYPE_STDTX                       = "auth/StdTx";
 
@@ -522,6 +555,7 @@ public class BaseConstant {
     public final static String STARGATE_GAS_RATE_AVERAGE                = "0.025";
     public final static String STARGATE_GAS_AMOUNT_LOW                  = "100000";
     public final static String STARGATE_GAS_AMOUNT_MID                  = "200000";
+    public final static String STARGATE_GAS_AMOUNT_HIGH                 = "300000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";
@@ -583,6 +617,8 @@ public class BaseConstant {
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
 
+    public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
+    public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";

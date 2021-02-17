@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -774,7 +775,6 @@ public class MsgGenerator {
     public static String getSignature(DeterministicKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
         byte[] toSignHash = digest.digest(toSignByte);
-//        ECKey.ECDSASignature Signature = key.sign(new Sha256Hash(toSignHash));
         ECKey.ECDSASignature Signature = key.sign(Sha256Hash.wrap(toSignHash));
         byte[] sigData = new byte[64];
         System.arraycopy(integerToBytes(Signature.r, 32), 0, sigData, 0, 32);
@@ -949,7 +949,6 @@ public class MsgGenerator {
         byte[] sigData = new byte[64];  // 32 bytes for R + 32 bytes for S
         System.arraycopy(sig.getR(), 0, sigData, 0, 32);
         System.arraycopy(sig.getS(), 0, sigData, 32, 32);
-        System.out.println(Hex.toHexString(sigData));
         return new String(org.bouncycastle.util.encoders.Base64.encode(sigData), Charset.forName("UTF-8"));
     }
 }

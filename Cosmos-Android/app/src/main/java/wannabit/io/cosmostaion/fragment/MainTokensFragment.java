@@ -3,12 +3,6 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,6 +12,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
@@ -25,6 +26,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,7 +80,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_OKB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
@@ -293,8 +294,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
 
         if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-            mTokenSize.setText(""+getBaseDao().mBalance_V1.size());
-            if (getBaseDao().mBalance_V1 != null && getBaseDao().mBalance_V1.size() > 0) {
+            mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
+            if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -444,12 +445,12 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAktAmount));
 
         } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
-            BigDecimal totalAtomAmount = WDp.getAllMainAsset(getBaseDao(), TOKEN_COSMOS_TEST);
+            BigDecimal totalAtomAmount = getBaseDao().getAllMainAsset(TOKEN_COSMOS_TEST);
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAtomAmount, 6, 6));
             mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAtomAmount, getMainActivity().mBaseChain));
 
         } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-            BigDecimal totalIrisAmount = WDp.getAllMainAsset(getBaseDao(), TOKEN_IRIS_TEST);
+            BigDecimal totalIrisAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS_TEST);
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIrisAmount, 6, 6));
             mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalIrisAmount, getMainActivity().mBaseChain));
 
@@ -516,7 +517,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         @Override
         public int getItemCount() {
             if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                return getBaseDao().mBalance_V1.size();
+                return getBaseDao().mGrpcBalance.size();
             } else {
                 return mBalances.size();
             }
@@ -917,16 +918,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindCosmosTestItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Coin coin = getBaseDao().mBalance_V1.get(position);
-        if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
+        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.getDenom().equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
             holder.itemFullName.setText("Stargate Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
-            BigDecimal totalAmount = WDp.getAllMainAsset(getBaseDao(), TOKEN_COSMOS_TEST);
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_COSMOS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
@@ -936,16 +937,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindIrisTestItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Coin coin = getBaseDao().mBalance_V1.get(position);
-        if (coin.denom.equals(TOKEN_IRIS_TEST)) {
+        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.getDenom().equals(TOKEN_IRIS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_bif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
             holder.itemFullName.setText("Bifrost Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
 
-            BigDecimal totalAmount = WDp.getAllMainAsset(getBaseDao(), TOKEN_IRIS_TEST);
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 

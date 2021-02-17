@@ -1,10 +1,9 @@
 package wannabit.io.cosmostaion.dialog;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.binance.dex.api.client.encoding.message.NewOrderMessage;
+import androidx.fragment.app.DialogFragment;
+
 import com.binance.dex.api.client.encoding.message.TransferMessage;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -23,7 +23,6 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.WalletConnectActivity;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 

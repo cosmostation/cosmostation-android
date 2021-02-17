@@ -40,7 +40,7 @@ let COSMOS_TEST_API                     = "";
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
-let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost-2/";
+let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost/";
 let IRIS_TEST_API                       = "";
 
 let BNB_URL                             = "https://dex.binance.org/";
@@ -980,8 +980,8 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SECRET_MAIN)
 
-//        result.append(COSMOS_TEST)
-//        result.append(IRIS_TEST)
+        result.append(COSMOS_TEST)
+        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)

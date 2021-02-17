@@ -1,21 +1,22 @@
 package wannabit.io.cosmostaion.dialog;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 
@@ -24,7 +25,6 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
