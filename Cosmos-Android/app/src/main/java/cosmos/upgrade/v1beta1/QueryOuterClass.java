@@ -2786,19 +2786,19 @@ public final class QueryOuterClass {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      * @return Whether the upgradedConsensusState field is set.
      */
     boolean hasUpgradedConsensusState();
     /**
-     * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      * @return The upgradedConsensusState.
      */
-    com.google.protobuf.Any getUpgradedConsensusState();
+    com.google.protobuf2.Any getUpgradedConsensusState();
     /**
-     * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getUpgradedConsensusStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder();
   }
   /**
    * <pre>
@@ -2851,11 +2851,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (upgradedConsensusState_ != null) {
                 subBuilder = upgradedConsensusState_.toBuilder();
               }
-              upgradedConsensusState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              upgradedConsensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(upgradedConsensusState_);
                 upgradedConsensusState_ = subBuilder.buildPartial();
@@ -2896,25 +2896,25 @@ public final class QueryOuterClass {
     }
 
     public static final int UPGRADED_CONSENSUS_STATE_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any upgradedConsensusState_;
+    private com.google.protobuf2.Any upgradedConsensusState_;
     /**
-     * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      * @return Whether the upgradedConsensusState field is set.
      */
     public boolean hasUpgradedConsensusState() {
       return upgradedConsensusState_ != null;
     }
     /**
-     * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      * @return The upgradedConsensusState.
      */
-    public com.google.protobuf.Any getUpgradedConsensusState() {
-      return upgradedConsensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedConsensusState_;
+    public com.google.protobuf2.Any getUpgradedConsensusState() {
+      return upgradedConsensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
     }
     /**
-     * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+     * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
       return getUpgradedConsensusState();
     }
 
@@ -3238,31 +3238,31 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any upgradedConsensusState_;
+      private com.google.protobuf2.Any upgradedConsensusState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> upgradedConsensusStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> upgradedConsensusStateBuilder_;
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        * @return Whether the upgradedConsensusState field is set.
        */
       public boolean hasUpgradedConsensusState() {
         return upgradedConsensusStateBuilder_ != null || upgradedConsensusState_ != null;
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        * @return The upgradedConsensusState.
        */
-      public com.google.protobuf.Any getUpgradedConsensusState() {
+      public com.google.protobuf2.Any getUpgradedConsensusState() {
         if (upgradedConsensusStateBuilder_ == null) {
-          return upgradedConsensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedConsensusState_;
+          return upgradedConsensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
         } else {
           return upgradedConsensusStateBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
-      public Builder setUpgradedConsensusState(com.google.protobuf.Any value) {
+      public Builder setUpgradedConsensusState(com.google.protobuf2.Any value) {
         if (upgradedConsensusStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -3276,10 +3276,10 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
       public Builder setUpgradedConsensusState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (upgradedConsensusStateBuilder_ == null) {
           upgradedConsensusState_ = builderForValue.build();
           onChanged();
@@ -3290,13 +3290,13 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
-      public Builder mergeUpgradedConsensusState(com.google.protobuf.Any value) {
+      public Builder mergeUpgradedConsensusState(com.google.protobuf2.Any value) {
         if (upgradedConsensusStateBuilder_ == null) {
           if (upgradedConsensusState_ != null) {
             upgradedConsensusState_ =
-              com.google.protobuf.Any.newBuilder(upgradedConsensusState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(upgradedConsensusState_).mergeFrom(value).buildPartial();
           } else {
             upgradedConsensusState_ = value;
           }
@@ -3308,7 +3308,7 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
       public Builder clearUpgradedConsensusState() {
         if (upgradedConsensusStateBuilder_ == null) {
@@ -3322,33 +3322,33 @@ public final class QueryOuterClass {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getUpgradedConsensusStateBuilder() {
+      public com.google.protobuf2.Any.Builder getUpgradedConsensusStateBuilder() {
         
         onChanged();
         return getUpgradedConsensusStateFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getUpgradedConsensusStateOrBuilder() {
         if (upgradedConsensusStateBuilder_ != null) {
           return upgradedConsensusStateBuilder_.getMessageOrBuilder();
         } else {
           return upgradedConsensusState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : upgradedConsensusState_;
+              com.google.protobuf2.Any.getDefaultInstance() : upgradedConsensusState_;
         }
       }
       /**
-       * <code>.google.protobuf.Any upgraded_consensus_state = 1;</code>
+       * <code>.google.protobuf2.Any upgraded_consensus_state = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getUpgradedConsensusStateFieldBuilder() {
         if (upgradedConsensusStateBuilder_ == null) {
           upgradedConsensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getUpgradedConsensusState(),
                   getParentForChildren(),
                   isClean());
@@ -3449,38 +3449,38 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\"cosmos/upgrade/v1beta1/query.proto\022\026co" +
-      "smos.upgrade.v1beta1\032\031google/protobuf/an" +
-      "y.proto\032\034google/api/annotations.proto\032$c" +
-      "osmos/upgrade/v1beta1/upgrade.proto\"\031\n\027Q" +
-      "ueryCurrentPlanRequest\"F\n\030QueryCurrentPl" +
-      "anResponse\022*\n\004plan\030\001 \001(\0132\034.cosmos.upgrad" +
-      "e.v1beta1.Plan\"\'\n\027QueryAppliedPlanReques" +
-      "t\022\014\n\004name\030\001 \001(\t\"*\n\030QueryAppliedPlanRespo" +
-      "nse\022\016\n\006height\030\001 \001(\003\"9\n\"QueryUpgradedCons" +
-      "ensusStateRequest\022\023\n\013last_height\030\001 \001(\003\"]" +
-      "\n#QueryUpgradedConsensusStateResponse\0226\n" +
-      "\030upgraded_consensus_state\030\001 \001(\0132\024.google" +
-      ".protobuf.Any2\254\004\n\005Query\022\236\001\n\013CurrentPlan\022" +
-      "/.cosmos.upgrade.v1beta1.QueryCurrentPla" +
-      "nRequest\0320.cosmos.upgrade.v1beta1.QueryC" +
-      "urrentPlanResponse\",\202\323\344\223\002&\022$/cosmos/upgr" +
-      "ade/v1beta1/current_plan\022\245\001\n\013AppliedPlan" +
-      "\022/.cosmos.upgrade.v1beta1.QueryAppliedPl" +
-      "anRequest\0320.cosmos.upgrade.v1beta1.Query" +
-      "AppliedPlanResponse\"3\202\323\344\223\002-\022+/cosmos/upg" +
-      "rade/v1beta1/applied_plan/{name}\022\331\001\n\026Upg" +
-      "radedConsensusState\022:.cosmos.upgrade.v1b" +
-      "eta1.QueryUpgradedConsensusStateRequest\032" +
-      ";.cosmos.upgrade.v1beta1.QueryUpgradedCo" +
-      "nsensusStateResponse\"F\202\323\344\223\002@\022>/cosmos/up" +
-      "grade/v1beta1/upgraded_consensus_state/{" +
-      "last_height}B.Z,github.com/cosmos/cosmos" +
-      "-sdk/x/upgrade/typesb\006proto3"
+      "smos.upgrade.v1beta1\032\032google/protobuf2/a" +
+      "ny.proto\032\034google/api/annotations.proto\032$" +
+      "cosmos/upgrade/v1beta1/upgrade.proto\"\031\n\027" +
+      "QueryCurrentPlanRequest\"F\n\030QueryCurrentP" +
+      "lanResponse\022*\n\004plan\030\001 \001(\0132\034.cosmos.upgra" +
+      "de.v1beta1.Plan\"\'\n\027QueryAppliedPlanReque" +
+      "st\022\014\n\004name\030\001 \001(\t\"*\n\030QueryAppliedPlanResp" +
+      "onse\022\016\n\006height\030\001 \001(\003\"9\n\"QueryUpgradedCon" +
+      "sensusStateRequest\022\023\n\013last_height\030\001 \001(\003\"" +
+      "^\n#QueryUpgradedConsensusStateResponse\0227" +
+      "\n\030upgraded_consensus_state\030\001 \001(\0132\025.googl" +
+      "e.protobuf2.Any2\254\004\n\005Query\022\236\001\n\013CurrentPla" +
+      "n\022/.cosmos.upgrade.v1beta1.QueryCurrentP" +
+      "lanRequest\0320.cosmos.upgrade.v1beta1.Quer" +
+      "yCurrentPlanResponse\",\202\323\344\223\002&\022$/cosmos/up" +
+      "grade/v1beta1/current_plan\022\245\001\n\013AppliedPl" +
+      "an\022/.cosmos.upgrade.v1beta1.QueryApplied" +
+      "PlanRequest\0320.cosmos.upgrade.v1beta1.Que" +
+      "ryAppliedPlanResponse\"3\202\323\344\223\002-\022+/cosmos/u" +
+      "pgrade/v1beta1/applied_plan/{name}\022\331\001\n\026U" +
+      "pgradedConsensusState\022:.cosmos.upgrade.v" +
+      "1beta1.QueryUpgradedConsensusStateReques" +
+      "t\032;.cosmos.upgrade.v1beta1.QueryUpgraded" +
+      "ConsensusStateResponse\"F\202\323\344\223\002@\022>/cosmos/" +
+      "upgrade/v1beta1/upgraded_consensus_state" +
+      "/{last_height}B.Z,github.com/cosmos/cosm" +
+      "os-sdk/x/upgrade/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.upgrade.v1beta1.Upgrade.getDescriptor(),
         });
@@ -3525,7 +3525,7 @@ public final class QueryOuterClass {
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.upgrade.v1beta1.Upgrade.getDescriptor();
   }

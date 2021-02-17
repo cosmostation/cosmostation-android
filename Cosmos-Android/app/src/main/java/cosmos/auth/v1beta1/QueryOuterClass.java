@@ -633,7 +633,7 @@ public final class QueryOuterClass {
      * account defines the account of the corresponding address.
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the account field is set.
      */
     boolean hasAccount();
@@ -642,18 +642,18 @@ public final class QueryOuterClass {
      * account defines the account of the corresponding address.
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The account.
      */
-    com.google.protobuf.Any getAccount();
+    com.google.protobuf2.Any getAccount();
     /**
      * <pre>
      * account defines the account of the corresponding address.
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getAccountOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getAccountOrBuilder();
   }
   /**
    * <pre>
@@ -705,11 +705,11 @@ public final class QueryOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (account_ != null) {
                 subBuilder = account_.toBuilder();
               }
-              account_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              account_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(account_);
                 account_ = subBuilder.buildPartial();
@@ -750,13 +750,13 @@ public final class QueryOuterClass {
     }
 
     public static final int ACCOUNT_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any account_;
+    private com.google.protobuf2.Any account_;
     /**
      * <pre>
      * account defines the account of the corresponding address.
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the account field is set.
      */
     public boolean hasAccount() {
@@ -767,20 +767,20 @@ public final class QueryOuterClass {
      * account defines the account of the corresponding address.
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The account.
      */
-    public com.google.protobuf.Any getAccount() {
-      return account_ == null ? com.google.protobuf.Any.getDefaultInstance() : account_;
+    public com.google.protobuf2.Any getAccount() {
+      return account_ == null ? com.google.protobuf2.Any.getDefaultInstance() : account_;
     }
     /**
      * <pre>
      * account defines the account of the corresponding address.
      * </pre>
      *
-     * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+     * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getAccountOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getAccountOrBuilder() {
       return getAccount();
     }
 
@@ -1103,15 +1103,15 @@ public final class QueryOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any account_;
+      private com.google.protobuf2.Any account_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> accountBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> accountBuilder_;
       /**
        * <pre>
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        * @return Whether the account field is set.
        */
       public boolean hasAccount() {
@@ -1122,12 +1122,12 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        * @return The account.
        */
-      public com.google.protobuf.Any getAccount() {
+      public com.google.protobuf2.Any getAccount() {
         if (accountBuilder_ == null) {
-          return account_ == null ? com.google.protobuf.Any.getDefaultInstance() : account_;
+          return account_ == null ? com.google.protobuf2.Any.getDefaultInstance() : account_;
         } else {
           return accountBuilder_.getMessage();
         }
@@ -1137,9 +1137,9 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public Builder setAccount(com.google.protobuf.Any value) {
+      public Builder setAccount(com.google.protobuf2.Any value) {
         if (accountBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1157,10 +1157,10 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       public Builder setAccount(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (accountBuilder_ == null) {
           account_ = builderForValue.build();
           onChanged();
@@ -1175,13 +1175,13 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public Builder mergeAccount(com.google.protobuf.Any value) {
+      public Builder mergeAccount(com.google.protobuf2.Any value) {
         if (accountBuilder_ == null) {
           if (account_ != null) {
             account_ =
-              com.google.protobuf.Any.newBuilder(account_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(account_).mergeFrom(value).buildPartial();
           } else {
             account_ = value;
           }
@@ -1197,7 +1197,7 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       public Builder clearAccount() {
         if (accountBuilder_ == null) {
@@ -1215,9 +1215,9 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public com.google.protobuf.Any.Builder getAccountBuilder() {
+      public com.google.protobuf2.Any.Builder getAccountBuilder() {
         
         onChanged();
         return getAccountFieldBuilder().getBuilder();
@@ -1227,14 +1227,14 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAccountOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getAccountOrBuilder() {
         if (accountBuilder_ != null) {
           return accountBuilder_.getMessageOrBuilder();
         } else {
           return account_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : account_;
+              com.google.protobuf2.Any.getDefaultInstance() : account_;
         }
       }
       /**
@@ -1242,14 +1242,14 @@ public final class QueryOuterClass {
        * account defines the account of the corresponding address.
        * </pre>
        *
-       * <code>.google.protobuf.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
+       * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAccountFieldBuilder() {
         if (accountBuilder_ == null) {
           accountBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getAccount(),
                   getParentForChildren(),
                   isClean());
@@ -2452,30 +2452,30 @@ public final class QueryOuterClass {
   static {
     java.lang.String[] descriptorData = {
       "\n\037cosmos/auth/v1beta1/query.proto\022\023cosmo" +
-      "s.auth.v1beta1\032\024gogoproto/gogo.proto\032\031go" +
-      "ogle/protobuf/any.proto\032\034google/api/anno" +
-      "tations.proto\032\036cosmos/auth/v1beta1/auth." +
-      "proto\032\031cosmos_proto/cosmos.proto\"0\n\023Quer" +
-      "yAccountRequest\022\017\n\007address\030\001 \001(\t:\010\350\240\037\000\210\240" +
-      "\037\000\"K\n\024QueryAccountResponse\0223\n\007account\030\001 " +
-      "\001(\0132\024.google.protobuf.AnyB\014\312\264-\010AccountI\"" +
-      "\024\n\022QueryParamsRequest\"H\n\023QueryParamsResp" +
-      "onse\0221\n\006params\030\001 \001(\0132\033.cosmos.auth.v1bet" +
-      "a1.ParamsB\004\310\336\037\0002\234\002\n\005Query\022\217\001\n\007Account\022(." +
-      "cosmos.auth.v1beta1.QueryAccountRequest\032" +
-      ").cosmos.auth.v1beta1.QueryAccountRespon" +
-      "se\"/\202\323\344\223\002)\022\'/cosmos/auth/v1beta1/account" +
-      "s/{address}\022\200\001\n\006Params\022\'.cosmos.auth.v1b" +
-      "eta1.QueryParamsRequest\032(.cosmos.auth.v1" +
-      "beta1.QueryParamsResponse\"#\202\323\344\223\002\035\022\033/cosm" +
-      "os/auth/v1beta1/paramsB+Z)github.com/cos" +
-      "mos/cosmos-sdk/x/auth/typesb\006proto3"
+      "s.auth.v1beta1\032\024gogoproto/gogo.proto\032\032go" +
+      "ogle/protobuf2/any.proto\032\034google/api/ann" +
+      "otations.proto\032\036cosmos/auth/v1beta1/auth" +
+      ".proto\032\031cosmos_proto/cosmos.proto\"0\n\023Que" +
+      "ryAccountRequest\022\017\n\007address\030\001 \001(\t:\010\350\240\037\000\210" +
+      "\240\037\000\"L\n\024QueryAccountResponse\0224\n\007account\030\001" +
+      " \001(\0132\025.google.protobuf2.AnyB\014\312\264-\010Account" +
+      "I\"\024\n\022QueryParamsRequest\"H\n\023QueryParamsRe" +
+      "sponse\0221\n\006params\030\001 \001(\0132\033.cosmos.auth.v1b" +
+      "eta1.ParamsB\004\310\336\037\0002\234\002\n\005Query\022\217\001\n\007Account\022" +
+      "(.cosmos.auth.v1beta1.QueryAccountReques" +
+      "t\032).cosmos.auth.v1beta1.QueryAccountResp" +
+      "onse\"/\202\323\344\223\002)\022\'/cosmos/auth/v1beta1/accou" +
+      "nts/{address}\022\200\001\n\006Params\022\'.cosmos.auth.v" +
+      "1beta1.QueryParamsRequest\032(.cosmos.auth." +
+      "v1beta1.QueryParamsResponse\"#\202\323\344\223\002\035\022\033/co" +
+      "smos/auth/v1beta1/paramsB+Z)github.com/c" +
+      "osmos/cosmos-sdk/x/auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.auth.v1beta1.Auth.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
@@ -2507,14 +2507,14 @@ public final class QueryOuterClass {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.auth.v1beta1.Auth.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();

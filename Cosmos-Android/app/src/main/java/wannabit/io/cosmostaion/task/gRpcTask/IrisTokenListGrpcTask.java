@@ -1,7 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
 
-import com.google.protobuf.Any;
+import com.google.protobuf2.Any;
 
 import java.util.ArrayList;
 

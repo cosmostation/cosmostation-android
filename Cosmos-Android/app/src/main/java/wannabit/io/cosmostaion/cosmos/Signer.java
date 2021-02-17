@@ -2,7 +2,8 @@ package wannabit.io.cosmostaion.cosmos;
 
 import android.util.Base64;
 
-import com.google.protobuf.Any;
+
+import com.google.protobuf2.Any;
 import com.google.protobuf.ByteString;
 
 import org.bitcoinj.core.ECKey;

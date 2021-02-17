@@ -7048,7 +7048,7 @@ public final class Tendermint {
           com.google.protobuf.TimestampProto.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
           ibc.core.commitment.v1.Commitment.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
         });
     internal_static_ibc_lightclients_tendermint_v1_ClientState_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -7082,14 +7082,14 @@ public final class Tendermint {
         new java.lang.String[] { "Numerator", "Denominator", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.casttype);
-    registry.add(com.google.protobuf.GoGoProtos.customname);
-    registry.add(com.google.protobuf.GoGoProtos.embed);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.casttype);
+    registry.add(com.google.protobuf2.GoGoProtos.customname);
+    registry.add(com.google.protobuf2.GoGoProtos.embed);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
     tendermint.types.ValidatorOuterClass.getDescriptor();
@@ -7099,7 +7099,7 @@ public final class Tendermint {
     com.google.protobuf.TimestampProto.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
     ibc.core.commitment.v1.Commitment.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

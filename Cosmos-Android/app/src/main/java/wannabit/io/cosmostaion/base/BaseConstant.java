@@ -617,8 +617,8 @@ public class BaseConstant {
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
 
-    public final static String EXPLORER_COSMOS_TEST     = "https://test.mintscan.io/cosmos/";
-    public final static String EXPLORER_IRIS_TEST       = "https://test.mintscan.io/iris/";
+    public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
+    public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
     public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";

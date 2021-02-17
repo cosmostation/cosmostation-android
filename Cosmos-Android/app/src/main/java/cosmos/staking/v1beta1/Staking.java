@@ -4055,19 +4055,19 @@ public final class Staking {
         getOperatorAddressBytes();
 
     /**
-     * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the consensusPubkey field is set.
      */
     boolean hasConsensusPubkey();
     /**
-     * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The consensusPubkey.
      */
-    com.google.protobuf.Any getConsensusPubkey();
+    com.google.protobuf2.Any getConsensusPubkey();
     /**
-     * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    com.google.protobuf.AnyOrBuilder getConsensusPubkeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getConsensusPubkeyOrBuilder();
 
     /**
      * <code>bool jailed = 3;</code>
@@ -4241,11 +4241,11 @@ public final class Staking {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (consensusPubkey_ != null) {
                 subBuilder = consensusPubkey_.toBuilder();
               }
-              consensusPubkey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              consensusPubkey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(consensusPubkey_);
                 consensusPubkey_ = subBuilder.buildPartial();
@@ -4395,25 +4395,25 @@ public final class Staking {
     }
 
     public static final int CONSENSUS_PUBKEY_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any consensusPubkey_;
+    private com.google.protobuf2.Any consensusPubkey_;
     /**
-     * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the consensusPubkey field is set.
      */
     public boolean hasConsensusPubkey() {
       return consensusPubkey_ != null;
     }
     /**
-     * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The consensusPubkey.
      */
-    public com.google.protobuf.Any getConsensusPubkey() {
-      return consensusPubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusPubkey_;
+    public com.google.protobuf2.Any getConsensusPubkey() {
+      return consensusPubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusPubkey_;
     }
     /**
-     * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+     * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getConsensusPubkeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getConsensusPubkeyOrBuilder() {
       return getConsensusPubkey();
     }
 
@@ -5245,31 +5245,31 @@ public final class Staking {
         return this;
       }
 
-      private com.google.protobuf.Any consensusPubkey_;
+      private com.google.protobuf2.Any consensusPubkey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> consensusPubkeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> consensusPubkeyBuilder_;
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return Whether the consensusPubkey field is set.
        */
       public boolean hasConsensusPubkey() {
         return consensusPubkeyBuilder_ != null || consensusPubkey_ != null;
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        * @return The consensusPubkey.
        */
-      public com.google.protobuf.Any getConsensusPubkey() {
+      public com.google.protobuf2.Any getConsensusPubkey() {
         if (consensusPubkeyBuilder_ == null) {
-          return consensusPubkey_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusPubkey_;
+          return consensusPubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusPubkey_;
         } else {
           return consensusPubkeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder setConsensusPubkey(com.google.protobuf.Any value) {
+      public Builder setConsensusPubkey(com.google.protobuf2.Any value) {
         if (consensusPubkeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5283,10 +5283,10 @@ public final class Staking {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder setConsensusPubkey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (consensusPubkeyBuilder_ == null) {
           consensusPubkey_ = builderForValue.build();
           onChanged();
@@ -5297,13 +5297,13 @@ public final class Staking {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public Builder mergeConsensusPubkey(com.google.protobuf.Any value) {
+      public Builder mergeConsensusPubkey(com.google.protobuf2.Any value) {
         if (consensusPubkeyBuilder_ == null) {
           if (consensusPubkey_ != null) {
             consensusPubkey_ =
-              com.google.protobuf.Any.newBuilder(consensusPubkey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(consensusPubkey_).mergeFrom(value).buildPartial();
           } else {
             consensusPubkey_ = value;
           }
@@ -5315,7 +5315,7 @@ public final class Staking {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       public Builder clearConsensusPubkey() {
         if (consensusPubkeyBuilder_ == null) {
@@ -5329,33 +5329,33 @@ public final class Staking {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf.Any.Builder getConsensusPubkeyBuilder() {
+      public com.google.protobuf2.Any.Builder getConsensusPubkeyBuilder() {
         
         onChanged();
         return getConsensusPubkeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConsensusPubkeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getConsensusPubkeyOrBuilder() {
         if (consensusPubkeyBuilder_ != null) {
           return consensusPubkeyBuilder_.getMessageOrBuilder();
         } else {
           return consensusPubkey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : consensusPubkey_;
+              com.google.protobuf2.Any.getDefaultInstance() : consensusPubkey_;
         }
       }
       /**
-       * <code>.google.protobuf.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
+       * <code>.google.protobuf2.Any consensus_pubkey = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_pubkey&#92;"", (.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConsensusPubkeyFieldBuilder() {
         if (consensusPubkeyBuilder_ == null) {
           consensusPubkeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getConsensusPubkey(),
                   getParentForChildren(),
                   isClean());
@@ -19788,135 +19788,135 @@ public final class Staking {
     java.lang.String[] descriptorData = {
       "\n$cosmos/staking/v1beta1/staking.proto\022\026" +
       "cosmos.staking.v1beta1\032\024gogoproto/gogo.p" +
-      "roto\032\031google/protobuf/any.proto\032\036google/" +
-      "protobuf/duration.proto\032\037google/protobuf" +
-      "/timestamp.proto\032\031cosmos_proto/cosmos.pr" +
-      "oto\032\036cosmos/base/v1beta1/coin.proto\032\034ten" +
-      "dermint/types/types.proto\"y\n\016HistoricalI" +
-      "nfo\022.\n\006header\030\001 \001(\0132\030.tendermint.types.H" +
-      "eaderB\004\310\336\037\000\0227\n\006valset\030\002 \003(\0132!.cosmos.sta" +
-      "king.v1beta1.ValidatorB\004\310\336\037\000\"\221\002\n\017Commiss" +
-      "ionRates\022<\n\004rate\030\001 \001(\tB.\332\336\037&github.com/c" +
-      "osmos/cosmos-sdk/types.Dec\310\336\037\000\022S\n\010max_ra" +
-      "te\030\002 \001(\tBA\362\336\037\017yaml:\"max_rate\"\332\336\037&github." +
-      "com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022a\n\017m" +
-      "ax_change_rate\030\003 \001(\tBH\362\336\037\026yaml:\"max_chan" +
-      "ge_rate\"\332\336\037&github.com/cosmos/cosmos-sdk" +
-      "/types.Dec\310\336\037\000:\010\350\240\037\001\230\240\037\000\"\264\001\n\nCommission\022" +
-      "K\n\020commission_rates\030\001 \001(\0132\'.cosmos.staki" +
-      "ng.v1beta1.CommissionRatesB\010\320\336\037\001\310\336\037\000\022O\n\013" +
-      "update_time\030\002 \001(\0132\032.google.protobuf.Time" +
-      "stampB\036\310\336\037\000\220\337\037\001\362\336\037\022yaml:\"update_time\":\010\350" +
-      "\240\037\001\230\240\037\000\"\223\001\n\013Description\022\017\n\007moniker\030\001 \001(\t" +
-      "\022\020\n\010identity\030\002 \001(\t\022\017\n\007website\030\003 \001(\t\0225\n\020s" +
-      "ecurity_contact\030\004 \001(\tB\033\362\336\037\027yaml:\"securit" +
-      "y_contact\"\022\017\n\007details\030\005 \001(\t:\010\350\240\037\001\230\240\037\000\"\225\006" +
-      "\n\tValidator\0225\n\020operator_address\030\001 \001(\tB\033\362" +
-      "\336\037\027yaml:\"operator_address\"\022c\n\020consensus_" +
-      "pubkey\030\002 \001(\0132\024.google.protobuf.AnyB3\312\264-\024" +
-      "cosmos.crypto.PubKey\362\336\037\027yaml:\"consensus_" +
-      "pubkey\"\022\016\n\006jailed\030\003 \001(\010\0222\n\006status\030\004 \001(\0162" +
-      "\".cosmos.staking.v1beta1.BondStatus\022>\n\006t" +
-      "okens\030\005 \001(\tB.\332\336\037&github.com/cosmos/cosmo" +
-      "s-sdk/types.Int\310\336\037\000\022c\n\020delegator_shares\030" +
-      "\006 \001(\tBI\362\336\037\027yaml:\"delegator_shares\"\332\336\037&gi" +
-      "thub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000" +
-      "\022>\n\013description\030\007 \001(\0132#.cosmos.staking.v" +
-      "1beta1.DescriptionB\004\310\336\037\000\0225\n\020unbonding_he" +
-      "ight\030\010 \001(\003B\033\362\336\037\027yaml:\"unbonding_height\"\022" +
-      "U\n\016unbonding_time\030\t \001(\0132\032.google.protobu" +
-      "f.TimestampB!\310\336\037\000\220\337\037\001\362\336\037\025yaml:\"unbonding" +
-      "_time\"\022<\n\ncommission\030\n \001(\0132\".cosmos.stak" +
-      "ing.v1beta1.CommissionB\004\310\336\037\000\022i\n\023min_self" +
-      "_delegation\030\013 \001(\tBL\362\336\037\032yaml:\"min_self_de" +
-      "legation\"\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Int\310\336\037\000:\014\350\240\037\000\230\240\037\000\210\240\037\000\"+\n\014ValAddr" +
-      "esses\022\021\n\taddresses\030\001 \003(\t:\010\230\240\037\000\200\334 \001\"\210\001\n\006D" +
-      "VPair\0227\n\021delegator_address\030\001 \001(\tB\034\362\336\037\030ya" +
-      "ml:\"delegator_address\"\0227\n\021validator_addr" +
-      "ess\030\002 \001(\tB\034\362\336\037\030yaml:\"validator_address\":" +
-      "\014\350\240\037\000\210\240\037\000\230\240\037\000\">\n\007DVPairs\0223\n\005pairs\030\001 \003(\0132" +
-      "\036.cosmos.staking.v1beta1.DVPairB\004\310\336\037\000\"\325\001" +
-      "\n\nDVVTriplet\0227\n\021delegator_address\030\001 \001(\tB" +
-      "\034\362\336\037\030yaml:\"delegator_address\"\022?\n\025validat" +
-      "or_src_address\030\002 \001(\tB \362\336\037\034yaml:\"validato" +
-      "r_src_address\"\022?\n\025validator_dst_address\030" +
-      "\003 \001(\tB \362\336\037\034yaml:\"validator_dst_address\":" +
-      "\014\350\240\037\000\210\240\037\000\230\240\037\000\"I\n\013DVVTriplets\022:\n\010triplets" +
-      "\030\001 \003(\0132\".cosmos.staking.v1beta1.DVVTripl" +
-      "etB\004\310\336\037\000\"\314\001\n\nDelegation\0227\n\021delegator_add" +
-      "ress\030\001 \001(\tB\034\362\336\037\030yaml:\"delegator_address\"" +
-      "\0227\n\021validator_address\030\002 \001(\tB\034\362\336\037\030yaml:\"v" +
-      "alidator_address\"\022>\n\006shares\030\003 \001(\tB.\332\336\037&g" +
-      "ithub.com/cosmos/cosmos-sdk/types.Dec\310\336\037" +
-      "\000:\014\350\240\037\000\210\240\037\000\230\240\037\000\"\336\001\n\023UnbondingDelegation\022" +
-      "7\n\021delegator_address\030\001 \001(\tB\034\362\336\037\030yaml:\"de" +
-      "legator_address\"\0227\n\021validator_address\030\002 " +
-      "\001(\tB\034\362\336\037\030yaml:\"validator_address\"\022G\n\007ent" +
-      "ries\030\003 \003(\01320.cosmos.staking.v1beta1.Unbo" +
-      "ndingDelegationEntryB\004\310\336\037\000:\014\350\240\037\000\210\240\037\000\230\240\037\000" +
-      "\"\326\002\n\030UnbondingDelegationEntry\0223\n\017creatio" +
-      "n_height\030\001 \001(\003B\032\362\336\037\026yaml:\"creation_heigh" +
-      "t\"\022W\n\017completion_time\030\002 \001(\0132\032.google.pro" +
-      "tobuf.TimestampB\"\310\336\037\000\220\337\037\001\362\336\037\026yaml:\"compl" +
-      "etion_time\"\022a\n\017initial_balance\030\003 \001(\tBH\332\336" +
+      "roto\032\032google/protobuf2/any.proto\032\036google" +
+      "/protobuf/duration.proto\032\037google/protobu" +
+      "f/timestamp.proto\032\031cosmos_proto/cosmos.p" +
+      "roto\032\036cosmos/base/v1beta1/coin.proto\032\034te" +
+      "ndermint/types/types.proto\"y\n\016Historical" +
+      "Info\022.\n\006header\030\001 \001(\0132\030.tendermint.types." +
+      "HeaderB\004\310\336\037\000\0227\n\006valset\030\002 \003(\0132!.cosmos.st" +
+      "aking.v1beta1.ValidatorB\004\310\336\037\000\"\221\002\n\017Commis" +
+      "sionRates\022<\n\004rate\030\001 \001(\tB.\332\336\037&github.com/" +
+      "cosmos/cosmos-sdk/types.Dec\310\336\037\000\022S\n\010max_r" +
+      "ate\030\002 \001(\tBA\362\336\037\017yaml:\"max_rate\"\332\336\037&github" +
+      ".com/cosmos/cosmos-sdk/types.Dec\310\336\037\000\022a\n\017" +
+      "max_change_rate\030\003 \001(\tBH\362\336\037\026yaml:\"max_cha" +
+      "nge_rate\"\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Dec\310\336\037\000:\010\350\240\037\001\230\240\037\000\"\264\001\n\nCommission" +
+      "\022K\n\020commission_rates\030\001 \001(\0132\'.cosmos.stak" +
+      "ing.v1beta1.CommissionRatesB\010\320\336\037\001\310\336\037\000\022O\n" +
+      "\013update_time\030\002 \001(\0132\032.google.protobuf.Tim" +
+      "estampB\036\310\336\037\000\220\337\037\001\362\336\037\022yaml:\"update_time\":\010" +
+      "\350\240\037\001\230\240\037\000\"\223\001\n\013Description\022\017\n\007moniker\030\001 \001(" +
+      "\t\022\020\n\010identity\030\002 \001(\t\022\017\n\007website\030\003 \001(\t\0225\n\020" +
+      "security_contact\030\004 \001(\tB\033\362\336\037\027yaml:\"securi" +
+      "ty_contact\"\022\017\n\007details\030\005 \001(\t:\010\350\240\037\001\230\240\037\000\"\226" +
+      "\006\n\tValidator\0225\n\020operator_address\030\001 \001(\tB\033" +
+      "\362\336\037\027yaml:\"operator_address\"\022d\n\020consensus" +
+      "_pubkey\030\002 \001(\0132\025.google.protobuf2.AnyB3\312\264" +
+      "-\024cosmos.crypto.PubKey\362\336\037\027yaml:\"consensu" +
+      "s_pubkey\"\022\016\n\006jailed\030\003 \001(\010\0222\n\006status\030\004 \001(" +
+      "\0162\".cosmos.staking.v1beta1.BondStatus\022>\n" +
+      "\006tokens\030\005 \001(\tB.\332\336\037&github.com/cosmos/cos" +
+      "mos-sdk/types.Int\310\336\037\000\022c\n\020delegator_share" +
+      "s\030\006 \001(\tBI\362\336\037\027yaml:\"delegator_shares\"\332\336\037&" +
+      "github.com/cosmos/cosmos-sdk/types.Dec\310\336" +
+      "\037\000\022>\n\013description\030\007 \001(\0132#.cosmos.staking" +
+      ".v1beta1.DescriptionB\004\310\336\037\000\0225\n\020unbonding_" +
+      "height\030\010 \001(\003B\033\362\336\037\027yaml:\"unbonding_height" +
+      "\"\022U\n\016unbonding_time\030\t \001(\0132\032.google.proto" +
+      "buf.TimestampB!\310\336\037\000\220\337\037\001\362\336\037\025yaml:\"unbondi" +
+      "ng_time\"\022<\n\ncommission\030\n \001(\0132\".cosmos.st" +
+      "aking.v1beta1.CommissionB\004\310\336\037\000\022i\n\023min_se" +
+      "lf_delegation\030\013 \001(\tBL\362\336\037\032yaml:\"min_self_" +
+      "delegation\"\332\336\037&github.com/cosmos/cosmos-" +
+      "sdk/types.Int\310\336\037\000:\014\350\240\037\000\230\240\037\000\210\240\037\000\"+\n\014ValAd" +
+      "dresses\022\021\n\taddresses\030\001 \003(\t:\010\230\240\037\000\200\334 \001\"\210\001\n" +
+      "\006DVPair\0227\n\021delegator_address\030\001 \001(\tB\034\362\336\037\030" +
+      "yaml:\"delegator_address\"\0227\n\021validator_ad" +
+      "dress\030\002 \001(\tB\034\362\336\037\030yaml:\"validator_address" +
+      "\":\014\350\240\037\000\210\240\037\000\230\240\037\000\">\n\007DVPairs\0223\n\005pairs\030\001 \003(" +
+      "\0132\036.cosmos.staking.v1beta1.DVPairB\004\310\336\037\000\"" +
+      "\325\001\n\nDVVTriplet\0227\n\021delegator_address\030\001 \001(" +
+      "\tB\034\362\336\037\030yaml:\"delegator_address\"\022?\n\025valid" +
+      "ator_src_address\030\002 \001(\tB \362\336\037\034yaml:\"valida" +
+      "tor_src_address\"\022?\n\025validator_dst_addres" +
+      "s\030\003 \001(\tB \362\336\037\034yaml:\"validator_dst_address" +
+      "\":\014\350\240\037\000\210\240\037\000\230\240\037\000\"I\n\013DVVTriplets\022:\n\010triple" +
+      "ts\030\001 \003(\0132\".cosmos.staking.v1beta1.DVVTri" +
+      "pletB\004\310\336\037\000\"\314\001\n\nDelegation\0227\n\021delegator_a" +
+      "ddress\030\001 \001(\tB\034\362\336\037\030yaml:\"delegator_addres" +
+      "s\"\0227\n\021validator_address\030\002 \001(\tB\034\362\336\037\030yaml:" +
+      "\"validator_address\"\022>\n\006shares\030\003 \001(\tB.\332\336\037" +
+      "&github.com/cosmos/cosmos-sdk/types.Dec\310" +
+      "\336\037\000:\014\350\240\037\000\210\240\037\000\230\240\037\000\"\336\001\n\023UnbondingDelegatio" +
+      "n\0227\n\021delegator_address\030\001 \001(\tB\034\362\336\037\030yaml:\"" +
+      "delegator_address\"\0227\n\021validator_address\030" +
+      "\002 \001(\tB\034\362\336\037\030yaml:\"validator_address\"\022G\n\007e" +
+      "ntries\030\003 \003(\01320.cosmos.staking.v1beta1.Un" +
+      "bondingDelegationEntryB\004\310\336\037\000:\014\350\240\037\000\210\240\037\000\230\240" +
+      "\037\000\"\326\002\n\030UnbondingDelegationEntry\0223\n\017creat" +
+      "ion_height\030\001 \001(\003B\032\362\336\037\026yaml:\"creation_hei" +
+      "ght\"\022W\n\017completion_time\030\002 \001(\0132\032.google.p" +
+      "rotobuf.TimestampB\"\310\336\037\000\220\337\037\001\362\336\037\026yaml:\"com" +
+      "pletion_time\"\022a\n\017initial_balance\030\003 \001(\tBH" +
+      "\332\336\037&github.com/cosmos/cosmos-sdk/types.I" +
+      "nt\310\336\037\000\362\336\037\026yaml:\"initial_balance\"\022?\n\007bala" +
+      "nce\030\004 \001(\tB.\332\336\037&github.com/cosmos/cosmos-" +
+      "sdk/types.Int\310\336\037\000:\010\350\240\037\001\230\240\037\000\"\322\002\n\021Redelega" +
+      "tionEntry\0223\n\017creation_height\030\001 \001(\003B\032\362\336\037\026" +
+      "yaml:\"creation_height\"\022W\n\017completion_tim" +
+      "e\030\002 \001(\0132\032.google.protobuf.TimestampB\"\310\336\037" +
+      "\000\220\337\037\001\362\336\037\026yaml:\"completion_time\"\022a\n\017initi" +
+      "al_balance\030\003 \001(\tBH\332\336\037&github.com/cosmos/" +
+      "cosmos-sdk/types.Int\310\336\037\000\362\336\037\026yaml:\"initia" +
+      "l_balance\"\022B\n\nshares_dst\030\004 \001(\tB.\332\336\037&gith" +
+      "ub.com/cosmos/cosmos-sdk/types.Dec\310\336\037\000:\010" +
+      "\350\240\037\001\230\240\037\000\"\231\002\n\014Redelegation\0227\n\021delegator_a" +
+      "ddress\030\001 \001(\tB\034\362\336\037\030yaml:\"delegator_addres" +
+      "s\"\022?\n\025validator_src_address\030\002 \001(\tB \362\336\037\034y" +
+      "aml:\"validator_src_address\"\022?\n\025validator" +
+      "_dst_address\030\003 \001(\tB \362\336\037\034yaml:\"validator_" +
+      "dst_address\"\022@\n\007entries\030\004 \003(\0132).cosmos.s" +
+      "taking.v1beta1.RedelegationEntryB\004\310\336\037\000:\014" +
+      "\350\240\037\000\210\240\037\000\230\240\037\000\"\256\002\n\006Params\022T\n\016unbonding_tim" +
+      "e\030\001 \001(\0132\031.google.protobuf.DurationB!\310\336\037\000" +
+      "\230\337\037\001\362\336\037\025yaml:\"unbonding_time\"\0221\n\016max_val" +
+      "idators\030\002 \001(\rB\031\362\336\037\025yaml:\"max_validators\"" +
+      "\022+\n\013max_entries\030\003 \001(\rB\026\362\336\037\022yaml:\"max_ent" +
+      "ries\"\0229\n\022historical_entries\030\004 \001(\rB\035\362\336\037\031y" +
+      "aml:\"historical_entries\"\022)\n\nbond_denom\030\005" +
+      " \001(\tB\025\362\336\037\021yaml:\"bond_denom\":\010\350\240\037\001\230\240\037\000\"\216\001" +
+      "\n\022DelegationResponse\022<\n\ndelegation\030\001 \001(\013" +
+      "2\".cosmos.staking.v1beta1.DelegationB\004\310\336" +
+      "\037\000\0220\n\007balance\030\002 \001(\0132\031.cosmos.base.v1beta" +
+      "1.CoinB\004\310\336\037\000:\010\350\240\037\000\230\240\037\000\"\257\001\n\031RedelegationE" +
+      "ntryResponse\022K\n\022redelegation_entry\030\001 \001(\013" +
+      "2).cosmos.staking.v1beta1.RedelegationEn" +
+      "tryB\004\310\336\037\000\022?\n\007balance\030\004 \001(\tB.\332\336\037&github.c" +
+      "om/cosmos/cosmos-sdk/types.Int\310\336\037\000:\004\350\240\037\001" +
+      "\"\250\001\n\024RedelegationResponse\022@\n\014redelegatio" +
+      "n\030\001 \001(\0132$.cosmos.staking.v1beta1.Redeleg" +
+      "ationB\004\310\336\037\000\022H\n\007entries\030\002 \003(\01321.cosmos.st" +
+      "aking.v1beta1.RedelegationEntryResponseB" +
+      "\004\310\336\037\000:\004\350\240\037\000\"\340\001\n\004Pool\022^\n\021not_bonded_token" +
+      "s\030\001 \001(\tBC\332\336\037&github.com/cosmos/cosmos-sd" +
+      "k/types.Int\352\336\037\021not_bonded_tokens\310\336\037\000\022n\n\r" +
+      "bonded_tokens\030\002 \001(\tBW\352\336\037\rbonded_tokens\332\336" +
       "\037&github.com/cosmos/cosmos-sdk/types.Int" +
-      "\310\336\037\000\362\336\037\026yaml:\"initial_balance\"\022?\n\007balanc" +
-      "e\030\004 \001(\tB.\332\336\037&github.com/cosmos/cosmos-sd" +
-      "k/types.Int\310\336\037\000:\010\350\240\037\001\230\240\037\000\"\322\002\n\021Redelegati" +
-      "onEntry\0223\n\017creation_height\030\001 \001(\003B\032\362\336\037\026ya" +
-      "ml:\"creation_height\"\022W\n\017completion_time\030" +
-      "\002 \001(\0132\032.google.protobuf.TimestampB\"\310\336\037\000\220" +
-      "\337\037\001\362\336\037\026yaml:\"completion_time\"\022a\n\017initial" +
-      "_balance\030\003 \001(\tBH\332\336\037&github.com/cosmos/co" +
-      "smos-sdk/types.Int\310\336\037\000\362\336\037\026yaml:\"initial_" +
-      "balance\"\022B\n\nshares_dst\030\004 \001(\tB.\332\336\037&github" +
-      ".com/cosmos/cosmos-sdk/types.Dec\310\336\037\000:\010\350\240" +
-      "\037\001\230\240\037\000\"\231\002\n\014Redelegation\0227\n\021delegator_add" +
-      "ress\030\001 \001(\tB\034\362\336\037\030yaml:\"delegator_address\"" +
-      "\022?\n\025validator_src_address\030\002 \001(\tB \362\336\037\034yam" +
-      "l:\"validator_src_address\"\022?\n\025validator_d" +
-      "st_address\030\003 \001(\tB \362\336\037\034yaml:\"validator_ds" +
-      "t_address\"\022@\n\007entries\030\004 \003(\0132).cosmos.sta" +
-      "king.v1beta1.RedelegationEntryB\004\310\336\037\000:\014\350\240" +
-      "\037\000\210\240\037\000\230\240\037\000\"\256\002\n\006Params\022T\n\016unbonding_time\030" +
-      "\001 \001(\0132\031.google.protobuf.DurationB!\310\336\037\000\230\337" +
-      "\037\001\362\336\037\025yaml:\"unbonding_time\"\0221\n\016max_valid" +
-      "ators\030\002 \001(\rB\031\362\336\037\025yaml:\"max_validators\"\022+" +
-      "\n\013max_entries\030\003 \001(\rB\026\362\336\037\022yaml:\"max_entri" +
-      "es\"\0229\n\022historical_entries\030\004 \001(\rB\035\362\336\037\031yam" +
-      "l:\"historical_entries\"\022)\n\nbond_denom\030\005 \001" +
-      "(\tB\025\362\336\037\021yaml:\"bond_denom\":\010\350\240\037\001\230\240\037\000\"\216\001\n\022" +
-      "DelegationResponse\022<\n\ndelegation\030\001 \001(\0132\"" +
-      ".cosmos.staking.v1beta1.DelegationB\004\310\336\037\000" +
-      "\0220\n\007balance\030\002 \001(\0132\031.cosmos.base.v1beta1." +
-      "CoinB\004\310\336\037\000:\010\350\240\037\000\230\240\037\000\"\257\001\n\031RedelegationEnt" +
-      "ryResponse\022K\n\022redelegation_entry\030\001 \001(\0132)" +
-      ".cosmos.staking.v1beta1.RedelegationEntr" +
-      "yB\004\310\336\037\000\022?\n\007balance\030\004 \001(\tB.\332\336\037&github.com" +
-      "/cosmos/cosmos-sdk/types.Int\310\336\037\000:\004\350\240\037\001\"\250" +
-      "\001\n\024RedelegationResponse\022@\n\014redelegation\030" +
-      "\001 \001(\0132$.cosmos.staking.v1beta1.Redelegat" +
-      "ionB\004\310\336\037\000\022H\n\007entries\030\002 \003(\01321.cosmos.stak" +
-      "ing.v1beta1.RedelegationEntryResponseB\004\310" +
-      "\336\037\000:\004\350\240\037\000\"\340\001\n\004Pool\022^\n\021not_bonded_tokens\030" +
-      "\001 \001(\tBC\332\336\037&github.com/cosmos/cosmos-sdk/" +
-      "types.Int\352\336\037\021not_bonded_tokens\310\336\037\000\022n\n\rbo" +
-      "nded_tokens\030\002 \001(\tBW\352\336\037\rbonded_tokens\332\336\037&" +
-      "github.com/cosmos/cosmos-sdk/types.Int\310\336" +
-      "\037\000\362\336\037\024yaml:\"bonded_tokens\":\010\360\240\037\001\350\240\037\001*\266\001\n" +
-      "\nBondStatus\022,\n\027BOND_STATUS_UNSPECIFIED\020\000" +
-      "\032\017\212\235 \013Unspecified\022&\n\024BOND_STATUS_UNBONDE" +
-      "D\020\001\032\014\212\235 \010Unbonded\022(\n\025BOND_STATUS_UNBONDI" +
-      "NG\020\002\032\r\212\235 \tUnbonding\022\"\n\022BOND_STATUS_BONDE" +
-      "D\020\003\032\n\212\235 \006Bonded\032\004\210\243\036\000B.Z,github.com/cosm" +
-      "os/cosmos-sdk/x/staking/typesb\006proto3"
+      "\310\336\037\000\362\336\037\024yaml:\"bonded_tokens\":\010\360\240\037\001\350\240\037\001*\266" +
+      "\001\n\nBondStatus\022,\n\027BOND_STATUS_UNSPECIFIED" +
+      "\020\000\032\017\212\235 \013Unspecified\022&\n\024BOND_STATUS_UNBON" +
+      "DED\020\001\032\014\212\235 \010Unbonded\022(\n\025BOND_STATUS_UNBON" +
+      "DING\020\002\032\r\212\235 \tUnbonding\022\"\n\022BOND_STATUS_BON" +
+      "DED\020\003\032\n\212\235 \006Bonded\032\004\210\243\036\000B.Z,github.com/co" +
+      "smos/cosmos-sdk/x/staking/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.protobuf.DurationProto.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
           cosmos_proto.Cosmos.getDescriptor(),
@@ -20046,24 +20046,24 @@ public final class Staking {
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
     registry.add(cosmos_proto.Cosmos.acceptsInterface);
-    registry.add(com.google.protobuf.GoGoProtos.customtype);
-    registry.add(com.google.protobuf.GoGoProtos.description);
-    registry.add(com.google.protobuf.GoGoProtos.embed);
-    registry.add(com.google.protobuf.GoGoProtos.enumvalueCustomname);
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoEnumPrefix);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringer);
-    registry.add(com.google.protobuf.GoGoProtos.jsontag);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdduration);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
-    registry.add(com.google.protobuf.GoGoProtos.stringer);
+    registry.add(com.google.protobuf2.GoGoProtos.customtype);
+    registry.add(com.google.protobuf2.GoGoProtos.description);
+    registry.add(com.google.protobuf2.GoGoProtos.embed);
+    registry.add(com.google.protobuf2.GoGoProtos.enumvalueCustomname);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoEnumPrefix);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringer);
+    registry.add(com.google.protobuf2.GoGoProtos.jsontag);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdduration);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.stringer);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.protobuf.DurationProto.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
     cosmos_proto.Cosmos.getDescriptor();

@@ -23,7 +23,7 @@ public final class Tx {
      * light client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     boolean hasClientState();
@@ -32,18 +32,18 @@ public final class Tx {
      * light client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    com.google.protobuf.Any getClientState();
+    com.google.protobuf2.Any getClientState();
     /**
      * <pre>
      * light client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder();
 
     /**
      * <pre>
@@ -51,7 +51,7 @@ public final class Tx {
      * height.
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
     boolean hasConsensusState();
@@ -61,19 +61,19 @@ public final class Tx {
      * height.
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
-    com.google.protobuf.Any getConsensusState();
+    com.google.protobuf2.Any getConsensusState();
     /**
      * <pre>
      * consensus state associated with the client that corresponds to a given
      * height.
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder();
 
     /**
      * <pre>
@@ -146,11 +146,11 @@ public final class Tx {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (clientState_ != null) {
                 subBuilder = clientState_.toBuilder();
               }
-              clientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              clientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(clientState_);
                 clientState_ = subBuilder.buildPartial();
@@ -159,11 +159,11 @@ public final class Tx {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (consensusState_ != null) {
                 subBuilder = consensusState_.toBuilder();
               }
-              consensusState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              consensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(consensusState_);
                 consensusState_ = subBuilder.buildPartial();
@@ -210,13 +210,13 @@ public final class Tx {
     }
 
     public static final int CLIENT_STATE_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any clientState_;
+    private com.google.protobuf2.Any clientState_;
     /**
      * <pre>
      * light client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     public boolean hasClientState() {
@@ -227,32 +227,32 @@ public final class Tx {
      * light client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    public com.google.protobuf.Any getClientState() {
-      return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+    public com.google.protobuf2.Any getClientState() {
+      return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
     /**
      * <pre>
      * light client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
 
     public static final int CONSENSUS_STATE_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any consensusState_;
+    private com.google.protobuf2.Any consensusState_;
     /**
      * <pre>
      * consensus state associated with the client that corresponds to a given
      * height.
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
     public boolean hasConsensusState() {
@@ -264,11 +264,11 @@ public final class Tx {
      * height.
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
-    public com.google.protobuf.Any getConsensusState() {
-      return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+    public com.google.protobuf2.Any getConsensusState() {
+      return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
     /**
      * <pre>
@@ -276,9 +276,9 @@ public final class Tx {
      * height.
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
 
@@ -692,15 +692,15 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any clientState_;
+      private com.google.protobuf2.Any clientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> clientStateBuilder_;
       /**
        * <pre>
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return Whether the clientState field is set.
        */
       public boolean hasClientState() {
@@ -711,12 +711,12 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return The clientState.
        */
-      public com.google.protobuf.Any getClientState() {
+      public com.google.protobuf2.Any getClientState() {
         if (clientStateBuilder_ == null) {
-          return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+          return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         } else {
           return clientStateBuilder_.getMessage();
         }
@@ -726,9 +726,9 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder setClientState(com.google.protobuf.Any value) {
+      public Builder setClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -746,10 +746,10 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder setClientState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
           onChanged();
@@ -764,13 +764,13 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder mergeClientState(com.google.protobuf.Any value) {
+      public Builder mergeClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (clientState_ != null) {
             clientState_ =
-              com.google.protobuf.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
           } else {
             clientState_ = value;
           }
@@ -786,7 +786,7 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder clearClientState() {
         if (clientStateBuilder_ == null) {
@@ -804,9 +804,9 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getClientStateBuilder() {
+      public com.google.protobuf2.Any.Builder getClientStateBuilder() {
         
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
@@ -816,14 +816,14 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
           return clientState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : clientState_;
+              com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         }
       }
       /**
@@ -831,14 +831,14 @@ public final class Tx {
        * light client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getClientStateFieldBuilder() {
         if (clientStateBuilder_ == null) {
           clientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getClientState(),
                   getParentForChildren(),
                   isClean());
@@ -847,16 +847,16 @@ public final class Tx {
         return clientStateBuilder_;
       }
 
-      private com.google.protobuf.Any consensusState_;
+      private com.google.protobuf2.Any consensusState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> consensusStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> consensusStateBuilder_;
       /**
        * <pre>
        * consensus state associated with the client that corresponds to a given
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        * @return Whether the consensusState field is set.
        */
       public boolean hasConsensusState() {
@@ -868,12 +868,12 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        * @return The consensusState.
        */
-      public com.google.protobuf.Any getConsensusState() {
+      public com.google.protobuf2.Any getConsensusState() {
         if (consensusStateBuilder_ == null) {
-          return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+          return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         } else {
           return consensusStateBuilder_.getMessage();
         }
@@ -884,9 +884,9 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public Builder setConsensusState(com.google.protobuf.Any value) {
+      public Builder setConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -905,10 +905,10 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       public Builder setConsensusState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (consensusStateBuilder_ == null) {
           consensusState_ = builderForValue.build();
           onChanged();
@@ -924,13 +924,13 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public Builder mergeConsensusState(com.google.protobuf.Any value) {
+      public Builder mergeConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (consensusState_ != null) {
             consensusState_ =
-              com.google.protobuf.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
           } else {
             consensusState_ = value;
           }
@@ -947,7 +947,7 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       public Builder clearConsensusState() {
         if (consensusStateBuilder_ == null) {
@@ -966,9 +966,9 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getConsensusStateBuilder() {
+      public com.google.protobuf2.Any.Builder getConsensusStateBuilder() {
         
         onChanged();
         return getConsensusStateFieldBuilder().getBuilder();
@@ -979,14 +979,14 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
         if (consensusStateBuilder_ != null) {
           return consensusStateBuilder_.getMessageOrBuilder();
         } else {
           return consensusState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+              com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         }
       }
       /**
@@ -995,14 +995,14 @@ public final class Tx {
        * height.
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConsensusStateFieldBuilder() {
         if (consensusStateBuilder_ == null) {
           consensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getConsensusState(),
                   getParentForChildren(),
                   isClean());
@@ -1614,7 +1614,7 @@ public final class Tx {
      * header to update the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any header = 2;</code>
+     * <code>.google.protobuf2.Any header = 2;</code>
      * @return Whether the header field is set.
      */
     boolean hasHeader();
@@ -1623,18 +1623,18 @@ public final class Tx {
      * header to update the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any header = 2;</code>
+     * <code>.google.protobuf2.Any header = 2;</code>
      * @return The header.
      */
-    com.google.protobuf.Any getHeader();
+    com.google.protobuf2.Any getHeader();
     /**
      * <pre>
      * header to update the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any header = 2;</code>
+     * <code>.google.protobuf2.Any header = 2;</code>
      */
-    com.google.protobuf.AnyOrBuilder getHeaderOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getHeaderOrBuilder();
 
     /**
      * <pre>
@@ -1715,11 +1715,11 @@ public final class Tx {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (header_ != null) {
                 subBuilder = header_.toBuilder();
               }
-              header_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              header_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(header_);
                 header_ = subBuilder.buildPartial();
@@ -1810,13 +1810,13 @@ public final class Tx {
     }
 
     public static final int HEADER_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any header_;
+    private com.google.protobuf2.Any header_;
     /**
      * <pre>
      * header to update the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any header = 2;</code>
+     * <code>.google.protobuf2.Any header = 2;</code>
      * @return Whether the header field is set.
      */
     public boolean hasHeader() {
@@ -1827,20 +1827,20 @@ public final class Tx {
      * header to update the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any header = 2;</code>
+     * <code>.google.protobuf2.Any header = 2;</code>
      * @return The header.
      */
-    public com.google.protobuf.Any getHeader() {
-      return header_ == null ? com.google.protobuf.Any.getDefaultInstance() : header_;
+    public com.google.protobuf2.Any getHeader() {
+      return header_ == null ? com.google.protobuf2.Any.getDefaultInstance() : header_;
     }
     /**
      * <pre>
      * header to update the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any header = 2;</code>
+     * <code>.google.protobuf2.Any header = 2;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getHeaderOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getHeaderOrBuilder() {
       return getHeader();
     }
 
@@ -2338,15 +2338,15 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any header_;
+      private com.google.protobuf2.Any header_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> headerBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> headerBuilder_;
       /**
        * <pre>
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        * @return Whether the header field is set.
        */
       public boolean hasHeader() {
@@ -2357,12 +2357,12 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        * @return The header.
        */
-      public com.google.protobuf.Any getHeader() {
+      public com.google.protobuf2.Any getHeader() {
         if (headerBuilder_ == null) {
-          return header_ == null ? com.google.protobuf.Any.getDefaultInstance() : header_;
+          return header_ == null ? com.google.protobuf2.Any.getDefaultInstance() : header_;
         } else {
           return headerBuilder_.getMessage();
         }
@@ -2372,9 +2372,9 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
-      public Builder setHeader(com.google.protobuf.Any value) {
+      public Builder setHeader(com.google.protobuf2.Any value) {
         if (headerBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -2392,10 +2392,10 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
       public Builder setHeader(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (headerBuilder_ == null) {
           header_ = builderForValue.build();
           onChanged();
@@ -2410,13 +2410,13 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
-      public Builder mergeHeader(com.google.protobuf.Any value) {
+      public Builder mergeHeader(com.google.protobuf2.Any value) {
         if (headerBuilder_ == null) {
           if (header_ != null) {
             header_ =
-              com.google.protobuf.Any.newBuilder(header_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(header_).mergeFrom(value).buildPartial();
           } else {
             header_ = value;
           }
@@ -2432,7 +2432,7 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
       public Builder clearHeader() {
         if (headerBuilder_ == null) {
@@ -2450,9 +2450,9 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
-      public com.google.protobuf.Any.Builder getHeaderBuilder() {
+      public com.google.protobuf2.Any.Builder getHeaderBuilder() {
         
         onChanged();
         return getHeaderFieldBuilder().getBuilder();
@@ -2462,14 +2462,14 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getHeaderOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getHeaderOrBuilder() {
         if (headerBuilder_ != null) {
           return headerBuilder_.getMessageOrBuilder();
         } else {
           return header_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : header_;
+              com.google.protobuf2.Any.getDefaultInstance() : header_;
         }
       }
       /**
@@ -2477,14 +2477,14 @@ public final class Tx {
        * header to update the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any header = 2;</code>
+       * <code>.google.protobuf2.Any header = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getHeaderFieldBuilder() {
         if (headerBuilder_ == null) {
           headerBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getHeader(),
                   getParentForChildren(),
                   isClean());
@@ -3096,7 +3096,7 @@ public final class Tx {
      * upgraded client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     boolean hasClientState();
@@ -3105,25 +3105,25 @@ public final class Tx {
      * upgraded client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    com.google.protobuf.Any getClientState();
+    com.google.protobuf2.Any getClientState();
     /**
      * <pre>
      * upgraded client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getClientStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder();
 
     /**
      * <pre>
      * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
     boolean hasConsensusState();
@@ -3132,18 +3132,18 @@ public final class Tx {
      * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
-    com.google.protobuf.Any getConsensusState();
+    com.google.protobuf2.Any getConsensusState();
     /**
      * <pre>
      * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder();
 
     /**
      * <pre>
@@ -3245,11 +3245,11 @@ public final class Tx {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (clientState_ != null) {
                 subBuilder = clientState_.toBuilder();
               }
-              clientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              clientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(clientState_);
                 clientState_ = subBuilder.buildPartial();
@@ -3258,11 +3258,11 @@ public final class Tx {
               break;
             }
             case 26: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (consensusState_ != null) {
                 subBuilder = consensusState_.toBuilder();
               }
-              consensusState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              consensusState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(consensusState_);
                 consensusState_ = subBuilder.buildPartial();
@@ -3363,13 +3363,13 @@ public final class Tx {
     }
 
     public static final int CLIENT_STATE_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any clientState_;
+    private com.google.protobuf2.Any clientState_;
     /**
      * <pre>
      * upgraded client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
     public boolean hasClientState() {
@@ -3380,31 +3380,31 @@ public final class Tx {
      * upgraded client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
-    public com.google.protobuf.Any getClientState() {
-      return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+    public com.google.protobuf2.Any getClientState() {
+      return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
     /**
      * <pre>
      * upgraded client state
      * </pre>
      *
-     * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
 
     public static final int CONSENSUS_STATE_FIELD_NUMBER = 3;
-    private com.google.protobuf.Any consensusState_;
+    private com.google.protobuf2.Any consensusState_;
     /**
      * <pre>
      * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
     public boolean hasConsensusState() {
@@ -3415,20 +3415,20 @@ public final class Tx {
      * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
-    public com.google.protobuf.Any getConsensusState() {
-      return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+    public com.google.protobuf2.Any getConsensusState() {
+      return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
     /**
      * <pre>
      * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
      * </pre>
      *
-     * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+     * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
 
@@ -4017,15 +4017,15 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any clientState_;
+      private com.google.protobuf2.Any clientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> clientStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> clientStateBuilder_;
       /**
        * <pre>
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return Whether the clientState field is set.
        */
       public boolean hasClientState() {
@@ -4036,12 +4036,12 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        * @return The clientState.
        */
-      public com.google.protobuf.Any getClientState() {
+      public com.google.protobuf2.Any getClientState() {
         if (clientStateBuilder_ == null) {
-          return clientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : clientState_;
+          return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         } else {
           return clientStateBuilder_.getMessage();
         }
@@ -4051,9 +4051,9 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder setClientState(com.google.protobuf.Any value) {
+      public Builder setClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4071,10 +4071,10 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder setClientState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (clientStateBuilder_ == null) {
           clientState_ = builderForValue.build();
           onChanged();
@@ -4089,13 +4089,13 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public Builder mergeClientState(com.google.protobuf.Any value) {
+      public Builder mergeClientState(com.google.protobuf2.Any value) {
         if (clientStateBuilder_ == null) {
           if (clientState_ != null) {
             clientState_ =
-              com.google.protobuf.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(clientState_).mergeFrom(value).buildPartial();
           } else {
             clientState_ = value;
           }
@@ -4111,7 +4111,7 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       public Builder clearClientState() {
         if (clientStateBuilder_ == null) {
@@ -4129,9 +4129,9 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getClientStateBuilder() {
+      public com.google.protobuf2.Any.Builder getClientStateBuilder() {
         
         onChanged();
         return getClientStateFieldBuilder().getBuilder();
@@ -4141,14 +4141,14 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getClientStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
         if (clientStateBuilder_ != null) {
           return clientStateBuilder_.getMessageOrBuilder();
         } else {
           return clientState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : clientState_;
+              com.google.protobuf2.Any.getDefaultInstance() : clientState_;
         }
       }
       /**
@@ -4156,14 +4156,14 @@ public final class Tx {
        * upgraded client state
        * </pre>
        *
-       * <code>.google.protobuf.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getClientStateFieldBuilder() {
         if (clientStateBuilder_ == null) {
           clientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getClientState(),
                   getParentForChildren(),
                   isClean());
@@ -4172,15 +4172,15 @@ public final class Tx {
         return clientStateBuilder_;
       }
 
-      private com.google.protobuf.Any consensusState_;
+      private com.google.protobuf2.Any consensusState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> consensusStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> consensusStateBuilder_;
       /**
        * <pre>
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        * @return Whether the consensusState field is set.
        */
       public boolean hasConsensusState() {
@@ -4191,12 +4191,12 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        * @return The consensusState.
        */
-      public com.google.protobuf.Any getConsensusState() {
+      public com.google.protobuf2.Any getConsensusState() {
         if (consensusStateBuilder_ == null) {
-          return consensusState_ == null ? com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+          return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         } else {
           return consensusStateBuilder_.getMessage();
         }
@@ -4206,9 +4206,9 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public Builder setConsensusState(com.google.protobuf.Any value) {
+      public Builder setConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4226,10 +4226,10 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       public Builder setConsensusState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (consensusStateBuilder_ == null) {
           consensusState_ = builderForValue.build();
           onChanged();
@@ -4244,13 +4244,13 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public Builder mergeConsensusState(com.google.protobuf.Any value) {
+      public Builder mergeConsensusState(com.google.protobuf2.Any value) {
         if (consensusStateBuilder_ == null) {
           if (consensusState_ != null) {
             consensusState_ =
-              com.google.protobuf.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(consensusState_).mergeFrom(value).buildPartial();
           } else {
             consensusState_ = value;
           }
@@ -4266,7 +4266,7 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       public Builder clearConsensusState() {
         if (consensusStateBuilder_ == null) {
@@ -4284,9 +4284,9 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getConsensusStateBuilder() {
+      public com.google.protobuf2.Any.Builder getConsensusStateBuilder() {
         
         onChanged();
         return getConsensusStateFieldBuilder().getBuilder();
@@ -4296,14 +4296,14 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getConsensusStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
         if (consensusStateBuilder_ != null) {
           return consensusStateBuilder_.getMessageOrBuilder();
         } else {
           return consensusState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : consensusState_;
+              com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
         }
       }
       /**
@@ -4311,14 +4311,14 @@ public final class Tx {
        * upgraded consensus state, only contains enough information to serve as a basis of trust in update logic
        * </pre>
        *
-       * <code>.google.protobuf.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
+       * <code>.google.protobuf2.Any consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getConsensusStateFieldBuilder() {
         if (consensusStateBuilder_ == null) {
           consensusStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getConsensusState(),
                   getParentForChildren(),
                   isClean());
@@ -5020,7 +5020,7 @@ public final class Tx {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2;</code>
+     * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      * @return Whether the misbehaviour field is set.
      */
     boolean hasMisbehaviour();
@@ -5029,18 +5029,18 @@ public final class Tx {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2;</code>
+     * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      * @return The misbehaviour.
      */
-    com.google.protobuf.Any getMisbehaviour();
+    com.google.protobuf2.Any getMisbehaviour();
     /**
      * <pre>
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2;</code>
+     * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      */
-    com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getMisbehaviourOrBuilder();
 
     /**
      * <pre>
@@ -5121,11 +5121,11 @@ public final class Tx {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (misbehaviour_ != null) {
                 subBuilder = misbehaviour_.toBuilder();
               }
-              misbehaviour_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              misbehaviour_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(misbehaviour_);
                 misbehaviour_ = subBuilder.buildPartial();
@@ -5216,13 +5216,13 @@ public final class Tx {
     }
 
     public static final int MISBEHAVIOUR_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any misbehaviour_;
+    private com.google.protobuf2.Any misbehaviour_;
     /**
      * <pre>
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2;</code>
+     * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      * @return Whether the misbehaviour field is set.
      */
     public boolean hasMisbehaviour() {
@@ -5233,20 +5233,20 @@ public final class Tx {
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2;</code>
+     * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      * @return The misbehaviour.
      */
-    public com.google.protobuf.Any getMisbehaviour() {
-      return misbehaviour_ == null ? com.google.protobuf.Any.getDefaultInstance() : misbehaviour_;
+    public com.google.protobuf2.Any getMisbehaviour() {
+      return misbehaviour_ == null ? com.google.protobuf2.Any.getDefaultInstance() : misbehaviour_;
     }
     /**
      * <pre>
      * misbehaviour used for freezing the light client
      * </pre>
      *
-     * <code>.google.protobuf.Any misbehaviour = 2;</code>
+     * <code>.google.protobuf2.Any misbehaviour = 2;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getMisbehaviourOrBuilder() {
       return getMisbehaviour();
     }
 
@@ -5744,15 +5744,15 @@ public final class Tx {
         return this;
       }
 
-      private com.google.protobuf.Any misbehaviour_;
+      private com.google.protobuf2.Any misbehaviour_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> misbehaviourBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> misbehaviourBuilder_;
       /**
        * <pre>
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        * @return Whether the misbehaviour field is set.
        */
       public boolean hasMisbehaviour() {
@@ -5763,12 +5763,12 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        * @return The misbehaviour.
        */
-      public com.google.protobuf.Any getMisbehaviour() {
+      public com.google.protobuf2.Any getMisbehaviour() {
         if (misbehaviourBuilder_ == null) {
-          return misbehaviour_ == null ? com.google.protobuf.Any.getDefaultInstance() : misbehaviour_;
+          return misbehaviour_ == null ? com.google.protobuf2.Any.getDefaultInstance() : misbehaviour_;
         } else {
           return misbehaviourBuilder_.getMessage();
         }
@@ -5778,9 +5778,9 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
-      public Builder setMisbehaviour(com.google.protobuf.Any value) {
+      public Builder setMisbehaviour(com.google.protobuf2.Any value) {
         if (misbehaviourBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5798,10 +5798,10 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
       public Builder setMisbehaviour(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (misbehaviourBuilder_ == null) {
           misbehaviour_ = builderForValue.build();
           onChanged();
@@ -5816,13 +5816,13 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
-      public Builder mergeMisbehaviour(com.google.protobuf.Any value) {
+      public Builder mergeMisbehaviour(com.google.protobuf2.Any value) {
         if (misbehaviourBuilder_ == null) {
           if (misbehaviour_ != null) {
             misbehaviour_ =
-              com.google.protobuf.Any.newBuilder(misbehaviour_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(misbehaviour_).mergeFrom(value).buildPartial();
           } else {
             misbehaviour_ = value;
           }
@@ -5838,7 +5838,7 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
       public Builder clearMisbehaviour() {
         if (misbehaviourBuilder_ == null) {
@@ -5856,9 +5856,9 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
-      public com.google.protobuf.Any.Builder getMisbehaviourBuilder() {
+      public com.google.protobuf2.Any.Builder getMisbehaviourBuilder() {
         
         onChanged();
         return getMisbehaviourFieldBuilder().getBuilder();
@@ -5868,14 +5868,14 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getMisbehaviourOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getMisbehaviourOrBuilder() {
         if (misbehaviourBuilder_ != null) {
           return misbehaviourBuilder_.getMessageOrBuilder();
         } else {
           return misbehaviour_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : misbehaviour_;
+              com.google.protobuf2.Any.getDefaultInstance() : misbehaviour_;
         }
       }
       /**
@@ -5883,14 +5883,14 @@ public final class Tx {
        * misbehaviour used for freezing the light client
        * </pre>
        *
-       * <code>.google.protobuf.Any misbehaviour = 2;</code>
+       * <code>.google.protobuf2.Any misbehaviour = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getMisbehaviourFieldBuilder() {
         if (misbehaviourBuilder_ == null) {
           misbehaviourBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getMisbehaviour(),
                   getParentForChildren(),
                   isClean());
@@ -6523,51 +6523,51 @@ public final class Tx {
   static {
     java.lang.String[] descriptorData = {
       "\n\033ibc/core/client/v1/tx.proto\022\022ibc.core." +
-      "client.v1\032\024gogoproto/gogo.proto\032\031google/" +
-      "protobuf/any.proto\032\037ibc/core/client/v1/c" +
-      "lient.proto\"\273\001\n\017MsgCreateClient\022C\n\014clien" +
-      "t_state\030\001 \001(\0132\024.google.protobuf.AnyB\027\362\336\037" +
-      "\023yaml:\"client_state\"\022I\n\017consensus_state\030" +
-      "\002 \001(\0132\024.google.protobuf.AnyB\032\362\336\037\026yaml:\"c" +
-      "onsensus_state\"\022\016\n\006signer\030\003 \001(\t:\010\350\240\037\000\210\240\037" +
-      "\000\"\031\n\027MsgCreateClientResponse\"z\n\017MsgUpdat" +
-      "eClient\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:\"cl" +
-      "ient_id\"\022$\n\006header\030\002 \001(\0132\024.google.protob" +
-      "uf.Any\022\016\n\006signer\030\003 \001(\t:\010\350\240\037\000\210\240\037\000\"\031\n\027MsgU" +
-      "pdateClientResponse\"\365\002\n\020MsgUpgradeClient" +
-      "\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:\"client_id" +
-      "\"\022C\n\014client_state\030\002 \001(\0132\024.google.protobu" +
-      "f.AnyB\027\362\336\037\023yaml:\"client_state\"\022I\n\017consen" +
-      "sus_state\030\003 \001(\0132\024.google.protobuf.AnyB\032\362" +
-      "\336\037\026yaml:\"consensus_state\"\022=\n\024proof_upgra" +
-      "de_client\030\004 \001(\014B\037\362\336\037\033yaml:\"proof_upgrade" +
-      "_client\"\022O\n\035proof_upgrade_consensus_stat" +
-      "e\030\005 \001(\014B(\362\336\037$yaml:\"proof_upgrade_consens" +
-      "us_state\"\022\016\n\006signer\030\006 \001(\t:\010\350\240\037\000\210\240\037\000\"\032\n\030M" +
-      "sgUpgradeClientResponse\"\206\001\n\025MsgSubmitMis" +
-      "behaviour\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:\"" +
-      "client_id\"\022*\n\014misbehaviour\030\002 \001(\0132\024.googl" +
-      "e.protobuf.Any\022\016\n\006signer\030\003 \001(\t:\010\350\240\037\000\210\240\037\000" +
-      "\"\037\n\035MsgSubmitMisbehaviourResponse2\242\003\n\003Ms" +
-      "g\022`\n\014CreateClient\022#.ibc.core.client.v1.M" +
-      "sgCreateClient\032+.ibc.core.client.v1.MsgC" +
-      "reateClientResponse\022`\n\014UpdateClient\022#.ib" +
-      "c.core.client.v1.MsgUpdateClient\032+.ibc.c" +
-      "ore.client.v1.MsgUpdateClientResponse\022c\n" +
-      "\rUpgradeClient\022$.ibc.core.client.v1.MsgU" +
-      "pgradeClient\032,.ibc.core.client.v1.MsgUpg" +
-      "radeClientResponse\022r\n\022SubmitMisbehaviour" +
-      "\022).ibc.core.client.v1.MsgSubmitMisbehavi" +
-      "our\0321.ibc.core.client.v1.MsgSubmitMisbeh" +
-      "aviourResponseB9Z7github.com/cosmos/cosm" +
-      "os-sdk/x/ibc/core/02-client/typesb\006proto" +
-      "3"
+      "client.v1\032\024gogoproto/gogo.proto\032\032google/" +
+      "protobuf2/any.proto\032\037ibc/core/client/v1/" +
+      "client.proto\"\275\001\n\017MsgCreateClient\022D\n\014clie" +
+      "nt_state\030\001 \001(\0132\025.google.protobuf2.AnyB\027\362" +
+      "\336\037\023yaml:\"client_state\"\022J\n\017consensus_stat" +
+      "e\030\002 \001(\0132\025.google.protobuf2.AnyB\032\362\336\037\026yaml" +
+      ":\"consensus_state\"\022\016\n\006signer\030\003 \001(\t:\010\350\240\037\000" +
+      "\210\240\037\000\"\031\n\027MsgCreateClientResponse\"{\n\017MsgUp" +
+      "dateClient\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:" +
+      "\"client_id\"\022%\n\006header\030\002 \001(\0132\025.google.pro" +
+      "tobuf2.Any\022\016\n\006signer\030\003 \001(\t:\010\350\240\037\000\210\240\037\000\"\031\n\027" +
+      "MsgUpdateClientResponse\"\367\002\n\020MsgUpgradeCl" +
+      "ient\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020yaml:\"clien" +
+      "t_id\"\022D\n\014client_state\030\002 \001(\0132\025.google.pro" +
+      "tobuf2.AnyB\027\362\336\037\023yaml:\"client_state\"\022J\n\017c" +
+      "onsensus_state\030\003 \001(\0132\025.google.protobuf2." +
+      "AnyB\032\362\336\037\026yaml:\"consensus_state\"\022=\n\024proof" +
+      "_upgrade_client\030\004 \001(\014B\037\362\336\037\033yaml:\"proof_u" +
+      "pgrade_client\"\022O\n\035proof_upgrade_consensu" +
+      "s_state\030\005 \001(\014B(\362\336\037$yaml:\"proof_upgrade_c" +
+      "onsensus_state\"\022\016\n\006signer\030\006 \001(\t:\010\350\240\037\000\210\240\037" +
+      "\000\"\032\n\030MsgUpgradeClientResponse\"\207\001\n\025MsgSub" +
+      "mitMisbehaviour\022\'\n\tclient_id\030\001 \001(\tB\024\362\336\037\020" +
+      "yaml:\"client_id\"\022+\n\014misbehaviour\030\002 \001(\0132\025" +
+      ".google.protobuf2.Any\022\016\n\006signer\030\003 \001(\t:\010\350" +
+      "\240\037\000\210\240\037\000\"\037\n\035MsgSubmitMisbehaviourResponse" +
+      "2\242\003\n\003Msg\022`\n\014CreateClient\022#.ibc.core.clie" +
+      "nt.v1.MsgCreateClient\032+.ibc.core.client." +
+      "v1.MsgCreateClientResponse\022`\n\014UpdateClie" +
+      "nt\022#.ibc.core.client.v1.MsgUpdateClient\032" +
+      "+.ibc.core.client.v1.MsgUpdateClientResp" +
+      "onse\022c\n\rUpgradeClient\022$.ibc.core.client." +
+      "v1.MsgUpgradeClient\032,.ibc.core.client.v1" +
+      ".MsgUpgradeClientResponse\022r\n\022SubmitMisbe" +
+      "haviour\022).ibc.core.client.v1.MsgSubmitMi" +
+      "sbehaviour\0321.ibc.core.client.v1.MsgSubmi" +
+      "tMisbehaviourResponseB9Z7github.com/cosm" +
+      "os/cosmos-sdk/x/ibc/core/02-client/types" +
+      "b\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           ibc.core.client.v1.Client.getDescriptor(),
         });
     internal_static_ibc_core_client_v1_MsgCreateClient_descriptor =
@@ -6620,13 +6620,13 @@ public final class Tx {
         new java.lang.String[] { });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGetters);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGetters);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     ibc.core.client.v1.Client.getDescriptor();
   }
 

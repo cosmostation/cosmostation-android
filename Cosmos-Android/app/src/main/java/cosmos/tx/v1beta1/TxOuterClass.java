@@ -3041,9 +3041,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getMessagesList();
     /**
      * <pre>
@@ -3056,9 +3056,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    com.google.protobuf.Any getMessages(int index);
+    com.google.protobuf2.Any getMessages(int index);
     /**
      * <pre>
      * messages is a list of messages to be executed. The required signers of
@@ -3070,7 +3070,7 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     int getMessagesCount();
     /**
@@ -3084,9 +3084,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMessagesOrBuilderList();
     /**
      * <pre>
@@ -3099,9 +3099,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getMessagesOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getMessagesOrBuilder(
         int index);
 
     /**
@@ -3142,9 +3142,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getExtensionOptionsList();
     /**
      * <pre>
@@ -3153,9 +3153,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    com.google.protobuf.Any getExtensionOptions(int index);
+    com.google.protobuf2.Any getExtensionOptions(int index);
     /**
      * <pre>
      * extension_options are arbitrary options that can be added by chains
@@ -3163,7 +3163,7 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
     int getExtensionOptionsCount();
     /**
@@ -3173,9 +3173,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getExtensionOptionsOrBuilderList();
     /**
      * <pre>
@@ -3184,9 +3184,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    com.google.protobuf.AnyOrBuilder getExtensionOptionsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getExtensionOptionsOrBuilder(
         int index);
 
     /**
@@ -3196,9 +3196,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getNonCriticalExtensionOptionsList();
     /**
      * <pre>
@@ -3207,9 +3207,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    com.google.protobuf.Any getNonCriticalExtensionOptions(int index);
+    com.google.protobuf2.Any getNonCriticalExtensionOptions(int index);
     /**
      * <pre>
      * extension_options are arbitrary options that can be added by chains
@@ -3217,7 +3217,7 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
     int getNonCriticalExtensionOptionsCount();
     /**
@@ -3227,9 +3227,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getNonCriticalExtensionOptionsOrBuilderList();
     /**
      * <pre>
@@ -3238,9 +3238,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    com.google.protobuf.AnyOrBuilder getNonCriticalExtensionOptionsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getNonCriticalExtensionOptionsOrBuilder(
         int index);
   }
   /**
@@ -3299,11 +3299,11 @@ public final class TxOuterClass {
               break;
             case 10: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                messages_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                messages_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               messages_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 18: {
@@ -3319,20 +3319,20 @@ public final class TxOuterClass {
             }
             case 8186: {
               if (!((mutable_bitField0_ & 0x00000002) != 0)) {
-                extensionOptions_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                extensionOptions_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000002;
               }
               extensionOptions_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             case 16378: {
               if (!((mutable_bitField0_ & 0x00000004) != 0)) {
-                nonCriticalExtensionOptions_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                nonCriticalExtensionOptions_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000004;
               }
               nonCriticalExtensionOptions_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -3377,7 +3377,7 @@ public final class TxOuterClass {
     }
 
     public static final int MESSAGES_FIELD_NUMBER = 1;
-    private java.util.List<com.google.protobuf.Any> messages_;
+    private java.util.List<com.google.protobuf2.Any> messages_;
     /**
      * <pre>
      * messages is a list of messages to be executed. The required signers of
@@ -3389,9 +3389,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    public java.util.List<com.google.protobuf.Any> getMessagesList() {
+    public java.util.List<com.google.protobuf2.Any> getMessagesList() {
       return messages_;
     }
     /**
@@ -3405,9 +3405,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getMessagesOrBuilderList() {
       return messages_;
     }
@@ -3422,7 +3422,7 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
     public int getMessagesCount() {
       return messages_.size();
@@ -3438,9 +3438,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    public com.google.protobuf.Any getMessages(int index) {
+    public com.google.protobuf2.Any getMessages(int index) {
       return messages_.get(index);
     }
     /**
@@ -3454,9 +3454,9 @@ public final class TxOuterClass {
      * transaction.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any messages = 1;</code>
+     * <code>repeated .google.protobuf2.Any messages = 1;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getMessagesOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getMessagesOrBuilder(
         int index) {
       return messages_.get(index);
     }
@@ -3521,7 +3521,7 @@ public final class TxOuterClass {
     }
 
     public static final int EXTENSION_OPTIONS_FIELD_NUMBER = 1023;
-    private java.util.List<com.google.protobuf.Any> extensionOptions_;
+    private java.util.List<com.google.protobuf2.Any> extensionOptions_;
     /**
      * <pre>
      * extension_options are arbitrary options that can be added by chains
@@ -3529,9 +3529,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    public java.util.List<com.google.protobuf.Any> getExtensionOptionsList() {
+    public java.util.List<com.google.protobuf2.Any> getExtensionOptionsList() {
       return extensionOptions_;
     }
     /**
@@ -3541,9 +3541,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getExtensionOptionsOrBuilderList() {
       return extensionOptions_;
     }
@@ -3554,7 +3554,7 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
     public int getExtensionOptionsCount() {
       return extensionOptions_.size();
@@ -3566,9 +3566,9 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    public com.google.protobuf.Any getExtensionOptions(int index) {
+    public com.google.protobuf2.Any getExtensionOptions(int index) {
       return extensionOptions_.get(index);
     }
     /**
@@ -3578,15 +3578,15 @@ public final class TxOuterClass {
      * and can't be handled, the transaction will be rejected
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+     * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getExtensionOptionsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getExtensionOptionsOrBuilder(
         int index) {
       return extensionOptions_.get(index);
     }
 
     public static final int NON_CRITICAL_EXTENSION_OPTIONS_FIELD_NUMBER = 2047;
-    private java.util.List<com.google.protobuf.Any> nonCriticalExtensionOptions_;
+    private java.util.List<com.google.protobuf2.Any> nonCriticalExtensionOptions_;
     /**
      * <pre>
      * extension_options are arbitrary options that can be added by chains
@@ -3594,9 +3594,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    public java.util.List<com.google.protobuf.Any> getNonCriticalExtensionOptionsList() {
+    public java.util.List<com.google.protobuf2.Any> getNonCriticalExtensionOptionsList() {
       return nonCriticalExtensionOptions_;
     }
     /**
@@ -3606,9 +3606,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getNonCriticalExtensionOptionsOrBuilderList() {
       return nonCriticalExtensionOptions_;
     }
@@ -3619,7 +3619,7 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
     public int getNonCriticalExtensionOptionsCount() {
       return nonCriticalExtensionOptions_.size();
@@ -3631,9 +3631,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    public com.google.protobuf.Any getNonCriticalExtensionOptions(int index) {
+    public com.google.protobuf2.Any getNonCriticalExtensionOptions(int index) {
       return nonCriticalExtensionOptions_.get(index);
     }
     /**
@@ -3643,9 +3643,9 @@ public final class TxOuterClass {
      * and can't be handled, they will be ignored
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+     * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getNonCriticalExtensionOptionsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getNonCriticalExtensionOptionsOrBuilder(
         int index) {
       return nonCriticalExtensionOptions_.get(index);
     }
@@ -4141,17 +4141,17 @@ public final class TxOuterClass {
       }
       private int bitField0_;
 
-      private java.util.List<com.google.protobuf.Any> messages_ =
+      private java.util.List<com.google.protobuf2.Any> messages_ =
         java.util.Collections.emptyList();
       private void ensureMessagesIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          messages_ = new java.util.ArrayList<com.google.protobuf.Any>(messages_);
+          messages_ = new java.util.ArrayList<com.google.protobuf2.Any>(messages_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> messagesBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> messagesBuilder_;
 
       /**
        * <pre>
@@ -4164,9 +4164,9 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getMessagesList() {
+      public java.util.List<com.google.protobuf2.Any> getMessagesList() {
         if (messagesBuilder_ == null) {
           return java.util.Collections.unmodifiableList(messages_);
         } else {
@@ -4184,7 +4184,7 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public int getMessagesCount() {
         if (messagesBuilder_ == null) {
@@ -4204,9 +4204,9 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any getMessages(int index) {
+      public com.google.protobuf2.Any getMessages(int index) {
         if (messagesBuilder_ == null) {
           return messages_.get(index);
         } else {
@@ -4224,10 +4224,10 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder setMessages(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (messagesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4251,10 +4251,10 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder setMessages(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           messages_.set(index, builderForValue.build());
@@ -4275,9 +4275,9 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public Builder addMessages(com.google.protobuf.Any value) {
+      public Builder addMessages(com.google.protobuf2.Any value) {
         if (messagesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4301,10 +4301,10 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addMessages(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (messagesBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4328,10 +4328,10 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addMessages(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           messages_.add(builderForValue.build());
@@ -4352,10 +4352,10 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addMessages(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           messages_.add(index, builderForValue.build());
@@ -4376,10 +4376,10 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder addAllMessages(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (messagesBuilder_ == null) {
           ensureMessagesIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -4401,7 +4401,7 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder clearMessages() {
         if (messagesBuilder_ == null) {
@@ -4424,7 +4424,7 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
       public Builder removeMessages(int index) {
         if (messagesBuilder_ == null) {
@@ -4447,9 +4447,9 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getMessagesBuilder(
+      public com.google.protobuf2.Any.Builder getMessagesBuilder(
           int index) {
         return getMessagesFieldBuilder().getBuilder(index);
       }
@@ -4464,9 +4464,9 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getMessagesOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getMessagesOrBuilder(
           int index) {
         if (messagesBuilder_ == null) {
           return messages_.get(index);  } else {
@@ -4484,9 +4484,9 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getMessagesOrBuilderList() {
         if (messagesBuilder_ != null) {
           return messagesBuilder_.getMessageOrBuilderList();
@@ -4505,11 +4505,11 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any.Builder addMessagesBuilder() {
+      public com.google.protobuf2.Any.Builder addMessagesBuilder() {
         return getMessagesFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -4522,12 +4522,12 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public com.google.protobuf.Any.Builder addMessagesBuilder(
+      public com.google.protobuf2.Any.Builder addMessagesBuilder(
           int index) {
         return getMessagesFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -4540,18 +4540,18 @@ public final class TxOuterClass {
        * transaction.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any messages = 1;</code>
+       * <code>repeated .google.protobuf2.Any messages = 1;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getMessagesBuilderList() {
         return getMessagesFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getMessagesFieldBuilder() {
         if (messagesBuilder_ == null) {
           messagesBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   messages_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -4702,17 +4702,17 @@ public final class TxOuterClass {
         return this;
       }
 
-      private java.util.List<com.google.protobuf.Any> extensionOptions_ =
+      private java.util.List<com.google.protobuf2.Any> extensionOptions_ =
         java.util.Collections.emptyList();
       private void ensureExtensionOptionsIsMutable() {
         if (!((bitField0_ & 0x00000002) != 0)) {
-          extensionOptions_ = new java.util.ArrayList<com.google.protobuf.Any>(extensionOptions_);
+          extensionOptions_ = new java.util.ArrayList<com.google.protobuf2.Any>(extensionOptions_);
           bitField0_ |= 0x00000002;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> extensionOptionsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> extensionOptionsBuilder_;
 
       /**
        * <pre>
@@ -4721,9 +4721,9 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getExtensionOptionsList() {
+      public java.util.List<com.google.protobuf2.Any> getExtensionOptionsList() {
         if (extensionOptionsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(extensionOptions_);
         } else {
@@ -4737,7 +4737,7 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public int getExtensionOptionsCount() {
         if (extensionOptionsBuilder_ == null) {
@@ -4753,9 +4753,9 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public com.google.protobuf.Any getExtensionOptions(int index) {
+      public com.google.protobuf2.Any getExtensionOptions(int index) {
         if (extensionOptionsBuilder_ == null) {
           return extensionOptions_.get(index);
         } else {
@@ -4769,10 +4769,10 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder setExtensionOptions(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (extensionOptionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4792,10 +4792,10 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder setExtensionOptions(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (extensionOptionsBuilder_ == null) {
           ensureExtensionOptionsIsMutable();
           extensionOptions_.set(index, builderForValue.build());
@@ -4812,9 +4812,9 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public Builder addExtensionOptions(com.google.protobuf.Any value) {
+      public Builder addExtensionOptions(com.google.protobuf2.Any value) {
         if (extensionOptionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4834,10 +4834,10 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder addExtensionOptions(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (extensionOptionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4857,10 +4857,10 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder addExtensionOptions(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (extensionOptionsBuilder_ == null) {
           ensureExtensionOptionsIsMutable();
           extensionOptions_.add(builderForValue.build());
@@ -4877,10 +4877,10 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder addExtensionOptions(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (extensionOptionsBuilder_ == null) {
           ensureExtensionOptionsIsMutable();
           extensionOptions_.add(index, builderForValue.build());
@@ -4897,10 +4897,10 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder addAllExtensionOptions(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (extensionOptionsBuilder_ == null) {
           ensureExtensionOptionsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -4918,7 +4918,7 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder clearExtensionOptions() {
         if (extensionOptionsBuilder_ == null) {
@@ -4937,7 +4937,7 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
       public Builder removeExtensionOptions(int index) {
         if (extensionOptionsBuilder_ == null) {
@@ -4956,9 +4956,9 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public com.google.protobuf.Any.Builder getExtensionOptionsBuilder(
+      public com.google.protobuf2.Any.Builder getExtensionOptionsBuilder(
           int index) {
         return getExtensionOptionsFieldBuilder().getBuilder(index);
       }
@@ -4969,9 +4969,9 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getExtensionOptionsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getExtensionOptionsOrBuilder(
           int index) {
         if (extensionOptionsBuilder_ == null) {
           return extensionOptions_.get(index);  } else {
@@ -4985,9 +4985,9 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getExtensionOptionsOrBuilderList() {
         if (extensionOptionsBuilder_ != null) {
           return extensionOptionsBuilder_.getMessageOrBuilderList();
@@ -5002,11 +5002,11 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public com.google.protobuf.Any.Builder addExtensionOptionsBuilder() {
+      public com.google.protobuf2.Any.Builder addExtensionOptionsBuilder() {
         return getExtensionOptionsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -5015,12 +5015,12 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public com.google.protobuf.Any.Builder addExtensionOptionsBuilder(
+      public com.google.protobuf2.Any.Builder addExtensionOptionsBuilder(
           int index) {
         return getExtensionOptionsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -5029,18 +5029,18 @@ public final class TxOuterClass {
        * and can't be handled, the transaction will be rejected
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any extension_options = 1023;</code>
+       * <code>repeated .google.protobuf2.Any extension_options = 1023;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getExtensionOptionsBuilderList() {
         return getExtensionOptionsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getExtensionOptionsFieldBuilder() {
         if (extensionOptionsBuilder_ == null) {
           extensionOptionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   extensionOptions_,
                   ((bitField0_ & 0x00000002) != 0),
                   getParentForChildren(),
@@ -5050,17 +5050,17 @@ public final class TxOuterClass {
         return extensionOptionsBuilder_;
       }
 
-      private java.util.List<com.google.protobuf.Any> nonCriticalExtensionOptions_ =
+      private java.util.List<com.google.protobuf2.Any> nonCriticalExtensionOptions_ =
         java.util.Collections.emptyList();
       private void ensureNonCriticalExtensionOptionsIsMutable() {
         if (!((bitField0_ & 0x00000004) != 0)) {
-          nonCriticalExtensionOptions_ = new java.util.ArrayList<com.google.protobuf.Any>(nonCriticalExtensionOptions_);
+          nonCriticalExtensionOptions_ = new java.util.ArrayList<com.google.protobuf2.Any>(nonCriticalExtensionOptions_);
           bitField0_ |= 0x00000004;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> nonCriticalExtensionOptionsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> nonCriticalExtensionOptionsBuilder_;
 
       /**
        * <pre>
@@ -5069,9 +5069,9 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getNonCriticalExtensionOptionsList() {
+      public java.util.List<com.google.protobuf2.Any> getNonCriticalExtensionOptionsList() {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(nonCriticalExtensionOptions_);
         } else {
@@ -5085,7 +5085,7 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public int getNonCriticalExtensionOptionsCount() {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
@@ -5101,9 +5101,9 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public com.google.protobuf.Any getNonCriticalExtensionOptions(int index) {
+      public com.google.protobuf2.Any getNonCriticalExtensionOptions(int index) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           return nonCriticalExtensionOptions_.get(index);
         } else {
@@ -5117,10 +5117,10 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder setNonCriticalExtensionOptions(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5140,10 +5140,10 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder setNonCriticalExtensionOptions(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           ensureNonCriticalExtensionOptionsIsMutable();
           nonCriticalExtensionOptions_.set(index, builderForValue.build());
@@ -5160,9 +5160,9 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public Builder addNonCriticalExtensionOptions(com.google.protobuf.Any value) {
+      public Builder addNonCriticalExtensionOptions(com.google.protobuf2.Any value) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5182,10 +5182,10 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder addNonCriticalExtensionOptions(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -5205,10 +5205,10 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder addNonCriticalExtensionOptions(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           ensureNonCriticalExtensionOptionsIsMutable();
           nonCriticalExtensionOptions_.add(builderForValue.build());
@@ -5225,10 +5225,10 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder addNonCriticalExtensionOptions(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           ensureNonCriticalExtensionOptionsIsMutable();
           nonCriticalExtensionOptions_.add(index, builderForValue.build());
@@ -5245,10 +5245,10 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder addAllNonCriticalExtensionOptions(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           ensureNonCriticalExtensionOptionsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -5266,7 +5266,7 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder clearNonCriticalExtensionOptions() {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
@@ -5285,7 +5285,7 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
       public Builder removeNonCriticalExtensionOptions(int index) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
@@ -5304,9 +5304,9 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public com.google.protobuf.Any.Builder getNonCriticalExtensionOptionsBuilder(
+      public com.google.protobuf2.Any.Builder getNonCriticalExtensionOptionsBuilder(
           int index) {
         return getNonCriticalExtensionOptionsFieldBuilder().getBuilder(index);
       }
@@ -5317,9 +5317,9 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getNonCriticalExtensionOptionsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getNonCriticalExtensionOptionsOrBuilder(
           int index) {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           return nonCriticalExtensionOptions_.get(index);  } else {
@@ -5333,9 +5333,9 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getNonCriticalExtensionOptionsOrBuilderList() {
         if (nonCriticalExtensionOptionsBuilder_ != null) {
           return nonCriticalExtensionOptionsBuilder_.getMessageOrBuilderList();
@@ -5350,11 +5350,11 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public com.google.protobuf.Any.Builder addNonCriticalExtensionOptionsBuilder() {
+      public com.google.protobuf2.Any.Builder addNonCriticalExtensionOptionsBuilder() {
         return getNonCriticalExtensionOptionsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -5363,12 +5363,12 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public com.google.protobuf.Any.Builder addNonCriticalExtensionOptionsBuilder(
+      public com.google.protobuf2.Any.Builder addNonCriticalExtensionOptionsBuilder(
           int index) {
         return getNonCriticalExtensionOptionsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
@@ -5377,18 +5377,18 @@ public final class TxOuterClass {
        * and can't be handled, they will be ignored
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any non_critical_extension_options = 2047;</code>
+       * <code>repeated .google.protobuf2.Any non_critical_extension_options = 2047;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getNonCriticalExtensionOptionsBuilderList() {
         return getNonCriticalExtensionOptionsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getNonCriticalExtensionOptionsFieldBuilder() {
         if (nonCriticalExtensionOptionsBuilder_ == null) {
           nonCriticalExtensionOptionsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   nonCriticalExtensionOptions_,
                   ((bitField0_ & 0x00000004) != 0),
                   getParentForChildren(),
@@ -6760,7 +6760,7 @@ public final class TxOuterClass {
      * signer address for this position and lookup the public key.
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return Whether the publicKey field is set.
      */
     boolean hasPublicKey();
@@ -6771,10 +6771,10 @@ public final class TxOuterClass {
      * signer address for this position and lookup the public key.
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return The publicKey.
      */
-    com.google.protobuf.Any getPublicKey();
+    com.google.protobuf2.Any getPublicKey();
     /**
      * <pre>
      * public_key is the public key of the signer. It is optional for accounts
@@ -6782,9 +6782,9 @@ public final class TxOuterClass {
      * signer address for this position and lookup the public key.
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      */
-    com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder();
 
     /**
      * <pre>
@@ -6879,11 +6879,11 @@ public final class TxOuterClass {
               done = true;
               break;
             case 10: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (publicKey_ != null) {
                 subBuilder = publicKey_.toBuilder();
               }
-              publicKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              publicKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(publicKey_);
                 publicKey_ = subBuilder.buildPartial();
@@ -6942,7 +6942,7 @@ public final class TxOuterClass {
     }
 
     public static final int PUBLIC_KEY_FIELD_NUMBER = 1;
-    private com.google.protobuf.Any publicKey_;
+    private com.google.protobuf2.Any publicKey_;
     /**
      * <pre>
      * public_key is the public key of the signer. It is optional for accounts
@@ -6950,7 +6950,7 @@ public final class TxOuterClass {
      * signer address for this position and lookup the public key.
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return Whether the publicKey field is set.
      */
     public boolean hasPublicKey() {
@@ -6963,11 +6963,11 @@ public final class TxOuterClass {
      * signer address for this position and lookup the public key.
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      * @return The publicKey.
      */
-    public com.google.protobuf.Any getPublicKey() {
-      return publicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : publicKey_;
+    public com.google.protobuf2.Any getPublicKey() {
+      return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
     }
     /**
      * <pre>
@@ -6976,9 +6976,9 @@ public final class TxOuterClass {
      * signer address for this position and lookup the public key.
      * </pre>
      *
-     * <code>.google.protobuf.Any public_key = 1;</code>
+     * <code>.google.protobuf2.Any public_key = 1;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
 
@@ -7404,9 +7404,9 @@ public final class TxOuterClass {
         return this;
       }
 
-      private com.google.protobuf.Any publicKey_;
+      private com.google.protobuf2.Any publicKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> publicKeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> publicKeyBuilder_;
       /**
        * <pre>
        * public_key is the public key of the signer. It is optional for accounts
@@ -7414,7 +7414,7 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        * @return Whether the publicKey field is set.
        */
       public boolean hasPublicKey() {
@@ -7427,12 +7427,12 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        * @return The publicKey.
        */
-      public com.google.protobuf.Any getPublicKey() {
+      public com.google.protobuf2.Any getPublicKey() {
         if (publicKeyBuilder_ == null) {
-          return publicKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : publicKey_;
+          return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
         } else {
           return publicKeyBuilder_.getMessage();
         }
@@ -7444,9 +7444,9 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public Builder setPublicKey(com.google.protobuf.Any value) {
+      public Builder setPublicKey(com.google.protobuf2.Any value) {
         if (publicKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -7466,10 +7466,10 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
       public Builder setPublicKey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (publicKeyBuilder_ == null) {
           publicKey_ = builderForValue.build();
           onChanged();
@@ -7486,13 +7486,13 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public Builder mergePublicKey(com.google.protobuf.Any value) {
+      public Builder mergePublicKey(com.google.protobuf2.Any value) {
         if (publicKeyBuilder_ == null) {
           if (publicKey_ != null) {
             publicKey_ =
-              com.google.protobuf.Any.newBuilder(publicKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(publicKey_).mergeFrom(value).buildPartial();
           } else {
             publicKey_ = value;
           }
@@ -7510,7 +7510,7 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
       public Builder clearPublicKey() {
         if (publicKeyBuilder_ == null) {
@@ -7530,9 +7530,9 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public com.google.protobuf.Any.Builder getPublicKeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPublicKeyBuilder() {
         
         onChanged();
         return getPublicKeyFieldBuilder().getBuilder();
@@ -7544,14 +7544,14 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPublicKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
         if (publicKeyBuilder_ != null) {
           return publicKeyBuilder_.getMessageOrBuilder();
         } else {
           return publicKey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : publicKey_;
+              com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
         }
       }
       /**
@@ -7561,14 +7561,14 @@ public final class TxOuterClass {
        * signer address for this position and lookup the public key.
        * </pre>
        *
-       * <code>.google.protobuf.Any public_key = 1;</code>
+       * <code>.google.protobuf2.Any public_key = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPublicKeyFieldBuilder() {
         if (publicKeyBuilder_ == null) {
           publicKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPublicKey(),
                   getParentForChildren(),
                   isClean());
@@ -12144,48 +12144,48 @@ public final class TxOuterClass {
       "v1beta1\032\024gogoproto/gogo.proto\032-cosmos/cr" +
       "ypto/multisig/v1beta1/multisig.proto\032\036co" +
       "smos/base/v1beta1/coin.proto\032\'cosmos/tx/" +
-      "signing/v1beta1/signing.proto\032\031google/pr" +
-      "otobuf/any.proto\"q\n\002Tx\022\'\n\004body\030\001 \001(\0132\031.c" +
-      "osmos.tx.v1beta1.TxBody\022.\n\tauth_info\030\002 \001" +
-      "(\0132\033.cosmos.tx.v1beta1.AuthInfo\022\022\n\nsigna" +
-      "tures\030\003 \003(\014\"H\n\005TxRaw\022\022\n\nbody_bytes\030\001 \001(\014" +
-      "\022\027\n\017auth_info_bytes\030\002 \001(\014\022\022\n\nsignatures\030" +
-      "\003 \003(\014\"`\n\007SignDoc\022\022\n\nbody_bytes\030\001 \001(\014\022\027\n\017" +
-      "auth_info_bytes\030\002 \001(\014\022\020\n\010chain_id\030\003 \001(\t\022" +
-      "\026\n\016account_number\030\004 \001(\004\"\307\001\n\006TxBody\022&\n\010me" +
-      "ssages\030\001 \003(\0132\024.google.protobuf.Any\022\014\n\004me" +
-      "mo\030\002 \001(\t\022\026\n\016timeout_height\030\003 \001(\004\0220\n\021exte" +
-      "nsion_options\030\377\007 \003(\0132\024.google.protobuf.A" +
-      "ny\022=\n\036non_critical_extension_options\030\377\017 " +
-      "\003(\0132\024.google.protobuf.Any\"d\n\010AuthInfo\0223\n" +
-      "\014signer_infos\030\001 \003(\0132\035.cosmos.tx.v1beta1." +
-      "SignerInfo\022#\n\003fee\030\002 \001(\0132\026.cosmos.tx.v1be" +
-      "ta1.Fee\"x\n\nSignerInfo\022(\n\npublic_key\030\001 \001(" +
-      "\0132\024.google.protobuf.Any\022.\n\tmode_info\030\002 \001" +
-      "(\0132\033.cosmos.tx.v1beta1.ModeInfo\022\020\n\010seque" +
-      "nce\030\003 \001(\004\"\265\002\n\010ModeInfo\0224\n\006single\030\001 \001(\0132\"" +
-      ".cosmos.tx.v1beta1.ModeInfo.SingleH\000\0222\n\005" +
-      "multi\030\002 \001(\0132!.cosmos.tx.v1beta1.ModeInfo" +
-      ".MultiH\000\032;\n\006Single\0221\n\004mode\030\001 \001(\0162#.cosmo" +
-      "s.tx.signing.v1beta1.SignMode\032{\n\005Multi\022A" +
-      "\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.multisi" +
-      "g.v1beta1.CompactBitArray\022/\n\nmode_infos\030" +
-      "\002 \003(\0132\033.cosmos.tx.v1beta1.ModeInfoB\005\n\003su" +
-      "m\"\225\001\n\003Fee\022[\n\006amount\030\001 \003(\0132\031.cosmos.base." +
-      "v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/cosmos/" +
-      "cosmos-sdk/types.Coins\022\021\n\tgas_limit\030\002 \001(" +
-      "\004\022\r\n\005payer\030\003 \001(\t\022\017\n\007granter\030\004 \001(\tB\'Z%git" +
-      "hub.com/cosmos/cosmos-sdk/types/txb\006prot" +
-      "o3"
+      "signing/v1beta1/signing.proto\032\032google/pr" +
+      "otobuf2/any.proto\"q\n\002Tx\022\'\n\004body\030\001 \001(\0132\031." +
+      "cosmos.tx.v1beta1.TxBody\022.\n\tauth_info\030\002 " +
+      "\001(\0132\033.cosmos.tx.v1beta1.AuthInfo\022\022\n\nsign" +
+      "atures\030\003 \003(\014\"H\n\005TxRaw\022\022\n\nbody_bytes\030\001 \001(" +
+      "\014\022\027\n\017auth_info_bytes\030\002 \001(\014\022\022\n\nsignatures" +
+      "\030\003 \003(\014\"`\n\007SignDoc\022\022\n\nbody_bytes\030\001 \001(\014\022\027\n" +
+      "\017auth_info_bytes\030\002 \001(\014\022\020\n\010chain_id\030\003 \001(\t" +
+      "\022\026\n\016account_number\030\004 \001(\004\"\312\001\n\006TxBody\022\'\n\010m" +
+      "essages\030\001 \003(\0132\025.google.protobuf2.Any\022\014\n\004" +
+      "memo\030\002 \001(\t\022\026\n\016timeout_height\030\003 \001(\004\0221\n\021ex" +
+      "tension_options\030\377\007 \003(\0132\025.google.protobuf" +
+      "2.Any\022>\n\036non_critical_extension_options\030" +
+      "\377\017 \003(\0132\025.google.protobuf2.Any\"d\n\010AuthInf" +
+      "o\0223\n\014signer_infos\030\001 \003(\0132\035.cosmos.tx.v1be" +
+      "ta1.SignerInfo\022#\n\003fee\030\002 \001(\0132\026.cosmos.tx." +
+      "v1beta1.Fee\"y\n\nSignerInfo\022)\n\npublic_key\030" +
+      "\001 \001(\0132\025.google.protobuf2.Any\022.\n\tmode_inf" +
+      "o\030\002 \001(\0132\033.cosmos.tx.v1beta1.ModeInfo\022\020\n\010" +
+      "sequence\030\003 \001(\004\"\265\002\n\010ModeInfo\0224\n\006single\030\001 " +
+      "\001(\0132\".cosmos.tx.v1beta1.ModeInfo.SingleH" +
+      "\000\0222\n\005multi\030\002 \001(\0132!.cosmos.tx.v1beta1.Mod" +
+      "eInfo.MultiH\000\032;\n\006Single\0221\n\004mode\030\001 \001(\0162#." +
+      "cosmos.tx.signing.v1beta1.SignMode\032{\n\005Mu" +
+      "lti\022A\n\010bitarray\030\001 \001(\0132/.cosmos.crypto.mu" +
+      "ltisig.v1beta1.CompactBitArray\022/\n\nmode_i" +
+      "nfos\030\002 \003(\0132\033.cosmos.tx.v1beta1.ModeInfoB" +
+      "\005\n\003sum\"\225\001\n\003Fee\022[\n\006amount\030\001 \003(\0132\031.cosmos." +
+      "base.v1beta1.CoinB0\310\336\037\000\252\337\037(github.com/co" +
+      "smos/cosmos-sdk/types.Coins\022\021\n\tgas_limit" +
+      "\030\002 \001(\004\022\r\n\005payer\030\003 \001(\t\022\017\n\007granter\030\004 \001(\tB\'" +
+      "Z%github.com/cosmos/cosmos-sdk/types/txb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.crypto.multisig.v1beta1.Multisig.getDescriptor(),
           cosmos.base.v1beta1.CoinOuterClass.getDescriptor(),
           cosmos.tx.signing.v1beta1.Signing.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
         });
     internal_static_cosmos_tx_v1beta1_Tx_descriptor =
       getDescriptor().getMessageTypes().get(0);
@@ -12249,15 +12249,15 @@ public final class TxOuterClass {
         new java.lang.String[] { "Amount", "GasLimit", "Payer", "Granter", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.castrepeated);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.castrepeated);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.crypto.multisig.v1beta1.Multisig.getDescriptor();
     cosmos.base.v1beta1.CoinOuterClass.getDescriptor();
     cosmos.tx.signing.v1beta1.Signing.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
   }
 
   // @@protoc_insertion_point(outer_class_scope)

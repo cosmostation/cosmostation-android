@@ -7408,7 +7408,7 @@ public final class ServiceOuterClass {
           com.google.api.AnnotationsProto.getDescriptor(),
           cosmos.base.abci.v1beta1.Abci.getDescriptor(),
           cosmos.tx.v1beta1.TxOuterClass.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.base.query.v1beta1.Pagination.getDescriptor(),
         });
     internal_static_cosmos_tx_v1beta1_GetTxsEventRequest_descriptor =
@@ -7467,7 +7467,7 @@ public final class ServiceOuterClass {
     com.google.api.AnnotationsProto.getDescriptor();
     cosmos.base.abci.v1beta1.Abci.getDescriptor();
     cosmos.tx.v1beta1.TxOuterClass.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.base.query.v1beta1.Pagination.getDescriptor();
   }
 

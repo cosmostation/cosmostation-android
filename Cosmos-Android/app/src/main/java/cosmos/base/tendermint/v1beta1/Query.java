@@ -3722,19 +3722,19 @@ public final class Query {
         getAddressBytes();
 
     /**
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return Whether the pubKey field is set.
      */
     boolean hasPubKey();
     /**
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return The pubKey.
      */
-    com.google.protobuf.Any getPubKey();
+    com.google.protobuf2.Any getPubKey();
     /**
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      */
-    com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder();
 
     /**
      * <code>int64 voting_power = 3;</code>
@@ -3805,11 +3805,11 @@ public final class Query {
               break;
             }
             case 18: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (pubKey_ != null) {
                 subBuilder = pubKey_.toBuilder();
               }
-              pubKey_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              pubKey_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(pubKey_);
                 pubKey_ = subBuilder.buildPartial();
@@ -3896,25 +3896,25 @@ public final class Query {
     }
 
     public static final int PUB_KEY_FIELD_NUMBER = 2;
-    private com.google.protobuf.Any pubKey_;
+    private com.google.protobuf2.Any pubKey_;
     /**
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return Whether the pubKey field is set.
      */
     public boolean hasPubKey() {
       return pubKey_ != null;
     }
     /**
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      * @return The pubKey.
      */
-    public com.google.protobuf.Any getPubKey() {
-      return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+    public com.google.protobuf2.Any getPubKey() {
+      return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
     }
     /**
-     * <code>.google.protobuf.Any pub_key = 2;</code>
+     * <code>.google.protobuf2.Any pub_key = 2;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
       return getPubKey();
     }
 
@@ -4386,31 +4386,31 @@ public final class Query {
         return this;
       }
 
-      private com.google.protobuf.Any pubKey_;
+      private com.google.protobuf2.Any pubKey_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> pubKeyBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> pubKeyBuilder_;
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        * @return Whether the pubKey field is set.
        */
       public boolean hasPubKey() {
         return pubKeyBuilder_ != null || pubKey_ != null;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        * @return The pubKey.
        */
-      public com.google.protobuf.Any getPubKey() {
+      public com.google.protobuf2.Any getPubKey() {
         if (pubKeyBuilder_ == null) {
-          return pubKey_ == null ? com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+          return pubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         } else {
           return pubKeyBuilder_.getMessage();
         }
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public Builder setPubKey(com.google.protobuf.Any value) {
+      public Builder setPubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -4424,10 +4424,10 @@ public final class Query {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
       public Builder setPubKey(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (pubKeyBuilder_ == null) {
           pubKey_ = builderForValue.build();
           onChanged();
@@ -4438,13 +4438,13 @@ public final class Query {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public Builder mergePubKey(com.google.protobuf.Any value) {
+      public Builder mergePubKey(com.google.protobuf2.Any value) {
         if (pubKeyBuilder_ == null) {
           if (pubKey_ != null) {
             pubKey_ =
-              com.google.protobuf.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(pubKey_).mergeFrom(value).buildPartial();
           } else {
             pubKey_ = value;
           }
@@ -4456,7 +4456,7 @@ public final class Query {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
       public Builder clearPubKey() {
         if (pubKeyBuilder_ == null) {
@@ -4470,33 +4470,33 @@ public final class Query {
         return this;
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public com.google.protobuf.Any.Builder getPubKeyBuilder() {
+      public com.google.protobuf2.Any.Builder getPubKeyBuilder() {
         
         onChanged();
         return getPubKeyFieldBuilder().getBuilder();
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getPubKeyOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getPubKeyOrBuilder() {
         if (pubKeyBuilder_ != null) {
           return pubKeyBuilder_.getMessageOrBuilder();
         } else {
           return pubKey_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : pubKey_;
+              com.google.protobuf2.Any.getDefaultInstance() : pubKey_;
         }
       }
       /**
-       * <code>.google.protobuf.Any pub_key = 2;</code>
+       * <code>.google.protobuf2.Any pub_key = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getPubKeyFieldBuilder() {
         if (pubKeyBuilder_ == null) {
           pubKeyBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getPubKey(),
                   getParentForChildren(),
                   isClean());
@@ -12111,85 +12111,85 @@ public final class Query {
     java.lang.String[] descriptorData = {
       "\n*cosmos/base/tendermint/v1beta1/query.p" +
       "roto\022\036cosmos.base.tendermint.v1beta1\032\024go" +
-      "goproto/gogo.proto\032\031google/protobuf/any." +
-      "proto\032\034google/api/annotations.proto\032\032ten" +
-      "dermint/p2p/types.proto\032\034tendermint/type" +
-      "s/block.proto\032\034tendermint/types/types.pr" +
-      "oto\032*cosmos/base/query/v1beta1/paginatio" +
-      "n.proto\"l\n\036GetValidatorSetByHeightReques" +
-      "t\022\016\n\006height\030\001 \001(\003\022:\n\npagination\030\002 \001(\0132&." +
-      "cosmos.base.query.v1beta1.PageRequest\"\263\001" +
-      "\n\037GetValidatorSetByHeightResponse\022\024\n\014blo" +
-      "ck_height\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\0132).co" +
-      "smos.base.tendermint.v1beta1.Validator\022;" +
-      "\n\npagination\030\003 \001(\0132\'.cosmos.base.query.v" +
-      "1beta1.PageResponse\"Z\n\034GetLatestValidato" +
-      "rSetRequest\022:\n\npagination\030\001 \001(\0132&.cosmos" +
-      ".base.query.v1beta1.PageRequest\"\261\001\n\035GetL" +
-      "atestValidatorSetResponse\022\024\n\014block_heigh" +
-      "t\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\0132).cosmos.bas" +
-      "e.tendermint.v1beta1.Validator\022;\n\npagina" +
-      "tion\030\003 \001(\0132\'.cosmos.base.query.v1beta1.P" +
-      "ageResponse\"t\n\tValidator\022\017\n\007address\030\001 \001(" +
-      "\t\022%\n\007pub_key\030\002 \001(\0132\024.google.protobuf.Any" +
-      "\022\024\n\014voting_power\030\003 \001(\003\022\031\n\021proposer_prior" +
-      "ity\030\004 \001(\003\")\n\027GetBlockByHeightRequest\022\016\n\006" +
-      "height\030\001 \001(\003\"o\n\030GetBlockByHeightResponse" +
-      "\022+\n\010block_id\030\001 \001(\0132\031.tendermint.types.Bl" +
-      "ockID\022&\n\005block\030\002 \001(\0132\027.tendermint.types." +
-      "Block\"\027\n\025GetLatestBlockRequest\"m\n\026GetLat" +
-      "estBlockResponse\022+\n\010block_id\030\001 \001(\0132\031.ten" +
-      "dermint.types.BlockID\022&\n\005block\030\002 \001(\0132\027.t" +
-      "endermint.types.Block\"\023\n\021GetSyncingReque" +
-      "st\"%\n\022GetSyncingResponse\022\017\n\007syncing\030\001 \001(" +
-      "\010\"\024\n\022GetNodeInfoRequest\"\233\001\n\023GetNodeInfoR" +
-      "esponse\022:\n\021default_node_info\030\001 \001(\0132\037.ten" +
-      "dermint.p2p.DefaultNodeInfo\022H\n\023applicati" +
-      "on_version\030\002 \001(\0132+.cosmos.base.tendermin" +
-      "t.v1beta1.VersionInfo\"\266\001\n\013VersionInfo\022\014\n" +
-      "\004name\030\001 \001(\t\022\020\n\010app_name\030\002 \001(\t\022\017\n\007version" +
-      "\030\003 \001(\t\022\022\n\ngit_commit\030\004 \001(\t\022\022\n\nbuild_tags" +
-      "\030\005 \001(\t\022\022\n\ngo_version\030\006 \001(\t\022:\n\nbuild_deps" +
-      "\030\007 \003(\0132&.cosmos.base.tendermint.v1beta1." +
-      "Module\"4\n\006Module\022\014\n\004path\030\001 \001(\t\022\017\n\007versio" +
-      "n\030\002 \001(\t\022\013\n\003sum\030\003 \001(\t2\210\t\n\007Service\022\251\001\n\013Get" +
-      "NodeInfo\0222.cosmos.base.tendermint.v1beta" +
-      "1.GetNodeInfoRequest\0323.cosmos.base.tende" +
-      "rmint.v1beta1.GetNodeInfoResponse\"1\202\323\344\223\002" +
-      "+\022)/cosmos/base/tendermint/v1beta1/node_" +
-      "info\022\244\001\n\nGetSyncing\0221.cosmos.base.tender" +
-      "mint.v1beta1.GetSyncingRequest\0322.cosmos." +
-      "base.tendermint.v1beta1.GetSyncingRespon" +
-      "se\"/\202\323\344\223\002)\022\'/cosmos/base/tendermint/v1be" +
-      "ta1/syncing\022\266\001\n\016GetLatestBlock\0225.cosmos." +
-      "base.tendermint.v1beta1.GetLatestBlockRe" +
-      "quest\0326.cosmos.base.tendermint.v1beta1.G" +
-      "etLatestBlockResponse\"5\202\323\344\223\002/\022-/cosmos/b" +
-      "ase/tendermint/v1beta1/blocks/latest\022\276\001\n" +
-      "\020GetBlockByHeight\0227.cosmos.base.tendermi" +
-      "nt.v1beta1.GetBlockByHeightRequest\0328.cos" +
-      "mos.base.tendermint.v1beta1.GetBlockByHe" +
-      "ightResponse\"7\202\323\344\223\0021\022//cosmos/base/tende" +
-      "rmint/v1beta1/blocks/{height}\022\322\001\n\025GetLat" +
-      "estValidatorSet\022<.cosmos.base.tendermint" +
-      ".v1beta1.GetLatestValidatorSetRequest\032=." +
-      "cosmos.base.tendermint.v1beta1.GetLatest" +
-      "ValidatorSetResponse\"<\202\323\344\223\0026\0224/cosmos/ba" +
-      "se/tendermint/v1beta1/validatorsets/late" +
-      "st\022\332\001\n\027GetValidatorSetByHeight\022>.cosmos." +
-      "base.tendermint.v1beta1.GetValidatorSetB" +
-      "yHeightRequest\032?.cosmos.base.tendermint." +
-      "v1beta1.GetValidatorSetByHeightResponse\"" +
-      ">\202\323\344\223\0028\0226/cosmos/base/tendermint/v1beta1" +
-      "/validatorsets/{height}B4Z2github.com/co" +
-      "smos/cosmos-sdk/client/grpc/tmserviceb\006p" +
-      "roto3"
+      "goproto/gogo.proto\032\032google/protobuf2/any" +
+      ".proto\032\034google/api/annotations.proto\032\032te" +
+      "ndermint/p2p/types.proto\032\034tendermint/typ" +
+      "es/block.proto\032\034tendermint/types/types.p" +
+      "roto\032*cosmos/base/query/v1beta1/paginati" +
+      "on.proto\"l\n\036GetValidatorSetByHeightReque" +
+      "st\022\016\n\006height\030\001 \001(\003\022:\n\npagination\030\002 \001(\0132&" +
+      ".cosmos.base.query.v1beta1.PageRequest\"\263" +
+      "\001\n\037GetValidatorSetByHeightResponse\022\024\n\014bl" +
+      "ock_height\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\0132).c" +
+      "osmos.base.tendermint.v1beta1.Validator\022" +
+      ";\n\npagination\030\003 \001(\0132\'.cosmos.base.query." +
+      "v1beta1.PageResponse\"Z\n\034GetLatestValidat" +
+      "orSetRequest\022:\n\npagination\030\001 \001(\0132&.cosmo" +
+      "s.base.query.v1beta1.PageRequest\"\261\001\n\035Get" +
+      "LatestValidatorSetResponse\022\024\n\014block_heig" +
+      "ht\030\001 \001(\003\022=\n\nvalidators\030\002 \003(\0132).cosmos.ba" +
+      "se.tendermint.v1beta1.Validator\022;\n\npagin" +
+      "ation\030\003 \001(\0132\'.cosmos.base.query.v1beta1." +
+      "PageResponse\"u\n\tValidator\022\017\n\007address\030\001 \001" +
+      "(\t\022&\n\007pub_key\030\002 \001(\0132\025.google.protobuf2.A" +
+      "ny\022\024\n\014voting_power\030\003 \001(\003\022\031\n\021proposer_pri" +
+      "ority\030\004 \001(\003\")\n\027GetBlockByHeightRequest\022\016" +
+      "\n\006height\030\001 \001(\003\"o\n\030GetBlockByHeightRespon" +
+      "se\022+\n\010block_id\030\001 \001(\0132\031.tendermint.types." +
+      "BlockID\022&\n\005block\030\002 \001(\0132\027.tendermint.type" +
+      "s.Block\"\027\n\025GetLatestBlockRequest\"m\n\026GetL" +
+      "atestBlockResponse\022+\n\010block_id\030\001 \001(\0132\031.t" +
+      "endermint.types.BlockID\022&\n\005block\030\002 \001(\0132\027" +
+      ".tendermint.types.Block\"\023\n\021GetSyncingReq" +
+      "uest\"%\n\022GetSyncingResponse\022\017\n\007syncing\030\001 " +
+      "\001(\010\"\024\n\022GetNodeInfoRequest\"\233\001\n\023GetNodeInf" +
+      "oResponse\022:\n\021default_node_info\030\001 \001(\0132\037.t" +
+      "endermint.p2p.DefaultNodeInfo\022H\n\023applica" +
+      "tion_version\030\002 \001(\0132+.cosmos.base.tenderm" +
+      "int.v1beta1.VersionInfo\"\266\001\n\013VersionInfo\022" +
+      "\014\n\004name\030\001 \001(\t\022\020\n\010app_name\030\002 \001(\t\022\017\n\007versi" +
+      "on\030\003 \001(\t\022\022\n\ngit_commit\030\004 \001(\t\022\022\n\nbuild_ta" +
+      "gs\030\005 \001(\t\022\022\n\ngo_version\030\006 \001(\t\022:\n\nbuild_de" +
+      "ps\030\007 \003(\0132&.cosmos.base.tendermint.v1beta" +
+      "1.Module\"4\n\006Module\022\014\n\004path\030\001 \001(\t\022\017\n\007vers" +
+      "ion\030\002 \001(\t\022\013\n\003sum\030\003 \001(\t2\210\t\n\007Service\022\251\001\n\013G" +
+      "etNodeInfo\0222.cosmos.base.tendermint.v1be" +
+      "ta1.GetNodeInfoRequest\0323.cosmos.base.ten" +
+      "dermint.v1beta1.GetNodeInfoResponse\"1\202\323\344" +
+      "\223\002+\022)/cosmos/base/tendermint/v1beta1/nod" +
+      "e_info\022\244\001\n\nGetSyncing\0221.cosmos.base.tend" +
+      "ermint.v1beta1.GetSyncingRequest\0322.cosmo" +
+      "s.base.tendermint.v1beta1.GetSyncingResp" +
+      "onse\"/\202\323\344\223\002)\022\'/cosmos/base/tendermint/v1" +
+      "beta1/syncing\022\266\001\n\016GetLatestBlock\0225.cosmo" +
+      "s.base.tendermint.v1beta1.GetLatestBlock" +
+      "Request\0326.cosmos.base.tendermint.v1beta1" +
+      ".GetLatestBlockResponse\"5\202\323\344\223\002/\022-/cosmos" +
+      "/base/tendermint/v1beta1/blocks/latest\022\276" +
+      "\001\n\020GetBlockByHeight\0227.cosmos.base.tender" +
+      "mint.v1beta1.GetBlockByHeightRequest\0328.c" +
+      "osmos.base.tendermint.v1beta1.GetBlockBy" +
+      "HeightResponse\"7\202\323\344\223\0021\022//cosmos/base/ten" +
+      "dermint/v1beta1/blocks/{height}\022\322\001\n\025GetL" +
+      "atestValidatorSet\022<.cosmos.base.tendermi" +
+      "nt.v1beta1.GetLatestValidatorSetRequest\032" +
+      "=.cosmos.base.tendermint.v1beta1.GetLate" +
+      "stValidatorSetResponse\"<\202\323\344\223\0026\0224/cosmos/" +
+      "base/tendermint/v1beta1/validatorsets/la" +
+      "test\022\332\001\n\027GetValidatorSetByHeight\022>.cosmo" +
+      "s.base.tendermint.v1beta1.GetValidatorSe" +
+      "tByHeightRequest\032?.cosmos.base.tendermin" +
+      "t.v1beta1.GetValidatorSetByHeightRespons" +
+      "e\">\202\323\344\223\0028\0226/cosmos/base/tendermint/v1bet" +
+      "a1/validatorsets/{height}B4Z2github.com/" +
+      "cosmos/cosmos-sdk/client/grpc/tmserviceb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.GoGoProtos.getDescriptor(),
-          com.google.protobuf.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
           com.google.api.AnnotationsProto.getDescriptor(),
           tendermint.p2p.Types.getDescriptor(),
           tendermint.types.BlockOuterClass.getDescriptor(),
@@ -12291,8 +12291,8 @@ public final class Query {
     registry.add(com.google.api.AnnotationsProto.http);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.GoGoProtos.getDescriptor();
-    com.google.protobuf.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
     com.google.api.AnnotationsProto.getDescriptor();
     tendermint.p2p.Types.getDescriptor();
     tendermint.types.BlockOuterClass.getDescriptor();

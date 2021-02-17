@@ -50,24 +50,24 @@ public final class Genesis {
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    java.util.List<com.google.protobuf.Any> 
+    java.util.List<com.google.protobuf2.Any> 
         getAccountsList();
     /**
      * <pre>
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    com.google.protobuf.Any getAccounts(int index);
+    com.google.protobuf2.Any getAccounts(int index);
     /**
      * <pre>
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
     int getAccountsCount();
     /**
@@ -75,18 +75,18 @@ public final class Genesis {
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getAccountsOrBuilderList();
     /**
      * <pre>
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    com.google.protobuf.AnyOrBuilder getAccountsOrBuilder(
+    com.google.protobuf2.AnyOrBuilder getAccountsOrBuilder(
         int index);
   }
   /**
@@ -155,11 +155,11 @@ public final class Genesis {
             }
             case 18: {
               if (!((mutable_bitField0_ & 0x00000001) != 0)) {
-                accounts_ = new java.util.ArrayList<com.google.protobuf.Any>();
+                accounts_ = new java.util.ArrayList<com.google.protobuf2.Any>();
                 mutable_bitField0_ |= 0x00000001;
               }
               accounts_.add(
-                  input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry));
+                  input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry));
               break;
             }
             default: {
@@ -233,15 +233,15 @@ public final class Genesis {
     }
 
     public static final int ACCOUNTS_FIELD_NUMBER = 2;
-    private java.util.List<com.google.protobuf.Any> accounts_;
+    private java.util.List<com.google.protobuf2.Any> accounts_;
     /**
      * <pre>
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    public java.util.List<com.google.protobuf.Any> getAccountsList() {
+    public java.util.List<com.google.protobuf2.Any> getAccountsList() {
       return accounts_;
     }
     /**
@@ -249,9 +249,9 @@ public final class Genesis {
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+    public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getAccountsOrBuilderList() {
       return accounts_;
     }
@@ -260,7 +260,7 @@ public final class Genesis {
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
     public int getAccountsCount() {
       return accounts_.size();
@@ -270,9 +270,9 @@ public final class Genesis {
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    public com.google.protobuf.Any getAccounts(int index) {
+    public com.google.protobuf2.Any getAccounts(int index) {
       return accounts_.get(index);
     }
     /**
@@ -280,9 +280,9 @@ public final class Genesis {
      * accounts are the accounts present at genesis.
      * </pre>
      *
-     * <code>repeated .google.protobuf.Any accounts = 2;</code>
+     * <code>repeated .google.protobuf2.Any accounts = 2;</code>
      */
-    public com.google.protobuf.AnyOrBuilder getAccountsOrBuilder(
+    public com.google.protobuf2.AnyOrBuilder getAccountsOrBuilder(
         int index) {
       return accounts_.get(index);
     }
@@ -818,26 +818,26 @@ public final class Genesis {
         return paramsBuilder_;
       }
 
-      private java.util.List<com.google.protobuf.Any> accounts_ =
+      private java.util.List<com.google.protobuf2.Any> accounts_ =
         java.util.Collections.emptyList();
       private void ensureAccountsIsMutable() {
         if (!((bitField0_ & 0x00000001) != 0)) {
-          accounts_ = new java.util.ArrayList<com.google.protobuf.Any>(accounts_);
+          accounts_ = new java.util.ArrayList<com.google.protobuf2.Any>(accounts_);
           bitField0_ |= 0x00000001;
          }
       }
 
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> accountsBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> accountsBuilder_;
 
       /**
        * <pre>
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public java.util.List<com.google.protobuf.Any> getAccountsList() {
+      public java.util.List<com.google.protobuf2.Any> getAccountsList() {
         if (accountsBuilder_ == null) {
           return java.util.Collections.unmodifiableList(accounts_);
         } else {
@@ -849,7 +849,7 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public int getAccountsCount() {
         if (accountsBuilder_ == null) {
@@ -863,9 +863,9 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public com.google.protobuf.Any getAccounts(int index) {
+      public com.google.protobuf2.Any getAccounts(int index) {
         if (accountsBuilder_ == null) {
           return accounts_.get(index);
         } else {
@@ -877,10 +877,10 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder setAccounts(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (accountsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -898,10 +898,10 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder setAccounts(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (accountsBuilder_ == null) {
           ensureAccountsIsMutable();
           accounts_.set(index, builderForValue.build());
@@ -916,9 +916,9 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public Builder addAccounts(com.google.protobuf.Any value) {
+      public Builder addAccounts(com.google.protobuf2.Any value) {
         if (accountsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -936,10 +936,10 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder addAccounts(
-          int index, com.google.protobuf.Any value) {
+          int index, com.google.protobuf2.Any value) {
         if (accountsBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -957,10 +957,10 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder addAccounts(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (accountsBuilder_ == null) {
           ensureAccountsIsMutable();
           accounts_.add(builderForValue.build());
@@ -975,10 +975,10 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder addAccounts(
-          int index, com.google.protobuf.Any.Builder builderForValue) {
+          int index, com.google.protobuf2.Any.Builder builderForValue) {
         if (accountsBuilder_ == null) {
           ensureAccountsIsMutable();
           accounts_.add(index, builderForValue.build());
@@ -993,10 +993,10 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder addAllAccounts(
-          java.lang.Iterable<? extends com.google.protobuf.Any> values) {
+          java.lang.Iterable<? extends com.google.protobuf2.Any> values) {
         if (accountsBuilder_ == null) {
           ensureAccountsIsMutable();
           com.google.protobuf.AbstractMessageLite.Builder.addAll(
@@ -1012,7 +1012,7 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder clearAccounts() {
         if (accountsBuilder_ == null) {
@@ -1029,7 +1029,7 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
       public Builder removeAccounts(int index) {
         if (accountsBuilder_ == null) {
@@ -1046,9 +1046,9 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public com.google.protobuf.Any.Builder getAccountsBuilder(
+      public com.google.protobuf2.Any.Builder getAccountsBuilder(
           int index) {
         return getAccountsFieldBuilder().getBuilder(index);
       }
@@ -1057,9 +1057,9 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public com.google.protobuf.AnyOrBuilder getAccountsOrBuilder(
+      public com.google.protobuf2.AnyOrBuilder getAccountsOrBuilder(
           int index) {
         if (accountsBuilder_ == null) {
           return accounts_.get(index);  } else {
@@ -1071,9 +1071,9 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public java.util.List<? extends com.google.protobuf.AnyOrBuilder> 
+      public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
            getAccountsOrBuilderList() {
         if (accountsBuilder_ != null) {
           return accountsBuilder_.getMessageOrBuilderList();
@@ -1086,41 +1086,41 @@ public final class Genesis {
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public com.google.protobuf.Any.Builder addAccountsBuilder() {
+      public com.google.protobuf2.Any.Builder addAccountsBuilder() {
         return getAccountsFieldBuilder().addBuilder(
-            com.google.protobuf.Any.getDefaultInstance());
+            com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public com.google.protobuf.Any.Builder addAccountsBuilder(
+      public com.google.protobuf2.Any.Builder addAccountsBuilder(
           int index) {
         return getAccountsFieldBuilder().addBuilder(
-            index, com.google.protobuf.Any.getDefaultInstance());
+            index, com.google.protobuf2.Any.getDefaultInstance());
       }
       /**
        * <pre>
        * accounts are the accounts present at genesis.
        * </pre>
        *
-       * <code>repeated .google.protobuf.Any accounts = 2;</code>
+       * <code>repeated .google.protobuf2.Any accounts = 2;</code>
        */
-      public java.util.List<com.google.protobuf.Any.Builder> 
+      public java.util.List<com.google.protobuf2.Any.Builder> 
            getAccountsBuilderList() {
         return getAccountsFieldBuilder().getBuilderList();
       }
       private com.google.protobuf.RepeatedFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getAccountsFieldBuilder() {
         if (accountsBuilder_ == null) {
           accountsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   accounts_,
                   ((bitField0_ & 0x00000001) != 0),
                   getParentForChildren(),
@@ -1197,19 +1197,19 @@ public final class Genesis {
   static {
     java.lang.String[] descriptorData = {
       "\n!cosmos/auth/v1beta1/genesis.proto\022\023cos" +
-      "mos.auth.v1beta1\032\031google/protobuf/any.pr" +
-      "oto\032\024gogoproto/gogo.proto\032\036cosmos/auth/v" +
-      "1beta1/auth.proto\"i\n\014GenesisState\0221\n\006par" +
-      "ams\030\001 \001(\0132\033.cosmos.auth.v1beta1.ParamsB\004" +
-      "\310\336\037\000\022&\n\010accounts\030\002 \003(\0132\024.google.protobuf" +
-      ".AnyB+Z)github.com/cosmos/cosmos-sdk/x/a" +
-      "uth/typesb\006proto3"
+      "mos.auth.v1beta1\032\032google/protobuf2/any.p" +
+      "roto\032\024gogoproto/gogo.proto\032\036cosmos/auth/" +
+      "v1beta1/auth.proto\"j\n\014GenesisState\0221\n\006pa" +
+      "rams\030\001 \001(\0132\033.cosmos.auth.v1beta1.ParamsB" +
+      "\004\310\336\037\000\022\'\n\010accounts\030\002 \003(\0132\025.google.protobu" +
+      "f2.AnyB+Z)github.com/cosmos/cosmos-sdk/x" +
+      "/auth/typesb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           cosmos.auth.v1beta1.Auth.getDescriptor(),
         });
     internal_static_cosmos_auth_v1beta1_GenesisState_descriptor =
@@ -1220,11 +1220,11 @@ public final class Genesis {
         new java.lang.String[] { "Params", "Accounts", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     cosmos.auth.v1beta1.Auth.getDescriptor();
   }
 

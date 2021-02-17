@@ -122,7 +122,7 @@ public final class Upgrade {
      * This will allow IBC connections to persist smoothly across planned chain upgrades
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      * @return Whether the upgradedClientState field is set.
      */
     boolean hasUpgradedClientState();
@@ -135,10 +135,10 @@ public final class Upgrade {
      * This will allow IBC connections to persist smoothly across planned chain upgrades
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      * @return The upgradedClientState.
      */
-    com.google.protobuf.Any getUpgradedClientState();
+    com.google.protobuf2.Any getUpgradedClientState();
     /**
      * <pre>
      * IBC-enabled chains can opt-in to including the upgraded client state in its upgrade plan
@@ -148,9 +148,9 @@ public final class Upgrade {
      * This will allow IBC connections to persist smoothly across planned chain upgrades
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      */
-    com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder();
+    com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder();
   }
   /**
    * <pre>
@@ -234,11 +234,11 @@ public final class Upgrade {
               break;
             }
             case 42: {
-              com.google.protobuf.Any.Builder subBuilder = null;
+              com.google.protobuf2.Any.Builder subBuilder = null;
               if (upgradedClientState_ != null) {
                 subBuilder = upgradedClientState_.toBuilder();
               }
-              upgradedClientState_ = input.readMessage(com.google.protobuf.Any.parser(), extensionRegistry);
+              upgradedClientState_ = input.readMessage(com.google.protobuf2.Any.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(upgradedClientState_);
                 upgradedClientState_ = subBuilder.buildPartial();
@@ -434,7 +434,7 @@ public final class Upgrade {
     }
 
     public static final int UPGRADED_CLIENT_STATE_FIELD_NUMBER = 5;
-    private com.google.protobuf.Any upgradedClientState_;
+    private com.google.protobuf2.Any upgradedClientState_;
     /**
      * <pre>
      * IBC-enabled chains can opt-in to including the upgraded client state in its upgrade plan
@@ -444,7 +444,7 @@ public final class Upgrade {
      * This will allow IBC connections to persist smoothly across planned chain upgrades
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      * @return Whether the upgradedClientState field is set.
      */
     public boolean hasUpgradedClientState() {
@@ -459,11 +459,11 @@ public final class Upgrade {
      * This will allow IBC connections to persist smoothly across planned chain upgrades
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      * @return The upgradedClientState.
      */
-    public com.google.protobuf.Any getUpgradedClientState() {
-      return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+    public com.google.protobuf2.Any getUpgradedClientState() {
+      return upgradedClientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
     }
     /**
      * <pre>
@@ -474,9 +474,9 @@ public final class Upgrade {
      * This will allow IBC connections to persist smoothly across planned chain upgrades
      * </pre>
      *
-     * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+     * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      */
-    public com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder() {
+    public com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder() {
       return getUpgradedClientState();
     }
 
@@ -1317,9 +1317,9 @@ public final class Upgrade {
         return this;
       }
 
-      private com.google.protobuf.Any upgradedClientState_;
+      private com.google.protobuf2.Any upgradedClientState_;
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> upgradedClientStateBuilder_;
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> upgradedClientStateBuilder_;
       /**
        * <pre>
        * IBC-enabled chains can opt-in to including the upgraded client state in its upgrade plan
@@ -1329,7 +1329,7 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        * @return Whether the upgradedClientState field is set.
        */
       public boolean hasUpgradedClientState() {
@@ -1344,12 +1344,12 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        * @return The upgradedClientState.
        */
-      public com.google.protobuf.Any getUpgradedClientState() {
+      public com.google.protobuf2.Any getUpgradedClientState() {
         if (upgradedClientStateBuilder_ == null) {
-          return upgradedClientState_ == null ? com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+          return upgradedClientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
         } else {
           return upgradedClientStateBuilder_.getMessage();
         }
@@ -1363,9 +1363,9 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
-      public Builder setUpgradedClientState(com.google.protobuf.Any value) {
+      public Builder setUpgradedClientState(com.google.protobuf2.Any value) {
         if (upgradedClientStateBuilder_ == null) {
           if (value == null) {
             throw new NullPointerException();
@@ -1387,10 +1387,10 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
       public Builder setUpgradedClientState(
-          com.google.protobuf.Any.Builder builderForValue) {
+          com.google.protobuf2.Any.Builder builderForValue) {
         if (upgradedClientStateBuilder_ == null) {
           upgradedClientState_ = builderForValue.build();
           onChanged();
@@ -1409,13 +1409,13 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
-      public Builder mergeUpgradedClientState(com.google.protobuf.Any value) {
+      public Builder mergeUpgradedClientState(com.google.protobuf2.Any value) {
         if (upgradedClientStateBuilder_ == null) {
           if (upgradedClientState_ != null) {
             upgradedClientState_ =
-              com.google.protobuf.Any.newBuilder(upgradedClientState_).mergeFrom(value).buildPartial();
+              com.google.protobuf2.Any.newBuilder(upgradedClientState_).mergeFrom(value).buildPartial();
           } else {
             upgradedClientState_ = value;
           }
@@ -1435,7 +1435,7 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
       public Builder clearUpgradedClientState() {
         if (upgradedClientStateBuilder_ == null) {
@@ -1457,9 +1457,9 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
-      public com.google.protobuf.Any.Builder getUpgradedClientStateBuilder() {
+      public com.google.protobuf2.Any.Builder getUpgradedClientStateBuilder() {
         
         onChanged();
         return getUpgradedClientStateFieldBuilder().getBuilder();
@@ -1473,14 +1473,14 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
-      public com.google.protobuf.AnyOrBuilder getUpgradedClientStateOrBuilder() {
+      public com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder() {
         if (upgradedClientStateBuilder_ != null) {
           return upgradedClientStateBuilder_.getMessageOrBuilder();
         } else {
           return upgradedClientState_ == null ?
-              com.google.protobuf.Any.getDefaultInstance() : upgradedClientState_;
+              com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
         }
       }
       /**
@@ -1492,14 +1492,14 @@ public final class Upgrade {
        * This will allow IBC connections to persist smoothly across planned chain upgrades
        * </pre>
        *
-       * <code>.google.protobuf.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
+       * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
-          com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder> 
+          com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder> 
           getUpgradedClientStateFieldBuilder() {
         if (upgradedClientStateBuilder_ == null) {
           upgradedClientStateBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
-              com.google.protobuf.Any, com.google.protobuf.Any.Builder, com.google.protobuf.AnyOrBuilder>(
+              com.google.protobuf2.Any, com.google.protobuf2.Any.Builder, com.google.protobuf2.AnyOrBuilder>(
                   getUpgradedClientState(),
                   getParentForChildren(),
                   isClean());
@@ -3233,26 +3233,27 @@ public final class Upgrade {
   static {
     java.lang.String[] descriptorData = {
       "\n$cosmos/upgrade/v1beta1/upgrade.proto\022\026" +
-      "cosmos.upgrade.v1beta1\032\031google/protobuf/" +
-      "any.proto\032\024gogoproto/gogo.proto\032\037google/" +
-      "protobuf/timestamp.proto\"\303\001\n\004Plan\022\014\n\004nam" +
-      "e\030\001 \001(\t\0222\n\004time\030\002 \001(\0132\032.google.protobuf." +
-      "TimestampB\010\220\337\037\001\310\336\037\000\022\016\n\006height\030\003 \001(\003\022\014\n\004i" +
-      "nfo\030\004 \001(\t\022U\n\025upgraded_client_state\030\005 \001(\013" +
-      "2\024.google.protobuf.AnyB \362\336\037\034yaml:\"upgrad" +
-      "ed_client_state\":\004\350\240\037\001\"u\n\027SoftwareUpgrad" +
-      "eProposal\022\r\n\005title\030\001 \001(\t\022\023\n\013description\030" +
-      "\002 \001(\t\0220\n\004plan\030\003 \001(\0132\034.cosmos.upgrade.v1b" +
-      "eta1.PlanB\004\310\336\037\000:\004\350\240\037\001\"I\n\035CancelSoftwareU" +
-      "pgradeProposal\022\r\n\005title\030\001 \001(\t\022\023\n\013descrip" +
-      "tion\030\002 \001(\t:\004\350\240\037\001B6Z,github.com/cosmos/co" +
-      "smos-sdk/x/upgrade/types\330\341\036\000\310\341\036\000b\006proto3"
+      "cosmos.upgrade.v1beta1\032\032google/protobuf2" +
+      "/any.proto\032\024gogoproto/gogo.proto\032\037google" +
+      "/protobuf/timestamp.proto\"\304\001\n\004Plan\022\014\n\004na" +
+      "me\030\001 \001(\t\0222\n\004time\030\002 \001(\0132\032.google.protobuf" +
+      ".TimestampB\010\220\337\037\001\310\336\037\000\022\016\n\006height\030\003 \001(\003\022\014\n\004" +
+      "info\030\004 \001(\t\022V\n\025upgraded_client_state\030\005 \001(" +
+      "\0132\025.google.protobuf2.AnyB \362\336\037\034yaml:\"upgr" +
+      "aded_client_state\":\004\350\240\037\001\"u\n\027SoftwareUpgr" +
+      "adeProposal\022\r\n\005title\030\001 \001(\t\022\023\n\013descriptio" +
+      "n\030\002 \001(\t\0220\n\004plan\030\003 \001(\0132\034.cosmos.upgrade.v" +
+      "1beta1.PlanB\004\310\336\037\000:\004\350\240\037\001\"I\n\035CancelSoftwar" +
+      "eUpgradeProposal\022\r\n\005title\030\001 \001(\t\022\023\n\013descr" +
+      "iption\030\002 \001(\t:\004\350\240\037\001B6Z,github.com/cosmos/" +
+      "cosmos-sdk/x/upgrade/types\330\341\036\000\310\341\036\000b\006prot" +
+      "o3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
-          com.google.protobuf.AnyProto.getDescriptor(),
-          com.google.protobuf.GoGoProtos.getDescriptor(),
+          com.google.protobuf2.AnyProto.getDescriptor(),
+          com.google.protobuf2.GoGoProtos.getDescriptor(),
           com.google.protobuf.TimestampProto.getDescriptor(),
         });
     internal_static_cosmos_upgrade_v1beta1_Plan_descriptor =
@@ -3275,16 +3276,16 @@ public final class Upgrade {
         new java.lang.String[] { "Title", "Description", });
     com.google.protobuf.ExtensionRegistry registry =
         com.google.protobuf.ExtensionRegistry.newInstance();
-    registry.add(com.google.protobuf.GoGoProtos.equal);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoGettersAll);
-    registry.add(com.google.protobuf.GoGoProtos.goprotoStringerAll);
-    registry.add(com.google.protobuf.GoGoProtos.moretags);
-    registry.add(com.google.protobuf.GoGoProtos.nullable);
-    registry.add(com.google.protobuf.GoGoProtos.stdtime);
+    registry.add(com.google.protobuf2.GoGoProtos.equal);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoGettersAll);
+    registry.add(com.google.protobuf2.GoGoProtos.goprotoStringerAll);
+    registry.add(com.google.protobuf2.GoGoProtos.moretags);
+    registry.add(com.google.protobuf2.GoGoProtos.nullable);
+    registry.add(com.google.protobuf2.GoGoProtos.stdtime);
     com.google.protobuf.Descriptors.FileDescriptor
         .internalUpdateFileDescriptor(descriptor, registry);
-    com.google.protobuf.AnyProto.getDescriptor();
-    com.google.protobuf.GoGoProtos.getDescriptor();
+    com.google.protobuf2.AnyProto.getDescriptor();
+    com.google.protobuf2.GoGoProtos.getDescriptor();
     com.google.protobuf.TimestampProto.getDescriptor();
   }
 
