@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = true;
+    public final static boolean IS_SHOWLOG              = false;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -494,7 +494,7 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "500000";
     public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "1500000";
     public final static String FEE_KAVA_GAS_AMOUNT_CREATE_CDP   = "1500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "200000";
+    public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
 
     public final static String FEE_IRIS_GAS_RATE_AVERAGE        = "0.000008";

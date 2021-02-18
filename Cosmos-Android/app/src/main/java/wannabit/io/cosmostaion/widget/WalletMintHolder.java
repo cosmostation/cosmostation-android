@@ -36,6 +36,8 @@ public class WalletMintHolder extends WalletHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
+//            WLog.w("mGrpcInflation " + baseData.mGrpcInflation);
+//            WLog.w("mGrpcInflation " + baseData.mGrpcInflation);
             if (baseData.mGrpcInflation != null) mInflation.setText(WDp.getPercentDp(baseData.mGrpcInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
