@@ -96,6 +96,7 @@
 "fee_speed_secret_title" = "현재 시크릿 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_akash_title" = "현재 아카시 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_stargate_title" = "현재 스타게이트 체인은 고정 전송 수수료를 지원합니다.";
+"fee_speed_cosmos_title" = "현재 코스모스 체인은 고정 전송 수수료를 지원합니다.";
 "fee_description_title_0" = "Tx 수수료 0.000001 ATOM";
 "fee_description_title_1" = "Tx 수수료 비율 0.0025";
 "fee_description_title_2" = "Tx 수수료 비율 0.025";

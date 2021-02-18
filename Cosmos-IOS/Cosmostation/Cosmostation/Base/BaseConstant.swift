@@ -790,6 +790,7 @@ let GAS_FEE_RATE_AVERAGE                    = 0.025
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
+let GAS_FEE_AMOUNT_HIGH                     = "300000"
 let GAS_FEE_AMOUNT_REINVEST                 = "220000"
 let GAS_FEE_AMOUNT_REDELE                   = "240000"
 
@@ -1121,7 +1122,8 @@ let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 
 
-let COSMOS_MAIN_DENOM = "uatom"
+//let COSMOS_MAIN_DENOM = "uatom"
+let COSMOS_MAIN_DENOM = "umuon"
 let IRIS_MAIN_DENOM = "iris-atto"
 let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"

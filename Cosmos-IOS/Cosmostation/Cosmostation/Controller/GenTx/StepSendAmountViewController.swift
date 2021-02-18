@@ -27,12 +27,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
         maxAvailable = NSDecimalNumber.zero
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            mDpDecimal = 6
-            maxAvailable = pageHolderVC.mAccount!.getAtomBalance();
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             mDpDecimal = 18
             if (pageHolderVC.mIrisToken?.base_token?.id == IRIS_DP_DENOM) {
                 maxAvailable = maxAvailable.adding(self.pageHolderVC.mAccount!.getIrisBalance()).subtracting(NSDecimalNumber(string: "200000000000000000"))
@@ -96,6 +91,18 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             mDpDecimal = 6
             maxAvailable = pageHolderVC.mAccount!.getTokenBalance(AKASH_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "2500"))
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
+            
+        }
+        
+        
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+            mDpDecimal = 6
+            if (pageHolderVC.mCosmosSendDenom == COSMOS_MAIN_DENOM) {
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!).subtracting(NSDecimalNumber.init(string: "2500"))
+            } else {
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mCosmosSendDenom!)
+            }
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
@@ -330,10 +337,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces))!)
             var toSendCoin:Coin?
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                toSendCoin = Coin.init(COSMOS_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                 toSendCoin = Coin.init(IRIS_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
@@ -359,6 +363,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 
             } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                 toSendCoin = Coin.init(pageHolderVC.mAkashSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
+            }
+            
+            
+            else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+                toSendCoin = Coin.init(pageHolderVC.mCosmosSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mCosmosSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
@@ -483,6 +493,9 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
+            if (pageHolderVC.mCosmosSendDenom == COSMOS_MAIN_DENOM || pageHolderVC.mCosmosSendDenom == COSMOS_TEST_DENOM) {
+                self.showMaxWarnning()
+            }
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))

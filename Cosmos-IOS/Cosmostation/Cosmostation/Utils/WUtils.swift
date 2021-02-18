@@ -2500,9 +2500,11 @@ class WUtils {
         return starNamePred.evaluate(with: starname)
     }
     
+    //TODO TESTING
     static func getChainId(_ chainS:String) -> String {
         if (chainS == CHAIN_COSMOS_S) {
-            return "cosmoshub-4"
+//            return "cosmoshub-4"
+            return "stargate-final"
         } else if (chainS == CHAIN_IRIS_S) {
             return "irishub"
         } else if (chainS == CHAIN_BINANCE_S) {
@@ -2541,9 +2543,11 @@ class WUtils {
         return ""
     }
     
+    //TODO TESTING
     static func getChainId(_ chain:ChainType) -> String {
         if (chain == ChainType.COSMOS_MAIN) {
-            return "cosmoshub-4"
+//            return "cosmoshub-4"
+            return "stargate-final"
         } else if (chain == ChainType.IRIS_MAIN) {
             return "irishub"
         } else if (chain == ChainType.BINANCE_MAIN) {
@@ -2620,7 +2624,7 @@ class WUtils {
             } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
             } else if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == KAVA_MSG_TYPE_TRANSFER) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
@@ -2628,7 +2632,7 @@ class WUtils {
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 result = getGasAmountForRewards()[valCnt - 1]
             } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }

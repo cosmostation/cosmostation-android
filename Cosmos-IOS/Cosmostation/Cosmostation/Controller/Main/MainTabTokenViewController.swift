@@ -349,12 +349,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onUpdateTotalCard() {
         self.tokenCnt.text = String(mainTabVC.mBalances.count)
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        if (chainType! == ChainType.IRIS_MAIN) {
             let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
             totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
             totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
@@ -427,15 +422,22 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), totalValue.font)
             
+        }
+        
+        else if (chainType! == ChainType.COSMOS_MAIN) {
+            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            
         } else if (chainType! == ChainType.COSMOS_TEST) {
             let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
+            totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
         } else if (chainType! == ChainType.IRIS_TEST) {
             let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
+            totalValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, totalValue.font)
         }
     }
     
@@ -535,7 +537,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = "Cosmos Staking Token"
             let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
 
         } else {
             // TODO no this case yet!
@@ -556,7 +558,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = "Stargate Staking Token"
             let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
         }
         return cell!
     }
@@ -596,9 +598,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_IRIS
             cell?.tokenTitle.text = "(" + balance.denom + ")"
             cell?.tokenDescription.text = "Bifrost Staking Token"
-            let allAtom = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
             cell?.tokenTitle.text = "(" + balance.denom + ")"

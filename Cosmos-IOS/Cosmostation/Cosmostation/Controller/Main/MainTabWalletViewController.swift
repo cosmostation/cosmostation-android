@@ -2009,15 +2009,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        if (chainType! == ChainType.IRIS_MAIN) {
             if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -2095,6 +2087,16 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             txVC.mAkashSendDenom = AKASH_MAIN_DENOM
             txVC.mType = AKASH_MSG_TYPE_TRANSFER
+            
+        }
+        
+        else if (chainType! == ChainType.COSMOS_MAIN) {
+            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.COSMOS_TEST) {
             if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
