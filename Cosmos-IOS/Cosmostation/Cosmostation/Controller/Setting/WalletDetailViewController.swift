@@ -51,7 +51,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         account = BaseData.instance.selectAccountById(id: accountId!)
         chainType = WUtils.getChainType(account!.account_base_chain)
         
-        self.onFetchRewardAddress(account!.account_address)
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            self.onFetchRewardAddressV1(account!.account_address)
+        } else {
+            self.onFetchRewardAddress(account!.account_address)
+        }
+        
+        
         if (account!.account_nick_name == "") {
             walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
@@ -339,49 +345,57 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN) {
-            //no need fee
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            if (balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-        } else if (chainType! == ChainType.SECRET_MAIN) {
-            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue < 0) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
             
         } else {
-            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
-            return
+            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+            if (chainType == ChainType.IRIS_MAIN) {
+                if (balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType == ChainType.IOV_MAIN) {
+                if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType == ChainType.IOV_TEST) {
+                if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+            } else if (chainType! == ChainType.SECRET_MAIN) {
+                if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
+                if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType! == ChainType.AKASH_MAIN) {
+                if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
+                return
+            }
+            
         }
+        
+        
         
         let title = NSLocalizedString("reward_address_notice_title", comment: "")
         let msg1 = NSLocalizedString("reward_address_notice_msg", comment: "")
@@ -405,7 +419,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
             if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN ||
                     self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_MAIN ||
-                    self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
+                    self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
                 txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             } else if (self.chainType == ChainType.IRIS_MAIN) {
                 txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
@@ -542,6 +556,29 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 case .failure(let error):
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
+            }
+        }
+    }
+    
+    func onFetchRewardAddressV1(_ address: String) {
+        let url = BaseNetWork.rewardAddressUrl(chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
+                        return;
+                }
+                self.rewardCard.isHidden = false
+                let trimAddress = withdraw_address.replacingOccurrences(of: "\"", with: "")
+                self.rewardAddress.text = trimAddress
+                if (trimAddress != address) {
+                    self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
+                }
+                self.rewardAddress.adjustsFontSizeToFitWidth = true
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchRewardAddressV1 ", error) }
             }
         }
     }

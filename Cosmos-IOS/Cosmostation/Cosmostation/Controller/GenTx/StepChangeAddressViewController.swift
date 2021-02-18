@@ -22,8 +22,11 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        
-        self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
+        } else {
+            self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
+        }
     }
     
     override func enableUserInteraction() {
@@ -69,13 +72,13 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             return;
         }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             if (!userInput!.starts(with: "cosmos1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             if (!userInput!.starts(with: "iaa1") || !WKey.isValidateBech32(userInput!)) {
                 self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
                 return;
@@ -125,9 +128,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_REWARD_ADDRESS + accountAddr + COSMOS_URL_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
@@ -155,7 +156,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     }
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     self.currentRewardAddressLabel.text = trimAddress
-                    if(trimAddress != accountAddr) {
+                    if( trimAddress != accountAddr) {
                         self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
                     }
                     self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
@@ -165,7 +166,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
             }
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN ||
+        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN ||
                     pageHolderVC.chainType! == ChainType.IOV_MAIN ||  pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN ||
                     pageHolderVC.chainType! == ChainType.CERTIK_TEST ||  pageHolderVC.chainType! == ChainType.AKASH_MAIN ) {
             request.responseJSON { (response) in
@@ -179,7 +180,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                     }
                     let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                     self.currentRewardAddressLabel.text = trimAddress
-                    if(trimAddress != accountAddr) {
+                    if (trimAddress != accountAddr) {
                         self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
                     }
                     self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
@@ -191,6 +192,33 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             }
         }
     }
+    
+    
+    
+    func onFetchRewardAddressV1(_ address: String) {
+        let url = BaseNetWork.rewardAddressUrl(pageHolderVC.chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
+                    return;
+                }
+                let trimAddress = withdraw_address.replacingOccurrences(of: "\"", with: "")
+                self.currentRewardAddressLabel.text = trimAddress
+                if (trimAddress != address) {
+                    self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
+                }
+                self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
+                self.pageHolderVC.mCurrentRewardAddress = trimAddress
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchRewardAddressV1 ", error) }
+            }
+        }
+    }
+    
     
     func scannedAddress(result: String) {
         newRewardAddressInput.text = result.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
