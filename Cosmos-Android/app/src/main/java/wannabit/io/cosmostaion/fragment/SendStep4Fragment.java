@@ -103,23 +103,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     public void onRefreshTab() {
         BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
         BigDecimal feeAmount      = new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mDpDecimal = 6;
-            mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorAtom));
-            mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorAtom));
-            mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorAtom));
-
-            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 6, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-            mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 6, getSActivity().mBaseChain));
-            mTotalPrice.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
-
-            BigDecimal currentAvai  = getSActivity().mAccount.getAtomBalance();
-            mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, 6, getSActivity().mBaseChain));
-            mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, getSActivity().mBaseChain));
-            mRemainingPrice.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mDpDecimal = getSActivity().mIrisToken.base_token.decimal;
             mDenomSendAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
             mDenomCurrentAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
@@ -329,7 +313,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));

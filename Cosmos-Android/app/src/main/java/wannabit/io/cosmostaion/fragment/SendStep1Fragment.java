@@ -121,14 +121,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBackPressed();
         }
 
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mDpDecimal = 6;
-            setDpDecimals(mDpDecimal);
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getAtomBalance();
-            mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mDpDecimal = getSActivity().mIrisToken.base_token.decimal;
             setDpDecimals(mDpDecimal);
             mDenomTitle.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
@@ -213,7 +206,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
@@ -226,6 +219,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             }
         }
+
         onAddAmountWatcher();
     }
 
@@ -344,10 +338,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider2), mDpDecimal, RoundingMode.DOWN).toPlainString());
 
             } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
@@ -376,15 +367,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider2), mDpDecimal, RoundingMode.DOWN).toPlainString());
             }
 
         } else if (v.equals(mAddMax)) {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mIrisToken.base_token.equals(TOKEN_IRIS)) {
                     onShowEmptyBlanaceWarnDialog();
@@ -435,7 +423,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                     onShowEmptyBlanaceWarnDialog();
@@ -452,15 +440,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
     private boolean isValidateSendAmount() {
         mToSendCoins.clear();
         try {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin atom = new Coin(TOKEN_ATOM, sendTemp.multiply(new BigDecimal("1000000")).setScale(0).toPlainString());
-                mToSendCoins.add(atom);
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
 
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
@@ -559,7 +539,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;

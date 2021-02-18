@@ -189,16 +189,13 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
 
-        if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValOpAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else {
             mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator);
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 18, 18));
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -296,15 +293,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     private boolean isValidateUnDelegateAmount() {
         try {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(TOKEN_ATOM, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(18).setScale(18, RoundingMode.DOWN)) > 0) return false;
@@ -370,19 +359,11 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(6).setScale(0);
                 if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (userInput.compareTo(mMaxAvailable) > 0) return false;
-                Coin coin = new Coin(TOKEN_COSMOS_TEST, userInput.toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
-                BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(6).setScale(0);
-                if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (userInput.compareTo(mMaxAvailable) > 0) return false;
-                Coin coin = new Coin(TOKEN_IRIS_TEST, userInput.toPlainString());
+                Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
                 getSActivity().mUnDelegateAmount = coin;
                 return true;
 

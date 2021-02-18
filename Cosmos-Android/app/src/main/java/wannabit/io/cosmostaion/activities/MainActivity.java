@@ -485,7 +485,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             Intent intent = new Intent(MainActivity.this, SendActivity.class);
             if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
@@ -498,12 +498,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             Intent intent = new Intent(MainActivity.this, SendActivity.class);
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
-            if (mBaseChain.equals(COSMOS_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_ATOM).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(IRIS_MAIN)) {
                 if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
                     hasbalance  = true;
                 }

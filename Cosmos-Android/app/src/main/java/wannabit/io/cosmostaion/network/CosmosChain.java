@@ -49,7 +49,7 @@ public interface CosmosChain {
     @GET("/auth/accounts/{address}")
     Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("/txs/{hash}")
+    @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
     @GET("/blocks/{height}")
