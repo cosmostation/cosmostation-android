@@ -132,6 +132,40 @@ class Signer {
         return genSignedTx(msgList, fee, memo, signatures)
     }
     
+    static func genSignedReInvestTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
+                                      _ validators: Validator_V1, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                      _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
+        var msgList = Array<Msg>()
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+            var withDrawMsg = Msg.init()
+            var withDrawValue = Msg.Value.init()
+            withDrawValue.delegator_address = fromAddress
+            withDrawValue.validator_address = validators.operator_address
+            withDrawMsg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            withDrawMsg.value = withDrawValue
+            msgList.append(withDrawMsg)
+            
+            
+            
+            var delegateMsg = Msg.init()
+            var delegateValue = Msg.Value.init()
+            delegateValue.delegator_address = fromAddress
+            delegateValue.validator_address = validators.operator_address
+            let data = try? JSONEncoder().encode(amount)
+            do { delegateValue.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch { print(error) }
+            
+            delegateMsg.type = COSMOS_MSG_TYPE_DELEGATE
+            delegateMsg.value = delegateValue
+            msgList.append(delegateMsg)
+        }
+        
+        let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
+        let signatureData = getSingleSignature(pKey, stdToSignMsg)
+        let signatures = getSignatures(pKey, signatureData!, accountNum, sequenceNum)
+        return genSignedTx(msgList, fee, memo, signatures)
+    }
+    
     
     static func getSingleSignature(_ pKey: HDPrivateKey, _ stdToSignMsg: StdSignMsg) -> Data? {
         let encoder = JSONEncoder()

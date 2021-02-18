@@ -38,7 +38,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
@@ -49,6 +49,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
                 expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 6, 6)
             }
+            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            memoLabel.text = pageHolderVC.mMemo
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 18, 18)
@@ -58,9 +60,25 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
                 expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 18, 18)
             }
+            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            memoLabel.text = pageHolderVC.mMemo
         }
-        validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-        memoLabel.text = pageHolderVC.mMemo
+        
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, 6)
+            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, 6)
+            
+            let currentDelegation = BaseData.instance.getDelegated(pageHolderVC.mTargetValidator_V1!.operator_address)
+            let expectedDelegation = currentDelegation.adding(NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount))
+            currentDelegateAmount.attributedText = WUtils.displayAmount2(currentDelegation.stringValue, currentDelegateAmount.font, 6, 6)
+            expectedDelegateAmount.attributedText = WUtils.displayAmount2(expectedDelegation.stringValue, expectedDelegateAmount.font, 6, 6)
+            
+            validatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
+            memoLabel.text = pageHolderVC.mMemo
+        }
+        
+        
+        
     }
     
     override func enableUserInteraction() {
@@ -106,16 +124,18 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+                self.onFetchAuth(pageHolderVC.mAccount!)
+            } else {
+                self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            }
         }
     }
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
@@ -140,20 +160,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-                            _ = BaseData.instance.deleteBalance(account: account)
-                            self.hideWaittingAlert()
-                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                            return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenReinvest()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -200,6 +207,29 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
+    func onFetchAuth(_ account: Account) {
+        self.showWaittingAlert()
+        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("res ", res)
+                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let auth = Auth_V1.init(account)
+                self.onBroadcastTxV1(auth)
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                if (SHOW_LOG) { print("onFetchAuth ", error) }
+            }
+        }
+        
+    }
+    
     func onGenReinvest() {
         DispatchQueue.global().async {
             var stdTx:StdTx!
@@ -210,7 +240,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                         self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                         self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                         self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
@@ -285,9 +315,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 //                    print("params ", params)
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                        url = COSMOS_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                         url = IRIS_LCD_URL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
@@ -341,5 +369,43 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                 
             });
         }
+    }
+    
+    func onBroadcastTxV1(_ auth: Auth_V1) {
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            let stdTx = Signer.genSignedReInvestTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
+                                                     self.pageHolderVC.mTargetValidator_V1!, self.pageHolderVC.mReinvestReward!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
+                                                     WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            
+            DispatchQueue.main.async(execute: {
+                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
+                let params = Signer.getBroadCastParam(stdTx)
+                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                request.responseJSON { response in
+                    var txResult = [String:Any]()
+                    switch response.result {
+                    case .success(let res):
+                        if(SHOW_LOG) { print("Re Invest ", res) }
+                        if let result = res as? [String : Any]  {
+                            txResult = result
+                        }
+                    case .failure(let error):
+                        if(SHOW_LOG) { print("Claim Reward error ", error) }
+                        if (response.response?.statusCode == 500) {
+                            txResult["net_error"] = 500
+                        }
+                    }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetail(txResult)
+                        })
+                    }
+                }
+            });
+        }
+        
     }
 }

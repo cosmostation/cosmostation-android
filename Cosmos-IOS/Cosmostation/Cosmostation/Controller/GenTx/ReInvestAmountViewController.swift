@@ -29,13 +29,18 @@ class ReInvestAmountViewController: BaseViewController {
         WUtils.setDenomTitle(pageHolderVC.chainType!, rewardDenomLabel)
         
         self.loadingImg.onStartAnimation()
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
+            
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
+            
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            self.onFetchRewards(pageHolderVC.mAccount!.account_address)
+            
         }
     }
     
@@ -57,14 +62,7 @@ class ReInvestAmountViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN && self.pageHolderVC.mReinvestReward != nil) {
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
-            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            self.loadingImg.isHidden = true
-            self.controlLayer.isHidden = false
-            self.cardView.isHidden = false
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 18, 18)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
@@ -112,6 +110,20 @@ class ReInvestAmountViewController: BaseViewController {
         } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN && self.pageHolderVC.mReinvestReward != nil) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            self.loadingImg.isHidden = true
+            self.controlLayer.isHidden = false
+            self.cardView.isHidden = false
+            
+        }
+        
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_V1!.operator_address)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(cReward.stringValue, rewardAmountLabel.font, 6, 6)
+            validatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
+            
+            let coin = Coin(WUtils.getMainDenom(pageHolderVC.chainType), cReward.rounding(accordingToBehavior: WUtils.handler0Down).stringValue)
+            self.pageHolderVC.mReinvestReward = coin
+            
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
             self.cardView.isHidden = false
@@ -289,6 +301,27 @@ class ReInvestAmountViewController: BaseViewController {
             self.updateView()
         }
         
+    }
+    
+    func onFetchRewards(_ address: String) {
+        let url = BaseNetWork.rewardsUrl(pageHolderVC.chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
+                    self.updateView()
+                    return
+                }
+                for reward in rewards {
+                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
+                }
+                self.updateView()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchRewards ", error) }
+            }
+        }
     }
     
 }
