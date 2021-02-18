@@ -350,7 +350,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onUpdateTotalCard() {
         self.tokenCnt.text = String(mainTabVC.mBalances.count)
         if (chainType! == ChainType.COSMOS_MAIN) {
-            let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), totalValue.font)
             
@@ -440,7 +440,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
             return BaseData.instance.mMyBalances_V1.count
         } else {
             return mainTabVC.mBalances.count;
@@ -486,7 +486,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
         tokenDetailVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
-        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+        if (chainType! == ChainType.COSMOS_MAIN) {
+            //TODO
+            
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
             tokenDetailVC.allValidator = mainTabVC.mAllValidator
             tokenDetailVC.allRewards = mainTabVC.mRewardList
@@ -523,14 +526,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == COSMOS_MAIN_DENOM) {
+        let balance = BaseData.instance.mMyBalances_V1[indexPath.row]
+        if (balance.denom == COSMOS_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "atom_ic")
             cell?.tokenSymbol.text = "ATOM"
             cell?.tokenSymbol.textColor = COLOR_ATOM
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
             cell?.tokenDescription.text = "Cosmos Staking Token"
-            let allAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAtom, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
 
@@ -1089,18 +1092,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByName() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            mainTabVC.mBalances.sort{
-                if ($0.balance_denom == COSMOS_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == COSMOS_MAIN_DENOM){
-                    return false
-                }
-                return $0.balance_denom < $1.balance_denom
-            }
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        if (chainType! == ChainType.IRIS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == IRIS_MAIN_DENOM) {
                     return true
@@ -1142,7 +1134,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        } else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
             BaseData.instance.mMyBalances_V1.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
@@ -1152,18 +1144,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByAmount() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            mainTabVC.mBalances.sort{
-                if ($0.balance_denom == COSMOS_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == COSMOS_MAIN_DENOM){
-                    return false
-                }
-                return WUtils.localeStringToDecimal($0.balance_amount).compare(WUtils.localeStringToDecimal($1.balance_amount)).rawValue > 0 ? true : false
-            }
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        if (chainType! == ChainType.IRIS_MAIN) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == IRIS_MAIN_DENOM) {
                     return true
@@ -1207,7 +1188,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
             }
             
-        } else if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        } else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
             BaseData.instance.mMyBalances_V1.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
@@ -1217,8 +1198,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByValue() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
-        } else if (chainType! == ChainType.IRIS_MAIN) {
+        if (chainType! == ChainType.IRIS_MAIN) {
         } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == BNB_MAIN_DENOM) {
@@ -1255,7 +1235,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        } else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
             BaseData.instance.mMyBalances_V1.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }

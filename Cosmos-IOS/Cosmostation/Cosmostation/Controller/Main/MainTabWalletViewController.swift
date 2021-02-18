@@ -217,7 +217,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.COSMOS_MAIN) {
-            return 7;
+            return 5;
         } else if  (chainType == ChainType.IRIS_MAIN) {
             return 5;
         } else if  (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -279,23 +279,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            if (indexPath.row == 2) {
-                if (WUtils.isDisplayEventCard(chainType)) {
-                    return UITableView.automaticDimension;
-                } else {
-                    return 0;
-                }
-            }
-            if (indexPath.row == 3) {
-                if (mainTabVC.mUnbondingList.count > 0) {
-                    return UITableView.automaticDimension;
-                } else {
-                    return 0;
-                }
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             if (indexPath.row == 2) {
                 if (WUtils.isDisplayEventCard(chainType)) {
                     return UITableView.automaticDimension;
@@ -311,137 +295,35 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_ATOM
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
-            let totalAtom = WUtils.getAllAtom(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
-            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
-            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtom.multiplying(byPowerOf10: -6).stringValue)
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:EventStakeDropCell? = tableView.dequeueReusableCell(withIdentifier:"EventStakeDropCell") as? EventStakeDropCell
-            cell?.rootCard.backgroundColor = WUtils.getChainBg(chainType!)
-            cell?.eventImg.image = UIImage(named: "stakedropimgs")
-            cell?.actionClose = {
-                BaseData.instance.setEventTime()
-                self.onShowToast(NSLocalizedString("error_no_more_today", comment: ""))
-                self.walletTableView.reloadData()
-            }
-            cell?.actionEvent = {
-                self.onStartStakeDropEvent()
-            }
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletUnbondingInfoCellTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"WalletUnbondingInfoCellTableViewCell") as? WalletUnbondingInfoCellTableViewCell
-            let unBondings = mainTabVC!.mUnbondingList.sorted(by: {$0.unbonding_complete_time < $1.unbonding_complete_time})
-            cell?.unBondingCnt.text = String(mainTabVC!.mUnbondingList.count)
-            if (unBondings.count > 0) {
-                cell?.unBondingMoniker0.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[0].unbonding_v_address, false)
-                cell?.unBondingAmount0.attributedText = WUtils.displayAmount2(unBondings[0].unbonding_balance, cell!.unBondingAmount0.font!, 6, 6)
-                cell?.unBondingTime0.text = WUtils.getUnbondingTimeleft(unBondings[0].unbonding_complete_time)
-            }
-            if (unBondings.count > 1) {
-                cell?.unBondingLayer1.isHidden = false
-                cell?.unBondingMoniker1.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[1].unbonding_v_address, false)
-                cell?.unBondingAmount1.attributedText = WUtils.displayAmount2(unBondings[1].unbonding_balance, cell!.unBondingAmount1.font!, 6, 6)
-                cell?.unBondingTime1.text = WUtils.getUnbondingTimeleft(unBondings[1].unbonding_complete_time)
-            }
-            if (unBondings.count > 2) {
-                cell?.unBondingLayer2.isHidden = false
-                cell?.unBondingMoniker2.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[2].unbonding_v_address, false)
-                cell?.unBondingAmount2.attributedText = WUtils.displayAmount2(unBondings[2].unbonding_balance, cell!.unBondingAmount2.font!, 6, 6)
-                cell?.unBondingTime2.text = WUtils.getUnbondingTimeleft(unBondings[2].unbonding_complete_time)
-            }
-            if (unBondings.count > 3) {
-                cell?.unBondingLayer3.isHidden = false
-                cell?.unBondingMoniker3.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[3].unbonding_v_address, false)
-                cell?.unBondingAmount3.attributedText = WUtils.displayAmount2(unBondings[3].unbonding_balance, cell!.unBondingAmount3.font!, 6, 6)
-                cell?.unBondingTime3.text = WUtils.getUnbondingTimeleft(unBondings[3].unbonding_complete_time)
-            }
-            if (unBondings.count > 4) {
-                cell?.unBondingLayer4.isHidden = false
-                cell?.unBondingMoniker4.text = WUtils.getMonikerName(mainTabVC!.mAllValidator, unBondings[4].unbonding_v_address, false)
-                cell?.unBondingAmount4.attributedText = WUtils.displayAmount2(unBondings[4].unbonding_balance, cell!.unBondingAmount4.font!, 6, 6)
-                cell?.unBondingTime4.text = WUtils.getUnbondingTimeleft(unBondings[4].unbonding_complete_time)
-            }
-            return cell!
-            
-        } else if (indexPath.row == 4) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = false
-            cell?.buyBtn.isHidden = false
-            cell?.buyBtn.setTitle(NSLocalizedString("buy_atom", comment: ""), for: .normal)
-            cell?.buyConstraint.priority = .defaultHigh
-            cell?.noBuyConstraint.priority = .defaultLow
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            cell?.actionBuy = {
-                self.onClickBuyCoin()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 5) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "guideImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_cosmos", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_cosmos", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
         }
     }
@@ -2128,10 +2010,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
         if (chainType! == ChainType.COSMOS_MAIN) {
-            if (WUtils.getTokenAmount(balances, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
+            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.IRIS_MAIN) {

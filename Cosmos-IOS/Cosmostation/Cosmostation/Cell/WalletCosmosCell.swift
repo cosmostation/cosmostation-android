@@ -38,7 +38,18 @@ class WalletCosmosCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            denomTitle.text = "ATOM"
+            let totalAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, totalAmount.font!, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(COSMOS_MAIN_DENOM), availableAmount.font!, 6, 6)
+            delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
+            unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
+            rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_MAIN_DENOM), rewardAmount.font, 6, 6)
+            BaseData.instance.updateLastTotal(account, totalAtom.multiplying(byPowerOf10: -6).stringValue)
+            
+        } else if (chainType == ChainType.COSMOS_TEST) {
             denomTitle.text = "MUON"
             let totalAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, totalAmount.font!, 6, 6)
@@ -48,6 +59,11 @@ class WalletCosmosCell: UITableViewCell {
             unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
             rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_TEST_DENOM), rewardAmount.font, 6, 6)
             BaseData.instance.updateLastTotal(account, totalAtom.multiplying(byPowerOf10: -6).stringValue)
+            
+        } else if (chainType == ChainType.IRIS_MAIN) {
+            
+        } else if (chainType == ChainType.IRIS_TEST) {
+            
         }
     }
     

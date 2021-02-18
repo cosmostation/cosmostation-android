@@ -28,6 +28,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     var mBnbHistories = Array<BnbHistory>()
     var mOkHistories = Array<OkHistory.DataDetail>()
     var mApiHistories = Array<ApiHistory.HistoryData>()
+    var mApiCustomHistories = Array<ApiHistoryCustom>()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +49,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
         } else if (chainType == ChainType.IRIS_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
@@ -73,14 +75,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.AKASH_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.COSMOS_TEST) {
-            self.comingLabel.isHidden = false
-            self.historyTableView.isHidden = true
-            self.comingLabel.text = "Check with Explorer"
-        } else if (chainType == ChainType.IRIS_TEST) {
-            self.comingLabel.isHidden = false
-            self.historyTableView.isHidden = true
-            self.comingLabel.text = "Check with Explorer"
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -205,8 +199,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
         } else if (chainType == ChainType.IRIS_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
@@ -228,11 +222,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.AKASH_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
-        else if (chainType == ChainType.COSMOS_TEST) {
-            self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.IRIS_TEST) {
-            self.comingLabel.isHidden = false
-        }
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -240,14 +229,16 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return self.mBnbHistories.count
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return self.mOkHistories.count
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            return self.mApiCustomHistories.count
         } else {
             return self.mApiHistories.count
         }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            return onSetCosmosItems(tableView, indexPath);
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            return onSetCustomHistoryItems(tableView, indexPath);
         } else if (chainType == ChainType.IRIS_MAIN) {
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -272,26 +263,17 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return onSetEmptyItem(tableView, indexPath);
     }
     
-    func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+    func onSetCustomHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
+        let history = mApiCustomHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+        cell?.txBlockLabel.text = String(history.height!) + " block"
+        cell?.txTypeLabel.text = history.getMsgType(mainTabVC.mAccount.account_address)
+        if (history.isSuccess()) {
             cell?.txResultLabel.isHidden = true
         } else {
             cell?.txResultLabel.isHidden = false
-        }
-        if (history.msg[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
-            if (history.height > PERSISTENCE_COSMOS_EVENT_START && history.height < PERSISTENCE_COSMOS_EVENT_END) {
-                if (history.msg[0].value.to_address == PERSISTENCE_COSMOS_EVENT_ADDRESS && history.msg[0].value.from_address == mainTabVC.mAccount.account_address) {
-                    cell?.txRootCard.backgroundColor = COLOR_STAKE_DROP_BG
-                    cell?.txTypeLabel.textColor = COLOR_STAKE_DROP
-                    cell?.txTypeLabel.text = "Persistence\nStake Drop"
-                }
-            }
         }
         return cell!
     }
@@ -441,7 +423,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.KAVA_MAIN ||
+        if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.KAVA_MAIN ||
                 chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
                 chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             let history = mApiHistories[indexPath.row]
@@ -496,6 +478,15 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             let okHistory = mOkHistories[indexPath.row]
             guard let url = URL(string: EXPLORER_OKEX_TEST + "tx/" + okHistory.txhash!) else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            let history = mApiCustomHistories[indexPath.row]
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history.tx_hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
         }
     }
     
@@ -565,7 +556,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.endRefreshing()
     }
     
-    
     func onFetchApiHistory(_ address:String) {
         var url: String?
         if (chainType == ChainType.COSMOS_MAIN) {
@@ -617,6 +607,40 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             }
         }
         self.refresher.endRefreshing()
+    }
+    
+    func onFetchApiHistoryCustom(_ address:String) {
+        let url = BaseNetWork.accountHistory(chainType!, address)
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                self.mApiCustomHistories.removeAll()
+                guard let responseDatas = res as? Array<NSDictionary> else {
+                    if (SHOW_LOG) { print("no history!!") }
+                    self.emptyLabel.isHidden = false
+                    return;
+                }
+//                print("responseData ", responseDatas.count)
+                for responseData in responseDatas {
+                    self.mApiCustomHistories.append(ApiHistoryCustom(responseData))
+                }
+                self.mApiCustomHistories[1].getMsgs()
+                
+//                if (SHOW_LOG) { print("mApiHistories ", self.mApiHistories.count) }
+                if (self.mApiCustomHistories.count > 0) {
+                    self.historyTableView.reloadData()
+                    self.emptyLabel.isHidden = true
+                } else {
+                    self.emptyLabel.isHidden = false
+                }
+                
+            case .failure(let error):
+                self.emptyLabel.isHidden = false
+                if (SHOW_LOG) { print("onFetchApiHistoryCustom ", error) }
+            }
+            self.refresher.endRefreshing()
+        }
     }
     
     

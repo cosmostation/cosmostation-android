@@ -33,7 +33,7 @@ class WalletInflationCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mInflation_V1?.inflation, font: infaltionLabel.font)
             yieldLabel.attributedText = WUtils.getDpEstApr(yieldLabel.font, chainType!)
         } else if (chainType == ChainType.IRIS_TEST) {

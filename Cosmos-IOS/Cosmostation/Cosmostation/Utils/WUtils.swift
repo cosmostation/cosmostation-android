@@ -408,8 +408,9 @@ class WUtils {
         }
     }
     
-    static func txTimeGap(input: String) -> String {
-        let secondsAgo = Int(Date().timeIntervalSince(txTimeToInt64(input: input)))
+    static func txTimeGap(input: String?) -> String {
+        if (input == nil) { return "??" }
+        let secondsAgo = Int(Date().timeIntervalSince(txTimeToInt64(input: input!)))
         
         let minute = 60
         let hour = 60 * minute
@@ -2501,7 +2502,7 @@ class WUtils {
     
     static func getChainId(_ chainS:String) -> String {
         if (chainS == CHAIN_COSMOS_S) {
-            return "cosmoshub-3"
+            return "cosmoshub-4"
         } else if (chainS == CHAIN_IRIS_S) {
             return "irishub"
         } else if (chainS == CHAIN_BINANCE_S) {
@@ -2542,7 +2543,7 @@ class WUtils {
     
     static func getChainId(_ chain:ChainType) -> String {
         if (chain == ChainType.COSMOS_MAIN) {
-            return "cosmoshub-3"
+            return "cosmoshub-4"
         } else if (chain == ChainType.IRIS_MAIN) {
             return "irishub"
         } else if (chain == ChainType.BINANCE_MAIN) {

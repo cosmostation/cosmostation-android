@@ -33,7 +33,7 @@ class WalletGuideCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             guideImg.image = UIImage(named: "guideImg")
             guideTitle.text = NSLocalizedString("send_guide_title_cosmos", comment: "")
             guideMsg.text = NSLocalizedString("send_guide_msg_cosmos", comment: "")

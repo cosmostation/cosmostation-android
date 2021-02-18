@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -31,17 +31,19 @@ let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
-let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
-let COSMOS_API                          = "https://api.cosmostation.io/";
+//let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
+//let COSMOS_API                          = "https://api.cosmostation.io/";
+let COSMOS_URL                          = "https://lcd-office.cosmostation.io/stargate-final/";
+let COSMOS_API                          = "https://api-office.cosmostation.io/stargate-final/";
 
 let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
-let COSMOS_TEST_API                     = "";
+let COSMOS_TEST_API                     = "https://api-office.cosmostation.io/stargate-final/";
 
 let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
 let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost/";
-let IRIS_TEST_API                       = "";
+let IRIS_TEST_API                       = "https://api-office.cosmostation.io/bifrost/";
 
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
@@ -96,7 +98,7 @@ let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
 let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
 
-//COSMOS_URL
+//COSMOS_URL will be delete
 let COSMOS_URL_BLOCK                    = COSMOS_URL + "blocks/";
 let COSMOS_URL_TX                       = COSMOS_URL + "txs/";
 let COSMOS_URL_VALIDATORS               = COSMOS_URL + "staking/validators";
@@ -124,6 +126,32 @@ let COSMOS_URL_BORAD_TX                 = COSMOS_URL + "txs";
 let COSMOS_API_HISTORY                  = COSMOS_API + "v1/account/txs/";
 let COSMOS_API_TRANS_HISTORY            = COSMOS_API + "v1/account/transfer_txs/";
 
+
+//COSMOS_MAIN_URL
+let COSMOS_MAIN_TX                      = COSMOS_URL + "txs/";
+let COSMOS_MAIN_BALANCE                 = COSMOS_URL + "cosmos/bank/v1beta1/balances/";
+let COSMOS_MAIN_AUTH                    = COSMOS_URL + "cosmos/auth/v1beta1/accounts/";
+let COSMOS_MAIN_VALIDATORS              = COSMOS_URL + "cosmos/staking/v1beta1/validators";
+let COSMOS_MAIN_DELEGATIONS             = COSMOS_URL + "cosmos/staking/v1beta1/delegations/";
+let COSMOS_MAIN_UNDELEGATIONS           = COSMOS_URL + "cosmos/staking/v1beta1/delegators/";
+let COSMOS_MAIN_UNDELEGATIONS_T         = "/unbonding_delegations";
+let COSMOS_MAIN_REWARDS                 = COSMOS_URL + "cosmos/distribution/v1beta1/delegators/";
+let COSMOS_MAIN_REWARDS_T               = "/rewards";
+let COSMOS_MAIN_SINGLE_VALIDATOR        = COSMOS_URL + "cosmos/staking/v1beta1/validators/";
+let COSMOS_MAIN_SINGLE_DELEGATION       = COSMOS_URL + "cosmos/staking/v1beta1/validators/";
+let COSMOS_MAIN_SINGLE_DELEGATION_M     = "/delegations/";
+let COSMOS_MAIN_REWARD_ADDRESS          = COSMOS_URL + "cosmos/distribution/v1beta1/delegators/";
+let COSMOS_MAIN_REWARD_ADDRESS_T        = "/withdraw_address";
+let COSMOS_MAIN_INFLATION               = COSMOS_URL + "cosmos/mint/v1beta1/inflation";
+let COSMOS_MAIN_PROVISIONS              = COSMOS_URL + "cosmos/mint/v1beta1/annual_provisions";
+let COSMOS_MAIN_MINT_PARAM              = COSMOS_URL + "cosmos/mint/v1beta1/params";
+let COSMOS_MAIN_STAKING_POOL            = COSMOS_URL + "cosmos/staking/v1beta1/pool";
+let COSMOS_MAIN_BORAD_TX                = COSMOS_URL + "txs";
+
+let COSMOS_MAIN_HISTORY                 = COSMOS_API + "v1/account/txs/";
+let COSMOS_MAIN_TRANS_HISTORY           = COSMOS_API + "v1/account/transfer_txs/";
+
+
 //COSMOS_TEST_URL
 let COSMOS_TEST_TX                      = COSMOS_TEST_URL + "txs/";
 let COSMOS_TEST_BALANCE                 = COSMOS_TEST_URL + "cosmos/bank/v1beta1/balances/";
@@ -145,8 +173,11 @@ let COSMOS_TEST_MINT_PARAM              = COSMOS_TEST_URL + "cosmos/mint/v1beta1
 let COSMOS_TEST_STAKING_POOL            = COSMOS_TEST_URL + "cosmos/staking/v1beta1/pool";
 let COSMOS_TEST_BORAD_TX                = COSMOS_TEST_URL + "txs";
 
+let COSMOS_TEST_HISTORY                 = COSMOS_TEST_API + "v1/account/txs/";
+let COSMOS_TEST_TRANS_HISTORY           = COSMOS_TEST_API + "v1/account/transfer_txs/";
 
-//IRIS_URL
+
+//IRIS_URL will be delete
 let IRIS_LCD_URL_ACCOUNT_INFO           = IRIS_LCD_URL + "bank/accounts/";
 let IRIS_LCD_URL_VALIDATORS             = IRIS_LCD_URL + "stake/validators";
 let IRIS_LCD_URL_BONDING                = IRIS_LCD_URL + "stake/delegators/";
@@ -169,6 +200,31 @@ let IRIS_API_HISTORY                    = IRIS_API + "v1/account/txs/";
 let IRIS_API_TRANS_HISTORY              = IRIS_API + "v1/account/transfer_txs/";
 
 
+//IRIS_MAIN_URL
+let IRIS_MAIN_TX                        = IRIS_LCD_URL + "txs/";
+let IRIS_MAIN_BALANCE                   = IRIS_LCD_URL + "cosmos/bank/v1beta1/balances/";
+let IRIS_MAIN_AUTH                      = IRIS_LCD_URL + "cosmos/auth/v1beta1/accounts/";
+let IRIS_MAIN_VALIDATORS                = IRIS_LCD_URL + "cosmos/staking/v1beta1/validators";
+let IRIS_MAIN_DELEGATIONS               = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegations/";
+let IRIS_MAIN_UNDELEGATIONS             = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegators/";
+let IRIS_MAIN_UNDELEGATIONS_T           = "/unbonding_delegations";
+let IRIS_MAIN_REWARDS                   = IRIS_LCD_URL + "cosmos/distribution/v1beta1/delegators/";
+let IRIS_MAIN_REWARDS_T                 = "/rewards";
+let IRIS_MAIN_SINGLE_VALIDATOR          = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegators/";
+let IRIS_MAIN_SINGLE_VALIDATOR_M        = "/validators/";
+let IRIS_MAIN_SINGLE_DELEGATION         = IRIS_LCD_URL + "cosmos/staking/v1beta1/validators/";
+let IRIS_MAIN_SINGLE_DELEGATION_M       = "/delegations/";
+let IRIS_MAIN_REWARD_ADDRESS            = IRIS_LCD_URL + "cosmos/distribution/v1beta1/delegators/";
+let IRIS_MAIN_REWARD_ADDRESS_T          = "/withdraw_address";
+let IRIS_MAIN_MINT_PARAM                = IRIS_LCD_URL + "irishub/mint/params";
+let IRIS_MAIN_STAKING_POOL              = IRIS_LCD_URL + "cosmos/staking/v1beta1/pool";
+let IRIS_MAIN_TOKENS                    = IRIS_LCD_URL + "irismod/token/tokens";
+let IRIS_MAIN_BORAD_TX                  = IRIS_LCD_URL + "txs";
+
+let IRIS_MAIN_HISTORY                   = IRIS_API + "v1/account/txs/";
+let IRIS_MAIN_TRANS_HISTORY             = IRIS_API + "v1/account/transfer_txs/";
+
+
 //IRIS_TEST_URL
 let IRIS_TEST_TX                        = IRIS_TEST_URL + "txs/";
 let IRIS_TEST_BALANCE                   = IRIS_TEST_URL + "cosmos/bank/v1beta1/balances/";
@@ -189,6 +245,9 @@ let IRIS_TEST_MINT_PARAM                = IRIS_TEST_URL + "irishub/mint/params";
 let IRIS_TEST_STAKING_POOL              = IRIS_TEST_URL + "cosmos/staking/v1beta1/pool";
 let IRIS_TEST_TOKENS                    = IRIS_TEST_URL + "irismod/token/tokens";
 let IRIS_TEST_BORAD_TX                  = IRIS_TEST_URL + "txs";
+
+let IRIS_TEST_HISTORY                   = IRIS_TEST_API + "v1/account/txs/";
+let IRIS_TEST_TRANS_HISTORY             = IRIS_TEST_API + "v1/account/transfer_txs/";
 
 
 //BNB_URL

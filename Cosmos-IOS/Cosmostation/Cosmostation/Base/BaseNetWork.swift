@@ -13,7 +13,11 @@ class BaseNetWork {
     
     static func validatorUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_VALIDATORS
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_VALIDATORS
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_VALIDATORS
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_VALIDATORS
@@ -23,7 +27,11 @@ class BaseNetWork {
     
     static func delegationUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_DELEGATIONS + address
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_DELEGATIONS + address
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_DELEGATIONS + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_DELEGATIONS + address
@@ -33,7 +41,11 @@ class BaseNetWork {
     
     static func undelegationUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_UNDELEGATIONS + address + COSMOS_MAIN_UNDELEGATIONS_T
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_UNDELEGATIONS + address + IRIS_MAIN_UNDELEGATIONS_T
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_UNDELEGATIONS + address + COSMOS_TEST_UNDELEGATIONS_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_UNDELEGATIONS + address + IRIS_TEST_UNDELEGATIONS_T
@@ -43,7 +55,11 @@ class BaseNetWork {
     
     static func balanceUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_BALANCE + address
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_BALANCE + address
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_BALANCE + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_BALANCE + address
@@ -53,7 +69,11 @@ class BaseNetWork {
     
     static func authUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_AUTH + address
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_AUTH + address
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_AUTH + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_AUTH + address
@@ -63,7 +83,11 @@ class BaseNetWork {
     
     static func rewardAddressUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_REWARD_ADDRESS + address + COSMOS_MAIN_REWARD_ADDRESS_T
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_REWARD_ADDRESS + address + IRIS_MAIN_REWARD_ADDRESS_T
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_REWARD_ADDRESS + address + COSMOS_TEST_REWARD_ADDRESS_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_REWARD_ADDRESS + address + IRIS_TEST_REWARD_ADDRESS_T
@@ -73,7 +97,11 @@ class BaseNetWork {
     
     static func rewardsUrl(_ chain: ChainType, _ address: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_REWARDS + address + COSMOS_MAIN_REWARDS_T
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_REWARDS + address + IRIS_MAIN_REWARDS_T
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_REWARDS + address + COSMOS_TEST_REWARDS_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_REWARDS + address + IRIS_TEST_REWARDS_T
@@ -83,7 +111,11 @@ class BaseNetWork {
     
     static func mintParamUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_MINT_PARAM
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_MINT_PARAM
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_MINT_PARAM
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_MINT_PARAM
@@ -93,7 +125,9 @@ class BaseNetWork {
     
     static func inflationUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_INFLATION
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_INFLATION
         }
         return result
@@ -101,7 +135,9 @@ class BaseNetWork {
     
     static func provisionUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_PROVISIONS
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROVISIONS
         }
         return result
@@ -109,7 +145,11 @@ class BaseNetWork {
     
     static func stakingPoolUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_STAKING_POOL
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_STAKING_POOL
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_STAKING_POOL
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_STAKING_POOL
@@ -119,7 +159,9 @@ class BaseNetWork {
     
     static func irisTokensUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.IRIS_TEST) {
+        if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_TOKENS
+        } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_TOKENS
         }
         return result
@@ -129,7 +171,11 @@ class BaseNetWork {
     
     static func singleValidatorUrl(_ chain: ChainType, _ opAddress: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_SINGLE_VALIDATOR + opAddress
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_SINGLE_VALIDATOR + opAddress
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_SINGLE_VALIDATOR + opAddress
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_SINGLE_VALIDATOR + opAddress
@@ -139,7 +185,11 @@ class BaseNetWork {
     
     static func singleDelegationUrl(_ chain: ChainType, _ address: String, _ opAddress: String) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_SINGLE_DELEGATION + opAddress + COSMOS_MAIN_SINGLE_DELEGATION_M + address
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_SINGLE_DELEGATION + opAddress + IRIS_MAIN_SINGLE_DELEGATION_M + address
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_SINGLE_DELEGATION + opAddress + COSMOS_TEST_SINGLE_DELEGATION_M + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_SINGLE_DELEGATION + opAddress + IRIS_TEST_SINGLE_DELEGATION_M + address
@@ -149,7 +199,11 @@ class BaseNetWork {
     
     static func postTxUrl(_ chain: ChainType) -> String {
         var result = ""
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_BORAD_TX
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_BORAD_TX
+        } else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_BORAD_TX
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_BORAD_TX
@@ -157,5 +211,19 @@ class BaseNetWork {
         return result
     }
     
+    
+    static func accountHistory(_ chain: ChainType, _ address: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_HISTORY + address
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_HISTORY + address
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_HISTORY + address
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_HISTORY + address
+        }
+        return result
+    }
     
 }
