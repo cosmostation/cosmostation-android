@@ -35,11 +35,10 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.V1Task.BondedValidatorsTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
@@ -96,7 +95,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mValOpAddress = getIntent().getStringExtra("valOpAddress");
 
         } else {
@@ -194,7 +193,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
-        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("fromValidatorAddr", mValOpAddress);
             intent.putExtra("toValidatorAddr", mToValOpAddress);
         } else {
@@ -214,7 +213,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private void onFetchValidtors() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
-        if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {

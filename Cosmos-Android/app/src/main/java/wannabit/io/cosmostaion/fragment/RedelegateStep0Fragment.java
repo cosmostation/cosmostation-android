@@ -189,17 +189,14 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-        if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValOpAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
             mProgress.setVisibility(View.GONE);
 
         } else {
             mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator);
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 18, getSActivity().mBaseChain));
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -305,15 +302,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     private boolean isValidateReDelegateAmount() {
         try {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin atom = new Coin(TOKEN_ATOM, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = atom;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(18).setScale(18, RoundingMode.DOWN)) > 0) return false;
@@ -377,7 +366,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 getSActivity().mReDelegateAmount = akash;
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(mMaxAvailable.movePointLeft(6)) > 0) return false;
@@ -386,6 +375,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 return true;
 
             }
+
             return false;
 
         } catch (Exception e) {

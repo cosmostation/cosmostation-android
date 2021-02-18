@@ -80,7 +80,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mReDelegateAmount.amount);
         BigDecimal feeAmount= new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
 
-        if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 
@@ -89,7 +89,7 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
             mMemo.setText(getSActivity().mReDelegateMemo);
 
         } else {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
+            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                     getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
                     getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
                     getSActivity().mBaseChain.equals(SECRET_MAIN)) {

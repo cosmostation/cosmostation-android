@@ -137,33 +137,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mBtnGasType.setOnClickListener(this);
-            mSpeedLayer.setOnClickListener(this);
-            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_atom_seekbar_style));
-            mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorAtom));
-
-            mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if(fromUser) {
-                        onUpdateFeeLayer();
-                    }
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) { }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    onPayableFee();
-                }
-            });
-            mSeekBarGas.setProgress(0);
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -313,7 +287,21 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
+
+            mGasAmount.setText(STARGATE_GAS_AMOUNT_HIGH);
+            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_HIGH).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
+            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -342,19 +330,13 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
         }
-
-
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mAvailable  = getSActivity().mAccount.getAtomBalance();
-            onUpdateFeeLayer();
-
-        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
             onUpdateFeeLayer();
 
@@ -371,18 +353,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = TOKEN_ATOM;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = FEE_GAS_AMOUNT_REINVEST;
-                getSActivity().mReinvestFee = fee;
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_IRIS_ATTO;
@@ -472,7 +443,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
@@ -484,7 +455,6 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
                 getSActivity().mReinvestFee = fee;
 
             }
-
             getSActivity().onNextStep();
 
 
