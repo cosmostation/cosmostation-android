@@ -5,10 +5,15 @@ import io.grpc.ManagedChannelBuilder;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class ChannelBuilder {
+//    private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app.cosmostation.io";
+    private final static String GRPC_COSMOS_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_COSMOS_MAIN = 9090;
+
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 9090;
 
@@ -18,7 +23,9 @@ public class ChannelBuilder {
 
 
     public static ManagedChannel getChain(BaseChain chain) {
-        if (chain.equals(COSMOS_TEST)) {
+        if (chain.equals(COSMOS_MAIN)) {
+            return getCosmosMain();
+        } else if (chain.equals(COSMOS_TEST)) {
             return getCosmosTest();
         } else if (chain.equals(IRIS_TEST)) {
             return getIrisTest();
@@ -26,6 +33,20 @@ public class ChannelBuilder {
         return null;
     }
 
+
+
+    //Channel for stargate testnet
+    private static ManagedChannel channel_cosmos_main = null;
+    public static ManagedChannel getCosmosMain() {
+        if (channel_cosmos_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_cosmos_main = ManagedChannelBuilder.forAddress(GRPC_COSMOS_MAIN, PORT_COSMOS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_cosmos_main;
+    }
 
     //Channel for stargate testnet
     private static ManagedChannel channel_cosmos_test = null;

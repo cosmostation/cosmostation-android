@@ -705,7 +705,7 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);

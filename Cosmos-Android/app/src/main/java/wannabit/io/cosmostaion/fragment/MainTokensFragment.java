@@ -293,7 +293,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         }
 
-        if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
@@ -322,16 +322,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onUpdateTotalCard() {
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            BigDecimal totalAtomAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_ATOM)) {
-                    totalAtomAmount = totalAtomAmount.add(WDp.getAllAtom(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
-                } else {
-
-                }
-            }
+            BigDecimal totalAtomAmount = getBaseDao().getAllMainAsset(TOKEN_ATOM);
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAtomAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), totalAtomAmount));
+            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAtomAmount, getMainActivity().mBaseChain));
 
         } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal totalIrisAmount = BigDecimal.ZERO;
@@ -516,7 +509,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return getBaseDao().mGrpcBalance.size();
             } else {
                 return mBalances.size();
@@ -543,29 +536,30 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_ATOM)) {
-            holder.itemSymbol.setText(getString(R.string.str_atom_c));
+        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
+        WLog.w("coin " + coin.getDenom());
+        if (coin.getDenom().equals(TOKEN_ATOM)) {
+            holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
             holder.itemFullName.setText("Cosmos Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
 
-            BigDecimal totalAmount = WDp.getAllAtom(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
-            holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
-            holder.itemValue.setText(WDp.getValueOfAtom(getContext(), getBaseDao(), totalAmount));
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ATOM);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         } else {
-            // TODO no this case yet!
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+
         }
+
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-                intent.putExtra("balance", balance);
-                startActivity(intent);
+//                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+//                intent.putExtra("balance", balance);
+//                startActivity(intent);
             }
         });
 
