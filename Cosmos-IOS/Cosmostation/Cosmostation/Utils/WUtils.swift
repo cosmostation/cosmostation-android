@@ -1199,7 +1199,7 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
                 return NSDecimalNumber.zero
             }

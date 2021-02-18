@@ -109,6 +109,20 @@ class BaseNetWork {
         return result
     }
     
+    static func redelegation(_ chain: ChainType, _ address: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_REDELEGATION + address + COSMOS_MAIN_REDELEGATION_T
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = COSMOS_TEST_REDELEGATION + address + COSMOS_TEST_REDELEGATION_T
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = IRIS_MAIN_REDELEGATION + address + IRIS_MAIN_REDELEGATION_T
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_REDELEGATION + address + IRIS_TEST_REDELEGATION_T
+        }
+        return result
+    }
+    
     static func mintParamUrl(_ chain: ChainType) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {

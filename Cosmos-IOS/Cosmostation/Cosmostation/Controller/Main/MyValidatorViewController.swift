@@ -72,7 +72,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
-        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             self.myValidatorCnt.text = String(BaseData.instance.mMyValidators_V1.count)
         } else {
             self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
@@ -98,7 +98,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.mMyValidators_V1.count < 1) { return 1; }
             else if (BaseData.instance.mMyValidators_V1.count == 1) { return 1; }
             else { return BaseData.instance.mMyValidators_V1.count + 1; }
@@ -111,10 +111,10 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.mMyValidators_V1.count < 1) {
                 let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
-                if (chainType == ChainType.COSMOS_TEST) {
+                if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
                     cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
                 } else if (chainType == ChainType.IRIS_TEST) {
                     cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
@@ -141,9 +141,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             if (mainTabVC.mMyValidators.count < 1) {
                 let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
-                if (chainType == ChainType.COSMOS_MAIN) {
-                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-                } else if (chainType == ChainType.IRIS_MAIN) {
+                if (chainType == ChainType.IRIS_MAIN) {
                     cell?.cardView.backgroundColor = TRANS_BG_COLOR_IRIS
                 } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                     cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
@@ -186,7 +184,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.mMyValidators_V1.count > 0 && indexPath.row != BaseData.instance.mMyValidators_V1.count) {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
                 validatorDetailVC.mValidator_V1 = BaseData.instance.mMyValidators_V1[indexPath.row]
@@ -208,7 +206,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
         }
     }
-    
     
     func onSetValidatorItem(_ cell: MyValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
         cell.monikerLabel.text = validator.description.moniker
@@ -285,38 +282,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
-    func onSetValidatorItemV1(_ cell: MyValidatorCell, _ validator: Validator_V1, _ indexPath: IndexPath) {
-        cell.monikerLabel.text = validator.description?.moniker
-        cell.monikerLabel.adjustsFontSizeToFitWidth = true
-        cell.freeEventImg.isHidden = true
-        if(validator.jailed == true) {
-            cell.revokedImg.isHidden = false
-            cell.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-        } else {
-            cell.revokedImg.isHidden = true
-            cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-        }
-        
-        let myDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator.operator_address }.first
-        cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(myDelegation?.balance?.amount, cell.myDelegatedAmoutLabel.font, 6, 6)
-        
-        let myUnbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator.operator_address }.first
-        cell.myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, cell.myUndelegatingAmountLabel.font, 6, 6)
-        
-        let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
-        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(COSMOS_TEST_DENOM).stringValue, cell.rewardAmoutLabel.font, 6, 6)
-        
-        cell.cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-        cell.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
-
-    }
-    
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
-        if (chainType == ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             var rewardSum = NSDecimalNumber.zero
             BaseData.instance.mMyReward_V1.forEach { reward in
-                rewardSum = rewardSum.adding(reward.getRewardByDenom(COSMOS_MAIN_DENOM))
+                rewardSum = rewardSum.adding(reward.getRewardByDenom(WUtils.getMainDenom(chainType)))
             }
             cell.totalRewardLabel.attributedText = WUtils.displayAmount2(rewardSum.stringValue, cell.totalRewardLabel.font, 6, 6)
             cell.delegate = self
@@ -331,12 +302,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else {
             cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
-            if (chainType == ChainType.COSMOS_MAIN) {
-                if(mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, COSMOS_MAIN_DENOM, chainType!)
-                }
-                
-            } else if (chainType == ChainType.IRIS_MAIN) {
+            if (chainType == ChainType.IRIS_MAIN) {
                 if (mainTabVC.mIrisRewards != nil) {
                     cell.totalRewardLabel.attributedText = WUtils.displayAmount((mainTabVC.mIrisRewards?.getSimpleIrisReward().stringValue)!, cell.totalRewardLabel.font, 6, chainType!)
                 }
@@ -380,13 +346,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
     }
     
-    
     func didTapClaimAll(_ sender: UIButton) {
         if(!self.mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
             return
         }
-        var toClaimValidator = Array<Validator>()
+        var toClaimValidator    = Array<Validator>()
+        var toClaimValidator_V1 = Array<Validator_V1>()
         
         if (chainType == ChainType.IRIS_MAIN) {
             if (self.mainTabVC.mIrisRewards != nil && (self.mainTabVC.mIrisRewards?.delegations.count)! > 0) {
@@ -423,34 +389,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         }
         
-        if (chainType == ChainType.COSMOS_MAIN) {
-            if(WUtils.getAllRewardByDenom(mainTabVC.mRewardList, COSMOS_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
-                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-                return
-            }
-            var myBondedValidator = Array<Validator>()
-            for validator in self.mainTabVC.mAllValidator {
-                for bonding in self.mainTabVC.mBondingList {
-                    if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.one).rawValue > 0) {
-                        myBondedValidator.append(validator)
-                        break;
-                    }
-                }
-            }
-            myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-                return reward0.compare(reward1).rawValue > 0 ? true : false
-            }
-            
-            if (myBondedValidator.count > 16) {
-                toClaimValidator = Array(myBondedValidator[0..<16])
-            } else {
-                toClaimValidator = myBondedValidator
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
                 self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
                 return
@@ -692,6 +631,37 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
+        }
+        
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            var claimAbleValidators = Array<Validator_V1>()
+            BaseData.instance.mMyValidators_V1.forEach { validator in
+                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "3750")).rawValue > 0) {
+                    claimAbleValidators.append(validator)
+                }
+            }
+            if (claimAbleValidators.count == 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_reward", comment: ""))
+                return;
+            }
+            claimAbleValidators.sort {
+                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            if (claimAbleValidators.count > 16) {
+                toClaimValidator_V1 = Array(claimAbleValidators[0..<16])
+            } else {
+                toClaimValidator_V1 = claimAbleValidators
+            }
+            
+            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator_V1.count)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
             return
@@ -700,6 +670,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mRewardTargetValidators = toClaimValidator
+        txVC.mRewardTargetValidators_V1 = toClaimValidator_V1
         txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
@@ -726,58 +697,46 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByName() {
-        if (chainType != ChainType.COSMOS_TEST) {
-            mainTabVC.mMyValidators.sort{
-                if ($0.description.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description.moniker == "Cosmostation"){
-                    return false
-                }
-                if ($0.jailed && !$1.jailed) {
-                    return false
-                }
-                if (!$0.jailed && $1.jailed) {
-                    return true
-                }
-                return $0.description.moniker < $1.description.moniker
-            }
-            
-        } else {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             BaseData.instance.mMyValidators_V1.sort{
-                if ($0.description?.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description?.moniker == "Cosmostation"){
-                    return false
-                }
-                if ($0.jailed! && !$1.jailed!) {
-                    return false
-                }
-                if (!$0.jailed! && $1.jailed!) {
-                    return true
-                }
+                if ($0.description?.moniker == "Cosmostation") { return true }
+                if ($1.description?.moniker == "Cosmostation") { return false }
+                if ($0.jailed! && !$1.jailed!) { return false }
+                if (!$0.jailed! && $1.jailed!) { return true }
                 return $0.description!.moniker! < $1.description!.moniker!
             }
             
+        } else {
+            mainTabVC.mMyValidators.sort{
+                if ($0.description.moniker == "Cosmostation") { return true }
+                if ($1.description.moniker == "Cosmostation") { return false }
+                if ($0.jailed && !$1.jailed) { return false }
+                if (!$0.jailed && $1.jailed) { return true }
+                return $0.description.moniker < $1.description.moniker
+            }
         }
     }
     
     func sortByDelegated() {
-        if (chainType != ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            BaseData.instance.mMyValidators_V1.sort {
+                if ($0.description?.moniker == "Cosmostation") { return true }
+                if ($1.description?.moniker == "Cosmostation") { return false }
+                if ($0.jailed! && !$1.jailed!) { return false }
+                if (!$0.jailed! && $1.jailed!) { return true }
+                let firstVal = $0
+                let seconVal = $1
+                let firstDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == firstVal.operator_address }.first
+                let secondDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == seconVal.operator_address }.first
+                return WUtils.plainStringToDecimal(firstDelegation?.balance?.amount).compare(WUtils.plainStringToDecimal(secondDelegation?.balance?.amount)).rawValue > 0 ? true : false
+            }
+            
+        } else {
             mainTabVC.mMyValidators.sort{
-                if ($0.description.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description.moniker == "Cosmostation"){
-                    return false
-                }
-                if ($0.jailed && !$1.jailed) {
-                    return false
-                }
-                if (!$0.jailed && $1.jailed) {
-                    return true
-                }
+                if ($0.description.moniker == "Cosmostation") { return true }
+                if ($1.description.moniker == "Cosmostation") { return false }
+                if ($0.jailed && !$1.jailed) { return false }
+                if (!$0.jailed && $1.jailed) { return true }
                 var bonding0:Double = 0
                 var bonding1:Double = 0
                 if (BaseData.instance.selectBondingWithValAdd(mainTabVC.mAccount.account_id, $0.operator_address) != nil) {
@@ -789,92 +748,48 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return bonding0 > bonding1
             }
             
-        } else {
-            BaseData.instance.mMyValidators_V1.sort {
-                if ($0.description?.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description?.moniker == "Cosmostation"){
-                    return false
-                }
-                if ($0.jailed! && !$1.jailed!) {
-                    return false
-                }
-                if (!$0.jailed! && $1.jailed!) {
-                    return true
-                }
-                let firstVal = $0
-                let seconVal = $1
-                let firstDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == firstVal.operator_address }.first
-                let secondDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == seconVal.operator_address }.first
-                return WUtils.plainStringToDecimal(firstDelegation?.balance?.amount).compare(WUtils.plainStringToDecimal(secondDelegation?.balance?.amount)).rawValue > 0 ? true : false
-            }
-            
         }
     }
     
     func sortByReward() {
-        if (chainType != ChainType.COSMOS_TEST) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                    chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                    chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
-                mainTabVC.mMyValidators.sort{
-                    if ($0.description.moniker == "Cosmostation") {
-                        return true
-                    }
-                    if ($1.description.moniker == "Cosmostation"){
-                        return false
-                    }
-                    if ($0.jailed && !$1.jailed) {
-                        return false
-                    }
-                    if (!$0.jailed && $1.jailed) {
-                        return true
-                    }
-                    let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                    let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
-                    return reward0.compare(reward1).rawValue > 0 ? true : false
-                }
-            } else if (chainType == ChainType.IRIS_MAIN) {
-                mainTabVC.mMyValidators.sort{
-                    if ($0.description.moniker == "Cosmostation") {
-                        return true
-                    }
-                    if ($1.description.moniker == "Cosmostation"){
-                        return false
-                    }
-                    if ($0.jailed && !$1.jailed) {
-                        return false
-                    }
-                    if (!$0.jailed && $1.jailed) {
-                        return true
-                    }
-                    let reward0 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $0.operator_address)
-                    let reward1 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $1.operator_address)
-                    return reward0!.compare(reward1!).rawValue > 0 ? true : false
-                }
-            }
-            
-        } else {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             BaseData.instance.mMyValidators_V1.sort {
-                if ($0.description?.moniker == "Cosmostation") {
-                    return true
-                }
-                if ($1.description?.moniker == "Cosmostation"){
-                    return false
-                }
-                if ($0.jailed! && !$1.jailed!) {
-                    return false
-                }
-                if (!$0.jailed! && $1.jailed!) {
-                    return true
-                }
+                if ($0.description?.moniker == "Cosmostation") { return true }
+                if ($1.description?.moniker == "Cosmostation") { return false }
+                if ($0.jailed! && !$1.jailed!) { return false }
+                if (!$0.jailed! && $1.jailed!) { return true }
                 let firstVal = $0
                 let seconVal = $1
                 let firstReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == firstVal.operator_address }.first
                 let secondReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == seconVal.operator_address }.first
                 return Int64(firstReward?.getRewardByDenom(COSMOS_MAIN_DENOM).intValue ?? 0) > Int64(secondReward?.getRewardByDenom(COSMOS_MAIN_DENOM).intValue ?? 0)
             }
+            
+        } else {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
+                    chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
+                    chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
+                mainTabVC.mMyValidators.sort{
+                    if ($0.description.moniker == "Cosmostation") { return true }
+                    if ($1.description.moniker == "Cosmostation") { return false }
+                    if ($0.jailed && !$1.jailed) { return false }
+                    if (!$0.jailed && $1.jailed) { return true }
+                    let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
+                    let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                    return reward0.compare(reward1).rawValue > 0 ? true : false
+                }
+            } else if (chainType == ChainType.IRIS_MAIN) {
+                mainTabVC.mMyValidators.sort{
+                    if ($0.description.moniker == "Cosmostation") { return true }
+                    if ($1.description.moniker == "Cosmostation") { return false }
+                    if ($0.jailed && !$1.jailed) { return false }
+                    if (!$0.jailed && $1.jailed) { return true }
+                    let reward0 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $0.operator_address)
+                    let reward1 = mainTabVC.mIrisRewards?.getPerValReward(valOp: $1.operator_address)
+                    return reward0!.compare(reward1!).rawValue > 0 ? true : false
+                }
+            }
+            
         }
         
     }

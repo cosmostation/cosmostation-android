@@ -529,6 +529,7 @@
 "error_can_not_extend_close_domain" = "Close 타입의 도메인은 갱신을 지원하지 않습니다.";
 "error_cannot_delete_open_domain" = "Open 타입 도메인은 삭제할 수 없습니다.";
 "error_no_address_export" = "연결할 주소가 없습니다.";
+"error_not_enough_reward" = "요청할 이자가 충분하지 않습니다.";
 
 
 

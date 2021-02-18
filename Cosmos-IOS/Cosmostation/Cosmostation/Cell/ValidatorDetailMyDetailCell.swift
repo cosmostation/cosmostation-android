@@ -53,7 +53,7 @@ class ValidatorDetailMyDetailCell: UITableViewCell {
     }
     
     func updateView(_ validator: Validator_V1?, _ selfDelegationInfo_V1: DelegationInfo_V1?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             monikerName.text = validator?.description?.moniker
             monikerName.adjustsFontSizeToFitWidth = true
             if (validator?.jailed == true) {

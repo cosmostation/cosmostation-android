@@ -532,6 +532,7 @@
 "error_can_not_extend_close_domain" = "Close type domain not support renew";
 "error_cannot_delete_open_domain" = "Can not delete open domain.";
 "error_no_address_export" = "No Address for Export.";
+"error_not_enough_reward" = "Not enough rewards to Claim.";
 
 
 

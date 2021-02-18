@@ -49,7 +49,7 @@ class AllValidatorCell: UITableViewCell {
     }
     
     func updateView(_ validator: Validator_V1, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             powerLabel.attributedText =  WUtils.displayAmount2(validator.tokens, powerLabel.font, 6, 6)
             commissionLabel.attributedText = WUtils.getDpEstAprCommission(commissionLabel.font, validator.getCommission(), chainType!)
             validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
