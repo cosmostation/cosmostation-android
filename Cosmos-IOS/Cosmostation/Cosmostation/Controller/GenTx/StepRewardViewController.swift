@@ -45,7 +45,7 @@ class StepRewardViewController: BaseViewController {
         if(self.mFetchCnt > 0)  {
             return
         }
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
@@ -61,7 +61,7 @@ class StepRewardViewController: BaseViewController {
             self.onFetchIrisReward(pageHolderVC.mAccount!)
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mFetchCnt = 2
             self.onFetchRewards(pageHolderVC.mAccount!.account_address)
             self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
@@ -78,30 +78,11 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(COSMOS_TEST_DENOM))
-                }
-            }
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
-            
-            var monikers = ""
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if (monikers.count > 0) {
-                    monikers = monikers + ",   " + (validator.description?.moniker)!
-                } else {
-                    monikers = (validator.description?.moniker)!
-                }
-            }
-            rewardFromLabel.text = monikers
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            var selectedRewardSum = NSDecimalNumber.zero
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(IRIS_TEST_DENOM))
+                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(WUtils.getMainDenom(pageHolderVC.chainType)))
                 }
             }
             rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
@@ -117,10 +98,7 @@ class StepRewardViewController: BaseViewController {
             rewardFromLabel.text = monikers
             
         } else {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, COSMOS_MAIN_DENOM, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                 var selectedRewardSum = NSDecimalNumber.zero
                 for delegation in pageHolderVC.mIrisRewards!.delegations {
                     for validator in pageHolderVC.mRewardTargetValidators {
@@ -202,9 +180,7 @@ class StepRewardViewController: BaseViewController {
     
     func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_REWARD_FROM_VAL + accountAddr + COSMOS_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
@@ -228,21 +204,7 @@ class StepRewardViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    let reward = Reward.init()
-                    reward.reward_v_address = validatorAddr
-                    //TODO need prepare to multy denom rewards
-                    for rawReward in rawRewards {
-                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
-                    }
-                    self.pageHolderVC.mRewardList.append(reward)
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
@@ -300,9 +262,7 @@ class StepRewardViewController: BaseViewController {
     
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_REWARD_ADDRESS + accountAddr + COSMOS_URL_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
@@ -342,7 +302,7 @@ class StepRewardViewController: BaseViewController {
                 }
                 self.onFetchFinished()
             }
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                     pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                     pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                     pageHolderVC.chainType! == ChainType.AKASH_MAIN) {

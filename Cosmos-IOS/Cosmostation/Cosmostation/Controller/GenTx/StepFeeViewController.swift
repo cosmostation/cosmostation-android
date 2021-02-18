@@ -565,41 +565,8 @@ class StepFeeViewController: BaseViewController {
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            if (NSDecimalNumber.init(string: "100000").compare(feeAmount).rawValue < 0) {return}
-            feeCoin = Coin.init(COSMOS_MAIN_DENOM, feeAmount.stringValue)
-            var fee = Fee.init()
-            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count).stringValue
-            fee.gas = estGas
-            
-            var estAmount: Array<Coin> = Array<Coin>()
-            estAmount.append(feeCoin)
-            fee.amount = estAmount
-            
-            pageHolderVC.mFee = fee
-            
-            self.beforeBtn.isUserInteractionEnabled = false
-            self.nextBtn.isUserInteractionEnabled = false
-            pageHolderVC.onNextPage()
-            
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-            feeCoin = Coin.init(COSMOS_TEST_DENOM, feeAmount.stringValue)
-            var fee = Fee.init()
-            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
-            fee.gas = estGas
-            
-            var estAmount: Array<Coin> = Array<Coin>()
-            estAmount.append(feeCoin)
-            fee.amount = estAmount
-            
-            pageHolderVC.mFee = fee
-            
-            self.beforeBtn.isUserInteractionEnabled = false
-            self.nextBtn.isUserInteractionEnabled = false
-            pageHolderVC.onNextPage()
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            feeCoin = Coin.init(IRIS_TEST_DENOM, feeAmount.stringValue)
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            feeCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
             fee.gas = estGas
