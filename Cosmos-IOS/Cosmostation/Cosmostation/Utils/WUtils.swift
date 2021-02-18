@@ -2500,11 +2500,9 @@ class WUtils {
         return starNamePred.evaluate(with: starname)
     }
     
-    //TODO TESTING
     static func getChainId(_ chainS:String) -> String {
         if (chainS == CHAIN_COSMOS_S) {
-//            return "cosmoshub-4"
-            return "stargate-final"
+            return "cosmoshub-4"
         } else if (chainS == CHAIN_IRIS_S) {
             return "irishub"
         } else if (chainS == CHAIN_BINANCE_S) {
@@ -2543,11 +2541,9 @@ class WUtils {
         return ""
     }
     
-    //TODO TESTING
     static func getChainId(_ chain:ChainType) -> String {
         if (chain == ChainType.COSMOS_MAIN) {
-//            return "cosmoshub-4"
-            return "stargate-final"
+            return "cosmoshub-4"
         } else if (chain == ChainType.IRIS_MAIN) {
             return "irishub"
         } else if (chain == ChainType.BINANCE_MAIN) {

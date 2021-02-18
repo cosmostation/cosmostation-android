@@ -408,6 +408,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             case .success(let res):
                 if let responseData = res as? NSDictionary,
                    let redelegation_responses = responseData.object(forKey: "redelegation_responses") as? Array<NSDictionary>,
+                   redelegation_responses.count > 0,
                    let entries = redelegation_responses[0].object(forKey: "entries") as? Array<NSDictionary> {
                     if (entries.count >= 7) {
                         self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))

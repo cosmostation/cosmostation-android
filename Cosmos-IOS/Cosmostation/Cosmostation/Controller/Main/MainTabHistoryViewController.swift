@@ -621,13 +621,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                     self.emptyLabel.isHidden = false
                     return;
                 }
-//                print("responseData ", responseDatas.count)
                 for responseData in responseDatas {
                     self.mApiCustomHistories.append(ApiHistoryCustom(responseData))
                 }
-                self.mApiCustomHistories[1].getMsgs()
-                
-//                if (SHOW_LOG) { print("mApiHistories ", self.mApiHistories.count) }
                 if (self.mApiCustomHistories.count > 0) {
                     self.historyTableView.reloadData()
                     self.emptyLabel.isHidden = true

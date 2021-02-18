@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -31,10 +31,8 @@ let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
-//let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
-//let COSMOS_API                          = "https://api.cosmostation.io/";
-let COSMOS_URL                          = "https://lcd-office.cosmostation.io/stargate-final/";
-let COSMOS_API                          = "https://api-office.cosmostation.io/stargate-final/";
+let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
+let COSMOS_API                          = "https://api.cosmostation.io/";
 
 let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
 let COSMOS_TEST_API                     = "https://api-office.cosmostation.io/stargate-final/";
@@ -1052,8 +1050,8 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SECRET_MAIN)
 
-        result.append(COSMOS_TEST)
-        result.append(IRIS_TEST)
+//        result.append(COSMOS_TEST)
+//        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
@@ -1133,9 +1131,7 @@ let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 
-//TODO TESTING
-//let COSMOS_MAIN_DENOM = "uatom"
-let COSMOS_MAIN_DENOM = "umuon"
+let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "iris-atto"
 let IRIS_DP_DENOM = "iris"
 let BNB_MAIN_DENOM = "BNB"

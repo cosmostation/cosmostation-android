@@ -45,11 +45,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
         
-        if ((mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BINANCE_TEST) && BaseData.instance.getKavaWarn()) {
-             DispatchQueue.main.async(execute: {
-                self.showKavaTestWarn()
-             });
-        }
+//        if ((mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BINANCE_TEST) && BaseData.instance.getKavaWarn()) {
+//             DispatchQueue.main.async(execute: {
+//                self.showKavaTestWarn()
+//             });
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -92,11 +92,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             notiView!.notiTitle.text = title
             notiView!.notiMsg.text = body
             notiView!.actionDismiss = {
-                print("Banner Success Notification dismiss")
+//                print("Banner Success Notification dismiss")
                 self.banner?.dismiss()
             }
             notiView!.actionBody = {
-                print("Banner Success Notification Body")
+//                print("Banner Success Notification Body")
                 let notiAccount = BaseData.instance.selectAccountByAddress(address: notifyto)
                 if (notiAccount != nil) {
                     BaseData.instance.setRecentAccountId(notiAccount!.account_id)
@@ -190,18 +190,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyValidator.removeAll()
         
         if (mChainType == ChainType.COSMOS_MAIN) {
-//            self.mFetchCnt = 10
-//            onFetchTopValidatorsInfo()
-//            onFetchUnbondedValidatorsInfo()
-//            onFetchUnbondingValidatorsInfo()
-//            onFetchAccountInfo(mAccount)
-//            onFetchBondingInfo(mAccount)
-//            onFetchUnbondingInfo(mAccount)
-//            onFetchMintParam()
-//            onFetchInflation()
-//            onFetchProvision()
-//            onFetchStakingPool()
-            
             self.mFetchCnt = 11
             BaseData.instance.mAllValidators_V1.removeAll()
             BaseData.instance.mBondedValidators_V1.removeAll()
@@ -2078,6 +2066,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchProvisionV1 res ", res)
                 guard let responseData = res as? NSDictionary else {
                     self.onFetchFinished()
                     return
