@@ -70,6 +70,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.ValidatorInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -1831,7 +1832,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvDescription.setVisibility(View.GONE);
             }
             if (mGrpcSelfDelegation != null) {
-                holder.itemTvSelfBondRate.setText(WDp.getSelfBondGrpcRate(mGrpcValidator.getTokens(), mGrpcSelfDelegation.getDelegation().getShares()));
+                holder.itemTvSelfBondRate.setText(WDp.getSelfBondRate(mGrpcValidator.getTokens(), mGrpcSelfDelegation.getBalance().getAmount()));
             } else{
                 holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
             }
@@ -1880,7 +1881,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             if (mGrpcSelfDelegation != null) {
-                holder.itemTvSelfBondRate.setText(WDp.getSelfBondGrpcRate(mGrpcValidator.getTokens(), mGrpcSelfDelegation.getDelegation().getShares()));
+                holder.itemTvSelfBondRate.setText(WDp.getSelfBondRate(mGrpcValidator.getTokens(), mGrpcSelfDelegation.getBalance().getAmount()));
             } else{
                 holder.itemTvSelfBondRate.setText(WDp.getPercentDp(BigDecimal.ZERO));
             }

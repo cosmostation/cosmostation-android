@@ -1225,11 +1225,6 @@ public class WDp {
         return  getPercentDp(result);
     }
 
-    public static SpannableString getSelfBondGrpcRate(String total, String self) {
-        BigDecimal result = new BigDecimal(self).movePointLeft(18).multiply(new BigDecimal("100")).divide(new BigDecimal(total), 2, RoundingMode.DOWN);
-        return  getPercentDp(result);
-    }
-
     public static SpannableString getCommissionRate(String rate) {
         BigDecimal result = new BigDecimal(rate).multiply(new BigDecimal("100")).setScale(2, RoundingMode.DOWN);
         return getPercentDp(result);
