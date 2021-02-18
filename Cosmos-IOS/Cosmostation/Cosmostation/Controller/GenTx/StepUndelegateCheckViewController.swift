@@ -56,7 +56,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN  || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
@@ -69,17 +69,14 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.chainType!)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        }
+        
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
             
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, 6, 6)
-            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
-            targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
         }
-        
         memoLabel.text = pageHolderVC.mMemo
         if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(3) + " (3days after)"
@@ -90,7 +87,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
 
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -101,9 +98,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
@@ -128,20 +123,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-                            _ = BaseData.instance.deleteBalance(account: account)
-                            self.hideWaittingAlert()
-                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                            return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenUnDelegateTx()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
