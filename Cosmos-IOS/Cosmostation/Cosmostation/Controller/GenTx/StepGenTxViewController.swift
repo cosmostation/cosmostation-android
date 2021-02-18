@@ -39,7 +39,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mToReDelegateAmount: Coin?
     var mToReDelegateValidator: Validator?
+    var mToReDelegateValidator_V1: Validator_V1?
     var mToReDelegateValidators = Array<Validator>()
+    var mToReDelegateValidators_V1 = Array<Validator_V1>()
     
     var mCurrentRewardAddress: String?
     var mToChangeRewardAddress: String?
@@ -308,10 +310,16 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-            onFetchTopValidatorsInfo()
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+                onFetchBondedValidators(0)
+            } else {
+                onFetchTopValidatorsInfo()
+            }
+            
         } else if (mType == IRIS_MSG_TYPE_REDELEGATE) {
             self.irisValidatorPage = 1;
             self.onFetchIrisValidatorsInfo(irisValidatorPage)
+            
         } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
             if let votedVals = BaseData.instance.mOkStaking?.validator_address {
                 self.mOkVoteValidators = votedVals
@@ -465,7 +473,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     var irisValidatorPage = 1;
-    func onFetchIrisValidatorsInfo(_ page:Int){
+    func onFetchIrisValidatorsInfo(_ page:Int) {
         let request = Alamofire.request(IRIS_LCD_URL_VALIDATORS, method: .get, parameters: ["size":"100", "page":String(page)], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -494,21 +502,50 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         }
     }
     
+    
+    func onFetchBondedValidators(_ offset:Int) {
+        let url = BaseNetWork.validatorUrl(chainType!)
+        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
+                    return
+                }
+                for validator in validators {
+                    let val = Validator_V1(validator)
+                    if (val.operator_address != self.mTargetValidator_V1?.operator_address) {
+                        self.mToReDelegateValidators_V1.append(val)
+                    }
+                }
+                if (validators.count >= 100) {
+                    self.onFetchBondedValidators(offset + 100)
+                }
+                self.sortByPower_V1()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
+            }
+        }
+    }
+    
     func sortByPower() {
         mToReDelegateValidators.sort{
-            if ($0.description.moniker == "Cosmostation") {
-                return true
-            }
-            if ($1.description.moniker == "Cosmostation") {
-                return false
-            }
-            if ($0.jailed && !$1.jailed) {
-                return false
-            }
-            if (!$0.jailed && $1.jailed) {
-                return true
-            }
+            if ($0.description.moniker == "Cosmostation") { return true }
+            if ($1.description.moniker == "Cosmostation") {  return false }
+            if ($0.jailed && !$1.jailed) { return false }
+            if (!$0.jailed && $1.jailed) { return true }
             return Double($0.tokens)! > Double($1.tokens)!
+        }
+    }
+    
+    func sortByPower_V1() {
+        mToReDelegateValidators_V1.sort{
+            if ($0.description?.moniker == "Cosmostation") { return true }
+            if ($1.description?.moniker == "Cosmostation") { return false }
+            if ($0.jailed! && !$1.jailed!) { return false }
+            if (!$0.jailed! && $1.jailed!) { return true }
+            return Double($0.tokens!)! > Double($1.tokens!)!
         }
     }
 }

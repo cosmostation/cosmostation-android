@@ -83,6 +83,31 @@ class Signer {
         return genSignedTx(msgList, fee, memo, signatures)
     }
     
+    static func genSignedRedelegateTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
+                                        _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                        _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
+        var msgList = Array<Msg>()
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+            value.delegator_address = fromAddress
+            value.validator_src_address = fromValAddress
+            value.validator_dst_address = toValAddress
+            let data = try? JSONEncoder().encode(amount)
+            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+            } catch { print(error) }
+            
+            msg.type = COSMOS_MSG_TYPE_REDELEGATE2
+            msg.value = value
+        }
+        msgList.append(msg)
+        
+        let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
+        let signatureData = getSingleSignature(pKey, stdToSignMsg)
+        let signatures = getSignatures(pKey, signatureData!, accountNum, sequenceNum)
+        return genSignedTx(msgList, fee, memo, signatures)
+    }
+    
     static func genSignedRewardTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
                                     _ validators: Array<Validator_V1>, _ fee: Fee, _ memo: String,
                                   _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {

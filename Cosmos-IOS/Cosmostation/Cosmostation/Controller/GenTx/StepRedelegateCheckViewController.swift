@@ -36,18 +36,29 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     func onUpdateView() {
         let toRedelegateAmount = WUtils.localeStringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN  || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             redelegateAmountLabel.attributedText = WUtils.displayAmount(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, pageHolderVC.chainType!)
             redelegateFeeLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, redelegateFeeLabel.font, 6, pageHolderVC.chainType!)
+            redelegateFromValLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator?.description.moniker
+            
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             redelegateAmountLabel.attributedText = WUtils.displayAmount(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 18, pageHolderVC.chainType!)
             redelegateFeeLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, redelegateFeeLabel.font, 18, pageHolderVC.chainType!)
+            redelegateFromValLabel.text = pageHolderVC.mTargetValidator?.description.moniker
+            redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator?.description.moniker
+            
         }
-        redelegateFromValLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-        redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator?.description.moniker
+        
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            redelegateAmountLabel.attributedText = WUtils.displayAmount2(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, 6)
+            redelegateFeeLabel.attributedText = WUtils.displayAmount2(feeAmout.stringValue, redelegateFeeLabel.font, 6, 6)
+            redelegateFromValLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
+            redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator_V1?.description?.moniker
+        }
         redelegateMemoLabel.text = pageHolderVC.mMemo
     }
     
@@ -75,16 +86,18 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+                self.onFetchAuth(pageHolderVC.mAccount!)
+            } else {
+                self.onFetchAccountInfo(pageHolderVC.mAccount!)
+            }
         }
     }
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
             url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
@@ -109,20 +122,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-                            _ = BaseData.instance.deleteBalance(account: account)
-                            self.hideWaittingAlert()
-                            self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                            return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenRedelegateTx()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -167,6 +167,28 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
+    }
+    
+    func onFetchAuth(_ account: Account) {
+        self.showWaittingAlert()
+        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
+                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                    return
+                }
+                let auth = Auth_V1.init(account)
+                self.onBroadcastTxV1(auth)
+                
+            case .failure(let error):
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                if (SHOW_LOG) { print("onFetchAuth ", error) }
+            }
+        }
+        
     }
     
     func onGenRedelegateTx() {
@@ -325,5 +347,44 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 }
             });
         }
+    }
+    
+    func onBroadcastTxV1(_ auth: Auth_V1) {
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            let stdTx = Signer.genSignedRedelegateTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
+                                                       self.pageHolderVC.mTargetValidator_V1!.operator_address!, self.pageHolderVC.mToReDelegateValidator_V1!.operator_address!,
+                                                       self.pageHolderVC.mToReDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
+                                                       WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            
+            DispatchQueue.main.async(execute: {
+                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
+                let params = Signer.getBroadCastParam(stdTx)
+                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                request.responseJSON { response in
+                    var txResult = [String:Any]()
+                    switch response.result {
+                    case .success(let res):
+                        if(SHOW_LOG) { print("ReDelegate ", res) }
+                        if let result = res as? [String : Any]  {
+                            txResult = result
+                        }
+                    case .failure(let error):
+                        if(SHOW_LOG) { print("ReDelegate error ", error) }
+                        if (response.response?.statusCode == 500) {
+                            txResult["net_error"] = 500
+                        }
+                    }
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetail(txResult)
+                        })
+                    }
+                }
+            });
+        }
+        
     }
 }

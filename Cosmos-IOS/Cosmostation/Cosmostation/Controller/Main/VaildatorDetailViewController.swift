@@ -1538,8 +1538,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
-        
-        
     }
     
     func onFetchRewardsAddress(_ address: String) {
