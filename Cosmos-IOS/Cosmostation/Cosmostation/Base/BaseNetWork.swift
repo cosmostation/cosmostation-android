@@ -211,6 +211,20 @@ class BaseNetWork {
         return result
     }
     
+    static func proposals(_ chain: ChainType) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_PROPOSALS
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_PROPOSALS
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_PROPOSALS
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_PROPOSALS
+        }
+        return result
+    }
+    
     static func postTxUrl(_ chain: ChainType) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {

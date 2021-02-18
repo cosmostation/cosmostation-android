@@ -62,6 +62,7 @@
 		2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */; };
 		2815AA7624349DF2008B23AA /* StepRepayCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */; };
 		28248A9425DD3DD4004F3FB0 /* ApiHistoryCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */; };
+		28248A9725DE5FA3004F3FB0 /* Proposal_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28248A9625DE5FA3004F3FB0 /* Proposal_V1.swift */; };
 		2824CB6B25B91B4F002225CC /* IrisToken_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2824CB6A25B91B4F002225CC /* IrisToken_V1.swift */; };
 		2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */; };
 		2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */; };
@@ -577,6 +578,7 @@
 		2815AA7324349DE2008B23AA /* StepRepayCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpAmountViewController.swift; sourceTree = "<group>"; };
 		2815AA7524349DF2008B23AA /* StepRepayCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepRepayCdpCheckViewController.swift; sourceTree = "<group>"; };
 		28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistoryCustom.swift; sourceTree = "<group>"; };
+		28248A9625DE5FA3004F3FB0 /* Proposal_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proposal_V1.swift; sourceTree = "<group>"; };
 		2824CB6A25B91B4F002225CC /* IrisToken_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisToken_V1.swift; sourceTree = "<group>"; };
 		2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailViewController.swift; sourceTree = "<group>"; };
 		2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCommonCell.swift; sourceTree = "<group>"; };
@@ -1706,6 +1708,7 @@
 				28CE973225870E29006DEBEE /* Auth_V1.swift */,
 				2824CB6A25B91B4F002225CC /* IrisToken_V1.swift */,
 				28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */,
+				28248A9625DE5FA3004F3FB0 /* Proposal_V1.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2470,6 +2473,7 @@
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
 				28D23DD1252EC2A400BD9E7C /* KavaClaimMultiplier.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
+				28248A9725DE5FA3004F3FB0 /* Proposal_V1.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,

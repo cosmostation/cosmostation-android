@@ -148,6 +148,7 @@ let COSMOS_MAIN_INFLATION               = COSMOS_URL + "cosmos/mint/v1beta1/infl
 let COSMOS_MAIN_PROVISIONS              = COSMOS_URL + "cosmos/mint/v1beta1/annual_provisions";
 let COSMOS_MAIN_MINT_PARAM              = COSMOS_URL + "cosmos/mint/v1beta1/params";
 let COSMOS_MAIN_STAKING_POOL            = COSMOS_URL + "cosmos/staking/v1beta1/pool";
+let COSMOS_MAIN_PROPOSALS               = COSMOS_URL + "cosmos/gov/v1beta1/proposals";
 let COSMOS_MAIN_BORAD_TX                = COSMOS_URL + "txs";
 
 let COSMOS_MAIN_HISTORY                 = COSMOS_API + "v1/account/txs/";
@@ -175,6 +176,7 @@ let COSMOS_TEST_INFLATION               = COSMOS_TEST_URL + "cosmos/mint/v1beta1
 let COSMOS_TEST_PROVISIONS              = COSMOS_TEST_URL + "cosmos/mint/v1beta1/annual_provisions";
 let COSMOS_TEST_MINT_PARAM              = COSMOS_TEST_URL + "cosmos/mint/v1beta1/params";
 let COSMOS_TEST_STAKING_POOL            = COSMOS_TEST_URL + "cosmos/staking/v1beta1/pool";
+let COSMOS_TEST_PROPOSALS               = COSMOS_TEST_URL + "cosmos/gov/v1beta1/proposals";
 let COSMOS_TEST_BORAD_TX                = COSMOS_TEST_URL + "txs";
 
 let COSMOS_TEST_HISTORY                 = COSMOS_TEST_API + "v1/account/txs/";
@@ -225,6 +227,7 @@ let IRIS_MAIN_REWARD_ADDRESS_T          = "/withdraw_address";
 let IRIS_MAIN_MINT_PARAM                = IRIS_LCD_URL + "irishub/mint/params";
 let IRIS_MAIN_STAKING_POOL              = IRIS_LCD_URL + "cosmos/staking/v1beta1/pool";
 let IRIS_MAIN_TOKENS                    = IRIS_LCD_URL + "irismod/token/tokens";
+let IRIS_MAIN_PROPOSALS                 = IRIS_LCD_URL + "cosmos/gov/v1beta1/proposals";
 let IRIS_MAIN_BORAD_TX                  = IRIS_LCD_URL + "txs";
 
 let IRIS_MAIN_HISTORY                   = IRIS_API + "v1/account/txs/";
@@ -252,6 +255,7 @@ let IRIS_TEST_REWARD_ADDRESS_T          = "/withdraw_address";
 let IRIS_TEST_MINT_PARAM                = IRIS_TEST_URL + "irishub/mint/params";
 let IRIS_TEST_STAKING_POOL              = IRIS_TEST_URL + "cosmos/staking/v1beta1/pool";
 let IRIS_TEST_TOKENS                    = IRIS_TEST_URL + "irismod/token/tokens";
+let IRIS_TEST_PROPOSALS                 = IRIS_TEST_URL + "cosmos/gov/v1beta1/proposals";
 let IRIS_TEST_BORAD_TX                  = IRIS_TEST_URL + "txs";
 
 let IRIS_TEST_HISTORY                   = IRIS_TEST_API + "v1/account/txs/";

@@ -304,7 +304,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
-            cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
+            cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -1403,7 +1403,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
-            cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
+            cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
@@ -1439,7 +1439,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
-            cell?.actionVote = { self.onShowToast(NSLocalizedString("prepare", comment: "")) }
+            cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
