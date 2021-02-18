@@ -54,7 +54,27 @@ class WalletPriceCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN) {
+            sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+            perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
+            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
+            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
+                updownImg.image = UIImage(named: "priceUp")
+                updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: updownPercent.font)
+            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
+                updownImg.image = UIImage(named: "priceDown")
+                updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: updownPercent.font)
+            } else {
+                updownImg.image = nil
+                updownPercent.text = ""
+            }
+            buyBtn.setTitle(NSLocalizedString("buy_atom", comment: ""), for: .normal)
+            buySeparator.isHidden = false
+            buyBtn.isHidden = false
+            buyConstraint.priority = .defaultHigh
+            noBuyConstraint.priority = .defaultLow
+            
+        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
             let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())

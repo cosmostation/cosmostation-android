@@ -461,11 +461,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             
-            print("BaseData.instance.mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
-            print("BaseData.instance.mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
-            print("BaseData.instance.mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
-            print("BaseData.instance.mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
-            print("BaseData.instance.mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
+            if (SHOW_LOG) {
+                print("BaseData.instance.mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
+                print("BaseData.instance.mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
+                print("BaseData.instance.mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
+                print("BaseData.instance.mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
+                print("BaseData.instance.mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
+            }
             
             if (BaseData.instance.mAllValidators_V1.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
