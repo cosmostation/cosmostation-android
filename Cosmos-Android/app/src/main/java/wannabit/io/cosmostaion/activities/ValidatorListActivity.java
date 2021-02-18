@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -163,40 +164,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
         ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc
 
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-            if (getBaseDao().mRewards == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_ATOM).compareTo(BigDecimal.ONE) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_ATOM));
-                    }
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_ATOM);
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            if (rewardSum.compareTo(BigDecimal.ONE) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal estimateReward = BigDecimal.ZERO;
 
             if (getBaseDao().mIrisReward == null) {
@@ -479,7 +447,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mGrpcRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
