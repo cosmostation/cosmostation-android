@@ -107,8 +107,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchProposals() {
-        if(mAccount == null) return;
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) ||
+        if (mAccount == null) return;
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) ||
                 mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.AKASH_MAIN) ||
                 mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
             mVoteAdapter = new VoteAdapter();
@@ -120,7 +120,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             mRecyclerView.setAdapter(mIrisVoteAdapter);
             new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
+        } else if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
             mGrpcProposalsAdapter = new GrpcProposalsAdapter();
             mRecyclerView.setAdapter(mGrpcProposalsAdapter);
             new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -473,9 +473,10 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-//                    voteIntent.putExtra("proposalId", proposal.getProposalId());
-//                    startActivity(voteIntent);
+                    Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                    webintent.putExtra("voteId", "" + proposal.getProposalId());
+                    webintent.putExtra("chain", mAccount.baseChain);
+                    startActivity(webintent);
                 }
             });
         }
