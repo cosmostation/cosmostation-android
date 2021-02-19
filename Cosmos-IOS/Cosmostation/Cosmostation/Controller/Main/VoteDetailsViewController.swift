@@ -121,7 +121,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             
         } else if (chainType == ChainType.IRIS_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
+            if (mIrisProposal?.value?.basicProposal?.proposal_status != IrisProposal.PROPOSAL_VOTING) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
