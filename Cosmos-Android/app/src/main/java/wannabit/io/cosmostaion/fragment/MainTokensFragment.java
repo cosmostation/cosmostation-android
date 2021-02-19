@@ -539,7 +539,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
         WLog.w("coin " + coin.getDenom());
         if (coin.getDenom().equals(TOKEN_ATOM)) {
-            holder.itemSymbol.setText(getString(R.string.str_muon_c));
+            holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
             holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
             holder.itemFullName.setText("Cosmos Staking Token");
