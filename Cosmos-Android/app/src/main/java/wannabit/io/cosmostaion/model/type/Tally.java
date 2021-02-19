@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class Tally {
 
@@ -26,28 +27,28 @@ public class Tally {
     }
 
     public BigDecimal getYesPer() {
-        if (sum().equals(BigDecimal.ZERO)) {
+        if (sum().equals(BigDecimal.ZERO) || (new BigDecimal(yes).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
         return new BigDecimal(yes).movePointRight(2).divide(sum(), 2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getNoPer() {
-        if (sum().equals(BigDecimal.ZERO)) {
+        if (sum().equals(BigDecimal.ZERO) || (new BigDecimal(no).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
         return new BigDecimal(no).movePointRight(2).divide(sum(), 2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getAbstainPer() {
-        if (sum().equals(BigDecimal.ZERO)) {
+        if (sum().equals(BigDecimal.ZERO) || (new BigDecimal(abstain).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
         return new BigDecimal(abstain).movePointRight(2).divide(sum(), 2, RoundingMode.HALF_UP);
     }
 
     public BigDecimal getVetoPer() {
-        if (sum().equals(BigDecimal.ZERO)) {
+        if (sum().equals(BigDecimal.ZERO) || (new BigDecimal(no_with_veto).longValue() == 0)) {
             return BigDecimal.ZERO.setScale(2);
         }
         return new BigDecimal(no_with_veto).movePointRight(2).divide(sum(), 2, RoundingMode.HALF_UP);
