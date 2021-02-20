@@ -1440,7 +1440,7 @@ public class WUtil {
             return 6;
         } else if (coin.denom.equalsIgnoreCase("xrpb")) {
             return 8;
-        } else if (coin.denom.equalsIgnoreCase("btc")) {
+        } else if (coin.denom.equalsIgnoreCase("btc") || coin.denom.equalsIgnoreCase("hbtc")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("usdx")) {
             return 6;
@@ -1462,7 +1462,7 @@ public class WUtil {
             return 6;
         } else if (denom.equalsIgnoreCase("xrpb")) {
             return 8;
-        } else if (denom.equalsIgnoreCase("btc")) {
+        } else if (denom.equalsIgnoreCase("btc") || denom.equalsIgnoreCase("hbtc")) {
             return 8;
         } else if (denom.equalsIgnoreCase("usdx")) {
             return 6;
