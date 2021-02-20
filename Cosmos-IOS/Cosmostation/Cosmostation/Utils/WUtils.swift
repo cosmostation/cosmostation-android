@@ -2900,7 +2900,7 @@ class WUtils {
             return 6;
         } else if (denom.caseInsensitiveCompare("bnb") == .orderedSame) {
             return 8;
-        } else if (denom.caseInsensitiveCompare("btcb") == .orderedSame) {
+        } else if (denom.caseInsensitiveCompare("btcb") == .orderedSame || denom.caseInsensitiveCompare("hbtc") == .orderedSame) {
             return 8;
         } else if (denom.caseInsensitiveCompare("busd") == .orderedSame) {
             return 8;

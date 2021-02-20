@@ -1440,13 +1440,13 @@ public class WUtil {
             return 6;
         } else if (coin.denom.equalsIgnoreCase("xrpb")) {
             return 8;
-        } else if (coin.denom.equalsIgnoreCase("btc") || coin.denom.equalsIgnoreCase("hbtc")) {
+        } else if (coin.denom.equalsIgnoreCase("btc")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("usdx")) {
             return 6;
         } else if (coin.denom.equalsIgnoreCase("bnb")) {
             return 8;
-        } else if (coin.denom.equalsIgnoreCase("btcb")) {
+        } else if (coin.denom.equalsIgnoreCase("btcb") || coin.denom.equalsIgnoreCase("hbtc")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("busd")) {
             return 8;
@@ -1462,13 +1462,13 @@ public class WUtil {
             return 6;
         } else if (denom.equalsIgnoreCase("xrpb")) {
             return 8;
-        } else if (denom.equalsIgnoreCase("btc") || denom.equalsIgnoreCase("hbtc")) {
+        } else if (denom.equalsIgnoreCase("btc")) {
             return 8;
         } else if (denom.equalsIgnoreCase("usdx")) {
             return 6;
         } else if (denom.equalsIgnoreCase("bnb")) {
             return 8;
-        } else if (denom.equalsIgnoreCase("btcb")) {
+        } else if (denom.equalsIgnoreCase("btcb") || denom.equalsIgnoreCase("hbtc")) {
             return 8;
         } else if (denom.equalsIgnoreCase("busd")) {
             return 8;
