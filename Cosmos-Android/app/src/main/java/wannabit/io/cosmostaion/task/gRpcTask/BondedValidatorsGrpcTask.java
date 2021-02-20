@@ -34,16 +34,31 @@ public class BondedValidatorsGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setStatus(BOND_STATUS_BONDED.name()).build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(125).build();
+            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus(BOND_STATUS_BONDED.name()).build();
             QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
             mResultData.addAll(response.getValidatorsList());
 
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
             WLog.w("BondedValidators " + mResultData.size());
+
+
+//            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setStatus(BOND_STATUS_BONDED.name()).build();
+//            QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
+//            mResultData.addAll(response.getValidatorsList());
+//            WLog.w("BondedValidators init");
+//
+//            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
+//                pageJob(response.getPagination().getNextKey());
+//                WLog.w("pageJob pageJob");
+//            }
+//            this.mResult.isSuccess = true;
+//            this.mResult.resultData = mResultData;
+//            WLog.w("BondedValidators " + mResultData.size());
+
+
+
 
         } catch (Exception e) { WLog.e( "BondedValidatorsGrpcTask "+ e.getMessage()); }
         return mResult;
@@ -51,7 +66,7 @@ public class BondedValidatorsGrpcTask extends CommonTask {
 
     private QueryOuterClass.QueryValidatorsResponse pageJob(com.google.protobuf.ByteString nextKey) {
         try {
-            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setKey(nextKey).build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setKey(nextKey).setLimit(500).build();
             QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus(BOND_STATUS_BONDED.name()).build();
             QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
             mResultData.addAll(response.getValidatorsList());

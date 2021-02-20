@@ -34,16 +34,26 @@ public class UnBondedValidatorsGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setStatus(BOND_STATUS_UNBONDED.name()).build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(300).build();
+            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setPagination(pageRequest).setStatus(BOND_STATUS_UNBONDED.name()).build();
             QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
             mResultData.addAll(response.getValidatorsList());
 
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
             WLog.w("UnBondedValidators " + mResultData.size());
+
+
+//            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setStatus(BOND_STATUS_UNBONDED.name()).build();
+//            QueryOuterClass.QueryValidatorsResponse response = mStub.validators(request);
+//            mResultData.addAll(response.getValidatorsList());
+//
+//            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
+//                pageJob(response.getPagination().getNextKey());
+//            }
+//            this.mResult.isSuccess = true;
+//            this.mResult.resultData = mResultData;
+//            WLog.w("UnBondedValidators " + mResultData.size());
 
         } catch (Exception e) { WLog.e( "BondedValidatorsGrpcTask "+ e.getMessage()); }
         return mResult;
