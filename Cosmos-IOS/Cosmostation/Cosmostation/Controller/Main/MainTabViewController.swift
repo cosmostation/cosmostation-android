@@ -1840,7 +1840,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     //For StarGate & Bifrost after v0.40
     func onFetchBondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(mChainType)
-        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 125, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1852,11 +1852,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for validator in validators {
                     BaseData.instance.mBondedValidators_V1.append(Validator_V1(validator))
                 }
-                if (validators.count >= 100) {
-                    self.onFetchBondedValidators(offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+                self.onFetchFinished()
+//                if (validators.count >= 100) {
+//                    self.onFetchBondedValidators(offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
@@ -1867,7 +1868,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchUnbondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(mChainType)
-        let request = Alamofire.request(url, method: .get, parameters: ["status":UNBONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(url, method: .get, parameters: ["status":UNBONDED_V1, "pagination.limit": 200, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1879,11 +1880,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for validator in validators {
                     BaseData.instance.mUnbondValidators_V1.append(Validator_V1(validator))
                 }
-                if (validators.count >= 100) {
-                    self.onFetchUnbondedValidators(offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+                self.onFetchFinished()
+//                if (validators.count >= 100) {
+//                    self.onFetchUnbondedValidators(offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
@@ -1894,7 +1896,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchUnbondingValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(mChainType)
-        let request = Alamofire.request(url, method: .get, parameters: ["status":UNBONDING_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(url, method: .get, parameters: ["status":UNBONDING_V1, "pagination.limit": 200, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1905,11 +1907,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for validator in validators {
                     BaseData.instance.mUnbondValidators_V1.append(Validator_V1(validator))
                 }
-                if (validators.count >= 100) {
-                    self.onFetchUnbondingValidators(offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+                self.onFetchFinished()
+//                if (validators.count >= 100) {
+//                    self.onFetchUnbondingValidators(offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
