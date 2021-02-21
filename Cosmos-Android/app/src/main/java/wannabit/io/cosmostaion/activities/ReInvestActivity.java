@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep1Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep2Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep3Fragment;
+import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -36,6 +37,7 @@ import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.AllRewardTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -57,6 +59,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
 
 public class ReInvestActivity extends BaseActivity implements TaskListener {
 
@@ -74,7 +77,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     public String                   mReinvestMemo;
     public Fee                      mReinvestFee;
 
-    //gRPC
+    //gRPC & roll back
     public String                   mValOpAddress;
 
     @Override
@@ -148,7 +151,10 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(IRIS_MAIN)) {
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+            new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -235,10 +241,20 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
-            ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
+            ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>)result.resultData;
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
                 mReinvestCoin = new Coin(WDp.mainDenom(mBaseChain), getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).toPlainString());
+                mPageAdapter.mCurrentFragment.onRefreshTab();
+            } else {
+                onBackPressed();
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_ALL_REWARDS) {
+            if (result.isSuccess) {
+                ArrayList<Reward_V1> rewards = (ArrayList<Reward_V1>)result.resultData;
+                getBaseDao().mRewards_V1 = rewards;
+                mReinvestCoin = new Coin(WDp.mainDenom(mBaseChain), WDp.getReward(getBaseDao(), WDp.mainDenom(mBaseChain), mValOpAddress).toPlainString());
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();

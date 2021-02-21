@@ -45,14 +45,15 @@ public class AccountInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+//            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+//                Response<ResLcdAccountInfo> response = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
+//                if(response.isSuccessful()) {
+//                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+//                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+//                }
+//
+//            } else
+                if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));

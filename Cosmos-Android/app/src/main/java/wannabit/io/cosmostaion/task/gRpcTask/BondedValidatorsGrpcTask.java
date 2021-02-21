@@ -41,7 +41,7 @@ public class BondedValidatorsGrpcTask extends CommonTask {
 
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
-            WLog.w("BondedValidators " + mResultData.size());
+            WLog.w("BondedValidatorsGrpcTask " + mResultData.size());
 
 
 //            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setStatus(BOND_STATUS_BONDED.name()).build();

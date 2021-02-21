@@ -34,19 +34,21 @@ public class SingleAllRedelegateState extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    } else {
-                        mResult.resultData = new ArrayList<Redelegate>();
-                        mResult.isSuccess = true;
-                    }
-                }
+//            if (getChain(mAccount.baseChain).equals(BaseChain.COSMOS_MAIN)) {
+//                Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
+//                if(response.isSuccessful()) {
+//                    if(response.body() != null && response.body().result != null) {
+//                        mResult.resultData = response.body().result;
+//                        mResult.isSuccess = true;
+//                    } else {
+//                        mResult.resultData = new ArrayList<Redelegate>();
+//                        mResult.isSuccess = true;
+//                    }
+//                }
+//
+//            } else
 
-            } else if (getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+                if (getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getKavaChain(mApp).getRedelegateAllHistory(mAccount.address, mFromAddress, mToAddress).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {

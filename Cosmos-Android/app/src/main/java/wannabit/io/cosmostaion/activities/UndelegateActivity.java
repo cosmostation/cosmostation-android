@@ -64,6 +64,9 @@ public class UndelegateActivity extends BaseActivity {
     public Fee                          mUnDelegateFee;
     public String                       mUnDelegateShare;
 
+    //V1 .40 version
+    public String                       mValOpAddress_V1;
+
     //gRPC
     public String                       mValOpAddress;
 
@@ -89,7 +92,10 @@ public class UndelegateActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            mValOpAddress_V1 = getIntent().getStringExtra("valOpAddress");
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mValOpAddress = getIntent().getStringExtra("valOpAddress");
         } else {
             mValidator = getIntent().getParcelableExtra("validator");
@@ -130,11 +136,11 @@ public class UndelegateActivity extends BaseActivity {
         });
         mViewPager.setCurrentItem(0);
 
-        if (mBaseChain.equals(KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
-            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
-            dialog.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-        }
+//        if (mBaseChain.equals(KAVA_MAIN) && (WDp.getVestedCoin(mAccount.balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0)) {
+//            Dialog_VestingAccount dialog = Dialog_VestingAccount.newInstance(null);
+//            dialog.setCancelable(true);
+//            getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
+//        }
     }
 
     @Override
@@ -200,7 +206,11 @@ public class UndelegateActivity extends BaseActivity {
             intent.putExtra("toAddress", mValidator.operator_address);
             intent.putExtra("uAmount", mUnDelegateAmount);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+            intent.putExtra("toAddress", mValOpAddress_V1);
+            intent.putExtra("uAmount", mUnDelegateAmount);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("toAddress", mValOpAddress);
             intent.putExtra("uAmount", mUnDelegateAmount);
         }

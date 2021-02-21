@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
@@ -87,7 +88,13 @@ public class DelegateTask_V1 extends CommonTask {
 
     private Account_V1 onCheckAuth(String address) {
         try {
-            if (getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                Response<ResAuth_V1> response = ApiClient.getCosmosChain(mApp).getAuth(address).execute();
+                if (response.isSuccessful()) {
+                    return response.body().account;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResAuth_V1> response = ApiClient.getCosmosTestChain(mApp).getAuth(address).execute();
                 if (response.isSuccessful()) {
                     return response.body().account;
@@ -109,7 +116,10 @@ public class DelegateTask_V1 extends CommonTask {
 
     private Response<ResBroadTx> onBroadTx(ReqBroadCast reqBroadCast) {
         try {
-            if (getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                return ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
+
+            } else if (getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 return ApiClient.getCosmosTestChain(mApp).broadTx(reqBroadCast).execute();
 
             } else if (getChain(mAccount.baseChain).equals(IRIS_TEST)) {

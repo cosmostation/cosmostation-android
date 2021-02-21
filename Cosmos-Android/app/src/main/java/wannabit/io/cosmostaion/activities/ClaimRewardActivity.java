@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
+import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -33,6 +34,8 @@ import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.AllRewardTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.WithdrawAddressTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -58,6 +61,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDR
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_WITHDRAW_ADDRESS;
 
 public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
@@ -77,6 +82,9 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public ResLcdIrisReward             mIrisReward;
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
+
+    //V1 .40 version
+    public ArrayList<String>            mValOpAddresses_V1;
 
     //gRPC
     public ArrayList<String>            mValAddresses;
@@ -103,7 +111,10 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
+
+        } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
 
         } else {
@@ -209,7 +220,12 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+            mTaskCount = 2;
+            new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new WithdrawAddressTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mTaskCount = 2;
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -222,7 +238,9 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            intent.putExtra("valOpAddresses", mValOpAddresses_V1);
+        } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("valOpAddresses", mValAddresses);
         } else {
             intent.putExtra("validators", mValidators);
@@ -248,6 +266,18 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_IRIS_REWARD) {
             mIrisReward = (ResLcdIrisReward)result.resultData;
+
+        }
+
+        //roll back
+        else if (result.taskType == TASK_V1_FETCH_ALL_REWARDS) {
+            if (result.isSuccess) {
+                ArrayList<Reward_V1> rewards = (ArrayList<Reward_V1>)result.resultData;
+                getBaseDao().mRewards_V1 = rewards;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_WITHDRAW_ADDRESS) {
+            mWithdrawAddress = (String)result.resultData;
 
         }
 

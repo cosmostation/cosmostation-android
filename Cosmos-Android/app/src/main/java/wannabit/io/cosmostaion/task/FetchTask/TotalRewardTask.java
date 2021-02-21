@@ -30,13 +30,13 @@ public class TotalRewardTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         HashMap<Long, TotalReward>       mTotalRewards = new HashMap<>();
         try {
-            for(Account account : mAccounts) {
-                Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getTotalRewards(account.address).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
-                    TotalReward totalReward = new TotalReward(account.id, response.body());
-                    mTotalRewards.put(account.id, totalReward);
-                }
-            }
+//            for(Account account : mAccounts) {
+//                Response<ArrayList<Coin>> response = ApiClient.getCosmosChain(mApp).getTotalRewards(account.address).execute();
+//                if(response.isSuccessful() && response.body() != null && response.body().size() > 0) {
+//                    TotalReward totalReward = new TotalReward(account.id, response.body());
+//                    mTotalRewards.put(account.id, totalReward);
+//                }
+//            }
             mResult.resultData = mTotalRewards;
             mResult.isSuccess = true;
 

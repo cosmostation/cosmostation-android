@@ -60,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -230,17 +231,19 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             if (mChain.equals(COSMOS_MAIN)) {
                 holder.atomLayer.setVisibility(View.VISIBLE);
                 holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
-                ApiClient.getCosmosChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                ApiClient.getCosmosChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
                     @Override
-                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if(response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 6, 6));
+                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            for (Coin coin:  response.body().balances) {
+                                if (coin.denom.equals(TOKEN_ATOM)) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(IRIS_MAIN)) {

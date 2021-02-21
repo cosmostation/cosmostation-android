@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
+import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -162,7 +163,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         }
 
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
-        ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc
+        ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc & roll back
 
         if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal estimateReward = BigDecimal.ZERO;
@@ -447,7 +448,43 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+            ArrayList<Reward_V1> toClaimRewards = new ArrayList<>();
+            if (getBaseDao().mRewards_V1 == null) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Reward_V1 reward: getBaseDao().mRewards_V1) {
+                if (WDp.getReward(getBaseDao(), WDp.mainDenom(mBaseChain), reward.validator_address).compareTo(new BigDecimal("3750")) >= 0) {
+                    toClaimRewards.add(reward);
+                }
+            }
+            if (toClaimRewards.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            WUtil.onSortRewardAmount_V1(toClaimRewards, WDp.mainDenom(mBaseChain));
+            if (toClaimRewards.size() >= 17) {
+                ArrayList<Reward_V1> temp = new ArrayList(toClaimValidators.subList(0,16));
+                toClaimRewards = temp;
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
+            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimRewards.size() - 1));
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal available = WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain));
+
+            if (available.compareTo(estimateFeeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Reward_V1 reward: toClaimRewards) {
+                toClaimValaddr.add(reward.validator_address);
+            }
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mGrpcRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();

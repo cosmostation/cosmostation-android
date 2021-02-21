@@ -31,8 +31,12 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
 
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class Signer {
@@ -44,7 +48,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             value.from_address = fromAddress;
             value.to_address = toAddress;
             value.amount = amounts;
@@ -68,11 +72,11 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             value.delegator_address = fromAddress;
             value.validator_address = toValAddress;
             value.amount = amount;
-            msg.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+            msg.type = COSMOS_MSG_TYPE_DELEGATE;
             msg.value = value;
         }
         msgList.add(msg);
@@ -96,7 +100,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             value.delegator_address = fromAddress;
             value.validator_address = toValAddress;
             value.amount = amount;
@@ -123,7 +127,7 @@ public class Signer {
                                                        DeterministicKey pKey, BaseChain chain) {
         ArrayList<Msg>  msgList = new ArrayList<>();
 
-        if (chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             for (String val: valAddresses) {
                 Msg msg = new Msg();
                 Msg.Value value = new Msg.Value();
@@ -131,7 +135,7 @@ public class Signer {
                 value.delegator_address = fromAddress;
                 value.validator_address = val;
 
-                msg.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+                msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL;
                 msg.value = value;
                 msgList.add(msg);
             }
@@ -145,6 +149,96 @@ public class Signer {
 //        WLog.w("stdToSignMsg : " +  WUtil.prettyPrinter(stdToSignMsg));
 //        WLog.w("signatureTx : " +  signatureTx);
 //        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+
+        return getBroadReq(signedTx);
+
+    }
+
+    public static ReqBroadCast genSignedReDelegateTxV1(String fromAddress, String accountNum, String sequenceNum,
+                                                     String fromValAddress, String toValAddress, Coin amount, Fee fee, String memo,
+                                                     DeterministicKey pKey, BaseChain chain) {
+        ArrayList<Msg>  msgList = new ArrayList<>();
+        Msg             msg     = new Msg();
+        Msg.Value       value   = new Msg.Value();
+
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+            value.delegator_address = fromAddress;
+            value.validator_src_address = fromValAddress;
+            value.validator_dst_address = toValAddress;
+            value.amount = amount;
+            msg.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+            msg.value = value;
+        }
+        msgList.add(msg);
+
+        StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
+        String                  signatureTx     = getSingleSignature(pKey, stdToSignMsg.getToSignByte());
+        ArrayList<Signature>    signatures      = getSignatures(pKey, signatureTx, accountNum, sequenceNum);
+        StdTx                   signedTx        = getSignedTx(msgList, fee, memo, signatures);
+
+//        WLog.w("stdToSignMsg : " +  WUtil.prettyPrinter(stdToSignMsg));
+//        WLog.w("signatureTx : " +  signatureTx);
+//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+
+        return getBroadReq(signedTx);
+    }
+
+    public static ReqBroadCast genSignedReInvestTxV1(String fromAddress, String accountNum, String sequenceNum,
+                                                       String valAddress, Coin amount, Fee fee, String memo,
+                                                       DeterministicKey pKey, BaseChain chain) {
+        ArrayList<Msg>  msgList = new ArrayList<>();
+
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+            Msg withDrawMsg = new Msg();
+            Msg.Value withDrawValue = new Msg.Value();
+            withDrawValue.delegator_address = fromAddress;
+            withDrawValue.validator_address = valAddress;
+            withDrawMsg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL;
+            withDrawMsg.value = withDrawValue;
+            msgList.add(withDrawMsg);
+
+            Msg delegateMsg = new Msg();
+            Msg.Value delegateValue = new Msg.Value();
+            delegateValue.delegator_address = fromAddress;
+            delegateValue.validator_address = valAddress;
+            delegateValue.amount = amount;
+            delegateMsg.type = COSMOS_MSG_TYPE_DELEGATE;
+            delegateMsg.value = delegateValue;
+            msgList.add(delegateMsg);
+        }
+
+
+        StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
+        String                  signatureTx     = getSingleSignature(pKey, stdToSignMsg.getToSignByte());
+        ArrayList<Signature>    signatures      = getSignatures(pKey, signatureTx, accountNum, sequenceNum);
+        StdTx                   signedTx        = getSignedTx(msgList, fee, memo, signatures);
+
+//        WLog.w("stdToSignMsg : " +  WUtil.prettyPrinter(stdToSignMsg));
+//        WLog.w("signatureTx : " +  signatureTx);
+//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+
+        return getBroadReq(signedTx);
+    }
+
+    public static ReqBroadCast genSignedSetWithdrawAddressTxV1(String fromAddress, String accountNum, String sequenceNum,
+                                                       String setAddress, Fee fee, String memo,
+                                                       DeterministicKey pKey, BaseChain chain) {
+        ArrayList<Msg>  msgList = new ArrayList<>();
+        Msg             msg     = new Msg();
+        Msg.Value       value   = new Msg.Value();
+
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+            value.delegator_address = fromAddress;
+            value.withdraw_address = setAddress;
+            msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
+            msg.value = value;
+        }
+        msgList.add(msg);
+
+        StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
+        String                  signatureTx     = getSingleSignature(pKey, stdToSignMsg.getToSignByte());
+        ArrayList<Signature>    signatures      = getSignatures(pKey, signatureTx, accountNum, sequenceNum);
+        StdTx                   signedTx        = getSignedTx(msgList, fee, memo, signatures);
 
         return getBroadReq(signedTx);
 

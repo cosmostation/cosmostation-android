@@ -313,7 +313,21 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                mDpDecimal = 6;
+                mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
+                mTotalPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), feeAmount.add(toSendAmount), getSActivity().mBaseChain));
+
+                BigDecimal currentAvail = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvail, 6, 6));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvail.subtract(toSendAmount).subtract(feeAmount), 6, 6));
+                mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
+            }
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
@@ -325,7 +339,6 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvail, 6, 6));
                 mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvail.subtract(toSendAmount).subtract(feeAmount), 6, 6));
                 mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
-
             } else {
                 //TODO  not yet!
             }

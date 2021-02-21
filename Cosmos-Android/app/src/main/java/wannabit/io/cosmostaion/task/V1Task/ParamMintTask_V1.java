@@ -27,6 +27,12 @@ public class ParamMintTask_V1 extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+                Response<ResParamMint_V1> response = ApiClient.getCosmosChain(mApp).getParamMint().execute();
+                if (response.isSuccessful() && response.body().params != null) {
+                    mResult.resultData = response.body().params;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResParamMint_V1> response = ApiClient.getCosmosTestChain(mApp).getParamMint().execute();
                 if (response.isSuccessful() && response.body().params != null) {
                     mResult.resultData = response.body().params;

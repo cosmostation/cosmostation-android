@@ -40,20 +40,21 @@ public class ValidatorInfoBondedTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(COSMOS_MAIN)) {
-                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getBondedValidatorDetailList().execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(IRIS_MAIN)) {
+//            if (mChain.equals(COSMOS_MAIN)) {
+//                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getBondedValidatorDetailList().execute();
+//                if (!response.isSuccessful()) {
+//                    mResult.isSuccess = false;
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                    return mResult;
+//                }
+//
+//                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+//                    mResult.resultData = response.body().result;
+//                    mResult.isSuccess = true;
+//                }
+//
+//            } else
+                if (mChain.equals(IRIS_MAIN)) {
                 int page = 0;
                 boolean needMore = true;
                 ArrayList<Validator> allResult = new ArrayList<>();

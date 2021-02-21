@@ -24,15 +24,15 @@ public class ApiClient {
     }
 
     //Services for Cosmos main net
-    private static CosmosChain service_cosmos = null;
-    public static CosmosChain getCosmosChain(Context c) {
+    private static NetworkCosmos_V1 service_cosmos = null;
+    public static NetworkCosmos_V1 getCosmosChain(Context c) {
         if (service_cosmos == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_cosmos_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_cosmos = retrofit.create(CosmosChain.class);
+                service_cosmos = retrofit.create(NetworkCosmos_V1.class);
             }
         }
         return service_cosmos;

@@ -35,20 +35,21 @@ public class SingleMintParamTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(COSMOS_MAIN)) {
-                Response<ResMintParam> response = ApiClient.getCosmosChain(mApp).getMintParam().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(KAVA_MAIN)) {
+//            if (mChain.equals(COSMOS_MAIN)) {
+//                Response<ResMintParam> response = ApiClient.getCosmosChain(mApp).getMintParam().execute();
+//                if(!response.isSuccessful()) {
+//                    mResult.isSuccess = false;
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                    return mResult;
+//                }
+//
+//                if(response.body() != null && response.body().result != null) {
+//                    mResult.resultData = response.body().result;
+//                    mResult.isSuccess = true;
+//                }
+//
+//            } else
+                if (mChain.equals(KAVA_MAIN)) {
                 Response<ResMintParam> response = ApiClient.getKavaChain(mApp).getMintParam().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

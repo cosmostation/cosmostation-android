@@ -13,9 +13,11 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_BALANCE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 
@@ -44,7 +46,10 @@ public class BalanceTask_V1 extends CommonTask {
         }
 
         boolean hasMain = false;
-        if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+        if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+            for (Coin coin: mResultData) { if (coin.denom.equals(TOKEN_ATOM)) hasMain = true; }
+            if (!hasMain) { mResultData.add(new Coin(TOKEN_ATOM,"0")); }
+        } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
             for (Coin coin: mResultData) { if (coin.denom.equals(TOKEN_COSMOS_TEST)) hasMain = true; }
             if (!hasMain) { mResultData.add(new Coin(TOKEN_COSMOS_TEST,"0")); }
         } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_TEST)) {
@@ -60,7 +65,15 @@ public class BalanceTask_V1 extends CommonTask {
     private ArrayList<Coin> onDoingJob(int offset) {
         ArrayList<Coin> resultData = new ArrayList<>();
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                Response<ResBalance_V1> response = ApiClient.getCosmosChain(mApp).getBalance(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().balances != null) {
+                        resultData = response.body().balances;
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResBalance_V1> response = ApiClient.getCosmosTestChain(mApp).getBalance(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().balances != null) {

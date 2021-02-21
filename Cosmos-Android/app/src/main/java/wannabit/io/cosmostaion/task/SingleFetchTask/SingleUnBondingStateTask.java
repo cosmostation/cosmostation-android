@@ -41,14 +41,15 @@ public class SingleUnBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getCosmosChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
-                    mResult.isSuccess = true;
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+//            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+//                Response<ResLcdSingleUnBonding> response = ApiClient.getCosmosChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
+//                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+//                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
+//                    mResult.isSuccess = true;
+//                }
+//
+//            } else
+                if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResLcdUnBonding> response = ApiClient.getIrisChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body()));

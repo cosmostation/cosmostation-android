@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.WithdrawAddressTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -55,6 +56,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -162,7 +164,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            getBaseDao().setLastUser(mAccount.id);
+            Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
+            changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
+            startActivity(changeAddress);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
@@ -391,7 +403,10 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN)) {
+            new WithdrawAddressTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
@@ -533,6 +548,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_WITHDRAW_ADDRESS) {
+            String rewardAddress = (String)result.resultData;
+            if (!TextUtils.isEmpty(rewardAddress)) {
+                mRewardAddress.setText(rewardAddress.trim());
+                if (rewardAddress.equals(mAccount.address)) {
+                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
+                } else {
+                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
+                }
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_WITHDRAW_ADDRESS) {
             String rewardAddress = (String)result.resultData;
             if (!TextUtils.isEmpty(rewardAddress)) {
                 mRewardAddress.setText(rewardAddress.trim());

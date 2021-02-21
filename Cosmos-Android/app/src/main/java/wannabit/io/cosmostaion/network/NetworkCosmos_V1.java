@@ -14,9 +14,10 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResDelegation_V1;
 import wannabit.io.cosmostaion.network.res.ResDelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResInflation_V1;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResParamMint_V1;
+import wannabit.io.cosmostaion.network.res.ResProposal_V1;
 import wannabit.io.cosmostaion.network.res.ResProvision_V1;
+import wannabit.io.cosmostaion.network.res.ResRedelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResStakingPool_V1;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.network.res.ResUndelegations_V1;
@@ -59,6 +60,13 @@ public interface NetworkCosmos_V1 {
     @GET("cosmos/staking/v1beta1/validators/{opAddress}/delegations/{address}")
     Call<ResDelegation_V1> getSelfBondInfo(@Path("opAddress") String opAddress, @Path("address") String address);
 
+
+    @GET("cosmos/staking/v1beta1/delegators/{address}/redelegations")
+    Call<ResRedelegations_V1> getRedelegationTo(@Path("address") String address, @Query("dst_validator_addr") String toValAddress);
+
+    @GET("cosmos/staking/v1beta1/delegators/{address}/redelegations")
+    Call<ResRedelegations_V1> getRedelegationFromTo(@Path("address") String address, @Query("validator_src_address") String fromValAddress, @Query("dst_validator_addr") String toValAddress);
+
     @GET("cosmos/staking/v1beta1/pool")
     Call<ResStakingPool_V1> getStakingPool();
 
@@ -74,7 +82,8 @@ public interface NetworkCosmos_V1 {
     @GET("cosmos/distribution/v1beta1/delegators/{address}/withdraw_address")
     Call<ResWithdrawAddress_V1> getRewardAddress(@Path("address") String address);
 
-
+    @GET("/cosmos/gov/v1beta1/proposals")
+    Call<ResProposal_V1> getProposals();
 
     //Broadcast Tx
     @POST("txs")

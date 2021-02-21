@@ -221,7 +221,11 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            mMaxAvailable = WDp.getAvailable(getBaseDao(), TOKEN_ATOM).subtract(new BigDecimal("5000"));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mMaxAvailable = getSActivity().getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(new BigDecimal("5000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
