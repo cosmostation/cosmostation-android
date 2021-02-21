@@ -1934,11 +1934,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for delegation in delegations {
                     BaseData.instance.mMyDelegations_V1.append(DelegationInfo_V1(delegation))
                 }
-                if (delegations.count >= 100) {
-                    self.onFetchDelegations(address, offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+//                if (delegations.count >= 100) {
+//                    self.onFetchDelegations(address, offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchDelegations ", error) }
@@ -1960,11 +1960,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for undelegation in undelegations {
                     BaseData.instance.mMyUnbondings_V1.append(UnbondingInfo_V1(undelegation))
                 }
-                if (undelegations.count >= 100) {
-                    self.onFetchUndelegations(address, offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+//                if (undelegations.count >= 100) {
+//                    self.onFetchUndelegations(address, offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchUndelegations ", error) }
@@ -1987,12 +1987,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for balance in balances {
                     BaseData.instance.mMyBalances_V1.append(Coin(balance))
                 }
-                if (balances.count >= 100) {
-                    self.onFetchBalance(address, offset + 100)
-                } else {
-                    BaseData.instance.checkZeroMainDenom(self.mChainType)
-                    self.onFetchFinished()
-                }
+//                if (balances.count >= 100) {
+//                    self.onFetchBalance(address, offset + 100)
+//                } else {
+//                    BaseData.instance.checkZeroMainDenom(self.mChainType)
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchBalance ", error) }

@@ -58,7 +58,7 @@ public struct Proposal_V1 {
         } else if (status == "PROPOSAL_STATUS_PASSED") {
             return "Passed"
         }
-        return "Known"
+        return "UnKnown"
     }
     
     public func getTitle() -> String? {

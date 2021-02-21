@@ -505,7 +505,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onFetchBondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(chainType!)
-        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 125, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

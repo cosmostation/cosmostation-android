@@ -1454,11 +1454,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 for delegation in delegations {
                     BaseData.instance.mMyDelegations_V1.append(DelegationInfo_V1(delegation))
                 }
-                if (delegations.count >= 100) {
-                    self.onFetchDelegations(address, offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+//                if (delegations.count >= 100) {
+//                    self.onFetchDelegations(address, offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchDelegations ", error) }
@@ -1480,11 +1480,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 for undelegation in undelegations {
                     BaseData.instance.mMyUnbondings_V1.append(UnbondingInfo_V1(undelegation))
                 }
-                if (undelegations.count >= 100) {
-                    self.onFetchUndelegations(address, offset + 100)
-                } else {
-                    self.onFetchFinished()
-                }
+//                if (undelegations.count >= 100) {
+//                    self.onFetchUndelegations(address, offset + 100)
+//                } else {
+//                    self.onFetchFinished()
+//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchUndelegations ", error) }
