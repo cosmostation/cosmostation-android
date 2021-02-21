@@ -81,22 +81,24 @@ public class SimpleRewardTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
             ArrayList<Msg> msgs = new ArrayList<>();
-            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+//                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
+//                if(!accountResponse.isSuccessful()) {
+//                    mResult.errorCode = ERROR_CODE_BROADCAST;
+//                    return mResult;
+//                }
+//                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+//                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+//                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+//
+//                for(Validator val:mValidators) {
+//                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
+//                    msgs.add(singleWithdrawDeleMsg);
+//                }
+//
+//            } else
 
-                for(Validator val:mValidators) {
-                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
-                    msgs.add(singleWithdrawDeleMsg);
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;

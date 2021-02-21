@@ -79,8 +79,15 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     public void onRefreshTab() {
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mReDelegateAmount.amount);
         BigDecimal feeAmount= new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            mFromValidatorName.setText(WDp.getValidatorInfo(getBaseDao(), getSActivity().mValOpAddress).description.moniker);
+            mToValidatorName.setText(getSActivity().mToValidator_V1.description.moniker);
+            mMemo.setText(getSActivity().mReDelegateMemo);
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 

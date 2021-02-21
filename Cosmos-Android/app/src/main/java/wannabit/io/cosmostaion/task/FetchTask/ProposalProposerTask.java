@@ -27,20 +27,21 @@ public class ProposalProposerTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ResLcdProposer> response = ApiClient.getCosmosChain(mApp).getProposer(mProposalId).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result.proposer;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+//            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+//                Response<ResLcdProposer> response = ApiClient.getCosmosChain(mApp).getProposer(mProposalId).execute();
+//                if (!response.isSuccessful()) {
+//                    mResult.isSuccess = false;
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                    return mResult;
+//                }
+//
+//                if (response.body() != null && response.body().result != null) {
+//                    mResult.resultData = response.body().result.proposer;
+//                    mResult.isSuccess = true;
+//                }
+//
+//            } else
+                if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdProposer> response = ApiClient.getKavaChain(mApp).getProposer(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;

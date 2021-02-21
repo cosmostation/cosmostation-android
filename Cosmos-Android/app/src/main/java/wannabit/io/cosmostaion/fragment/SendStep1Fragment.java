@@ -206,7 +206,16 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                mDpDecimal = 6;
+                setDpDecimals(mDpDecimal);
+                WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(new BigDecimal("2500"));
+                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+            }
+
+        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);

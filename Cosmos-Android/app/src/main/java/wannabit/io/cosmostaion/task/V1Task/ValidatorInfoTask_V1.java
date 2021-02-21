@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_VALIDATOR_INFO;
@@ -28,7 +29,14 @@ public class ValidatorInfoTask_V1 extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                Response<ResValidatorInfo_V1> response = ApiClient.getCosmosChain(mApp).getValidatorInfo(mValOpAddress).execute();
+                if (response.isSuccessful() && response.body().validator != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().validator;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResValidatorInfo_V1> response = ApiClient.getCosmosTestChain(mApp).getValidatorInfo(mValOpAddress).execute();
                 if (response.isSuccessful() && response.body().validator != null) {
                     mResult.isSuccess = true;

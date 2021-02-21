@@ -21,7 +21,6 @@ import java.util.List;
 
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
-import cosmos.gov.v1beta1.Tx;
 import cosmos.params.v1beta1.Params;
 import cosmos.upgrade.v1beta1.Upgrade;
 import ibc.core.client.v1.Client;
@@ -29,6 +28,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.model.Proposal_V1;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.task.FetchTask.IrisProposalTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.ProposalsTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSALS;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
 
@@ -59,6 +61,8 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private ArrayList<Proposal> mProposals = new ArrayList<>();
     private ArrayList<IrisProposal> mIrisProposals = new ArrayList<>();
     private ArrayList<Gov.Proposal> mGrpcProposals = new ArrayList<>();
+    //roll back
+    private ArrayList<Proposal_V1> mProposals_V1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,7 +124,14 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             mRecyclerView.setAdapter(mIrisVoteAdapter);
             new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
+        } else if (mBaseChain.equals(BaseChain.COSMOS_MAIN) ) {
+//            mGrpcProposalsAdapter = new GrpcProposalsAdapter();
+//            mRecyclerView.setAdapter(mGrpcProposalsAdapter);
+//            new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalsTask_V1(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
             mGrpcProposalsAdapter = new GrpcProposalsAdapter();
             mRecyclerView.setAdapter(mGrpcProposalsAdapter);
             new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -186,6 +197,22 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 mRecyclerView.setVisibility(View.GONE);
             }
 
+        } else if (result.taskType == TASK_V1_FETCH_PROPOSALS) {
+            mProposals_V1.clear();
+            List<Proposal_V1> temp = (List<Proposal_V1>)result.resultData;
+            if (temp != null && temp.size() > 0) {
+                mProposals_V1.addAll(temp);
+                WUtil.onSortingProposalsV1(mProposals_V1);
+                mVoteAdapter.notifyDataSetChanged();
+                mEmptyProposal.setVisibility(View.GONE);
+                mRecyclerView.setVisibility(View.VISIBLE);
+
+            } else {
+                mEmptyProposal.setVisibility(View.VISIBLE);
+                mRecyclerView.setVisibility(View.GONE);
+
+            }
+
         }
         mSwipeRefreshLayout.setRefreshing(false);
 
@@ -200,42 +227,27 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull VoteAdapter.VoteHolder voteHolder, int position) {
-            final Proposal proposal = mProposals.get(position);
+
             if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
-                voteHolder.proposal_id.setText("# " + proposal.id);
-                voteHolder.proposal_status.setText(proposal.proposal_status);
-                voteHolder.proposal_title.setText(proposal.content.value.title);
-                voteHolder.proposal_details.setText(proposal.content.value.description);
-                if (proposal.proposal_status.equals("DepositPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                } else if (proposal.proposal_status.equals("VotingPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                } else if (proposal.proposal_status.equals("Rejected")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                } else if (proposal.proposal_status.equals("Passed")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                } else {
-                    voteHolder.proposal_status_img.setVisibility(View.GONE);
-                }
+                final Proposal_V1 proposal = mProposals_V1.get(position);
+                voteHolder.proposal_id.setText("# " + proposal.proposal_id);
+                voteHolder.proposal_status.setText(proposal.getStatusText(getBaseContext()));
+                voteHolder.proposal_title.setText(proposal.content.title);
+                voteHolder.proposal_details.setText(proposal.content.description);
+                voteHolder.proposal_status_img.setImageDrawable(proposal.getStatusImg(getBaseContext()));
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (Integer.parseInt(proposal.id) >= 25) {
-                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                            voteIntent.putExtra("proposalId", proposal.id);
-                            startActivity(voteIntent);
-
-                        } else {
-                            Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                            webintent.putExtra("voteId", proposal.id);
-                            webintent.putExtra("chain", mAccount.baseChain);
-                            startActivity(webintent);
-                        }
+                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                        webintent.putExtra("voteId", proposal.proposal_id);
+                        webintent.putExtra("chain", mAccount.baseChain);
+                        startActivity(webintent);
                     }
                 });
 
 
             } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+                final Proposal proposal = mProposals.get(position);
                 voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
                 voteHolder.proposal_title.setText(proposal.content.value.title);
@@ -270,6 +282,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+                final Proposal proposal = mProposals.get(position);
                 voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
                 voteHolder.proposal_title.setText(proposal.content.value.title);
@@ -295,6 +308,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
+                final Proposal proposal = mProposals.get(position);
                 voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
                 voteHolder.proposal_title.setText(proposal.content.value.title);
@@ -324,7 +338,11 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            return mProposals.size();
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+                return mProposals_V1.size();
+            } else {
+                return mProposals.size();
+            }
         }
 
         public class VoteHolder extends RecyclerView.ViewHolder {
@@ -405,7 +423,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             }
         }
     }
-
 
     private class GrpcProposalsAdapter extends RecyclerView.Adapter<GrpcProposalsAdapter.VoteHolder> {
 
@@ -503,4 +520,5 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             }
         }
     }
+
 }

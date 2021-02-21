@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
@@ -48,7 +49,15 @@ public class AllRewardTask_V1 extends CommonTask {
     private ArrayList<Reward_V1> onDoingJob(int offset) {
         ArrayList<Reward_V1> resultData = new ArrayList<>();
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                Response<ResAllReward_V1> response = ApiClient.getCosmosChain(mApp).getAllRewards(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().rewards != null) {
+                        resultData = response.body().rewards;
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResAllReward_V1> response = ApiClient.getCosmosTestChain(mApp).getAllRewards(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().rewards != null) {

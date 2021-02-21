@@ -81,17 +81,19 @@ public class SimpleUndelegateTask extends CommonTask {
                 return mResult;
             }
 
-            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!accountResponse.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+//                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
+//                if(!accountResponse.isSuccessful()) {
+//                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+//                    return mResult;
+//                }
+//                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+//                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+//                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+//
+//            } else
 
-            } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;

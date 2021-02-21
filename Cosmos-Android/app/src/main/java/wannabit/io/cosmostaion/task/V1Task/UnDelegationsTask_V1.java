@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_UNDELEGATIONS;
@@ -48,7 +49,15 @@ public class UnDelegationsTask_V1 extends CommonTask {
     private ArrayList<Undelegation_V1> onDoingJob(int offset) {
         ArrayList<Undelegation_V1> resultData = new ArrayList<>();
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+                Response<ResUndelegations_V1> response = ApiClient.getCosmosChain(mApp).getUndelegations(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().unbonding_responses != null) {
+                        resultData = response.body().unbonding_responses;
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST) || BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResUndelegations_V1> response = ApiClient.getCosmosTestChain(mApp).getUndelegations(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().unbonding_responses != null) {

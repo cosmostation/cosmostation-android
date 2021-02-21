@@ -309,7 +309,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
 
             ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward)));
-            mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValAddresses.size() - 1));
+            mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValOpAddresses_V1.size() - 1));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
             mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
             mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);

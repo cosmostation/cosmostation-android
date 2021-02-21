@@ -2,8 +2,6 @@ package wannabit.io.cosmostaion.task.V1Task.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
-import java.util.ArrayList;
-
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -12,7 +10,9 @@ import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.Account_V1;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResAuth_V1;
@@ -28,23 +28,29 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_BROAD_CLAIM_REWARDS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_BROAD_REDELEGATE;
 
-public class ClaimRewardsTask_V1 extends CommonTask {
+public class RedelegateTask_V1 extends CommonTask {
 
-    private Account             mAccount;
-    private ArrayList<String>   mValOpAddresses_V1;
-    private String              mMemo;
-    private Fee                 mFees;
+    private Account         mAccount;
+    private String          mFromValidator;
+    private String          mToValidator;
+    private Coin            mAmount;
+    private String          mMemo;
+    private Fee             mFees;
 
-    public ClaimRewardsTask_V1(BaseApplication app, TaskListener listener, Account account,
-                               ArrayList<String> toValAddresses, String memo, Fee fees) {
+    public RedelegateTask_V1(BaseApplication app, TaskListener listener, Account mAccount,
+                             String mFromValidator, String mToValidator,
+                                Coin mRedelegateAmount, String mReDelegateMemo,
+                                Fee mFees) {
         super(app, listener);
-        this.mAccount = account;
-        this.mValOpAddresses_V1 = toValAddresses;
-        this.mMemo = memo;
-        this.mFees = fees;
-        this.mResult.taskType   = TASK_V1_BROAD_CLAIM_REWARDS;
+        this.mAccount = mAccount;
+        this.mFromValidator = mFromValidator;
+        this.mToValidator = mToValidator;
+        this.mAmount = mRedelegateAmount;
+        this.mMemo = mReDelegateMemo;
+        this.mFees = mFees;
+        this.mResult.taskType = TASK_V1_BROAD_REDELEGATE;
     }
 
     @Override
@@ -61,7 +67,7 @@ public class ClaimRewardsTask_V1 extends CommonTask {
         if (auth != null) {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
-            ReqBroadCast reqBroadCast = Signer.genSignedClaimRewardsTxV1(mAccount.address, auth.account_number, auth.sequence, mValOpAddresses_V1, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+            ReqBroadCast reqBroadCast = Signer.genSignedReDelegateTxV1(mAccount.address, auth.account_number, auth.sequence, mFromValidator, mToValidator, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
 //            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
             Response<ResBroadTx> response = onBroadTx(reqBroadCast);

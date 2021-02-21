@@ -43,19 +43,20 @@ public class SingleRedelegateStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
-                if (response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    } else {
-                        mResult.resultData = new ArrayList<Redelegate>();
-                        mResult.isSuccess = true;
-                    }
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+//                Response<ResLcdRedelegate> response = ApiClient.getCosmosChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+//                if (response.isSuccessful()) {
+//                    if(response.body() != null && response.body().result != null) {
+//                        mResult.resultData = response.body().result;
+//                        mResult.isSuccess = true;
+//                    } else {
+//                        mResult.resultData = new ArrayList<Redelegate>();
+//                        mResult.isSuccess = true;
+//                    }
+//                }
+//
+//            } else
+                if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getKavaChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {

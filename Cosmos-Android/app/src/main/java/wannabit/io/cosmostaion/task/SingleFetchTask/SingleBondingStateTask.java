@@ -41,17 +41,19 @@ public class SingleBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, COSMOS_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-                }
-                mResult.isSuccess = true;
+//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
+//                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+//                if(response.isSuccessful()) {
+//                    if(response.body() != null && response.body().result != null)
+//                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, COSMOS_MAIN));
+//                    else
+//                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+//                }
+//                mResult.isSuccess = true;
+//
+//            } else
 
-            } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResLcdBonding> response = ApiClient.getIrisChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
                 if(response.isSuccessful()) {
                     if(response.body() != null){
