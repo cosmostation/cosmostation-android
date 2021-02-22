@@ -27,7 +27,7 @@ public class ProvisionTask_V1 extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResProvision_V1> response = ApiClient.getCosmosChain(mApp).getProvision().execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.isSuccess = true;

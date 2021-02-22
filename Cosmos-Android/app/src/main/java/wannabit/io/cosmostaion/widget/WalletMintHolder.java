@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -35,9 +36,11 @@ public class WalletMintHolder extends WalletHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
-//            WLog.w("mGrpcInflation " + baseData.mGrpcInflation);
-//            WLog.w("mGrpcInflation " + baseData.mGrpcInflation);
+        if (mainActivity.mBaseChain.equals(COSMOS_MAIN)) {
+            if (baseData.mInflation_V1 != null) mInflation.setText(WDp.getPercentDp(baseData.mInflation_V1.multiply(new BigDecimal("100"))));
+            mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
+
+        } else if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
             if (baseData.mGrpcInflation != null) mInflation.setText(WDp.getPercentDp(baseData.mGrpcInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 

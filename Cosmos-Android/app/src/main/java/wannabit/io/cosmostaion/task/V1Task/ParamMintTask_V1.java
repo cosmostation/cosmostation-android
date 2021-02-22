@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PARAM_MINT;
@@ -26,7 +27,7 @@ public class ParamMintTask_V1 extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResParamMint_V1> response = ApiClient.getCosmosChain(mApp).getParamMint().execute();
                 if (response.isSuccessful() && response.body().params != null) {
                     mResult.resultData = response.body().params;

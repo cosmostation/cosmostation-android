@@ -125,11 +125,9 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.COSMOS_MAIN) ) {
-//            mGrpcProposalsAdapter = new GrpcProposalsAdapter();
-//            mRecyclerView.setAdapter(mGrpcProposalsAdapter);
-//            new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            mVoteAdapter = new VoteAdapter();
+            mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalsTask_V1(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
 
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
             mGrpcProposalsAdapter = new GrpcProposalsAdapter();

@@ -9,7 +9,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSALS;
 
 public class ProposalsTask_V1 extends CommonTask {
@@ -24,7 +24,7 @@ public class ProposalsTask_V1 extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mBaseChain.equals(COSMOS_TEST)) {
+            if (mBaseChain.equals(COSMOS_MAIN)) {
                 Response<ResProposal_V1> response = ApiClient.getCosmosChain(mApp).getProposals().execute();
                 if (response.isSuccessful() && response.body().proposals != null) {
                     mResult.resultData = response.body().proposals;

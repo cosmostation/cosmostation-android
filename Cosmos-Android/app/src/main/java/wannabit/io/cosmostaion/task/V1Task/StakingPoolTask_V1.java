@@ -27,7 +27,7 @@ public class StakingPoolTask_V1 extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResStakingPool_V1> response = ApiClient.getCosmosChain(mApp).getStakingPool().execute();
                 if (response.isSuccessful() && response.body().pool != null) {
                     mResult.resultData = response.body().pool;

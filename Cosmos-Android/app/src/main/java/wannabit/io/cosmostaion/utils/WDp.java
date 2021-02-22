@@ -385,8 +385,14 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_TEST)) {
-            //TODO need real test
+        if (chain.equals(COSMOS_MAIN)) {
+            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mProvision_V1 == null || baseData.mParamMint_V1 == null) { return result; }
+            BigDecimal provisions = baseData.mProvision_V1;
+            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
+            BigDecimal blocksPerYear = new BigDecimal(baseData.mParamMint_V1.blocks_per_year);
+            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
+
+        } else if (chain.equals(COSMOS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
