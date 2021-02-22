@@ -5,17 +5,17 @@
   Created by yongjoo on 27/03/2019.
   Copyright © 2019 wannabit. All rights reserved.
 */
-"password_init1" = "Please insert your PIN number.";
-"password_init2" = "Please insert again for confirm.";
-"password_check" = "Please type your PIN number";
-"password_delete" = "Insert PIN number for delete";
-"password_tx" = "Insert PIN number for Transaction";
-"password_app_lock" = "Insert PIN number for UnLock";
-"password_init_warnning" = "No way to recover this.\nPlease remember!";
-"password_msg1" = "Losing your mnemonics could lead to loss of your asset.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anyone else.";
-"password_msg2" = "Copy your mnemonics on a piece of paper and keep if in a secure location. You can recover your wallet using your mnemonics.";
-"add_address_msg" = "With watch mode, you can check the status of your account. \nTo make transaction can add private information with later.";
-"add_address_hint" = "Insert address.";
+"password_init1" = "Enter your new PIN";
+"password_init2" = "Verify your new PIN";
+"password_check" = "Enter PIN";
+"password_delete" = "Enter PIN";
+"password_tx" = "Enter PIN";
+"password_app_lock" = "Enter PIN";
+"password_init_warnning" = "This cannot be recovered if lost or forgotten.";
+"password_msg1" = "Losing your mnemonics could lead to loss of your assets.\nWe highly recommend keeping your mnemonics offline in a secure location, and never share your mnemonics with anybody else.";
+"password_msg2" = "Copy your mnemonics on a piece of paper and keep them in a secure location. You can later recover your wallet using your mnemonics.";
+"add_address_msg" = "You can watch any supported wallet address and its transaction history, however you will not be able to perform transactions with it. You can later add a mnemonic to this address to enable this functionality.";
+"add_address_hint" = "Wallet address";
 
 "create_wallet" = "Create Wallet";
 "show_mnemonics" = "Show Mnemonics";
@@ -176,8 +176,8 @@
 "vesting_account" = "Vesting Account";
 "vesting_account_msg" = "Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.";
 "waiting_deposit" = "Waiting Deposit";
-"push_enabled_state_msg" = "Enabled push alarm for each send & received tx with this address";
-"push_disabled_state_msg" = "Disabled push alaram, you can turn on";
+"push_enabled_state_msg" = "You will be notified of incoming and outgoing transactions";
+"push_disabled_state_msg" = "Push notifications are disabled";
 "permission_push_title" = "Allow Notification";
 "permission_push_msg" = "Please allow for push notification.";
 "retry" = "Retry";
