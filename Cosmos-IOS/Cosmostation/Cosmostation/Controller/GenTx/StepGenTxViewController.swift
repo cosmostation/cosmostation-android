@@ -518,9 +518,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                         self.mToReDelegateValidators_V1.append(val)
                     }
                 }
-                if (validators.count >= 100) {
-                    self.onFetchBondedValidators(offset + 100)
-                }
+//                if (validators.count >= 100) {
+//                    self.onFetchBondedValidators(offset + 100)
+//                }
                 self.sortByPower_V1()
                 
             case .failure(let error):

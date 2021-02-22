@@ -1844,7 +1844,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("res", res)
+//                print("onFetchBondedValidators res")
                 guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -1872,7 +1872,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("res", res)
+//                print("onFetchUnbondedValidators res")
                 guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -1900,6 +1900,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchUnbondingValidators res")
                 guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -1927,6 +1928,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchDelegations res")
                 guard let responseData = res as? NSDictionary, let delegations = responseData.object(forKey: "delegation_responses") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -1934,6 +1936,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for delegation in delegations {
                     BaseData.instance.mMyDelegations_V1.append(DelegationInfo_V1(delegation))
                 }
+                self.onFetchFinished()
 //                if (delegations.count >= 100) {
 //                    self.onFetchDelegations(address, offset + 100)
 //                } else {
@@ -1953,6 +1956,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchUndelegations res")
                 guard let responseData = res as? NSDictionary, let undelegations = responseData.object(forKey: "unbonding_responses") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -1960,6 +1964,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for undelegation in undelegations {
                     BaseData.instance.mMyUnbondings_V1.append(UnbondingInfo_V1(undelegation))
                 }
+                self.onFetchFinished()
 //                if (undelegations.count >= 100) {
 //                    self.onFetchUndelegations(address, offset + 100)
 //                } else {
@@ -1980,6 +1985,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchBalance res")
                 guard let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -1987,6 +1993,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for balance in balances {
                     BaseData.instance.mMyBalances_V1.append(Coin(balance))
                 }
+                self.onFetchFinished()
 //                if (balances.count >= 100) {
 //                    self.onFetchBalance(address, offset + 100)
 //                } else {
@@ -2007,6 +2014,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchRewards res")
                 guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
                     self.onFetchFinished()
                     return
@@ -2029,6 +2037,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchMintParamV1 res")
                 guard let responseData = res as? NSDictionary, let params = responseData.object(forKey: "params") as? NSDictionary else {
                     self.onFetchFinished()
                     return
@@ -2049,6 +2058,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchInflationV1 res")
                 guard let responseData = res as? NSDictionary else {
                     self.onFetchFinished()
                     return
@@ -2069,7 +2079,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-//                print("onFetchProvisionV1 res ", res)
+//                print("onFetchProvisionV1 res ")
                 guard let responseData = res as? NSDictionary else {
                     self.onFetchFinished()
                     return
@@ -2090,6 +2100,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
+//                print("onFetchStakingPoolV1 res")
                 guard let responseData = res as? NSDictionary, let pool = responseData.object(forKey: "pool") as? NSDictionary else {
                     self.onFetchFinished()
                     return
