@@ -189,18 +189,21 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mOtherValidator.removeAll()
         BaseData.instance.mMyValidator.removeAll()
         
+        // 0.40 lcd
+        BaseData.instance.mAllValidators_V1.removeAll()
+        BaseData.instance.mBondedValidators_V1.removeAll()
+        BaseData.instance.mUnbondValidators_V1.removeAll()
+        BaseData.instance.mMyValidators_V1.removeAll()
+        
+        BaseData.instance.mMyDelegations_V1.removeAll()
+        BaseData.instance.mMyUnbondings_V1.removeAll()
+        BaseData.instance.mMyBalances_V1.removeAll()
+        BaseData.instance.mMyReward_V1.removeAll()
+        
+        BaseData.instance.mIrisTokens_V1.removeAll()
+        
         if (mChainType == ChainType.COSMOS_MAIN) {
             self.mFetchCnt = 11
-            BaseData.instance.mAllValidators_V1.removeAll()
-            BaseData.instance.mBondedValidators_V1.removeAll()
-            BaseData.instance.mUnbondValidators_V1.removeAll()
-            BaseData.instance.mMyValidators_V1.removeAll()
-            
-            BaseData.instance.mMyDelegations_V1.removeAll()
-            BaseData.instance.mMyUnbondings_V1.removeAll()
-            BaseData.instance.mMyBalances_V1.removeAll()
-            BaseData.instance.mMyReward_V1.removeAll()
-            
             onFetchBondedValidators(0)
             onFetchUnbondedValidators(0)
             onFetchUnbondingValidators(0)
@@ -216,15 +219,20 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPoolV1()
             
         } else if (mChainType == ChainType.IRIS_MAIN) {
-            self.mFetchCnt = 7
-            self.irisValidatorPage = 1
-            onFetchIrisValidatorsInfo(irisValidatorPage)
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchIrisReward(mAccount)
-            onFetchIrisPool()
-            onFetchIrisTokens()
+            self.mFetchCnt = 10
+            onFetchBondedValidators(0)
+            onFetchUnbondedValidators(0)
+            onFetchUnbondingValidators(0)
+            
+            onFetchBalance(mAccount.account_address, 0)
+            onFetchDelegations(mAccount.account_address, 0)
+            onFetchUndelegations(mAccount.account_address, 0)
+            onFetchRewards(mAccount.account_address)
+            
+            onFetchMintParamV1()
+            onFetchStakingPoolV1()
+            onFetchIrisTokensV1()
+            
             
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 3
@@ -359,16 +367,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.COSMOS_TEST) {
             self.mFetchCnt = 11
-            BaseData.instance.mAllValidators_V1.removeAll()
-            BaseData.instance.mBondedValidators_V1.removeAll()
-            BaseData.instance.mUnbondValidators_V1.removeAll()
-            BaseData.instance.mMyValidators_V1.removeAll()
-            
-            BaseData.instance.mMyDelegations_V1.removeAll()
-            BaseData.instance.mMyUnbondings_V1.removeAll()
-            BaseData.instance.mMyBalances_V1.removeAll()
-            BaseData.instance.mMyReward_V1.removeAll()
-            
             onFetchBondedValidators(0)
             onFetchUnbondedValidators(0)
             onFetchUnbondingValidators(0)
@@ -385,18 +383,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 10
-            BaseData.instance.mAllValidators_V1.removeAll()
-            BaseData.instance.mBondedValidators_V1.removeAll()
-            BaseData.instance.mUnbondValidators_V1.removeAll()
-            BaseData.instance.mMyValidators_V1.removeAll()
-            
-            BaseData.instance.mMyDelegations_V1.removeAll()
-            BaseData.instance.mMyUnbondings_V1.removeAll()
-            BaseData.instance.mMyBalances_V1.removeAll()
-            BaseData.instance.mMyReward_V1.removeAll()
-            
-            BaseData.instance.mIrisTokens_V1.removeAll()
-            
             onFetchBondedValidators(0)
             onFetchUnbondedValidators(0)
             onFetchUnbondingValidators(0)
@@ -427,7 +413,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.hideWaittingAlert()
             return
             
-        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
+        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.IRIS_TEST) {
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
             for validator in BaseData.instance.mAllValidators_V1 {
@@ -463,38 +449,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return
-            
-        } else if (mChainType == ChainType.IRIS_MAIN) {
-            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
-            
-            for validator in mAllValidator {
-                if (validator.status == validator.BONDED) {
-                    mTopValidators.append(validator)
-                } else {
-                    mOtherValidators.append(validator)
-                }
-            }
-            for validator in mAllValidator {
-                var mine = false;
-                for bonding in mBondingList {
-                    if (bonding.bonding_v_address == validator.operator_address) {
-                        mine = true;
-                        break;
-                    }
-                }
-                for unbonding in mUnbondingList {
-                    if (unbonding.unbonding_v_address == validator.operator_address) {
-                        mine = true;
-                        break;
-                    }
-                }
-                if (mine) {
-                    self.mMyValidators.append(validator)
-                }
-            }
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -724,39 +678,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    var irisValidatorPage = 1;
-    func onFetchIrisValidatorsInfo(_ page:Int) {
-        let request = Alamofire.request(IRIS_LCD_URL_VALIDATORS, method: .get, parameters: ["size":"100", "page":String(page)], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let validators = res as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for validator in validators {
-                    self.mAllValidator.append(Validator(validator as! [String : Any]))
-                }
-                if (validators.count == 100) {
-                    self.irisValidatorPage = self.irisValidatorPage + 1
-                    self.onFetchIrisValidatorsInfo(self.irisValidatorPage)
-                    
-                } else {
-                    self.onFetchFinished()
-                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchIrisValidatorsInfo ", error) }
-                self.onFetchFinished()
-            }
-        }
-    }
-    
     func onFetchAccountInfo(_ account: Account) {
         var url: String?
-        if (mChainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.BINANCE_MAIN ) {
+        if (mChainType == ChainType.BINANCE_MAIN ) {
             url = BNB_URL_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
@@ -795,16 +719,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                             _ = BaseData.instance.deleteBalance(account: account)
                             self.onFetchFinished()
                             return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    
-                } else if (self.mChainType == ChainType.IRIS_MAIN) {
-                    guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.onFetchFinished()
-                        return
                     }
                     let accountInfo = AccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
@@ -851,9 +765,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchBondingInfo(_ account: Account) {
         var url: String?
-        if (mChainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL
-        } else if (mChainType == ChainType.KAVA_MAIN) {
+        if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_BONDING + account.account_address + KAVA_BONDING_TAIL
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL
@@ -878,32 +790,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST ||
-                        self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.SECRET_MAIN ||
-                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
-                        bondinginfos.count > 0  else {
-                            _ = BaseData.instance.deleteBonding(account: account)
-                            self.onFetchFinished()
-                            return;
-                    }
-                    let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, self.mChainType)
-                    BaseData.instance.updateBondings(mTempBondings)
-                    self.mFetchCnt = self.mFetchCnt + mTempBondings.count
-                    for bondig in mTempBondings {
-                        self.onFetchEachReward(tempAddress, bondig.bonding_v_address)
-                    }
-                    
-                } else if (self.mChainType == ChainType.IRIS_MAIN) {
-                    guard let bondinginfos = res as? Array<NSDictionary>, bondinginfos.count > 0 else {
+                guard let responseData = res as? NSDictionary,
+                    let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
+                    bondinginfos.count > 0  else {
                         _ = BaseData.instance.deleteBonding(account: account)
                         self.onFetchFinished()
                         return;
-                    }
-                    let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, self.mChainType)
-                    BaseData.instance.updateBondings(mTempBondings)
-                    
+                }
+                let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, self.mChainType)
+                BaseData.instance.updateBondings(mTempBondings)
+                self.mFetchCnt = self.mFetchCnt + mTempBondings.count
+                for bondig in mTempBondings {
+                    self.onFetchEachReward(tempAddress, bondig.bonding_v_address)
                 }
                 
             case .failure(let error):
@@ -915,9 +813,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchUnbondingInfo(_ account: Account) {
         var url: String?
-        if (mChainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL
-        } else if (mChainType == ChainType.KAVA_MAIN) {
+        if (mChainType == ChainType.KAVA_MAIN) {
             url = KAVA_UNBONDING + account.account_address + KAVA_UNBONDING_TAIL
         } else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL
@@ -941,49 +837,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST ||
-                        self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN || self.mChainType == ChainType.SECRET_MAIN ||
-                        self.mChainType == ChainType.CERTIK_MAIN || self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
-                        unbondinginfos.count > 0  else {
-                            _ = BaseData.instance.deleteUnbonding(account: account)
-                            self.onFetchFinished()
-                            return
-                    }
-                    BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, self.mChainType))
-                    
-                } else if (self.mChainType == ChainType.IRIS_MAIN) {
-                    guard let unbondinginfos = res as? Array<NSDictionary>, unbondinginfos.count > 0 else {
+                guard let responseData = res as? NSDictionary,
+                    let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
+                    unbondinginfos.count > 0  else {
                         _ = BaseData.instance.deleteUnbonding(account: account)
                         self.onFetchFinished()
                         return
-                    }
-                    BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, self.mChainType))
-                    
                 }
+                BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, self.mChainType))
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchIrisReward(_ account: Account) {
-        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let irisRewards = res as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchIrisReward ", error) }
             }
             self.onFetchFinished()
         }
@@ -1016,21 +880,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.mChainType == ChainType.BAND_MAIN || self.mChainType == ChainType.IOV_MAIN ||
-                        self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.SECRET_MAIN || self.mChainType == ChainType.CERTIK_MAIN ||
-                        self.mChainType == ChainType.IOV_TEST || self.mChainType == ChainType.CERTIK_TEST || self.mChainType == ChainType.KAVA_TEST || self.mChainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onFetchFinished()
-                            return;
-                    }
-                    let reward = Reward.init()
-                    reward.reward_v_address = validatorAddr
-                    for rawReward in rawRewards {
-                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
-                    }
-                    self.mRewardList.append(reward)
+                guard let responseData = res as? NSDictionary,
+                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onFetchFinished()
+                        return;
                 }
+                let reward = Reward.init()
+                reward.reward_v_address = validatorAddr
+                for rawReward in rawRewards {
+                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                }
+                self.mRewardList.append(reward)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchEachReward ", error) }
@@ -1204,43 +1064,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchStakingPool ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchIrisPool() {
-        let url = IRIS_LCD_URL_STAKING_POOL
-        BaseData.instance.mIrisStakePool = nil
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                if let irisStakePool = res as? NSDictionary {
-                    BaseData.instance.mIrisStakePool = irisStakePool
-                }
-            case .failure(let error):
-                if (SHOW_LOG) { print("irisStakePool ", error) }
-            }
-            self.onFetchFinished()
-        }
-    
-    }
-    
-    func onFetchIrisTokens() {
-        let url = IRIS_LCD_URL_TOKENS
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                if let tokens = res as? Array<NSDictionary> {
-                    self.mIrisTokenList.removeAll()
-                    for token in tokens {
-                        self.mIrisTokenList.append(IrisToken(token as! [String : Any]))
-                    }
-                }
-            case .failure(let error):
-                if (SHOW_LOG) { print("irisStakePool ", error) }
             }
             self.onFetchFinished()
         }
@@ -1841,6 +1664,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchBondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(mChainType)
         let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 125, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
+        print("request ",request.request?.url)
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
