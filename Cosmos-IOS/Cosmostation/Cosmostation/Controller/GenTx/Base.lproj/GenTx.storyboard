@@ -10478,7 +10478,7 @@ Some exchanges or wallets may require a specific memo for deposits.</string>
                         <outlet property="mToAddressLabel" destination="6c2-ev-eh9" id="UhU-kW-oc0"/>
                         <outlet property="mToSendAmountLabel" destination="165-Bz-bOt" id="vgb-Yc-Vr3"/>
                         <outlet property="mToSendDenomLabel" destination="Xjw-ph-Lfs" id="t1b-T6-zlg"/>
-                        <outlet property="mToSpendDenomTitle" destination="SND-Hn-2SF" id="uXf-J6-DOb"/>
+                        <outlet property="mTotalSpendDenomTitle" destination="SND-Hn-2SF" id="Ib6-gT-LLI"/>
                         <outlet property="mTotalSpendLabel" destination="KIB-9Q-ntd" id="6OK-s1-48P"/>
                         <outlet property="mTotalSpendPrice" destination="ufC-VN-wuz" id="HpT-W6-lG0"/>
                         <outlet property="mTotalSpendTitle" destination="IA5-XZ-ucD" id="5OT-TN-xpS"/>

@@ -26,18 +26,15 @@ class TransactionViewController: UIViewController {
     var mRewardTargetValidators_V1 = Array<Validator_V1>()
     var mIrisRedelegate: Array<NSDictionary>?
     
-    var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
-    var mCosmosSendDenom: String?
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?
     var mCertikSendDenom: String?
     var mSecretSendDenom: String?
     var mAkashSendDenom: String?
-    var mIrisTokenV1: IrisToken_V1?
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -59,7 +56,8 @@ class TransactionViewController: UIViewController {
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
-    
+    //after 40.0
+    var mToSendDenom: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -248,20 +246,18 @@ class TransactionViewController: UIViewController {
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
             StepVc.mRewardTargetValidators_V1 = self.mRewardTargetValidators_V1
             StepVc.mIrisRedelegate = self.mIrisRedelegate
-            StepVc.mIrisToken = self.mIrisToken
             StepVc.mBnbToken = self.mBnbToken
             StepVc.mBnbTics = self.mBnbTics
             StepVc.mProposeId = self.mProposeId
             StepVc.mProposalTitle = self.mProposalTitle
             StepVc.mProposer = self.mProposer
-            StepVc.mCosmosSendDenom = self.mCosmosSendDenom
-            StepVc.mKavaSendDenom = self.mKavaSendDenom
             StepVc.mIovSendDenom = self.mIovSendDenom
             StepVc.mOkSendDenom = self.mOkSendDenom
             StepVc.mCertikSendDenom = self.mCertikSendDenom
             StepVc.mSecretSendDenom = self.mSecretSendDenom
             StepVc.mAkashSendDenom = self.mAkashSendDenom
-            StepVc.mIrisTokenV1 = self.mIrisTokenV1
+            StepVc.mToSendDenom = self.mToSendDenom
+            
             StepVc.mCDenom = self.mCDenom
             StepVc.mMarketID = self.mMarketID
             StepVc.mHtlcDenom = self.mHtlcDenom

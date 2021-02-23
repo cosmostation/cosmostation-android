@@ -1957,15 +1957,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
-        if (chainType! == ChainType.IRIS_MAIN) {
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mIrisToken = WUtils.getIrisMainToken(self.mainTabVC.mIrisTokenList)
-            txVC.mType = IRIS_MSG_TYPE_TRANSFER
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -2038,28 +2030,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         }
         
-        else if (chainType! == ChainType.COSMOS_MAIN) {
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
+        else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mCosmosSendDenom = COSMOS_TEST_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mIrisTokenV1 = WUtils.getIrisMainTokenV1()
+            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else {

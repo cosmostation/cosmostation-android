@@ -1784,6 +1784,16 @@ class WUtils {
         return nil
     }
     
+    static func getIrisTokenV1(_ denom: String?) -> IrisToken_V1? {
+        let tokens = BaseData.instance.mIrisTokens_V1
+        for token in tokens {
+            if (token.min_unit == denom) {
+                return token
+            }
+        }
+        return nil
+    }
+    
     static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ balance:Balance) -> BnbToken? {
         for bnbToken in bnbTokens {
             if (bnbToken.symbol == balance.balance_denom) {
@@ -2613,7 +2623,7 @@ class WUtils {
     
     static func getEstimateGasAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
@@ -2621,7 +2631,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
-            } else if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == KAVA_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
@@ -2633,22 +2643,24 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }
             
-        } else if (chain == ChainType.IRIS_MAIN) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
-            if (type == IRIS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_MID))
-            } else if (type == IRIS_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_SEND))
-            } else if (type == IRIS_MSG_TYPE_WITHDRAW || type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
-                result = (NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
-            } else if (type == IRIS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REWARD_BASE))
-            } else if (type == IRIS_MSG_TYPE_REDELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
             } else if (type == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_LOW))
-            } else {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_IRIS_REDELEGATE))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }
             
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -2796,36 +2808,6 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_VOTE))
-            }
-            
-        } else if (chain == ChainType.COSMOS_TEST) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            if (type == COSMOS_MSG_TYPE_DELEGATE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
-            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = getGasAmountForRewards()[valCnt - 1]
-            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REINVEST))
-            } else if (type == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-            }
-            
-        } else if (chain == ChainType.IRIS_TEST) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
-            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
-            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = getGasAmountForRewards()[valCnt - 1]
             }
             
         }

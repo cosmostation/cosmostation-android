@@ -68,7 +68,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mIrisRedelegate: Array<NSDictionary>?
     
-    var mIrisToken: IrisToken?
+//    var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
@@ -77,7 +77,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mProposer: String?
     var mVoteOpinion: String?
     
-    var mCosmosSendDenom: String?
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?
@@ -122,6 +121,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStarnameTime: Int64?
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
+    
+    //after 40.0
+    var mToSendDenom: String?
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -327,6 +329,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                 self.mOkVoteValidators = Array<String>()
             }
         }
+        self.mIrisTokenV1 = WUtils.getIrisTokenV1(mToSendDenom)
+        
             
         self.dataSource = self
         self.delegate = self
