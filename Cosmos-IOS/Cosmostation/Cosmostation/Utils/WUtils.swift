@@ -1208,7 +1208,7 @@ class WUtils {
             let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam_V1?.blocks_per_year)
             return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
             
-        } else if (chain == ChainType.IRIS_TEST) {
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             if (data.mStakingPool_V1 == nil || data.mMintParam_V1 == nil) {
                 return NSDecimalNumber.zero
             } else {
@@ -1905,7 +1905,7 @@ class WUtils {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
             }
-            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 18)
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             if (coin.denom == BNB_MAIN_DENOM) {
@@ -2029,7 +2029,7 @@ class WUtils {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
             }
-            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 18)
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             if (denom == BNB_MAIN_DENOM) {

@@ -62,7 +62,7 @@ public struct ApiHistoryCustom {
                 let msgType0 = getMsgs()![1].object(forKey: "@type") as! String
                 let msgType1 = getMsgs()![2].object(forKey: "@type") as! String
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
-                    result = NSLocalizedString("tx_reinvest", comment: "")
+                    return NSLocalizedString("tx_reinvest", comment: "")
                 }
             }
             
@@ -136,8 +136,11 @@ public struct ApiHistoryCustom {
                 
             }
             
+            if (getMsgCnt() > 1) {
+                result = result +  "\n+ " + String(getMsgCnt() - 1)
+            }
+            
         }
-        
         return result
     }
         

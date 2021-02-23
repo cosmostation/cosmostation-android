@@ -73,7 +73,6 @@ final class BaseData : NSObject{
     var mProvision_V1: Provision_V1?
     var mInflation_V1: Inflation_V1?
     
-    
     var mIrisTokens_V1 = Array<IrisToken_V1>()
     
     func checkZeroMainDenom(_ chain: ChainType?) {
