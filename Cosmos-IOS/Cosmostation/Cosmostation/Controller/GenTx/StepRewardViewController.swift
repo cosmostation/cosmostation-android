@@ -56,12 +56,8 @@ class StepRewardViewController: BaseViewController {
             }
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            mFetchCnt = 2
-            self.onFetchIrisReward(pageHolderVC.mAccount!)
-            self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
-            
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mFetchCnt = 2
             self.onFetchRewards(pageHolderVC.mAccount!.account_address)
             self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
@@ -78,7 +74,8 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
@@ -98,20 +95,7 @@ class StepRewardViewController: BaseViewController {
             rewardFromLabel.text = monikers
             
         } else {
-            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                var selectedRewardSum = NSDecimalNumber.zero
-                for delegation in pageHolderVC.mIrisRewards!.delegations {
-                    for validator in pageHolderVC.mRewardTargetValidators {
-                        if (validator.operator_address == delegation.validator) {
-                            if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                                selectedRewardSum = selectedRewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
-                            }
-                        }
-                    }
-                }
-                rewardAmountLabel.attributedText = WUtils.displayAmount(selectedRewardSum.stringValue, rewardAmountLabel.font, 18, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                 rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
                 
             } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
@@ -204,34 +188,17 @@ class StepRewardViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    let reward = Reward.init()
-                    reward.reward_v_address = validatorAddr
-                    for rawReward in rawRewards {
-                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
-                    }
-                    self.pageHolderVC.mRewardList.append(reward)
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                            self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                            self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    let reward = Reward.init()
-                    reward.reward_v_address = validatorAddr
-                    for rawReward in rawRewards {
-                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
-                    }
-                    self.pageHolderVC.mRewardList.append(reward)
+                guard let responseData = res as? NSDictionary,
+                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return;
                 }
+                let reward = Reward.init()
+                reward.reward_v_address = validatorAddr
+                for rawReward in rawRewards {
+                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                }
+                self.pageHolderVC.mRewardList.append(reward)
                 
             case .failure(let error):
                 if(SHOW_LOG) { print("onFetchEachReward ", error) }
@@ -240,31 +207,9 @@ class StepRewardViewController: BaseViewController {
         }
     }
     
-    func onFetchIrisReward(_ account: Account) {
-        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let irisRewards = res as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.pageHolderVC.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
-                
-            case .failure(let error):
-                if(SHOW_LOG) { print("onFetchIrisReward ", error) }
-            }
-            self.onFetchFinished()
-        }
-        
-    }
-    
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
@@ -284,45 +229,22 @@ class StepRewardViewController: BaseViewController {
             url = AKASH_REWARD_ADDRESS + accountAddr + AKASH_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            request.responseString { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let address = res as? String else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
-                    
-                case .failure(let error):
-                    if(SHOW_LOG) {
-                        print("onFetchRewardAddress ", error)
-                    }
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary,
+                    let address = responseData.object(forKey: "result") as? String else {
+                    self.onFetchFinished()
+                    return;
                 }
-                self.onFetchFinished()
-            }
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                    pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                    pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                    pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let address = responseData.object(forKey: "result") as? String else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
-                    
-                case .failure(let error):
-                    if(SHOW_LOG) {
-                        print("onFetchRewardAddress ", error)
-                    }
+                self.pageHolderVC.mRewardAddress = address.replacingOccurrences(of: "\"", with: "")
+                
+            case .failure(let error):
+                if(SHOW_LOG) {
+                    print("onFetchRewardAddress ", error)
                 }
-                self.onFetchFinished()
             }
+            self.onFetchFinished()
         }
     }
     
