@@ -52,19 +52,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             memoLabel.text = pageHolderVC.mMemo
             
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 18, 18)
-            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 18, 18)
-            if let bonding = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address) {
-                currentDelegateAmount.attributedText = WUtils.displayAmount2(bonding.getBondingAmount(pageHolderVC.mTargetValidator!).stringValue, currentDelegateAmount.font, 18, 18)
-                let expected = (NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount)).adding(bonding.getBondingAmount(pageHolderVC.mTargetValidator!))
-                expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 18, 18)
-            }
-            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            memoLabel.text = pageHolderVC.mMemo
-        }
-        
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, 6)
             feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, 6)
             
@@ -124,7 +113,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -135,9 +125,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -160,19 +148,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                    guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenReinvest()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -240,33 +216,16 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                        self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                        self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                        self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-                    let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                                 self.pageHolderVC.mTargetValidator!.operator_address,
-                                                                 self.pageHolderVC.chainType!)
-                    
-                    let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
-                                                                  self.pageHolderVC.mTargetValidator!.operator_address,
-                                                                  self.pageHolderVC.mReinvestReward!,
-                                                                  self.pageHolderVC.chainType!)
-                    msgList.append(rewardMsg)
-                    msgList.append(delegatemsg)
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                    let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                                 self.pageHolderVC.mTargetValidator!.operator_address,
-                                                                 self.pageHolderVC.chainType!)
-                    
-                    let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
-                                                                  self.pageHolderVC.mTargetValidator!.operator_address,
-                                                                  self.pageHolderVC.mReinvestReward!,
-                                                                  self.pageHolderVC.chainType!)
-                    msgList.append(rewardMsg)
-                    msgList.append(delegatemsg)
-                }
+                let rewardMsg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address,
+                                                             self.pageHolderVC.mTargetValidator!.operator_address,
+                                                             self.pageHolderVC.chainType!)
+                
+                let delegatemsg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
+                                                              self.pageHolderVC.mTargetValidator!.operator_address,
+                                                              self.pageHolderVC.mReinvestReward!,
+                                                              self.pageHolderVC.chainType!)
+                msgList.append(rewardMsg)
+                msgList.append(delegatemsg)
                 
                 
                 
@@ -315,9 +274,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 //                    print("params ", params)
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                        url = IRIS_LCD_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
