@@ -407,7 +407,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("res ", res)
+//                print("res ", res)
                 guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                     return

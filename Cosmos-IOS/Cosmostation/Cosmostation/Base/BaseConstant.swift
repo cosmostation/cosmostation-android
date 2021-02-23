@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -32,7 +32,6 @@ let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
 let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
-//let COSMOS_URL                          = "https://lcd-cosmos-app-standby.cosmostation.io/";
 let COSMOS_API                          = "https://api.cosmostation.io/";
 
 let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
@@ -1133,8 +1132,7 @@ let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
-let IRIS_MAIN_DENOM = "iris-atto"
-let IRIS_DP_DENOM = "iris"
+let IRIS_MAIN_DENOM = "uiris"
 let BNB_MAIN_DENOM = "BNB"
 let IOV_MAIN_DENOM = "uiov"
 let KAVA_MAIN_DENOM = "ukava"
