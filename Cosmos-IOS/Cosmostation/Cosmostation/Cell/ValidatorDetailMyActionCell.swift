@@ -71,7 +71,7 @@ class ValidatorDetailMyActionCell: UITableViewCell {
             myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
             myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
             
-        } else if (chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator?.operator_address}.first
             let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator?.operator_address}.first
             let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator?.operator_address}.first

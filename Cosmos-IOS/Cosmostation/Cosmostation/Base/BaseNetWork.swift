@@ -254,4 +254,18 @@ class BaseNetWork {
         return result
     }
     
+    static func accountStakingHistory(_ chain: ChainType, _ address: String, _ valAddress: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_HISTORY + address + "/" + valAddress
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_HISTORY + address + "/" + valAddress
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_HISTORY + address + "/" + valAddress
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_HISTORY + address + "/" + valAddress
+        }
+        return result
+    }
+    
 }
