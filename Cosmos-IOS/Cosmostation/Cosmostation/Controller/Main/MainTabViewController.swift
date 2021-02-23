@@ -1817,6 +1817,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 for balance in balances {
                     BaseData.instance.mMyBalances_V1.append(Coin(balance))
                 }
+                BaseData.instance.checkZeroMainDenom(self.mChainType)
                 self.onFetchFinished()
 //                if (balances.count >= 100) {
 //                    self.onFetchBalance(address, offset + 100)
