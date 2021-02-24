@@ -48,6 +48,7 @@ import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Redelegate;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
+import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
@@ -55,8 +56,6 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResRedelegations_V1;
 import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
 import wannabit.io.cosmostaion.task.FetchTask.BandOracleStatusTask;
-import wannabit.io.cosmostaion.task.FetchTask.IrisRedelegateStateTask;
-import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleBondingStateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRedelegateStateTask;
@@ -135,6 +134,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private Toolbar                         mToolbar;
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
+    private SpannableString                 mSelfBondingRate;
+    private int                             mTaskCount;
+    private ArrayList<Redelegate>           mRedelegates;
+    private ResBandOracleStatus             mBandOracles;
 
     private ValidatorAdapter                mValidatorAdapter;
 
@@ -144,14 +147,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private Reward                          mReward;
     private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
 
-    private SpannableString                 mSelfBondingRate;
-
-    private int                             mTaskCount;
-    private ArrayList<Redelegate>           mRedelegates;
-    public ResLcdIrisReward                 mIrisReward;
-    public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
-    private ResBandOracleStatus             mBandOracles;
-
     //V1 .40 version
     private String                          mValOpAddress_V1;
     private Validator_V1                    mValidator_V1;
@@ -160,6 +155,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     private Reward_V1                       mMyReward;
     private Delegation_V1                   mSelfDelegation;
     private ArrayList<ResRedelegations_V1.RedelegationResponses_V1>      mRedelegations_V1;
+    private ArrayList<ResApiTxListCustom>   mApiTxCustomHistory = new ArrayList<>();
 
     //gRPC
     private String                                  mValOpAddress;
@@ -210,7 +206,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     protected void onResume() {
         super.onResume();
         if (mAccount == null) { onBackPressed(); }
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
 
         } else {
             if (mValidator == null || TextUtils.isEmpty(mValidator.operator_address)) { onBackPressed(); }
@@ -246,15 +242,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            mTaskCount = 6;
-            new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleSelfBondingStateTask(getBaseApplication(), this, WKey.convertDpOpAddressToDpAddress(mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)), mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleUnBondingStateTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IrisRedelegateStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         } else if (mBaseChain.equals(BAND_MAIN)) {
             mTaskCount = 6;
             new SingleValidatorInfoTask(getBaseApplication(), this, mValidator.operator_address, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -264,7 +251,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new SingleRedelegateStateTask(getBaseApplication(), this, mAccount, mValidator).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             //roll back
             mTaskCount = 6;
             getBaseDao().mDelegations_V1.clear();
@@ -302,7 +289,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             if (mValidator_V1.jailed) {
                 Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
                 return;
@@ -341,12 +328,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else {
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 if (WDp.getDelegableAmount(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
@@ -408,7 +390,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartDelegate() {
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             Intent toDelegate = new Intent(ValidatorActivity.this, DelegateActivity.class);
             toDelegate.putExtra("valOpAddress", mValOpAddress_V1);
             startActivity(toDelegate);
@@ -435,7 +417,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         boolean hasbalance = false;
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             if (mMyDelegation == null || WDp.getDelegation(getBaseDao(), mValOpAddress_V1).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
                 return;
@@ -488,21 +470,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     add.setCancelable(true);
                     getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                     return;
-                }
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("520000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
-                if (mIrisRedelegateState != null && mIrisRedelegateState.size() > 0) {
-                    for (ResLcdIrisRedelegate state:mIrisRedelegateState) {
-                        if (state.validator_dst_addr.equals(mValidator.operator_address)) {
-                            Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                            add.setCancelable(true);
-                            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                            return;
-                        }
-                    }
                 }
 
             } else if (mBaseChain.equals(IOV_MAIN)) {
@@ -574,7 +541,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartRedelegate() {
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             Intent toDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
             toDelegate.putExtra("valOpAddress", mValOpAddress_V1);
             startActivity(toDelegate);
@@ -587,7 +554,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else {
             Intent reDelegate = new Intent(ValidatorActivity.this, RedelegateActivity.class);
             reDelegate.putExtra("validator", mValidator);
-            reDelegate.putExtra("irisReState", mIrisRedelegateState);
             startActivity(reDelegate);
         }
     }
@@ -599,7 +565,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             if (mMyDelegation == null || mMyDelegation.getDelegation().compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
                 return;
@@ -647,22 +613,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                     return;
                 }
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                if (mUnBondingStates != null && mUnBondingStates.size() >= 1){
-                    Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over_iris, Toast.LENGTH_SHORT).show();
-                    return;
-                }
             }
 
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
                 hasbalance  = true;
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
 
             } else if (mBaseChain.equals(IOV_MAIN)) {
                 if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
@@ -714,12 +670,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN)) {
-            if (WDp.getAvailable(getBaseDao(), TOKEN_ATOM).compareTo(new BigDecimal("3750")) <= 0) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("3750")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getReward(getBaseDao(), TOKEN_ATOM, mValOpAddress_V1).compareTo(new BigDecimal("3750")) <= 0) {
+            if (WDp.getReward(getBaseDao(), WDp.mainDenom(mBaseChain), mValOpAddress_V1).compareTo(new BigDecimal("3750")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -758,19 +714,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     return;
                 }
                 hasbalance  = true;
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                if (mIrisReward == null || mIrisReward.getPerValReward(mValidator.operator_address) == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
 
             } else if (mBaseChain.equals(IOV_MAIN)) {
                 if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
@@ -864,12 +807,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN)) {
-            if (WDp.getAvailable(getBaseDao(), TOKEN_ATOM).compareTo(new BigDecimal("7500")) <= 0) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("7500")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (WDp.getReward(getBaseDao(), TOKEN_ATOM, mValOpAddress_V1).compareTo(new BigDecimal("7500")) <= 0) {
+            if (WDp.getReward(getBaseDao(), WDp.mainDenom(mBaseChain), mValOpAddress_V1).compareTo(new BigDecimal("7500")) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -928,19 +871,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     return;
                 }
                 hasbalance  = true;
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                if (mIrisReward == null) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (mIrisReward.getPerValReward(mValidator.operator_address).compareTo(new BigDecimal("400000000000000000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("400000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
 
             } else if (mBaseChain.equals(IOV_MAIN)) {
                 if(mReward == null || mReward.amount == null || mReward.amount.get(0) == null) {
@@ -1037,14 +967,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             return;
         }
         mTaskCount++;
-        if (mBaseChain.equals(IRIS_MAIN)) {
-            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
@@ -1059,6 +986,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         } else if (mBaseChain.equals(AKASH_MAIN)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        }
+        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress_V1, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
     }
@@ -1075,11 +1005,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_BONDING) {
             mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
-            if (mBondingState != null &&
-                    mValidator != null &&
-                    (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                            mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                            mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN))) {
+            if (mBondingState != null &&  mValidator != null) {
                 mTaskCount = mTaskCount + 1;
                 new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
@@ -1090,8 +1016,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
             ResLcdBonding temp = (ResLcdBonding)result.resultData;
-            if(temp != null)
-                mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
+            if (temp != null) mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
             mReward = (Reward)result.resultData;
@@ -1103,18 +1028,21 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 mRedelegates = null;
             }
 
-        } else if (result.taskType == BaseConstant.TASK_IRIS_REWARD) {
-            mIrisReward = (ResLcdIrisReward)result.resultData;
-
-        } else if (result.taskType == BaseConstant.TASK_IRIS_REDELEGATE) {
-            mIrisRedelegateState = (ArrayList<ResLcdIrisRedelegate>)result.resultData;
-
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
-            ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
-            if (hits != null && hits.size() > 0) {
-                mApiTxHistory = hits;
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
+                ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
+                if (hits != null && hits.size() > 0) {
+                    mApiTxCustomHistory = hits;
+                }
+                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
+
+            } else {
+                ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
+                if (hits != null && hits.size() > 0) {
+                    mApiTxHistory = hits;
+                }
+                WLog.w("mApiTxHistory " + mApiTxHistory.size());
             }
-//            WLog.w("mApiTxHistory " + mApiTxHistory.size());
 
         } else if (result.taskType == TASK_FETCH_BAND_ORACLE_STATUS) {
             if (result.isSuccess && result.resultData != null) {
@@ -1185,7 +1113,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
 
         if (mTaskCount == 0) {
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 mMyDelegation   = WDp.getDelegationInfo(getBaseDao(), mValOpAddress_V1);
                 mMyUndelegation = WDp.getUndelegationInfo(getBaseDao(), mValOpAddress_V1);
                 mMyReward       = WDp.getRewardInfo(getBaseDao(), mValOpAddress_V1);
@@ -1232,7 +1160,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 if (mValidator_V1 == null) return;
                 if (getItemViewType(position) == TYPE_VALIDATOR) {
                     onBindValidatorV1(viewHolder);
@@ -1243,6 +1171,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 } else if (getItemViewType(position) == TYPE_ACTION) {
                     onBindActionV1(viewHolder);
 
+                } else if (getItemViewType(position) == TYPE_HISTORY) {
+                    onBindApiHistoryV1(viewHolder, position);
                 }
 
             } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -1256,6 +1186,8 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 } else if (getItemViewType(position) == TYPE_ACTION) {
                     onBindActionV1(viewHolder);
 
+                } else if (getItemViewType(position) == TYPE_HISTORY) {
+                    onBindApiHistoryV1(viewHolder, position);
                 }
 
 
@@ -1270,12 +1202,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     onBindAction(viewHolder);
 
                 } else if (getItemViewType(position) == TYPE_HISTORY) {
-                    if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                            mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN)) {
-                        onBindApiHistory(viewHolder, position);
-                    } else {
-                        onBindIrisApiHistory(viewHolder, position);
-                    }
+                    onBindApiHistory(viewHolder, position);
                 }
             }
         }
@@ -1299,22 +1226,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvDescription.setVisibility(View.GONE);
             }
 
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
-                if (mValidator.status == Validator.BONDED) {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
-                } else {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, BigDecimal.ONE));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                }
-                try {
-                    Picasso.get().load(IRIS_VAL_URL + mValidator.operator_address + ".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
@@ -1455,22 +1367,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvDescription.setVisibility(View.GONE);
             }
 
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.rate));
-                holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens).movePointRight(18), 18, BaseChain.getChain(mAccount.baseChain)));
-                if (mValidator.status == Validator.BONDED) {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate)));
-                } else {
-                    holder.itemTvYieldRate.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, BigDecimal.ONE));
-                    holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
-                }
-                try {
-                    Picasso.get().load(IRIS_VAL_URL + mValidator.operator_address + ".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
-                } catch (Exception e){}
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
                 holder.itemTvTotalBondAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(mValidator.tokens), 6, BaseChain.getChain(mAccount.baseChain)));
                 if (mValidator.status == Validator.BONDED) {
@@ -1586,46 +1483,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindAction(RecyclerView.ViewHolder viewHolder) {
             final MyActionHolder holder = (MyActionHolder)viewHolder;
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
-                if (mValidator.status == Validator.BONDED) {
-                    if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText(WDp.getIrisDailyReturn(getBaseContext(), getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
-                        holder.itemMonthlyReturn.setText(WDp.getIrisMonthlyReturn(getBaseContext(), getBaseDao().mIrisStakingPool, new BigDecimal(mValidator.commission.rate), mBondingState.getBondingAmount(mValidator)));
-                    } else {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
-                        holder.itemDailyReturn.setText("-");
-                        holder.itemMonthlyReturn.setText("-");
-                    }
-                } else {
-                    if (mBondingState != null && mBondingState.getBondingAmount(mValidator) != null) {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), mBondingState.getBondingAmount(mValidator), 18, BaseChain.getChain(mAccount.baseChain)));
-                    } else {
-                        holder.itemTvDelegatedAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
-                    }
-                    holder.itemDailyReturn.setText(WDp.getDailyReturn(getBaseContext(), getBaseDao().mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemMonthlyReturn.setText(WDp.getMonthlyReturn(getBaseContext(), getBaseDao().mStakingPool, BigDecimal.ZERO, BigDecimal.ONE, BigDecimal.ZERO));
-                    holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
-                    holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
-                }
-
-                if (mUnBondingStates != null && mUnBondingStates.size() > 0 ) {
-                    BigDecimal sum = BigDecimal.ZERO;
-                    for(UnBondingState unbond:mUnBondingStates) {
-                        sum = sum.add(unbond.balance);
-                    }
-                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 18, BaseChain.getChain(mAccount.baseChain)));
-                } else {
-                    holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
-                }
-                if (mIrisReward != null && mIrisReward.getPerValReward(mValidator.operator_address) != BigDecimal.ZERO) {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), mIrisReward.getPerValReward(mValidator.operator_address), 18, BaseChain.getChain(mAccount.baseChain)));
-                } else {
-                    holder.itemTvSimpleReward.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 18, BaseChain.getChain(mAccount.baseChain)));
-                }
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 if (mBaseChain.equals(KAVA_MAIN)) {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
                 } else {
@@ -1872,36 +1730,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             });
         }
 
-        private void onBindIrisApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
-            final HistoryHolder holder = (HistoryHolder)viewHolder;
-            final ResApiTxList.Data tx;
-            if(mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
-                tx = mApiTxHistory.get(position - 2);
-            } else {
-                tx = mApiTxHistory.get(position - 3);
-            }
-            if(tx.result.Code > 0) {
-                holder.historySuccess.setVisibility(View.VISIBLE);
-            } else {
-                holder.historySuccess.setVisibility(View.GONE);
-            }
-            holder.historyType.setText(WDp.DpTxType(getBaseContext(), tx.messages, mAccount.address));
-            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), tx.time));
-            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), tx.time));
-            holder.history_block.setText("" + tx.height + " block");
-            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
-                    txDetail.putExtra("txHash", tx.tx_hash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    startActivity(txDetail);
-                }
-            });
-
-        }
-
         private void onBindApiHistory(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder)viewHolder;
             final ResApiTxList.Data tx;
@@ -1935,7 +1763,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindValidatorV1(RecyclerView.ViewHolder viewHolder) {
             final ValidatorHolder holder = (ValidatorHolder)viewHolder;
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 holder.itemTvMoniker.setText(mValidator_V1.description.moniker);
                 holder.itemTvAddress.setText(mValidator_V1.operator_address);
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
@@ -1970,9 +1798,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL + mValOpAddress_V1 + ".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator_V1.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
 
             } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -2026,7 +1852,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindMyValidatorV1(RecyclerView.ViewHolder viewHolder) {
             final MyValidatorHolder holder = (MyValidatorHolder)viewHolder;
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 holder.itemTvMoniker.setText(mValidator_V1.description.moniker);
                 holder.itemTvAddress.setText(mValidator_V1.operator_address);
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
@@ -2061,9 +1887,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     holder.itemTvYieldRate.setTextColor(getResources().getColor(R.color.colorRed));
                 }
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL + mValOpAddress_V1 + ".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(mBaseChain, mValidator_V1.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
 
             } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -2114,7 +1938,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private void onBindActionV1(RecyclerView.ViewHolder viewHolder) {
             final MyActionHolder holder = (MyActionHolder)viewHolder;
             holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mBaseChain));
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 if (mMyDelegation != null) {
                     holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), mMyDelegation.getDelegation(), 6, 6));
                 } else {
@@ -2195,18 +2019,44 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
 
-
+        private void onBindApiHistoryV1(RecyclerView.ViewHolder viewHolder, int position) {
+            final HistoryHolder holder = (HistoryHolder)viewHolder;
+            final ResApiTxListCustom history;
+            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                history = mApiTxCustomHistory.get(position - 3);
+            } else {
+                history = mApiTxCustomHistory.get(position - 4);
+            }
+            holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.timestamp));
+            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.timestamp));
+            holder.history_block.setText(history.height + " block");
+            if (history.isSuccess()) {
+                holder.historySuccess.setVisibility(View.GONE);
+            } else {
+                holder.historySuccess.setVisibility(View.VISIBLE);
+            }
+            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                    txDetail.putExtra("txHash", history.tx_hash);
+                    txDetail.putExtra("isGen", false);
+                    txDetail.putExtra("isSuccess", true);
+                    startActivity(txDetail);
+                }
+            });
+        }
 
         @Override
         public int getItemViewType(int position) {
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 if (mMyDelegation == null && mMyUndelegation == null) {
                     if(position == 0) {
                         return TYPE_VALIDATOR;
                     } else if (position == 1) {
                         return TYPE_HISTORY_HEADER;
                     }
-                    return TYPE_HISTORY_EMPTY;
 
                 } else {
                     if(position == 0) {
@@ -2216,8 +2066,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else if (position == 2) {
                         return TYPE_HISTORY_HEADER;
                     }
-                    return TYPE_HISTORY_EMPTY;
                 }
+                if (mApiTxCustomHistory.size() > 0) {
+                    return TYPE_HISTORY;
+                }
+                return TYPE_HISTORY_EMPTY;
 
             } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
@@ -2226,7 +2079,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else if (position == 1) {
                         return TYPE_HISTORY_HEADER;
                     }
-                    return TYPE_HISTORY_EMPTY;
 
                 } else {
                     if(position == 0) {
@@ -2236,8 +2088,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     } else if (position == 2) {
                         return TYPE_HISTORY_HEADER;
                     }
-                    return TYPE_HISTORY_EMPTY;
                 }
+                if (mApiTxCustomHistory.size() > 0) {
+                    return TYPE_HISTORY;
+                }
+                return TYPE_HISTORY_EMPTY;
 
             } else {
                 if (mBondingState == null && (mUnBondingStates == null || mUnBondingStates.size() < 1)) {
@@ -2265,18 +2120,34 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 if (mMyDelegation == null && mMyUndelegation == null) {
-                    return 3;
+                    if(mApiTxCustomHistory.size() > 0) {
+                        return mApiTxCustomHistory.size() + 2;
+                    } else {
+                        return 3;
+                    }
                 } else {
-                    return 4;
+                    if (mApiTxCustomHistory.size() > 0) {
+                        return mApiTxCustomHistory.size() + 3;
+                    } else {
+                        return 4;
+                    }
                 }
 
             } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                    return 3;
+                    if(mApiTxCustomHistory.size() > 0) {
+                        return mApiTxCustomHistory.size() + 2;
+                    } else {
+                        return 3;
+                    }
                 } else {
-                    return 4;
+                    if(mApiTxCustomHistory.size() > 0) {
+                        return mApiTxCustomHistory.size() + 3;
+                    } else {
+                        return 4;
+                    }
                 }
 
             } else {

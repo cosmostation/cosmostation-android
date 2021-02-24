@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_SELF_BONDING;
 
@@ -46,6 +47,13 @@ public class SelfBondingTask_V1 extends CommonTask {
                     mResult.resultData = response.body().delegation_response;
                 }
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResDelegation_V1> response = ApiClient.getIrisChain(mApp).getSelfBondInfo(mValOpAddress, mAddress).execute();
+                if (response.isSuccessful() && response.body().delegation_response != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().delegation_response;
+                }
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_TEST)) {
                 Response<ResDelegation_V1> response = ApiClient.getIrisTestChain(mApp).getSelfBondInfo(mValOpAddress, mAddress).execute();
                 if (response.isSuccessful() && response.body().delegation_response != null) {
@@ -54,6 +62,7 @@ public class SelfBondingTask_V1 extends CommonTask {
                 }
 
             }
+
 
         } catch (Exception e) {
             WLog.w("Exception " + e.getMessage());

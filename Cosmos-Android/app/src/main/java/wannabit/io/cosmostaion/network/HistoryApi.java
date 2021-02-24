@@ -23,4 +23,7 @@ public interface HistoryApi {
 
     @GET("v1/account/txs/{address}")
     Call<ArrayList<ResApiTxListCustom>> getAccountTxsCustom(@Path("address") String address, @Query("limit") String limit);
+
+    @GET("v1/account/txs/{address}/{valAddress}")
+    Call<ArrayList<ResApiTxListCustom>> getStakeTxsCustom(@Path("address") String address, @Path("valAddress") String valAddress, @Query("limit") String limit);
 }

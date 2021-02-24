@@ -258,7 +258,7 @@ public class Account {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
             } else if (chain.equals(BaseChain.IRIS_MAIN)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
             } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
