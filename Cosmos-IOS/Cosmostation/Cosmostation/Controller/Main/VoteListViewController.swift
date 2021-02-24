@@ -17,7 +17,6 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var emptyLabel: UILabel!
     
     var mProposals = Array<Proposal>()
-    var mIrisProposals = Array<IrisProposal>()
     var mProposals_V1 = Array<Proposal_V1>()
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
@@ -39,7 +38,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.refresher.tintColor = UIColor.white
         self.voteTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             self.onFetchProposals_V1()
         } else {
             self.onFetchProposals()
@@ -56,7 +55,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onUpdateViews() {
-        if(mProposals.count > 0 || mIrisProposals.count > 0 || mProposals_V1.count > 0) {
+        if(mProposals.count > 0 || mProposals_V1.count > 0) {
             self.emptyLabel.isHidden = true
             self.voteTableView.reloadData()
         } else {
@@ -71,9 +70,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
             return self.mProposals.count
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            return self.mIrisProposals.count
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             return self.mProposals_V1.count
         }
         return 0
@@ -83,9 +80,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
             return onBindProposal(tableView, indexPath)
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            return onBindIrisProposal(tableView, indexPath)
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN  || chainType == ChainType.IRIS_TEST) {
             return onBindProposalV1(tableView, indexPath)
         } else {
             let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
@@ -107,27 +102,6 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         } else if (proposal.proposal_status == "Rejected") {
             cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
         } else if (proposal.proposal_status == "Passed") {
-            cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
-        } else {
-            cell?.proposalStateImg.image = nil
-        }
-        return cell!
-    }
-    
-    func onBindIrisProposal(_ tableView: UITableView,  _ indexPath: IndexPath) -> UITableViewCell  {
-        let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
-        let proposal = mIrisProposals[indexPath.row]
-        cell?.proposalIdLabel.text = "# ".appending(proposal.value!.basicProposal!.proposal_id)
-        cell?.proposalTitleLabel.text = proposal.value?.basicProposal?.title
-        cell?.proposalMsgLabel.text = proposal.value?.basicProposal?.description
-        cell?.proposalStateLabel.text = proposal.value?.basicProposal?.proposal_status
-        if (proposal.value?.basicProposal?.proposal_status == "DepositPeriod") {
-            cell?.proposalStateImg.image = UIImage.init(named: "depositImg")
-        } else if (proposal.value?.basicProposal?.proposal_status == "VotingPeriod") {
-            cell?.proposalStateImg.image = UIImage.init(named: "votingImg")
-        } else if (proposal.value?.basicProposal?.proposal_status == "Rejected") {
-            cell?.proposalStateImg.image = UIImage.init(named: "rejectedImg")
-        } else if (proposal.value?.basicProposal?.proposal_status == "Passed") {
             cell?.proposalStateImg.image = UIImage.init(named: "passedImg")
         } else {
             cell?.proposalStateImg.image = nil
@@ -167,11 +141,9 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
-            let proposal = mIrisProposals[indexPath.row]
-            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
-            voteDetailsVC.proposalId = proposal.value!.basicProposal!.proposal_id
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
+            let proposal = mProposals_V1[indexPath.row]
+            guard let url = URL(string: EXPLORER_IRIS_MAIN + "proposals/" + proposal.proposal_id!) else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.KAVA_MAIN) {
             let proposal = mProposals[indexPath.row]
@@ -216,26 +188,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func onFetchProposals() {
-        if (chainType == ChainType.IRIS_MAIN) {
-            let url = IRIS_LCD_URL_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let proposals = res as? Array<NSDictionary> else {
-                        self.onUpdateViews()
-                        return
-                    }
-                    self.mIrisProposals.removeAll()
-                    for proposal in proposals {
-                        self.mIrisProposals.append(IrisProposal.init(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             let url = KAVA_PROPOSALS;
             let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
             request.responseJSON { (response) in
@@ -404,13 +357,9 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func sortProposals() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             self.mProposals_V1.sort{
                 return Int($0.proposal_id!)! < Int($1.proposal_id!)! ? false : true
-            }
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            self.mIrisProposals.sort {
-                return Int($0.value!.basicProposal!.proposal_id)! < Int($1.value!.basicProposal!.proposal_id)! ? false : true
             }
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
                     chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
