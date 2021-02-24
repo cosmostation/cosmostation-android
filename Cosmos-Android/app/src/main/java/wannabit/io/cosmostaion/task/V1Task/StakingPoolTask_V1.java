@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_STAKING_POOL;
 
@@ -35,6 +36,12 @@ public class StakingPoolTask_V1 extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResStakingPool_V1> response = ApiClient.getCosmosTestChain(mApp).getStakingPool().execute();
+                if (response.isSuccessful() && response.body().pool != null) {
+                    mResult.resultData = response.body().pool;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResStakingPool_V1> response = ApiClient.getIrisChain(mApp).getStakingPool().execute();
                 if (response.isSuccessful() && response.body().pool != null) {
                     mResult.resultData = response.body().pool;
                 }

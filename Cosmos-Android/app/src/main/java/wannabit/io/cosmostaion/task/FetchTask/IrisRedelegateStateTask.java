@@ -26,15 +26,15 @@ public class IrisRedelegateStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<ResLcdIrisRedelegate>> response = ApiClient.getIrisChain(mApp).getRedelegateState(mAccount.address).execute();
-            if(response.isSuccessful()) {
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    mResult.isSuccess = true;
-                }
-            }
+//            Response<ArrayList<ResLcdIrisRedelegate>> response = ApiClient.getIrisChain(mApp).getRedelegateState(mAccount.address).execute();
+//            if(response.isSuccessful()) {
+//                if(response.body() != null) {
+//                    mResult.resultData = response.body();
+//                    mResult.isSuccess = true;
+//                } else {
+//                    mResult.isSuccess = true;
+//                }
+//            }
 
         } catch (Exception e) {
             WLog.w("SingleUnBondingStateTask Error " + e.getMessage());

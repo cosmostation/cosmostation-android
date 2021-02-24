@@ -32,6 +32,7 @@ import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.Delegation_V1;
+import wannabit.io.cosmostaion.model.IrisToken_V1;
 import wannabit.io.cosmostaion.model.ParamMint_V1;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StakingPool_V1;
@@ -116,10 +117,6 @@ public class BaseData {
     public BigDecimal                   mProvisions = BigDecimal.ZERO;
     public ResMintParam.MintParam       mMintParam;
 
-    //COMMON DATA FOR IRIS
-    public ArrayList<IrisToken>         mIrisTokens = new ArrayList<>();
-    public ResLcdIrisReward             mIrisReward;
-
     //COMMON DATA FOR KAVA
     public ResLcdKavaAccountInfo.Result                                     mKavaAccount;
     public ResCdpParam.Result                                               mKavaCdpParams;
@@ -166,6 +163,8 @@ public class BaseData {
     public ParamMint_V1                 mParamMint_V1;
     public BigDecimal                   mInflation_V1;
     public BigDecimal                   mProvision_V1;
+
+    public ArrayList<IrisToken_V1>      mIrisTokens_V1 = new ArrayList<>();
 
     //gRPC
     public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();

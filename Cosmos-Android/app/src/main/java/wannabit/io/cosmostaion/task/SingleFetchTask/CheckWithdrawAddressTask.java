@@ -38,32 +38,7 @@ public class CheckWithdrawAddressTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-//                Response<ResLcdWithDrawAddress> response = ApiClient.getCosmosChain(mApp).getWithdrawAddress(mAccount.address).execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//                if(response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<String> response = ApiClient.getIrisChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKavaChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

@@ -53,39 +53,22 @@ public class ApiClient {
         return api_cosmos;
     }
 
-    //Services for Cosmos Test api
-    private static HistoryApi api_cosmos_test = null;
-    public static HistoryApi getCosmosTestApi(Context c) {
-        if (api_cosmos_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_cosmos_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_cosmos_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_cosmos_test;
-    }
-
-
-
     //Services for Iris main net
-    private static IrisChain service_iris = null;
-    public static IrisChain getIrisChain(Context c) {
+    private static NetWorkIris_V1 service_iris = null;
+    public static NetWorkIris_V1 getIrisChain(Context c) {
         if (service_iris == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_iris_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_iris = retrofit.create(IrisChain.class);
+                service_iris = retrofit.create(NetWorkIris_V1.class);
             }
         }
         return service_iris;
     }
 
-    //Services for Iris api
+    //Services for Iris history api mainnet
     private static HistoryApi api_iris = null;
     public static HistoryApi getIrisApi(Context c) {
         if (api_iris == null) {
@@ -99,22 +82,6 @@ public class ApiClient {
         }
         return api_iris;
     }
-
-    //Services for Iris Test api
-    private static HistoryApi api_iris_test = null;
-    public static HistoryApi getIrisTestApi(Context c) {
-        if (api_iris_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_iris_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                api_iris_test = retrofit.create(HistoryApi.class);
-            }
-        }
-        return api_iris_test;
-    }
-
 
 
     //Services for Binance net
@@ -488,6 +455,7 @@ public class ApiClient {
     }
 
 
+
     //Services for Cosmos test net
     private static NetworkCosmos_V1 service_cosmos_test = null;
     public static NetworkCosmos_V1 getCosmosTestChain(Context c) {
@@ -503,6 +471,22 @@ public class ApiClient {
         return service_cosmos_test;
     }
 
+    //Services for Cosmos Test api
+    private static HistoryApi api_cosmos_test = null;
+    public static HistoryApi getCosmosTestApi(Context c) {
+        if (api_cosmos_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_cosmos_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_cosmos_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_cosmos_test;
+    }
+
+
     //Services for Iris test net
     private static NetWorkIris_V1 service_iris_test = null;
     public static NetWorkIris_V1 getIrisTestChain(Context c) {
@@ -517,6 +501,22 @@ public class ApiClient {
         }
         return service_iris_test;
     }
+
+    //Services for Iris Test api
+    private static HistoryApi api_iris_test = null;
+    public static HistoryApi getIrisTestApi(Context c) {
+        if (api_iris_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_iris_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_iris_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_iris_test;
+    }
+
 
 
 

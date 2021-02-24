@@ -509,10 +509,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
             if (mBaseChain.equals(IRIS_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("irisToken", WUtil.getIrisMainToken(getBaseDao().mIrisTokens));
+//                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("200000000000000000")) > 0) {
+//                    hasbalance  = true;
+//                }
+//                intent.putExtra("irisToken", WUtil.getIrisMainToken(getBaseDao().mIrisTokens));
 
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {

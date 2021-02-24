@@ -160,12 +160,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(IRIS_MAIN)) {
-            if (coin.denom.equals(TOKEN_IRIS_ATTO)) {
+            if (coin.denom.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
@@ -247,13 +247,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(IRIS_MAIN)) {
-            if (symbol.equals(TOKEN_IRIS_ATTO)) {
+            if (symbol.equals(TOKEN_IRIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
                 denomTv.setText(symbol.toUpperCase());
             }
-            //TODO need check decimal with denom's type
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             if (symbol.equals(TOKEN_KAVA)) {
@@ -398,6 +397,13 @@ public class WDp {
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
             BigDecimal blocksPerYear = new BigDecimal(baseData.mGrpcParamMint.getBlocksPerYear());
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
+
+        } else if (chain.equals(IRIS_MAIN)) {
+            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mParamMint_V1 == null) { return result; }
+            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
+            BigDecimal unbonded = baseData.mStakingPool_V1.getUnbondedTokens();
+            BigDecimal provisions = (bonded.add(unbonded)).multiply(baseData.mParamMint_V1.getInflation());
+            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
 
         } else if (chain.equals(IRIS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcIrisParamMint == null) { return result; }

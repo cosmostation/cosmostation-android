@@ -22,17 +22,17 @@ public class IrisProposalTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<IrisProposal>> response = ApiClient.getIrisChain(mApp).getProposalList().execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
-            }
-
-            if(response.body() != null && response.body().size() > 0) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-            }
+//            Response<ArrayList<IrisProposal>> response = ApiClient.getIrisChain(mApp).getProposalList().execute();
+//            if(!response.isSuccessful()) {
+//                mResult.isSuccess = false;
+//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                return mResult;
+//            }
+//
+//            if(response.body() != null && response.body().size() > 0) {
+//                mResult.resultData = response.body();
+//                mResult.isSuccess = true;
+//            }
 
 
         } catch (Exception e) {

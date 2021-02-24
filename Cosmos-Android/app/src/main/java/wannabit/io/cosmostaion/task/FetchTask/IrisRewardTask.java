@@ -24,15 +24,15 @@ public class IrisRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ResLcdIrisReward> response = ApiClient.getIrisChain(mApp).getRewardsInfo(mAccount.address).execute();
-            if(!response.isSuccessful()) {
-                mResult.isSuccess = false;
-                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                return mResult;
-            } else {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-            }
+//            Response<ResLcdIrisReward> response = ApiClient.getIrisChain(mApp).getRewardsInfo(mAccount.address).execute();
+//            if(!response.isSuccessful()) {
+//                mResult.isSuccess = false;
+//                mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+//                return mResult;
+//            } else {
+//                mResult.resultData = response.body();
+//                mResult.isSuccess = true;
+//            }
 
         } catch (Exception e) {
             WLog.w("IrisRewardTask Error " + e.getMessage());

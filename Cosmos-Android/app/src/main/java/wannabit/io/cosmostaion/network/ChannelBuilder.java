@@ -10,7 +10,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class ChannelBuilder {
-    private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app.cosmostation.io";
+    private final static String GRPC_COSMOS_MAIN = "54.180.225.240";
     private final static int PORT_COSMOS_MAIN = 9090;
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";

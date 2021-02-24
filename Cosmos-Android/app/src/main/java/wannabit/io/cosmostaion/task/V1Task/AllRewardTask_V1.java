@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
 
@@ -32,15 +33,15 @@ public class AllRewardTask_V1 extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        while (!mBreak) {
+//        while (!mBreak) {
             ArrayList<Reward_V1> temp = onDoingJob(mOffset);
             mResultData.addAll(temp);
-            if (temp.size() == 100) {
-                mOffset = mOffset + 100;
-            } else {
-                mBreak = true;
-            }
-        }
+//            if (temp.size() == 100) {
+//                mOffset = mOffset + 100;
+//            } else {
+//                mBreak = true;
+//            }
+//        }
         mResult.resultData = mResultData;
         mResult.isSuccess = true;
         return mResult;
@@ -59,6 +60,14 @@ public class AllRewardTask_V1 extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResAllReward_V1> response = ApiClient.getCosmosTestChain(mApp).getAllRewards(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().rewards != null) {
+                        resultData = response.body().rewards;
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResAllReward_V1> response = ApiClient.getIrisChain(mApp).getAllRewards(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().rewards != null) {
                         resultData = response.body().rewards;

@@ -168,16 +168,16 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
             BigDecimal estimateReward = BigDecimal.ZERO;
 
-            if (getBaseDao().mIrisReward == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator:getBaseDao().mAllValidators) {
-                if (getBaseDao().mIrisReward.getPerValReward(validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
+//            if (getBaseDao().mIrisReward == null) {
+//                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//
+//            for (Validator validator:getBaseDao().mAllValidators) {
+//                if (getBaseDao().mIrisReward.getPerValReward(validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
+//                    toClaimValidators.add(validator);
+//                }
+//            }
 
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
@@ -186,9 +186,9 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
 //            WUtil.onSortIrisOnlyByReward(mMyValidators, mIrisReward);
 
-            for (Validator validator:toClaimValidators) {
-                estimateReward = estimateReward.add(getBaseDao().mIrisReward.getPerValReward(validator.operator_address));
-            }
+//            for (Validator validator:toClaimValidators) {
+//                estimateReward = estimateReward.add(getBaseDao().mIrisReward.getPerValReward(validator.operator_address));
+//            }
 
             BigDecimal estimateGasAmount = (new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_MUX).multiply(new BigDecimal(""+toClaimValidators.size()))).add(new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_BASE));
             BigDecimal estimateFee = estimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);

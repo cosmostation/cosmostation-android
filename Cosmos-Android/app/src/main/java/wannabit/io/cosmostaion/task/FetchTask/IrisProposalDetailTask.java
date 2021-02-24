@@ -25,11 +25,11 @@ public class IrisProposalDetailTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<IrisProposal> response = ApiClient.getIrisChain(mApp).getProposalDetail(proposal_id).execute();
-            if (response.isSuccessful()) {
-                mResult.isSuccess = true;
-                mResult.resultData = response.body();
-            }
+//            Response<IrisProposal> response = ApiClient.getIrisChain(mApp).getProposalDetail(proposal_id).execute();
+//            if (response.isSuccessful()) {
+//                mResult.isSuccess = true;
+//                mResult.resultData = response.body();
+//            }
 
         } catch (Exception e) {
             WLog.w("AllProposalTask Error " + e.getMessage());

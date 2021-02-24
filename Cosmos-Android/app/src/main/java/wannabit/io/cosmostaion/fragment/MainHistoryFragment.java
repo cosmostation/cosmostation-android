@@ -168,10 +168,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
     private void onFetchHistory() {
         mNotYet.setVisibility(View.GONE);
         if(getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
+        if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
         } else if (getMainActivity().mBaseChain.equals(KAVA_TEST) || getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
@@ -205,7 +202,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         }
 
-        else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
+                getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -244,7 +242,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
+                    getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                    WLog.w("Custom hit size " + hits.size());
@@ -287,7 +286,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
+                    getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 final ResApiTxListCustom history = mApiTxCustomHistory.get(position);
                 viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.timestamp));
@@ -334,28 +334,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                                 webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
                                 startActivity(webintent);
                             }
-                        }
-                    });
-
-                } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                    final ResApiTxList.Data tx = mApiTxHistory.get(position);
-                    if(tx.result.Code > 0) {
-                        viewHolder.historySuccess.setVisibility(View.VISIBLE);
-                    } else {
-                        viewHolder.historySuccess.setVisibility(View.GONE);
-                    }
-                    viewHolder.historyType.setText(WDp.DpTxType(getContext(), tx.messages, getMainActivity().mAccount.address));
-                    viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), tx.time));
-                    viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), tx.time));
-                    viewHolder.history_block.setText("" + tx.height + " block");
-                    viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", tx.tx_hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
                         }
                     });
 
@@ -428,7 +406,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
+                    getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return mApiTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();

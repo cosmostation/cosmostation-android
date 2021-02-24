@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_BONDED_VALIDATORS;
 
@@ -58,6 +59,14 @@ public class BondedValidatorsTask_V1 extends CommonTask {
 
             } else if (mChain.equals(COSMOS_TEST)) {
                 Response<ResValidators_V1> response = ApiClient.getCosmosTestChain(mApp).getBondedValidatorList(125,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().validators != null) {
+                        resultData = response.body().validators;
+                    }
+                }
+
+            } else if (mChain.equals(IRIS_MAIN)) {
+                Response<ResValidators_V1> response = ApiClient.getIrisChain(mApp).getBondedValidatorList(125,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().validators != null) {
                         resultData = response.body().validators;

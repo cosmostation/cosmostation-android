@@ -41,29 +41,7 @@ public class UnBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-//                Response<ResLcdUnBondings> response = ApiClient.getCosmosChain(mApp).getUnBondingList(mAccount.address).execute();
-//                if(response.isSuccessful()) {
-//                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-//                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, COSMOS_MAIN, mAccount.id, response.body().result));
-//                    } else {
-//                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-//                    }
-//                }
-//
-//            } else
-
-            if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<ArrayList<ResLcdUnBonding>> response = ApiClient.getIrisChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, IRIS_MAIN, mAccount.id, response.body()));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+            if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaChain(mApp).getUnBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {

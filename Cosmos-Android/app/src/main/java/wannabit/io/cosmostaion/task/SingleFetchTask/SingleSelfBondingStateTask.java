@@ -41,21 +41,7 @@ public class SingleSelfBondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(COSMOS_MAIN)) {
-//                Response<ResLcdSingleBonding> response = ApiClient.getCosmosChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-//                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(IRIS_MAIN)) {
-                Response<ResLcdBonding> response = ApiClient.getIrisChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-            } else if (mChain.equals(KAVA_MAIN)) {
+            if (mChain.equals(KAVA_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;

@@ -16,8 +16,10 @@
     <string name="url_api_cosmos_test" translatable="false">https://api-office.cosmostation.io/stargate-final/</string>
 
 
-    <string name="url_lcd_iris_main" translatable="false">https://lcd-iris.cosmostation.io/</string>
-    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>
+<!--    <string name="url_lcd_iris_main" translatable="false">https://lcd-iris.cosmostation.io/</string>-->
+<!--    <string name="url_api_iris_main" translatable="false">https://api-iris.cosmostation.io/</string>-->
+    <string name="url_lcd_iris_main" translatable="false">https://lcd-office.cosmostation.io/bifrost/</string>
+    <string name="url_api_iris_main" translatable="false">https://api-office.cosmostation.io/bifrost/</string>
 
     <string name="url_lcd_iris_test" translatable="false">https://lcd-office.cosmostation.io/bifrost/</string>
     <string name="url_api_iris_test" translatable="false">https://api-office.cosmostation.io/bifrost/</string>
@@ -75,6 +77,7 @@
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
+    <string name="str_iris_c" translatable="false">IRIS</string>
     <string name="str_photon_c" translatable="false">PHOTINO</string>
     <string name="str_kava_c" translatable="false">KAVA</string>
     <string name="str_iov_c" translatable="false">IOV</string>

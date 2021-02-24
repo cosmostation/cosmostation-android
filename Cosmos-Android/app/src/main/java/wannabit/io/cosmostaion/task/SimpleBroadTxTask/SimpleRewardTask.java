@@ -81,42 +81,7 @@ public class SimpleRewardTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
             ArrayList<Msg> msgs = new ArrayList<>();
-//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-//                Response<ResLcdAccountInfo> accountResponse = ApiClient.getCosmosChain(mApp).getAccountInfo(mAccount.address).execute();
-//                if(!accountResponse.isSuccessful()) {
-//                    mResult.errorCode = ERROR_CODE_BROADCAST;
-//                    return mResult;
-//                }
-//                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-//                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
-//                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-//
-//                for(Validator val:mValidators) {
-//                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
-//                    msgs.add(singleWithdrawDeleMsg);
-//                }
-//
-//            } else
-
-            if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getIrisChain(mApp).getBankInfo(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
-                if (mValidators.size() > 1) {
-                    Msg singleWithdrawDeleAllMsg = MsgGenerator.genWithdrawDeleAllMsg(mAccount.address, BaseChain.getChain(mAccount.baseChain));
-                    msgs.add(singleWithdrawDeleAllMsg);
-                } else {
-                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, mValidators.get(0).operator_address, BaseChain.getChain(mAccount.baseChain));
-                    msgs.add(singleWithdrawDeleMsg);
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
@@ -255,41 +220,7 @@ public class SimpleRewardTask extends CommonTask {
 
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mRewardFees, mRewardMemo, deterministicKey);
-            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-                Response<ResBroadTx> response = ApiClient.getCosmosChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<ResBroadTx> response = ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().hash != null) {
-                        mResult.resultData = response.body().hash;
-                    }
-                    if(response.body().check_tx.code != null) {
-                        mResult.errorCode = response.body().check_tx.code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {

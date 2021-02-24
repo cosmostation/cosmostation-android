@@ -511,13 +511,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindIris(RecyclerView.ViewHolder viewHolder, int position) {
             final IrisHolder holder = (IrisHolder)viewHolder;
-            BigDecimal totalAmount = WDp.getAllIris(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mIrisReward, getBaseDao().mAllValidators);
-            holder.mTvIrisTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 18, mBaseChain));
-            holder.mTvIrisAvailable.setText(WDp.getDpAmount(getBaseContext(), WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IRIS_ATTO), 18, mBaseChain));
-            holder.mTvIrisDelegated.setText(WDp.getDpAmount(getBaseContext(), WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain), 18, mBaseChain));
-            holder.mTvIrisUnBonding.setText(WDp.getDpAmount(getBaseContext(), WDp.getUnbondingAmount(getBaseDao().mUnbondings), 18, mBaseChain));
-            holder.mTvIrisRewards.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
-            holder.mTvIrisValue.setText(WDp.getValueOfIris(getBaseContext(), getBaseDao(), totalAmount));
+//            BigDecimal totalAmount = WDp.getAllIris(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mIrisReward, getBaseDao().mAllValidators);
+//            holder.mTvIrisTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 18, mBaseChain));
+//            holder.mTvIrisAvailable.setText(WDp.getDpAmount(getBaseContext(), WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IRIS_ATTO), 18, mBaseChain));
+//            holder.mTvIrisDelegated.setText(WDp.getDpAmount(getBaseContext(), WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain), 18, mBaseChain));
+//            holder.mTvIrisUnBonding.setText(WDp.getDpAmount(getBaseContext(), WDp.getUnbondingAmount(getBaseDao().mUnbondings), 18, mBaseChain));
+//            holder.mTvIrisRewards.setText(WDp.getDpAmount(getBaseContext(), getBaseDao().mIrisReward.getSimpleIrisReward(), 18, mBaseChain));
+//            holder.mTvIrisValue.setText(WDp.getValueOfIris(getBaseContext(), getBaseDao(), totalAmount));
 
             holder.mBtnSendIris.setOnClickListener(new View.OnClickListener() {
                 @Override
