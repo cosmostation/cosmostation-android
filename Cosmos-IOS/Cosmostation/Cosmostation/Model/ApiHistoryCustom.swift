@@ -59,8 +59,8 @@ public struct ApiHistoryCustom {
             
         } else {
             if (getMsgCnt() == 2) {
-                let msgType0 = getMsgs()![1].object(forKey: "@type") as! String
-                let msgType1 = getMsgs()![2].object(forKey: "@type") as! String
+                let msgType0 = getMsgs()![0].object(forKey: "@type") as! String
+                let msgType1 = getMsgs()![1].object(forKey: "@type") as! String
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
                     return NSLocalizedString("tx_reinvest", comment: "")
                 }
@@ -100,11 +100,11 @@ public struct ApiHistoryCustom {
             } else if (msgType.contains("MsgEditValidator")) {
                 result = NSLocalizedString("tx_edit_validator", comment: "")
                 
-            } else if (msgType.contains("MsgSubmitProposal")) {
-                result = NSLocalizedString("tx_submit_proposal", comment: "")
-                
             } else if (msgType.contains("MsgUnjail")) {
                 result = NSLocalizedString("tx_unjail_validator", comment: "")
+                
+            } else if (msgType.contains("MsgSubmitProposal")) {
+                result = NSLocalizedString("tx_submit_proposal", comment: "")
                 
             } else if (msgType.contains("MsgVote")) {
                 result = NSLocalizedString("tx_vote", comment: "")

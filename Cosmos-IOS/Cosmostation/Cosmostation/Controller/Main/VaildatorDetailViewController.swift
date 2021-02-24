@@ -1150,14 +1150,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             case .success(let res):
                 self.mApiHistories.removeAll()
                 guard let histories = res as? Array<NSDictionary> else {
-                    print("no history!!")
+//                    print("no history!!")
                     self.onFetchFinished()
                     return;
                 }
                 for rawHistory in histories {
                     self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
                 }
-                print("mApiHistories.count ", self.mApiHistories.count)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchApiHistory ", error) }
@@ -1341,6 +1340,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.mApiCustomHistories.removeAll()
                 guard let responseDatas = res as? Array<NSDictionary> else {
                     if (SHOW_LOG) { print("no history!!") }
+                    self.onFetchFinished()
                     return;
                 }
                 for responseData in responseDatas {
