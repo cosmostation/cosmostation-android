@@ -148,10 +148,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
                 mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            new IrisRewardTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -206,7 +203,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     public void onStartReInvest() {
         Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REINVEST);
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("reInvestValAddr", mValOpAddress);
         } else {
             intent.putExtra("reInvestValidator", mValidator);
@@ -226,15 +223,6 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
             Reward reward = (Reward)result.resultData;
             if (reward != null && reward.amount.size() > 0) {
                 mReinvestCoin = reward.amount.get(0);
-                mPageAdapter.mCurrentFragment.onRefreshTab();
-            } else {
-                onBackPressed();
-            }
-
-        } else if (result.taskType == TASK_IRIS_REWARD) {
-            ResLcdIrisReward mIrisReward = (ResLcdIrisReward)result.resultData;
-            if (mIrisReward != null && mIrisReward.getPerValRewardCoin(mValidator.operator_address) != null) {
-                mReinvestCoin = mIrisReward.getPerValRewardCoin(mValidator.operator_address);
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();

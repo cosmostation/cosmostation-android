@@ -60,7 +60,6 @@ public interface NetworkCosmos_V1 {
     @GET("cosmos/staking/v1beta1/validators/{opAddress}/delegations/{address}")
     Call<ResDelegation_V1> getSelfBondInfo(@Path("opAddress") String opAddress, @Path("address") String address);
 
-
     @GET("cosmos/staking/v1beta1/delegators/{address}/redelegations")
     Call<ResRedelegations_V1> getRedelegationTo(@Path("address") String address, @Query("dst_validator_addr") String toValAddress);
 

@@ -39,21 +39,7 @@ public class SingleValidatorInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(COSMOS_MAIN)) {
-//                Response<ResLcdSingleValidator> response = ApiClient.getCosmosChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-//                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(IRIS_MAIN)) {
-                Response<Validator> response = ApiClient.getIrisChain(mApp).getValidatorDetail(mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-            } else if (mChain.equals(KAVA_MAIN)) {
+            if (mChain.equals(KAVA_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getKavaChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;

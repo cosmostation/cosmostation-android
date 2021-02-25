@@ -32,7 +32,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     @IBOutlet weak var mToSendDenomLabel: UILabel!
     @IBOutlet weak var mFeeDenomTitle: UILabel!
-    @IBOutlet weak var mToSpendDenomTitle: UILabel!
+    @IBOutlet weak var mTotalSpendDenomTitle: UILabel!
     @IBOutlet weak var mCurrentBalanceDenomTitle: UILabel!
     @IBOutlet weak var mRemainBalanceTitle: UILabel!
     
@@ -44,7 +44,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, mToSendDenomLabel)
         WUtils.setDenomTitle(pageHolderVC.chainType!, mFeeDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mToSpendDenomTitle)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, mTotalSpendDenomTitle)
         WUtils.setDenomTitle(pageHolderVC.chainType!, mCurrentBalanceDenomTitle)
         WUtils.setDenomTitle(pageHolderVC.chainType!, mRemainBalanceTitle)
     }
@@ -76,20 +76,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         let feeAmount = WUtils.plainStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         var currentAva = NSDecimalNumber.zero
         
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            mDpDecimal = 18
-            currentAva = pageHolderVC.mAccount!.getIrisBalance()
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 18, 18)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 18, 18)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 18, 18)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 18, 18)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 18, 18)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpIrisValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpIrisValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             mDpDecimal = 8
             mToSendDenomLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
             mCurrentBalanceDenomTitle.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
@@ -114,7 +101,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 mTotalSpendTitle.isHidden = true
                 mTotalSpendLabel.isHidden = true
-                mToSpendDenomTitle.isHidden = true
+                mTotalSpendDenomTitle.isHidden = true
                 mTotalSpendPrice.isHidden = true
                 mReminaingPrice.isHidden = true
                 
@@ -144,7 +131,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             } else {
                 mTotalSpendTitle.isHidden = true
                 mTotalSpendLabel.isHidden = true
-                mToSpendDenomTitle.isHidden = true
+                mTotalSpendDenomTitle.isHidden = true
                 mTotalSpendPrice.isHidden = true
                 mReminaingPrice.isHidden = true
                 
@@ -208,7 +195,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
                 mTotalSpendTitle.isHidden = true
                 mTotalSpendLabel.isHidden = true
-                mToSpendDenomTitle.isHidden = true
+                mTotalSpendDenomTitle.isHidden = true
                 mTotalSpendPrice.isHidden = true
                 mReminaingPrice.isHidden = true
                 
@@ -262,45 +249,70 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         }
         
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
-            currentAva = BaseData.instance.getAvailable(COSMOS_MAIN_DENOM)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
+            currentAva = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, mDpDecimal)
             
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
+            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, mDpDecimal)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6,mDpDecimal)
+
+                mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 6, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), 6, mReminaingPrice.font)
+                
+            } else {
+                //TODO need real test
+                mTotalSpendTitle.isHidden = true
+                mTotalSpendLabel.isHidden = true
+                mTotalSpendDenomTitle.isHidden = true
+                mTotalSpendPrice.isHidden = true
+                mReminaingPrice.isHidden = true
+                
+                mToSendDenomLabel.textColor = UIColor.white
+                mCurrentBalanceDenomTitle.textColor = UIColor.white
+                mRemainBalanceTitle.textColor = UIColor.white
+                mToSendDenomLabel.text = pageHolderVC.mToSendDenom!.uppercased()
+                mCurrentBalanceDenomTitle.text = pageHolderVC.mToSendDenom!.uppercased()
+                mRemainBalanceTitle.text = pageHolderVC.mToSendDenom!.uppercased()
+                
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
+            }
             
-            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), 6, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-            mDpDecimal = 6
-            currentAva = BaseData.instance.getAvailable(COSMOS_TEST_DENOM)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), 6, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
-            currentAva = BaseData.instance.getAvailable(IRIS_TEST_DENOM)
+            currentAva = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             
-            if (pageHolderVC.mIrisTokenV1!.min_unit! == IRIS_TEST_DENOM) {
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
+            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, mDpDecimal)
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
                 
                 mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 6, mTotalSpendPrice.font)
                 mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), 6, mReminaingPrice.font)
+                
+            } else {
+                //TODO need real test
+                mTotalSpendTitle.isHidden = true
+                mTotalSpendLabel.isHidden = true
+                mTotalSpendDenomTitle.isHidden = true
+                mTotalSpendPrice.isHidden = true
+                mReminaingPrice.isHidden = true
+                
+                mToSendDenomLabel.textColor = UIColor.white
+                mCurrentBalanceDenomTitle.textColor = UIColor.white
+                mRemainBalanceTitle.textColor = UIColor.white
+                mToSendDenomLabel.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
+                mCurrentBalanceDenomTitle.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
+                mRemainBalanceTitle.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
+                
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
             }
         }
         
@@ -312,17 +324,17 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.BAND_MAIN ||
-                    pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.OKEX_TEST ||
-                    pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
+            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
+                    pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST ||
+                    pageHolderVC.chainType! == ChainType.OKEX_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST ||
+                    pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
                 
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 self.onGenBnbSendTx()
                 
-            } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                        pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             }
         }
@@ -332,9 +344,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -361,32 +371,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let info = responseData.object(forKey: "result") as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenSendTx()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                    guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenSendTx()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                     guard  let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()

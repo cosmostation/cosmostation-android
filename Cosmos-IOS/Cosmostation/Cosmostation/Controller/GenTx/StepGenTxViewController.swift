@@ -68,7 +68,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mIrisRedelegate: Array<NSDictionary>?
     
-    var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
@@ -77,7 +76,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mProposer: String?
     var mVoteOpinion: String?
     
-    var mCosmosSendDenom: String?
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?
@@ -122,6 +120,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStarnameTime: Int64?
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
+    
+    //after 40.0
+    var mToSendDenom: String?
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
@@ -310,15 +311,11 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
                 onFetchBondedValidators(0)
             } else {
                 onFetchTopValidatorsInfo()
             }
-            
-        } else if (mType == IRIS_MSG_TYPE_REDELEGATE) {
-            self.irisValidatorPage = 1;
-            self.onFetchIrisValidatorsInfo(irisValidatorPage)
             
         } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
             if let votedVals = BaseData.instance.mOkStaking?.validator_address {
@@ -327,6 +324,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                 self.mOkVoteValidators = Array<String>()
             }
         }
+        self.mIrisTokenV1 = WUtils.getIrisTokenV1(mToSendDenom)
+        
             
         self.dataSource = self
         self.delegate = self
@@ -423,9 +422,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onFetchTopValidatorsInfo() {
         var url: String?
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_VALIDATORS
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -448,9 +445,9 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
+                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN ||
+                        self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST ||
+                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                              print("no validators!!")
@@ -471,37 +468,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             }
         }
     }
-    
-    var irisValidatorPage = 1;
-    func onFetchIrisValidatorsInfo(_ page:Int) {
-        let request = Alamofire.request(IRIS_LCD_URL_VALIDATORS, method: .get, parameters: ["size":"100", "page":String(page)], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let validators = res as? Array<NSDictionary> else {
-                    return
-                }
-                
-                for validator in validators {
-                    let val = Validator(validator as! [String : Any])
-                    if (val.status == val.BONDED && val.operator_address != self.mTargetValidator?.operator_address) {
-                        self.mToReDelegateValidators.append(val)
-                    }
-                }
-                
-                if (validators.count == 100) {
-                    self.irisValidatorPage = self.irisValidatorPage + 1
-                    self.onFetchIrisValidatorsInfo(self.irisValidatorPage)
-                } else {
-                    self.sortByPower()
-                }
-                
-            case .failure(let error):
-                print("onFetchIrisValidatorsInfo ", error)
-            }
-        }
-    }
-    
     
     func onFetchBondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(chainType!)

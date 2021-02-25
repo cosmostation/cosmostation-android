@@ -567,6 +567,7 @@
 "tx_deposit" = "Deposit";
 "tx_create_validator" = "Create Val";
 "tx_edit_validator" = "Edit Val";
+"tx_unjail_validator" = "Unjail Val";
 "tx_reinvest" = "Re-Invest";
 "tx_get_reward_all" = "Get All Rewards";
 "tx_new_order" = "New Order";

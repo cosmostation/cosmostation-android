@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_UNDELEGATIONS;
 
@@ -32,15 +33,15 @@ public class UnDelegationsTask_V1 extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        while (!mBreak) {
+//        while (!mBreak) {
             ArrayList<Undelegation_V1> temp = onDoingJob(mOffset);
             mResultData.addAll(temp);
-            if (temp.size() == 100) {
-                mOffset = mOffset + 100;
-            } else {
-                mBreak = true;
-            }
-        }
+//            if (temp.size() == 100) {
+//                mOffset = mOffset + 100;
+//            } else {
+//                mBreak = true;
+//            }
+//        }
         mResult.resultData = mResultData;
         mResult.isSuccess = true;
         return mResult;
@@ -65,6 +66,14 @@ public class UnDelegationsTask_V1 extends CommonTask {
                     }
                 }
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResUndelegations_V1> response = ApiClient.getIrisChain(mApp).getUndelegations(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().unbonding_responses != null) {
+                        resultData = response.body().unbonding_responses;
+                    }
+                }
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_TEST)) {
                 Response<ResUndelegations_V1> response = ApiClient.getIrisTestChain(mApp).getUndelegations(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
@@ -72,6 +81,7 @@ public class UnDelegationsTask_V1 extends CommonTask {
                         resultData = response.body().unbonding_responses;
                     }
                 }
+
             }
 
         } catch (Exception e) { }

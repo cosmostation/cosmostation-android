@@ -93,7 +93,7 @@ public class UndelegateActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
 
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             mValOpAddress_V1 = getIntent().getStringExtra("valOpAddress");
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mValOpAddress = getIntent().getStringExtra("valOpAddress");
@@ -200,13 +200,7 @@ public class UndelegateActivity extends BaseActivity {
             intent.putExtra("toAddress", mValidator.operator_address);
             intent.putExtra("uAmount", mUnDelegateAmount);
 
-        } else if (mBaseChain.equals(IRIS_MAIN)) {
-            BigDecimal validatorShareRate = new BigDecimal(mValidator.delegator_shares).divide(new BigDecimal(mValidator.tokens), 18, BigDecimal.ROUND_HALF_DOWN);
-            mUnDelegateAmount.amount = validatorShareRate.multiply(new BigDecimal(mUnDelegateAmount.amount)).setScale(0, RoundingMode.DOWN).toPlainString();
-            intent.putExtra("toAddress", mValidator.operator_address);
-            intent.putExtra("uAmount", mUnDelegateAmount);
-
-        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             intent.putExtra("toAddress", mValOpAddress_V1);
             intent.putExtra("uAmount", mUnDelegateAmount);
 

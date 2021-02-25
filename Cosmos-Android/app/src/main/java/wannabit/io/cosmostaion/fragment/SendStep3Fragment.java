@@ -152,26 +152,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
-
-            mGasAmount.setText(FEE_IRIS_GAS_AMOUNT_SEND);
-            mGasRate.setText(WDp.getDpString(FEE_IRIS_GAS_RATE_AVERAGE, 6));
-            mFeeAmount = new BigDecimal(FEE_IRIS_GAS_AMOUNT_SEND).multiply(new BigDecimal(FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
-            if(getBaseDao().getCurrency() != 5) {
-                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(8, RoundingMode.DOWN);
-            }
-            mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1).toPlainString(), 2));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-        } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
+        if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
             mFeeLayer1.setVisibility(View.VISIBLE);
             mFeeLayer2.setVisibility(View.GONE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -345,6 +326,20 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
+
+            mGasAmount.setText(STARGATE_GAS_AMOUNT_LOW);
+            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_LOW).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
+            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
         } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
@@ -385,18 +380,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = TOKEN_IRIS_ATTO;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = FEE_IRIS_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
-
-            } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
+            if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
                 //TODO no need Fee set!!;
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
@@ -498,7 +482,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);

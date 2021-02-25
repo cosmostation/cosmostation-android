@@ -96,7 +96,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             for (String opAddress: getSActivity().mValOpAddresses_V1) {
                 rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
@@ -163,17 +163,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             mMemo.setText(getSActivity().mRewardMemo);
 
         } else {
-            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), getSActivity().getIrisRewardSum(), 18, 18));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 18, 18));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                }
-                mExpectedLayer.setVisibility(View.GONE);
-
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 for (Reward reward:getSActivity().mRewards) {
                     rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
                 }
@@ -373,12 +363,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             return feeAmount.compareTo(rewardSum) < 0;
 
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            BigDecimal rewardSum    = getSActivity().getIrisRewardSum();
-            BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-            return feeAmount.compareTo(rewardSum) < 0;
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             for (String opAddress: getSActivity().mValOpAddresses_V1) {

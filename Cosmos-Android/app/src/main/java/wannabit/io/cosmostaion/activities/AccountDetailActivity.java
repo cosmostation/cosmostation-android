@@ -164,7 +164,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("2500")) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
@@ -189,12 +189,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         } else {
             ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             boolean hasbalance = false;
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            }  else if (mBaseChain.equals(IOV_MAIN)) {
+            if (mBaseChain.equals(IOV_MAIN)) {
                 if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
                     hasbalance  = true;
                 }
@@ -403,7 +398,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             new WithdrawAddressTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {

@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class ApiAccountTxsHistoryTask extends CommonTask {
@@ -35,17 +36,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getIrisApi(mApp).getAccountTxs(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
@@ -120,6 +111,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(COSMOS_TEST)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(IRIS_MAIN)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

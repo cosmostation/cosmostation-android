@@ -26,14 +26,14 @@ public class IrisVoteListTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            Response<ArrayList<Vote>> response = ApiClient.getIrisChain(mApp).getVoteList(proposal_id).execute();
-            if(response.isSuccessful()) {
-                mResult.resultData = response.body();
-                mResult.isSuccess = true;
-
-            } else {
-                WLog.w("IrisTokenList : NOk");
-            }
+//            Response<ArrayList<Vote>> response = ApiClient.getIrisChain(mApp).getVoteList(proposal_id).execute();
+//            if(response.isSuccessful()) {
+//                mResult.resultData = response.body();
+//                mResult.isSuccess = true;
+//
+//            } else {
+//                WLog.w("IrisTokenList : NOk");
+//            }
 
         } catch (Exception e) {
             WLog.w("IrisTokenList Error " + e.getMessage());

@@ -349,12 +349,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onUpdateTotalCard() {
         self.tokenCnt.text = String(mainTabVC.mBalances.count)
-        if (chainType! == ChainType.IRIS_MAIN) {
-            let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
-            totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
-            totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
@@ -434,6 +429,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
+        } else if (chainType! == ChainType.IRIS_MAIN) {
+            let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, totalValue.font)
+//            let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
+//            totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
+//            totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
+            
         } else if (chainType! == ChainType.IRIS_TEST) {
             let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
@@ -442,7 +445,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
             return BaseData.instance.mMyBalances_V1.count
         } else {
             return mainTabVC.mBalances.count;
@@ -498,11 +501,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
-            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
-            tokenDetailVC.allValidator = mainTabVC.mAllValidator
-            tokenDetailVC.irisToken = WUtils.getIrisToken(mainTabVC.mIrisTokenList, mainTabVC.mBalances[indexPath.row])
-            tokenDetailVC.irisRewards = mainTabVC.mIrisRewards
-            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+            //TODO
             
         } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
@@ -565,26 +564,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetIrisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if let irisToken = WUtils.getIrisToken(mainTabVC.mIrisTokenList, balance) {
-            cell?.tokenSymbol.text = irisToken.base_token?.symbol.uppercased()
-            cell?.tokenTitle.text = "(" + irisToken.base_token!.id + ")"
-            cell?.tokenDescription.text = irisToken.base_token?.name
-            if (balance.balance_denom == IRIS_MAIN_DENOM) {
-                cell?.tokenImg.image = UIImage(named: "irisTokenImg")
-                cell?.tokenSymbol.textColor = COLOR_IRIS
-                
-                let allIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
-                cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 18, 6)
-                cell?.tokenValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
-                
-            } else {
-                cell?.tokenImg.image = UIImage(named: "tokenIc")
-                cell?.tokenSymbol.textColor = UIColor.white
-                
-                cell?.tokenAmount.attributedText = WUtils.displayIrisToken(balance.balance_amount, cell!.tokenAmount.font, 6, irisToken.base_token!.decimal)
-                cell?.tokenValue.attributedText = WUtils.dpValue(NSDecimalNumber.zero, cell!.tokenValue.font)
-            }
+        let balance = BaseData.instance.mMyBalances_V1[indexPath.row]
+        if (balance.denom == IRIS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "irisTokenImg")
+            cell?.tokenSymbol.text = "IRIS"
+            cell?.tokenSymbol.textColor = COLOR_IRIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Iris Staking Token"
+            let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            
+        } else {
+            
         }
         return cell!
     }

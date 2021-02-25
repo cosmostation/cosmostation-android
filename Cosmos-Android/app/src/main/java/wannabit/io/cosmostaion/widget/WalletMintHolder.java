@@ -53,7 +53,7 @@ public class WalletMintHolder extends WalletHolder {
 
         } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
             mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
-            mAPR.setText(WDp.getIrisYieldString(baseData.mIrisStakingPool, BigDecimal.ZERO));
+            mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
         } else {
             mInflation.setText(WDp.getPercentDp(baseData.mInflation.multiply(new BigDecimal("100"))));

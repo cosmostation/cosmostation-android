@@ -73,18 +73,11 @@ final class BaseData : NSObject{
     var mProvision_V1: Provision_V1?
     var mInflation_V1: Inflation_V1?
     
-    
     var mIrisTokens_V1 = Array<IrisToken_V1>()
     
     func checkZeroMainDenom(_ chain: ChainType?) {
-        if (chain == ChainType.COSMOS_TEST) {
-            if (!mMyBalances_V1.contains(where: {$0.denom == COSMOS_TEST_DENOM})) {
-                mMyBalances_V1.append(Coin.init(COSMOS_TEST_DENOM, "0"))
-            }
-        } else if (chain == ChainType.IRIS_TEST) {
-            if (!mMyBalances_V1.contains(where: {$0.denom == IRIS_TEST_DENOM})) {
-                mMyBalances_V1.append(Coin.init(IRIS_TEST_DENOM, "0"))
-            }
+        if (!mMyBalances_V1.contains(where: {$0.denom == WUtils.getMainDenom(chain)})) {
+            mMyBalances_V1.append(Coin.init(WUtils.getMainDenom(chain), "0"))
         }
     }
     

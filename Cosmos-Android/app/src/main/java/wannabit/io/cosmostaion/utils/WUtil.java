@@ -1249,8 +1249,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
                 } else if (chain.equals(IRIS_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
-                    if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
+                    if(o1.symbol.equals(TOKEN_IRIS)) return -1;
+                    if(o2.symbol.equals(TOKEN_IRIS)) return 1;
 
                 } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                     if(o1.symbol.equals(TOKEN_BNB)) return -1;
@@ -1300,8 +1300,8 @@ public class WUtil {
                     if(o2.symbol.equals(TOKEN_ATOM)) return 1;
 
                 } else if (chain.equals(IRIS_MAIN)) {
-                    if(o1.symbol.equals(TOKEN_IRIS_ATTO)) return -1;
-                    if(o2.symbol.equals(TOKEN_IRIS_ATTO)) return 1;
+                    if(o1.symbol.equals(TOKEN_IRIS)) return -1;
+                    if(o2.symbol.equals(TOKEN_IRIS)) return 1;
 
                 } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
                     if(o1.symbol.equals(TOKEN_BNB)) return -1;

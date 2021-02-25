@@ -43,29 +43,7 @@ public class BondingStateTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-//                Response<ResLcdBondings> response = ApiClient.getCosmosChain(mApp).getBondingList(mAccount.address).execute();
-//                if(response.isSuccessful()) {
-//                    if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
-//                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, COSMOS_MAIN));
-//                    } else {
-//                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-//                    }
-//                }
-//
-//            } else
-
-                if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<ArrayList<ResLcdBonding>> response = ApiClient.getIrisChain(mApp).getBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body(), IRIS_MAIN));
-                    } else {
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-                    }
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdBondings> response = ApiClient.getKavaChain(mApp).getBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {

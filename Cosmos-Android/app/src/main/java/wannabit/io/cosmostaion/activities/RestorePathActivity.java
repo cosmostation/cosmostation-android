@@ -65,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
@@ -248,18 +249,20 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
             } else if (mChain.equals(IRIS_MAIN)) {
                 holder.irisLayer.setVisibility(View.VISIBLE);
-                holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 18, 18));
-                ApiClient.getIrisChain(getBaseContext()).getBankInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                ApiClient.getIrisChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
                     @Override
-                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if(response.isSuccessful() && response.body() != null && response.body().value.coins != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 18, 18));
+                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            for (Coin coin:  response.body().balances) {
+                                if (coin.denom.equals(TOKEN_IRIS)) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(BNB_MAIN)) {

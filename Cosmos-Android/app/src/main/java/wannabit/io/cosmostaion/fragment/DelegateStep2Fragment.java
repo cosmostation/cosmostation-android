@@ -52,8 +52,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_STAKE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_AMOUNT_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_AMOUNT_STAKE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
@@ -64,7 +62,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
@@ -141,26 +138,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
-
-            mGasAmount.setText(FEE_IRIS_GAS_AMOUNT_AVERAGE);
-            mGasRate.setText(WDp.getDpString(FEE_IRIS_GAS_RATE_AVERAGE, 6));
-            mFeeAmount = new BigDecimal(FEE_IRIS_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
-            if(getBaseDao().getCurrency() != 5) {
-                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(8, RoundingMode.DOWN);
-            }
-            mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(1).toPlainString(), 2));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-        } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -314,6 +292,20 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
+
+            mGasAmount.setText(STARGATE_GAS_AMOUNT_MID);
+            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_MID).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
+            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
         } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
@@ -354,18 +346,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = TOKEN_IRIS_ATTO;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = FEE_IRIS_GAS_AMOUNT_AVERAGE;
-                getSActivity().mToDelegateFee = fee;
-
-            } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = TOKEN_KAVA;
@@ -444,7 +425,7 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);

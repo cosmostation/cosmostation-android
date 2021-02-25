@@ -76,22 +76,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
 
     func checkIsWasteFee() -> Bool {
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            var rewardSum = NSDecimalNumber.zero
-            for delegation in pageHolderVC.mIrisRewards!.delegations {
-                for validator in pageHolderVC.mRewardTargetValidators {
-                    if (validator.operator_address == delegation.validator) {
-                        if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                            rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
-                        }
-                    }
-                }
-            }
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
             if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
                 return true
@@ -135,7 +120,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
@@ -151,7 +137,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
                 if(monikers.count > 0) {
@@ -162,6 +149,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             fromValidatorLabel.text = monikers
             memoLabel.text = pageHolderVC.mMemo
+            recipientLabel.text = pageHolderVC.mRewardAddress
+            recipientLabel.adjustsFontSizeToFitWidth = true
             
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_V1 {
@@ -197,30 +186,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else {
-            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                var rewardSum = NSDecimalNumber.zero
-                for delegation in pageHolderVC.mIrisRewards!.delegations {
-                    for validator in pageHolderVC.mRewardTargetValidators {
-                        if (validator.operator_address == delegation.validator) {
-                            if (delegation.reward.count > 0 && delegation.reward[0].denom == IRIS_MAIN_DENOM) {
-                                rewardSum = rewardSum.adding(NSDecimalNumber.init(string: delegation.reward[0].amount))
-                            }
-                        }
-                    }
-                }
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 18, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == IRIS_MAIN_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
-                }
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 18, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                 let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
                 rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
                 feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
@@ -359,20 +325,14 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 expectedDenomLabel.isHidden = true
             }
             
-            //Hide expected amount with iris
-            if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                expectedSeparator.isHidden = true
-                expectedAmountTitle.isHidden = true
-                expectedAmountLabel.isHidden = true
-                expectedDenomLabel.isHidden = true
-            }
         }
         
     }
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN  || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -383,9 +343,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -408,19 +366,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                    guard let info = res as? [String : Any] else {
-                        _ = BaseData.instance.deleteBalance(account: account)
-                        self.hideWaittingAlert()
-                        self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                        return
-                    }
-                    let accountInfo = AccountInfo.init(info)
-                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithAccountInfo(account, accountInfo))
-                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
-                    self.onGenGetRewardTx()
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -461,7 +407,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("res ", res)
+//                print("res ", res)
                 guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
                     self.onShowToast(NSLocalizedString("error_network", comment: ""))
                     return
@@ -487,27 +433,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 var msgList = Array<Msg>()
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                        self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                        self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                        self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-                    for val in self.pageHolderVC.mRewardTargetValidators {
-                        let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.chainType!)
-                        msgList.append(msg)
-                    }
-            
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                    var msg: Msg!
-                    if (self.pageHolderVC.mRewardTargetValidators.count > 1) {
-                        msg = MsgGenerator.genIrisGetAllRewardMsg(self.pageHolderVC.mAccount!.account_address)
-                        msgList.append(msg)
-                        
-                    } else {
-                        msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mRewardTargetValidators[0].operator_address, self.pageHolderVC.chainType!)
-                        msgList.append(msg)
-                    }
+                for val in self.pageHolderVC.mRewardTargetValidators {
+                    let msg = MsgGenerator.genGetRewardMsg(self.pageHolderVC.mAccount!.account_address, val.operator_address, self.pageHolderVC.chainType!)
+                    msgList.append(msg)
                 }
-                
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
@@ -552,9 +481,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                        url = IRIS_LCD_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

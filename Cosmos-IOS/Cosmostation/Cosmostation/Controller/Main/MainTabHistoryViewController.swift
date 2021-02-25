@@ -49,10 +49,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -199,10 +197,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -229,7 +225,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return self.mBnbHistories.count
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return self.mOkHistories.count
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             return self.mApiCustomHistories.count
         } else {
             return self.mApiHistories.count
@@ -237,10 +233,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             return onSetCustomHistoryItems(tableView, indexPath);
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
@@ -270,26 +264,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
         cell?.txBlockLabel.text = String(history.height!) + " block"
         cell?.txTypeLabel.text = history.getMsgType(mainTabVC.mAccount.account_address)
-        if (history.isSuccess()) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.result.code > 0) {
-            cell?.txResultLabel.isHidden = false
-        } else {
-            cell?.txResultLabel.isHidden = true
-        }
+        if (history.isSuccess()) { cell?.txResultLabel.isHidden = true }
+        else { cell?.txResultLabel.isHidden = false }
         return cell!
     }
     
@@ -423,9 +399,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.KAVA_MAIN ||
-                chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
+                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN ||
+                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -479,7 +455,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             guard let url = URL(string: EXPLORER_OKEX_TEST + "tx/" + okHistory.txhash!) else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             let history = mApiCustomHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -558,19 +534,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistory(_ address:String) {
         var url: String?
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_API_HISTORY + address
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_API_HISTORY + address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_HISTORY + address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_API_HISTORY + address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-//            url = SECRET_API_HISTORY + address
-            return
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_API_HISTORY + address
         } else if (chainType == ChainType.IOV_MAIN) {

@@ -73,7 +73,7 @@ class MyValidatorCell: UITableViewCell {
             cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
             validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
             
-        } else if (chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             monikerLabel.text = validator.description?.moniker
             monikerLabel.adjustsFontSizeToFitWidth = true
             freeEventImg.isHidden = true

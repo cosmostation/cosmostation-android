@@ -58,6 +58,14 @@ public struct ApiHistoryCustom {
             return result;
             
         } else {
+            if (getMsgCnt() == 2) {
+                let msgType0 = getMsgs()![0].object(forKey: "@type") as! String
+                let msgType1 = getMsgs()![1].object(forKey: "@type") as! String
+                if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                    return NSLocalizedString("tx_reinvest", comment: "")
+                }
+            }
+            
             let msgType = getMsgs()![0].object(forKey: "@type") as! String
             if (msgType.contains("MsgDelegate")) {
                 result = NSLocalizedString("tx_delegate", comment: "")
@@ -77,16 +85,62 @@ public struct ApiHistoryCustom {
                     result = NSLocalizedString("tx_transfer", comment: "")
                 }
                 
+            } else if (msgType.contains("MsgMultiSend")) {
+                result = NSLocalizedString("tx_transfer", comment: "")
+                
             } else if (msgType.contains("MsgBeginRedelegate")) {
                 result = NSLocalizedString("tx_redelegate", comment: "")
                 
             } else if (msgType.contains("MsgSetWithdrawAddress")) {
                 result = NSLocalizedString("tx_change_reward_address", comment: "")
                 
+            } else if (msgType.contains("MsgCreateValidator")) {
+                result = NSLocalizedString("tx_create_validator", comment: "")
+                
+            } else if (msgType.contains("MsgEditValidator")) {
+                result = NSLocalizedString("tx_edit_validator", comment: "")
+                
+            } else if (msgType.contains("MsgUnjail")) {
+                result = NSLocalizedString("tx_unjail_validator", comment: "")
+                
+            } else if (msgType.contains("MsgSubmitProposal")) {
+                result = NSLocalizedString("tx_submit_proposal", comment: "")
+                
+            } else if (msgType.contains("MsgVote")) {
+                result = NSLocalizedString("tx_vote", comment: "")
+                
+            } else if (msgType.contains("MsgDeposit")) {
+                result = NSLocalizedString("tx_deposit", comment: "")
+                
+            } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
+                result = NSLocalizedString("tx_get_commission", comment: "")
+                
+            }
+            
+            
+            
+            else if (msgType.contains("MsgMintNFT")) {
+                result = "NFT Mint"
+                
+            } else if (msgType.contains("MsgTransferNFT")) {
+                result = "NFT Transfer"
+                
+            } else if (msgType.contains("MsgEditNFT")) {
+                result = "NFT Edit"
+                
+            } else if (msgType.contains("MsgIssueDenom")) {
+                result = "NFT Issue"
+                
+            } else if (msgType.contains("MsgRequestRandom")) {
+                result = "Random Request"
+                
+            }
+            
+            if (getMsgCnt() > 1) {
+                result = result +  "\n+ " + String(getMsgCnt() - 1)
             }
             
         }
-        
         return result
     }
         

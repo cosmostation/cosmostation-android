@@ -27,7 +27,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     var mInflation: String?
     var mProvision: String?
     var mStakingPool: NSDictionary?
-    var mIrisStakePool: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +35,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mInflation = BaseData.instance.mInflation
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
-        self.mIrisStakePool = BaseData.instance.mIrisStakePool
         
 //        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_address)
 //        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_new_bip44)
@@ -202,7 +200,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mInflation = BaseData.instance.mInflation
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
-        self.mIrisStakePool = BaseData.instance.mIrisStakePool
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
     }
@@ -332,85 +329,35 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_IRIS
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
             let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
-            let totalIris = WUtils.getAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalIris.stringValue, cell!.totalAmount.font!, 18, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalIris, BaseData.instance.getLastPrice(), 18, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, IRIS_MAIN_DENOM, chainType!)
-            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
-            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpIrisRewards(mainTabVC.mIrisRewards, cell!.rewardAmount.font, 6, chainType!)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalIris.multiplying(byPowerOf10: -18).stringValue)
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(NSDecimalNumber.init(string: "0.04"), font: cell!.infaltionLabel.font)
-            if (self.mIrisStakePool != nil) {
-                let provisions = NSDecimalNumber.init(string: self.mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
-                let bonded_tokens = NSDecimalNumber.init(string: self.mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
-                cell?.yieldLabel.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.zero, font: cell!.yieldLabel.font)
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "irisnetImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_iris", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iris", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iris", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iris", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
         }
         
@@ -2010,15 +1957,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
-        if (chainType! == ChainType.IRIS_MAIN) {
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "200000000000000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mIrisToken = WUtils.getIrisMainToken(self.mainTabVC.mIrisTokenList)
-            txVC.mType = IRIS_MSG_TYPE_TRANSFER
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -2091,28 +2030,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         }
         
-        else if (chainType! == ChainType.COSMOS_MAIN) {
-            if (BaseData.instance.getAvailable(COSMOS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
+        else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mCosmosSendDenom = COSMOS_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getAvailable(COSMOS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mCosmosSendDenom = COSMOS_TEST_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mIrisTokenV1 = WUtils.getIrisMainTokenV1()
+            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
             txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else {

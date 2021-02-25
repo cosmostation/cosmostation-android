@@ -102,19 +102,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
             }
             mTvFromValidators.setText(monikers);
 
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), getSActivity().getIrisRewardSum(), 18, getSActivity().mBaseChain));
-            String monikers = "";
-            for (Validator validator:getSActivity().mValidators) {
-                if(TextUtils.isEmpty(monikers)) {
-                    monikers = validator.description.moniker;
-                } else {
-                    monikers = monikers + ",    " + validator.description.moniker;
-                }
-            }
-            mTvFromValidators.setText(monikers);
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (String opAddress: getSActivity().mValOpAddresses_V1) {
                 rewardSum = rewardSum.add(WDp.getReward(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), opAddress));
@@ -155,7 +143,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
         }
 
         mTvReceiveAddress.setText(getSActivity().mWithdrawAddress);
-        if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+        if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
             mReceiveLayer.setVisibility(View.GONE);
         } else {
             mReceiveLayer.setVisibility(View.VISIBLE);

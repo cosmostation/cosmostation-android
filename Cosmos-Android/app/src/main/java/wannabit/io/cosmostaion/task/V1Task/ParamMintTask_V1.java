@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PARAM_MINT;
 
@@ -35,6 +36,12 @@ public class ParamMintTask_V1 extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 Response<ResParamMint_V1> response = ApiClient.getCosmosTestChain(mApp).getParamMint().execute();
+                if (response.isSuccessful() && response.body().params != null) {
+                    mResult.resultData = response.body().params;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResParamMint_V1> response = ApiClient.getIrisChain(mApp).getParamMint().execute();
                 if (response.isSuccessful() && response.body().params != null) {
                     mResult.resultData = response.body().params;
                 }

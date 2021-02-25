@@ -112,19 +112,17 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                     
                 } else if (self.userChain == ChainType.IRIS_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 18, 18)
-                    let request = Alamofire.request(IRIS_LCD_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
+                    let request = Alamofire.request(IRIS_MAIN_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-                            guard let info = res as? [String : Any] else {
-                                return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if ((accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT) && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 18, 18)
-                            } else if (accountInfo.type == COSMOS_AUTH_TYPE_DELAYEDACCOUNT && accountInfo.value.BaseVestingAccount.BaseAccount.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.BaseVestingAccount.BaseAccount.coins[0].amount, cell!.denomAmount.font!, 18, 18)
+                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
+                                balances.forEach({ (balance) in
+                                    if (balance.object(forKey: "denom") as? String == IRIS_MAIN_DENOM) {
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
+                                    }
+                                })
                             }
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }

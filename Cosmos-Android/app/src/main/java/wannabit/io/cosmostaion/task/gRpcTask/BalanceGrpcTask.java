@@ -37,10 +37,11 @@ public class BalanceGrpcTask extends CommonTask {
             QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(mAccount.address).build();
             QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
             mResultData.addAll(response.getBalancesList());
+            WLog.w("response " + response.getBalancesList());
 
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
+//            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
+//                pageJob(response.getPagination().getNextKey());
+//            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
             WLog.w("Balance " + mResultData.size());

@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.network.res.ResDelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResIrisTokenList_V1;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResParamMint_V1;
+import wannabit.io.cosmostaion.network.res.ResRedelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResStakingPool_V1;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.network.res.ResUndelegations_V1;
@@ -57,6 +58,12 @@ public interface NetWorkIris_V1 {
 
     @GET("cosmos/staking/v1beta1/validators/{opAddress}/delegations/{address}")
     Call<ResDelegation_V1> getSelfBondInfo(@Path("opAddress") String opAddress, @Path("address") String address);
+
+    @GET("cosmos/staking/v1beta1/delegators/{address}/redelegations")
+    Call<ResRedelegations_V1> getRedelegationTo(@Path("address") String address, @Query("dst_validator_addr") String toValAddress);
+
+    @GET("cosmos/staking/v1beta1/delegators/{address}/redelegations")
+    Call<ResRedelegations_V1> getRedelegationFromTo(@Path("address") String address, @Query("validator_src_address") String fromValAddress, @Query("dst_validator_addr") String toValAddress);
 
     @GET("irishub/mint/params")
     Call<ResParamMint_V1> getParamMint();

@@ -664,7 +664,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeUsedDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeLimitDenom);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                     mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) ||
                     mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -689,29 +689,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemHash.setText(mResTxInfo.txhash);
-                holder.itemMemo.setText(mResTxInfo.tx.value.memo);
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                if (mResTxInfo.isIrisSuccess()) {
-                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
-                    holder.itemStatusTxt.setText(R.string.str_success_c);
-                } else {
-                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
-                    holder.itemStatusTxt.setText(R.string.str_failed_c);
-                    holder.itemFailTxt.setText(mResTxInfo.failMsgIris());
-                    holder.itemFailTxt.setVisibility(View.VISIBLE);
-                }
-                holder.itemHeight.setText(mResTxInfo.height);
-                holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
-                holder.itemGas.setText(String.format("%s / %s", mResTxInfo.result.GasUsed, mResTxInfo.result.GasWanted));
-
-                holder.itemFeeUsed.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleUsedFeeIris(), 18, 18));
-                holder.itemFeeUsedLayer.setVisibility(View.VISIBLE);
-                holder.itemFeeLimit.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 18, 18));
-                holder.itemFeeLimitLayer.setVisibility(View.VISIBLE);
-                holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemHash.setText(mResTxInfo.hash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
@@ -753,12 +730,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(OK_TEST) ||
+                    if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(OK_TEST) ||
                             mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) ||
                             mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
                         webintent.putExtra("txid", mResTxInfo.txhash);
-                    } else if (mBaseChain.equals(IRIS_MAIN)) {
-                        webintent.putExtra("txid", mResTxInfo.hash);
                     } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                         webintent.putExtra("txid", mResBnbTxInfo.hash);
                     } else {
@@ -775,7 +750,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindTransfer(RecyclerView.ViewHolder viewHolder, int position) {
             final TxTransferHolder holder = (TxTransferHolder)viewHolder;
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                     mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                     mBaseChain.equals(OK_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) ||
                     mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -846,44 +821,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     }
                 }
 
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
-                holder.itemToAddress.setText(msg.value.outputs.get(0).address);
-                if (mAccount.address.equals(msg.value.inputs.get(0).address)) {
-                    holder.itemSendRecieveTv.setText(R.string.tx_send);
-                }
-                if (mAccount.address.equals(msg.value.outputs.get(0).address)) {
-                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
-                }
-
-                ArrayList<Coin> toDpCoin = msg.value.inputs.get(0).coins;
-                if (toDpCoin.size() == 1) {
-                    holder.itemSingleCoinLayer.setVisibility(View.VISIBLE);
-                    WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom, holder.itemAmount, mBaseChain);
-                } else {
-                    holder.itemMultiCoinLayer.setVisibility(View.VISIBLE);
-                    if (toDpCoin.size() > 0) {
-                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom0, holder.itemAmount0, mBaseChain);
-                    }
-                    if (toDpCoin.size() > 1) {
-                        holder.itemAmountLayer1.setVisibility(View.VISIBLE);
-                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(1), holder.itemAmountDenom1, holder.itemAmount1, mBaseChain);
-                    }
-                    if (toDpCoin.size() > 2) {
-                        holder.itemAmountLayer2.setVisibility(View.VISIBLE);
-                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(2), holder.itemAmountDenom2, holder.itemAmount2, mBaseChain);
-                    }
-                    if (toDpCoin.size() > 3) {
-                        holder.itemAmountLayer3.setVisibility(View.VISIBLE);
-                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(3), holder.itemAmountDenom3, holder.itemAmount3, mBaseChain);
-                    }
-                    if (toDpCoin.size() > 4) {
-                        holder.itemAmountLayer4.setVisibility(View.VISIBLE);
-                        WDp.showCoinDp(getBaseContext(), toDpCoin.get(4), holder.itemAmountDenom4, holder.itemAmount4, mBaseChain);
-                    }
-                }
-
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 final Msg msg = mResBnbTxInfo.getMsg(position - 1);
                 holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
@@ -913,62 +850,51 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom2);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom3);
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
-                    mBaseChain.equals(OK_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(AKASH_MAIN) ||
-                    mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
-                holder.itemInputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 6, mBaseChain));
-                holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
-                holder.itemOutputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 6, mBaseChain));
-                if (msg.value.inputs.size() > 1) {
-                    holder.itemInputLayer1.setVisibility(View.VISIBLE);
-                    holder.itemInputAddress1.setText(msg.value.inputs.get(1).address);
-                    holder.itemInputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(1).coins.get(0).amount), 6, mBaseChain));
-                }
-                if (msg.value.inputs.size() > 2) {
-                    holder.itemInputLayer2.setVisibility(View.VISIBLE);
-                    holder.itemInputAddress2.setText(msg.value.inputs.get(2).address);
-                    holder.itemInputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(2).coins.get(0).amount), 6, mBaseChain));
-                }
-                if (msg.value.inputs.size() > 3) {
-                    holder.itemInputLayer3.setVisibility(View.VISIBLE);
-                    holder.itemInputAddress3.setText(msg.value.inputs.get(3).address);
-                    holder.itemInputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(3).coins.get(0).amount), 6, mBaseChain));
-                }
-                if (msg.value.outputs.size() > 1) {
-                    holder.itemOutputLayer1.setVisibility(View.VISIBLE);
-                    holder.itemOutputAddress1.setText(msg.value.outputs.get(1).address);
-                    holder.itemOutputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(1).coins.get(0).amount), 6, mBaseChain));
-                }
-                if (msg.value.outputs.size() > 2) {
-                    holder.itemOutputLayer2.setVisibility(View.VISIBLE);
-                    holder.itemOutputAddress2.setText(msg.value.outputs.get(2).address);
-                    holder.itemOutputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(2).coins.get(0).amount), 6, mBaseChain));
-                }
-                if (msg.value.outputs.size() > 3) {
-                    holder.itemOutputLayer3.setVisibility(View.VISIBLE);
-                    holder.itemOutputAddress3.setText(msg.value.outputs.get(3).address);
-                    holder.itemOutputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(3).coins.get(0).amount), 6, mBaseChain));
-                }
-                for (Input input:msg.value.inputs) {
-                    if (mAccount.address.equals(input.address)) {
-                        holder.itemSendRecieveTv.setText(R.string.tx_send);
-                    }
-                }
-                for (Output output:msg.value.outputs) {
-                    if (mAccount.address.equals(output.address)) {
-                        holder.itemSendRecieveTv.setText(R.string.tx_receive);
-                    }
-                }
 
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
-                holder.itemInputAmount0.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 18, 18));
-                holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
-                holder.itemOutputAmount0.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 18, 18));
-
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
+            holder.itemInputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 6, mBaseChain));
+            holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
+            holder.itemOutputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 6, mBaseChain));
+            if (msg.value.inputs.size() > 1) {
+                holder.itemInputLayer1.setVisibility(View.VISIBLE);
+                holder.itemInputAddress1.setText(msg.value.inputs.get(1).address);
+                holder.itemInputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(1).coins.get(0).amount), 6, mBaseChain));
+            }
+            if (msg.value.inputs.size() > 2) {
+                holder.itemInputLayer2.setVisibility(View.VISIBLE);
+                holder.itemInputAddress2.setText(msg.value.inputs.get(2).address);
+                holder.itemInputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(2).coins.get(0).amount), 6, mBaseChain));
+            }
+            if (msg.value.inputs.size() > 3) {
+                holder.itemInputLayer3.setVisibility(View.VISIBLE);
+                holder.itemInputAddress3.setText(msg.value.inputs.get(3).address);
+                holder.itemInputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(3).coins.get(0).amount), 6, mBaseChain));
+            }
+            if (msg.value.outputs.size() > 1) {
+                holder.itemOutputLayer1.setVisibility(View.VISIBLE);
+                holder.itemOutputAddress1.setText(msg.value.outputs.get(1).address);
+                holder.itemOutputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(1).coins.get(0).amount), 6, mBaseChain));
+            }
+            if (msg.value.outputs.size() > 2) {
+                holder.itemOutputLayer2.setVisibility(View.VISIBLE);
+                holder.itemOutputAddress2.setText(msg.value.outputs.get(2).address);
+                holder.itemOutputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(2).coins.get(0).amount), 6, mBaseChain));
+            }
+            if (msg.value.outputs.size() > 3) {
+                holder.itemOutputLayer3.setVisibility(View.VISIBLE);
+                holder.itemOutputAddress3.setText(msg.value.outputs.get(3).address);
+                holder.itemOutputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(3).coins.get(0).amount), 6, mBaseChain));
+            }
+            for (Input input:msg.value.inputs) {
+                if (mAccount.address.equals(input.address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_send);
+                }
+            }
+            for (Output output:msg.value.outputs) {
+                if (mAccount.address.equals(output.address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
+                }
             }
         }
 
@@ -977,26 +903,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemDelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_address);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
-                holder.itemValidator.setText(msg.value.validator_address);
-                holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, 6));
-                holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
-                if (mResTxInfo.getMsgs().size() == 1) {
-                    holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
-                }
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_addr);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
-                holder.itemValidator.setText(msg.value.validator_addr);
-                holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.delegation.amount), 18, 18));
-
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemDelegator.setText(msg.value.delegator_address);
+            holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
+            holder.itemValidator.setText(msg.value.validator_address);
+            holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, 6));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
+            if (mResTxInfo.getMsgs().size() == 1) {
+                holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
         }
 
@@ -1005,26 +919,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemUnDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemUndelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemUnDelegator.setText(msg.value.delegator_address);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
-                holder.itemValidator.setText(msg.value.validator_address);
-                holder.itemUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
-                holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
-                if (mResTxInfo.getMsgs().size() == 1) {
-                    holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
-                }
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemUnDelegator.setText(msg.value.delegator_addr);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
-                holder.itemValidator.setText(msg.value.validator_addr);
-                holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
-
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemUnDelegator.setText(msg.value.delegator_address);
+            holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
+            holder.itemValidator.setText(msg.value.validator_address);
+            holder.itemUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
+            if (mResTxInfo.getMsgs().size() == 1) {
+                holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
         }
 
@@ -1033,30 +935,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemReDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemRedelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemReDelegator.setText(msg.value.delegator_address);
-                holder.itemFromValidator.setText(msg.value.validator_src_address);
-                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, getBaseDao().mAllValidators, true));
-                holder.itemToValidator.setText(msg.value.validator_dst_address);
-                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, getBaseDao().mAllValidators, true));
-                holder.itemRedelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
-                holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
-                if (mResTxInfo.getMsgs().size() == 1) {
-                    holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
-                }
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemReDelegator.setText(msg.value.delegator_addr);
-                holder.itemFromValidator.setText(msg.value.validator_src_addr);
-                holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_addr, getBaseDao().mAllValidators, true));
-                holder.itemToValidator.setText(msg.value.validator_dst_addr);
-                holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_addr, getBaseDao().mAllValidators, true));
-                holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.shares_amount), 18, 18));
-
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemReDelegator.setText(msg.value.delegator_address);
+            holder.itemFromValidator.setText(msg.value.validator_src_address);
+            holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, getBaseDao().mAllValidators, true));
+            holder.itemToValidator.setText(msg.value.validator_dst_address);
+            holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, getBaseDao().mAllValidators, true));
+            holder.itemRedelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
+            if (mResTxInfo.getMsgs().size() == 1) {
+                holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
         }
 
@@ -1064,139 +952,42 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final TxRewardHolder holder = (TxRewardHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAmountDenom);
             holder.itemRewardImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_address);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
-                holder.itemValidator.setText(msg.value.validator_address);
-                holder.itemRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, mBaseChain));
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_addr);
-                holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
-                holder.itemValidator.setText(msg.value.validator_addr);
-                holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
-
-
-            }
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemDelegator.setText(msg.value.delegator_address);
+            holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
+            holder.itemValidator.setText(msg.value.validator_address);
+            holder.itemRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, mBaseChain));
         }
 
         private void onBindRewardAll(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRewardAllHolder holder = (TxRewardAllHolder)viewHolder;
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAllAmountDenom);
-            holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_addr);
-                holder.itemRewardValidatorCnt.setText( " (" + String.valueOf(mResTxInfo.rewardValidatorsIris().size()) + ")");
-                holder.itemRewardValidator0.setText(mResTxInfo.rewardValidatorIris(0));
-                holder.itemRewardMoniker0.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(0), getBaseDao().mAllValidators, true));
-                if (mResTxInfo.rewardValidatorsIris().size() > 1) {
-                    holder.itemRewardValidator1.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker1.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator1.setText(mResTxInfo.rewardValidatorIris(1));
-                    holder.itemRewardMoniker1.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(1), getBaseDao().mAllValidators, true));
-                }
-                if (mResTxInfo.rewardValidatorsIris().size() > 2) {
-                    holder.itemRewardValidator2.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker2.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator2.setText(mResTxInfo.rewardValidatorIris(2));
-                    holder.itemRewardMoniker2.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(2), getBaseDao().mAllValidators, true));
-                }
-                if (mResTxInfo.rewardValidatorsIris().size() > 3) {
-                    holder.itemRewardValidator3.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker3.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator3.setText(mResTxInfo.rewardValidatorIris(3));
-                    holder.itemRewardMoniker3.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(3), getBaseDao().mAllValidators, true));
-                }
-                if (mResTxInfo.rewardValidatorsIris().size() > 4) {
-                    holder.itemRewardValidator4.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker4.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator4.setText(mResTxInfo.rewardValidatorIris(4));
-                    holder.itemRewardMoniker4.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(4), getBaseDao().mAllValidators, true));
-                }
-                if (mResTxInfo.rewardValidatorsIris().size() > 5) {
-                    holder.itemRewardValidator5.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker5.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator5.setText(mResTxInfo.rewardValidatorIris(5));
-                    holder.itemRewardMoniker5.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(5), getBaseDao().mAllValidators, true));
-                }
-                if (mResTxInfo.rewardValidatorsIris().size() > 6) {
-                    holder.itemRewardValidator6.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker6.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator6.setText(mResTxInfo.rewardValidatorIris(6));
-                    holder.itemRewardMoniker6.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(6), getBaseDao().mAllValidators, true));
-                }
-                if (mResTxInfo.rewardValidatorsIris().size() > 7) {
-                    holder.itemRewardValidator7.setVisibility(View.VISIBLE);
-                    holder.itemRewardMoniker7.setVisibility(View.VISIBLE);
-                    holder.itemRewardValidator7.setText(mResTxInfo.rewardValidatorIris(7));
-                    holder.itemRewardMoniker7.setText(WUtil.getMonikerName(mResTxInfo.rewardValidatorIris(7), getBaseDao().mAllValidators, true));
-                }
-                holder.itemRewardAllAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleRewardIris(), 18, 18));
-
-            }
         }
 
         private void onBindAddress(RecyclerView.ViewHolder viewHolder, int position) {
             final TxAddressHolder holder = (TxAddressHolder)viewHolder;
             holder.itemAddressImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_address);
-                holder.itemWithdrawAddress.setText(msg.value.withdraw_address);
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.delegator_addr);
-                holder.itemWithdrawAddress.setText(msg.value.withdraw_addr);
-
-            }
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemDelegator.setText(msg.value.delegator_address);
+            holder.itemWithdrawAddress.setText(msg.value.withdraw_address);
         }
 
         private void onBindVote(RecyclerView.ViewHolder viewHolder, int position) {
             final TxVoteHolder holder = (TxVoteHolder)viewHolder;
             holder.itemVoteImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.voter);
-                holder.itemProposalId.setText(msg.value.proposal_id);
-                holder.itemOpinion.setText(msg.value.option);
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemDelegator.setText(msg.value.voter);
-                holder.itemProposalId.setText(msg.value.proposal_id);
-                holder.itemOpinion.setText(msg.value.option);
-
-            }
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemDelegator.setText(msg.value.voter);
+            holder.itemProposalId.setText(msg.value.proposal_id);
+            holder.itemOpinion.setText(msg.value.option);
         }
 
         private void onBindCommission(RecyclerView.ViewHolder viewHolder, int position) {
             final TxCommissionHolder holder = (TxCommissionHolder)viewHolder;
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemCommissionAmountDenom);
             holder.itemCommissionImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                    mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemCommissionValidator.setText(msg.value.validator_address);
-                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
-                holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, 6));
-
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemCommissionValidator.setText(msg.value.validator_addr);
-                holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_addr, getBaseDao().mAllValidators, true));
-                holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommissionIris(), 18, 18));
-            }
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemCommissionValidator.setText(msg.value.validator_address);
+            holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
+            holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, 6));
         }
 
         private void onBindPostPrice(RecyclerView.ViewHolder viewHolder, int position) {

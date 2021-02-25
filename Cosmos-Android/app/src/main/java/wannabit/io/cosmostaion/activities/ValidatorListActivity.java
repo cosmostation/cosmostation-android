@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
@@ -165,56 +166,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<Validator> toClaimValidators = new ArrayList<>();
         ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc & roll back
 
-        if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            BigDecimal estimateReward = BigDecimal.ZERO;
-
-            if (getBaseDao().mIrisReward == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator:getBaseDao().mAllValidators) {
-                if (getBaseDao().mIrisReward.getPerValReward(validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-//            WUtil.onSortIrisOnlyByReward(mMyValidators, mIrisReward);
-
-            for (Validator validator:toClaimValidators) {
-                estimateReward = estimateReward.add(getBaseDao().mIrisReward.getPerValReward(validator.operator_address));
-            }
-
-            BigDecimal estimateGasAmount = (new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_MUX).multiply(new BigDecimal(""+toClaimValidators.size()))).add(new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_REWARD_BASE));
-            BigDecimal estimateFee = estimateGasAmount.multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
-
-//            WLog.w("estimateReward " + estimateReward);
-//            WLog.w("estimateGasAmount " + estimateGasAmount);
-//            WLog.w("estimateFee " + estimateFee);
-
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            for (Balance balance:balances) {
-                if(balance.symbol.equals(BaseConstant.TOKEN_IRIS_ATTO) && ((balance.balance.compareTo(estimateFee)) > 0)) {
-                    hasbalance  = true;
-                }
-            }
-            if(!hasbalance){
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward_all, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (estimateReward.compareTo(estimateFee) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
             if (getBaseDao().mRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
@@ -448,7 +400,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-        } else if (mBaseChain.equals(COSMOS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             ArrayList<Reward_V1> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mRewards_V1 == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();

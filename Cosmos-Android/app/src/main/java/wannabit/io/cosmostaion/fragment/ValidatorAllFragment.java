@@ -52,7 +52,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
@@ -110,7 +109,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             mValidatorSize.setText(""+getBaseDao().mTopValidators_V1.size());
         } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             mValidatorSize.setText(""+getBaseDao().mGRpcTopValidators.size());
@@ -151,15 +150,14 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 final Validator_V1 validator  = getBaseDao().mTopValidators_V1.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL + validator.operator_address + ".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
+
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 if (validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -182,24 +180,12 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 final Staking.Validator validator  = getBaseDao().mGRpcTopValidators.get(position);
-                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), 6, 6));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
-                    try {
-                        Picasso.get().load(COSMOS_VAL_URL + validator.getOperatorAddress() + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), 6, 6));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
+                try {
+                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                } catch (Exception e){}
 
-                } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), 6, 6));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
-                    try {
-                        Picasso.get().load(IRIS_VAL_URL + validator.getOperatorAddress() + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-                }
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 if (validator.getJailed()) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -222,16 +208,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else {
                 final Validator validator  = getBaseDao().mTopValidators.get(position);
-                if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
-                    try {
-                        Picasso.get().load(IRIS_VAL_URL + validator.operator_address + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+                if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                     holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
                     holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                     try {
@@ -330,7 +307,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
                 return getBaseDao().mTopValidators_V1.size();
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return getBaseDao().mGRpcTopValidators.size();
@@ -364,7 +341,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
 
     public void onSortValidator() {
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
             if (getBaseDao().getValSorting() == 2){
                 WUtil.onSortingByCommissionV2(getBaseDao().mTopValidators_V1);
                 mSortType.setText(getString(R.string.str_sorting_by_yield));

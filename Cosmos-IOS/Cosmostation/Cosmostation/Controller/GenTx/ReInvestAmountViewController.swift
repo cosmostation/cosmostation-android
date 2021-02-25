@@ -35,10 +35,8 @@ class ReInvestAmountViewController: BaseViewController {
                 pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            self.onFetchIrisReward(pageHolderVC.mAccount!)
-            
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             self.onFetchRewards(pageHolderVC.mAccount!.account_address)
             
         }
@@ -62,14 +60,7 @@ class ReInvestAmountViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 18, 18)
-            validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            self.loadingImg.isHidden = true
-            self.controlLayer.isHidden = false
-            self.cardView.isHidden = false
-            
-        } else if ((pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) &&
+        if ((pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) &&
             self.pageHolderVC.mReinvestReward != nil) {
             rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
@@ -116,7 +107,8 @@ class ReInvestAmountViewController: BaseViewController {
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
+                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_V1!.operator_address)
             rewardAmountLabel.attributedText = WUtils.displayAmount2(cReward.stringValue, rewardAmountLabel.font, 6, 6)
             validatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
@@ -135,9 +127,7 @@ class ReInvestAmountViewController: BaseViewController {
 
     func onFetchReward(_ accountAddr: String, _ validatorAddr:String) {
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_REWARD_FROM_VAL + accountAddr + COSMOS_URL_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
@@ -161,21 +151,7 @@ class ReInvestAmountViewController: BaseViewController {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        self.updateView()
-                        return;
-                    }
-                    for rawReward in rawRewards {
-                        if let atomReward = rawReward.object(forKey: "denom") as? String, atomReward == COSMOS_MAIN_DENOM {
-                            var coin = Coin(rawReward as! [String : Any])
-                            coin.amount = NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down).stringValue
-                            self.pageHolderVC.mReinvestReward = coin
-                        }
-                    }
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.updateView()
@@ -279,28 +255,6 @@ class ReInvestAmountViewController: BaseViewController {
             }
             self.updateView()
         }
-    }
-    
-    func onFetchIrisReward(_ account: Account) {
-        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                print("res ", res)
-                guard let irisRewards = res as? NSDictionary else {
-                    self.updateView()
-                    return
-                }
-                let rewards = IrisRewards(irisRewards as! [String : Any])
-                self.pageHolderVC.mReinvestReward = rewards.getPerValRewardCoin(valOp: self.pageHolderVC.mTargetValidator!.operator_address)
-                
-            case .failure(let error):
-                if(SHOW_LOG) { print("onFetchIrisReward ", error) }
-            }
-            self.updateView()
-        }
-        
     }
     
     func onFetchRewards(_ address: String) {

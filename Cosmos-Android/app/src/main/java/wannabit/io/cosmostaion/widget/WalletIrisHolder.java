@@ -20,8 +20,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 
 public class WalletIrisHolder extends WalletHolder {
@@ -46,18 +45,18 @@ public class WalletIrisHolder extends WalletHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
             mTvDenomTitle.setText(mainActivity.getString(R.string.s_iris));
-            final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_IRIS_ATTO);
-            final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-            final BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
-            final BigDecimal rewardAmount = baseData.mIrisReward == null ? BigDecimal.ZERO : baseData.mIrisReward.getSimpleIrisReward();
+            final BigDecimal availableAmount = WDp.getAvailable(baseData, TOKEN_IRIS);
+            final BigDecimal delegateAmount = WDp.getDelegationSum(baseData);
+            final BigDecimal unbondingAmount = WDp.getUndelegationSum(baseData);
+            final BigDecimal rewardAmount = WDp.getRewardSum(baseData, TOKEN_IRIS);
             final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
-            mTvIrisTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
-            mTvIrisAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 18, 6));
-            mTvIrisDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
-            mTvIrisUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
-            mTvIrisRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
-            mTvIrisValue.setText(WDp.getValueOfIris(mainActivity, baseData, totalAmount));
+            mTvIrisTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
+            mTvIrisAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+            mTvIrisDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
+            mTvIrisUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
+            mTvIrisRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
+            mTvIrisValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
             mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
 

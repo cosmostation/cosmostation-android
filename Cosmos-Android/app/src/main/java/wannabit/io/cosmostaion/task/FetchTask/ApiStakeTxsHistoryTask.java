@@ -8,6 +8,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
+import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -31,24 +32,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCosmosApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getIrisApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-            } else if (mChain.equals(BaseChain.BNB_MAIN)) {
-            } else if (mChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
@@ -110,6 +94,41 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
+            }
+
+            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+            } else if (mChain.equals(BaseChain.IRIS_MAIN)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.COSMOS_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+            } else if (mChain.equals(BaseChain.IRIS_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
             }
 
         } catch (Exception e) {

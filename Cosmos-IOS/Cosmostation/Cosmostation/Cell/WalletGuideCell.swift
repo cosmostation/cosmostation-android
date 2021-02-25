@@ -40,7 +40,7 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cosmos", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cosmos", comment: ""), for: .normal)
             
-        } else if (chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             guideImg.image = UIImage(named: "irisnetImg")
             guideTitle.text = NSLocalizedString("send_guide_title_iris", comment: "")
             guideMsg.text = NSLocalizedString("send_guide_msg_iris", comment: "")

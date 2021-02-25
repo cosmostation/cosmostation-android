@@ -20,21 +20,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mBonding: Bonding?
     var mUnbondings = Array<Unbonding>()
     var mRewards = Array<Reward>()
-    var mIrisRewards: IrisRewards?
     var mApiHistories = Array<ApiHistory.HistoryData>()
     var mSelfBondingShare: String?
     var mFetchCnt = 0
     var mMyValidator = false
     var mIsTop100 = false
     
+    //after v0.40
     var mValidator_V1: Validator_V1?
     var mSelfDelegationInfo_V1: DelegationInfo_V1?
+    var mApiCustomHistories = Array<ApiHistoryCustom>()
     
     var mInflation: String?
     var mProvision: String?
     var mStakingPool: NSDictionary?
-    var mIrisStakePool: NSDictionary?
-    var mIrisRedelegate: Array<NSDictionary>?
     var mBandOracleStatus: BandOracleStatus?
     
     var refresher: UIRefreshControl!
@@ -63,7 +62,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mInflation = BaseData.instance.mInflation
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
-        self.mIrisStakePool = BaseData.instance.mIrisStakePool
         self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         
         self.loadingImg.onStartAnimation()
@@ -82,17 +80,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.IRIS_MAIN) {
-            mUnbondings.removeAll()
-            mFetchCnt = 6
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchIrisReward(account!)
-            onFetchApiHistory(account!, mValidator!)
-            
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
             mFetchCnt = 5
@@ -174,8 +162,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         }
         
-        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            self.mFetchCnt = 5
+        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+            self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_V1.removeAll()
             BaseData.instance.mMyUnbondings_V1.removeAll()
             BaseData.instance.mMyReward_V1.removeAll()
@@ -185,6 +173,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchDelegations(account!.account_address, 0)
             onFetchUndelegations(account!.account_address, 0)
             onFetchRewards(account!.account_address)
+            onFetchApiHistoryCustom(account!.account_address, mValidator_V1!.operator_address!)
             
         }
         
@@ -194,7 +183,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if (mFetchCnt <= 0) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
@@ -222,12 +211,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             if (section == 0) {
                 if (BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) { return 2 }
                 else { return 1 }
             } else {
-                return 0
+                if (mApiCustomHistories.count > 0) { return mApiCustomHistories.count }
+                else { return 1 }
             }
         } else {
             if (section == 0) {
@@ -246,7 +236,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             if (indexPath.section == 0) {
                 if (indexPath.row == 0 && BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
                     return onSetMyValidatorItemsV1(tableView, indexPath)
@@ -256,7 +246,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return onSetActionItemsV1(tableView, indexPath)
                 }
             } else {
-                return onSetHistoryItems(tableView, indexPath)
+                return onSetHistoryItemsV1(tableView, indexPath)
             }
             
         } else {
@@ -297,17 +287,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.present(safariViewController, animated: true, completion: nil)
             }
         }
-        if (chainType == ChainType.COSMOS_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
-            cell?.validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             cell?.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + mValidator!.operator_address + ".png")!)
@@ -353,19 +333,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
         }
         
-        if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.IRIS_MAIN) {
-            if (mIrisStakePool != nil) {
-                let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
-                let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
-            
-        } else if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
+        if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
@@ -413,17 +381,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         
-        if (chainType == ChainType.COSMOS_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 0, 18)
-            cell?.validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             cell?.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + mValidator!.operator_address + ".png")!)
@@ -469,19 +427,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
         }
         
-        if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.IRIS_MAIN) {
-            if (mIrisStakePool != nil) {
-                let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"))
-                let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
-                cell!.avergaeYield.attributedText = WUtils.displayYield(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), font: cell!.avergaeYield.font)
-            } else {
-                cell!.avergaeYield.text = "?? %"
-            }
-            
-        } else if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
+        if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
@@ -520,50 +466,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
         cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
         
-        if (chainType == ChainType.COSMOS_MAIN) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, chainType!)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, COSMOS_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            }
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 18, 18)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 18, 18)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 18, 18)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 18, 18)
-            }
-            if (mIrisRewards != nil) {
-                cell!.myRewardAmount.attributedText = WUtils.displayAmount2((mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address).stringValue)!, cell!.myRewardAmount.font, 18, 18)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 18, 18)
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if(mBonding != nil) {
                 cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, chainType!)
             } else {
@@ -718,26 +621,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         
-        if (mIsTop100 && chainType == ChainType.COSMOS_MAIN) {
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.IRIS_MAIN) {
-            if (mIrisStakePool != nil && mBonding != nil) {
-                let provisions = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "total_supply") as? String).multiplying(by: NSDecimalNumber.init(string: "0.04"), withBehavior: WUtils.handler0Down)
-                let bonded_tokens = NSDecimalNumber.init(string: mIrisStakePool?.object(forKey: "bonded_tokens") as? String)
-//                print("provisions ", provisions)
-//                print("bonded_tokens ", bonded_tokens)
-//                print("(mBonding?.getBondingAmount(mValidator!))! ", (mBonding?.getBondingAmount(mValidator!))!)
-//                print("NSDecimalNumber.init(string: mValidator!.commission.rate)! ", NSDecimalNumber.init(string: mValidator!.commission.rate))
-                cell!.myDailyReturns.attributedText = WUtils.displayDailyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myDailyReturns.font, baseChain: chainType!)
-                cell!.myMonthlyReturns.attributedText = WUtils.displayMonthlyReturns(bonded_tokens, provisions, NSDecimalNumber.init(string: mValidator!.commission.rate), (mBonding?.getBondingAmount(mValidator!))! , font: cell!.myMonthlyReturns.font, baseChain: chainType!)
-            } else {
-                cell!.myDailyReturns.text = "-"
-                cell!.myMonthlyReturns.text = "-"
-            }
-            
-        } else if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
+        if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
@@ -791,6 +675,40 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         return cell!
     }
     
+    func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (mApiHistories.count > 0) {
+            let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+            let history = mApiHistories[indexPath.row]
+            if (chainType == ChainType.IRIS_MAIN) {
+                cell?.txBlockLabel.text = String(history.height) + " block"
+                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
+                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+                if (history.result.code > 0) {
+                    cell?.txResultLabel.isHidden = false
+                } else {
+                    cell?.txResultLabel.isHidden = true
+                }
+                
+            } else {
+                cell?.txBlockLabel.text = String(history.height) + " block"
+                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
+                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+                if(history.isSuccess) {
+                    cell?.txResultLabel.isHidden = true
+                } else {
+                    cell?.txResultLabel.isHidden = false
+                }
+            }
+            return cell!
+        } else {
+            let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
+            return cell!
+        }
+    }
+    
+    //after v0.40
     func onSetMyValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
         cell?.updateView(self.mValidator_V1, self.mSelfDelegationInfo_V1, self.chainType)
@@ -852,38 +770,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         return cell!
     }
     
-    func onSetHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (mApiHistories.count > 0) {
+    func onSetHistoryItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (mApiCustomHistories.count > 0) {
             let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-            let history = mApiHistories[indexPath.row]
-            if (chainType == ChainType.IRIS_MAIN) {
-                cell?.txBlockLabel.text = String(history.height) + " block"
-                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
-                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-                if (history.result.code > 0) {
-                    cell?.txResultLabel.isHidden = false
-                } else {
-                    cell?.txResultLabel.isHidden = true
-                }
-                
-            } else {
-                cell?.txBlockLabel.text = String(history.height) + " block"
-                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
-                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-                if(history.isSuccess) {
-                    cell?.txResultLabel.isHidden = true
-                } else {
-                    cell?.txResultLabel.isHidden = false
-                }
-            }
+            let history = mApiCustomHistories[indexPath.row]
+            cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
+            cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+            cell?.txBlockLabel.text = String(history.height!) + " block"
+            cell?.txTypeLabel.text = history.getMsgType(account!.account_address)
+            if (history.isSuccess()) { cell?.txResultLabel.isHidden = true }
+            else { cell?.txResultLabel.isHidden = false }
             return cell!
         } else {
             let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
             return cell!
         }
     }
+    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1 && mApiHistories.count > 0) {
@@ -911,9 +814,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onFetchValidatorInfo(_ validator: Validator) {
         var url: String?
-        if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
@@ -936,23 +837,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let validator = responseData.object(forKey: "result") as? NSDictionary else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    self.mValidator = Validator(validator as! [String : Any])
-                    
-                } else if (self.chainType == ChainType.IRIS_MAIN) {
-                    guard let validator = res as? NSDictionary else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    self.mValidator = Validator(validator as! [String : Any])
+                guard let responseData = res as? NSDictionary,
+                    let validator = responseData.object(forKey: "result") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
                 }
+                self.mValidator = Validator(validator as! [String : Any])
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchValidatorInfo ", error) }
@@ -963,9 +853,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
         var url: String?
-        if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_BONDING + account.account_address + IRIS_LCD_URL_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_BONDING + account.account_address + KAVA_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
@@ -988,29 +876,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.CERTIK_MAIN ||
-                        self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    let bondinginfo = BondingInfo(rawData)
-                    self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
-                    if (self.mBonding != nil && self.mBonding!.getBondingAmount(self.mValidator!) != NSDecimalNumber.zero) {
-                        self.mFetchCnt = self.mFetchCnt + 1
-                        self.onFetchRewardInfo(account, validator)
-                    }
-                    
-                } else if (self.chainType == ChainType.IRIS_MAIN) {
-                    guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["shares"] != nil else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    let bondinginfo = BondingInfo(rawData)
-                    let shareAmount = WUtils.plainStringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
-                    self.mBonding = Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970)
+                guard let responseData = res as? NSDictionary,
+                    let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                let bondinginfo = BondingInfo(rawData)
+                self.mBonding = Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970)
+                if (self.mBonding != nil && self.mBonding!.getBondingAmount(self.mValidator!) != NSDecimalNumber.zero) {
+                    self.mFetchCnt = self.mFetchCnt + 1
+                    self.onFetchRewardInfo(account, validator)
                 }
                 
             case .failure(let error):
@@ -1022,9 +897,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
         var url: String?
-        if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_UNBONDING + account.account_address + IRIS_LCD_URL_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_UNBONDING + account.account_address + KAVA_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
@@ -1047,28 +920,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.CERTIK_MAIN  || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    let unbondinginfo = UnbondingInfo(rawData)
-                    for entry in unbondinginfo.entries {
-                        self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
-                    }
-                    
-                } else if (self.chainType == ChainType.IRIS_MAIN) {
-                    guard let rawData = res as? [String : Any], rawData["error"] == nil, rawData["code"] == nil else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    let unbondinginfo = UnbondingInfo(rawData)
-                    let unbondingBalance = WUtils.plainStringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
-                    let initialBalance = WUtils.plainStringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: WUtils.handler0)
-                    self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, WUtils.nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
+                guard let responseData = res as? NSDictionary,
+                    let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                    self.onFetchFinished()
+                    return
+                }
+                let unbondinginfo = UnbondingInfo(rawData)
+                for entry in unbondinginfo.entries {
+                    self.mUnbondings.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, WUtils.nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
                 }
                 
             case .failure(let error):
@@ -1103,21 +962,17 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    let reward = Reward.init()
-                    reward.reward_v_address = validator.operator_address
-                    for rawReward in rawRewards {
-                        reward.reward_amount.append(Coin(rawReward as! [String : Any]))
-                    }
-                    self.mRewards.append(reward)
+                guard let responseData = res as? NSDictionary,
+                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return;
                 }
+                let reward = Reward.init()
+                reward.reward_v_address = validator.operator_address
+                for rawReward in rawRewards {
+                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                }
+                self.mRewards.append(reward)
                     
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchRewardInfo ", error) }
@@ -1126,72 +981,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    func onFetchIrisReward(_ account: Account) {
-        let url = IRIS_LCD_URL_REWARD + account.account_address + IRIS_LCD_URL_REWARD_TAIL
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let irisRewards = res as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mIrisRewards = IrisRewards(irisRewards as! [String : Any])
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchIrisReward ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchApiHistory(_ account: Account, _ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_API_HISTORY + account.account_address + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                self.mApiHistories.removeAll()
-                guard let histories = res as? Array<NSDictionary> else {
-                    print("no history!!")
-                    self.onFetchFinished()
-                    return;
-                }
-                for rawHistory in histories {
-                    self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
-                }
-                print("mApiHistories.count ", self.mApiHistories.count)
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
         var url: String?
-        if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_BONDING + address + IRIS_LCD_URL_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_BONDING + address + KAVA_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
@@ -1214,23 +1006,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-                    guard let responseData = res as? NSDictionary,
-                        let rawData = responseData.object(forKey: "result") as? [String : Any] else {
-                        self.onFetchFinished()
-                        return;
-                    }
-                    self.mSelfBondingShare = BondingInfo(rawData).shares
-                    
-                } else if (self.chainType == ChainType.IRIS_MAIN) {
-                    guard let rawData = res as? [String : Any], rawData["error"] == nil else {
-                        self.onFetchFinished()
-                        return
-                    }
-                    self.mSelfBondingShare = BondingInfo(rawData).shares
+                guard let responseData = res as? NSDictionary,
+                    let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                    self.onFetchFinished()
+                    return;
                 }
+                self.mSelfBondingShare = BondingInfo(rawData).shares
 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchSelfBondRate ", error) }
@@ -1264,19 +1045,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                        self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-                    if let responseData = res as? NSDictionary,
-                        let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
-                        if (redelegateHistories.count > 0) {
-                            self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
-                        } else {
-                            self.onStartRedelegate()
-                        }
+                if let responseData = res as? NSDictionary,
+                    let redelegateHistories = responseData.object(forKey: "result") as? Array<NSDictionary> {
+                    if (redelegateHistories.count > 0) {
+                        self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
                     } else {
                         self.onStartRedelegate()
                     }
+                } else {
+                    self.onStartRedelegate()
                 }
                 
             case .failure(let error):
@@ -1286,33 +1063,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    func onFetchIrisRedelegateState(_ account:Account) {
-        let request = Alamofire.request(IRIS_LCD_URL_REDELEGATION + account.account_address + IRIS_LCD_URL_REDELEGATION_TAIL, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let irisRedelegateState = res as? Array<NSDictionary> else {
-                    return
-                }
-                self.mIrisRedelegate = irisRedelegateState
-                for irisRedelegate in self.mIrisRedelegate! {
-                    if let dstAddress = irisRedelegate.value(forKey: "validator_dst_addr") as? String, dstAddress == self.mValidator?.operator_address {
-                        self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
-                        return
-                    }
-                }
-                self.onStartRedelegate()
-            case .failure(let error):
-                print("onFetchIrisRedelegateState ", error)
-            }
-        }
-    }
-    
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
-        if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
@@ -1332,49 +1085,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = AKASH_REWARD_ADDRESS + accountAddr + AKASH_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        
-        if (chainType == ChainType.IRIS_MAIN) {
-            request.responseString { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let address = res as? String else {
-                        self.onShowReInvsetFailDialog()
-                        return;
-                    }
-
-                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    if (trimAddress == accountAddr) {
-                        self.onStartReInvest()
-                    } else {
-                        self.onShowReInvsetFailDialog()
-                    }
-                    
-                case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+//              print("onFetchRewardAddress ", res)
+                guard let responseData = res as? NSDictionary, let address = responseData.object(forKey: "result") as? String else {
+                    self.onShowReInvsetFailDialog()
+                    return;
                 }
-            }
-        } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST ||
-                    self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN ||
-                    self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-//                    print("onFetchRewardAddress ", res)
-                    guard let responseData = res as? NSDictionary,
-                        let address = responseData.object(forKey: "result") as? String else {
-                            self.onShowReInvsetFailDialog()
-                            return;
-                    }
-                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    if (trimAddress == accountAddr) {
-                        self.onStartReInvest()
-                    } else {
-                        self.onShowReInvsetFailDialog()
-                    }
-                    
-                case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                if (trimAddress == accountAddr) {
+                    self.onStartReInvest()
+                } else {
+                    self.onShowReInvsetFailDialog()
                 }
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
             }
         }
     }
@@ -1398,7 +1125,47 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
+    func onFetchApiHistory(_ account: Account, _ validator: Validator) {
+        var url: String?
+        if (chainType == ChainType.KAVA_MAIN) {
+            url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.BAND_MAIN) {
+            url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.IOV_MAIN) {
+            url = IOV_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            url = SECRET_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            url = AKASH_API_HISTORY + account.account_address + "/" + validator.operator_address
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                self.mApiHistories.removeAll()
+                guard let histories = res as? Array<NSDictionary> else {
+//                    print("no history!!")
+                    self.onFetchFinished()
+                    return;
+                }
+                for rawHistory in histories {
+                    self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
     
+    //after v0.40
     func onFetchSingleValidator(_ opAddress: String?) {
         let url = BaseNetWork.singleValidatorUrl(chainType!, opAddress!)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -1564,6 +1331,32 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
+    func onFetchApiHistoryCustom(_ address: String, _ valAddress: String) {
+        let url = BaseNetWork.accountStakingHistory(chainType!, address, valAddress)
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                self.mApiCustomHistories.removeAll()
+                guard let responseDatas = res as? Array<NSDictionary> else {
+                    if (SHOW_LOG) { print("no history!!") }
+                    self.onFetchFinished()
+                    return;
+                }
+                for responseData in responseDatas {
+                    self.mApiCustomHistories.append(ApiHistoryCustom(responseData))
+                }
+                if (SHOW_LOG) { print("mApiCustomHistories cnt ", self.mApiCustomHistories.count) }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchApiHistoryCustom ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    
+    // user Actions
     func onStartDelegate() {
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
@@ -1571,13 +1364,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.IRIS_MAIN) {
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (WUtils.getDelegableAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_delegable", comment: ""))
                 return
@@ -1628,8 +1415,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-        } else if (chainType == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -1641,18 +1428,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
+                chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_MAIN ||
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator = mValidator
             
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            txVC.mType = IRIS_MSG_TYPE_DELEGATE
-            txVC.mTargetValidator = mValidator
-            
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator_V1 = mValidator_V1
             
@@ -1668,21 +1450,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             return
         }
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.IRIS_MAIN) {
-            if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
-                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
-                return
-            }
-            if (mUnbondings.count >= 1) {
-                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
-                return
-            }
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
                 self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
                 return
@@ -1790,7 +1558,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
-        } else if (chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first == nil) {
                 self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
                 return
@@ -1801,7 +1569,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return
                 }
             }
-            if (BaseData.instance.getAvailable(IRIS_TEST_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "5000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -1813,17 +1581,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
+                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
             
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            txVC.mTargetValidator = mValidator
-            txVC.mType = IRIS_MSG_TYPE_UNDELEGATE
-            
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             txVC.mTargetValidator_V1 = mValidator_V1
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         }
@@ -1837,22 +1601,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first == nil) {
                 self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
                 return
             }
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-                if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType == ChainType.IRIS_TEST) {
-                if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
             }
             self.onFetchRedelegation(account!.account_address, mValidator_V1!.operator_address!)
             
@@ -1863,15 +1619,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
 
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
+            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN) {
                 self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
-                
-            } else if (chainType == ChainType.IRIS_MAIN) {
-                if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "520000000000000000")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                self.onFetchIrisRedelegateState(account!)
                 
             } else if (chainType == ChainType.SECRET_MAIN) {
                 if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "75000")).rawValue <= 0) {
@@ -1918,17 +1667,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onStartRedelegate() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
+                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            txVC.mTargetValidator = mValidator
-            txVC.mIrisRedelegate = mIrisRedelegate
-            txVC.mType = IRIS_MSG_TYPE_REDELEGATE
-            
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             txVC.mTargetValidator_V1 = mValidator_V1
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         }
@@ -1943,28 +1687,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        if (chainType == ChainType.IRIS_MAIN) {
-            if (mIrisRewards != nil) {
-                let rewardSum = mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address)
-                if (rewardSum == NSDecimalNumber.zero) {
-                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-                    return
-                }
-                if (rewardSum!.compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-                    return
-                }
-                
-            } else {
-                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-                return
-            }
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (mRewards.count > 0) {
                 let rewardSum = WUtils.getAllRewardByDenom(mRewards, KAVA_MAIN_DENOM)
                 if (rewardSum == NSDecimalNumber.zero) {
@@ -2106,18 +1829,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         
-        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
-            if (reward.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-                return
-            }
-            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "3750")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.IRIS_TEST) {
+        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
             if (reward.compare(NSDecimalNumber.init(string: "3750")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
@@ -2134,21 +1846,15 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
+                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
             var validators = Array<Validator>()
             validators.append(mValidator!)
             txVC.mRewardTargetValidators = validators
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
             
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            var validators = Array<Validator>()
-            validators.append(mValidator!)
-            txVC.mRewardTargetValidators = validators
-            txVC.mType = IRIS_MSG_TYPE_WITHDRAW
-            
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             var validators = Array<Validator_V1>()
             validators.append(mValidator_V1!)
             txVC.mRewardTargetValidators_V1 = validators
@@ -2165,58 +1871,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-                let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
-                if (reward.compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-                    return
-                }
-                if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
-                    return
-                }
-                
-            } else if (chainType == ChainType.IRIS_TEST) {
-                let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
-                if (reward.compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-                    return
-                }
-                if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
-                    return
-                }
-                
-            } else {
-                self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
+            if (reward.compare(NSDecimalNumber.init(string: "7500")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "7500")).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
             self.onFetchRewardsAddress(account!.account_address)
             
         } else {
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (chainType == ChainType.IRIS_MAIN) {
-                if (mIrisRewards != nil) {
-                    let rewardSum = mIrisRewards?.getPerValReward(valOp: mValidator!.operator_address)
-                    if (rewardSum == NSDecimalNumber.zero) {
-                        self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-                        return
-                    }
-                    if (rewardSum!.compare(NSDecimalNumber(string: "400000000000000000")).rawValue < 0) {
-                        self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
-                        return
-                    }
-                } else {
-                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
-                    return
-                }
-                if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "400000000000000000")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
                 if (mRewards.count > 0) {
                     let rewardSum = WUtils.getAllRewardByDenom(mRewards, KAVA_MAIN_DENOM)
                     if (rewardSum == NSDecimalNumber.zero) {
@@ -2365,7 +2034,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onStartReInvest() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             txVC.mTargetValidator_V1 = mValidator_V1
         } else {
             txVC.mTargetValidator = self.mValidator

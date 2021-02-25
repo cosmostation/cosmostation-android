@@ -37,10 +37,11 @@ public class UnDelegationsGrpcTask extends CommonTask {
             QueryOuterClass.QueryDelegatorUnbondingDelegationsRequest request = QueryOuterClass.QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(mAccount.address).build();
             QueryOuterClass.QueryDelegatorUnbondingDelegationsResponse response = mStub.delegatorUnbondingDelegations(request);
             mResultData.addAll(response.getUnbondingResponsesList());
+            WLog.w("UnDelegations " + response.getUnbondingResponsesList());
 
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
+//            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
+//                pageJob(response.getPagination().getNextKey());
+//            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
             WLog.w("UnDelegations " + mResultData.size());

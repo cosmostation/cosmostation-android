@@ -51,7 +51,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         account = BaseData.instance.selectAccountById(id: accountId!)
         chainType = WUtils.getChainType(account!.account_base_chain)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             self.onFetchRewardAddressV1(account!.account_address)
         } else {
             self.onFetchRewardAddress(account!.account_address)
@@ -345,7 +345,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
             if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.init(string: "2500")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
@@ -353,13 +353,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else {
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (chainType == ChainType.IRIS_MAIN) {
-                if (balances.count <= 0 || WUtils.localeStringToDecimal(balances[0].balance_amount).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue <= 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType == ChainType.IOV_MAIN) {
+            if (chainType == ChainType.IOV_MAIN) {
                 if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                     return
@@ -417,13 +411,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         noticeAlert.addAction(UIAlertAction(title: NSLocalizedString("continue", comment: ""), style: .default, handler: { _ in
             BaseData.instance.setRecentAccountId(self.account!.account_id)
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.BAND_MAIN || self.chainType == ChainType.SECRET_MAIN ||
-                    self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST || self.chainType == ChainType.CERTIK_MAIN ||
-                    self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-                txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
-            } else if (self.chainType == ChainType.IRIS_MAIN) {
-                txVC.mType = IRIS_MSG_TYPE_WITHDRAW_MIDIFY
-            }
+            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txVC, animated: true)
         }))
@@ -462,7 +450,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func confirmDelete() {
-        if(self.account!.account_has_private) {
+        if (self.account!.account_has_private) {
             let passwordVC = UIStoryboard(name: "Password", bundle: nil).instantiateViewController(withIdentifier: "PasswordViewController") as! PasswordViewController
             self.navigationItem.title = ""
             self.navigationController!.view.layer.add(WUtils.getPasswordAni(), forKey: kCATransition)
@@ -495,11 +483,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     func onFetchRewardAddress(_ accountAddr: String) {
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_REWARD_ADDRESS + accountAddr + COSMOS_URL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_REWARD_ADDRESS + accountAddr + IRIS_LCD_URL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
@@ -515,47 +499,22 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = AKASH_REWARD_ADDRESS + accountAddr + AKASH_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        if (chainType == ChainType.IRIS_MAIN) {
-            request.responseString { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let address = res as? String else {
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let address = responseData.object(forKey: "result") as? String else {
                         return;
-                    }
-                    
-                    self.rewardCard.isHidden = false
-                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    self.rewardAddress.text = trimAddress
-                    if (trimAddress != accountAddr) {
-                        self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
-                    }
-                    self.rewardAddress.adjustsFontSizeToFitWidth = true
-                    
-                case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
                 }
-            }
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                    chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN) {
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let address = responseData.object(forKey: "result") as? String else {
-                            return;
-                    }
-                    self.rewardCard.isHidden = false
-                    let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                    self.rewardAddress.text = trimAddress
-                    if (trimAddress != accountAddr) {
-                        self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
-                    }
-                    self.rewardAddress.adjustsFontSizeToFitWidth = true
-                    
-                case .failure(let error):
-                    if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
+                self.rewardCard.isHidden = false
+                let trimAddress = address.replacingOccurrences(of: "\"", with: "")
+                self.rewardAddress.text = trimAddress
+                if (trimAddress != accountAddr) {
+                    self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
                 }
+                self.rewardAddress.adjustsFontSizeToFitWidth = true
+                
+            case .failure(let error):
+                if(SHOW_LOG) { print("onFetchRewardAddress ", error) }
             }
         }
     }

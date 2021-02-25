@@ -62,6 +62,14 @@ public class ResApiTxListCustom {
         } else {
             try {
                 String result = "";
+                if (getMsgCnt() == 2) {
+                    String msgType0 =  getMsgs().getJSONObject(0).getString("@type");
+                    String msgType1 =  getMsgs().getJSONObject(1).getString("@type");
+                    if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
+                        return c.getString(R.string.tx_reinvest);
+                    }
+                }
+
                 String msgType =  getMsgs().getJSONObject(0).getString("@type");
                 if (msgType.contains("MsgDelegate")) {
                     result = c.getString(R.string.tx_delegate);
@@ -80,16 +88,58 @@ public class ResApiTxListCustom {
                         result = c.getString(R.string.tx_transfer);
                     }
 
+                } else if (msgType.contains("MsgMultiSend")) {
+                    result = c.getString(R.string.tx_transfer);
+
                 } else if (msgType.contains("MsgBeginRedelegate")) {
                     result = c.getString(R.string.tx_redelegate);
 
                 } else if (msgType.contains("MsgSetWithdrawAddress")) {
                     result = c.getString(R.string.tx_change_reward_address);
+
+                } else if (msgType.contains("MsgCreateValidator")) {
+                    result = c.getString(R.string.tx_create_validator);
+
+                } else if (msgType.contains("MsgEditValidator")) {
+                    result = c.getString(R.string.tx_edit_validator);
+
+                } else if (msgType.contains("MsgUnjail")) {
+                    result = "Unjail Val";
+
+                } else if (msgType.contains("MsgSubmitProposal")) {
+                    result = c.getString(R.string.tx_submit_proposal);
+
+                } else if (msgType.contains("MsgVote")) {
+                    result = c.getString(R.string.tx_vote);
+
+                } else if (msgType.contains("MsgDeposit")) {
+                    result = c.getString(R.string.tx_deposit);
+
+                } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
+                    result = c.getString(R.string.tx_get_commission);
+                }
+
+
+                else if (msgType.contains("MsgMintNFT")) {
+                    result = "NFT Mint";
+
+                } else if (msgType.contains("MsgTransferNFT")) {
+                    result = "NFT Transfer";
+
+                } else if (msgType.contains("MsgEditNFT")) {
+                    result = "NFT Edit";
+
+                } else if (msgType.contains("MsgIssueDenom")) {
+                    result = "NFT Issue";
+
+                } else if (msgType.contains("MsgRequestRandom")) {
+                    result = "Random Request";
+                }
+
+                if (getMsgCnt() > 1) {
+                    result = result +  "\n+ " + (getMsgCnt() - 1);
                 }
                 return result;
-
-
-
             } catch (Exception e) {}
             return "Known";
         }
