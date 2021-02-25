@@ -173,11 +173,9 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_cosmos_title", comment: "")
             
-            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
-            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
-            self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
-            feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
+            feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
+            self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE), font: rateFeeGasRateLabel.font, 2)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
             
@@ -191,14 +189,11 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "feeImg")
             self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
             
-            let gasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
-            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
-            self.rateFeeGasAmountLabel.text = gasAmount.stringValue
-            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
-            feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
+            feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
+            self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS), font: rateFeeGasRateLabel.font, 2)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
-            
         }
         
     }
@@ -310,17 +305,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 6, 6)
         }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            available = WUtils.getTokenAmount(pageHolderVC.mBalances, COSMOS_MAIN_DENOM);
-            toSpend = getSpendAmount()
-            if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                self.feeSlider.setValue(0, animated: true)
-                self.updateView(0)
-                return false
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
             toSpend = getSpendAmount()
             if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM || pageHolderVC.mHarvestDepositDenom == KAVA_MAIN_DENOM) {
@@ -512,8 +497,7 @@ class StepFeeViewController: BaseViewController {
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
-                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             feeCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.stringValue)
             var fee = Fee.init()
             let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue

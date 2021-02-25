@@ -89,7 +89,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!).subtracting(NSDecimalNumber.init(string: "2500"))
+                let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
             } else {
                 maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
             }
@@ -98,7 +99,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST ) {
             mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!).subtracting(NSDecimalNumber.init(string: "2500"))
+                let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
             } else {
                 maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
             }

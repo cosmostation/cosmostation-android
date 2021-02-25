@@ -797,6 +797,7 @@ let FEE_MIN_RATE                            = "0.0025";
 
 let GAS_FEE_RATE_LOW                        = 0.0025
 let GAS_FEE_RATE_AVERAGE                    = 0.025
+let GAS_FEE_RATE_AVERAGE_IRIS               = 0.2
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
@@ -1050,8 +1051,8 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SECRET_MAIN)
 
-//        result.append(COSMOS_TEST)
-//        result.append(IRIS_TEST)
+        result.append(COSMOS_TEST)
+        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
 //        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)

@@ -67,7 +67,8 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
                     pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mDpDecimal = 6
-            userBalance = BaseData.instance.getAvailable(WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(NSDecimalNumber.init(string: "5000"))
+            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            userBalance = BaseData.instance.getAvailable(WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
         
