@@ -37,6 +37,7 @@
             android:layout_height="match_parent"
             android:paddingTop="@dimen/space_4"
             android:clipToPadding="false"
-            android:overScrollMode="never" />
+            android:overScrollMode="never"
+            android:visibility="invisible"/>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </RelativeLayout>

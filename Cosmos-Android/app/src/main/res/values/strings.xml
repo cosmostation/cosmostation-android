@@ -242,8 +242,8 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>
     <string name="str_wallet_manage">Wallet Manage</string>
-    <string name="str_validators_list"><![CDATA[Validators & Reward]]></string>
-    <string name="str_validator_detail">Validator Detail</string>
+    <string name="str_validators_list"><![CDATA[Validator List]]></string>
+    <string name="str_validator_detail">Validator Details</string>
     <string name="str_token_detail">Token Detail</string>
     <string name="str_proposal_list">Proposal List</string>
     <string name="str_proposal_detail">Proposal Detail</string>

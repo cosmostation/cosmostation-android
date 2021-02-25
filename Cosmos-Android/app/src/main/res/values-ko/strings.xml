@@ -123,7 +123,7 @@
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
     <string name="str_wallet_manage">지갑 관리</string>
-    <string name="str_validators_list"><![CDATA[검증인 & 이자]]></string>
+    <string name="str_validators_list"><![CDATA[검증인 목록]]></string>
     <string name="str_validator_detail">검증인 상세</string>
     <string name="str_token_detail">토큰 상세</string>
     <string name="str_proposal_list">투표 목록</string>
