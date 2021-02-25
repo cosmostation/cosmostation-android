@@ -2818,12 +2818,12 @@ class WUtils {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
-            return gasRate.multiplying(by: gasAmount, withBehavior: handler6)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
-            return gasRate.multiplying(by: gasAmount, withBehavior: handler6)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
         }
         return NSDecimalNumber.zero
     }
