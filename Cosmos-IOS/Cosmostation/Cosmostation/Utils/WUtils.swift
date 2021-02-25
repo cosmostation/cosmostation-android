@@ -2514,7 +2514,7 @@ class WUtils {
         if (chainS == CHAIN_COSMOS_S) {
             return "cosmoshub-4"
         } else if (chainS == CHAIN_IRIS_S) {
-            return "irishub"
+            return "irishub-1"
         } else if (chainS == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
         } else if (chainS == CHAIN_KAVA_S) {
@@ -2555,7 +2555,7 @@ class WUtils {
         if (chain == ChainType.COSMOS_MAIN) {
             return "cosmoshub-4"
         } else if (chain == ChainType.IRIS_MAIN) {
-            return "irishub"
+            return "irishub-1"
         } else if (chain == ChainType.BINANCE_MAIN) {
             return "Binance-Chain-Tigris"
         } else if (chain == ChainType.KAVA_MAIN) {

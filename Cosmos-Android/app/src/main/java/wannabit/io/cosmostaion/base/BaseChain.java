@@ -20,7 +20,8 @@ public enum BaseChain {
     COSMOS_LEGACY2("cosmoshub-2"),
     COSMOS_LEGACY3("cosmoshub-3"),
     COSMOS_MAIN("cosmoshub-4"),
-    IRIS_MAIN("irishub"),
+    IRIS_LEGACY1("irishub"),
+    IRIS_MAIN("irishub-1"),
     IOV_MAIN("iov-mainnet-2"),
     BNB_MAIN("Binance-Chain-Tigris"),
     KAVA_LEGACY1("kava-1"),
@@ -68,7 +69,8 @@ public enum BaseChain {
                 chainName.equals(COSMOS_MAIN.chainName)) {
             return COSMOS_MAIN;
         }
-        if (chainName.equals(IRIS_MAIN.chainName)) {
+        if (chainName.equals(IRIS_LEGACY1.chainName) ||
+                chainName.equals(IRIS_MAIN.chainName)) {
             return IRIS_MAIN;
         }
         if (chainName.equals(BNB_MAIN.chainName)) {
@@ -141,7 +143,8 @@ public enum BaseChain {
             return COSMOS_MAIN.getChain();
 
         }
-        if (chain.equals(IRIS_MAIN.chainName)) {
+        if (chain.equals(IRIS_LEGACY1.chainName) ||
+                chain.equals(IRIS_MAIN.chainName)) {
             return IRIS_MAIN.chainName;
         }
         if (chain.equals(BNB_MAIN.chainName)) {
