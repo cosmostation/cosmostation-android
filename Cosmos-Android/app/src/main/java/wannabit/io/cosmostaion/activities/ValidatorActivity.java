@@ -999,8 +999,11 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
-        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
+        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress_V1, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValOpAddress, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
 
     }
@@ -1199,7 +1202,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     onBindActionV1(viewHolder);
 
                 } else if (getItemViewType(position) == TYPE_HISTORY) {
-                    onBindApiHistoryV1(viewHolder, position);
+                    onBindApiHistoryGrpc(viewHolder, position);
                 }
 
 
@@ -2034,10 +2037,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         private void onBindApiHistoryV1(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder)viewHolder;
             final ResApiTxListCustom history;
-            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
-                history = mApiTxCustomHistory.get(position - 3);
+            if (mMyDelegation == null && mMyUndelegation == null) {
+                history = mApiTxCustomHistory.get(position - 2);
             } else {
-                history = mApiTxCustomHistory.get(position - 4);
+                history = mApiTxCustomHistory.get(position - 3);
             }
             holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
             holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.timestamp));
@@ -2058,6 +2061,36 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     startActivity(txDetail);
                 }
             });
+        }
+
+        private void onBindApiHistoryGrpc(RecyclerView.ViewHolder viewHolder, int position) {
+            final HistoryHolder holder = (HistoryHolder)viewHolder;
+            final ResApiTxListCustom history;
+            if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
+                history = mApiTxCustomHistory.get(position - 2);
+            } else {
+                history = mApiTxCustomHistory.get(position - 3);
+            }
+            holder.historyType.setText(history.getMsgType(getBaseContext(), mAccount.address));
+            holder.history_time.setText(WDp.getTimeTxformat(getBaseContext(), history.timestamp));
+            holder.history_time_gap.setText(WDp.getTimeTxGap(getBaseContext(), history.timestamp));
+            holder.history_block.setText(history.height + " block");
+            if (history.isSuccess()) {
+                holder.historySuccess.setVisibility(View.GONE);
+            } else {
+                holder.historySuccess.setVisibility(View.VISIBLE);
+            }
+            holder.historyRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                    txDetail.putExtra("txHash", history.tx_hash);
+                    txDetail.putExtra("isGen", false);
+                    txDetail.putExtra("isSuccess", true);
+                    startActivity(txDetail);
+                }
+            });
+
         }
 
         @Override

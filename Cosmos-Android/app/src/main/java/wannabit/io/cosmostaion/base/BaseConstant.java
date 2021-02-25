@@ -91,10 +91,10 @@ public class BaseConstant {
     public final static int TASK_FETCH_PROVISIONS                       = 2034;
     public final static int TASK_FETCH_STAKING_POOL                     = 2035;
     public final static int TASK_GEN_TX_REINVEST                        = 2036;
-    public final static int TASK_IRIS_REWARD                            = 2037;
+//    public final static int TASK_IRIS_REWARD                            = 2037;
     public final static int TASK_IRIS_POOL                              = 2038;
     public final static int TASK_IRIS_PROPOSAL                          = 2039;
-    public final static int TASK_IRIS_REDELEGATE                        = 2040;
+//    public final static int TASK_IRIS_REDELEGATE                        = 2040;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
     public final static int TASK_FETCH_IRIS_TOKENS                      = 2043;
@@ -503,15 +503,6 @@ public class BaseConstant {
     public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
 
-    public final static String FEE_IRIS_GAS_RATE_AVERAGE        = "0.000008";
-
-//    public final static String FEE_IRIS_GAS_AMOUNT_SEND         = "25000";
-//    public final static String FEE_IRIS_GAS_AMOUNT_AVERAGE      = "50000";
-//    public final static String FEE_IRIS_GAS_AMOUNT_REDELEGATE   = "65000";
-//    public final static String FEE_IRIS_GAS_AMOUNT_REWARD_BASE  = "10000";
-//    public final static String FEE_IRIS_GAS_AMOUNT_REWARD_MUX   = "5000";
-//    public final static String FEE_IRIS_GAS_AMOUNT_VOTE         = "10000";
-//    public final static String FEE_IRIS_GAS_AMOUNT_ADDRESS_CHANGE = "10000";
 
     public final static String FEE_BNB_SEND                     = "0.000375";
     public final static String FEE_BEP3_RELAY_FEE               = "0.00001";

@@ -13,7 +13,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
@@ -29,7 +28,6 @@ import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
-import wannabit.io.cosmostaion.task.FetchTask.IrisRewardTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -57,10 +55,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_WITHDRAW_ADDRESS;
 

@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.FetchTask;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -114,7 +115,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.COSMOS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -122,7 +123,10 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
             } else if (mChain.equals(BaseChain.IRIS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                Call aa = ApiClient.getIrisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50");
+                WLog.w("aa " + aa.request().url());
+
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
