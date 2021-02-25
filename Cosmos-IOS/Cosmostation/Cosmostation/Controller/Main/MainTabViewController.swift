@@ -1664,7 +1664,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     func onFetchBondedValidators(_ offset:Int) {
         let url = BaseNetWork.validatorUrl(mChainType)
         let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 125, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
-        print("request ",request.request?.url)
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
