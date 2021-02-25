@@ -37,7 +37,7 @@ let COSMOS_API                          = "https://api.cosmostation.io/";
 let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
 let COSMOS_TEST_API                     = "https://api-office.cosmostation.io/stargate-final/";
 
-let IRIS_LCD_URL                        = "https://lcd-iris.cosmostation.io/";
+let IRIS_LCD_URL                        = "https://lcd-iris-app.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
 let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost/";

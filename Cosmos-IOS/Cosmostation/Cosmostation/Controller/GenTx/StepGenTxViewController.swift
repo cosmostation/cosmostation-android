@@ -68,7 +68,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     var mIrisRedelegate: Array<NSDictionary>?
     
-//    var mIrisToken: IrisToken?
     var mBnbToken: BnbToken?
     var mBnbTics = [String : NSMutableDictionary]()
     
