@@ -421,7 +421,7 @@ public class BaseConstant {
 
 
     public final static String TOKEN_ATOM           = "uatom";
-    public final static String TOKEN_IRIS           = "iris";
+    public final static String TOKEN_IRIS           = "uiris";
     public final static String TOKEN_IRIS_ATTO      = "iris-atto";
     public final static String TOKEN_BNB            = "BNB";
     public final static String TOKEN_KAVA           = "ukava";
