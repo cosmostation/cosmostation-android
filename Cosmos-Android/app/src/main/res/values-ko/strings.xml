@@ -292,7 +292,7 @@
     <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.\n(블록체인에 반영시간이 좀 더 걸립니다.)</string>
     <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
-    <string name="str_fee_speed_title_iris">현재 아이리스는 고정 트랜잭션 수수료를 지원합니다.\n아이리스는 사용후 남은 가스비를 전액 반환합니다.</string>
+    <string name="str_fee_speed_title_iris">현재 아이리스 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_bnb">현재 바이낸스는 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_kava">현재 카바는 고정 전송 수수료를 지원합니다.\n다양한 트랜잭션 수수료 설정을 지원하겠습니다.</string>
     <string name="str_fee_speed_title_iov">현재 스타네임은 고정 전송 수수료를 지원합니다.</string>

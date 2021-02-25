@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.Delegation_V1;
+import wannabit.io.cosmostaion.model.IrisToken_V1;
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
@@ -763,6 +764,15 @@ public class WDp {
         for (Reward_V1 reward: basedata.mRewards_V1) {
             if (reward.validator_address.equals(valOpAddress)) {
                 return reward;
+            }
+        }
+        return null;
+    }
+
+    public static IrisToken_V1 getIrisToken(BaseData basedata, String denom) {
+        for (IrisToken_V1 token: basedata.mIrisTokens_V1) {
+            if (token.min_unit.equals(denom)) {
+                return token;
             }
         }
         return null;

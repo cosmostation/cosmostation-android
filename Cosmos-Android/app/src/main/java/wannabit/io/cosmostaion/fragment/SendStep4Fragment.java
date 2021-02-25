@@ -103,39 +103,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
     public void onRefreshTab() {
         BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
         BigDecimal feeAmount      = new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mDpDecimal = getSActivity().mIrisToken.base_token.decimal;
-            mDenomSendAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
-            mDenomCurrentAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
-            mDenomRemainAmount.setText(getSActivity().mIrisToken.base_token.symbol.toUpperCase());
-
-            mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
-
-            if (getSActivity().mIrisToken.base_token.id.equals(TOKEN_IRIS)) {
-                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorIris));
-                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorIris));
-                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorIris));
-
-                mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-                mTotalPrice.setText(WDp.getValueOfIris(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
-
-                BigDecimal currentAvai  = getSActivity().mAccount.getIrisBalance();
-                mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-                mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-                mRemainingPrice.setText(WDp.getValueOfIris(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount)));
-
-            } else {
-                mTotalSpendLayer.setVisibility(View.GONE);
-                mTotalPrice.setVisibility(View.GONE);
-                mRemainingPrice.setVisibility(View.GONE);
-
-                BigDecimal currentAvai  = getSActivity().mAccount.getIrisTokenBalance(getSActivity().mIrisToken.base_token.symbol);
-                mCurrentBalance.setText(WDp.getDpAmount(getContext(), currentAvai, getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-                mRemainingBalance.setText(WDp.getDpAmount(getContext(), currentAvai.subtract(toSendAmount), getSActivity().mIrisToken.base_token.decimal, getSActivity().mBaseChain));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
+        if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
             mDpDecimal = 8;
             mDenomSendAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
             mDenomCurrentAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
@@ -327,6 +295,32 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
             }
 
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            mDpDecimal = getSActivity().mIrisToken_V1.scale;
+            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, mDpDecimal));
+                mTotalPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), feeAmount.add(toSendAmount), getSActivity().mBaseChain));
+
+                BigDecimal currentAvail = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvail, 6, 6));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvail.subtract(toSendAmount).subtract(feeAmount), 6, 6));
+                mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
+
+            } else {
+                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mTotalSpendLayer.setVisibility(View.GONE);
+                mTotalPrice.setVisibility(View.GONE);
+                mRemainingPrice.setVisibility(View.GONE);
+
+                BigDecimal currentAvai  = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, mDpDecimal));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount), 0, mDpDecimal));
+            }
+
         } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
@@ -344,6 +338,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
 
         }
+
 
         mRecipientAddress.setText(getSActivity().mTagetAddress);
         mRecipientStartName.setVisibility(View.GONE);

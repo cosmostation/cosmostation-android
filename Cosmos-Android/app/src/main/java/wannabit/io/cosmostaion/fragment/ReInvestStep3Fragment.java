@@ -82,7 +82,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
             mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, 6));
             BigDecimal current = WDp.getDelegation(getSActivity().getBaseDao(), getSActivity().mValOpAddress);
@@ -104,25 +104,12 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
         } else {
             BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                    getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                    getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, 6));
-                if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
-                    mCurrentAmount.setText(WDp.getDpAmount2(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, 6));
-                    BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
-                }
-
-            } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 18, 18));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 18, 18));
-                if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
-                    mCurrentAmount.setText(WDp.getDpAmount2(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 18, 18));
-                    BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 18, 18));
-                }
+            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, 6));
+            if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
+                mCurrentAmount.setText(WDp.getDpAmount2(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, 6));
+                BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
             }
             mValidator.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mReinvestMemo);

@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
@@ -48,7 +49,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             value.from_address = fromAddress;
             value.to_address = toAddress;
             value.amount = amounts;
@@ -72,7 +73,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             value.delegator_address = fromAddress;
             value.validator_address = toValAddress;
             value.amount = amount;
@@ -100,7 +101,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             value.delegator_address = fromAddress;
             value.validator_address = toValAddress;
             value.amount = amount;
@@ -127,7 +128,7 @@ public class Signer {
                                                        DeterministicKey pKey, BaseChain chain) {
         ArrayList<Msg>  msgList = new ArrayList<>();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             for (String val: valAddresses) {
                 Msg msg = new Msg();
                 Msg.Value value = new Msg.Value();
@@ -161,7 +162,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             value.delegator_address = fromAddress;
             value.validator_src_address = fromValAddress;
             value.validator_dst_address = toValAddress;
@@ -188,7 +189,7 @@ public class Signer {
                                                        DeterministicKey pKey, BaseChain chain) {
         ArrayList<Msg>  msgList = new ArrayList<>();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             Msg withDrawMsg = new Msg();
             Msg.Value withDrawValue = new Msg.Value();
             withDrawValue.delegator_address = fromAddress;
@@ -227,7 +228,7 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             value.delegator_address = fromAddress;
             value.withdraw_address = setAddress;
             msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;

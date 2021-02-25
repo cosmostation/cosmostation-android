@@ -15,14 +15,9 @@ import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
-
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 
 public class RewardAddressChangeStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -64,21 +59,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN) || getSActivity().mBaseChain.equals(BaseChain.IOV_TEST) || getSActivity().mBaseChain.equals(BaseChain.CERTIK_MAIN) || getSActivity().mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.SECRET_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        } else if (getSActivity().mBaseChain.equals(BaseChain.AKASH_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-        }
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         mNewAddress.setText(getSActivity().mNewRewardAddress);
         mMemo.setText(getSActivity().mMemo);

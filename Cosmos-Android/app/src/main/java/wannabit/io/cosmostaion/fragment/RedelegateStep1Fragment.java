@@ -124,7 +124,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 if (mCheckedValidator_V1 == null) {
 
                 } else {
@@ -232,15 +232,14 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
         @Override
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 final Validator_V1 validator  = mToValidators_V1.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
                 try {
-                    Picasso.get().load(COSMOS_VAL_URL + validator.operator_address + ".png")
-                            .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                            .into(holder.itemAvatar);
+                    Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
+
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -301,16 +300,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
             } else {
                 final Validator validator  = mToValidators.get(position);
-                if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens).movePointRight(18), 6, getSActivity().mBaseChain));
-                    holder.itemTvCommission.setText(WDp.getIrisYieldString(getBaseDao().mIrisStakingPool, new BigDecimal(validator.commission.rate)));
-                    try {
-                        Picasso.get().load(IRIS_VAL_URL+validator.operator_address+".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+                if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                     holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getSActivity().mBaseChain));
                     holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
                     try {
@@ -384,11 +374,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 }
 
                 holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorGray0), PorterDuff.Mode.SRC_IN);
-                if (getSActivity().mBaseChain.equals(IRIS_MAIN) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
-                    holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorIris), PorterDuff.Mode.SRC_IN);
-                    holder.itemCheckedBorder.setVisibility(View.VISIBLE);
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
-                } else if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
+                if ((getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) && mCheckedValidator != null && validator.operator_address.equals(mCheckedValidator.operator_address)) {
                     holder.itemChecked.setColorFilter(ContextCompat.getColor(getContext(), R.color.colorKava), PorterDuff.Mode.SRC_IN);
                     holder.itemCheckedBorder.setVisibility(View.VISIBLE);
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTrans));
@@ -421,7 +407,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
         @Override
         public int getItemCount() {
-            if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+            if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
                 return mToValidators_V1.size();
 
             } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {

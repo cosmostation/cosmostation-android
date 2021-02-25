@@ -32,15 +32,15 @@ public class BondedValidatorsTask_V1 extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        while(!mBreak) {
+//        while(!mBreak) {
             ArrayList<Validator_V1> temp = onDoingJob(mOffset);
             resultData.addAll(temp);
-            if (temp.size() == 125) {
-                mOffset = mOffset + 125;
-            } else {
-                mBreak = true;
-            }
-        }
+//            if (temp.size() == 125) {
+//                mOffset = mOffset + 125;
+//            } else {
+//                mBreak = true;
+//            }
+//        }
         mResult.resultData = resultData;
         mResult.isSuccess = true;
         return mResult;

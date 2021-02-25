@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_INVALID_PASSWORD;
@@ -99,6 +100,12 @@ public class ReInvestTask_V1 extends CommonTask {
                     return response.body().account;
                 }
 
+            } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResAuth_V1> response = ApiClient.getIrisChain(mApp).getAuth(address).execute();
+                if (response.isSuccessful()) {
+                    return response.body().account;
+                }
+
             } else if (getChain(mAccount.baseChain).equals(IRIS_TEST)) {
                 Response<ResAuth_V1> response = ApiClient.getIrisTestChain(mApp).getAuth(address).execute();
                 if (response.isSuccessful()) {
@@ -120,6 +127,9 @@ public class ReInvestTask_V1 extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
                 return ApiClient.getCosmosTestChain(mApp).broadTx(reqBroadCast).execute();
+
+            } else if (getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                return ApiClient.getIrisChain(mApp).broadTx(reqBroadCast).execute();
 
             } else if (getChain(mAccount.baseChain).equals(IRIS_TEST)) {
                 return ApiClient.getIrisTestChain(mApp).broadTx(reqBroadCast).execute();

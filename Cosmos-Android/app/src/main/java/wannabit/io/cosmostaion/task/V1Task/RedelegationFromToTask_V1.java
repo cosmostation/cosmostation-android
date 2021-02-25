@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_REDELEGATION_FROM_TO;
 
 public class RedelegationFromToTask_V1 extends CommonTask {
@@ -32,6 +33,13 @@ public class RedelegationFromToTask_V1 extends CommonTask {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResRedelegations_V1> response = ApiClient.getCosmosChain(mApp).getRedelegationFromTo(mAccount.address, mFromValOpAddress, mToValOpAddress).execute();
+                if (response.isSuccessful() && response.body().redelegation_responses != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().redelegation_responses;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResRedelegations_V1> response = ApiClient.getIrisChain(mApp).getRedelegationFromTo(mAccount.address, mFromValOpAddress, mToValOpAddress).execute();
                 if (response.isSuccessful() && response.body().redelegation_responses != null) {
                     mResult.isSuccess = true;
                     mResult.resultData = response.body().redelegation_responses;

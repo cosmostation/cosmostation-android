@@ -28,9 +28,11 @@ import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
+import wannabit.io.cosmostaion.model.IrisToken_V1;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
+import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
@@ -51,7 +53,6 @@ public class SendActivity extends BaseActivity {
     public String                   mTargetMemo;
     public Fee                      mTargetFee;
 
-    public IrisToken                    mIrisToken;
     public BnbToken                     mBnbToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
     public String                       mKavaDenom;
@@ -63,6 +64,7 @@ public class SendActivity extends BaseActivity {
 
     //V1 .40 version
     public String                       mDenom;
+    public IrisToken_V1                 mIrisToken_V1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +82,6 @@ public class SendActivity extends BaseActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mIrisToken = getIntent().getParcelableExtra("irisToken");
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
         mKavaDenom = getIntent().getStringExtra("kavaDenom");
@@ -91,14 +92,13 @@ public class SendActivity extends BaseActivity {
         mSecretDenom = getIntent().getStringExtra("secretDenom");
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
+        mIrisToken_V1 = WDp.getIrisToken(getBaseDao(), mDenom);
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            if (mIrisToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {

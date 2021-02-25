@@ -8,7 +8,6 @@
     <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
 
 
-<!--    <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app.cosmostation.io/</string>-->
     <string name="url_lcd_cosmos_main" translatable="false">https://lcd-cosmos-app-standby.cosmostation.io/</string>
     <string name="url_api_cosmos_main" translatable="false">https://api.cosmostation.io/</string>
 
@@ -464,7 +463,7 @@
     <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx\n(Takes longer time to recorded on the block.)</string>
     <string name="str_fee_speed_title_1">A few validators include \"Cosmostation\" will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
-    <string name="str_fee_speed_title_iris">Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.</string>
+    <string name="str_fee_speed_title_iris">Support fixed transfer fee for IRIS Mainnet..</string>
     <string name="str_fee_speed_title_bnb">Support fixed transfer fee for Bianace dex.</string>
     <string name="str_fee_speed_title_kava">Support fixed transfer fee for KAVA Chain.\nSoon update for custom fees.</string>
     <string name="str_fee_speed_title_iov">Support fixed transfer fee for Starname Chain.</string>
