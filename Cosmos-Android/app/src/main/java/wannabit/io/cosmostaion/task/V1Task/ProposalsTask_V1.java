@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSALS;
 
 public class ProposalsTask_V1 extends CommonTask {
@@ -26,6 +27,12 @@ public class ProposalsTask_V1 extends CommonTask {
         try {
             if (mBaseChain.equals(COSMOS_MAIN)) {
                 Response<ResProposal_V1> response = ApiClient.getCosmosChain(mApp).getProposals().execute();
+                if (response.isSuccessful() && response.body().proposals != null) {
+                    mResult.resultData = response.body().proposals;
+                }
+
+            } else if (mBaseChain.equals(IRIS_MAIN)) {
+                Response<ResProposal_V1> response = ApiClient.getIrisChain(mApp).getProposals().execute();
                 if (response.isSuccessful() && response.body().proposals != null) {
                     mResult.resultData = response.body().proposals;
                 }

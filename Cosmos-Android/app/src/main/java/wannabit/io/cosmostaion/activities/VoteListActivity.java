@@ -29,10 +29,8 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.model.Proposal_V1;
-import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.task.FetchTask.IrisProposalTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -41,7 +39,9 @@ import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSALS;
@@ -53,13 +53,10 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private RecyclerView        mRecyclerView;
     private TextView            mEmptyProposal;
     private VoteAdapter         mVoteAdapter;
-    private IrisVoteAdapter     mIrisVoteAdapter;
     private GrpcProposalsAdapter mGrpcProposalsAdapter;
 
 
-    private ArrayList<Validator> mTopValidators = new ArrayList<>();
     private ArrayList<Proposal> mProposals = new ArrayList<>();
-    private ArrayList<IrisProposal> mIrisProposals = new ArrayList<>();
     private ArrayList<Gov.Proposal> mGrpcProposals = new ArrayList<>();
     //roll back
     private ArrayList<Proposal_V1> mProposals_V1 = new ArrayList<>();
@@ -77,7 +74,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mTopValidators = getIntent().getParcelableArrayListExtra("topValidators");
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorPrimary));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -119,12 +115,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mIrisVoteAdapter = new IrisVoteAdapter();
-            mRecyclerView.setAdapter(mIrisVoteAdapter);
-            new IrisProposalTask(getBaseApplication(), this).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(BaseChain.COSMOS_MAIN) ) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
             mVoteAdapter = new VoteAdapter();
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalsTask_V1(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -155,26 +146,6 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                     mEmptyProposal.setVisibility(View.VISIBLE);
                     mRecyclerView.setVisibility(View.GONE);
                 }
-            } else {
-                mEmptyProposal.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
-            }
-
-        } else if (result.taskType == BaseConstant.TASK_IRIS_PROPOSAL) {
-            mIrisProposals.clear();
-            if (result.isSuccess) {
-                ArrayList<IrisProposal> temp = (ArrayList<IrisProposal>)result.resultData;
-                if(temp != null && temp.size() > 0) {
-                    mIrisProposals = temp;
-                    WUtil.onSortingIrisProposal(mIrisProposals);
-                    mIrisVoteAdapter.notifyDataSetChanged();
-                    mEmptyProposal.setVisibility(View.GONE);
-                    mRecyclerView.setVisibility(View.VISIBLE);
-                } else {
-                    mEmptyProposal.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
-                }
-
             } else {
                 mEmptyProposal.setVisibility(View.VISIBLE);
                 mRecyclerView.setVisibility(View.GONE);
@@ -226,7 +197,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull VoteAdapter.VoteHolder voteHolder, int position) {
 
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 final Proposal_V1 proposal = mProposals_V1.get(position);
                 voteHolder.proposal_id.setText("# " + proposal.proposal_id);
                 voteHolder.proposal_status.setText(proposal.getStatusText(getBaseContext()));
@@ -336,72 +307,11 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
                 return mProposals_V1.size();
             } else {
                 return mProposals.size();
             }
-        }
-
-        public class VoteHolder extends RecyclerView.ViewHolder {
-            private CardView card_proposal;
-            private TextView proposal_id, proposal_status, proposal_title, proposal_details;
-            private ImageView proposal_status_img;
-
-            public VoteHolder(@NonNull View itemView) {
-                super(itemView);
-                card_proposal               = itemView.findViewById(R.id.card_proposal);
-                proposal_id                 = itemView.findViewById(R.id.proposal_id);
-                proposal_status             = itemView.findViewById(R.id.proposal_status);
-                proposal_title              = itemView.findViewById(R.id.proposal_title);
-                proposal_details            = itemView.findViewById(R.id.proposal_details);
-                proposal_status_img         = itemView.findViewById(R.id.proposal_status_img);
-
-            }
-        }
-    }
-
-    private class IrisVoteAdapter extends RecyclerView.Adapter<IrisVoteAdapter.VoteHolder> {
-
-        @NonNull
-        @Override
-        public IrisVoteAdapter.VoteHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new IrisVoteAdapter.VoteHolder(getLayoutInflater().inflate(R.layout.item_proposal, viewGroup, false));
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull IrisVoteAdapter.VoteHolder voteHolder, int position) {
-            final IrisProposal proposal = mIrisProposals.get(position);
-            voteHolder.proposal_id.setText("# " + proposal.value.basicProposal.proposal_id);
-            voteHolder.proposal_status.setText(proposal.value.basicProposal.proposal_status);
-            voteHolder.proposal_title.setText(proposal.value.basicProposal.title);
-            voteHolder.proposal_details.setText(proposal.value.basicProposal.description);
-            if (proposal.value.basicProposal.proposal_status.equals("DepositPeriod")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-            } else if (proposal.value.basicProposal.proposal_status.equals("VotingPeriod")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-            } else if (proposal.value.basicProposal.proposal_status.equals("Rejected")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-            } else if (proposal.value.basicProposal.proposal_status.equals("Passed")) {
-                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-            } else {
-                voteHolder.proposal_status_img.setVisibility(View.GONE);
-            }
-
-            voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                    voteIntent.putExtra("proposalId", proposal.value.basicProposal.proposal_id);
-                    startActivity(voteIntent);
-                }
-            });
-        }
-
-
-        @Override
-        public int getItemCount() {
-            return mIrisProposals.size();
         }
 
         public class VoteHolder extends RecyclerView.ViewHolder {

@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.network.res.ResDelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResIrisTokenList_V1;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResParamMint_V1;
+import wannabit.io.cosmostaion.network.res.ResProposal_V1;
 import wannabit.io.cosmostaion.network.res.ResRedelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResStakingPool_V1;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
@@ -74,11 +75,12 @@ public interface NetWorkIris_V1 {
     @GET("cosmos/distribution/v1beta1/delegators/{address}/withdraw_address")
     Call<ResWithdrawAddress_V1> getRewardAddress(@Path("address") String address);
 
+    @GET("/cosmos/gov/v1beta1/proposals")
+    Call<ResProposal_V1> getProposals();
+
 
     @GET("irismod/token/tokens")
     Call<ResIrisTokenList_V1> getTokenList(@Query("pagination.limit") int limit, @Query("pagination.offset") int offset);
-
-
 
 
     //Broadcast Tx
