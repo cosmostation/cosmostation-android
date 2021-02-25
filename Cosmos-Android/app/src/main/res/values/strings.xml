@@ -1381,21 +1381,21 @@
 
     <string-array name="gas_multi_reward" translatable="false">
         <item>150000</item>
-        <item>200000</item>
-        <item>240000</item>
-        <item>300000</item>
-        <item>360000</item>
-        <item>420000</item>
-        <item>480000</item>
-        <item>540000</item>
-        <item>600000</item>
-        <item>660000</item>
-        <item>720000</item>
-        <item>780000</item>
-        <item>840000</item>
+        <item>220000</item>
+        <item>280000</item>
+        <item>320000</item>
+        <item>380000</item>
+        <item>440000</item>
+        <item>500000</item>
+        <item>560000</item>
+        <item>620000</item>
+        <item>680000</item>
+        <item>740000</item>
+        <item>820000</item>
         <item>900000</item>
-        <item>960000</item>
+        <item>980000</item>
         <item>1020000</item>
+        <item>1080000</item>
     </string-array>
 
     <string-array name="gas_multi_reward_kava" translatable="false">
