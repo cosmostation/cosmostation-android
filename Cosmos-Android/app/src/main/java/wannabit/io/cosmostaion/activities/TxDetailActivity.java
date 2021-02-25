@@ -923,8 +923,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemUnDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemUndelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
-            holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
+            holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, 6));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
@@ -941,8 +941,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, getBaseDao().mAllValidators, true));
             holder.itemToValidator.setText(msg.value.validator_dst_address);
             holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, getBaseDao().mAllValidators, true));
-            holder.itemRedelegateAmount.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, mBaseChain));
-            holder.itemAutoRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, mBaseChain));
+            holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(msg.value.getCoins().get(0).amount), 6, 6));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
@@ -956,7 +956,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemRewardAmount.setText(WDp.getDpAmount(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, mBaseChain));
+            holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, 6));
         }
 
         private void onBindRewardAll(RecyclerView.ViewHolder viewHolder, int position) {

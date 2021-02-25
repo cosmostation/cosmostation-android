@@ -114,15 +114,10 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IRIS_MAIN) ||
                 chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
                 chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
-            result = new SpannableString(getDecimalFormat(c, point).format(amount));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            amount = amount.divide(new BigDecimal("1000000000000000000"), 18, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
@@ -403,14 +398,16 @@ public class WDp {
             if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mParamMint_V1 == null) { return result; }
             BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
             BigDecimal unbonded = baseData.mStakingPool_V1.getUnbondedTokens();
-            BigDecimal provisions = (bonded.add(unbonded)).multiply(baseData.mParamMint_V1.getInflation());
+            BigDecimal inflation_base = new BigDecimal("2000000000000000");
+            BigDecimal provisions = inflation_base.multiply(baseData.mParamMint_V1.getInflation());
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
 
         } else if (chain.equals(IRIS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcIrisParamMint == null) { return result; }
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
             BigDecimal unbonded = new BigDecimal(baseData.mGrpcStakingPool.getNotBondedTokens());
-            BigDecimal provisions = (bonded.add(unbonded)).multiply(new BigDecimal(baseData.mGrpcIrisParamMint.getInflation())).movePointLeft(18);
+            BigDecimal inflation_base = new BigDecimal("2000000000000000");
+            BigDecimal provisions = inflation_base.multiply(new BigDecimal(baseData.mGrpcIrisParamMint.getInflation())).movePointLeft(18);
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
 
         } else {

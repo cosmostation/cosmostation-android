@@ -1212,7 +1212,8 @@ class WUtils {
             if (data.mStakingPool_V1 == nil || data.mMintParam_V1 == nil) {
                 return NSDecimalNumber.zero
             } else {
-                let provisions = data.mStakingPool_V1!.getTotalTokens().multiplying(by: data.mMintParam_V1!.getInflation())
+                let inflation_base = NSDecimalNumber.init(string: "2000000000000000")
+                let provisions = inflation_base.multiplying(by: data.mMintParam_V1!.getInflation())
                 let bonded = data.mStakingPool_V1!.getBondedTokens()
                 return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: plainStringToDecimal("6311520"), withBehavior: handler24Down)
             }
