@@ -1382,8 +1382,8 @@
     <string-array name="gas_multi_reward" translatable="false">
         <item>150000</item>
         <item>200000</item>
-        <item>220000</item>
-        <item>280000</item>
+        <item>240000</item>
+        <item>300000</item>
         <item>360000</item>
         <item>420000</item>
         <item>480000</item>

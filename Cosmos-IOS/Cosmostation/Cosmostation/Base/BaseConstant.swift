@@ -807,8 +807,8 @@ let GAS_FEE_AMOUNT_REDELE                   = "240000"
 
 let FEE_REWARD_GAS_1                        = "150000";
 let FEE_REWARD_GAS_2                        = "200000";
-let FEE_REWARD_GAS_3                        = "220000";
-let FEE_REWARD_GAS_4                        = "280000";
+let FEE_REWARD_GAS_3                        = "240000";
+let FEE_REWARD_GAS_4                        = "300000";
 let FEE_REWARD_GAS_5                        = "360000";
 let FEE_REWARD_GAS_6                        = "420000";
 let FEE_REWARD_GAS_7                        = "480000";
