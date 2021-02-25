@@ -505,13 +505,13 @@ public class BaseConstant {
 
     public final static String FEE_IRIS_GAS_RATE_AVERAGE        = "0.000008";
 
-    public final static String FEE_IRIS_GAS_AMOUNT_SEND         = "25000";
-    public final static String FEE_IRIS_GAS_AMOUNT_AVERAGE      = "50000";
-    public final static String FEE_IRIS_GAS_AMOUNT_REDELEGATE   = "65000";
-    public final static String FEE_IRIS_GAS_AMOUNT_REWARD_BASE  = "10000";
-    public final static String FEE_IRIS_GAS_AMOUNT_REWARD_MUX   = "5000";
-    public final static String FEE_IRIS_GAS_AMOUNT_VOTE         = "10000";
-    public final static String FEE_IRIS_GAS_AMOUNT_ADDRESS_CHANGE = "10000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_SEND         = "25000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_AVERAGE      = "50000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_REDELEGATE   = "65000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_REWARD_BASE  = "10000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_REWARD_MUX   = "5000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_VOTE         = "10000";
+//    public final static String FEE_IRIS_GAS_AMOUNT_ADDRESS_CHANGE = "10000";
 
     public final static String FEE_BNB_SEND                     = "0.000375";
     public final static String FEE_BEP3_RELAY_FEE               = "0.00001";
@@ -558,10 +558,11 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
 
-    public final static String STARGATE_GAS_RATE_AVERAGE                = "0.025";
-    public final static String STARGATE_GAS_AMOUNT_LOW                  = "100000";
-    public final static String STARGATE_GAS_AMOUNT_MID                  = "200000";
-    public final static String STARGATE_GAS_AMOUNT_HIGH                 = "300000";
+    public final static String COSMOS_GAS_RATE_AVERAGE                  = "0.025";
+    public final static String IRIS_GAS_RATE_AVERAGE                    = "0.2";
+    public final static String V1_GAS_AMOUNT_LOW                        = "100000";
+    public final static String V1_GAS_AMOUNT_MID                        = "200000";
+    public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
 
     public final static String CGC_ATOM = "cosmos";
     public final static String CGC_IRIS = "iris-network";

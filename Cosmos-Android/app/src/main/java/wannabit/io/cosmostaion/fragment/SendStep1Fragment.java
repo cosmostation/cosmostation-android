@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -46,16 +47,14 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
@@ -198,7 +197,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
                 WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(new BigDecimal("2500"));
+
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(feeAmount);
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
             }
 
@@ -207,7 +208,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
                 WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(new BigDecimal("2500"));
+
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(feeAmount);
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
             }
@@ -217,7 +220,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 setDpDecimals(mDpDecimal);
                 WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(new BigDecimal("2500"));
+
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(feeAmount);
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, mDpDecimal));
 
             } else {
@@ -229,7 +234,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
                 WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(new BigDecimal("2500"));
+
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(feeAmount);
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
             }

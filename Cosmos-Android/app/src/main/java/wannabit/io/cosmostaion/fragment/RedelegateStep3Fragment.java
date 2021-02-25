@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Fee_Description;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -44,6 +45,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_AMOUNT_REDELEGATE;
@@ -51,22 +54,20 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVER
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_AMOUNT_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.STARGATE_GAS_AMOUNT_HIGH;
-import static wannabit.io.cosmostaion.base.BaseConstant.STARGATE_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_HIGH;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_LOW;
 
 public class RedelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -277,11 +278,12 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
 
-            mGasAmount.setText(STARGATE_GAS_AMOUNT_HIGH);
-            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_HIGH).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasAmount.setText(V1_GAS_AMOUNT_HIGH);
+            mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
 
         } else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
@@ -291,9 +293,9 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
 
-            mGasAmount.setText(STARGATE_GAS_AMOUNT_HIGH);
-            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_HIGH).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasAmount.setText(V1_GAS_AMOUNT_HIGH);
+            mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
@@ -305,9 +307,9 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
 
-            mGasAmount.setText(STARGATE_GAS_AMOUNT_HIGH);
-            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_HIGH).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasAmount.setText(V1_GAS_AMOUNT_HIGH);
+            mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
@@ -319,9 +321,9 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_bifrost));
 
-            mGasAmount.setText(STARGATE_GAS_AMOUNT_HIGH);
-            mGasRate.setText(WDp.getDpString(STARGATE_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(STARGATE_GAS_AMOUNT_HIGH).multiply(new BigDecimal(STARGATE_GAS_RATE_AVERAGE)).setScale(0);
+            mGasAmount.setText(V1_GAS_AMOUNT_HIGH);
+            mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
@@ -436,7 +438,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = STARGATE_GAS_AMOUNT_HIGH;
+                fee.gas = V1_GAS_AMOUNT_HIGH;
                 getSActivity().mReDelegateFee = fee;
 
             }

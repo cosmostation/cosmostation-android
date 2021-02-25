@@ -148,26 +148,28 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             });
             mSeekBarGas.setProgress(0);
 
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
-
-            mGasAmount.setText(BaseConstant.FEE_IRIS_GAS_AMOUNT_VOTE);
-            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE, 6));
-            mFeeAmount = new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_VOTE).multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
-            if(getBaseDao().getCurrency() != 5) {
-                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(8, RoundingMode.DOWN);
-            }
-            mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(2, RoundingMode.DOWN).toPlainString(), 3));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+        }
+//        else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+//            mFeeLayer1.setVisibility(View.GONE);
+//            mFeeLayer2.setVisibility(View.VISIBLE);
+//            mFeeLayer3.setVisibility(View.GONE);
+//
+//            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+//            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
+//
+//            mGasAmount.setText(BaseConstant.FEE_IRIS_GAS_AMOUNT_VOTE);
+//            mGasRate.setText(WDp.getDpString(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE, 6));
+//            mFeeAmount = new BigDecimal(BaseConstant.FEE_IRIS_GAS_AMOUNT_VOTE).multiply(new BigDecimal(BaseConstant.FEE_IRIS_GAS_RATE_AVERAGE)).movePointRight(18).setScale(0);
+//            if(getBaseDao().getCurrency() != 5) {
+//                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(2, RoundingMode.DOWN);
+//            } else {
+//                mFeePrice = WDp.attoToIris(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIrisTic())).setScale(8, RoundingMode.DOWN);
+//            }
+//            mGasFeeAmount.setText(WDp.getDpString(WDp.attoToIris(mFeeAmount).setScale(2, RoundingMode.DOWN).toPlainString(), 3));
+//            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+//
+//        }
+        else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -318,18 +320,20 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 fee.gas = FEE_GAS_AMOUNT_HALF;
                 getSActivity().mFee = fee;
 
-            } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.TOKEN_IRIS_ATTO;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_VOTE;
-                getSActivity().mFee = fee;
-
-            } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            }
+//            else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+//                Fee fee = new Fee();
+//                Coin gasCoin = new Coin();
+//                gasCoin.denom = BaseConstant.TOKEN_IRIS_ATTO;
+//                gasCoin.amount = mFeeAmount.toPlainString();
+//                ArrayList<Coin> amount = new ArrayList<>();
+//                amount.add(gasCoin);
+//                fee.amount = amount;
+//                fee.gas = BaseConstant.FEE_IRIS_GAS_AMOUNT_VOTE;
+//                getSActivity().mFee = fee;
+//
+//            }
+            else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.TOKEN_KAVA;

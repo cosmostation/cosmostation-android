@@ -20,6 +20,7 @@ import java.nio.ByteBuffer;
 import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -103,8 +104,18 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
@@ -124,10 +135,12 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_OKB;
+import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_HIGH;
+import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_MID;
 
 public class WUtil {
 
@@ -2173,5 +2186,82 @@ public class WUtil {
 
         }
         return null;
+    }
+
+    public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+
+            }
+
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_MID);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(V1_GAS_AMOUNT_HIGH);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(V1_GAS_AMOUNT_LOW);
+
+            }
+
+        }
+        return result;
+    }
+
+    public static BigDecimal getEstimateGasFeeAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            BigDecimal gasRate = new BigDecimal(IRIS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        }
+        return BigDecimal.ZERO;
     }
 }
