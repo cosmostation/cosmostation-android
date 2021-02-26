@@ -1294,7 +1294,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     for redelegation in redelegation_responses {
                         if let validator_dst_address = redelegation.value(forKeyPath: "redelegation.validator_dst_address") as? String, self.mValidator_V1?.operator_address == validator_dst_address {
                             self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
-                            break
+                            return
                         }
                     }
                     self.onStartRedelegate()
