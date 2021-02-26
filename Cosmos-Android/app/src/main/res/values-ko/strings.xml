@@ -303,6 +303,7 @@
     <string name="str_fee_speed_title_stargate">현재 스타게이트 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_bifrost">현재 비프로스트 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_cosmos">현재 코스모스 체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_fixed">지불하시는 Tx 수수료는, \n모든 검증인과 위임자들 그리고 커뮤니티 풀에 분배됩니다.</string>
     <string name="str_fee_description_title_0">트랜잭션 수수료 0.000001 ATOM</string>
     <string name="str_fee_description_title_1">트랜잭션 수수료 비율 0.0025</string>
     <string name="str_fee_description_title_2">트랜잭션 수수료 비율 0.025</string>

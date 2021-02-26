@@ -274,8 +274,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fixed_fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
 
             mGasAmount.setText(V1_GAS_AMOUNT_MID);
             mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
@@ -289,8 +289,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fixed_fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
 
             mGasAmount.setText(V1_GAS_AMOUNT_MID);
             mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
@@ -303,8 +303,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fixed_fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
 
             mGasAmount.setText(V1_GAS_AMOUNT_MID);
             mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
@@ -317,8 +317,8 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_bifrost));
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fixed_fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
 
             mGasAmount.setText(V1_GAS_AMOUNT_MID);
             mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));

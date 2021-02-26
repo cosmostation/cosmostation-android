@@ -90,9 +90,6 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
     private ImageView       mSpeedImg;
     private TextView        mSpeedMsg;
 
-
-    private LinearLayout    mNotice;
-
     private Button          mBeforeBtn, mNextBtn;
 
     private BigDecimal      mAvailable          = BigDecimal.ZERO;      // uatom scale
@@ -133,8 +130,6 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         mSpeedLayer     = rootView.findViewById(R.id.speed_layer);
         mSpeedImg       = rootView.findViewById(R.id.speed_img);
         mSpeedMsg       = rootView.findViewById(R.id.speed_txt);
-
-        mNotice         = rootView.findViewById(R.id.multi_notice_layer);
 
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mNextBtn = rootView.findViewById(R.id.btn_next);
