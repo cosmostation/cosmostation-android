@@ -170,8 +170,8 @@ class StepFeeViewController: BaseViewController {
             self.feeSlider.isHidden = true
             self.feesLabels.isHidden = true
             
-            self.speedImg.image = UIImage.init(named: "feeImg")
-            self.speedMsg.text = NSLocalizedString("fee_speed_cosmos_title", comment: "")
+            self.speedImg.image = UIImage.init(named: "fixedfeeimg")
+            self.speedMsg.text = NSLocalizedString("fee_speed_fixed_fee", comment: "")
             
             feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
             self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
@@ -186,8 +186,8 @@ class StepFeeViewController: BaseViewController {
             self.feeSlider.isHidden = true
             self.feesLabels.isHidden = true
             
-            self.speedImg.image = UIImage.init(named: "feeImg")
-            self.speedMsg.text = NSLocalizedString("fee_speed_iris_title", comment: "")
+            self.speedImg.image = UIImage.init(named: "fixedfeeimg")
+            self.speedMsg.text = NSLocalizedString("fee_speed_fixed_fee", comment: "")
             
             feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
             self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue

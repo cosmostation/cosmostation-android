@@ -9431,11 +9431,17 @@ Some exchanges or wallets may require a specific memo for deposits.</string>
                                     </button>
                                 </subviews>
                             </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cosmostation Wallet is a Free Service" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="B7d-TP-6mZ">
+                                <rect key="frame" x="41.5" y="442.5" width="237" height="16.5"/>
+                                <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bycicle" translatesAutoresizingMaskIntoConstraints="NO" id="Dh7-r8-QZm">
-                                <rect key="frame" x="115" y="270.5" width="90" height="62"/>
+                                <rect key="frame" x="115" y="372.5" width="90" height="62"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only a handful of validators will process this Tx" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="riU-g3-Hyc">
-                                <rect key="frame" x="46" y="340.5" width="228.5" height="13"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Only a handful of validators will process this Tx" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="riU-g3-Hyc">
+                                <rect key="frame" x="16" y="465" width="288" height="13"/>
                                 <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="11"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -9448,6 +9454,8 @@ Some exchanges or wallets may require a specific memo for deposits.</string>
                             <constraint firstItem="Tc2-Vc-nXq" firstAttribute="bottom" secondItem="4rZ-Uj-roK" secondAttribute="bottom" constant="16" id="0JY-yy-lsx"/>
                             <constraint firstItem="9GT-er-bsr" firstAttribute="leading" secondItem="Tc2-Vc-nXq" secondAttribute="leading" constant="16" id="4GA-jH-Dv8"/>
                             <constraint firstItem="Tc2-Vc-nXq" firstAttribute="trailing" secondItem="J9U-SD-d2s" secondAttribute="trailing" constant="16" id="64v-WV-sXQ"/>
+                            <constraint firstItem="B7d-TP-6mZ" firstAttribute="top" secondItem="Dh7-r8-QZm" secondAttribute="bottom" constant="8" id="70K-cD-x6X"/>
+                            <constraint firstItem="riU-g3-Hyc" firstAttribute="leading" secondItem="Tc2-Vc-nXq" secondAttribute="leading" constant="16" id="8YL-PO-B9u"/>
                             <constraint firstItem="jzs-Uo-eUe" firstAttribute="top" secondItem="9GT-er-bsr" secondAttribute="bottom" constant="6" id="ASw-zy-gTw"/>
                             <constraint firstItem="jzs-Uo-eUe" firstAttribute="leading" secondItem="Tc2-Vc-nXq" secondAttribute="leading" constant="16" id="Bah-9l-d5F"/>
                             <constraint firstItem="Dh7-r8-QZm" firstAttribute="centerX" secondItem="Tc2-Vc-nXq" secondAttribute="centerX" id="FIa-Nn-Oka"/>
@@ -9455,10 +9463,10 @@ Some exchanges or wallets may require a specific memo for deposits.</string>
                             <constraint firstItem="J9U-SD-d2s" firstAttribute="leading" secondItem="Tc2-Vc-nXq" secondAttribute="leading" constant="16" id="KTV-dw-Kvo"/>
                             <constraint firstItem="c8C-KH-SPF" firstAttribute="trailing" secondItem="J9U-SD-d2s" secondAttribute="trailing" id="Lru-W7-Qyx"/>
                             <constraint firstItem="c8C-KH-SPF" firstAttribute="leading" secondItem="J9U-SD-d2s" secondAttribute="leading" id="NVg-v5-Gbg"/>
-                            <constraint firstItem="Dh7-r8-QZm" firstAttribute="top" secondItem="tuz-hV-mkt" secondAttribute="bottom" constant="54" id="OtI-KY-p1R"/>
+                            <constraint firstItem="Tc2-Vc-nXq" firstAttribute="trailing" secondItem="riU-g3-Hyc" secondAttribute="trailing" constant="16" id="P89-On-AzW"/>
                             <constraint firstItem="Tc2-Vc-nXq" firstAttribute="trailing" secondItem="9GT-er-bsr" secondAttribute="trailing" constant="16" id="TRk-Ty-WUC"/>
                             <constraint firstItem="4rZ-Uj-roK" firstAttribute="leading" secondItem="Tc2-Vc-nXq" secondAttribute="leading" constant="16" id="VUY-Hh-LFr"/>
-                            <constraint firstItem="riU-g3-Hyc" firstAttribute="top" secondItem="Dh7-r8-QZm" secondAttribute="bottom" constant="8" id="Z9l-CN-FW8"/>
+                            <constraint firstItem="B7d-TP-6mZ" firstAttribute="centerX" secondItem="Tc2-Vc-nXq" secondAttribute="centerX" id="dXY-Pv-BrP"/>
                             <constraint firstItem="S3Z-sI-aDj" firstAttribute="trailing" secondItem="J9U-SD-d2s" secondAttribute="trailing" id="hAg-lV-zkf"/>
                             <constraint firstItem="9GT-er-bsr" firstAttribute="top" secondItem="c8C-KH-SPF" secondAttribute="bottom" constant="24" id="nxu-1b-U7b"/>
                             <constraint firstItem="J9U-SD-d2s" firstAttribute="top" secondItem="Tc2-Vc-nXq" secondAttribute="top" constant="16" id="oaR-xD-Q36"/>
@@ -9468,6 +9476,8 @@ Some exchanges or wallets may require a specific memo for deposits.</string>
                             <constraint firstItem="Tc2-Vc-nXq" firstAttribute="trailing" secondItem="jzs-Uo-eUe" secondAttribute="trailing" constant="16" id="uTq-es-2hB"/>
                             <constraint firstItem="9GT-er-bsr" firstAttribute="top" secondItem="S3Z-sI-aDj" secondAttribute="bottom" constant="24" id="wNe-CR-Erz"/>
                             <constraint firstItem="riU-g3-Hyc" firstAttribute="centerX" secondItem="Tc2-Vc-nXq" secondAttribute="centerX" id="wqO-cO-NIb"/>
+                            <constraint firstItem="4rZ-Uj-roK" firstAttribute="top" secondItem="riU-g3-Hyc" secondAttribute="bottom" constant="24" id="yW1-A1-zMF"/>
+                            <constraint firstItem="riU-g3-Hyc" firstAttribute="top" secondItem="B7d-TP-6mZ" secondAttribute="bottom" constant="6" id="yWa-kg-BwH"/>
                         </constraints>
                     </view>
                     <connections>
