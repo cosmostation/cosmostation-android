@@ -175,7 +175,7 @@ class StepFeeViewController: BaseViewController {
             
             feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
             self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
-            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE), font: rateFeeGasRateLabel.font, 2)
+            self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE), font: rateFeeGasRateLabel.font, 3)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
             
