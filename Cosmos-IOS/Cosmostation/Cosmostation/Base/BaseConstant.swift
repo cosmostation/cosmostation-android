@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -1212,7 +1212,7 @@ let DAY_SEC     = NSDecimalNumber.init(string: "86400")
 let MONTH_SEC   = DAY_SEC.multiplying(by: NSDecimalNumber.init(string: "30"))
 let YEAR_SEC    = DAY_SEC.multiplying(by: NSDecimalNumber.init(string: "365"))
 
-let BLOCK_TIME_COSMOS   = NSDecimalNumber.init(string: "7.31")
+let BLOCK_TIME_COSMOS   = NSDecimalNumber.init(string: "7.11")
 let BLOCK_TIME_IRIS     = NSDecimalNumber.init(string: "6.93")
 let BLOCK_TIME_IOV      = NSDecimalNumber.init(string: "6.21")
 let BLOCK_TIME_KAVA     = NSDecimalNumber.init(string: "8.01")
