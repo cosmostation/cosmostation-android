@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -37,14 +37,17 @@ let COSMOS_API                          = "https://api.cosmostation.io/";
 let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
 let COSMOS_TEST_API                     = "https://api-office.cosmostation.io/stargate-final/";
 
+
 let IRIS_LCD_URL                        = "https://lcd-iris-app.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
 let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost/";
 let IRIS_TEST_API                       = "https://api-office.cosmostation.io/bifrost/";
 
+
 let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
+
 
 let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let KAVA_API                            = "https://api-kava.cosmostation.io/";
