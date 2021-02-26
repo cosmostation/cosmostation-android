@@ -639,7 +639,7 @@ public class BaseConstant {
     public final static BigDecimal MONTH_SEC = DAY_SEC.multiply(new BigDecimal("30"));
     public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
 
-    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.31");
+    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.11");
     public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.93");
     public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.21");
     public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("8.01");
