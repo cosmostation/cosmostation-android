@@ -55,6 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_ALL_REWARDS;
@@ -245,6 +246,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
+//        WLog.w("onTaskResponse " + result.taskType + " " + mTaskCount);
         mTaskCount--;
         if(isFinishing()) return;
         if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
@@ -252,6 +254,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             if(reward != null)
                 onUpdateReward(reward);
 
+        } else if (result.taskType == TASK_FETCH_WITHDRAW_ADDRESS) {
+            mWithdrawAddress = (String)result.resultData;
         }
 
         //roll back
