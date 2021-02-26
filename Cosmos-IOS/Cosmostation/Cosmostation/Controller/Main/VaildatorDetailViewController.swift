@@ -797,6 +797,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
+            
+        } else if (indexPath.section == 1 && mApiCustomHistories.count > 0) {
+            let history = mApiCustomHistories[indexPath.row]
+            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            txDetailVC.mIsGen = false
+            txDetailVC.mTxHash = history.tx_hash
+            txDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(txDetailVC, animated: true)
+            
         }
     }
     
