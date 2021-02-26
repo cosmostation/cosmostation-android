@@ -1048,14 +1048,14 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 if (hits != null && hits.size() > 0) {
                     mApiTxCustomHistory = hits;
                 }
-                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
+//                WLog.w("mApiTxCustomHistory " + mApiTxCustomHistory.size());
 
             } else {
                 ArrayList<ResApiTxList.Data> hits = (ArrayList<ResApiTxList.Data>)result.resultData;
                 if (hits != null && hits.size() > 0) {
                     mApiTxHistory = hits;
                 }
-                WLog.w("mApiTxHistory " + mApiTxHistory.size());
+//                WLog.w("mApiTxHistory " + mApiTxHistory.size());
             }
 
         } else if (result.taskType == TASK_FETCH_BAND_ORACLE_STATUS) {

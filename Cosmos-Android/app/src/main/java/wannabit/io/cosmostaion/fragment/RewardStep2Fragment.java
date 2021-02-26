@@ -286,9 +286,9 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mFeeLayer3.setVisibility(View.GONE);
 
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_cosmos));
 
-            mEstimateGasAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
             mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
@@ -303,7 +303,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
 
-            mEstimateGasAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
             mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
@@ -318,7 +318,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
 
-            mEstimateGasAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
             mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
@@ -333,7 +333,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_bifrost));
 
-            mEstimateGasAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
             mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
