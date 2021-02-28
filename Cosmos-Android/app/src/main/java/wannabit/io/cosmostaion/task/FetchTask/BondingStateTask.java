@@ -53,21 +53,21 @@ public class BondingStateTask extends CommonTask {
                     }
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getBandChain(mApp).getBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, BAND_MAIN));
-                    } else {
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-                    }
-                }
-
             } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdBondings> response = ApiClient.getKavaTestChain(mApp).getBondingList(mAccount.address).execute();
                 if(response.isSuccessful()) {
                     if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                         mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, KAVA_TEST));
+                    } else {
+                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                    }
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
+                Response<ResLcdBondings> response = ApiClient.getBandChain(mApp).getBondingList(mAccount.address).execute();
+                if(response.isSuccessful()) {
+                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, BAND_MAIN));
                     } else {
                         mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
                     }

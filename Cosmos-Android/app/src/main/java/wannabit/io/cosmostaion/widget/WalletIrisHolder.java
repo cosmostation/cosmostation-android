@@ -23,7 +23,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 
-public class WalletIrisHolder extends WalletHolder {
+public class WalletIrisHolder extends BaseHolder {
     public TextView         mTvDenomTitle;
     public TextView mTvIrisTotal, mTvIrisValue, mTvIrisAvailable, mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
     public RelativeLayout mBtnStake, mBtnVote;

@@ -1374,7 +1374,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortingKavaTokenByValue(BaseData baseData, ArrayList<Balance> balances) {
+    public static void onSortingKavaTokenByValue(BaseChain chain, BaseData baseData, ArrayList<Balance> balances) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
@@ -1383,8 +1383,8 @@ public class WUtil {
 
                 BigDecimal amount1 = WDp.getKavaTokenAll(baseData, balances, o1.symbol);
                 BigDecimal amount2 = WDp.getKavaTokenAll(baseData, balances, o2.symbol);
-                BigDecimal value1 = WDp.kavaTokenDollorValue(baseData, o1.symbol, amount1);
-                BigDecimal value2 = WDp.kavaTokenDollorValue(baseData, o2.symbol, amount2);
+                BigDecimal value1 = WDp.kavaTokenDollorValue(chain, baseData, o1.symbol, amount1);
+                BigDecimal value2 = WDp.kavaTokenDollorValue(chain, baseData, o2.symbol, amount2);
 
                 return value2.compareTo(value1);
             }
@@ -1581,7 +1581,7 @@ public class WUtil {
             return 6;
         } else if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
             return 6;
-        } else if (coin.denom.equalsIgnoreCase("xrpb")) {
+        } else if (coin.denom.equalsIgnoreCase("xrpb") || coin.denom.equalsIgnoreCase("xrbp")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("btc")) {
             return 8;
@@ -1603,7 +1603,7 @@ public class WUtil {
             return 6;
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             return 6;
-        } else if (denom.equalsIgnoreCase("xrpb")) {
+        } else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) {
             return 8;
         } else if (denom.equalsIgnoreCase("btc")) {
             return 8;

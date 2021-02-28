@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 
-public class WalletAkashHolder extends WalletHolder {
+public class WalletAkashHolder extends BaseHolder {
     private TextView        mTvAkashTotal, mTvAkashValue, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;
     private RelativeLayout  mBtnAkashStake, mBtnAkashVote;
 

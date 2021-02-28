@@ -39,21 +39,7 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(COSMOS_MAIN)) {
-//                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getUnBondedValidatorDetailList().execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(KAVA_MAIN)) {
+            if (mChain.equals(KAVA_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getKavaChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 
-public class WalletBandHolder extends WalletHolder {
+public class WalletBandHolder extends BaseHolder {
     public TextView mTvBandTotal, mTvBandValue, mTvBandAvailable, mTvBandDelegated, mTvBandUnBonding, mTvBandRewards;
     public RelativeLayout mBtnStake, mBtnVote;
 

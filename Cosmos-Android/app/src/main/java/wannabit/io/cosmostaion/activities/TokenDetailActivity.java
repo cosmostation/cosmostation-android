@@ -160,7 +160,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void onCheckVesting() {
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_MAIN)) {
+        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(mBalance.symbol) > 0) {
                 mHasVesting = true;
             }
@@ -189,10 +189,10 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
     private void onFetchTokenHistory() {
         if (mBaseChain.equals(COSMOS_MAIN)) {
-            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(IRIS_MAIN)) {
-            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             new BnbHistoryTask(getBaseApplication(), this, null, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString(), mBnbToken.symbol);
@@ -201,7 +201,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(KAVA_TEST)) {
-            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+//            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mBalance.symbol, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             mSwipeRefreshLayout.setRefreshing(false);
@@ -245,12 +245,12 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private void onClickSend(int type) {
         if (onCheckSendable()) {
             if (type == TYPE_ATOM) {
-                startActivity(new Intent(TokenDetailActivity.this, SendActivity.class));
+//                startActivity(new Intent(TokenDetailActivity.this, SendActivity.class));
 
             } else if (type == TYPE_IRIS) {
-                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
-                intent.putExtra("irisToken", mIrisToken);
-                startActivity(intent);
+//                Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
+//                intent.putExtra("irisToken", mIrisToken);
+//                startActivity(intent);
 
             } else if (type == TYPE_BNB) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
@@ -262,7 +262,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 intent.putExtra("kavaDenom", TOKEN_KAVA);
                 startActivity(intent);
 
-            } else if (type == TYPE_OKT) {
+            } else if (type == TYPE_KAVA) {
+
+            }  else if (type == TYPE_OKT) {
                 Intent intent = new Intent(TokenDetailActivity.this, SendActivity.class);
                 intent.putExtra("okDenom", TOKEN_OK);
                 startActivity(intent);
@@ -372,6 +374,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
     private static final int TYPE_TOKEN             = 98;
     private static final int TYPE_VESTING           = 99;
     private static final int TYPE_HISTORY           = 100;
+
     private class TokenDetailAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         @NonNull
@@ -702,7 +705,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
-                final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(getBaseDao(), mBalance.symbol, tokenTotalAmount);
+                final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(mBaseChain, getBaseDao(), mBalance.symbol, tokenTotalAmount);
                 final BigDecimal convertedKavaAmount        = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
 
                 holder.mTokenLink.setVisibility(View.GONE);
@@ -736,7 +739,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
-                final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(getBaseDao(), mBalance.symbol, tokenTotalAmount);
+                final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(mBaseChain, getBaseDao(), mBalance.symbol, tokenTotalAmount);
                 final BigDecimal convertedKavaAmount        = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
 
                 holder.mTokenLink.setVisibility(View.GONE);

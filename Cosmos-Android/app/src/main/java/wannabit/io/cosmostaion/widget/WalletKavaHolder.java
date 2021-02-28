@@ -21,7 +21,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class WalletKavaHolder extends WalletHolder {
+public class WalletKavaHolder extends BaseHolder {
     public TextView         mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
     public RelativeLayout   mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer;
     public TextView         mTvKavaVesting, mTvKavaDeposit, mTvKavaIncentive;

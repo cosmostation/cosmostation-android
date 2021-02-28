@@ -610,11 +610,11 @@ public class WDp {
 
     public static BigDecimal getUnclaimedIncentiveAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:baseData.mKavaUnClaimedIncentiveRewards) {
-            if (incentive.claim.reward.denom.equals(denom) && incentive.claimable) {
-                sum = sum.add(new BigDecimal(incentive.claim.reward.amount));
-            }
-        }
+//        for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:baseData.mKavaUnClaimedIncentiveRewards) {
+//            if (incentive.claim.reward.denom.equals(denom) && incentive.claimable) {
+//                sum = sum.add(new BigDecimal(incentive.claim.reward.amount));
+//            }
+//        }
         return sum;
     }
 
@@ -631,30 +631,60 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
-        int dpDecimal = WUtil.getKavaCoinDecimal(denom);
-        if (denom.equals("usdx") || denom.equals("busd")) {
-            return amount.movePointLeft(dpDecimal);
-        } else if (denom.equals("hard")) {
-            return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
-        } else {
-            HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
-            ResCdpParam.Result params = baseData.mKavaCdpParams;
-            if (prices == null || prices.size() <= 0 || params == null) {
-                return BigDecimal.ZERO;
-            }
-            //don't care collateral type
-            ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
-            if (collateralParam == null || collateralParam.liquidation_market_id == null) {
-                return BigDecimal.ZERO;
-            }
-            ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
-            if (mMarketPrice == null) {
-                return BigDecimal.ZERO;
+    public static BigDecimal kavaTokenDollorValue(BaseChain chain, BaseData baseData, String denom, BigDecimal amount) {
+        if (chain.equals(KAVA_MAIN)) {
+            int dpDecimal = WUtil.getKavaCoinDecimal(denom);
+            if (denom.equals("usdx") || denom.equals("busd")) {
+                return amount.movePointLeft(dpDecimal);
+            } else if (denom.equals("hard")) {
+                return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
             } else {
-                return amount.movePointLeft(dpDecimal).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
+                HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
+                ResCdpParam.Result params = baseData.mKavaCdpParams;
+                if (prices == null || prices.size() <= 0 || params == null) {
+                    return BigDecimal.ZERO;
+                }
+                //don't care collateral type
+                ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
+                if (collateralParam == null || collateralParam.liquidation_market_id == null) {
+                    return BigDecimal.ZERO;
+                }
+                ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
+                if (mMarketPrice == null) {
+                    return BigDecimal.ZERO;
+                } else {
+                    return amount.movePointLeft(dpDecimal).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
+                }
+            }
+
+        } else if (chain.equals(KAVA_TEST)) {
+            //hard coding for denom price
+            int dpDecimal = WUtil.getKavaCoinDecimal(denom);
+            if (denom.equals("usdx") || denom.equals("busd")) {
+                return amount.movePointLeft(dpDecimal);
+
+            } else {
+                HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
+                if (denom.equals("hard") && prices.get("hard:usd:30") != null) {
+                    BigDecimal price = new BigDecimal(prices.get("hard:usd:30").price);
+                    return amount.movePointLeft(dpDecimal).multiply(price);
+
+                } else if (denom.contains("btc") && prices.get("btc:usd:30") != null) {
+                    BigDecimal price = new BigDecimal(prices.get("btc:usd:30").price);
+                    return amount.movePointLeft(dpDecimal).multiply(price);
+
+                } else if (denom.contains("bnb") && prices.get("bnb:usd:30") != null) {
+                    BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
+                    return amount.movePointLeft(dpDecimal).multiply(price);
+
+                } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
+                    BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
+                    return amount.movePointLeft(dpDecimal).multiply(price);
+                }
             }
         }
+        return BigDecimal.ZERO;
+
     }
 
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
@@ -823,7 +853,7 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);

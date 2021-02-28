@@ -31,7 +31,10 @@
     <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
     <string name="url_kava_faucet" translatable="false"></string>
 
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-4-test/</string>
+<!--    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-4-test/</string>-->
+<!--    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-4-test/</string>-->
+<!--    <string name="url_test_kava_faucet" translatable="false"></string>-->
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-11000/</string>
     <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-4-test/</string>
     <string name="url_test_kava_faucet" translatable="false"></string>
 
@@ -994,7 +997,7 @@
     <string name="str_vesting_title">Vesting Account</string>
     <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
-    <string name="str_vesting_amount">Vesting (Delegable)</string>
+    <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
     <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between. \nCosmostation supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.</string>
     <string name="str_cdp_warn_title">CDP Notice</string>

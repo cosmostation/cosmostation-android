@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 
-public class WalletUndelegationHolder extends WalletHolder {
+public class WalletUndelegationHolder extends BaseHolder {
     private CardView            mUndelegateCard;
     private TextView            mUndelegateCnt;
     private RelativeLayout      mUndelegateLayer0, mUndelegateLayer1, mUndelegateLayer2, mUndelegateLayer3, mUndelegateLayer4;

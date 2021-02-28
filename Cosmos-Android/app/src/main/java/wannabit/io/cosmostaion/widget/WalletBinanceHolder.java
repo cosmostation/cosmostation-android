@@ -29,7 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 
-public class WalletBinanceHolder extends WalletHolder {
+public class WalletBinanceHolder extends BaseHolder {
     public TextView         mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
     public RelativeLayout   mBtnWalletConnect, mBtnBep3Send;
 

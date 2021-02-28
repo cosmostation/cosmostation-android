@@ -74,7 +74,7 @@ public interface KavaChain {
     @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/minting/parameters")
+    @GET("minting/parameters")
     Call<ResMintParam> getMintParam();
 
     @GET("minting/inflation")

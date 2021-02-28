@@ -32,7 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_MOONPAY;
 
-public class WalletPriceHolder extends WalletHolder {
+public class WalletPriceHolder extends BaseHolder {
     private CardView        itemRoot;
     private TextView        itemPerPrice, itemUpDownPrice;
     private ImageView       itemUpDownImg;
