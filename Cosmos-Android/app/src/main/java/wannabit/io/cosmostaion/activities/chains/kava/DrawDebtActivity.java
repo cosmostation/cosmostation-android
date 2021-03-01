@@ -29,11 +29,12 @@ import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
@@ -58,9 +59,9 @@ public class DrawDebtActivity extends BaseActivity implements TaskListener {
 
     private String                          mCollateralParamType;
     private String                          mMaketId;
-    public ResKavaCdpParam.CdpParam mCdpParam;
+    public CdpParam                         mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResKavaCdpParam.KavaCollateralParam  mCollateralParam;
+    public CollateralParam mCollateralParam;
     public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
     private ResCdpDepositStatus             mMyDeposits;
 

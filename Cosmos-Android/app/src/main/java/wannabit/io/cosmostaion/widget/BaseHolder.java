@@ -6,16 +6,13 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
-import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 
 public class BaseHolder extends RecyclerView.ViewHolder {
 
@@ -31,15 +28,15 @@ public class BaseHolder extends RecyclerView.ViewHolder {
 
     }
 
-    public void onBindUsdxIncentive(Context context, ListCdpFragment fragment, ResKavaIncentiveReward5.IncentiveReward5 incentiveReward) {
+    public void onBindUsdxIncentive(Context context, ListCdpFragment fragment, IncentiveReward incentiveReward) {
 
     }
 
-    public void onBindMyCdp(Context context, BaseData baseData, ResKavaMyCdps.MyCDP myCdp) {
+    public void onBindMyCdp(Context context, BaseData baseData, MyCdp myCdp) {
 
     }
 
-    public void onBindOtherCdp(Context context, ResKavaCdpParam.KavaCollateralParam otherCdp) {
+    public void onBindOtherCdp(Context context, CollateralParam otherCdp) {
 
     }
 

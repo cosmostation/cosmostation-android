@@ -4,6 +4,8 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
@@ -17,9 +19,9 @@ public class KavaCdpByOwnerTask extends CommonTask {
 
     private BaseChain mChain;
     private String mAddress;
-    private ResKavaCdpParam.KavaCollateralParam mParam;
+    private CollateralParam mParam;
 
-    public KavaCdpByOwnerTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, ResKavaCdpParam.KavaCollateralParam param) {
+    public KavaCdpByOwnerTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, CollateralParam param) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
         this.mChain = chain;

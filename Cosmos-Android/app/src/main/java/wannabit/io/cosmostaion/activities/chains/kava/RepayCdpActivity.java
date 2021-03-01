@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
@@ -59,9 +61,9 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
 
     private String                          mCollateralParamType;
     private String                          mMaketId;
-    public ResKavaCdpParam.CdpParam mCdpParam;
+    public CdpParam mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResKavaCdpParam.KavaCollateralParam  mCollateralParam;
+    public CollateralParam mCollateralParam;
     public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
     private ResCdpDepositStatus             mMyDeposits;
 

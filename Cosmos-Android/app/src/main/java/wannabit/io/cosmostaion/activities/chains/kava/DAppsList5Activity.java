@@ -24,10 +24,11 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListAuctionFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListHardFragment;
-import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
+import wannabit.io.cosmostaion.model.kava.AuctionParam;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.HardParam;
+import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam5;
 import wannabit.io.cosmostaion.task.FetchTask.KavaAuctionParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardParamTask;
@@ -130,16 +131,16 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_CDP_PARAM) {
-            getBaseDao().mCdpParam = (ResKavaCdpParam.CdpParam)result.resultData;
+            getBaseDao().mCdpParam = (CdpParam)result.resultData;
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_PARAM) {
-            getBaseDao().mHardParam = (ResKavaHardParam.HardParam)result.resultData;
+            getBaseDao().mHardParam = (HardParam)result.resultData;
 
         } else if (result.taskType == TASK_FETCH_KAVA_AUCTION_PARAM) {
-            getBaseDao().mAuctionParam = (ResKavaAuctionParam.AuctionParam)result.resultData;
+            getBaseDao().mAuctionParam = (AuctionParam)result.resultData;
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
-            getBaseDao().mIncentiveParam5 = (ResKavaIncentiveParam5.IncentiveParam5)result.resultData;
+            getBaseDao().mIncentiveParam5 = (IncentiveParam)result.resultData;
 
         }
         if (mTaskCount == 0) {

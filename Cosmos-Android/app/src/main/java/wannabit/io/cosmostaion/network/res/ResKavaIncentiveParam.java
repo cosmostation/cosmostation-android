@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.model.KavaClaimMultiplier;
+import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class ResKavaIncentiveParam {
@@ -49,7 +49,7 @@ public class ResKavaIncentiveParam {
         public String duration;
 
         @SerializedName("claim_multipliers")
-        public ArrayList<KavaClaimMultiplier> claim_multipliers;
+        public ArrayList<ClaimMultiplier> claim_multipliers;
 
         @SerializedName("claim_duration")
         public String claim_duration;

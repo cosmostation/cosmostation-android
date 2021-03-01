@@ -15,7 +15,8 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.WithdrawCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -116,7 +117,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         return (WithdrawCdpActivity)getBaseActivity();
     }
 
-    private ResKavaCdpParam.KavaCollateralParam getCParam() {
+    private CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 

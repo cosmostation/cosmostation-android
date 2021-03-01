@@ -27,7 +27,7 @@ import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
-import wannabit.io.cosmostaion.model.KavaClaimMultiplier;
+import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
@@ -47,12 +47,12 @@ public class ClaimIncentiveActivity extends BaseActivity {
     public Fee                          mFee;
 
     public String                                   mCollateralParamType;
-    public KavaClaimMultiplier                      mSelectedMultiplier = null;
+    public ClaimMultiplier mSelectedMultiplier = null;
     public ResKavaIncentiveParam.IncentiveParam     mIncentiveParam;
     public ResKavaIncentiveParam.IncentiveReward    mIncentiveReward;
     public BigDecimal                               mAllIncentiveAmount;
     public BigDecimal                               mReceivableAmount;
-    public ArrayList<KavaClaimMultiplier>           mClaimMultipliers;
+    public ArrayList<ClaimMultiplier>           mClaimMultipliers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

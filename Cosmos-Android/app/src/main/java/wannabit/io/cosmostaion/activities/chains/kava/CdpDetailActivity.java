@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
@@ -111,7 +113,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private Button              mOpenCdp;
 
 
-    private ResKavaCdpParam.CdpParam mCdpParam;
+    private CdpParam mCdpParam;
     private ResKavaMarketPrice.Result   mKavaTokenPrice;
     private ResCdpOwnerStatus.MyCDP     mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
@@ -246,7 +248,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     BigDecimal pAvailable = BigDecimal.ZERO;
     BigDecimal kAvailable = BigDecimal.ZERO;
     BigDecimal currentPrice = BigDecimal.ZERO;
-    ResKavaCdpParam.KavaCollateralParam mCollateralParam;
+    CollateralParam mCollateralParam;
 
     private void onUpdateView() {
         cDenom = mCollateralParam.denom;

@@ -1,4 +1,4 @@
-package wannabit.io.cosmostaion.model;
+package wannabit.io.cosmostaion.model.kava;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
 
-public class KavaCDP {
+public class Cdp {
 
     @SerializedName("id")
     public String id;

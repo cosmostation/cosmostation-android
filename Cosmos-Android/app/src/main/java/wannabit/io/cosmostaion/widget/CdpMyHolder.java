@@ -17,9 +17,9 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetailActivity;
 import wannabit.io.cosmostaion.base.BaseData;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -55,8 +55,8 @@ public class CdpMyHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindMyCdp(Context c, BaseData baseData, ResKavaMyCdps.MyCDP myCdp) {
-        final ResKavaCdpParam.KavaCollateralParam collateralParam = baseData.mCdpParam.getCollateralParamByType(myCdp.cdp.type);
+    public void onBindMyCdp(Context c, BaseData baseData, MyCdp myCdp) {
+        final CollateralParam collateralParam = baseData.mCdpParam.getCollateralParamByType(myCdp.cdp.type);
         final ResKavaMarketPrice.Result price = baseData.mKavaTokenPrices.get(collateralParam.liquidation_market_id);
         final int denomPDecimal = WUtil.getKavaCoinDecimal(myCdp.getPDenom());
 

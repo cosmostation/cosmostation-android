@@ -26,7 +26,7 @@ import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep3Fragment;
-import wannabit.io.cosmostaion.model.KavaClaimMultiplier;
+import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
@@ -52,8 +52,8 @@ public class ClaimHarvestRewardActivity extends BaseActivity {
     public ResKavaHarvestParam                      mHarvestParam;
     public BigDecimal                               mAllRewardAmount;
     public BigDecimal                               mReceivableAmount;
-    public ArrayList<KavaClaimMultiplier>           mClaimMultipliers;
-    public KavaClaimMultiplier                      mSelectedMultiplier = null;
+    public ArrayList<ClaimMultiplier>           mClaimMultipliers;
+    public ClaimMultiplier mSelectedMultiplier = null;
 
 
     @Override

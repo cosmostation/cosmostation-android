@@ -13,6 +13,8 @@ import com.squareup.picasso.Picasso;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetailActivity;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -37,7 +39,7 @@ public class CdpOtherHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindOtherCdp(Context context, ResKavaCdpParam.KavaCollateralParam otherCdp) {
+    public void onBindOtherCdp(Context context, CollateralParam otherCdp) {
         itemCollateralType.setText(otherCdp.type.toUpperCase());
         itemTitleMarket.setText(otherCdp.getDpMarketId());
         itemCollateralRate.setText(WDp.getPercentDp(otherCdp.getDpLiquidationRatio(), 2));

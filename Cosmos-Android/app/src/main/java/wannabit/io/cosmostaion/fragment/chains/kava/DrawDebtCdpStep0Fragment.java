@@ -28,9 +28,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -354,11 +355,11 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
         return (DrawDebtActivity)getBaseActivity();
     }
 
-    public ResKavaCdpParam.CdpParam getCDPParam() {
+    public CdpParam getCDPParam() {
         return getSActivity().mCdpParam;
     }
 
-    private ResKavaCdpParam.KavaCollateralParam getCParam() {
+    private CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 

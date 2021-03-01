@@ -36,10 +36,12 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.Delegation_V1;
 import wannabit.io.cosmostaion.model.IrisToken_V1;
-import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
 import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.Cdp;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -48,7 +50,6 @@ import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -639,12 +640,12 @@ public class WDp {
                 return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
             } else {
                 HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
-                ResKavaCdpParam.CdpParam params = baseData.mCdpParam;
+                CdpParam params = baseData.mCdpParam;
                 if (prices == null || prices.size() <= 0 || params == null) {
                     return BigDecimal.ZERO;
                 }
                 //don't care collateral type
-                ResKavaCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
+                CollateralParam collateralParam = params.getCollateralParamByDenom(denom);
                 if (collateralParam == null || collateralParam.liquidation_market_id == null) {
                     return BigDecimal.ZERO;
                 }
@@ -2494,7 +2495,7 @@ public class WDp {
         }
     }
 
-    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt, ResKavaCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {
+    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt, CollateralParam paramCdp, Cdp myCdp) {
         BigDecimal result = BigDecimal.ZERO;
         try {
             long now   = Calendar.getInstance().getTimeInMillis();

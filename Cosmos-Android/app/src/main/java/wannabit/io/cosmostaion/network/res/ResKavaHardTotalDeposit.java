@@ -2,12 +2,14 @@ package wannabit.io.cosmostaion.network.res;
 
 import com.google.gson.annotations.SerializedName;
 
-import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import java.util.ArrayList;
 
-public class ResKavaIncentiveReward5 {
+import wannabit.io.cosmostaion.model.type.Coin;
+
+public class ResKavaHardTotalDeposit {
     @SerializedName("height")
     public String height;
 
     @SerializedName("result")
-    public IncentiveReward result;
+    public ArrayList<Coin> result;
 }

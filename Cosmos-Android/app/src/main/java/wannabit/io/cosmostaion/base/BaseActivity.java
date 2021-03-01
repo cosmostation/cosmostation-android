@@ -76,6 +76,8 @@ import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StakingPool_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
 import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -889,11 +891,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                final ResKavaCdpParam.CdpParam cdpParam = (ResKavaCdpParam.CdpParam)result.resultData;
+                final CdpParam cdpParam = (CdpParam)result.resultData;
                 getBaseDao().mCdpParam = cdpParam;
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + cdpParam.collateral_params.size();
-                    for (ResKavaCdpParam.KavaCollateralParam param:getBaseDao().mCdpParam.collateral_params) {
+                    for (CollateralParam param:getBaseDao().mCdpParam.collateral_params) {
                         new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }

@@ -170,6 +170,11 @@ public class BaseConstant {
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
     public final static int TASK_FETCH_KAVA_AUCTION_PARAM               = 2115;
     public final static int TASK_FETCH_KAVA_HARD_PARAM                  = 2116;
+    public final static int TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST          = 2117;
+    public final static int TASK_FETCH_KAVA_HARD_TOTAL_BORROW           = 2118;
+    public final static int TASK_FETCH_KAVA_HARD_MY_DEPOSIT             = 2119;
+    public final static int TASK_FETCH_KAVA_HARD_MY_BORROW              = 2120;
+    public final static int TASK_FETCH_KAVA_HARD_INTEREST_RATE          = 2121;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

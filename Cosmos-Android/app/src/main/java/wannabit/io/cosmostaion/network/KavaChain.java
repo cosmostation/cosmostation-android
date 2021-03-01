@@ -16,7 +16,12 @@ import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
+import wannabit.io.cosmostaion.network.res.ResKavaHardInterestRate;
+import wannabit.io.cosmostaion.network.res.ResKavaHardMyBorrow;
+import wannabit.io.cosmostaion.network.res.ResKavaHardMyDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHardTotalBorrow;
+import wannabit.io.cosmostaion.network.res.ResKavaHardTotalDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
@@ -218,4 +223,21 @@ public interface KavaChain {
 
     @GET("cdp/cdps")
     Call<ResKavaMyCdps> getMyCDPs(@Query("owner") String owner);
+
+
+
+    @GET("ard/total-deposited")
+    Call<ResKavaHardTotalDeposit> getHardTotalDeposit();
+
+    @GET("hard/total-borrowed")
+    Call<ResKavaHardTotalBorrow> getHardTotalBorrow();
+
+    @GET("hard/deposits")
+    Call<ResKavaHardMyDeposit> getHardMyDeposit(@Query("owner") String owner);
+
+    @GET("hard/borrows")
+    Call<ResKavaHardMyBorrow> getHardMyBorrow(@Query("owner") String owner);
+
+    @GET("hard/interest-rate")
+    Call<ResKavaHardInterestRate> getHardInterestRate();
 }

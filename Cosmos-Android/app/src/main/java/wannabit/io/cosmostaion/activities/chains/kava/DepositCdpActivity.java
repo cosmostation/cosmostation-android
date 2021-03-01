@@ -29,6 +29,8 @@ import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
@@ -58,9 +60,9 @@ public class DepositCdpActivity extends BaseActivity {
 
     private String                          mCollateralParamType;
     private String                          mMaketId;
-    public ResKavaCdpParam.CdpParam mCdpParam;
+    public CdpParam mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResKavaCdpParam.KavaCollateralParam  mCollateralParam;
+    public CollateralParam mCollateralParam;
     public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
     private ResCdpDepositStatus             mMyDeposits;
 

@@ -24,14 +24,14 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
-import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.CdpIncentiveHolder;
 import wannabit.io.cosmostaion.widget.CdpMyHolder;
@@ -49,10 +49,10 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     private BaseChain           mBaseChain;
     private CdpMarketAdapter    mAdapter;
 
-    private ResKavaCdpParam.CdpParam                        mCdpParams;
-    private ArrayList<ResKavaMyCdps.MyCDP>                  mMyCdps = new ArrayList<>();
-    private ArrayList<ResKavaCdpParam.KavaCollateralParam>  mOtherCdps = new ArrayList<>();
-    private ResKavaIncentiveReward5.IncentiveReward5        mIncentiveRewards5;
+    private CdpParam                                        mCdpParams;
+    private ArrayList<MyCdp>                                mMyCdps = new ArrayList<>();
+    private ArrayList<CollateralParam>                      mOtherCdps = new ArrayList<>();
+    private IncentiveReward                                 mIncentiveRewards5;
 
 
     public static ListCdpFragment newInstance(Bundle bundle) {
@@ -114,16 +114,16 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
         if(!isAdded()) return;
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
-            mIncentiveRewards5 = (ResKavaIncentiveReward5.IncentiveReward5)result.resultData;
+            mIncentiveRewards5 = (IncentiveReward)result.resultData;
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
-            mMyCdps = (ArrayList<ResKavaMyCdps.MyCDP>)result.resultData;
+            mMyCdps = (ArrayList<MyCdp>)result.resultData;
         }
 
         if (mTaskCount == 0) {
-            for (ResKavaCdpParam.KavaCollateralParam cdpParam: mCdpParams.collateral_params) {
+            for (CollateralParam cdpParam: mCdpParams.collateral_params) {
                 boolean has = false;
-                for (ResKavaMyCdps.MyCDP cdpMy: mMyCdps) {
+                for (MyCdp cdpMy: mMyCdps) {
                     if (cdpMy.cdp.type.equals(cdpParam.type)) {
                         has = true;
                     }
@@ -182,7 +182,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
                 viewHolder.onBindUsdxIncentive(getContext(), ListCdpFragment.this, mIncentiveRewards5);
 
             } else if (getItemViewType(position) == TYPE_MY_CDP) {
-                final ResKavaMyCdps.MyCDP myCdp;
+                final MyCdp myCdp;
                 if (mIncentiveRewards5 != null &&  mIncentiveRewards5.usdx_minting_claims != null && mIncentiveRewards5.usdx_minting_claims.size() > 0) {
                     myCdp = mMyCdps.get(position - 1);
                 } else {
@@ -192,7 +192,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
 
             } else if (getItemViewType(position) == TYPE_OTHER_CDP) {
-                final ResKavaCdpParam.KavaCollateralParam otherCdp;
+                final CollateralParam otherCdp;
                 if (mIncentiveRewards5 != null &&  mIncentiveRewards5.usdx_minting_claims != null && mIncentiveRewards5.usdx_minting_claims.size() > 0) {
                     otherCdp = mOtherCdps.get(position  - mMyCdps.size() - 1);
                 } else {

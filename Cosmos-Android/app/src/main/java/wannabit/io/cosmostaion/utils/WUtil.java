@@ -60,6 +60,8 @@ import wannabit.io.cosmostaion.model.Proposal_V1;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
@@ -1543,9 +1545,9 @@ public class WUtil {
         return result;
     }
 
-    public static ResKavaCdpParam.KavaCollateralParam getCdpCoinParm(ResKavaCdpParam.CdpParam params, Balance balance) {
+    public static CollateralParam getCdpCoinParm(CdpParam params, Balance balance) {
         if (params != null) {
-            for (ResKavaCdpParam.KavaCollateralParam param:params.collateral_params) {
+            for (CollateralParam param:params.collateral_params) {
                 if (param.denom.equals(balance.symbol)) {
                     return param;
                 }
@@ -1557,7 +1559,7 @@ public class WUtil {
         }
     }
 
-    public static int getKavaCoinDecimal(ResKavaCdpParam.CdpParam params, Balance balance) {
+    public static int getKavaCoinDecimal(CdpParam params, Balance balance) {
         int result = 0;
         if (params != null) {
             if (params.debt_param != null) {
@@ -1565,7 +1567,7 @@ public class WUtil {
             }
 
             if (params.collateral_params != null) {
-                for (ResKavaCdpParam.KavaCollateralParam collateralParams: params.collateral_params) {
+                for (CollateralParam collateralParams: params.collateral_params) {
                     if (collateralParams.denom.equals(balance.symbol)) {
                         return Integer.parseInt(collateralParams.conversion_factor);
                     }

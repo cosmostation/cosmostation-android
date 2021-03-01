@@ -1,8 +1,8 @@
-package wannabit.io.cosmostaion.model;
+package wannabit.io.cosmostaion.model.kava;
 
 import com.google.gson.annotations.SerializedName;
 
-public class KavaClaimMultiplier {
+public class ClaimMultiplier {
 
     @SerializedName("name")
     public String name;
