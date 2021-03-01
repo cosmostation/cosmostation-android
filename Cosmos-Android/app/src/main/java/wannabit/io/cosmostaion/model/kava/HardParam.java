@@ -11,6 +11,15 @@ public class HardParam {
     @SerializedName("minimum_borrow_usd_value")
     public String minimum_borrow_usd_value;
 
+    public String getSpotMarketId(String denom) {
+        for (HardMoneyMarket market: money_markets){
+            if (market.denom.equals(denom)) {
+                return market.spot_market_id + ":30";
+            }
+        }
+        return null;
+    }
+
 
     public class HardMoneyMarket {
         @SerializedName("denom")

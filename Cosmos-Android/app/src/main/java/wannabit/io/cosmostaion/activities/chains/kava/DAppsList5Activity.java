@@ -28,11 +28,12 @@ import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.task.FetchTask.KavaAuctionParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardParamTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveParamTask;
+import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -41,6 +42,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_AUCTION_
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_HARD_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_PARAM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 
 public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
@@ -119,11 +121,13 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
 
     private int mTaskCount = 0;
     public void onFetchData() {
-        mTaskCount = 4;
+        mTaskCount = 5;
         new KavaCdpParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaHardParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaAuctionParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaIncentiveParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
     }
 
@@ -131,16 +135,29 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_CDP_PARAM) {
-            getBaseDao().mCdpParam = (CdpParam)result.resultData;
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mCdpParam = (CdpParam)result.resultData;
+            }
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_PARAM) {
-            getBaseDao().mHardParam = (HardParam)result.resultData;
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mHardParam = (HardParam)result.resultData;
+            }
 
         } else if (result.taskType == TASK_FETCH_KAVA_AUCTION_PARAM) {
-            getBaseDao().mAuctionParam = (AuctionParam)result.resultData;
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mAuctionParam = (AuctionParam)result.resultData;
+            }
 
         } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_PARAM) {
-            getBaseDao().mIncentiveParam5 = (IncentiveParam)result.resultData;
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mIncentiveParam5 = (IncentiveParam)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mIncentiveRewards = (IncentiveReward)result.resultData;
+            }
 
         }
         if (mTaskCount == 0) {

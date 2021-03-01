@@ -29,7 +29,7 @@ public class KavaHardMyBorrowTask extends CommonTask {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaHardMyBorrow> response = ApiClient.getKavaChain(mApp).getHardMyBorrow(mOwner).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
@@ -39,7 +39,7 @@ public class KavaHardMyBorrowTask extends CommonTask {
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResKavaHardMyBorrow> response = ApiClient.getKavaTestChain(mApp).getHardMyBorrow(mOwner).execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {

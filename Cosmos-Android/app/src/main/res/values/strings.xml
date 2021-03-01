@@ -708,6 +708,8 @@
     <string name="str_my_available_assets">My Available Assets</string>
     <string name="str_kava_incentive_title">USDX Minting Incentive</string>
     <string name="str_kava_incentive_msg">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly!\nThe more USDX you mint, the more KAVA rewards you get.</string>
+    <string name="str_kava_hard_incentive_title">Hard Incentive</string>
+    <string name="str_kava_hard_incentive_msg">Hard pool incentive for users who provide liquidity to the hard pool or use loan.\nDepending on the type of coins you provide, you will receive either Hard or KAVA rewards.</string>
     <string name="str_kava_participate">Participate</string>
     <string name="str_kava_participate_done">Participation Complete!!</string>
 
@@ -1113,13 +1115,14 @@
     <string name="str_harvest_markets">Harvest Markets</string>
     <string name="str_deposited_amount">Deposited Amount</string>
     <string name="str_my_deposited_amount">My Deposited Amount</string>
+    <string name="str_my_borrowed_amount">My Borrowed Amount</string>
     <string name="str_lp_reward_title">Harvest LP Reward</string>
     <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block! The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
     <string name="str_total_lp_reward">Total LP Reward</string>
     <string name="str_my_total_lp_reward">My Total LP Reward</string>
     <string name="str_start_deposit">Start Deposit</string>
     <string name="str_total_deposited_supplies">Total Pool Supply</string>
-    <string name="str_my_harvest_information">My Harvest Information</string>
+    <string name="str_my_harvest_information">My Hard Pool</string>
     <string name="str_deposit_harvest">Harvest Deposit</string>
     <string name="str_withdraw_harvest">Harvest Withdraw</string>
     <string name="str_deposit_harvest_step_1">Enter harvest deposit amount</string>
@@ -1150,6 +1153,12 @@
     <string name="str_starname_walletconnect_complete">Export Complete</string>
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
+    <string name="str_total_deposit_value">Total Deposit Value</string>
+    <string name="str_total_borrowed_value">Total Borrowed Value</string>
+    <string name="str_supply_apy">Supply APY</string>
+    <string name="str_borrow_apy">Borrow APY</string>
+    <string name="str_supply_incentive_apy">Incentive Supply APY</string>
+    <string name="str_borrow_incentive_apy">Incentive Borrow APY</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

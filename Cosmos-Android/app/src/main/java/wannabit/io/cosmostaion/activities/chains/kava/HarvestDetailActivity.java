@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
@@ -212,7 +213,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
                     poolValue = new BigDecimal(totalSupply.amount).movePointLeft(6);
 
                 } else if (mDepositDenom.equals("bnb")) {
-                    ResKavaMarketPrice.Result bnbPrice = getBaseDao().mKavaTokenPrices.get("bnb:usd");
+                    MarketPrice bnbPrice = getBaseDao().mKavaTokenPrices.get("bnb:usd");
                     if (bnbPrice != null) {
                         poolValue = new BigDecimal(totalSupply.amount).movePointLeft(8).multiply(new BigDecimal(bnbPrice.price)).setScale(2, RoundingMode.DOWN);
                     }
@@ -394,7 +395,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
 
         } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
+                final MarketPrice price = (MarketPrice)result.resultData;
                 getBaseDao().mKavaTokenPrices.put(price.market_id, price);
             }
 

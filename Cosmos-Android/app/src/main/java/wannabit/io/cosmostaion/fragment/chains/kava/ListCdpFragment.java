@@ -52,7 +52,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     private CdpParam                                        mCdpParams;
     private ArrayList<MyCdp>                                mMyCdps = new ArrayList<>();
     private ArrayList<CollateralParam>                      mOtherCdps = new ArrayList<>();
-    private IncentiveReward                                 mIncentiveRewards5;
+    private IncentiveReward                                 mIncentiveRewards;
 
 
     public static ListCdpFragment newInstance(Bundle bundle) {
@@ -97,6 +97,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     @Override
     public void onRefreshTab() {
         mCdpParams = getBaseDao().mCdpParam;
+        mIncentiveRewards = getBaseDao().mIncentiveRewards;
         onFetchCdpInfo();
     }
 
@@ -104,8 +105,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     public void onFetchCdpInfo() {
         mMyCdps.clear();
         mOtherCdps.clear();
-        mTaskCount = 2;
-        new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        mTaskCount = 1;
         new KavaCdpByOwnerTask(getBaseApplication(), this, mBaseChain, mAccount.address, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
@@ -113,11 +113,10 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
     public void onTaskResponse(TaskResult result) {
         if(!isAdded()) return;
         mTaskCount--;
-        if (result.taskType == TASK_FETCH_KAVA_INCENTIVE_REWARD) {
-            mIncentiveRewards5 = (IncentiveReward)result.resultData;
-
-        } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
-            mMyCdps = (ArrayList<MyCdp>)result.resultData;
+        if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
+            if (result.isSuccess && result.resultData != null) {
+                mMyCdps = (ArrayList<MyCdp>)result.resultData;
+            }
         }
 
         if (mTaskCount == 0) {
@@ -179,11 +178,11 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             if (getItemViewType(position) == TYPE_INCENTIVE) {
-                viewHolder.onBindUsdxIncentive(getContext(), ListCdpFragment.this, mIncentiveRewards5);
+                viewHolder.onBindUsdxIncentive(getContext(), ListCdpFragment.this, mIncentiveRewards);
 
             } else if (getItemViewType(position) == TYPE_MY_CDP) {
                 final MyCdp myCdp;
-                if (mIncentiveRewards5 != null &&  mIncentiveRewards5.usdx_minting_claims != null && mIncentiveRewards5.usdx_minting_claims.size() > 0) {
+                if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
                     myCdp = mMyCdps.get(position - 1);
                 } else {
                     myCdp = mMyCdps.get(position);
@@ -193,7 +192,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_OTHER_CDP) {
                 final CollateralParam otherCdp;
-                if (mIncentiveRewards5 != null &&  mIncentiveRewards5.usdx_minting_claims != null && mIncentiveRewards5.usdx_minting_claims.size() > 0) {
+                if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
                     otherCdp = mOtherCdps.get(position  - mMyCdps.size() - 1);
                 } else {
                     otherCdp = mOtherCdps.get(position - mMyCdps.size() );
@@ -205,7 +204,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (mIncentiveRewards5 != null &&  mIncentiveRewards5.usdx_minting_claims != null && mIncentiveRewards5.usdx_minting_claims.size() > 0) {
+            if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
                 return mMyCdps.size() + mOtherCdps.size() + 1;
             } else {
                 return mMyCdps.size() + mOtherCdps.size();
@@ -214,7 +213,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (mIncentiveRewards5 != null &&  mIncentiveRewards5.usdx_minting_claims != null && mIncentiveRewards5.usdx_minting_claims.size() > 0) {
+            if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
                 if (position == 0) {
                     return TYPE_INCENTIVE;
                 } else if (position < (mMyCdps.size() + 1)) {

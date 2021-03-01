@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.Cdp;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -639,7 +640,7 @@ public class WDp {
             } else if (denom.equals("hard")) {
                 return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
             } else {
-                HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
+                HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
                 CdpParam params = baseData.mCdpParam;
                 if (prices == null || prices.size() <= 0 || params == null) {
                     return BigDecimal.ZERO;
@@ -649,7 +650,7 @@ public class WDp {
                 if (collateralParam == null || collateralParam.liquidation_market_id == null) {
                     return BigDecimal.ZERO;
                 }
-                ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
+                MarketPrice mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
                 if (mMarketPrice == null) {
                     return BigDecimal.ZERO;
                 } else {
@@ -664,7 +665,7 @@ public class WDp {
                 return amount.movePointLeft(dpDecimal);
 
             } else {
-                HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
+                HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
                 if (denom.equals("hard") && prices.get("hard:usd:30") != null) {
                     BigDecimal price = new BigDecimal(prices.get("hard:usd:30").price);
                     return amount.movePointLeft(dpDecimal).multiply(price);

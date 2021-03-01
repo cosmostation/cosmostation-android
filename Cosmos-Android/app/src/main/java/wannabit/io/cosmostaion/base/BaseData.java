@@ -41,12 +41,13 @@ import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StakingPool_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
 import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
@@ -121,7 +122,7 @@ public class BaseData {
 
     //COMMON DATA FOR KAVA
     public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
-    public HashMap<String, ResKavaMarketPrice.Result>                       mKavaTokenPrices = new HashMap<>();
+    public HashMap<String, MarketPrice>                                     mKavaTokenPrices = new HashMap<>();
     public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
     public ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>       mKavaUnClaimedIncentiveRewards = new ArrayList<>();
     public ResKavaHarvestParam                                              mHarvestParam;
@@ -135,7 +136,7 @@ public class BaseData {
     public IncentiveParam                                                   mIncentiveParam5;
     public HardParam                                                        mHardParam;
     public AuctionParam                                                     mAuctionParam;
-//    public ResKavaIncentiveReward5.IncentiveReward5                         mIncentiveRewards5;
+    public IncentiveReward                                                  mIncentiveRewards;
 
 
     //COMMON DATA FOR BINANCE

@@ -78,13 +78,13 @@ import wannabit.io.cosmostaion.model.Undelegation_V1;
 import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
@@ -935,7 +935,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
+                final MarketPrice price = (MarketPrice)result.resultData;
 //                WLog.w("TOKEN_PRICE " + price.market_id + " " + price.price);
                 getBaseDao().mKavaTokenPrices.put(price.market_id, price);
             }

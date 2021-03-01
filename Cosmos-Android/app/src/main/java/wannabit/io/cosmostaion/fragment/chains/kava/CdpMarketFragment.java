@@ -33,8 +33,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -70,7 +70,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
     private ArrayList<ResCdpOwnerStatus.MyCDP>                          mMyOwenCdps = new ArrayList<>();
     private ArrayList<CollateralParam>                  mOtherCdps = new ArrayList<>();
     private ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>  mIncentiveClaimables= new ArrayList<>();
-    private HashMap<String, ResKavaMarketPrice.Result>                  mKavaTokenPrices = new HashMap<>();
+    private HashMap<String, MarketPrice>                  mKavaTokenPrices = new HashMap<>();
 
 
     public static CdpMarketFragment newInstance(Bundle bundle) {
@@ -159,7 +159,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                final ResKavaMarketPrice.Result price = (ResKavaMarketPrice.Result)result.resultData;
+                final MarketPrice price = (MarketPrice)result.resultData;
                 getBaseDao().mKavaTokenPrices.put(price.market_id, price);
             }
 
@@ -249,7 +249,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
                 }
                 final CollateralParam collateralParam = mCdpParam.getCollateralParamByType(status.cdp.type);
-                final ResKavaMarketPrice.Result price = mKavaTokenPrices.get(collateralParam.liquidation_market_id);
+                final MarketPrice price = mKavaTokenPrices.get(collateralParam.liquidation_market_id);
                 final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
 
                 final BigDecimal currentPrice = new BigDecimal(price.price);

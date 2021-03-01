@@ -226,7 +226,7 @@ public interface KavaChain {
 
 
 
-    @GET("ard/total-deposited")
+    @GET("hard/total-deposited")
     Call<ResKavaHardTotalDeposit> getHardTotalDeposit();
 
     @GET("hard/total-borrowed")

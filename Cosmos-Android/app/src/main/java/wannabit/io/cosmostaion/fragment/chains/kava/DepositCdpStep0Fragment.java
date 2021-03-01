@@ -28,11 +28,10 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DepositCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -361,7 +360,7 @@ public class DepositCdpStep0Fragment extends BaseFragment implements View.OnClic
         return getSActivity().mMyOwenCdp;
     }
 
-    private ResKavaMarketPrice.Result getPrice() {
+    private MarketPrice getPrice() {
         return getSActivity().mKavaTokenPrice;
     }
 

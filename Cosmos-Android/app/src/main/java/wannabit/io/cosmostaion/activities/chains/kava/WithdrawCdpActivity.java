@@ -31,11 +31,11 @@ import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
@@ -65,7 +65,7 @@ public class WithdrawCdpActivity extends BaseActivity {
     public Fee mFee;
 
     public CdpParam mCdpParam;
-    public ResKavaMarketPrice.Result        mKavaTokenPrice;
+    public MarketPrice mKavaTokenPrice;
     public CollateralParam mCollateralParam;
     public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
     public ResCdpDepositStatus              mMyDeposits;
@@ -257,7 +257,7 @@ public class WithdrawCdpActivity extends BaseActivity {
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mKavaTokenPrice = (MarketPrice)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {

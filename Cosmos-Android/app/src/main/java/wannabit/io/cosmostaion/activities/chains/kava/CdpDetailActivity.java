@@ -31,9 +31,9 @@ import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
@@ -114,7 +114,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
 
 
     private CdpParam mCdpParam;
-    private ResKavaMarketPrice.Result   mKavaTokenPrice;
+    private MarketPrice mKavaTokenPrice;
     private ResCdpOwnerStatus.MyCDP     mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
     private ResKavaSupply               mKavaTotalSupply;
@@ -616,7 +616,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mKavaTokenPrice = (MarketPrice)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {

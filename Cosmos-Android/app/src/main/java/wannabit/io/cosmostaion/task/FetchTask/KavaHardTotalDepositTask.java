@@ -27,7 +27,7 @@ public class KavaHardTotalDepositTask extends CommonTask {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaHardTotalDeposit> response = ApiClient.getKavaChain(mApp).getHardTotalDeposit().execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
@@ -37,7 +37,7 @@ public class KavaHardTotalDepositTask extends CommonTask {
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResKavaHardTotalDeposit> response = ApiClient.getKavaTestChain(mApp).getHardTotalDeposit().execute();
                 if(response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
