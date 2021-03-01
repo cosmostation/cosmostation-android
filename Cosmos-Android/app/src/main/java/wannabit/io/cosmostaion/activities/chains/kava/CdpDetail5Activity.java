@@ -205,7 +205,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         Intent intent = new Intent(this, CreateCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", mMaketId);
+        intent.putExtra("marketId", collateralParam.liquidation_market_id);
         startActivity(intent);
     }
 
@@ -222,7 +222,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         Intent intent = new Intent(this, DepositCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", mMaketId);
+        intent.putExtra("marketId", collateralParam.liquidation_market_id);
         startActivity(intent);
     }
 
@@ -239,7 +239,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         Intent intent = new Intent(this, WithdrawCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", mMaketId);
+        intent.putExtra("marketId", collateralParam.liquidation_market_id);
         startActivity(intent);
     }
 
@@ -258,7 +258,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         Intent intent = new Intent(this, DrawDebtActivity.class);
         intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", mMaketId);
+        intent.putExtra("marketId", collateralParam.liquidation_market_id);
         startActivity(intent);
 
     }
@@ -288,7 +288,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
 
         Intent intent = new Intent(this, RepayCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralType);
-//        intent.putExtra("marketId", mMaketId);
+        intent.putExtra("marketId", collateralParam.liquidation_market_id);
         startActivity(intent);
     }
 

@@ -34,15 +34,12 @@ import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class CreateCdpActivity extends BaseActivity implements TaskListener {
@@ -249,9 +246,8 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 2;
+            mTaskCount = 1;
             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
     }
@@ -265,10 +261,6 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
                 mKavaTokenPrice = (MarketPrice)result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
-            if (result.isSuccess && result.resultData != null) {
-                WLog.w("Already have this CDP!!!");
-            }
         }
 
         if (mTaskCount == 0) {
