@@ -152,7 +152,6 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
         }
 
         Intent intent = new Intent(getContext(), ClaimIncentiveActivity.class);
-//        intent.putExtra("collateral_type", mCollateralParam.type);
         startActivity(intent);
     }
 

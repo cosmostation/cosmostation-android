@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHardIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -182,6 +184,11 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
             getFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
+
+
+        Intent intent = new Intent(getContext(), ClaimHardIncentiveActivity.class);
+        startActivity(intent);
+
 
 //        if (mCdpParams.circuit_breaker) {
 //            Toast.makeText(getContext(), R.string.error_circuit_breaker, Toast.LENGTH_SHORT).show();

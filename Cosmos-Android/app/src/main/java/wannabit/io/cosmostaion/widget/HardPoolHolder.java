@@ -56,7 +56,7 @@ public class HardPoolHolder extends BaseHolder {
     @Override
     public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, HardParam hardParam, HardParam.HardMoneyMarket hardMoneyMarket, IncentiveReward incentiveReward,
                                  ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
-        WLog.w("hardMoneyMarket " + hardMoneyMarket.spot_market_id);
+//        WLog.w("hardMoneyMarket " + hardMoneyMarket.spot_market_id);
         try {
             Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(hardPoolImg);
         } catch (Exception e) { }

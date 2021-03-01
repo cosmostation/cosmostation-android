@@ -24,7 +24,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHardIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.HarvestDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -313,7 +313,7 @@ public class HarvestMarketFragment extends BaseFragment implements TaskListener 
                             Toast.makeText(getBaseActivity(), R.string.error_no_harvest_reward_to_claim, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        Intent intent = new Intent(getSActivity(), ClaimHarvestRewardActivity.class);
+                        Intent intent = new Intent(getSActivity(), ClaimHardIncentiveActivity.class);
                         intent.putExtra("harvest_deposit_denom", mHarvestParam.getKavaStakerSchedule().distribution_schedule.deposit_denom);
                         intent.putExtra("harvest_deposit_type", "stake");
                         startActivity(intent);

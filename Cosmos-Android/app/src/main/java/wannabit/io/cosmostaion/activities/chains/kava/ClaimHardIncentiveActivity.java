@@ -22,19 +22,21 @@ import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep2Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHarvestStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep1Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep2Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
+import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
 
-public class ClaimHarvestRewardActivity extends BaseActivity {
+public class ClaimHardIncentiveActivity extends BaseActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -52,9 +54,13 @@ public class ClaimHarvestRewardActivity extends BaseActivity {
     public ResKavaHarvestParam                      mHarvestParam;
     public BigDecimal                               mAllRewardAmount;
     public BigDecimal                               mReceivableAmount;
-    public ArrayList<ClaimMultiplier>           mClaimMultipliers;
-    public ClaimMultiplier mSelectedMultiplier = null;
+    public ArrayList<ClaimMultiplier>               mClaimMultipliers;
+    public ClaimMultiplier                          mSelectedMultiplier = null;
 
+    //KAVA-5
+    public IncentiveReward                          mIncentiveReward5;
+    public BigDecimal                               mKReceivableAmount;
+    public BigDecimal                               mHReceivableAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,23 +83,32 @@ public class ClaimHarvestRewardActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mHarvestDepositDenom = getIntent().getStringExtra("harvest_deposit_denom");
-        mHarvestDepositType = getIntent().getStringExtra("harvest_deposit_type");
-        mHarvestParam = getBaseDao().mHarvestParam;
-        if (mHarvestDepositType.equals("stake")) {
-            mClaimMultipliers = mHarvestParam.getKavaStakerSchedule().distribution_schedule.claim_multipliers;
-        } else {
-            for (ResKavaHarvestParam.DistributionSchedule dschedule: mHarvestParam.result.liquidity_provider_schedules) {
-                if (dschedule.deposit_denom.equals(mHarvestDepositDenom)) {
-                    mClaimMultipliers = dschedule.claim_multipliers;
+
+        if (mBaseChain.equals(KAVA_MAIN)) {
+            mHarvestDepositDenom = getIntent().getStringExtra("harvest_deposit_denom");
+            mHarvestDepositType = getIntent().getStringExtra("harvest_deposit_type");
+            mHarvestParam = getBaseDao().mHarvestParam;
+            if (mHarvestDepositType.equals("stake")) {
+                mClaimMultipliers = mHarvestParam.getKavaStakerSchedule().distribution_schedule.claim_multipliers;
+            } else {
+                for (ResKavaHarvestParam.DistributionSchedule dschedule: mHarvestParam.result.liquidity_provider_schedules) {
+                    if (dschedule.deposit_denom.equals(mHarvestDepositDenom)) {
+                        mClaimMultipliers = dschedule.claim_multipliers;
+                    }
                 }
             }
-        }
-        for (ResKavaHarvestReward.HarvestReward reward : getBaseDao().mHavestRewards) {
-            if (reward.deposit_denom.equals(mHarvestDepositDenom) && reward.type.equals(mHarvestDepositType)) {
-                mAllRewardAmount = new BigDecimal(reward.amount.amount);
+            for (ResKavaHarvestReward.HarvestReward reward : getBaseDao().mHavestRewards) {
+                if (reward.deposit_denom.equals(mHarvestDepositDenom) && reward.type.equals(mHarvestDepositType)) {
+                    mAllRewardAmount = new BigDecimal(reward.amount.amount);
+                }
             }
+
+        } else {
+            mIncentiveReward5 = getBaseDao().mIncentiveRewards;
+            mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
+
         }
+
 //        WLog.w("mHarvestDepositDenom " + mHarvestDepositDenom);
 //        WLog.w("mHarvestDepositType " + mHarvestDepositType);
 //        WLog.w("mAllRewardAmount " + mAllRewardAmount);
@@ -180,7 +195,7 @@ public class ClaimHarvestRewardActivity extends BaseActivity {
 
 
     public void onStartHarvestRewardClaim() {
-        Intent intent = new Intent(ClaimHarvestRewardActivity.this, PasswordCheckActivity.class);
+        Intent intent = new Intent(ClaimHardIncentiveActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_HARVEST_REWARD);
         intent.putExtra("depositDenom", mHarvestDepositDenom);
         intent.putExtra("depositType", mHarvestDepositType);
@@ -199,10 +214,10 @@ public class ClaimHarvestRewardActivity extends BaseActivity {
         public ClaimHarvestRewardPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(ClaimHarvestStep0Fragment.newInstance(null));
-            mFragments.add(ClaimHarvestStep1Fragment.newInstance(null));
-            mFragments.add(ClaimHarvestStep2Fragment.newInstance(null));
-            mFragments.add(ClaimHarvestStep3Fragment.newInstance(null));
+            mFragments.add(ClaimHardIncentiveStep0Fragment.newInstance(null));
+            mFragments.add(ClaimHardIncentiveStep1Fragment.newInstance(null));
+            mFragments.add(ClaimHardIncentiveStep2Fragment.newInstance(null));
+            mFragments.add(ClaimHardIncentiveStep3Fragment.newInstance(null));
         }
 
         @Override

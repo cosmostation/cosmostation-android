@@ -15,23 +15,28 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHardIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class ClaimHarvestStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class ClaimHardIncentiveStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mCancelBtn, mNextBtn;
+    private TextView mKRewardAmount, mKRewardAmountDenom;
     private TextView mHRewardAmount, mHRewardAmountDenom;
-    private TextView mLockTime, mReceivableAmount, mReceivableAmountDenom;
+    private TextView mLockTime;
+    private TextView mKReceivableAmount, mKReceivableAmountDenom;
+    private TextView mHReceivableAmount, mHReceivableAmountDenom;
 
     private RelativeLayout BtnOption1, BtnOption2, BtnOption3;
     private TextView OptionTitle1, OptionTitle2, OptionTitle3;
 
-    public static ClaimHarvestStep0Fragment newInstance(Bundle bundle) {
-        ClaimHarvestStep0Fragment fragment = new ClaimHarvestStep0Fragment();
+    public static ClaimHardIncentiveStep0Fragment newInstance(Bundle bundle) {
+        ClaimHardIncentiveStep0Fragment fragment = new ClaimHardIncentiveStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -46,11 +51,15 @@ public class ClaimHarvestStep0Fragment extends BaseFragment implements View.OnCl
         View rootView = inflater.inflate(R.layout.fragment_claim_harvest0, container, false);
         mCancelBtn              = rootView.findViewById(R.id.btn_cancel);
         mNextBtn                = rootView.findViewById(R.id.btn_next);
+        mKRewardAmount          = rootView.findViewById(R.id.kava_reward_amount);
+        mKRewardAmountDenom     = rootView.findViewById(R.id.kava_reward_denom);
         mHRewardAmount          = rootView.findViewById(R.id.harvest_reward_amount);
         mHRewardAmountDenom     = rootView.findViewById(R.id.harvest_reward_denom);
         mLockTime               = rootView.findViewById(R.id.lockup_time);
-        mReceivableAmount       = rootView.findViewById(R.id.receivable_amount);
-        mReceivableAmountDenom  = rootView.findViewById(R.id.receivable_denom);
+        mKReceivableAmount      = rootView.findViewById(R.id.kava_receivable_amount);
+        mKReceivableAmountDenom = rootView.findViewById(R.id.kava_receivable_denom);
+        mHReceivableAmount      = rootView.findViewById(R.id.hard_receivable_amount);
+        mHReceivableAmountDenom = rootView.findViewById(R.id.hard_receivable_denom);
         BtnOption1              = rootView.findViewById(R.id.btn_option1);
         BtnOption2              = rootView.findViewById(R.id.btn_option2);
         BtnOption3              = rootView.findViewById(R.id.btn_option3);
@@ -75,15 +84,35 @@ public class ClaimHarvestStep0Fragment extends BaseFragment implements View.OnCl
             BtnOption3.setVisibility(View.VISIBLE);
             OptionTitle3.setText(getSActivity().mClaimMultipliers.get(2).name.toUpperCase());
         }
-        WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mAllRewardAmount.toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
+
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
+            WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mAllRewardAmount.toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
+
+        } else {
+            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getHardPoolKavaRewardAmount().toPlainString(), mKRewardAmountDenom, mKRewardAmount, getSActivity().mBaseChain);
+            WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mIncentiveReward5.getHardPoolHardRewardAmount().toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
+
+        }
 
         return rootView;
     }
 
     private void onUpdateView() {
-        BigDecimal receivable = getSActivity().mAllRewardAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-        WDp.showCoinDp(getContext(), TOKEN_HARD, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
-        getSActivity().mReceivableAmount = receivable;
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
+            BigDecimal receivable = getSActivity().mAllRewardAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+            WDp.showCoinDp(getContext(), TOKEN_HARD, receivable.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
+            getSActivity().mReceivableAmount = receivable;
+
+        } else {
+            BigDecimal kreceivable = getSActivity().mIncentiveReward5.getHardPoolKavaRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+            WDp.showCoinDp(getContext(), TOKEN_KAVA, kreceivable.toPlainString(), mKReceivableAmountDenom, mKReceivableAmount, getSActivity().mBaseChain);
+            getSActivity().mKReceivableAmount = kreceivable;
+
+            BigDecimal hreceivable = getSActivity().mIncentiveReward5.getHardPoolHardRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+            WDp.showCoinDp(getContext(), TOKEN_HARD, hreceivable.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
+            getSActivity().mHReceivableAmount = hreceivable;
+
+        }
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
     }
 
@@ -127,7 +156,7 @@ public class ClaimHarvestStep0Fragment extends BaseFragment implements View.OnCl
         BtnOption3.setBackground(getResources().getDrawable(R.drawable.box_round_unselected));
     }
 
-    private ClaimHarvestRewardActivity getSActivity() {
-        return (ClaimHarvestRewardActivity)getBaseActivity();
+    private ClaimHardIncentiveActivity getSActivity() {
+        return (ClaimHardIncentiveActivity)getBaseActivity();
     }
 }

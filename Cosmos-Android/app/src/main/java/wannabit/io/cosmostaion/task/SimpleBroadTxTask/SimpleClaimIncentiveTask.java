@@ -81,11 +81,18 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg incentiveMsg = MsgGenerator.genIncentiveReward(mAccount.address, mCollateralType, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(incentiveMsg);
+            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
+                Msg incentiveMsg = MsgGenerator.genIncentiveReward(mAccount.address, mCollateralType, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
+                msgs.add(incentiveMsg);
 
-            WLog.w("incentiveMsg : " +  WUtil.prettyPrinter(incentiveMsg));
+            } else {
+                Msg incentiveMsg = MsgGenerator.genClaimUSDXMintingReward(mAccount.address, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
+                msgs.add(incentiveMsg);
+
+            }
+
+
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {

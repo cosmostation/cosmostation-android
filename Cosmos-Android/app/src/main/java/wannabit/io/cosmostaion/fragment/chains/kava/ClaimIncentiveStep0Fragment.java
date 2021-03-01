@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -75,15 +76,29 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             BtnOption3.setVisibility(View.VISIBLE);
             OptionTitle3.setText(getSActivity().mClaimMultipliers.get(2).name.toUpperCase());
         }
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mAllIncentiveAmount.toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
+            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mAllIncentiveAmount.toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
+        } else {
+            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getMintingRewardAmount().toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
+
+        }
+
         return rootView;
     }
 
     private void onUpdateView() {
-        BigDecimal receivable = getSActivity().mAllIncentiveAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-        WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
-        getSActivity().mReceivableAmount = receivable;
-        mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
+            BigDecimal receivable = getSActivity().mAllIncentiveAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+            WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
+            getSActivity().mReceivableAmount = receivable;
+            mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
+        } else {
+            BigDecimal receivable = getSActivity().mIncentiveReward5.getMintingRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+            WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
+            getSActivity().mReceivableAmount = receivable;
+            mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
+        }
+
     }
 
     @Override

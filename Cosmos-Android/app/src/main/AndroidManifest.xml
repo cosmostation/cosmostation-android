@@ -372,7 +372,7 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.ClaimHarvestRewardActivity"
+            android:name=".activities.chains.kava.ClaimHardIncentiveActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

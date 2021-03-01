@@ -14,19 +14,19 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHardIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class ClaimHarvestStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class ClaimHardIncentiveStep1Fragment extends BaseFragment implements View.OnClickListener {
 
     private EditText mMemo;
     private TextView mMemoCnt;
     private Button mBeforeBtn, mNextBtn;
 
 
-    public static ClaimHarvestStep1Fragment newInstance(Bundle bundle) {
-        ClaimHarvestStep1Fragment fragment = new ClaimHarvestStep1Fragment();
+    public static ClaimHardIncentiveStep1Fragment newInstance(Bundle bundle) {
+        ClaimHardIncentiveStep1Fragment fragment = new ClaimHardIncentiveStep1Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -98,8 +98,8 @@ public class ClaimHarvestStep1Fragment extends BaseFragment implements View.OnCl
         }
     }
 
-    private ClaimHarvestRewardActivity getSActivity() {
-        return (ClaimHarvestRewardActivity)getBaseActivity();
+    private ClaimHardIncentiveActivity getSActivity() {
+        return (ClaimHardIncentiveActivity)getBaseActivity();
     }
 }
 

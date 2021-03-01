@@ -302,9 +302,11 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
+    public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "incentive/MsgClaimUSDXMintingReward";
     public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
+    public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "incentive/MsgClaimHardLiquidityProviderReward";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";

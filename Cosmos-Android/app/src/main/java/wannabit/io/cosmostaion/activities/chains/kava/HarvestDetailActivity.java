@@ -31,7 +31,6 @@ import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHarvestDepositTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHarvestParamTask;
@@ -341,7 +340,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             Toast.makeText(getBaseContext(), R.string.error_no_harvest_reward_to_claim, Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent = new Intent(this, ClaimHarvestRewardActivity.class);
+        Intent intent = new Intent(this, ClaimHardIncentiveActivity.class);
         intent.putExtra("harvest_deposit_denom", mDepositDenom);
         intent.putExtra("harvest_deposit_type", "lp");
         startActivity(intent);

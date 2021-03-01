@@ -8,7 +8,6 @@ import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -18,7 +17,6 @@ import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardMyStatusHolder extends BaseHolder {
@@ -33,11 +31,6 @@ public class HardMyStatusHolder extends BaseHolder {
 
     @Override
     public void onBindMyHardStatus(Context context, BaseData baseData, HardParam hardParam, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
-        ArrayList<String> l = new ArrayList<String>(baseData.mKavaTokenPrices.keySet());
-        for (String s :l) {
-            WLog.w("tick " + s);
-        }
-
         BigDecimal totalDepostValue = BigDecimal.ZERO;
         if (myDeposit != null && myDeposit.size() > 0) {
             for (Coin coin: myDeposit.get(0).amount) {

@@ -114,6 +114,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IS_SHOWLOG;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CLAM_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DEPOSIT_CDP;
@@ -122,6 +123,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_DRAWDEBT_C
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_POST_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.OK_MSG_TYPE_DEPOSIT;
@@ -610,7 +612,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
                         return TYPE_TX_HTLC_REFUND;
 
-                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_INCENTIVE_REWARD) || mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
                         return TYPE_TX_INCENTIVE_REWARD;
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_DEPOSIT_HAVEST)) {
@@ -619,7 +621,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_WITHDRAW_HAVEST)) {
                         return TYPE_TX_HARVEST_WITHDRAW;
 
-                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_CLAIM_HAVEST)) {
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_CLAIM_HAVEST) || mResTxInfo.getMsgType(position - 1) .equals(KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
                         return TYPE_TX_HARVEST_CLIAM;
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IRIS_MSG_TYPE_WITHDRAW_ALL)) {
@@ -1171,8 +1173,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 holder.itemSender.setText(msg.value.sender);
-                holder.itemDenom.setText(msg.value.collateral_type);
                 holder.itemMultiplier.setText(msg.value.multiplier_name);
+//                holder.itemDenom.setText(msg.value.collateral_type);
                 Coin incentiveCoin = mResTxInfo.simpleIncentive(position - 1);
                 try {
                     if (!TextUtils.isEmpty(incentiveCoin.denom)) {
@@ -1214,10 +1216,10 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final Msg msg = mResTxInfo.getMsg(position - 1);
 
             holder.itemSender.setText(msg.value.sender);
-            holder.itemReceiver.setText(msg.value.receiver);
-            holder.itemCoinType.setText(msg.value.deposit_denom);
             holder.itemMultiplier.setText(msg.value.multiplier_name);
-            holder.itemDepositType.setText(msg.value.deposit_type);
+//            holder.itemReceiver.setText(msg.value.receiver);
+//            holder.itemCoinType.setText(msg.value.deposit_denom);
+//            holder.itemDepositType.setText(msg.value.deposit_type);
 
             Coin rewardCoin = mResTxInfo.simpleHarvestReward();
             try {
@@ -1890,7 +1892,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             ImageView itemMsgImg;
             TextView itemMsgTitle;
             TextView itemSender, itemReceiver, itemCoinType, itemMultiplier, itemDepositType, itemRewardAmount, itemRewardAmountDenom;
-            ;
 
             public TxHarvestClaimHolder(@NonNull View itemView) {
                 super(itemView);

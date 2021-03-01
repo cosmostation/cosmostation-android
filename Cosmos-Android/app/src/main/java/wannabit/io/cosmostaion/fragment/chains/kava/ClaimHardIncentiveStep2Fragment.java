@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimHarvestRewardActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimHardIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -29,7 +29,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class ClaimHarvestStep2Fragment extends BaseFragment implements View.OnClickListener {
+public class ClaimHardIncentiveStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mBtnGasType;
     private TextView        mTvGasType;
@@ -58,8 +58,8 @@ public class ClaimHarvestStep2Fragment extends BaseFragment implements View.OnCl
     private BigDecimal      mFeePrice       = BigDecimal.ZERO;
 
 
-    public static ClaimHarvestStep2Fragment newInstance(Bundle bundle) {
-        ClaimHarvestStep2Fragment fragment = new ClaimHarvestStep2Fragment();
+    public static ClaimHardIncentiveStep2Fragment newInstance(Bundle bundle) {
+        ClaimHardIncentiveStep2Fragment fragment = new ClaimHardIncentiveStep2Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -229,8 +229,8 @@ public class ClaimHarvestStep2Fragment extends BaseFragment implements View.OnCl
         }
     }
 
-    private ClaimHarvestRewardActivity getSActivity() {
-        return (ClaimHarvestRewardActivity)getBaseActivity();
+    private ClaimHardIncentiveActivity getSActivity() {
+        return (ClaimHardIncentiveActivity)getBaseActivity();
     }
 }
 

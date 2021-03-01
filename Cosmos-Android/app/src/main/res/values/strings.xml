@@ -170,7 +170,7 @@
     <string name="str_send_c">SEND</string>
     <string name="str_htlc_send_c"><![CDATA[Interchain Send & Claim]]></string>
     <string name="str_htlc_refund_c">Interchain Refund</string>
-    <string name="str_participate_incentive">Crypto Payday Participate</string>
+    <string name="str_participate_incentive">USDX Minting Incentive Claim</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Receive</string>
@@ -641,7 +641,7 @@
     <string name="str_swapId">SwapId</string>
     <string name="str_refund_amount">Refund Amount</string>
     <string name="str_refund_to">Refund To</string>
-    <string name="str_incentive_amount">Participate Reward</string>
+    <string name="str_incentive_amount">Incentive Reward</string>
     <string name="str_participator">Participator</string>
     <string name="str_this_total_reward">This Round Total Reward</string>
     <string name="str_lock_time">Lock Time</string>
@@ -824,8 +824,8 @@
     <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
     <string name="str_incentive_participate_step_2">Select transaction fee</string>
     <string name="str_incentive_participate_step_3">Check transaction detail</string>
-    <string name="str_claim_harvest_reward">Claim Harvest Reward</string>
-    <string name="str_harvest_reward_step_0">Select harvest reward option</string>
+    <string name="str_claim_harvest_reward">Claim Hard Incentive</string>
+    <string name="str_harvest_reward_step_0">Select hard incentive option</string>
     <string name="str_harvest_reward_step_1">Insert memo (optional)</string>
     <string name="str_harvest_reward_step_2">Select transaction fee</string>
     <string name="str_harvest_reward_step_3">Check transaction detail</string>
@@ -1328,10 +1328,10 @@
     <string name="tx_kava_bep3_create2">Interchain Send</string>
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
-    <string name="tx_kava_incentive_reward2">Crypto Payday Incentive</string>
+    <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
     <string name="tx_kava_harvest_deposit2">Deposit Harvest</string>
     <string name="tx_kava_harvest_withdraw2">Withdraw Harvest</string>
-    <string name="tx_kava_harvest_claim2">Claim Harvest Reward</string>
+    <string name="tx_kava_harvest_claim2">Hard Pool Incentive</string>
 
 
     <string name="tx_starname_registe_domain">Register Domain</string>

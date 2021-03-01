@@ -83,22 +83,43 @@
                             android:layout_height="wrap_content"
                             android:layout_toRightOf="@+id/receivable_title">
                             <TextView
-                                android:id="@+id/receivable_denom"
+                                android:id="@+id/kava_receivable_denom"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:text="KAVA"
                                 style="@style/font_ss_12_kava"/>
                             <TextView
-                                android:id="@+id/receivable_amount"
+                                android:id="@+id/kava_receivable_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_alignBaseline="@+id/receivable_denom"
-                                android:layout_toLeftOf="@+id/receivable_denom"
+                                android:layout_alignBaseline="@+id/kava_receivable_denom"
+                                android:layout_toLeftOf="@+id/kava_receivable_denom"
                                 android:layout_marginRight="@dimen/space_2"
                                 android:text="-"
                                 style="@style/font_ss_12_white"/>
                         </RelativeLayout>
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_8">
+                        <TextView
+                            android:id="@+id/hard_receivable_denom"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:text="HARD"
+                            style="@style/font_ss_12_hard"/>
+                        <TextView
+                            android:id="@+id/hard_receivable_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/hard_receivable_denom"
+                            android:layout_toLeftOf="@+id/hard_receivable_denom"
+                            android:layout_marginRight="@dimen/space_2"
+                            android:text="-"
+                            style="@style/font_ss_12_white"/>
                     </RelativeLayout>
 
                     <TextView

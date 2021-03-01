@@ -37,7 +37,6 @@ import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -514,6 +513,19 @@ public class MsgGenerator {
         return result;
     }
 
+    public static Msg genClaimUSDXMintingReward(String from, String multiplierName, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+            value.multiplier_name = multiplierName;
+            result.type = BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
+            result.value = value;
+
+        }
+        return result;
+    }
+
     public static Msg genDepositHarvestMsg(String depositor, Coin depositCoin, String depositType, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
@@ -545,6 +557,16 @@ public class MsgGenerator {
         value.multiplier_name = multiplierName;
         value.deposit_type = depositType;
         result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genClaimHardLiquidityProviderMsg(String sender, String multiplierName) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.sender = sender;
+        value.multiplier_name = multiplierName;
+        result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
         result.value = value;
         return result;
     }

@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Msg;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResTxInfo {
     @SerializedName("height")
@@ -196,9 +197,9 @@ public class ResTxInfo {
         BigDecimal amountSum = BigDecimal.ZERO;
         if (logs != null && logs.get(position) != null) {
             for (Event event:logs.get(position).events) {
-                if (event.type.equals("claim_reward")) {
+                if (event.type.equals("transfer")) {
                     for (EventAttribute attr:event.attributes) {
-                        if (attr.key.equals("claim_amount")) {
+                        if (attr.key.equals("amount")) {
                             String value = attr.value;
                             String denom = value.replaceAll("[0-9]", "");
                             String amount = value.replaceAll("[^0-9]", "");
@@ -240,7 +241,7 @@ public class ResTxInfo {
                 if (event.type.equals("transfer")) {
                     for (EventAttribute attr:event.attributes) {
                         if (attr.key.equals("amount")) {
-                            String value = attr.value;
+                            String value = attr.value.split(",")[0];
                             String denom = value.replaceAll("[0-9]", "");
                             String amount = value.replaceAll("[^0-9]", "");
                             coin.denom = denom;
