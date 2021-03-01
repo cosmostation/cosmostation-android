@@ -67,7 +67,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -1543,9 +1543,9 @@ public class WUtil {
         return result;
     }
 
-    public static ResCdpParam.KavaCollateralParam getCdpCoinParm(ResCdpParam.Result params, Balance balance) {
+    public static ResKavaCdpParam.KavaCollateralParam getCdpCoinParm(ResKavaCdpParam.CdpParam params, Balance balance) {
         if (params != null) {
-            for (ResCdpParam.KavaCollateralParam param:params.collateral_params) {
+            for (ResKavaCdpParam.KavaCollateralParam param:params.collateral_params) {
                 if (param.denom.equals(balance.symbol)) {
                     return param;
                 }
@@ -1557,7 +1557,7 @@ public class WUtil {
         }
     }
 
-    public static int getKavaCoinDecimal(ResCdpParam.Result params, Balance balance) {
+    public static int getKavaCoinDecimal(ResKavaCdpParam.CdpParam params, Balance balance) {
         int result = 0;
         if (params != null) {
             if (params.debt_param != null) {
@@ -1565,7 +1565,7 @@ public class WUtil {
             }
 
             if (params.collateral_params != null) {
-                for (ResCdpParam.KavaCollateralParam collateralParams: params.collateral_params) {
+                for (ResKavaCdpParam.KavaCollateralParam collateralParams: params.collateral_params) {
                     if (collateralParams.denom.equals(balance.symbol)) {
                         return Integer.parseInt(collateralParams.conversion_factor);
                     }

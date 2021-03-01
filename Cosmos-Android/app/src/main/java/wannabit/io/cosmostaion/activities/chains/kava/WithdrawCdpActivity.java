@@ -33,7 +33,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
@@ -62,9 +62,9 @@ public class WithdrawCdpActivity extends BaseActivity {
     public String                       mMemo;
     public Fee mFee;
 
-    public ResCdpParam.Result               mCdpParam;
+    public ResKavaCdpParam.CdpParam mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResCdpParam.KavaCollateralParam  mCollateralParam;
+    public ResKavaCdpParam.KavaCollateralParam  mCollateralParam;
     public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
     public ResCdpDepositStatus              mMyDeposits;
 
@@ -94,7 +94,7 @@ public class WithdrawCdpActivity extends BaseActivity {
 
         mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
-        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCdpParam = getBaseDao().mCdpParam;
         mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");

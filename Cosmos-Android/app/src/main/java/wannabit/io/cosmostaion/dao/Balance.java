@@ -5,15 +5,9 @@ import android.os.Parcelable;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.HashMap;
 
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class Balance implements Parcelable {
     public Long         accountId;

@@ -30,7 +30,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -341,7 +341,7 @@ public class WithdrawCdpStep0Fragment extends BaseFragment implements View.OnCli
         return (WithdrawCdpActivity)getBaseActivity();
     }
 
-    private ResCdpParam.KavaCollateralParam getCParam() {
+    private ResKavaCdpParam.KavaCollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 

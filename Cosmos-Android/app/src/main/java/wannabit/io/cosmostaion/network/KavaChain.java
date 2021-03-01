@@ -13,15 +13,20 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpList;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
+import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam5;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
+import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
@@ -130,8 +135,7 @@ public interface KavaChain {
 
 
 
-    @GET("cdp/parameters")
-    Call<ResCdpParam> getCdpParams();
+
 
     @GET("cdp/cdps/cdp/{address}/{denom}")
     Call<ResCdpOwnerStatus> getCdpStatusByOwner(@Path("address") String address, @Path("denom") String denom);
@@ -195,7 +199,23 @@ public interface KavaChain {
 
 
 
+    //For KAVA-5
 
+    @GET("cdp/parameters")
+    Call<ResKavaCdpParam> getCdpParams();
 
+    @GET("hard/parameters")
+    Call<ResKavaHardParam> getHardParam();
 
+    @GET("auction/parameters")
+    Call<ResKavaAuctionParam> getAuctionParam();
+
+    @GET("incentive/parameters")
+    Call<ResKavaIncentiveParam5> getIncentiveParam5();
+
+    @GET("incentive/rewards")
+    Call<ResKavaIncentiveReward5> getIncentiveReward5(@Query("owner") String owner);
+
+    @GET("cdp/cdps")
+    Call<ResKavaMyCdps> getMyCDPs(@Query("owner") String owner);
 }

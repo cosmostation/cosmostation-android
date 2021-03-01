@@ -8,18 +8,17 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WLog;
 
-public class ResCdpParam {
+public class ResKavaCdpParam {
 
     @SerializedName("height")
     public String height;
 
     @SerializedName("result")
-    public Result result;
+    public CdpParam result;
 
 
-    public class Result {
+    public class CdpParam {
         @SerializedName("surplus_auction_threshold")
         public String surplus_auction_threshold;
 

@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -64,9 +64,9 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
     private Account                                                     mAccount;
     private BaseChain                                                   mBaseChain;
-    private ResCdpParam.Result                                          mCdpParam;
+    private ResKavaCdpParam.CdpParam mCdpParam;
     private ArrayList<ResCdpOwnerStatus.MyCDP>                          mMyOwenCdps = new ArrayList<>();
-    private ArrayList<ResCdpParam.KavaCollateralParam>                  mOtherCdps = new ArrayList<>();
+    private ArrayList<ResKavaCdpParam.KavaCollateralParam>                  mOtherCdps = new ArrayList<>();
     private ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>  mIncentiveClaimables= new ArrayList<>();
     private HashMap<String, ResKavaMarketPrice.Result>                  mKavaTokenPrices = new HashMap<>();
 
@@ -127,11 +127,11 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
         mTaskCount--;
         if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                final ResCdpParam.Result cdpParam = (ResCdpParam.Result)result.resultData;
-                getBaseDao().mKavaCdpParams = cdpParam;
+                final ResKavaCdpParam.CdpParam cdpParam = (ResKavaCdpParam.CdpParam)result.resultData;
+                getBaseDao().mCdpParam = cdpParam;
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + cdpParam.collateral_params.size();
-                    for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
+                    for (ResKavaCdpParam.KavaCollateralParam param:getBaseDao().mCdpParam.collateral_params) {
                         new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }
@@ -177,7 +177,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
         }
         if (mTaskCount == 0) {
-            mCdpParam = getBaseDao().mKavaCdpParams;
+            mCdpParam = getBaseDao().mCdpParam;
             mKavaTokenPrices = getBaseDao().mKavaTokenPrices;
             mIncentiveClaimables = getBaseDao().mKavaUnClaimedIncentiveRewards;
             mMyOwenCdps = getBaseDao().mMyOwenCdp;
@@ -191,7 +191,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
     private void onGetOtherCdp() {
         mOtherCdps.clear();
-        for (ResCdpParam.KavaCollateralParam param:mCdpParam.collateral_params) {
+        for (ResKavaCdpParam.KavaCollateralParam param:mCdpParam.collateral_params) {
             boolean has = false;
             for (ResCdpOwnerStatus.MyCDP my:mMyOwenCdps) {
                 if (my.cdp.type.equals(param.type)) {
@@ -246,7 +246,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
                     status = mMyOwenCdps.get(position);
 
                 }
-                final ResCdpParam.KavaCollateralParam collateralParam = mCdpParam.getCollateralParamByType(status.cdp.type);
+                final ResKavaCdpParam.KavaCollateralParam collateralParam = mCdpParam.getCollateralParamByType(status.cdp.type);
                 final ResKavaMarketPrice.Result price = mKavaTokenPrices.get(collateralParam.liquidation_market_id);
                 final int denomPDecimal = WUtil.getKavaCoinDecimal(status.getPDenom());
 
@@ -299,7 +299,7 @@ public class CdpMarketFragment extends BaseFragment implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_OTHER_CDP) {
                 final OtherCdpHolder holder = (OtherCdpHolder)viewHolder;
-                ResCdpParam.KavaCollateralParam collateralParam;
+                ResKavaCdpParam.KavaCollateralParam collateralParam;
                 if (mIncentiveClaimables.size() > 0) {
                     collateralParam = mOtherCdps.get(position - mMyOwenCdps.size() - 1);
                 } else {

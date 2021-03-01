@@ -15,10 +15,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class WalletKavaHolder extends BaseHolder {
@@ -96,7 +99,13 @@ public class WalletKavaHolder extends BaseHolder {
         mBtnKavaDapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.startActivity(new Intent(mainActivity, DAppsListActivity.class));
+                if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+                    mainActivity.startActivity(new Intent(mainActivity, DAppsListActivity.class));
+
+                } else if (mainActivity.mBaseChain.equals(KAVA_TEST)) {
+                    mainActivity.startActivity(new Intent(mainActivity, DAppsList5Activity.class));
+
+                }
             }
         });
     }

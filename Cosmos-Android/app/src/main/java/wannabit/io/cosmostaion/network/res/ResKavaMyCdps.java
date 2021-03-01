@@ -6,19 +6,20 @@ import com.google.gson.annotations.SerializedName;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class ResCdpOwnerStatus {
+public class ResKavaMyCdps {
 
     @SerializedName("height")
     public String height;
 
     @SerializedName("result")
-    public MyCDP result;
+    public ArrayList<MyCDP> result;
 
 
     public class MyCDP {
@@ -129,6 +130,4 @@ public class ResCdpOwnerStatus {
 
         }
     }
-
-
 }

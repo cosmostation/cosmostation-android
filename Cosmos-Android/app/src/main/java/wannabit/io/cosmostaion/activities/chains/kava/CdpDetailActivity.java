@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
@@ -111,7 +111,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     private Button              mOpenCdp;
 
 
-    private ResCdpParam.Result          mCdpParam;
+    private ResKavaCdpParam.CdpParam mCdpParam;
     private ResKavaMarketPrice.Result   mKavaTokenPrice;
     private ResCdpOwnerStatus.MyCDP     mMyOwenCdp;
     private ResCdpDepositStatus         mMyDeposits;
@@ -211,7 +211,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
         mMaketId = getIntent().getStringExtra("marketId");
         WLog.w("mCollateralParamType " + mCollateralParamType);
         WLog.w("mMaketId " + mMaketId);
-        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCdpParam = getBaseDao().mCdpParam;
         mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         mKavaUnClaimedIncentiveRewards = getBaseDao().mKavaUnClaimedIncentiveRewards;
         if (mCdpParam == null || mCollateralParam == null) {
@@ -246,7 +246,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
     BigDecimal pAvailable = BigDecimal.ZERO;
     BigDecimal kAvailable = BigDecimal.ZERO;
     BigDecimal currentPrice = BigDecimal.ZERO;
-    ResCdpParam.KavaCollateralParam mCollateralParam;
+    ResKavaCdpParam.KavaCollateralParam mCollateralParam;
 
     private void onUpdateView() {
         cDenom = mCollateralParam.denom;

@@ -82,7 +82,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
@@ -889,11 +889,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
-                final ResCdpParam.Result cdpParam = (ResCdpParam.Result)result.resultData;
-                getBaseDao().mKavaCdpParams = cdpParam;
+                final ResKavaCdpParam.CdpParam cdpParam = (ResKavaCdpParam.CdpParam)result.resultData;
+                getBaseDao().mCdpParam = cdpParam;
                 if (cdpParam != null && cdpParam.collateral_params != null && cdpParam.collateral_params.size() > 0) {
                     mTaskCount = mTaskCount + cdpParam.collateral_params.size();
-                    for (ResCdpParam.KavaCollateralParam param:getBaseDao().mKavaCdpParams.collateral_params) {
+                    for (ResKavaCdpParam.KavaCollateralParam param:getBaseDao().mCdpParam.collateral_params) {
                         new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, param).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
                     }
                 }

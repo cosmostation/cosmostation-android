@@ -48,10 +48,9 @@ import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
@@ -640,12 +639,12 @@ public class WDp {
                 return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
             } else {
                 HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
-                ResCdpParam.Result params = baseData.mKavaCdpParams;
+                ResKavaCdpParam.CdpParam params = baseData.mCdpParam;
                 if (prices == null || prices.size() <= 0 || params == null) {
                     return BigDecimal.ZERO;
                 }
                 //don't care collateral type
-                ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
+                ResKavaCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
                 if (collateralParam == null || collateralParam.liquidation_market_id == null) {
                     return BigDecimal.ZERO;
                 }
@@ -2495,7 +2494,7 @@ public class WDp {
         }
     }
 
-    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt,  ResCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {
+    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt, ResKavaCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {
         BigDecimal result = BigDecimal.ZERO;
         try {
             long now   = Calendar.getInstance().getTimeInMillis();

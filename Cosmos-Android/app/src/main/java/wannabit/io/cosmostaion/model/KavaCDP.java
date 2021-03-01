@@ -30,6 +30,10 @@ public class KavaCDP {
     @SerializedName("fees_updated")
     public String fees_updated;
 
+    @SerializedName("interest_factor")
+    public String interest_factor;
+
+
     public BigDecimal getAccumulatedFees() {
         BigDecimal result = BigDecimal.ZERO;
         if (accumulated_fees != null) {

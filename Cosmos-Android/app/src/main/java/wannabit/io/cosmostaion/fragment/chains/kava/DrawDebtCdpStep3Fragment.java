@@ -15,7 +15,7 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -116,7 +116,7 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         return (DrawDebtActivity)getBaseActivity();
     }
 
-    private ResCdpParam.KavaCollateralParam getCParam() {
+    private ResKavaCdpParam.KavaCollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 

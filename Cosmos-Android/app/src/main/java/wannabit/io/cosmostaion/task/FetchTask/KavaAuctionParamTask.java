@@ -3,50 +3,54 @@ package wannabit.io.cosmostaion.task.FetchTask;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class KavaCdpParamTask extends CommonTask {
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_AUCTION_PARAM;
+
+public class KavaAuctionParamTask extends CommonTask {
     private BaseChain mChain;
 
-    public KavaCdpParamTask(BaseApplication app, TaskListener listener, BaseChain chain) {
+    public KavaAuctionParamTask(BaseApplication app, TaskListener listener, BaseChain chain) {
         super(app, listener);
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_PARAM;
+        this.mResult.taskType   = TASK_FETCH_KAVA_AUCTION_PARAM;
         this.mChain = chain;
     }
+
+
 
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResKavaCdpParam> response = ApiClient.getKavaChain(mApp).getCdpParams().execute();
+                Response<ResKavaAuctionParam> response = ApiClient.getKavaChain(mApp).getAuctionParam().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("KavaCdpParamTask : NOk");
+                    WLog.w("KavaAuctionParamTask : NOk");
                 }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResKavaCdpParam> response = ApiClient.getKavaTestChain(mApp).getCdpParams().execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                Response<ResKavaAuctionParam> response = ApiClient.getKavaChain(mApp).getAuctionParam().execute();
+                if (response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
-                    WLog.w("KavaCdpParamTask : NOk");
+                    WLog.w("KavaAuctionParamTask : NOk");
                 }
             }
 
         } catch (Exception e) {
-            WLog.w("KavaCdpParamTask Error " + e.getMessage());
+            WLog.w("KavaAuctionParamTask Error " + e.getMessage());
         }
         return mResult;
     }
+
 }

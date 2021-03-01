@@ -168,6 +168,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
+    public final static int TASK_FETCH_KAVA_AUCTION_PARAM               = 2115;
+    public final static int TASK_FETCH_KAVA_HARD_PARAM                  = 2116;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

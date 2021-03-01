@@ -401,7 +401,7 @@
     <string name="str_buy_kava">KAVA 구입</string>
     <string name="str_buy_band">BAND 구입</string>
     <string name="str_kava_testnet_msg"><![CDATA[KAVA 테스트넷을 위한 지갑입니다\n(해당 지갑의 KAVA 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 KAVA 고유의 CDP(코인담보대출)기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.]]></string>
-    <string name="str_kava_dapp"><![CDATA[CDP & 하베스트]]> </string>g>
+    <string name="str_kava_dapp"><![CDATA[카바 디파이]]> </string>g>
     <string name="str_buy_without_key_msg">구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?</string>
     <string name="str_buy_select_fiat_title">통화 선택</string>
     <string name="str_buy_select_fiat_msg">구매를 하기위한 통화를 선택하세요.</string>
@@ -429,9 +429,11 @@
     <string name="str_okex_newpath_msg">OKex체인은 두가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택해주세요.\n\n잘못 선택한 경우에도 기존 OKex 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
     <string name="str_okex_old_type"><![CDATA[Tendermint 타입 키 생성]]></string>
     <string name="str_okex_new_type"><![CDATA[Ethermint(기본) 타입 키 생성]]></string>
-    <string name="str_kava_cdp_list">CDP 목록</string>
+    <string name="str_kava_cdp_list">CDP</string>
     <string name="str_kava_cdp_details">CDP 상세</string>
-    <string name="str_kava_harvest_list">하베스트 목록</string>
+    <string name="str_kava_auction_list">옥션</string>
+    <string name="str_kava_auction_details">옥션 상세</string>
+    <string name="str_kava_harvest_list">하드 풀</string>
     <string name="str_kava_harvest_details">하베스트 상세</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
@@ -534,7 +536,7 @@
     <string name="str_btn_text_deposit">%1$s 입금</string>
     <string name="str_btn_text_withdraw">%1$s 출금</string>
     <string name="str_my_available_assets">내 잔고</string>
-    <string name="str_kava_incentive_title">Crypto Payday</string>
+    <string name="str_kava_incentive_title">USDX Minting Incentive</string>
     <string name="str_kava_incentive_msg">자산을 예치하여 CDP를 생성하고 USDX를 발행하는 사용자를 위한 KAVA 인센티브는 매주 배포됩니다! 더 많은 USDX를 발행할수록 더 많은 KAVA 보상을 받게됩니다.</string>
     <string name="str_kava_participate">참여</string>
     <string name="str_kava_participate_done">참여 완료!!</string>

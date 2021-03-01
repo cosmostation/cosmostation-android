@@ -6,7 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -17,9 +17,9 @@ public class KavaCdpByDepositorTask extends CommonTask {
     private BaseChain mChain;
     private String mAddress;
 
-    private ResCdpParam.KavaCollateralParam mParam;
+    private ResKavaCdpParam.KavaCollateralParam mParam;
 
-    public KavaCdpByDepositorTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, ResCdpParam.KavaCollateralParam param) {
+    public KavaCdpByDepositorTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, ResKavaCdpParam.KavaCollateralParam param) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
         this.mChain = chain;

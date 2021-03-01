@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -56,9 +56,9 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     private String                          mCollateralParamType;
     private String                          mMaketId;
 
-    public ResCdpParam.Result               mCdpParam;
+    public ResKavaCdpParam.CdpParam mCdpParam;
     public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResCdpParam.KavaCollateralParam  mCollateralParam;
+    public ResKavaCdpParam.KavaCollateralParam  mCollateralParam;
 
     public BigDecimal                       toCollateralAmount = BigDecimal.ZERO;
     public BigDecimal                       toPrincipalAmount = BigDecimal.ZERO;
@@ -91,7 +91,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
 
         mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
-        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCdpParam = getBaseDao().mCdpParam;
         mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");

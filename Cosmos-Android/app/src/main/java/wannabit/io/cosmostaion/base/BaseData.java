@@ -27,7 +27,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -43,18 +42,21 @@ import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
+import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam5;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -119,7 +121,7 @@ public class BaseData {
 
     //COMMON DATA FOR KAVA
     public ResLcdKavaAccountInfo.Result                                     mKavaAccount;
-    public ResCdpParam.Result                                               mKavaCdpParams;
+    public ResKavaCdpParam.CdpParam                                         mCdpParam;
     public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
     public HashMap<String, ResKavaMarketPrice.Result>                       mKavaTokenPrices = new HashMap<>();
     public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
@@ -128,6 +130,13 @@ public class BaseData {
     public ArrayList<ResKavaHarvestDeposit.HarvestDeposit>                  mHavestDeposits = new ArrayList<>();
     public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
     public BigDecimal                                                       mHardPrice = BigDecimal.ZERO;
+
+    //COMMON DATA FOR KAVA-5
+    public ResKavaIncentiveParam5.IncentiveParam5                           mIncentiveParam5;
+    public ResKavaHardParam.HardParam                                       mHardParam;
+    public ResKavaAuctionParam.AuctionParam                                 mAuctionParam;
+//    public ResKavaIncentiveReward5.IncentiveReward5                         mIncentiveRewards5;
+
 
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();
