@@ -4,7 +4,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -13,18 +12,16 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 public class KavaCdpByDepositorTask extends CommonTask {
-
     private BaseChain mChain;
     private String mAddress;
+    private String mCollateralType;
 
-    private CollateralParam mParam;
-
-    public KavaCdpByDepositorTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, CollateralParam param) {
+    public KavaCdpByDepositorTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, String collateralType) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
         this.mChain = chain;
         this.mAddress = address;
-        this.mParam = param;
+        this.mCollateralType = collateralType;
 
     }
 
@@ -32,8 +29,9 @@ public class KavaCdpByDepositorTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResCdpDepositStatus> response = ApiClient.getKavaChain(mApp).getCdpDepositStatus(mAddress, mParam.type).execute();
+                Response<ResCdpDepositStatus> response = ApiClient.getKavaChain(mApp).getCdpDepositStatus(mAddress, mCollateralType).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    //TODO KAVA MAIN FIX
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
 
@@ -42,9 +40,9 @@ public class KavaCdpByDepositorTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResCdpDepositStatus> response = ApiClient.getKavaTestChain(mApp).getCdpDepositStatus(mAddress, mParam.type).execute();
+                Response<ResCdpDepositStatus> response = ApiClient.getKavaTestChain(mApp).getCdpDepositStatus(mAddress, mCollateralType).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {

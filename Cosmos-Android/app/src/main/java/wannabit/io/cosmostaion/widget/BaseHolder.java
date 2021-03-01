@@ -6,9 +6,11 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.activities.MainActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
@@ -52,4 +54,12 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, HardParam hardParam, HardParam.HardMoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
     }
 
+    public void onBindCdpDetailInfo(CdpDetail5Activity context, BaseData baseData, MyCdp myCdp, String collateralType, BigDecimal debtAmount) {
+    }
+
+    public void onBindCdpDetailMyStatus(CdpDetail5Activity context, BaseData baseData, MyCdp myCdp, String collateralType, BigDecimal selfDepositAmount) {
+    }
+
+    public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
+    }
 }

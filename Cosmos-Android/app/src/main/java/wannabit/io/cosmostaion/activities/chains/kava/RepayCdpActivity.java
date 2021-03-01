@@ -266,7 +266,7 @@ public class RepayCdpActivity extends BaseActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
                 mTaskCount = mTaskCount + 1;
-                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam.type).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {

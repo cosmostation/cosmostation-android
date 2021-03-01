@@ -15,12 +15,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.CdpDetailActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.kava.MyCdp;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -99,9 +98,9 @@ public class CdpMyHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(c, CdpDetailActivity.class);
+                Intent intent = new Intent(c, CdpDetail5Activity.class);
                 intent.putExtra("collateralParamType", collateralParam.type);
-                intent.putExtra("marketId", collateralParam.liquidation_market_id);
+//                intent.putExtra("marketId", collateralParam.liquidation_market_id);
                 c.startActivity(intent);
             }
         });

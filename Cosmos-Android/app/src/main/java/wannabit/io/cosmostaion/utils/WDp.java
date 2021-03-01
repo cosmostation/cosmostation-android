@@ -173,8 +173,8 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
-            //TODO need check decimal with denom's type
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
@@ -259,6 +259,7 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
             } else {
                 denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
 

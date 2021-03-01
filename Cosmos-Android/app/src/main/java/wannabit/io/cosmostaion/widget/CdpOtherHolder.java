@@ -12,6 +12,7 @@ import androidx.cardview.widget.CardView;
 import com.squareup.picasso.Picasso;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetailActivity;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
@@ -53,9 +54,9 @@ public class CdpOtherHolder extends BaseHolder {
         itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, CdpDetailActivity.class);
+                Intent intent = new Intent(context, CdpDetail5Activity.class);
                 intent.putExtra("collateralParamType", otherCdp.type);
-                intent.putExtra("marketId", otherCdp.liquidation_market_id);
+//                intent.putExtra("marketId", otherCdp.liquidation_market_id);
                 context.startActivity(intent);
             }
         });
