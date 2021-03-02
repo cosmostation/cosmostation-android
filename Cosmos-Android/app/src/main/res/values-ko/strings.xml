@@ -434,7 +434,7 @@
     <string name="str_kava_auction_list">옥션</string>
     <string name="str_kava_auction_details">옥션 상세</string>
     <string name="str_kava_harvest_list">하드 풀</string>
-    <string name="str_kava_harvest_details">하베스트 상세</string>
+    <string name="str_kava_harvest_details">하드 풀 상세</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
     <string name="str_press_select_recipient_account">수신 계정 선택</string>
@@ -939,14 +939,17 @@
     <string name="str_hard_for_delegator_title">KAVA 위임자를 위한 HRAD</string>
     <string name="str_harvest_markets">하베스트 Markets</string>
     <string name="str_deposited_amount">디파짓 수량</string>
-    <string name="str_my_deposited_amount">나의 디파짓 수량</string>
+    <string name="str_my_deposited_amount">나의 유동성 공급 수량</string>
     <string name="str_my_borrowed_amount">나의 대출 수량</string>
+    <string name="str_my_borrowable_amount">나의 대출 가능 수량</string>
     <string name="str_lp_reward_title">하베스트 LP 이자</string>
     <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD토큰을 매 블럭마다 보상받습니다! 하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
     <string name="str_total_lp_reward">총 LP 보상</string>
     <string name="str_my_total_lp_reward">나의 모든 LP 이자량</string>
     <string name="str_start_deposit">예치 시작 하기</string>
-    <string name="str_total_deposited_supplies">총 풀 예치량</string>
+    <string name="str_total_deposited_supplies">시스템 총 예치량</string>
+    <string name="str_total_borrowed_supplies">시스템 총 대출량</string>
+    <string name="str_total_remain_supplies">시스템 대출 가능량</string>
     <string name="str_my_harvest_information">내 하드 풀</string>
     <string name="str_deposit_harvest">하베스트 예치금 입금</string>
     <string name="str_withdraw_harvest">하베스트 예치금 출금</string>
@@ -978,12 +981,15 @@
     <string name="str_ok_promotion_title">검증인을 위해 투표하세요</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
     <string name="str_total_deposit_value">총 공금 금액</string>
-    <string name="str_borrow_limit_value">대출 한도 금액</string>
     <string name="str_total_borrowed_value">총 대출 금액</string>
+    <string name="str_borrow_limit_value">추가 대출 가능 금액</string>
     <string name="str_supply_apy">Supply APY</string>
     <string name="str_borrow_apy">Borrow APY</string>
     <string name="str_supply_incentive_apy">Incentive Supply APY</string>
     <string name="str_borrow_incentive_apy">Incentive Borrow APY</string>
+    <string name="str_add_supply">유동성 공급</string>
+    <string name="str_get_borrow">대출 받기</string>
+    <string name="str_get_repay">상환 하기</string>
 
 
 

@@ -65,27 +65,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_10">
                 <TextView
-                    android:id="@+id/borrow_limit_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_borrow_limit_value"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/borrow_limit_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignBaseline="@+id/borrow_limit_title"
-                    android:layout_toLeftOf="@+id/borrow_limit_title"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_10">
-                <TextView
                     android:id="@+id/total_borrow_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -98,6 +77,27 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignBaseline="@+id/total_borrow_title"
                     android:layout_toLeftOf="@+id/total_borrow_title"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_10">
+                <TextView
+                    android:id="@+id/borrowable_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_borrow_limit_value"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/borrowable_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignBaseline="@+id/borrowable_title"
+                    android:layout_toLeftOf="@+id/borrowable_title"
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </RelativeLayout>

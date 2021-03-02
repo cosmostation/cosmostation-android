@@ -261,7 +261,7 @@ public class WDp {
                 denomTv.setText(symbol.toUpperCase());
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
+            if (amountTv != null) amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             if (symbol.equals(TOKEN_IOV) || symbol.equals(TOKEN_IOV_TEST)) {

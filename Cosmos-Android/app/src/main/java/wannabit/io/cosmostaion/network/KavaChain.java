@@ -17,9 +17,11 @@ import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
 import wannabit.io.cosmostaion.network.res.ResKavaHardInterestRate;
+import wannabit.io.cosmostaion.network.res.ResKavaHardModuleAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHardMyBorrow;
 import wannabit.io.cosmostaion.network.res.ResKavaHardMyDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
+import wannabit.io.cosmostaion.network.res.ResKavaHardReserves;
 import wannabit.io.cosmostaion.network.res.ResKavaHardTotalBorrow;
 import wannabit.io.cosmostaion.network.res.ResKavaHardTotalDeposit;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
@@ -240,4 +242,10 @@ public interface KavaChain {
 
     @GET("hard/interest-rate")
     Call<ResKavaHardInterestRate> getHardInterestRate();
+
+    @GET("hard/reserves")
+    Call<ResKavaHardReserves> getHardReserves();
+
+    @GET("hard/accounts")
+    Call<ResKavaHardModuleAccount> getHardModuleAccount();
 }

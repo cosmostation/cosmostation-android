@@ -1,11 +1,13 @@
 package wannabit.io.cosmostaion.widget;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 
 import com.squareup.picasso.Picasso;
 
@@ -13,6 +15,9 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
+import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.HarvestDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.kava.HardInterestRate;
@@ -31,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class HardPoolHolder extends BaseHolder {
 
+    CardView            itemRoot;
     private ImageView   hardPoolImg;
     private TextView    hardPoolTitle;
     private TextView    supplyApyTv, borrowApyTv, supplyIncentiveApyTv, borrowIncentiveApyTv;
@@ -39,6 +45,7 @@ public class HardPoolHolder extends BaseHolder {
 
     public HardPoolHolder(@NonNull View itemView) {
         super(itemView);
+        itemRoot = itemView.findViewById(R.id.card_root);
         hardPoolImg = itemView.findViewById(R.id.pool_img);
         hardPoolTitle = itemView.findViewById(R.id.pool_title);
         supplyApyTv = itemView.findViewById(R.id.supply_apy);
@@ -126,5 +133,16 @@ public class HardPoolHolder extends BaseHolder {
             WDp.showCoinDp(context, hardMoneyMarket.denom, "0", borrowDenomTv, borrowAmountTv, chain);
         }
         borrowValueTv.setText(WDp.getDpRawDollor(context, myBorrowValue, 2));
+
+
+
+        itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, HardDetailActivity.class);
+                intent.putExtra("hard_money_market_denom", hardMoneyMarket.denom);
+                context.startActivity(intent);
+            }
+        });
     }
 }

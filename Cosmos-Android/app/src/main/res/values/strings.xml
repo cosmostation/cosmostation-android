@@ -606,7 +606,7 @@
     <string name="str_kava_auction_list">Auction</string>
     <string name="str_kava_auction_details">Auction Status</string>
     <string name="str_kava_harvest_list">Hard Pool</string>
-    <string name="str_kava_harvest_details">Harvest Status</string>
+    <string name="str_kava_harvest_details">Hard Pool Status</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
@@ -1114,14 +1114,17 @@
     <string name="str_hard_for_delegator_title">HARD reward for KAVA delegator</string>
     <string name="str_harvest_markets">Harvest Markets</string>
     <string name="str_deposited_amount">Deposited Amount</string>
-    <string name="str_my_deposited_amount">My Deposited Amount</string>
+    <string name="str_my_deposited_amount">My Supplied Amount</string>
     <string name="str_my_borrowed_amount">My Borrowed Amount</string>
+    <string name="str_my_borrowable_amount">My Borrowable Amount</string>
     <string name="str_lp_reward_title">Harvest LP Reward</string>
     <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block! The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
     <string name="str_total_lp_reward">Total LP Reward</string>
     <string name="str_my_total_lp_reward">My Total LP Reward</string>
     <string name="str_start_deposit">Start Deposit</string>
-    <string name="str_total_deposited_supplies">Total Pool Supply</string>
+    <string name="str_total_deposited_supplies">System Total Supplied</string>
+    <string name="str_total_borrowed_supplies">System Total Borrowed</string>
+    <string name="str_total_remain_supplies">System Remaining Borrowable</string>
     <string name="str_my_harvest_information">My Hard Pool</string>
     <string name="str_deposit_harvest">Harvest Deposit</string>
     <string name="str_withdraw_harvest">Harvest Withdraw</string>
@@ -1154,12 +1157,15 @@
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
     <string name="str_total_deposit_value">Total Deposit Value</string>
-    <string name="str_borrow_limit_value">Borrow Limit Value</string>
     <string name="str_total_borrowed_value">Total Borrowed Value</string>
+    <string name="str_borrow_limit_value">Remaining Borrowable Value</string>
     <string name="str_supply_apy">Supply APY</string>
     <string name="str_borrow_apy">Borrow APY</string>
     <string name="str_supply_incentive_apy">Incentive Supply APY</string>
     <string name="str_borrow_incentive_apy">Incentive Borrow APY</string>
+    <string name="str_add_supply">Supply</string>
+    <string name="str_get_borrow">Borrow</string>
+    <string name="str_get_repay">Repay</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

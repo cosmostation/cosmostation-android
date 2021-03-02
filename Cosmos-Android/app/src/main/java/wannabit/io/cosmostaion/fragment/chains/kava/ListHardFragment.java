@@ -158,17 +158,6 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         }
 
         if (mTaskCount == 0) {
-//            for (CollateralParam cdpParam: mCdpParams.collateral_params) {
-//                boolean has = false;
-//                for (MyCdp cdpMy: mMyCdps) {
-//                    if (cdpMy.cdp.type.equals(cdpParam.type)) {
-//                        has = true;
-//                    }
-//                }
-//                if (!has) {
-//                    mOtherCdps.add(cdpParam);
-//                }
-//            }
             mAdapter.notifyDataSetChanged();
             mProgress.setVisibility(View.GONE);
             mSwipeRefreshLayout.setRefreshing(false);

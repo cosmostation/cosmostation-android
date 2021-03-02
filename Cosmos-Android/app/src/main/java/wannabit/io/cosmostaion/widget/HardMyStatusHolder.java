@@ -17,16 +17,17 @@ import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardMyStatusHolder extends BaseHolder {
-    TextView totalDepositValueTv, totalBorrowValueTv, borrowLimitValueTv;
+    TextView totalDepositValueTv, totalBorrowValueTv, borrowAbleValueTv;
 
     public HardMyStatusHolder(@NonNull View itemView) {
         super(itemView);
         totalDepositValueTv = itemView.findViewById(R.id.total_deposit_value);
         totalBorrowValueTv = itemView.findViewById(R.id.total_borrow_value);
-        borrowLimitValueTv = itemView.findViewById(R.id.borrow_limit_value);
+        borrowAbleValueTv = itemView.findViewById(R.id.borrowable_value);
 
     }
 
@@ -34,14 +35,14 @@ public class HardMyStatusHolder extends BaseHolder {
     public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
         final HardParam hardParam   = baseData.mHardParam;
         BigDecimal totalDepostValue = BigDecimal.ZERO;
-        BigDecimal borrowLimitValue = BigDecimal.ZERO;
+        BigDecimal totalLTVValue = BigDecimal.ZERO;
 
         if (myDeposit != null && myDeposit.size() > 0) {
             for (Coin coin: myDeposit.get(0).amount) {
                 int decimal             = WUtil.getKavaCoinDecimal(coin.denom);
                 BigDecimal LTV          = hardParam.getLTV(coin.denom);
                 BigDecimal depositValue = BigDecimal.ZERO;
-                BigDecimal borrowValue  = BigDecimal.ZERO;
+                BigDecimal ltvValue     = BigDecimal.ZERO;
                 if (coin.denom.equals("usdx") || coin.denom.equals("busd")) {
                     depositValue = (new BigDecimal(coin.amount)).movePointLeft(decimal);
 
@@ -52,18 +53,17 @@ public class HardMyStatusHolder extends BaseHolder {
                     }
 
                 }
-                borrowValue = depositValue.multiply(LTV);
-                borrowLimitValue = borrowLimitValue.add(borrowValue);
+                ltvValue = depositValue.multiply(LTV);
+                totalLTVValue = totalLTVValue.add(ltvValue);
                 totalDepostValue = totalDepostValue.add(depositValue);
 
             }
         }
 //        WLog.w("totalDepostValue" + totalDepostValue);
         totalDepositValueTv.setText(WDp.getDpRawDollor(context, totalDepostValue, 2));
-        borrowLimitValueTv.setText(WDp.getDpRawDollor(context, borrowLimitValue, 2));
 
 
-        BigDecimal totalBorrowValue = BigDecimal.ZERO;
+        BigDecimal totalBorrowedValue = BigDecimal.ZERO;
         if (myBorrow != null && myBorrow.size() > 0) {
             for (Coin coin: myBorrow.get(0).amount) {
                 int decimal =  WUtil.getKavaCoinDecimal(coin.denom);
@@ -78,10 +78,16 @@ public class HardMyStatusHolder extends BaseHolder {
                     }
 
                 }
-                totalBorrowValue = totalBorrowValue.add(value);
+                totalBorrowedValue = totalBorrowedValue.add(value);
             }
         }
-//        WLog.w("totalBorrowValue" + totalBorrowValue);
-        totalBorrowValueTv.setText(WDp.getDpRawDollor(context, totalBorrowValue, 2));
+        WLog.w("totalLTVValue " + totalLTVValue);
+//        WLog.w("totalBorrowedValue" + totalBorrowedValue);
+        totalBorrowValueTv.setText(WDp.getDpRawDollor(context, totalBorrowedValue, 2));
+
+        final BigDecimal totalBorrowAbleValue = (totalLTVValue.subtract(totalBorrowedValue)).max(BigDecimal.ZERO);
+        borrowAbleValueTv.setText(WDp.getDpRawDollor(context, totalBorrowAbleValue, 2));
+//        WLog.w("totalLTVValue" + totalLTVValue);
+//        WLog.w("totalBorrowAbleValue" + totalBorrowAbleValue);
     }
 }

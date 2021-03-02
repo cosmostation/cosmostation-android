@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
+import wannabit.io.cosmostaion.model.type.Coin;
 
 public class BaseHolder extends RecyclerView.ViewHolder {
 
@@ -61,5 +62,18 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     }
 
     public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
+    }
+
+    public void onBindHardDetailInfo(Context context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates,
+                                     ArrayList<Coin> totalDeposit, ArrayList<Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
+    }
+
+    public void onBindHardDetailMyStatus(Context context, BaseData baseData, BaseChain chain, String denom, ArrayList<HardMyDeposit> myDeposit,
+                                         ArrayList<HardMyBorrow> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
+
+    }
+
+    public void onBindHardDetailAvailable(Context context, BaseData baseData, BaseChain chain, String denom) {
+
     }
 }
