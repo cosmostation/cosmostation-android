@@ -224,7 +224,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
                 viewHolder.onBindHardIncentive(getContext(), ListHardFragment.this, mIncentiveRewards);
 
             } else if (getItemViewType(position) == TYPE_MY_HARD_STATUS) {
-                viewHolder.onBindMyHardStatus(getContext(), getBaseDao(), mHardParam, mMyDeposit, mMyBorrow);
+                viewHolder.onBindMyHardStatus(getContext(), getBaseDao(), mMyDeposit, mMyBorrow);
 
             } else if (getItemViewType(position) == TYPE_HARD_POOL) {
                 HardParam.HardMoneyMarket hardMoneyMarket;

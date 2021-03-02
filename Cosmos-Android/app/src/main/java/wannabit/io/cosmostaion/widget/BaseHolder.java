@@ -48,7 +48,7 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindOtherCdp(Context context, CollateralParam otherCdp) {
     }
 
-    public void onBindMyHardStatus(Context context, BaseData baseData, HardParam hardParam, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+    public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
     }
 
     public void onBindMyHardPool(Context context, BaseChain chain, BaseData baseData, HardParam hardParam, HardParam.HardMoneyMarket hardMoneyMarket, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {

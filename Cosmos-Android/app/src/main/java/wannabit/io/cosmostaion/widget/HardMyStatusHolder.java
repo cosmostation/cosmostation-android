@@ -20,37 +20,47 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardMyStatusHolder extends BaseHolder {
-    TextView totalDepositValueTv, totalBorrowValueTv;
+    TextView totalDepositValueTv, totalBorrowValueTv, borrowLimitValueTv;
 
     public HardMyStatusHolder(@NonNull View itemView) {
         super(itemView);
         totalDepositValueTv = itemView.findViewById(R.id.total_deposit_value);
         totalBorrowValueTv = itemView.findViewById(R.id.total_borrow_value);
+        borrowLimitValueTv = itemView.findViewById(R.id.borrow_limit_value);
 
     }
 
     @Override
-    public void onBindMyHardStatus(Context context, BaseData baseData, HardParam hardParam, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+    public void onBindMyHardStatus(Context context, BaseData baseData, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
+        final HardParam hardParam   = baseData.mHardParam;
         BigDecimal totalDepostValue = BigDecimal.ZERO;
+        BigDecimal borrowLimitValue = BigDecimal.ZERO;
+
         if (myDeposit != null && myDeposit.size() > 0) {
             for (Coin coin: myDeposit.get(0).amount) {
-                int decimal =  WUtil.getKavaCoinDecimal(coin.denom);
-                BigDecimal value = BigDecimal.ZERO;
+                int decimal             = WUtil.getKavaCoinDecimal(coin.denom);
+                BigDecimal LTV          = hardParam.getLTV(coin.denom);
+                BigDecimal depositValue = BigDecimal.ZERO;
+                BigDecimal borrowValue  = BigDecimal.ZERO;
                 if (coin.denom.equals("usdx") || coin.denom.equals("busd")) {
-                    value = (new BigDecimal(coin.amount)).movePointLeft(decimal);
+                    depositValue = (new BigDecimal(coin.amount)).movePointLeft(decimal);
 
                 } else {
                     MarketPrice price = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(coin.denom));
                     if (price != null) {
-                        value = (new BigDecimal(coin.amount)).movePointLeft(decimal).multiply(new BigDecimal(price.price));
+                        depositValue = (new BigDecimal(coin.amount)).movePointLeft(decimal).multiply(new BigDecimal(price.price));
                     }
 
                 }
-                totalDepostValue = totalDepostValue.add(value);
+                borrowValue = depositValue.multiply(LTV);
+                borrowLimitValue = borrowLimitValue.add(borrowValue);
+                totalDepostValue = totalDepostValue.add(depositValue);
+
             }
         }
 //        WLog.w("totalDepostValue" + totalDepostValue);
         totalDepositValueTv.setText(WDp.getDpRawDollor(context, totalDepostValue, 2));
+        borrowLimitValueTv.setText(WDp.getDpRawDollor(context, borrowLimitValue, 2));
 
 
         BigDecimal totalBorrowValue = BigDecimal.ZERO;

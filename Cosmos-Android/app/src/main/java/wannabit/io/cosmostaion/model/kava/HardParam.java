@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.model.kava;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class HardParam {
@@ -18,6 +19,16 @@ public class HardParam {
             }
         }
         return null;
+    }
+
+    public BigDecimal getLTV(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (HardMoneyMarket market: money_markets){
+            if (market.denom.equals(denom)) {
+                result = new BigDecimal(market.borrow_limit.loan_to_value);
+            }
+        }
+        return result;
     }
 
 
