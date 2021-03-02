@@ -18,7 +18,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
-import wannabit.io.cosmostaion.task.FetchTask.KavaIncentiveRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -38,7 +37,6 @@ import wannabit.io.cosmostaion.widget.CdpMyHolder;
 import wannabit.io.cosmostaion.widget.CdpOtherHolder;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_INCENTIVE_REWARD;
 
 public class ListCdpFragment extends BaseFragment implements TaskListener {
     private SwipeRefreshLayout  mSwipeRefreshLayout;
@@ -151,7 +149,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
             return;
         }
 
-        Intent intent = new Intent(getContext(), ClaimIncentiveActivity.class);
+        Intent intent = new Intent(getContext(), ClaimMintIncentiveActivity.class);
         startActivity(intent);
     }
 

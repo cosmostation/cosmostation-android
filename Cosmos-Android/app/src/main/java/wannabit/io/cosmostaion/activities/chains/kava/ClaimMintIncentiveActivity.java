@@ -35,7 +35,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
-public class ClaimIncentiveActivity extends BaseActivity {
+public class ClaimMintIncentiveActivity extends BaseActivity {
 
     private RelativeLayout              mRootView;
     private ImageView                   mChainBg;
@@ -189,7 +189,7 @@ public class ClaimIncentiveActivity extends BaseActivity {
     }
 
     public void onStartIncentiveClaim() {
-        Intent intent = new Intent(ClaimIncentiveActivity.this, PasswordCheckActivity.class);
+        Intent intent = new Intent(ClaimMintIncentiveActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE);
         if (mBaseChain.equals(KAVA_MAIN)) {
             intent.putExtra("collateralType", mCollateralParamType);

@@ -100,7 +100,6 @@ public class HardPoolHolder extends BaseHolder {
             }
 
         } else {
-            WLog.w("hardMoneyMarket.denom D " + hardMoneyMarket.denom);
             WDp.showCoinDp(context, hardMoneyMarket.denom, "0", depositDenomTv, depositAmountTv, chain);
         }
         depositValueTv.setText(WDp.getDpRawDollor(context, myDepositValue, 2));
@@ -124,7 +123,6 @@ public class HardPoolHolder extends BaseHolder {
             }
 
         } else {
-            WLog.w("hardMoneyMarket.denom B " + hardMoneyMarket.denom);
             WDp.showCoinDp(context, hardMoneyMarket.denom, "0", borrowDenomTv, borrowAmountTv, chain);
         }
         borrowValueTv.setText(WDp.getDpRawDollor(context, myBorrowValue, 2));

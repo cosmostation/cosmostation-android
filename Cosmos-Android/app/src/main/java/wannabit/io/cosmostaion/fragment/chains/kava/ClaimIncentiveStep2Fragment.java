@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -229,7 +229,7 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
         }
     }
 
-    private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+    private ClaimMintIncentiveActivity getSActivity() {
+        return (ClaimMintIncentiveActivity)getBaseActivity();
     }
 }

@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
@@ -529,7 +528,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
             return;
 
         }
-        Intent intent = new Intent(CdpDetailActivity.this, DrawDebtActivity.class);
+        Intent intent = new Intent(CdpDetailActivity.this, DrawDebtCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);
@@ -577,7 +576,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
             return;
         }
 
-        Intent intent = new Intent(this, ClaimIncentiveActivity.class);
+        Intent intent = new Intent(this, ClaimMintIncentiveActivity.class);
         intent.putExtra("collateral_type", mCollateralParam.type);
         startActivity(intent);
 

@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
@@ -419,8 +420,8 @@ public class RepayCdpStep0Fragment extends BaseFragment implements View.OnClickL
         return getSActivity().mCollateralParam;
     }
 
-    private ResCdpOwnerStatus.MyCDP getOwenCdp() {
-        return getSActivity().mMyOwenCdp;
+    private MyCdp getOwenCdp() {
+        return getSActivity().mMyCdp;
     }
 
     private MarketPrice getPrice() {

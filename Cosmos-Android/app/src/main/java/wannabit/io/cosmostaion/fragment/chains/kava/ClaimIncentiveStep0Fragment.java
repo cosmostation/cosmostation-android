@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -140,7 +140,7 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
         BtnOption3.setBackground(getResources().getDrawable(R.drawable.box_round_unselected));
     }
 
-    private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+    private ClaimMintIncentiveActivity getSActivity() {
+        return (ClaimMintIncentiveActivity)getBaseActivity();
     }
 }

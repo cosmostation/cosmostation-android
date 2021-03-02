@@ -12,11 +12,10 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -79,7 +78,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
 
     }
 
-    private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+    private ClaimMintIncentiveActivity getSActivity() {
+        return (ClaimMintIncentiveActivity)getBaseActivity();
     }
 }

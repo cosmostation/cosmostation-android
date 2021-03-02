@@ -52,19 +52,18 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private CreateCdpPageAdapter        mPageAdapter;
 
-    private String                          mCollateralParamType;
-    private String                          mMaketId;
+    private String                      mCollateralParamType;
+    private String                      mMaketId;
+    public CdpParam                     mCdpParam;
+    public MarketPrice                  mKavaTokenPrice;
+    public CollateralParam              mCollateralParam;
 
-    public CdpParam mCdpParam;
-    public MarketPrice mKavaTokenPrice;
-    public CollateralParam mCollateralParam;
-
-    public BigDecimal                       toCollateralAmount = BigDecimal.ZERO;
-    public BigDecimal                       toPrincipalAmount = BigDecimal.ZERO;
-    public BigDecimal                       mLiquidationPrice = BigDecimal.ZERO;
-    public BigDecimal                       mRiskRate = BigDecimal.ZERO;
-    public String                           mMemo;
-    public Fee                              mFee;
+    public BigDecimal                   toCollateralAmount = BigDecimal.ZERO;
+    public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
+    public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
+    public BigDecimal                   mRiskRate = BigDecimal.ZERO;
+    public String                       mMemo;
+    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
