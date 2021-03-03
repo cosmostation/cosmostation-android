@@ -155,11 +155,13 @@ public class HardDetailActivity extends BaseActivity {
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT) {
             if (result.isSuccess && result.resultData != null) {
                 mModuleCoins = (ArrayList<Coin>)result.resultData;
+                getBaseDao().mModuleCoins = mModuleCoins;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_RESERVES) {
             if (result.isSuccess && result.resultData != null) {
                 mReserveCoins = (ArrayList<Coin>)result.resultData;
+                getBaseDao().mReserveCoins = mReserveCoins;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST) {

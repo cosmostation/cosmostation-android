@@ -141,6 +141,8 @@ public class BaseData {
     public IncentiveReward                                                  mIncentiveRewards;
     public ArrayList<HardMyDeposit>                                         mMyHardDeposit = new ArrayList<>();
     public ArrayList<HardMyBorrow>                                          mMyHardBorrow = new ArrayList<>();
+    public ArrayList<Coin>                                                  mModuleCoins = new ArrayList<>();
+    public ArrayList<Coin>                                                  mReserveCoins = new ArrayList<>();
 
 
     //COMMON DATA FOR BINANCE

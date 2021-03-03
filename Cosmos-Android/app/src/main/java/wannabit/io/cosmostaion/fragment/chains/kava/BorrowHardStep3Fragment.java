@@ -14,23 +14,24 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.BorrowHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener {
-    public final static int SELECT_HARD_WITHDRAW_CHECK = 9107;
+public class BorrowHardStep3Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_HARD_BORROW_CHECK = 9108;
 
-    private Button mBeforeBtn, mConfirmBtn;
-    private TextView mWithdrawAmount, mWithdrawDenom;
-    private TextView mFeesAmount, mFeesDenom;
-    private TextView mMemo;
+    private Button      mBeforeBtn, mConfirmBtn;
+    private TextView    mBorrowAmount, mBorrowDenom;
+    private TextView    mFeesAmount, mFeesDenom;
+    private TextView    mMemo;
 
-    public static WithdrawHardStep3Fragment newInstance(Bundle bundle) {
-        WithdrawHardStep3Fragment fragment = new WithdrawHardStep3Fragment();
+    public static BorrowHardStep3Fragment newInstance(Bundle bundle) {
+        BorrowHardStep3Fragment fragment = new BorrowHardStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -42,9 +43,9 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_withdraw_hard_step3, container, false);
-        mWithdrawAmount = rootView.findViewById(R.id.withdraw_amount);
-        mWithdrawDenom = rootView.findViewById(R.id.withdraw_amount_denom);
+        View rootView = inflater.inflate(R.layout.fragment_borrow_hard_step3, container, false);
+        mBorrowAmount = rootView.findViewById(R.id.borrow_amount);
+        mBorrowDenom = rootView.findViewById(R.id.borrow_amount_denom);
         mFeesAmount = rootView.findViewById(R.id.fees_amount);
         mFeesDenom = rootView.findViewById(R.id.fees_denom);
         mMemo = rootView.findViewById(R.id.memo);
@@ -58,7 +59,7 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        WDp.showCoinDp(getContext(), getSActivity().mHardPoolCoins.get(0), mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getSActivity().mHardPoolCoins.get(0), mBorrowDenom, mBorrowAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
         mMemo.setText(getSActivity().mMemo);
 
@@ -71,7 +72,7 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
 
         } else if (v.equals(mConfirmBtn)) {
             Dialog_Hard_Liquidation_Warning dialog = Dialog_Hard_Liquidation_Warning.newInstance(null);
-            dialog.setTargetFragment(WithdrawHardStep3Fragment.this, SELECT_HARD_WITHDRAW_CHECK);
+            dialog.setTargetFragment(BorrowHardStep3Fragment.this, SELECT_HARD_BORROW_CHECK);
             getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
         }
@@ -79,12 +80,12 @@ public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnCl
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == SELECT_HARD_WITHDRAW_CHECK && resultCode == Activity.RESULT_OK) {
-            getSActivity().onStartWithdrawHarvest();
+        if (requestCode == SELECT_HARD_BORROW_CHECK && resultCode == Activity.RESULT_OK) {
+            getSActivity().onStartBorrowHard();
         }
     }
 
-    private WithdrawHardActivity getSActivity() {
-        return (WithdrawHardActivity)getBaseActivity();
+    private BorrowHardActivity getSActivity() {
+        return (BorrowHardActivity)getBaseActivity();
     }
 }

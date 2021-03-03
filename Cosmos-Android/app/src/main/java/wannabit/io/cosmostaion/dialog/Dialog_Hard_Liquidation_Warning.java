@@ -15,10 +15,10 @@ import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
 
-public class Dialog_Hard_Withdarw_Warning extends DialogFragment {
+public class Dialog_Hard_Liquidation_Warning extends DialogFragment {
 
-    public static Dialog_Hard_Withdarw_Warning newInstance(Bundle bundle) {
-        Dialog_Hard_Withdarw_Warning frag = new Dialog_Hard_Withdarw_Warning();
+    public static Dialog_Hard_Liquidation_Warning newInstance(Bundle bundle) {
+        Dialog_Hard_Liquidation_Warning frag = new Dialog_Hard_Liquidation_Warning();
         frag.setArguments(bundle);
         return frag;
     }
@@ -31,7 +31,7 @@ public class Dialog_Hard_Withdarw_Warning extends DialogFragment {
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hard_withdraw_warning, null);
+        View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_hard_liquidation_warning, null);
         Button btn_negative = view.findViewById(R.id.btn_nega);
         Button btn_positive = view.findViewById(R.id.btn_posi);
 

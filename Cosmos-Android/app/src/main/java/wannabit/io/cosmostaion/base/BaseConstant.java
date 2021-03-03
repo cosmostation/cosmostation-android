@@ -161,8 +161,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
     public final static int TASK_FETCH_KAVA_HARVEST_ACCOUNT             = 2106;
-    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD = 2107;
-    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD = 2108;
+    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD               = 2107;
+    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD              = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
     public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
@@ -177,6 +177,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_HARD_INTEREST_RATE          = 2121;
     public final static int TASK_FETCH_KAVA_HARD_RESERVES               = 2122;
     public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT         = 2123;
+    public final static int TASK_GEN_TX_KAVA_BORROW_HARD                = 2124;
+    public final static int TASK_GEN_TX_KAVA_REPAY_HARD                 = 2125;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -383,9 +385,11 @@ public class BaseConstant {
     public final static int CONST_PW_TX_RENEW_DOMAIN                        = 5028;
     public final static int CONST_PW_TX_RENEW_ACCOUNT                       = 5029;
     public final static int CONST_PW_TX_REPLACE_STARNAME                    = 5030;
-    public final static int CONST_PW_TX_DEPOSIT_HARD = 5031;
-    public final static int CONST_PW_TX_WITHDRAW_HARVEST                    = 5032;
+    public final static int CONST_PW_TX_DEPOSIT_HARD                        = 5031;
+    public final static int CONST_PW_TX_WITHDRAW_HARD                       = 5032;
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
+    public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
+    public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
 
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;

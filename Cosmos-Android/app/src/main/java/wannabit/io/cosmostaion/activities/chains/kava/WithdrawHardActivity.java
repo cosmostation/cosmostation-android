@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHardStep1Fragment;
@@ -30,7 +29,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARD;
 
 public class WithdrawHardActivity extends BaseActivity {
 
@@ -150,7 +149,7 @@ public class WithdrawHardActivity extends BaseActivity {
 
     public void onStartWithdrawHarvest() {
         Intent intent = new Intent(WithdrawHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_WITHDRAW_HARVEST);
+        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_WITHDRAW_HARD);
         intent.putExtra("depositor", mAccount.address);
         intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mFee);
