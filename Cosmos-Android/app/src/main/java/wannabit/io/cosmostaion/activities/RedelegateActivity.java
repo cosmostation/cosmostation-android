@@ -262,7 +262,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
                         mToValidators_V1.add(val);
                     }
                 }
-                WUtil.onSortByValidatorPowerV1(mGRpcTopValidators);
+                WUtil.onSortByValidatorPowerV2(mToValidators_V1);
 
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
