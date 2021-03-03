@@ -427,9 +427,11 @@ public class BaseConstant {
     public final static int TX_TYPE_STARNAME_REPLACE_RESOURCE   = 3032;
     public final static int TX_TYPE_STARNAME_RENEW_DOMAIN       = 3033;
     public final static int TX_TYPE_STARNAME_RENEW_ACCOUNT      = 3034;
-    public final static int TX_TYPE_KAVA_DEPOSIT_HARVEST        = 3035;
-    public final static int TX_TYPE_KAVA_WITHDRAW_HARVEST       = 3036;
+    public final static int TX_TYPE_KAVA_DEPOSIT_HARD           = 3035;
+    public final static int TX_TYPE_KAVA_WITHDRAW_HARD          = 3036;
     public final static int TX_TYPE_KAVA_CLAIM_HARVEST          = 3037;
+    public final static int TX_TYPE_KAVA_BORROW_HARD            = 3038;
+    public final static int TX_TYPE_KAVA_REPAY_HARD             = 3039;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
@@ -637,7 +639,7 @@ public class BaseConstant {
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
-    public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
+    public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_CERTIK          = "https://explorer.certik.foundation/";
 

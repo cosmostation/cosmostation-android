@@ -28,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="@string/str_borrow_amount"
+                    android:text="@string/str_payment_amount"
                     style="@style/font_ss_12_gray1"/>
                 <LinearLayout
                     android:layout_width="wrap_content"

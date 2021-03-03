@@ -139,9 +139,9 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
 
         } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-            mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
+            mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mDenom);
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-            if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
+            if (getSActivity().mDenom.equals(TOKEN_KAVA)) {
                 mSendAmount.setText(WDp.getDpAmount(getContext(), toSendAmount, 6, getSActivity().mBaseChain));
                 mTotalSpendAmount.setText(WDp.getDpAmount(getContext(), feeAmount.add(toSendAmount), 6, getSActivity().mBaseChain));
                 mTotalPrice.setText(WDp.getValueOfKava(getContext(), getBaseDao(), feeAmount.add(toSendAmount)));
@@ -159,10 +159,10 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mTotalPrice.setVisibility(View.GONE);
                 mRemainingPrice.setVisibility(View.GONE);
 
-                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mKavaDenom);
-                WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
-                WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
-                WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
+                BigDecimal currentAvai  = getSActivity().mAccount.getTokenBalance(getSActivity().mDenom);
+                WDp.showCoinDp(getContext(), getSActivity().mDenom, toSendAmount.toPlainString(), mDenomSendAmount, mSendAmount, getSActivity().mBaseChain);
+                WDp.showCoinDp(getContext(), getSActivity().mDenom, currentAvai.toPlainString(), mDenomCurrentAmount, mCurrentBalance, getSActivity().mBaseChain);
+                WDp.showCoinDp(getContext(), getSActivity().mDenom, currentAvai.subtract(toSendAmount).toPlainString(), mDenomRemainAmount, mRemainingBalance, getSActivity().mBaseChain);
             }
 
         } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {

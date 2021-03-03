@@ -82,15 +82,8 @@ public class SimpleClaimIncentiveTask extends CommonTask {
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
             ArrayList<Msg> msgs= new ArrayList<>();
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
-                Msg incentiveMsg = MsgGenerator.genIncentiveReward(mAccount.address, mCollateralType, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
-                msgs.add(incentiveMsg);
-
-            } else {
-                Msg incentiveMsg = MsgGenerator.genClaimUSDXMintingReward(mAccount.address, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
-                msgs.add(incentiveMsg);
-
-            }
+            Msg incentiveMsg = MsgGenerator.genClaimUSDXMintingReward(mAccount.address, mMultiplierName, BaseChain.getChain(mAccount.baseChain));
+            msgs.add(incentiveMsg);
 
 
 

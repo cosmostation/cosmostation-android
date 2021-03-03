@@ -830,6 +830,7 @@
     <string name="str_harvest_reward_step_1">Insert memo (optional)</string>
     <string name="str_harvest_reward_step_2">Select transaction fee</string>
     <string name="str_harvest_reward_step_3">Check transaction detail</string>
+    <string name="str_borrower">Borrower</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -1106,6 +1107,7 @@
     <string name="str_deposit_amount2">Deposit Amount</string>
     <string name="str_withdraw_amount2">Withdraw Amount</string>
     <string name="str_borrow_amount">Borrow Amount</string>
+    <string name="str_repay_amount">Repay Amount</string>
     <string name="str_coin_type">Coin Type</string>
     <string name="str_multiplier_name">Multiplier Name</string>
     <string name="str_total_incentive">Total Incentive</string>
@@ -1324,7 +1326,7 @@
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
     <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>
     <string name="tx_kava_withdraw_cdp">CDP\nWithdraw</string>
-    <string name="tx_kava_drawdebt_cdp">CDP\nDraw Debt</string>
+    <string name="tx_kava_drawdebt_cdp">CDP\nBorrow</string>
     <string name="tx_kava_repaydebt_cdp">CDP\nRepay</string>
     <string name="tx_send_htlc">Interchain\nSend</string>
     <string name="tx_receive_htlc">Interchain\nReceive</string>
@@ -1334,15 +1336,17 @@
     <string name="tx_kava_bep3_create">Interchain\nSend</string>
     <string name="tx_kava_bep3_claim">Interchain\nClaim</string>
     <string name="tx_kava_bep3_refund">Interchain\nRefund</string>
-    <string name="tx_kava_incentive_reward">Crypto Payday\nIncentive</string>
-    <string name="tx_kava_harvest_deposit">Harvest\nDeposit</string>
-    <string name="tx_kava_harvest_withdraw">Harvest\nWithdraw</string>
-    <string name="tx_kava_harvest_claim">Harvest\nGet Reward</string>
+    <string name="tx_kava_incentive_reward">USDX Minting\nIncentive</string>
+    <string name="tx_kava_hard_deposit">Hard Pool\nDeposit</string>
+    <string name="tx_kava_hard_withdraw">Hard Pool\nWithdraw</string>
+    <string name="tx_kava_hard_borrow">Hard Pool\nBorrow</string>
+    <string name="tx_kava_hard_repay">Hard Pool\nRepay</string>
+    <string name="tx_kava_harvest_claim">Hard Pool\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
     <string name="tx_kava_withdraw_cdp2">CDP Withdraw</string>
-    <string name="tx_kava_drawdebt_cdp2">CDP Draw Debt</string>
+    <string name="tx_kava_drawdebt_cdp2">CDP Borrow</string>
     <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
     <string name="tx_send_htlc2">Interchain Send</string>
     <string name="tx_receive_htlc2">Interchain Receive</string>
@@ -1353,8 +1357,10 @@
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
     <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
-    <string name="tx_kava_harvest_deposit2">Deposit Harvest</string>
-    <string name="tx_kava_harvest_withdraw2">Withdraw Harvest</string>
+    <string name="tx_kava_hard_deposit2">Hard Pool nDeposit</string>
+    <string name="tx_kava_hard_withdraw2">Hard Pool Withdraw</string>
+    <string name="tx_kava_hard_borrow2">Hard Pool Borrow</string>
+    <string name="tx_kava_hard_repay2">Hard Pool Repay</string>
     <string name="tx_kava_harvest_claim2">Hard Pool Incentive</string>
 
 

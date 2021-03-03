@@ -1530,17 +1530,23 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
             result = BaseConstant.TX_TYPE_KAVA_BEP3_REFUND;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
             result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST)) {
-            result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARVEST;
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST)) {
-            result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARVEST;
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST)) {
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
             result = BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_BORROW_HARD;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAY_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_REPAY_HARD;
 
         } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN)) {
             result = BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN;
@@ -1682,17 +1688,24 @@ public class WDp {
                 result = c.getString(R.string.tx_kava_incentive_reward);
                 break;
 
-            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARVEST:
-                result = c.getString(R.string.tx_kava_harvest_deposit);
+            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD:
+                result = c.getString(R.string.tx_kava_hard_deposit);
                 break;
 
-
-            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARVEST:
-                result = c.getString(R.string.tx_kava_harvest_withdraw);
+            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD:
+                result = c.getString(R.string.tx_kava_hard_withdraw);
                 break;
 
             case BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST:
                 result = c.getString(R.string.tx_kava_harvest_claim);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BORROW_HARD:
+                result = c.getString(R.string.tx_kava_hard_borrow);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_REPAY_HARD:
+                result = c.getString(R.string.tx_kava_hard_repay);
                 break;
 
             case BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN:

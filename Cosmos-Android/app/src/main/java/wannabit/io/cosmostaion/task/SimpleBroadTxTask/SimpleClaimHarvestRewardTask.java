@@ -85,14 +85,8 @@ public class SimpleClaimHarvestRewardTask extends CommonTask {
 
 
             ArrayList<Msg> msgs = new ArrayList<>();
-            if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
-                Msg claimHarvestMsg = MsgGenerator.genClaimHarvestMsg(mAccount.address, mAccount.address, mDepositDenom, mMultiplierName, mDepositType, BaseChain.getChain(mAccount.baseChain));
-                msgs.add(claimHarvestMsg);
-
-            } else {
-                Msg claimHardIncentiveMsg = MsgGenerator.genClaimHardLiquidityProviderMsg(mAccount.address, mMultiplierName);
-                msgs.add(claimHardIncentiveMsg);
-            }
+            Msg claimHardIncentiveMsg = MsgGenerator.genClaimHardLiquidityProviderMsg(mAccount.address, mMultiplierName);
+            msgs.add(claimHardIncentiveMsg);
 
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);

@@ -167,7 +167,7 @@
             android:clickable="true">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/space_45"
                 android:layout_centerInParent="true"
                 android:drawableLeft="@drawable/bepsend_ic_s"
                 android:drawablePadding="@dimen/space_8"
@@ -187,7 +187,7 @@
             android:clickable="true">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/space_45"
                 android:layout_centerInParent="true"
                 android:drawableLeft="@drawable/send_ic"
                 android:drawablePadding="@dimen/space_8"

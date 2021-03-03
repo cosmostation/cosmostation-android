@@ -695,7 +695,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             compareAmount = mToSend.add(mFeeAmount);
 
         } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-            if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
+            if (getSActivity().mDenom.equals(TOKEN_KAVA)) {
                 compareAmount = mToSend.add(mFeeAmount);
             } else {
                 compareAmount = mFeeAmount;

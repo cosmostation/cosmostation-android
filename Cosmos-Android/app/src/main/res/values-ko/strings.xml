@@ -658,6 +658,7 @@
     <string name="str_harvest_reward_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_harvest_reward_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_harvest_reward_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_borrower">대출자</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -931,6 +932,7 @@
     <string name="str_deposit_amount2">예치 금액</string>
     <string name="str_withdraw_amount2">출금 금액</string>
     <string name="str_borrow_amount">대출 금액</string>
+    <string name="str_repay_amount">상환 금액</string>
     <string name="str_coin_type">코인 타입</string>
     <string name="str_multiplier_name">수신 방식</string>
     <string name="str_total_incentive">인센티브 총합</string>
@@ -1146,8 +1148,10 @@
     <string name="tx_kava_bep3_claim">인터체인\n청구하기</string>
     <string name="tx_kava_bep3_refund">인터체인\n환불하기</string>
     <string name="tx_kava_incentive_reward">Crypto Payday\n인센티브</string>
-    <string name="tx_kava_harvest_deposit">하베스트\n예치</string>
-    <string name="tx_kava_harvest_withdraw">하베스트\n출금</string>
+    <string name="tx_kava_hard_deposit">하드 예치</string>
+    <string name="tx_kava_hard_withdraw">하드 출금</string>
+    <string name="tx_kava_hard_borrow">하드 대출</string>
+    <string name="tx_kava_hard_repay">하드 상환</string>
     <string name="tx_kava_harvest_claim">하베스트\n이자 청구</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
@@ -1164,8 +1168,10 @@
     <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
     <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
     <string name="tx_kava_incentive_reward2">USDX 발행 인센티브</string>
-    <string name="tx_kava_harvest_deposit2">하베스트 예치</string>
-    <string name="tx_kava_harvest_withdraw2">하베스트 출금</string>
+    <string name="tx_kava_hard_deposit2">하드 예치</string>
+    <string name="tx_kava_hard_withdraw2">하드 출금</string>
+    <string name="tx_kava_hard_borrow2">하드 대출</string>
+    <string name="tx_kava_hard_repay2">하드 상환</string>
     <string name="tx_kava_harvest_claim2">하드 인센티브</string>
 
 

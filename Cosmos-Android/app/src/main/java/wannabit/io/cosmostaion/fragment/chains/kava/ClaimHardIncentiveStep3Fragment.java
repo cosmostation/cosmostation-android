@@ -63,14 +63,8 @@ public class ClaimHardIncentiveStep3Fragment extends BaseFragment implements Vie
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
-            WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mReceivableAmount.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
-
-        } else {
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mKReceivableAmount.toPlainString(), mKReceivableAmountDenom, mKReceivableAmount, getSActivity().mBaseChain);
-            WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mHReceivableAmount.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
-
-        }
+        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mKReceivableAmount.toPlainString(), mKReceivableAmountDenom, mKReceivableAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mHReceivableAmount.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
         mFee.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");

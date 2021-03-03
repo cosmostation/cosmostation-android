@@ -108,7 +108,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
     private void onFetchProposals() {
         if (mAccount == null) return;
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) ||
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST) || mBaseChain.equals(BaseChain.BAND_MAIN) ||
                 mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.AKASH_MAIN) ||
                 mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
             mVoteAdapter = new VoteAdapter();
@@ -215,7 +215,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 });
 
 
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
                 final Proposal proposal = mProposals.get(position);
                 voteHolder.proposal_id.setText("# " + proposal.id);
                 voteHolder.proposal_status.setText(proposal.proposal_status);
@@ -235,7 +235,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (Integer.parseInt(proposal.id) >= 3) {
+                        if (Integer.parseInt(proposal.id) >= 38) {
                             Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
                             voteIntent.putExtra("proposalId", proposal.id);
                             startActivity(voteIntent);

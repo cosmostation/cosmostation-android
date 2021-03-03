@@ -19,6 +19,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -137,6 +138,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         } else if (v.equals(mBtnSend)) {
             WLog.w("mBtnSend");
+            Intent intent = new Intent(StakingTokenDetailActivity.this, SendActivity.class);
+            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            startActivity(intent);
 
         }
 

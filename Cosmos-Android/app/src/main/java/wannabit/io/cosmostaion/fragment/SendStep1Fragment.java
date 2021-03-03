@@ -134,10 +134,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             }
 
         } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-            mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mKavaDenom);
+            mDpDecimal = WUtil.getKavaCoinDecimal(getSActivity().mDenom);
             setDpDecimals(mDpDecimal);
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mKavaDenom);
-            WDp.showCoinDp(getContext(), getSActivity().mKavaDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mDenom);
+            WDp.showCoinDp(getContext(), getSActivity().mDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
 
         } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mDpDecimal = 6;
@@ -470,11 +470,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
-                if (getSActivity().mKavaDenom.equals(TOKEN_KAVA)) {
+                if (getSActivity().mDenom.equals(TOKEN_KAVA)) {
                     Coin kava = new Coin(TOKEN_KAVA, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
                     mToSendCoins.add(kava);
                 } else {
-                    Coin kavaToken = new Coin(getSActivity().mKavaDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
+                    Coin kavaToken = new Coin(getSActivity().mDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
                     mToSendCoins.add(kavaToken);
                 }
                 return true;

@@ -85,34 +85,20 @@ public class ClaimHardIncentiveStep0Fragment extends BaseFragment implements Vie
             OptionTitle3.setText(getSActivity().mClaimMultipliers.get(2).name.toUpperCase());
         }
 
-        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
-            WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mAllRewardAmount.toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
-
-        } else {
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getHardPoolKavaRewardAmount().toPlainString(), mKRewardAmountDenom, mKRewardAmount, getSActivity().mBaseChain);
-            WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mIncentiveReward5.getHardPoolHardRewardAmount().toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
-
-        }
+        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getHardPoolKavaRewardAmount().toPlainString(), mKRewardAmountDenom, mKRewardAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mIncentiveReward5.getHardPoolHardRewardAmount().toPlainString(), mHRewardAmountDenom, mHRewardAmount, getSActivity().mBaseChain);
 
         return rootView;
     }
 
     private void onUpdateView() {
-        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal receivable = getSActivity().mAllRewardAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-            WDp.showCoinDp(getContext(), TOKEN_HARD, receivable.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
-            getSActivity().mReceivableAmount = receivable;
+        BigDecimal kreceivable = getSActivity().mIncentiveReward5.getHardPoolKavaRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+        WDp.showCoinDp(getContext(), TOKEN_KAVA, kreceivable.toPlainString(), mKReceivableAmountDenom, mKReceivableAmount, getSActivity().mBaseChain);
+        getSActivity().mKReceivableAmount = kreceivable;
 
-        } else {
-            BigDecimal kreceivable = getSActivity().mIncentiveReward5.getHardPoolKavaRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, kreceivable.toPlainString(), mKReceivableAmountDenom, mKReceivableAmount, getSActivity().mBaseChain);
-            getSActivity().mKReceivableAmount = kreceivable;
-
-            BigDecimal hreceivable = getSActivity().mIncentiveReward5.getHardPoolHardRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-            WDp.showCoinDp(getContext(), TOKEN_HARD, hreceivable.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
-            getSActivity().mHReceivableAmount = hreceivable;
-
-        }
+        BigDecimal hreceivable = getSActivity().mIncentiveReward5.getHardPoolHardRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+        WDp.showCoinDp(getContext(), TOKEN_HARD, hreceivable.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
+        getSActivity().mHReceivableAmount = hreceivable;
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
     }
 
