@@ -528,7 +528,7 @@ public class CdpDetailActivity extends BaseActivity implements TaskListener, Vie
             return;
 
         }
-        Intent intent = new Intent(CdpDetailActivity.this, DrawDebtCdpActivity.class);
+        Intent intent = new Intent(CdpDetailActivity.this, BorrowCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralParamType);
         intent.putExtra("marketId", mMaketId);
         startActivity(intent);

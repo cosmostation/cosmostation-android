@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
+import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.fragment.chains.kava.ListCdpFragment;
@@ -64,16 +65,14 @@ public class BaseHolder extends RecyclerView.ViewHolder {
     public void onBindCdpDetailAvailable(CdpDetail5Activity context, BaseData baseData, String collateralType) {
     }
 
-    public void onBindHardDetailInfo(Context context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates,
+    public void onBindHardDetailInfo(HardDetailActivity context, BaseChain chain, BaseData baseData, String denom, IncentiveReward incentiveReward, ArrayList<HardInterestRate> HardInterestRates,
                                      ArrayList<Coin> totalDeposit, ArrayList<Coin> totalborrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
     }
 
-    public void onBindHardDetailMyStatus(Context context, BaseData baseData, BaseChain chain, String denom, ArrayList<HardMyDeposit> myDeposit,
+    public void onBindHardDetailMyStatus(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom, ArrayList<HardMyDeposit> myDeposit,
                                          ArrayList<HardMyBorrow> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
-
     }
 
-    public void onBindHardDetailAvailable(Context context, BaseData baseData, BaseChain chain, String denom) {
-
+    public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
     }
 }

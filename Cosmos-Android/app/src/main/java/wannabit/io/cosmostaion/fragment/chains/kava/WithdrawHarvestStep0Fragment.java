@@ -21,7 +21,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHarvestActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
@@ -246,7 +246,7 @@ public class WithdrawHarvestStep0Fragment extends BaseFragment implements View.O
     }
 
 
-    private WithdrawHarvestActivity getSActivity() {
-        return (WithdrawHarvestActivity)getBaseActivity();
+    private WithdrawHardActivity getSActivity() {
+        return (WithdrawHardActivity)getBaseActivity();
     }
 }

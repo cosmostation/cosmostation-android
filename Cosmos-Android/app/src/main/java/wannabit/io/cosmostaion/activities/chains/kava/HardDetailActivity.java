@@ -6,6 +6,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -13,12 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.kava.HardInterestRate;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
@@ -33,11 +36,9 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaHardReservesTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardTotalBorrowTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaHardTotalDepositTask;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
-import wannabit.io.cosmostaion.widget.CdpDetailInfoHolder;
-import wannabit.io.cosmostaion.widget.CdpDetailMyAvailableHolder;
-import wannabit.io.cosmostaion.widget.CdpDetailMyStatusHolder;
 import wannabit.io.cosmostaion.widget.HardDetailInfoHolder;
 import wannabit.io.cosmostaion.widget.HardDetailMyAvailableHolder;
 import wannabit.io.cosmostaion.widget.HardDetailMyStatusHolder;
@@ -203,6 +204,73 @@ public class HardDetailActivity extends BaseActivity {
 //        return result;
 //    }
 
+    public void onHardDeposit() {
+        if (!onCommonCheck()) return;
+        if (WDp.getAvailableCoin(getBaseDao().mBalances, mHardMoneyMarketDenom).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
+            return;
+        }
+//        Intent intent = new Intent(this, DepositHarvestActivity.class);
+//        intent.putExtra("harvestDepositDemon", mDepositDenom);
+//        startActivity(intent);
+
+    }
+
+    public void onHardWithdraw() {
+        if (!onCommonCheck()) return;
+        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+//        Intent intent = new Intent(this, WithdrawHarvestActivity.class);
+//        intent.putExtra("harvestDepositDemon", mDepositDenom);
+//        startActivity(intent);
+
+    }
+
+    public void onHardBorrow() {
+        if (!onCommonCheck()) return;
+        BigDecimal borrowAble = WUtil.getHardBorrowableAmountByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
+        if (borrowAble.compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_borrowable_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+//        Intent intent = new Intent(this, ClaimHardIncentiveActivity.class);
+//        intent.putExtra("harvest_deposit_denom", mDepositDenom);
+//        intent.putExtra("harvest_deposit_type", "lp");
+//        startActivity(intent);
+
+    }
+
+    public void onHardRepay() {
+        if (!onCommonCheck()) return;
+        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (WDp.getAvailableCoin(getBaseDao().mBalances, mHardMoneyMarketDenom).compareTo(BigDecimal.ZERO) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_repay_asset, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+//        Intent intent = new Intent(this, ClaimHardIncentiveActivity.class);
+//        intent.putExtra("harvest_deposit_denom", mDepositDenom);
+//        intent.putExtra("harvest_deposit_type", "lp");
+//        startActivity(intent);
+    }
+
+    private boolean onCommonCheck() {
+        if(!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return false;
+        }
+        return true;
+    }
+
     private class HardDetailAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_HARD_INFO         = 0;
         private static final int TYPE_MY_STATUS         = 1;
@@ -224,17 +292,12 @@ public class HardDetailActivity extends BaseActivity {
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
             if (getItemViewType(position) == TYPE_HARD_INFO) {
-                holder.onBindHardDetailInfo(getBaseContext(), mBaseChain, getBaseDao(), mHardMoneyMarketDenom, mIncentiveRewards, mInterestRates,
-                        mTotalDeposit, mTotalBorrow, mModuleCoins, mReserveCoins);
-
+                holder.onBindHardDetailInfo(HardDetailActivity.this, mBaseChain, getBaseDao(), mHardMoneyMarketDenom, mIncentiveRewards, mInterestRates, mTotalDeposit, mTotalBorrow, mModuleCoins, mReserveCoins);
             } else if (getItemViewType(position) == TYPE_MY_STATUS) {
-                holder.onBindHardDetailMyStatus(getBaseContext(), getBaseDao(), mBaseChain, mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
-
+                holder.onBindHardDetailMyStatus(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom, mMyDeposit, mMyBorrow, mModuleCoins, mReserveCoins);
             } else if (getItemViewType(position) == TYPE_MY_AVAILABLE) {
-                holder.onBindHardDetailAvailable(getBaseContext(), getBaseDao(), mBaseChain, mHardMoneyMarketDenom);
-
+                holder.onBindHardDetailAvailable(HardDetailActivity.this, getBaseDao(), mBaseChain, mHardMoneyMarketDenom);
             }
-
         }
 
         @Override

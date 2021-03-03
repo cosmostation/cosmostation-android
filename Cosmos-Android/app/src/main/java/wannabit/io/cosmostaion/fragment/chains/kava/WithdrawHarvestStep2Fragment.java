@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHarvestActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -239,7 +239,7 @@ public class WithdrawHarvestStep2Fragment extends BaseFragment implements View.O
         }
     }
 
-    private WithdrawHarvestActivity getSActivity() {
-        return (WithdrawHarvestActivity)getBaseActivity();
+    private WithdrawHardActivity getSActivity() {
+        return (WithdrawHardActivity)getBaseActivity();
     }
 }

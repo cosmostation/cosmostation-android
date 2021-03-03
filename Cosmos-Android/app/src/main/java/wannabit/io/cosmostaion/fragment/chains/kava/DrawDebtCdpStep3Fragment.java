@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtCdpActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -112,8 +112,8 @@ public class DrawDebtCdpStep3Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    private DrawDebtCdpActivity getSActivity() {
-        return (DrawDebtCdpActivity)getBaseActivity();
+    private BorrowCdpActivity getSActivity() {
+        return (BorrowCdpActivity)getBaseActivity();
     }
 
     private CollateralParam getCParam() {

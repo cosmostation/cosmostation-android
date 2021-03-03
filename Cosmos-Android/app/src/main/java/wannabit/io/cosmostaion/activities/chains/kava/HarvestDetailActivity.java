@@ -316,7 +316,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent = new Intent(this, DepositHarvestActivity.class);
+        Intent intent = new Intent(this, DepositHardActivity.class);
         intent.putExtra("harvestDepositDemon", mDepositDenom);
         startActivity(intent);
 
@@ -328,7 +328,7 @@ public class HarvestDetailActivity extends BaseActivity implements TaskListener 
             Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
             return;
         }
-        Intent intent = new Intent(this, WithdrawHarvestActivity.class);
+        Intent intent = new Intent(this, WithdrawHardActivity.class);
         intent.putExtra("harvestDepositDemon", mDepositDenom);
         startActivity(intent);
 

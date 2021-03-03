@@ -1255,8 +1255,10 @@
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
     <string name="error_cannot_delete_open_domain">Can not delete open domain.</string>
-    <string name="error_no_available_to_deposit">No assets to deposit.</string>
-    <string name="error_no_deposited_asset">No deposited asset.</string>
+    <string name="error_no_available_to_deposit">No assets to supply.</string>
+    <string name="error_no_deposited_asset">No supplied asset.</string>
+    <string name="error_no_borrowable_asset">Can not borrowable now.</string>
+    <string name="error_no_repay_asset">Can not repay now.</string>
     <string name="error_no_incentive_to_claim">No incentive to claim.</string>
     <string name="error_no_harvest_reward_to_claim">No harvest reward to claim.</string>
     <string name="error_no_incentive_claim_option">Select incentive claim option.</string>

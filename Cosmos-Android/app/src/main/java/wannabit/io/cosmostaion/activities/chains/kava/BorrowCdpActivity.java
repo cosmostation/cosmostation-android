@@ -47,7 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPO
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class DrawDebtCdpActivity extends BaseActivity implements TaskListener {
+public class BorrowCdpActivity extends BaseActivity implements TaskListener {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -183,7 +183,7 @@ public class DrawDebtCdpActivity extends BaseActivity implements TaskListener {
     }
 
     public void onStartDrawDebtCdp() {
-        Intent intent = new Intent(DrawDebtCdpActivity.this, PasswordCheckActivity.class);
+        Intent intent = new Intent(BorrowCdpActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP);
         intent.putExtra("sender", mAccount.address);
         intent.putExtra("principalCoin", mPrincipal);

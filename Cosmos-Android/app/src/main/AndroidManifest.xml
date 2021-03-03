@@ -344,7 +344,7 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.DrawDebtCdpActivity"
+            android:name=".activities.chains.kava.BorrowCdpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
@@ -372,14 +372,28 @@
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.DepositHarvestActivity"
+            android:name=".activities.chains.kava.DepositHardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">
         </activity>
 
         <activity
-            android:name=".activities.chains.kava.WithdrawHarvestActivity"
+            android:name=".activities.chains.kava.WithdrawHardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.kava.BorrowHardActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateHidden">
+        </activity>
+
+        <activity
+            android:name=".activities.chains.kava.RepayHardActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateHidden">

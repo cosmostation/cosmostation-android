@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtCdpActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -239,8 +239,8 @@ public class DrawDebtCdpStep2Fragment extends BaseFragment implements View.OnCli
         }
     }
 
-    private DrawDebtCdpActivity getSActivity() {
-        return (DrawDebtCdpActivity)getBaseActivity();
+    private BorrowCdpActivity getSActivity() {
+        return (BorrowCdpActivity)getBaseActivity();
     }
 
 }

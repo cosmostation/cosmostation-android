@@ -14,6 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.kava.HardParam;
@@ -47,7 +48,7 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
     }
 
     @Override
-    public void onBindHardDetailAvailable(Context context, BaseData baseData, BaseChain chain, String denom) {
+    public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
         final HardParam hardParam                       = baseData.mHardParam;
         final HardParam.HardMoneyMarket hardMoneyMarket = hardParam.getHardMoneyMarket(denom);
 

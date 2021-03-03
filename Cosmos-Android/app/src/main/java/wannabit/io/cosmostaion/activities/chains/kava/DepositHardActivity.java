@@ -29,7 +29,7 @@ import wannabit.io.cosmostaion.fragment.chains.kava.DepositHarvestStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-public class DepositHarvestActivity extends BaseActivity {
+public class DepositHardActivity extends BaseActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -146,7 +146,7 @@ public class DepositHarvestActivity extends BaseActivity {
     }
 
     public void onStartDepositHarvest() {
-        Intent intent = new Intent(DepositHarvestActivity.this, PasswordCheckActivity.class);
+        Intent intent = new Intent(DepositHardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DEPOSIT_HARVEST);
         intent.putExtra("depositor", mAccount.address);
         intent.putExtra("depositCoin", mHarvestCoin);

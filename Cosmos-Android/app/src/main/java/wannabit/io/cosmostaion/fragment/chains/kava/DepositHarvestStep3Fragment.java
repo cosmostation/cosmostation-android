@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.DepositHarvestActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.DepositHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -73,7 +73,7 @@ public class DepositHarvestStep3Fragment extends BaseFragment implements View.On
         }
     }
 
-    private DepositHarvestActivity getSActivity() {
-        return (DepositHarvestActivity)getBaseActivity();
+    private DepositHardActivity getSActivity() {
+        return (DepositHardActivity)getBaseActivity();
     }
 }

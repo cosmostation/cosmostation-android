@@ -1081,8 +1081,10 @@
     <string name="error_no_wallet_this_chain">해당 체인용 지갑이 없습니다.</string>
     <string name="error_no_address_added">최소 1개 이상의 주소를 입력하세요.</string>
     <string name="error_cannot_delete_open_domain">오픈 타입 도메인은 삭제할 수 없습니다.</string>
-    <string name="error_no_available_to_deposit">디파짓할 자산이 없습니다.</string>
-    <string name="error_no_deposited_asset">디파짓중인 자산이 없습니다.</string>
+    <string name="error_no_available_to_deposit">공급할 자산이 없습니다.</string>
+    <string name="error_no_deposited_asset">공급한 자산이 없습니다.</string>
+    <string name="error_no_borrowable_asset">대출이 불가능 합니다.</string>
+    <string name="error_no_repay_asset">상환이 불가능합니다.</string>
     <string name="error_no_incentive_to_claim">받을 인센티브가 없습니다.</string>
     <string name="error_no_harvest_reward_to_claim">받을 하베스트 리워드가 없습니다.</string>
     <string name="error_no_incentive_claim_option">이자 받기 옵션을 선택해 주세요.</string>

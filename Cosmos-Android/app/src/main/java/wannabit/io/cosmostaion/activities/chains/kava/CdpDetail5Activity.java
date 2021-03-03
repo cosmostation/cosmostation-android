@@ -256,7 +256,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
             return;
         }
 
-        Intent intent = new Intent(this, DrawDebtCdpActivity.class);
+        Intent intent = new Intent(this, BorrowCdpActivity.class);
         intent.putExtra("collateralParamType", mCollateralType);
         intent.putExtra("marketId", collateralParam.liquidation_market_id);
         startActivity(intent);

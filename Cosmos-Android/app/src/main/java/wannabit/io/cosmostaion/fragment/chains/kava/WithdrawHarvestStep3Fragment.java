@@ -12,7 +12,7 @@ import androidx.annotation.Nullable;
 import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHarvestActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -73,7 +73,7 @@ public class WithdrawHarvestStep3Fragment extends BaseFragment implements View.O
         }
     }
 
-    private WithdrawHarvestActivity getSActivity() {
-        return (WithdrawHarvestActivity)getBaseActivity();
+    private WithdrawHardActivity getSActivity() {
+        return (WithdrawHardActivity)getBaseActivity();
     }
 }
