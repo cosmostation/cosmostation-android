@@ -61,7 +61,7 @@ public class VestingHolder extends BaseHolder {
 
         final ResLcdKavaAccountInfo.Value mKavaAccount = baseData.mKavaAccount.value;
         mVestingCnt.setText("(" + mKavaAccount.getCalcurateVestingCntByDenom(denom) + ")");
-        mVestingTotalAmount.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateVestingAmountSumByDenom(TOKEN_KAVA), 6, 6));
+        mVestingTotalAmount.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateVestingAmountSumByDenom(denom), 6, 6));
 
         mVestingTime0.setText(WDp.getDpTime(c, mKavaAccount.getCalcurateTime(denom, 0)));
         mVestingGap0.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 0)));

@@ -340,6 +340,11 @@ public class WUtil {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
                         if (coin.denom.equals(TOKEN_KAVA)) {
+                            dpBalance = BigDecimal.ZERO;
+                            dpVesting = BigDecimal.ZERO;
+                            originalVesting = BigDecimal.ZERO;
+                            remainVesting = BigDecimal.ZERO;
+                            delegatedVesting = BigDecimal.ZERO;
                             dpBalance = new BigDecimal(coin.amount);
 
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
@@ -388,6 +393,11 @@ public class WUtil {
 
 
                         } else if (coin.denom.equals(TOKEN_HARD)) {
+                            dpBalance = BigDecimal.ZERO;
+                            dpVesting = BigDecimal.ZERO;
+                            originalVesting = BigDecimal.ZERO;
+                            remainVesting = BigDecimal.ZERO;
+                            delegatedVesting = BigDecimal.ZERO;
                             dpBalance = new BigDecimal(coin.amount);
 
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
@@ -399,9 +409,7 @@ public class WUtil {
                             }
                             WLog.w("hard dpBalance " +  dpBalance);
                             WLog.w("hard originalVesting " +  originalVesting);
-
                             remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_HARD);
-                            WLog.w("hard remainVesting " +  remainVesting);
 
                             dpBalance = dpBalance.subtract(remainVesting);
                             WLog.w("hard dpBalancee " +  dpBalance);

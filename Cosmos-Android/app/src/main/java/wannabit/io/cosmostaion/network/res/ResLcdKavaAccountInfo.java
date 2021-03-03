@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class ResLcdKavaAccountInfo {
     @SerializedName("height")
@@ -87,8 +88,10 @@ public class ResLcdKavaAccountInfo {
         public int getCalcurateVestingCntByDenom(String denom) {
             int result = 0;
             for (VestingPeriod vp: getCalcurateVesting()) {
-                if (vp.amount.get(0).denom.equals(denom)) {
-                    result = result + 1;
+                for (Coin coin: vp.amount) {
+                    if (coin.denom.equals(denom)) {
+                        result = result + 1;
+                    }
                 }
             }
             return result;
@@ -97,8 +100,10 @@ public class ResLcdKavaAccountInfo {
         public ArrayList<VestingPeriod> getCalcurateVestingByDenom(String denom) {
             ArrayList<VestingPeriod> result = new ArrayList<>();
             for (VestingPeriod vp: getCalcurateVesting()) {
-                if (vp.amount.get(0).denom.equals(denom)) {
-                    result.add(vp);
+                for (Coin coin: vp.amount) {
+                    if (coin.denom.equals(denom)) {
+                        result.add(vp);
+                    }
                 }
             }
             return result;
@@ -109,14 +114,25 @@ public class ResLcdKavaAccountInfo {
         }
 
         public BigDecimal getCalcurateAmount(String denom, int position) {
-            return new BigDecimal(getCalcurateVestingByDenom(denom).get(position).amount.get(0).amount);
+            BigDecimal result = BigDecimal.ZERO;
+            VestingPeriod period = getCalcurateVestingByDenom(denom).get(position);
+            for (Coin coin: period.amount) {
+                if (coin.denom.equals(denom)) {
+                    result = new BigDecimal(coin.amount);
+                }
+            }
+            return result;
         }
 
 
         public BigDecimal getCalcurateVestingAmountSumByDenom(String denom) {
             BigDecimal result = BigDecimal.ZERO;
             for (VestingPeriod vp: getCalcurateVestingByDenom(denom)) {
-                result = result.add(new BigDecimal(vp.amount.get(0).amount));
+                for (Coin coin: vp.amount) {
+                    if (coin.denom.equals(denom)) {
+                        result = result.add(new BigDecimal(coin.amount));
+                    }
+                }
             }
             return result;
         }
