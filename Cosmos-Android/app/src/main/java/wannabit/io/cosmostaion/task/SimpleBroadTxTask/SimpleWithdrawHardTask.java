@@ -24,29 +24,26 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_DEPOSIT_HARVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_WITHDRAW_HARD;
 
-public class SimpleDepositHarvestTask extends CommonTask {
+public class SimpleWithdrawHardTask extends CommonTask {
 
     private Account         mAccount;
-    private Coin            mDepositCoin;
+    private ArrayList<Coin> mCoin;
     private String          mDepositor;
     private String          mMemo;
     private Fee             mFees;
-    private String          mdepositType;
 
-    public SimpleDepositHarvestTask(BaseApplication app, TaskListener listener, Account account, Coin depositCoin, String depositor, String memo, Fee fees, String depositType) {
+    public SimpleWithdrawHardTask(BaseApplication app, TaskListener listener, Account account, ArrayList<Coin> coins, String depositor, String memo, Fee fees) {
         super(app, listener);
         this.mAccount = account;
-        this.mDepositCoin = depositCoin;
+        this.mCoin = coins;
         this.mDepositor = depositor;
         this.mMemo = memo;
         this.mFees = fees;
-        this.mdepositType = depositType;
-        this.mResult.taskType = TASK_GEN_TX_KAVA_DEPOSIT_HARVEST;
+        this.mResult.taskType = TASK_GEN_TX_KAVA_WITHDRAW_HARD;
     }
 
     @Override
@@ -89,11 +86,10 @@ public class SimpleDepositHarvestTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg depositHarvestMsg = MsgGenerator.genDepositHarvestMsg(mDepositor, mDepositCoin, mdepositType, BaseChain.getChain(mAccount.baseChain));
+            Msg withdrawHardMsg = MsgGenerator.genWithdrawHardMsg(mDepositor, mCoin, BaseChain.getChain(mAccount.baseChain));
             ArrayList<Msg> msgs= new ArrayList<>();
-            msgs.add(depositHarvestMsg);
-
-            WLog.w("depositHarvestMsg : " +  WUtil.prettyPrinter(depositHarvestMsg));
+            msgs.add(withdrawHardMsg);
+//            WLog.w("withdrawHardMsg : " +  WUtil.prettyPrinter(withdrawHardMsg));
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {

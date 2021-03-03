@@ -14,18 +14,18 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.DepositHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class WithdrawHarvestStep1Fragment extends BaseFragment implements View.OnClickListener {
+public class DepositHardStep1Fragment extends BaseFragment implements View.OnClickListener {
 
     private EditText mMemo;
     private TextView mMemoCnt;
     private Button mBeforeBtn, mNextBtn;
 
-    public static WithdrawHarvestStep1Fragment newInstance(Bundle bundle) {
-        WithdrawHarvestStep1Fragment fragment = new WithdrawHarvestStep1Fragment();
+    public static DepositHardStep1Fragment newInstance(Bundle bundle) {
+        DepositHardStep1Fragment fragment = new DepositHardStep1Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -98,7 +98,7 @@ public class WithdrawHarvestStep1Fragment extends BaseFragment implements View.O
 
     }
 
-    private WithdrawHardActivity getSActivity() {
-        return (WithdrawHardActivity)getBaseActivity();
+    private DepositHardActivity getSActivity() {
+        return (DepositHardActivity)getBaseActivity();
     }
 }

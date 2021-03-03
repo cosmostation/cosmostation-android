@@ -30,7 +30,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
-public class WithdrawHarvestStep2Fragment extends BaseFragment implements View.OnClickListener {
+public class WithdrawHardStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mBtnGasType;
     private TextView mTvGasType;
@@ -58,8 +58,8 @@ public class WithdrawHarvestStep2Fragment extends BaseFragment implements View.O
     private BigDecimal mFeeAmount = BigDecimal.ZERO;
     private BigDecimal mFeePrice = BigDecimal.ZERO;
 
-    public static WithdrawHarvestStep2Fragment newInstance(Bundle bundle) {
-        WithdrawHarvestStep2Fragment fragment = new WithdrawHarvestStep2Fragment();
+    public static WithdrawHardStep2Fragment newInstance(Bundle bundle) {
+        WithdrawHardStep2Fragment fragment = new WithdrawHardStep2Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }

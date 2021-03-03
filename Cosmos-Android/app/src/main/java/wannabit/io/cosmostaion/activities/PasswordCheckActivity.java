@@ -40,7 +40,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDeleteAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDeleteDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositCdpTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHarvestTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDepositHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleDrawBetCdpTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleHtlcRefundTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleOkDepositTask;
@@ -58,7 +58,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleUndelegateTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleVoteTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawCdpTask;
-import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawHarvestTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleWithdrawHardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.CheckMnemonicTask;
@@ -101,7 +101,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
@@ -171,7 +171,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
     private String                      mDepositor;
     private String                      mCdpDenom;
     private String                      mCollateralType;
-    private Coin                        mDepositCoin;
+    private ArrayList<Coin>             mHardPoolCoins;
     private String                      mMultiplierName;
     private String                      mDepositDenom;
     private String                      mDepositType;
@@ -255,7 +255,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
         mClaimDenom = getIntent().getStringExtra("denom");
         mOkStakeCoin = getIntent().getParcelableExtra("stakeAmount");
         mOKVoteValidator = getIntent().getStringArrayListExtra("voteVal");
-        mDepositCoin = getIntent().getParcelableExtra("depositCoin");
+        mHardPoolCoins = getIntent().getParcelableArrayListExtra("hardPoolCoins");
         mMultiplierName = getIntent().getStringExtra("multiplierName");
         mDepositDenom = getIntent().getStringExtra("depositDenom");
         mDepositType = getIntent().getStringExtra("depositType");
@@ -658,25 +658,23 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo,
                     mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-        } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARVEST) {
-            new SimpleDepositHarvestTask(getBaseApplication(),
+        } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARD) {
+            new SimpleDepositHardTask(getBaseApplication(),
                     this,
                     mAccount,
-                    mDepositCoin,
+                    mHardPoolCoins,
                     mDepositor,
                     mTargetMemo,
-                    mTargetFee,
-                    "lp").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_WITHDRAW_HARVEST) {
-            new SimpleWithdrawHarvestTask(getBaseApplication(),
+            new SimpleWithdrawHardTask(getBaseApplication(),
                     this,
                     mAccount,
-                    mDepositCoin,
+                    mHardPoolCoins,
                     mDepositor,
                     mTargetMemo,
-                    mTargetFee,
-                    "lp").executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_HARVEST_REWARD) {
             new SimpleClaimHarvestRewardTask(getBaseApplication(),

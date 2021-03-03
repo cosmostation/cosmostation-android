@@ -1126,9 +1126,9 @@
     <string name="str_total_borrowed_supplies">System Total Borrowed</string>
     <string name="str_total_remain_supplies">System Remaining Borrowable</string>
     <string name="str_my_harvest_information">My Hard Pool</string>
-    <string name="str_deposit_harvest">Harvest Deposit</string>
-    <string name="str_withdraw_harvest">Harvest Withdraw</string>
-    <string name="str_deposit_harvest_step_1">Enter harvest deposit amount</string>
+    <string name="str_deposit_harvest">Deposit Hard Pool Supply</string>
+    <string name="str_withdraw_harvest">Withdraw Hard Pool</string>
+    <string name="str_deposit_harvest_step_1">Enter deposit amount to supply</string>
     <string name="str_deposit_harvest_step_2">Insert memo (optional)</string>
     <string name="str_deposit_harvest_step_3">Select transaction fee</string>
     <string name="str_deposit_harvest_step_4">Check transaction detail</string>
@@ -1166,6 +1166,8 @@
     <string name="str_add_supply">Supply</string>
     <string name="str_get_borrow">Borrow</string>
     <string name="str_get_repay">Repay</string>
+    <string name="str_hard_withdraw_warn_title">Withdraw Warn</string>
+    <string name="str_hard_withdraw_warn_msg">If you currently have a borrow from the hard pool, be careful with liquidation. There is a risk of liquidation if the remaining borrowable amount is 0 or less.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

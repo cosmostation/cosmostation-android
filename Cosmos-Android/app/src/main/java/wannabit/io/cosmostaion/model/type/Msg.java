@@ -96,22 +96,6 @@ public class Msg {
         @SerializedName("shares")
         public String shares;
 
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        public ArrayList<Coin> getCoins() {
-            ArrayList<Coin> result = new ArrayList<>();
-            try {
-                Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
-                result.add(temp);
-
-            } catch (Exception e) {}
-
-            try {
-                result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>(){}.getType());
-            } catch (Exception e) { }
-            return result;
-        }
-
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("delegation")
         public Coin delegation;
@@ -198,6 +182,10 @@ public class Msg {
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("multiplier_name")
         public String multiplier_name;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("borrower")
+        public String borrower;
 
 
 

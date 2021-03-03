@@ -18,15 +18,15 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class DepositHarvestStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class DepositHardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mDepositAmount, mDepositDenom;
     private TextView mFeesAmount, mFeesDenom;
     private TextView mDepositType, mMemo;
 
-    public static DepositHarvestStep3Fragment newInstance(Bundle bundle) {
-        DepositHarvestStep3Fragment fragment = new DepositHarvestStep3Fragment();
+    public static DepositHardStep3Fragment newInstance(Bundle bundle) {
+        DepositHardStep3Fragment fragment = new DepositHardStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -38,7 +38,7 @@ public class DepositHarvestStep3Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_deposit_harvest_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_deposit_hard_step3, container, false);
         mDepositAmount = rootView.findViewById(R.id.deposit_amount);
         mDepositDenom = rootView.findViewById(R.id.deposit_amount_denom);
         mFeesAmount = rootView.findViewById(R.id.fees_amount);
@@ -55,9 +55,9 @@ public class DepositHarvestStep3Fragment extends BaseFragment implements View.On
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        WDp.showCoinDp(getContext(), getSActivity().mHarvestCoin, mDepositDenom, mDepositAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getSActivity().mHardPoolCoins.get(0), mDepositDenom, mDepositAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-        mDepositType.setText("lp (Liquidity Provider)");
+//        mDepositType.setText("lp (Liquidity Provider)");
         mMemo.setText(getSActivity().mMemo);
 
     }

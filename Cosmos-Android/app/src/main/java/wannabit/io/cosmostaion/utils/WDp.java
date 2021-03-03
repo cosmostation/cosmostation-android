@@ -11,6 +11,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -20,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -2686,6 +2690,20 @@ public class WDp {
 
         }
         return "";
+    }
+
+    public static ArrayList<Coin> getCoins(Object amount) {
+        ArrayList<Coin> result = new ArrayList<>();
+        try {
+            Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
+            result.add(temp);
+
+        } catch (Exception e) {}
+
+        try {
+            result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>(){}.getType());
+        } catch (Exception e) { }
+        return result;
     }
 
 }

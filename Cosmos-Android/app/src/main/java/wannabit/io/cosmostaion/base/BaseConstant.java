@@ -161,8 +161,8 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
     public final static int TASK_FETCH_KAVA_HARVEST_ACCOUNT             = 2106;
-    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARVEST            = 2107;
-    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARVEST           = 2108;
+    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD = 2107;
+    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
     public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
@@ -309,6 +309,10 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
     public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "incentive/MsgClaimHardLiquidityProviderReward";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_HARD                   = "hard/MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "hard/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
+    public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -379,7 +383,7 @@ public class BaseConstant {
     public final static int CONST_PW_TX_RENEW_DOMAIN                        = 5028;
     public final static int CONST_PW_TX_RENEW_ACCOUNT                       = 5029;
     public final static int CONST_PW_TX_REPLACE_STARNAME                    = 5030;
-    public final static int CONST_PW_TX_DEPOSIT_HARVEST                     = 5031;
+    public final static int CONST_PW_TX_DEPOSIT_HARD = 5031;
     public final static int CONST_PW_TX_WITHDRAW_HARVEST                    = 5032;
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
 

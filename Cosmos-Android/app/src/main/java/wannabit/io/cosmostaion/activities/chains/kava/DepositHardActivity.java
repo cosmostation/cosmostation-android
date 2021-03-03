@@ -22,12 +22,15 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositHarvestStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositHarvestStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositHarvestStep2Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositHarvestStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep1Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep2Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 
 public class DepositHardActivity extends BaseActivity {
 
@@ -39,8 +42,8 @@ public class DepositHardActivity extends BaseActivity {
     private ViewPager                       mViewPager;
     private DepositHarvestPageAdapter       mPageAdapter;
 
-    public String                           mHarvestDepositDenom;
-    public Coin                             mHarvestCoin;
+    public String                           mHardMoneyMarketDenom;
+    public ArrayList<Coin>                  mHardPoolCoins;
     public String                           mMemo;
     public Fee                              mFee;
 
@@ -66,7 +69,7 @@ public class DepositHardActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mHarvestDepositDenom = getIntent().getStringExtra("harvestDepositDemon");
+        mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
 
         mPageAdapter = new DepositHarvestPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -147,9 +150,9 @@ public class DepositHardActivity extends BaseActivity {
 
     public void onStartDepositHarvest() {
         Intent intent = new Intent(DepositHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DEPOSIT_HARVEST);
+        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DEPOSIT_HARD);
         intent.putExtra("depositor", mAccount.address);
-        intent.putExtra("depositCoin", mHarvestCoin);
+        intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);
@@ -166,10 +169,10 @@ public class DepositHardActivity extends BaseActivity {
         public DepositHarvestPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(DepositHarvestStep0Fragment.newInstance(null));
-            mFragments.add(DepositHarvestStep1Fragment.newInstance(null));
-            mFragments.add(DepositHarvestStep2Fragment.newInstance(null));
-            mFragments.add(DepositHarvestStep3Fragment.newInstance(null));
+            mFragments.add(DepositHardStep0Fragment.newInstance(null));
+            mFragments.add(DepositHardStep1Fragment.newInstance(null));
+            mFragments.add(DepositHardStep2Fragment.newInstance(null));
+            mFragments.add(DepositHardStep3Fragment.newInstance(null));
         }
 
         @Override

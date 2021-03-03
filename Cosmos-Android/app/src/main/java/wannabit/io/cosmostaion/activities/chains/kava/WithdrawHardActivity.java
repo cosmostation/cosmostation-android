@@ -22,12 +22,15 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHarvestStep0Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHarvestStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHarvestStep2Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHarvestStep3Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHardStep0Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHardStep1Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHardStep2Fragment;
+import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawHardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_HARVEST;
 
 public class WithdrawHardActivity extends BaseActivity {
 
@@ -39,8 +42,8 @@ public class WithdrawHardActivity extends BaseActivity {
     private ViewPager                       mViewPager;
     private WithdrawHarvestPageAdapter      mPageAdapter;
 
-    public String                           mHarvestDepositDenom;
-    public Coin                             mHarvestCoin;
+    public String                           mHardMoneyMarketDenom;
+    public ArrayList<Coin>                  mHardPoolCoins;
     public String                           mMemo;
     public Fee                              mFee;
 
@@ -66,7 +69,7 @@ public class WithdrawHardActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mHarvestDepositDenom = getIntent().getStringExtra("harvestDepositDemon");
+        mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
 
         mPageAdapter = new WithdrawHarvestPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -147,9 +150,9 @@ public class WithdrawHardActivity extends BaseActivity {
 
     public void onStartWithdrawHarvest() {
         Intent intent = new Intent(WithdrawHardActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_WITHDRAW_HARVEST);
+        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_WITHDRAW_HARVEST);
         intent.putExtra("depositor", mAccount.address);
-        intent.putExtra("depositCoin", mHarvestCoin);
+        intent.putExtra("hardPoolCoins", mHardPoolCoins);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);
         startActivity(intent);
@@ -167,10 +170,10 @@ public class WithdrawHardActivity extends BaseActivity {
         public WithdrawHarvestPageAdapter(FragmentManager fm) {
             super(fm);
             mFragments.clear();
-            mFragments.add(WithdrawHarvestStep0Fragment.newInstance(null));
-            mFragments.add(WithdrawHarvestStep1Fragment.newInstance(null));
-            mFragments.add(WithdrawHarvestStep2Fragment.newInstance(null));
-            mFragments.add(WithdrawHarvestStep3Fragment.newInstance(null));
+            mFragments.add(WithdrawHardStep0Fragment.newInstance(null));
+            mFragments.add(WithdrawHardStep1Fragment.newInstance(null));
+            mFragments.add(WithdrawHardStep2Fragment.newInstance(null));
+            mFragments.add(WithdrawHardStep3Fragment.newInstance(null));
         }
 
         @Override

@@ -19,6 +19,7 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.DepositHardActivity;
@@ -31,7 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class DepositHarvestStep0Fragment extends BaseFragment implements View.OnClickListener {
+public class DepositHardStep0Fragment extends BaseFragment implements View.OnClickListener {
 
     private Button          mBtnCancel, mBtnNext;
     private ImageView       mDepositImg;
@@ -42,12 +43,12 @@ public class DepositHarvestStep0Fragment extends BaseFragment implements View.On
     private Button          mBtnAdd1, mBtnAdd1_4, mBtnAddHalf, mBtnAdd3_4, mBtnAddMax;
 
     private int             mDpDecimal = 6;
-    private String          mHarvestDepositDenom;
+    private String          mHardMoneyMarketDenom;
     private String          mDecimalChecker, mDecimalSetter, mDecimalDivider2, mDecimalDivider1;
     private BigDecimal      mMaxAvailable = BigDecimal.ZERO;
 
-    public static DepositHarvestStep0Fragment newInstance(Bundle bundle) {
-        DepositHarvestStep0Fragment fragment = new DepositHarvestStep0Fragment();
+    public static DepositHardStep0Fragment newInstance(Bundle bundle) {
+        DepositHardStep0Fragment fragment = new DepositHardStep0Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -59,7 +60,7 @@ public class DepositHarvestStep0Fragment extends BaseFragment implements View.On
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_deposit_harvest_step0, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_deposit_hard_step0, container, false);
         mBtnCancel = rootView.findViewById(R.id.btn_cancel);
         mBtnNext = rootView.findViewById(R.id.btn_next);
         mDepositImg = rootView.findViewById(R.id.deposit_icon);
@@ -83,23 +84,23 @@ public class DepositHarvestStep0Fragment extends BaseFragment implements View.On
         mBtnCancel.setOnClickListener(this);
         mBtnNext.setOnClickListener(this);
 
-        mHarvestDepositDenom = getSActivity().mHarvestDepositDenom;
-        mDpDecimal = WUtil.getKavaCoinDecimal(mHarvestDepositDenom);
+        mHardMoneyMarketDenom = getSActivity().mHardMoneyMarketDenom;
+        mDpDecimal = WUtil.getKavaCoinDecimal(mHardMoneyMarketDenom);
         setDpDecimals(mDpDecimal);
-        mMaxAvailable = getSActivity().mAccount.getTokenBalance(mHarvestDepositDenom);
-        WDp.showCoinDp(getContext(), mHarvestDepositDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().mBaseChain);
+        mMaxAvailable = getSActivity().mAccount.getTokenBalance(mHardMoneyMarketDenom);
+        WDp.showCoinDp(getContext(), mHardMoneyMarketDenom, mMaxAvailable.toPlainString(), mDepositDenomTx, mDepositMaxTx, getSActivity().mBaseChain);
 
-        if (mHarvestDepositDenom.equals(TOKEN_KAVA)) {
+        if (mHardMoneyMarketDenom.equals(TOKEN_KAVA)) {
             WDp.DpMainDenom(getSActivity(), getSActivity().mBaseChain.getChain(), mDepositSymbol);
-        } else if (mHarvestDepositDenom.equals(TOKEN_HARD)) {
-            mDepositSymbol.setText(mHarvestDepositDenom.toUpperCase());
+        } else if (mHardMoneyMarketDenom.equals(TOKEN_HARD)) {
+            mDepositSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mDepositSymbol.setTextColor(getResources().getColor(R.color.colorHard));
         } else {
-            mDepositSymbol.setText(mHarvestDepositDenom.toUpperCase());
+            mDepositSymbol.setText(mHardMoneyMarketDenom.toUpperCase());
             mDepositSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
         }
         try {
-            Picasso.get().load(KAVA_COIN_IMG_URL + mHarvestDepositDenom + ".png").fit().into(mDepositImg);
+            Picasso.get().load(KAVA_COIN_IMG_URL + mHardMoneyMarketDenom + ".png").fit().into(mDepositImg);
         } catch (Exception e) { }
 
         mDepositInput.addTextChangedListener(new TextWatcher() {
@@ -215,12 +216,14 @@ public class DepositHarvestStep0Fragment extends BaseFragment implements View.On
             BigDecimal amountTemp = new BigDecimal(mDepositInput.getText().toString().trim());
             if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
             if(amountTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
-            Coin coin = new Coin(mHarvestDepositDenom, amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
-            getSActivity().mHarvestCoin = coin;
+            Coin coin = new Coin(mHardMoneyMarketDenom, amountTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
+            ArrayList<Coin> temp= new ArrayList<>();
+            temp.add(coin);
+            getSActivity().mHardPoolCoins = temp;
             return true;
 
         } catch (Exception e) {
-            getSActivity().mHarvestCoin = null;
+            getSActivity().mHardPoolCoins = null;
             return false;
         }
 

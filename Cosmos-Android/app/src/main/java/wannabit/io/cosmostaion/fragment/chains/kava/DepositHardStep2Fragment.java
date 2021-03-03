@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class DepositHarvestStep2Fragment extends BaseFragment implements View.OnClickListener {
+public class DepositHardStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mBtnGasType;
     private TextView mTvGasType;
@@ -60,8 +60,8 @@ public class DepositHarvestStep2Fragment extends BaseFragment implements View.On
     private BigDecimal mFeeAmount = BigDecimal.ZERO;
     private BigDecimal mFeePrice = BigDecimal.ZERO;
 
-    public static DepositHarvestStep2Fragment newInstance(Bundle bundle) {
-        DepositHarvestStep2Fragment fragment = new DepositHarvestStep2Fragment();
+    public static DepositHardStep2Fragment newInstance(Bundle bundle) {
+        DepositHardStep2Fragment fragment = new DepositHardStep2Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -231,8 +231,8 @@ public class DepositHarvestStep2Fragment extends BaseFragment implements View.On
 
     private void onPayableFee() {
         BigDecimal compareAmount = BigDecimal.ZERO;
-        if (getSActivity().mHarvestCoin.denom.equals(TOKEN_KAVA)) {
-            compareAmount = mFeeAmount.add(new BigDecimal(getSActivity().mHarvestCoin.amount));
+        if (getSActivity().mHardPoolCoins.get(0).denom.equals(TOKEN_KAVA)) {
+            compareAmount = mFeeAmount.add(new BigDecimal(getSActivity().mHardPoolCoins.get(0).amount));
         } else {
             compareAmount = mFeeAmount;
         }

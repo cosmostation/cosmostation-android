@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -174,11 +175,13 @@ public class HardDetailActivity extends BaseActivity {
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
                 mMyDeposit = (ArrayList<HardMyDeposit>)result.resultData;
+                getBaseDao().mMyHardDeposit = mMyDeposit;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_HARD_MY_BORROW) {
             if (result.isSuccess && result.resultData != null) {
                 mMyBorrow = (ArrayList<HardMyBorrow>)result.resultData;
+                getBaseDao().mMyHardBorrow = mMyBorrow;
             }
         }
 
@@ -210,9 +213,9 @@ public class HardDetailActivity extends BaseActivity {
             Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
             return;
         }
-//        Intent intent = new Intent(this, DepositHarvestActivity.class);
-//        intent.putExtra("harvestDepositDemon", mDepositDenom);
-//        startActivity(intent);
+        Intent intent = new Intent(this, DepositHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
 
     }
 
@@ -223,9 +226,9 @@ public class HardDetailActivity extends BaseActivity {
             return;
         }
 
-//        Intent intent = new Intent(this, WithdrawHarvestActivity.class);
-//        intent.putExtra("harvestDepositDemon", mDepositDenom);
-//        startActivity(intent);
+        Intent intent = new Intent(this, WithdrawHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
 
     }
 
@@ -237,10 +240,9 @@ public class HardDetailActivity extends BaseActivity {
             return;
         }
 
-//        Intent intent = new Intent(this, ClaimHardIncentiveActivity.class);
-//        intent.putExtra("harvest_deposit_denom", mDepositDenom);
-//        intent.putExtra("harvest_deposit_type", "lp");
-//        startActivity(intent);
+        Intent intent = new Intent(this, BorrowHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
 
     }
 
@@ -255,10 +257,9 @@ public class HardDetailActivity extends BaseActivity {
             return;
         }
 
-//        Intent intent = new Intent(this, ClaimHardIncentiveActivity.class);
-//        intent.putExtra("harvest_deposit_denom", mDepositDenom);
-//        intent.putExtra("harvest_deposit_type", "lp");
-//        startActivity(intent);
+        Intent intent = new Intent(this, RepayHardActivity.class);
+        intent.putExtra("hardPoolDemon", mHardMoneyMarketDenom);
+        startActivity(intent);
     }
 
     private boolean onCommonCheck() {

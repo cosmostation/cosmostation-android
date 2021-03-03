@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment.chains.kava;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,19 +16,21 @@ import java.math.BigDecimal;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.WithdrawHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Hard_Withdarw_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class WithdrawHarvestStep3Fragment extends BaseFragment implements View.OnClickListener {
+public class WithdrawHardStep3Fragment extends BaseFragment implements View.OnClickListener {
+    public final static int SELECT_HARD_WITHDRAW_CHECK = 9107;
 
     private Button mBeforeBtn, mConfirmBtn;
     private TextView mWithdrawAmount, mWithdrawDenom;
     private TextView mFeesAmount, mFeesDenom;
-    private TextView mDepositType, mMemo;
+    private TextView mMemo;
 
-    public static WithdrawHarvestStep3Fragment newInstance(Bundle bundle) {
-        WithdrawHarvestStep3Fragment fragment = new WithdrawHarvestStep3Fragment();
+    public static WithdrawHardStep3Fragment newInstance(Bundle bundle) {
+        WithdrawHardStep3Fragment fragment = new WithdrawHardStep3Fragment();
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -38,12 +42,11 @@ public class WithdrawHarvestStep3Fragment extends BaseFragment implements View.O
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_withdraw_harvest_step3, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_withdraw_hard_step3, container, false);
         mWithdrawAmount = rootView.findViewById(R.id.withdraw_amount);
         mWithdrawDenom = rootView.findViewById(R.id.withdraw_amount_denom);
         mFeesAmount = rootView.findViewById(R.id.fees_amount);
         mFeesDenom = rootView.findViewById(R.id.fees_denom);
-        mDepositType = rootView.findViewById(R.id.deposit_type);
         mMemo = rootView.findViewById(R.id.memo);
         mBeforeBtn = rootView.findViewById(R.id.btn_before);
         mConfirmBtn = rootView.findViewById(R.id.btn_confirm);
@@ -55,9 +58,8 @@ public class WithdrawHarvestStep3Fragment extends BaseFragment implements View.O
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        WDp.showCoinDp(getContext(), getSActivity().mHarvestCoin, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), getSActivity().mHardPoolCoins.get(0), mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
-        mDepositType.setText("lp (Liquidity Provider)");
         mMemo.setText(getSActivity().mMemo);
 
     }
@@ -68,8 +70,17 @@ public class WithdrawHarvestStep3Fragment extends BaseFragment implements View.O
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mConfirmBtn)) {
-            getSActivity().onStartWithdrawHarvest();
+            Dialog_Hard_Withdarw_Warning dialog = Dialog_Hard_Withdarw_Warning.newInstance(null);
+            dialog.setTargetFragment(WithdrawHardStep3Fragment.this, SELECT_HARD_WITHDRAW_CHECK);
+            getFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
 
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_HARD_WITHDRAW_CHECK && resultCode == Activity.RESULT_OK) {
+            getSActivity().onStartWithdrawHarvest();
         }
     }
 

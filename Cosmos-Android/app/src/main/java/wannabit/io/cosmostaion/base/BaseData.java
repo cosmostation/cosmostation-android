@@ -33,6 +33,8 @@ import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.Delegation_V1;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
+import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 import wannabit.io.cosmostaion.model.IrisToken_V1;
@@ -137,6 +139,8 @@ public class BaseData {
     public HardParam                                                        mHardParam;
     public AuctionParam                                                     mAuctionParam;
     public IncentiveReward                                                  mIncentiveRewards;
+    public ArrayList<HardMyDeposit>                                         mMyHardDeposit = new ArrayList<>();
+    public ArrayList<HardMyBorrow>                                          mMyHardBorrow = new ArrayList<>();
 
 
     //COMMON DATA FOR BINANCE
