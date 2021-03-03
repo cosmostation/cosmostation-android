@@ -43,7 +43,6 @@ import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
@@ -68,16 +67,13 @@ import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -1187,30 +1183,9 @@ public class WUtil {
         Collections.sort(proposals, new Comparator<Proposal>() {
             @Override
             public int compare(Proposal o1, Proposal o2) {
-                if (chain.equals(COSMOS_MAIN)) {
-                    if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
-                    else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
-                    else return 0;
-
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN)) {
-                    if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
-                    else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
-                    else return 0;
-
-                }
-                return 0;
-            }
-        });
-    }
-
-    public static void onSortingIrisProposal(ArrayList<IrisProposal> proposals) {
-        Collections.sort(proposals, new Comparator<IrisProposal>() {
-            @Override
-            public int compare(IrisProposal o1, IrisProposal o2) {
-                if (Integer.parseInt(o1.value.basicProposal.proposal_id) < Integer.parseInt(o2.value.basicProposal.proposal_id)) return 1;
-                else if (Integer.parseInt(o1.value.basicProposal.proposal_id) > Integer.parseInt(o2.value.basicProposal.proposal_id)) return -1;
+                if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
+                else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
                 else return 0;
-
             }
         });
     }
@@ -1233,41 +1208,6 @@ public class WUtil {
                 if (Integer.parseInt(o1.proposal_id) < Integer.parseInt(o2.proposal_id)) return 1;
                 else if (Integer.parseInt(o1.proposal_id) > Integer.parseInt(o2.proposal_id)) return -1;
                 else return 0;
-            }
-        });
-    }
-
-
-    public static void onSortIrisByReward(ArrayList<Validator> validators, final ResLcdIrisReward reward) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal rewardO1 = reward.getPerValReward(o1.operator_address);
-                BigDecimal rewardO2 = reward.getPerValReward(o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-    public static void onSortIrisOnlyByReward(ArrayList<Validator> validators, final ResLcdIrisReward reward) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-
-                BigDecimal rewardO1 = reward.getPerValReward(o1.operator_address);
-                BigDecimal rewardO2 = reward.getPerValReward(o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
             }
         });
     }
