@@ -11,8 +11,6 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpList;
-import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
 import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
@@ -24,13 +22,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHardReserves;
 import wannabit.io.cosmostaion.network.res.ResKavaHardTotalBorrow;
 import wannabit.io.cosmostaion.network.res.ResKavaHardTotalDeposit;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestAccount;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam5;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
@@ -143,20 +135,6 @@ public interface KavaChain {
 
 
 
-
-    @GET("cdp/cdps/cdp/{address}/{denom}")
-    Call<ResCdpOwnerStatus> getCdpStatusByOwner(@Path("address") String address, @Path("denom") String denom);
-
-    @GET("cdp/cdps/cdp/deposits/{address}/{denom}")
-    Call<ResCdpDepositStatus> getCdpDepositStatus(@Path("address") String address, @Path("denom") String denom);
-
-    @GET("cdp/cdps/denom/{denom}")
-    Call<ResCdpList> getCdpListByDenom(@Path("denom") String denom);
-
-    @GET("cdp/cdps/ratio/{denom}/{ratio}")
-    Call<ResCdpList> getCdpCoinRate(@Path("denom") String denom, @Path("ratio") String ratio);
-
-
     @GET("pricefeed/parameters")
     Call<ResKavaPriceFeedParam> getPriceParam();
 
@@ -164,6 +142,8 @@ public interface KavaChain {
     Call<ResKavaMarketPrice> getPrice(@Path("market") String market);
 
 
+    @GET("bep3/parameters")
+    Call<ResKavaBep3Param2> getSwapParams2();
 
     @GET("bep3/swap/{swapId}")
     Call<ResKavaSwapInfo> getSwapById(@Path("swapId") String swapId);
@@ -171,48 +151,19 @@ public interface KavaChain {
     @GET("bep3/swaps")
     Call<String> getSwaps();
 
-    @GET("bep3/parameters")
-    Call<ResKavaBep3Param2> getSwapParams2();
-
     @GET("bep3/supplies")
     Call<ResKavaSwapSupply2> getSupplies2();
 
-    @GET("incentive/parameters")
-    Call<ResKavaIncentiveParam> getIncentiveParams();
-
-    @GET("incentive/claims/{address}/{denom}")
-    Call<ResKavaIncentiveReward> getIncentive(@Path("address") String address, @Path("denom") String denom);
-
-    @GET("harvest/parameters")
-    Call<ResKavaHarvestParam> getHarvestParam();
-
-    @GET("harvest/deposits")
-    Call<ResKavaHarvestDeposit> getHarvestDeposit(@Query("owner") String owner);
-
-    @GET("harvest/claims")
-    Call<ResKavaHarvestReward> getHarvestReward(@Query("owner") String owner);
-
-    @GET("harvest/accounts")
-    Call<ResKavaHarvestAccount> getHarvestAccount();
-
-
-
-    @GET("faucet/{address}")
-    Call<JSONObject> getFaucet(@Path("address") String address);
-
-
-
-
-
-
-
-    //For KAVA-5
 
     @GET("cdp/parameters")
     Call<ResKavaCdpParam> getCdpParams();
 
-    @GET("hard/parameters")
-    Call<ResKavaHardParam> getHardParam();
+    @GET("cdp/cdps")
+    Call<ResKavaMyCdps> getMyCDPs(@Query("owner") String owner);
+
+    @GET("cdp/cdps/cdp/deposits/{address}/{denom}")
+    Call<ResCdpDepositStatus> getCdpDepositStatus(@Path("address") String address, @Path("denom") String denom);
+
 
     @GET("auction/parameters")
     Call<ResKavaAuctionParam> getAuctionParam();
@@ -223,10 +174,9 @@ public interface KavaChain {
     @GET("incentive/rewards")
     Call<ResKavaIncentiveReward5> getIncentiveReward5(@Query("owner") String owner);
 
-    @GET("cdp/cdps")
-    Call<ResKavaMyCdps> getMyCDPs(@Query("owner") String owner);
 
-
+    @GET("hard/parameters")
+    Call<ResKavaHardParam> getHardParam();
 
     @GET("hard/total-deposited")
     Call<ResKavaHardTotalDeposit> getHardTotalDeposit();
@@ -248,4 +198,12 @@ public interface KavaChain {
 
     @GET("hard/accounts")
     Call<ResKavaHardModuleAccount> getHardModuleAccount();
+
+
+
+
+
+    @GET("faucet/{address}")
+    Call<JSONObject> getFaucet(@Path("address") String address);
+
 }

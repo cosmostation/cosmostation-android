@@ -199,7 +199,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             txHashTv.setText(mResSendBnbTxInfo.hash);
             memoTv.setText(mResSendBnbTxInfo.tx.value.memo);
 
-            Coin sendCoin = WDp.getCoins(msg.value).get(0);
+            Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
             WDp.showCoinDp(getBaseContext(), sendCoin, sendDenom, sendAmount, mBaseChain);
 
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), feeDenom);
@@ -228,7 +228,7 @@ public class HtlcResultActivity extends BaseActivity implements View.OnClickList
             txHashTv.setText(mResSendTxInfo.txhash);
             memoTv.setText(mResSendTxInfo.tx.value.memo);
 
-            Coin sendCoin = WDp.getCoins(msg.value).get(0);
+            Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
             sendDenom.setText(sendCoin.denom.toUpperCase());
             sendAmount.setText(WDp.getDpAmount2(this, new BigDecimal(sendCoin.amount), WUtil.getKavaCoinDecimal(sendCoin.denom), WUtil.getKavaCoinDecimal(sendCoin.denom)));
 

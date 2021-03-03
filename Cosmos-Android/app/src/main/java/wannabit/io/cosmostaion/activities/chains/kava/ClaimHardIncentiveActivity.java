@@ -29,10 +29,7 @@ import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep3Fragm
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
 
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
 
@@ -51,7 +48,7 @@ public class ClaimHardIncentiveActivity extends BaseActivity {
 
     public String                                   mHarvestDepositDenom;
     public String                                   mHarvestDepositType;            // "lp" or "stake"
-    public ResKavaHarvestParam                      mHarvestParam;
+//    public ResKavaHarvestParam                      mHarvestParam;
     public BigDecimal                               mAllRewardAmount;
     public BigDecimal                               mReceivableAmount;
     public ArrayList<ClaimMultiplier>               mClaimMultipliers;
@@ -84,35 +81,8 @@ public class ClaimHardIncentiveActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(KAVA_MAIN)) {
-            mHarvestDepositDenom = getIntent().getStringExtra("harvest_deposit_denom");
-            mHarvestDepositType = getIntent().getStringExtra("harvest_deposit_type");
-            mHarvestParam = getBaseDao().mHarvestParam;
-            if (mHarvestDepositType.equals("stake")) {
-                mClaimMultipliers = mHarvestParam.getKavaStakerSchedule().distribution_schedule.claim_multipliers;
-            } else {
-                for (ResKavaHarvestParam.DistributionSchedule dschedule: mHarvestParam.result.liquidity_provider_schedules) {
-                    if (dschedule.deposit_denom.equals(mHarvestDepositDenom)) {
-                        mClaimMultipliers = dschedule.claim_multipliers;
-                    }
-                }
-            }
-            for (ResKavaHarvestReward.HarvestReward reward : getBaseDao().mHavestRewards) {
-                if (reward.deposit_denom.equals(mHarvestDepositDenom) && reward.type.equals(mHarvestDepositType)) {
-                    mAllRewardAmount = new BigDecimal(reward.amount.amount);
-                }
-            }
-
-        } else {
-            mIncentiveReward5 = getBaseDao().mIncentiveRewards;
-            mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
-
-        }
-
-//        WLog.w("mHarvestDepositDenom " + mHarvestDepositDenom);
-//        WLog.w("mHarvestDepositType " + mHarvestDepositType);
-//        WLog.w("mAllRewardAmount " + mAllRewardAmount);
-//        WLog.w("mClaimMultipliers " + mClaimMultipliers.size());
+        mIncentiveReward5 = getBaseDao().mIncentiveRewards;
+        mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
 
         mPageAdapter = new ClaimHarvestRewardPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);

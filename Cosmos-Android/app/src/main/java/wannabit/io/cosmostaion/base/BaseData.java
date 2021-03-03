@@ -49,16 +49,9 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
-import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestParam;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
@@ -123,14 +116,14 @@ public class BaseData {
     public ResMintParam.MintParam       mMintParam;
 
     //COMMON DATA FOR KAVA
-    public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
+//    public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
     public HashMap<String, MarketPrice>                                     mKavaTokenPrices = new HashMap<>();
-    public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
-    public ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>       mKavaUnClaimedIncentiveRewards = new ArrayList<>();
-    public ResKavaHarvestParam                                              mHarvestParam;
-    public ArrayList<ResKavaHarvestDeposit.HarvestDeposit>                  mHavestDeposits = new ArrayList<>();
-    public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
-    public BigDecimal                                                       mHardPrice = BigDecimal.ZERO;
+//    public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
+//    public ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>       mKavaUnClaimedIncentiveRewards = new ArrayList<>();
+//    public ResKavaHarvestParam                                              mHarvestParam;
+//    public ArrayList<ResKavaHarvestDeposit.HarvestDeposit>                  mHavestDeposits = new ArrayList<>();
+//    public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
+//    public BigDecimal                                                       mHardPrice = BigDecimal.ZERO;
 
     //COMMON DATA FOR KAVA-5
     public ResLcdKavaAccountInfo.Result                                     mKavaAccount;

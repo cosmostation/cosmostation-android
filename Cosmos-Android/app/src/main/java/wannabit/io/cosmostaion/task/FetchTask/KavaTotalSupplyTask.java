@@ -28,8 +28,7 @@ public class KavaTotalSupplyTask extends CommonTask {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaSupply> response = ApiClient.getKavaChain(mApp).getSupply().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    //TODO KAVA MAIN FIX
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {

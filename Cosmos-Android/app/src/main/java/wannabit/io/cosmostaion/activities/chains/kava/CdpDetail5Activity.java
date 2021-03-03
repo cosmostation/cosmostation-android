@@ -118,7 +118,7 @@ public class CdpDetail5Activity extends BaseActivity implements TaskListener, Vi
     public void onFetchCdpData() {
         mTaskCount = 3;
         mMyCdp = null;
-        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaTotalSupplyTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

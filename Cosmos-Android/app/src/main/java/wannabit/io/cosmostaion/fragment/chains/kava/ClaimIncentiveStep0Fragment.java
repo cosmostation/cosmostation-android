@@ -76,29 +76,17 @@ public class ClaimIncentiveStep0Fragment extends BaseFragment implements View.On
             BtnOption3.setVisibility(View.VISIBLE);
             OptionTitle3.setText(getSActivity().mClaimMultipliers.get(2).name.toUpperCase());
         }
-        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mAllIncentiveAmount.toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
-        } else {
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getMintingRewardAmount().toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
+        WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mIncentiveReward5.getMintingRewardAmount().toPlainString(), mIncentiveAmountDenom, mIncentiveAmount, getSActivity().mBaseChain);
 
-        }
 
         return rootView;
     }
 
     private void onUpdateView() {
-        if (getSActivity().mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal receivable = getSActivity().mAllIncentiveAmount.multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
-            getSActivity().mReceivableAmount = receivable;
-            mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
-        } else {
-            BigDecimal receivable = getSActivity().mIncentiveReward5.getMintingRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
-            WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
-            getSActivity().mReceivableAmount = receivable;
-            mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
-        }
-
+        BigDecimal receivable = getSActivity().mIncentiveReward5.getMintingRewardAmount().multiply(new BigDecimal(getSActivity().mSelectedMultiplier.factor)).setScale(0, RoundingMode.DOWN);
+        WDp.showCoinDp(getContext(), TOKEN_KAVA, receivable.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
+        getSActivity().mReceivableAmount = receivable;
+        mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
     }
 
     @Override

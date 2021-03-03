@@ -99,11 +99,11 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         mNotYet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                txDetail.putExtra("txHash", "8619CCDD36170CD5637D4495D278F85FD727FF1428AF4702C512B8AFE00EB8A8");
-                txDetail.putExtra("isGen", false);
-                txDetail.putExtra("isSuccess", true);
-                startActivity(txDetail);
+//                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+//                txDetail.putExtra("txHash", "8619CCDD36170CD5637D4495D278F85FD727FF1428AF4702C512B8AFE00EB8A8");
+//                txDetail.putExtra("isGen", false);
+//                txDetail.putExtra("isSuccess", true);
+//                startActivity(txDetail);
 //                if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
 //                    Intent webintent = new Intent(getMainActivity(), WebActivity.class);
 //                    webintent.putExtra("address", getMainActivity().mAccount.address);
@@ -171,14 +171,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
         if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
             new BnbHistoryTask(getBaseApplication(), this, null, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getMainActivity().mAccount.address, WDp.threeMonthAgoTimeString(), WDp.cTimeString());
 
-        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            mEmptyHistory.setVisibility(View.GONE);
-            mRecyclerView.setVisibility(View.GONE);
-            mNotYet.setVisibility(View.VISIBLE);
-            mNotYet.setText("Coming Soon!!");
 
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -408,7 +402,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
+            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();

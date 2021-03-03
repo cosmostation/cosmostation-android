@@ -168,7 +168,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
             } else if (viewType == TYPE_HISTORY) {
                 return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
-
             }
             return null;
         }

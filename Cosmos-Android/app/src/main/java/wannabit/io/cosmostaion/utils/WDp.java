@@ -43,7 +43,6 @@ import wannabit.io.cosmostaion.model.IrisToken_V1;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
 import wannabit.io.cosmostaion.model.Validator_V1;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.Cdp;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
@@ -55,9 +54,6 @@ import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -596,21 +592,21 @@ public class WDp {
 
     public static BigDecimal getHavestDepositAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
-            if (deposit.amount.denom.equals(denom)) {
-                sum = sum.add(new BigDecimal(deposit.amount.amount));
-            }
-        }
+//        for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
+//            if (deposit.amount.denom.equals(denom)) {
+//                sum = sum.add(new BigDecimal(deposit.amount.amount));
+//            }
+//        }
         return sum;
     }
 
     public static BigDecimal getHavestRewardAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (ResKavaHarvestReward.HarvestReward hReward:baseData.mHavestRewards) {
-            if (hReward.amount.denom.equals(denom)) {
-                sum = sum.add(new BigDecimal(hReward.amount.amount));
-            }
-        }
+//        for (ResKavaHarvestReward.HarvestReward hReward:baseData.mHavestRewards) {
+//            if (hReward.amount.denom.equals(denom)) {
+//                sum = sum.add(new BigDecimal(hReward.amount.amount));
+//            }
+//        }
         return sum;
     }
 
@@ -638,55 +634,27 @@ public class WDp {
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseChain chain, BaseData baseData, String denom, BigDecimal amount) {
-        if (chain.equals(KAVA_MAIN)) {
-            int dpDecimal = WUtil.getKavaCoinDecimal(denom);
-            if (denom.equals("usdx") || denom.equals("busd")) {
-                return amount.movePointLeft(dpDecimal);
-            } else if (denom.equals("hard")) {
-                return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
-            } else {
-                HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
-                CdpParam params = baseData.mCdpParam;
-                if (prices == null || prices.size() <= 0 || params == null) {
-                    return BigDecimal.ZERO;
-                }
-                //don't care collateral type
-                CollateralParam collateralParam = params.getCollateralParamByDenom(denom);
-                if (collateralParam == null || collateralParam.liquidation_market_id == null) {
-                    return BigDecimal.ZERO;
-                }
-                MarketPrice mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
-                if (mMarketPrice == null) {
-                    return BigDecimal.ZERO;
-                } else {
-                    return amount.movePointLeft(dpDecimal).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
-                }
-            }
+        int dpDecimal = WUtil.getKavaCoinDecimal(denom);
+        if (denom.equals("usdx") || denom.equals("busd")) {
+            return amount.movePointLeft(dpDecimal);
 
-        } else if (chain.equals(KAVA_TEST)) {
-            //hard coding for denom price
-            int dpDecimal = WUtil.getKavaCoinDecimal(denom);
-            if (denom.equals("usdx") || denom.equals("busd")) {
-                return amount.movePointLeft(dpDecimal);
+        } else {
+            HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
+            if (denom.equals("hard") && prices.get("hard:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("hard:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
 
-            } else {
-                HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
-                if (denom.equals("hard") && prices.get("hard:usd:30") != null) {
-                    BigDecimal price = new BigDecimal(prices.get("hard:usd:30").price);
-                    return amount.movePointLeft(dpDecimal).multiply(price);
+            } else if (denom.contains("btc") && prices.get("btc:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("btc:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
 
-                } else if (denom.contains("btc") && prices.get("btc:usd:30") != null) {
-                    BigDecimal price = new BigDecimal(prices.get("btc:usd:30").price);
-                    return amount.movePointLeft(dpDecimal).multiply(price);
+            } else if (denom.contains("bnb") && prices.get("bnb:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
 
-                } else if (denom.contains("bnb") && prices.get("bnb:usd:30") != null) {
-                    BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
-                    return amount.movePointLeft(dpDecimal).multiply(price);
-
-                } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
-                    BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
-                    return amount.movePointLeft(dpDecimal).multiply(price);
-                }
+            } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
             }
         }
         return BigDecimal.ZERO;

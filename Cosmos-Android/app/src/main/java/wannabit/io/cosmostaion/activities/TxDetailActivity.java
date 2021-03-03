@@ -767,8 +767,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     if (mAccount.address.equals(msg.value.to_address)) {
                         holder.itemSendRecieveTv.setText(R.string.tx_receive);
                     }
-//                    toDpCoin = msg.value.getCoins();
-                    toDpCoin = WDp.getCoins(msg.value);
+                    toDpCoin = WDp.getCoins(msg.value.amount);
                     WUtil.onSortingCoins(toDpCoin, mBaseChain);
 
 
@@ -910,7 +909,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value).get(0).amount), 6, 6));
+            holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), 6, 6));
             holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
@@ -926,7 +925,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemUnDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value).get(0).amount), 6, 6));
+            holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), 6, 6));
             holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
@@ -944,7 +943,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, getBaseDao().mAllValidators, true));
             holder.itemToValidator.setText(msg.value.validator_dst_address);
             holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, getBaseDao().mAllValidators, true));
-            holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value).get(0).amount), 6, 6));
+            holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), 6, 6));
             holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
@@ -1077,7 +1076,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
-                Coin sendCoin = WDp.getCoins(msg.value).get(0);
+                Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
                 WDp.showCoinDp(getBaseContext(), sendCoin, holder.itemSendDenom, holder.itemSendAmount, mBaseChain);
                 holder.itemSender.setText(msg.value.from);
                 holder.itemRecipient.setText(msg.value.recipient_other_chain);
@@ -1104,7 +1103,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemSender.setText(msg.value.from);
                     holder.itemRecipient.setText(msg.value.to);
                 }
-                Coin sendCoin = WDp.getCoins(msg.value).get(0);
+                Coin sendCoin = WDp.getCoins(msg.value.amount).get(0);
                 WDp.showCoinDp(getBaseContext(), sendCoin, holder.itemSendDenom, holder.itemSendAmount, mBaseChain);
                 holder.itemRandomHash.setText(msg.value.random_number_hash);
                 holder.itemExpectIncome.setText(msg.value.expected_income);
@@ -1198,7 +1197,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             holder.itemDepositor.setText(msg.value.depositor);
             holder.itemDepositType.setText(msg.value.deposit_type);
-            WDp.showCoinDp(getBaseContext(), WDp.getCoins(msg.value).get(0), holder.itemDepositAmountDenom, holder.itemDepositAmount, mBaseChain);
+            WDp.showCoinDp(getBaseContext(), WDp.getCoins(msg.value.amount).get(0), holder.itemDepositAmountDenom, holder.itemDepositAmount, mBaseChain);
         }
 
         private void onBindHarvestWithdraw(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1208,7 +1207,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             holder.itemDepositor.setText(msg.value.depositor);
             holder.itemDepositType.setText(msg.value.deposit_type);
-            WDp.showCoinDp(getBaseContext(), WDp.getCoins(msg.value).get(0), holder.itemWithdrawAmountDenom, holder.itemWithdrawAmount, mBaseChain);
+            WDp.showCoinDp(getBaseContext(), WDp.getCoins(msg.value.amount).get(0), holder.itemWithdrawAmountDenom, holder.itemWithdrawAmount, mBaseChain);
         }
 
         private void onBindHarvestReward(RecyclerView.ViewHolder viewHolder, int position) {

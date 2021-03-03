@@ -139,6 +139,18 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
@@ -2497,5 +2509,24 @@ public class WUtil {
             }
         }
         return result;
+    }
+
+    public static boolean isBep3Coin(String denom) {
+        if (denom.equals(TOKEN_HTLC_BINANCE_BNB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_BINANCE_BTCB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_BINANCE_XRPB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_BINANCE_BUSD)) { return true; }
+
+        if (denom.equals(TOKEN_HTLC_KAVA_BNB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_KAVA_BTCB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_KAVA_XRPB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_KAVA_BUSD)) { return true; }
+
+        if (denom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) { return true; }
+
+        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) { return true; }
+        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) { return true; }
+        return false;
     }
 }

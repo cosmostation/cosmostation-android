@@ -19,14 +19,11 @@ public class KavaCdpByOwnerTask extends CommonTask {
 
     private BaseChain mChain;
     private String mAddress;
-    private CollateralParam mParam;
-
-    public KavaCdpByOwnerTask(BaseApplication app, TaskListener listener, BaseChain chain, String address, CollateralParam param) {
+    public KavaCdpByOwnerTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
         super(app, listener);
         this.mResult.taskType   = BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
         this.mChain = chain;
         this.mAddress = address;
-        this.mParam = param;
 
     }
 
@@ -34,10 +31,9 @@ public class KavaCdpByOwnerTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResCdpOwnerStatus> response = ApiClient.getKavaChain(mApp).getCdpStatusByOwner(mAddress, mParam.type).execute();
+                Response<ResKavaMyCdps> response = ApiClient.getKavaChain(mApp).getMyCDPs(mAddress).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
-                    mResult.resultData2 = mParam.denom;
                     mResult.isSuccess = true;
 
                 }

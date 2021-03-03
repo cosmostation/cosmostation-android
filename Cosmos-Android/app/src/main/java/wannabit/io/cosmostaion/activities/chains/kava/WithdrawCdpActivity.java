@@ -242,7 +242,7 @@ public class WithdrawCdpActivity extends BaseActivity {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         mTaskCount = 3;
-        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
@@ -257,7 +257,6 @@ public class WithdrawCdpActivity extends BaseActivity {
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
-            //only support kava-5
             if (result.isSuccess && result.resultData != null) {
                 ArrayList<MyCdp> myCdps = (ArrayList<MyCdp>)result.resultData;
                 for (MyCdp myCdp: myCdps) {

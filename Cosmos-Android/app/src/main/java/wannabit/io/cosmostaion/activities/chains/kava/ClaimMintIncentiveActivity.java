@@ -30,10 +30,6 @@ import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
-
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 
 public class ClaimMintIncentiveActivity extends BaseActivity {
 
@@ -49,16 +45,11 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
     public String                       mMemo;
     public Fee                          mFee;
 
-    public String                                   mCollateralParamType;
-    public ClaimMultiplier                          mSelectedMultiplier = null;
-    public ResKavaIncentiveParam.IncentiveParam     mIncentiveParam;
-    public ResKavaIncentiveParam.IncentiveReward    mIncentiveReward;
-    public BigDecimal                               mAllIncentiveAmount;
-    public BigDecimal                               mReceivableAmount;
-    public ArrayList<ClaimMultiplier>               mClaimMultipliers;
-
     //KAVA-5
     public IncentiveReward                          mIncentiveReward5;
+    public BigDecimal                               mReceivableAmount;
+    public ArrayList<ClaimMultiplier>               mClaimMultipliers;
+    public ClaimMultiplier                          mSelectedMultiplier = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,26 +74,8 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(KAVA_MAIN)) {
-            mCollateralParamType = getIntent().getStringExtra("collateral_type");
-            mIncentiveParam = getBaseDao().mKavaIncentiveParam;
-            for (ResKavaIncentiveParam.IncentiveReward incentiveReward:mIncentiveParam.rewards) {
-                if (incentiveReward.collateral_type.equals(mCollateralParamType)) {
-                    mIncentiveReward = incentiveReward;
-                }
-            }
-            for (ResKavaIncentiveReward.IncentiveRewardClaimable incentiveClaimable:getBaseDao().mKavaUnClaimedIncentiveRewards) {
-                if (mCollateralParamType.equals(incentiveClaimable.claim.collateral_type) && incentiveClaimable.claimable) {
-                    mAllIncentiveAmount = new BigDecimal(incentiveClaimable.claim.reward.amount);
-                }
-            }
-            mClaimMultipliers = mIncentiveReward.claim_multipliers;
-
-        } else {
-            mIncentiveReward5 = getBaseDao().mIncentiveRewards;
-            mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
-
-        }
+        mIncentiveReward5 = getBaseDao().mIncentiveRewards;
+        mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
 
 //        WLog.w("mCollateralParamType " + mCollateralParamType);
 //        WLog.w("mIncentiveReward " + mIncentiveReward.collateral_type);
@@ -191,9 +164,6 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
     public void onStartIncentiveClaim() {
         Intent intent = new Intent(ClaimMintIncentiveActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE);
-        if (mBaseChain.equals(KAVA_MAIN)) {
-            intent.putExtra("collateralType", mCollateralParamType);
-        }
         intent.putExtra("multiplierName", mSelectedMultiplier.name);
         intent.putExtra("fee", mFee);
         intent.putExtra("memo", mMemo);

@@ -126,7 +126,7 @@ public class DAppsList5Activity extends BaseActivity implements TaskListener {
         new KavaHardParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaAuctionParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         new KavaIncentiveParamTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaIncentiveRewardTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
     }

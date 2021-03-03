@@ -13,10 +13,7 @@ import com.squareup.picasso.Picasso;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
-import wannabit.io.cosmostaion.activities.chains.kava.CdpDetailActivity;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
-import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;

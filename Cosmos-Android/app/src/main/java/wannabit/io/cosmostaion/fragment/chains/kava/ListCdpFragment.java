@@ -104,7 +104,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
         mMyCdps.clear();
         mOtherCdps.clear();
         mTaskCount = 1;
-        new KavaCdpByOwnerTask(getBaseApplication(), this, mBaseChain, mAccount.address, null).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpByOwnerTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override

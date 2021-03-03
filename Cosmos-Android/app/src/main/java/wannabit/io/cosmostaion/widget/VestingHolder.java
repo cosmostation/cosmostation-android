@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class VestingHolder extends BaseHolder {
@@ -54,6 +55,9 @@ public class VestingHolder extends BaseHolder {
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         mVestingRoot.setCardBackgroundColor(WDp.getChainBgColor(c, chain));
+        if (denom.equals(TOKEN_HARD)) {
+            mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
+        }
 
         final ResLcdKavaAccountInfo.Value mKavaAccount = baseData.mKavaAccount.value;
         mVestingCnt.setText("(" + mKavaAccount.getCalcurateVestingCntByDenom(denom) + ")");
