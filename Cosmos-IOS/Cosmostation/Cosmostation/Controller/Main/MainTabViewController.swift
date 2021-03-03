@@ -200,6 +200,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyBalances_V1.removeAll()
         BaseData.instance.mMyReward_V1.removeAll()
         
+        BaseData.instance.mMintParam_V1 = nil
+        BaseData.instance.mStakingPool_V1 = nil
+        BaseData.instance.mProvision_V1 = nil
+        BaseData.instance.mInflation_V1 = nil
+        
         BaseData.instance.mIrisTokens_V1.removeAll()
         
         if (mChainType == ChainType.COSMOS_MAIN) {
