@@ -160,22 +160,6 @@ public class ApiClient {
         return api_kava;
     }
 
-    //Faucet for KAVA net
-    private static KavaChain service_kava_faucet = null;
-    public static KavaChain getKavaFaucet(Context c) {
-        if (service_kava_faucet == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_kava_faucet))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_kava_faucet = retrofit.create(KavaChain.class);
-            }
-        }
-        return service_kava_faucet;
-    }
-
-
     //Services for KAVATest chain
     private static KavaChain service_kava_test = null;
     public static KavaChain getKavaTestChain(Context c) {
@@ -204,21 +188,6 @@ public class ApiClient {
             }
         }
         return api_kava_test;
-    }
-
-    //Faucet for KAVATest
-    private static KavaChain service_kava_test_faucet = null;
-    public static KavaChain getKavaTestFaucet(Context c) {
-        if (service_kava_test_faucet == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_test_kava_faucet))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_kava_test_faucet = retrofit.create(KavaChain.class);
-            }
-        }
-        return service_kava_test_faucet;
     }
 
     //Rest for IOV main net
