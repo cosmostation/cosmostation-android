@@ -1147,12 +1147,12 @@
     <string name="tx_kava_bep3_create">인터체인\n보내기</string>
     <string name="tx_kava_bep3_claim">인터체인\n청구하기</string>
     <string name="tx_kava_bep3_refund">인터체인\n환불하기</string>
-    <string name="tx_kava_incentive_reward">Crypto Payday\n인센티브</string>
-    <string name="tx_kava_hard_deposit">하드 예치</string>
-    <string name="tx_kava_hard_withdraw">하드 출금</string>
-    <string name="tx_kava_hard_borrow">하드 대출</string>
-    <string name="tx_kava_hard_repay">하드 상환</string>
-    <string name="tx_kava_harvest_claim">하베스트\n이자 청구</string>
+    <string name="tx_kava_incentive_reward">USDX 발행\n인센티브</string>
+    <string name="tx_kava_hard_deposit">하드 풀\n예치</string>
+    <string name="tx_kava_hard_withdraw">하드 풀\n출금</string>
+    <string name="tx_kava_hard_borrow">하드 풀\n대출</string>
+    <string name="tx_kava_hard_repay">하드 풀\n상환</string>
+    <string name="tx_kava_harvest_claim">하드 풀\n인센티브</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
     <string name="tx_kava_deposit_cdp2">CDP 예치</string>
@@ -1168,11 +1168,11 @@
     <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
     <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
     <string name="tx_kava_incentive_reward2">USDX 발행 인센티브</string>
-    <string name="tx_kava_hard_deposit2">하드 예치</string>
-    <string name="tx_kava_hard_withdraw2">하드 출금</string>
-    <string name="tx_kava_hard_borrow2">하드 대출</string>
-    <string name="tx_kava_hard_repay2">하드 상환</string>
-    <string name="tx_kava_harvest_claim2">하드 인센티브</string>
+    <string name="tx_kava_hard_deposit2">하드 풀 예치</string>
+    <string name="tx_kava_hard_withdraw2">하드 풀 출금</string>
+    <string name="tx_kava_hard_borrow2">하드 풀 대출</string>
+    <string name="tx_kava_hard_repay2">하드 풀 상환</string>
+    <string name="tx_kava_harvest_claim2">하드 풀 인센티브</string>
 
 
     <string name="tx_starname_registe_domain">Domain 등록</string>
