@@ -27,12 +27,8 @@
     <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
-<!--    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>-->
-<!--    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>-->
-<!--    <string name="url_kava_faucet" translatable="false"></string>-->
-    <string name="url_lcd_kava_main" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-11000/</string>
-    <string name="url_api_kava_main" translatable="false">https://api-office.cosmostation.io/kava-testnet-11000/</string>
-    <string name="url_kava_faucet" translatable="false"></string>
+    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
+    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
 
     <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-11000/</string>
     <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-11000/</string>
@@ -1357,7 +1353,7 @@
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
     <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
-    <string name="tx_kava_hard_deposit2">Hard Pool nDeposit</string>
+    <string name="tx_kava_hard_deposit2">Hard Pool Deposit</string>
     <string name="tx_kava_hard_withdraw2">Hard Pool Withdraw</string>
     <string name="tx_kava_hard_borrow2">Hard Pool Borrow</string>
     <string name="tx_kava_hard_repay2">Hard Pool Repay</string>

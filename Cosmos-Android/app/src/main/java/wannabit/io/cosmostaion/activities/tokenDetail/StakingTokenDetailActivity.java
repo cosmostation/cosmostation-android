@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -23,8 +24,12 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
+import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
@@ -36,7 +41,9 @@ import wannabit.io.cosmostaion.widget.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 
@@ -52,6 +59,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
 
     private StakingTokenAdapter             mAdapter;
+    private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
     private ArrayList<ResApiTxListCustom>   mApiTxCustomHistory = new ArrayList<>();
     private Boolean                         mHasVesting = false;
 
@@ -114,7 +122,26 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
 
     private void onFetchTokenHistory() {
+        mApiTxHistory.clear();
+        mApiTxCustomHistory.clear();
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
 
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+
+        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_FETCH_API_TOKEN_HISTORY) {
+            mApiTxHistory = (ArrayList<ResApiTxList.Data>)result.resultData;
+            mAdapter.notifyDataSetChanged();
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -178,7 +205,23 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         @Override
         public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
-            holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+            if (getItemViewType(position) == TYPE_HISTORY) {
+                ResApiTxList.Data tx = null;
+                if (mApiTxCustomHistory.size() > 0) {
+
+                } else if (mApiTxHistory.size() > 0) {
+                    if (mHasVesting) {
+                        tx = mApiTxHistory.get(position - 2);
+                    } else {
+                        tx = mApiTxHistory.get(position - 1);
+                    }
+                    ((HistoryHolder)holder).onBindHistory(StakingTokenDetailActivity.this, tx, mAccount.address);
+                }
+
+            } else {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+            }
+
 
         }
 
@@ -187,6 +230,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             int cnt = 1;
             if (mApiTxCustomHistory != null) {
                 cnt = cnt + mApiTxCustomHistory.size();
+            }
+            if (mApiTxHistory != null) {
+                cnt = cnt + mApiTxHistory.size();
             }
             if (mHasVesting) {
                 cnt = cnt + 1;

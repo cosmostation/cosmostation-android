@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -25,8 +26,14 @@ import wannabit.io.cosmostaion.activities.TokenDetailActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.model.type.BnbHistory;
+import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
+import wannabit.io.cosmostaion.task.FetchTask.ApiStakeTxsHistoryTask;
+import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
+import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -61,6 +68,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
     private NativeTokenAdapter      mAdapter;
 
     private String                          mDenom;
+    private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
     private ArrayList<ResApiTxListCustom>   mApiTxCustomHistory = new ArrayList<>();
     private Boolean                         mHasVesting = false;
 
@@ -133,7 +141,25 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
 
     private void onFetchTokenHistory() {
+        mApiTxHistory.clear();
+        mApiTxCustomHistory.clear();
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
 
+        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+
+        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mDenom, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if(isFinishing()) return;
+        if (result.taskType == BaseConstant.TASK_FETCH_API_TOKEN_HISTORY) {
+            mApiTxHistory = (ArrayList<ResApiTxList.Data>)result.resultData;
+            mAdapter.notifyDataSetChanged();
+        }
+        mSwipeRefreshLayout.setRefreshing(false);
     }
 
 
@@ -156,13 +182,12 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnSend) || v.equals(mBtnBep3SimpleSend)) {
-            WLog.w("Simple Send");
             Intent intent = new Intent(NativeTokenDetailActivity.this, SendActivity.class);
             intent.putExtra("sendTokenDenom", mDenom);
             startActivity(intent);
 
         } else if (v.equals(mBtnBep3Send)) {
-            WLog.w("Bep3 Send");
+            onStartHTLCSendActivity(mDenom);
 
         }
 
@@ -222,6 +247,17 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 ((VestingHolder)viewHolder).onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
 
             } else if (getItemViewType(position) == TYPE_HISTORY) {
+                ResApiTxList.Data tx = null;
+                if (mApiTxCustomHistory.size() > 0) {
+
+                } else if (mApiTxHistory.size() > 0) {
+                    if (mHasVesting) {
+                        tx = mApiTxHistory.get(position - 2);
+                    } else {
+                        tx = mApiTxHistory.get(position - 1);
+                    }
+                    ((HistoryHolder)viewHolder).onBindHistory(NativeTokenDetailActivity.this, tx, mAccount.address);
+                }
 
             } else if (getItemViewType(position) == TYPE_UNKNOWN) {
 
@@ -234,6 +270,9 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             int cnt = 1;
             if (mApiTxCustomHistory != null) {
                 cnt = cnt + mApiTxCustomHistory.size();
+            }
+            if (mApiTxHistory != null) {
+                cnt = cnt + mApiTxHistory.size();
             }
             if (mHasVesting) {
                 cnt = cnt + 1;
