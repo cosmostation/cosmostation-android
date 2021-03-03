@@ -18,7 +18,6 @@ import wannabit.io.cosmostaion.activities.chains.kava.BorrowHardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Hard_Liquidation_Warning;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 

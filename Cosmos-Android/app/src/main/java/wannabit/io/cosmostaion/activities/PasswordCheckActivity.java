@@ -53,6 +53,7 @@ import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRegisterDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewAccountTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRenewDomainTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayCdpTask;
+import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRepayHardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleReplaceStarNameTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleRewardTask;
 import wannabit.io.cosmostaion.task.SimpleBroadTxTask.SimpleSendTask;
@@ -678,6 +679,8 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPAY_HARD) {
+            new SimpleRepayHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,
+                    mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }
 

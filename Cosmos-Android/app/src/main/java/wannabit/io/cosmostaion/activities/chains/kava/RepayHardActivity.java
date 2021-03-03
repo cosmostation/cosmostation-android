@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.chains.kava;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -24,6 +26,9 @@ import wannabit.io.cosmostaion.fragment.chains.kava.RepayHardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.RepayHardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPAY_HARD;
 
 public class RepayHardActivity extends BaseActivity {
 
@@ -134,14 +139,14 @@ public class RepayHardActivity extends BaseActivity {
     }
 
     public void onStartRepayHard() {
-//        Intent intent = new Intent(WithdrawHardActivity.this, PasswordCheckActivity.class);
-//        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_WITHDRAW_HARVEST);
-//        intent.putExtra("depositor", mAccount.address);
-//        intent.putExtra("hardPoolCoins", mHardPoolCoins);
-//        intent.putExtra("fee", mFee);
-//        intent.putExtra("memo", mMemo);
-//        startActivity(intent);
-//        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+        Intent intent = new Intent(RepayHardActivity.this, PasswordCheckActivity.class);
+        intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REPAY_HARD);
+        intent.putExtra("depositor", mAccount.address);
+        intent.putExtra("hardPoolCoins", mHardPoolCoins);
+        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mMemo);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
     }
 

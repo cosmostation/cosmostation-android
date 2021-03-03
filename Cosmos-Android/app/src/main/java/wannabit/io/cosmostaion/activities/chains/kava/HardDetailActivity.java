@@ -250,12 +250,12 @@ public class HardDetailActivity extends BaseActivity {
 
     public void onHardRepay() {
         if (!onCommonCheck()) return;
-        if (WUtil.getHardSuppliedValueByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyDeposit).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_deposited_asset, Toast.LENGTH_SHORT).show();
+        if (WUtil.getHardBorrowedAmountByDenom(this, getBaseDao(), mHardMoneyMarketDenom, mMyBorrow).compareTo(BigDecimal.TEN) <= 0) {
+            Toast.makeText(getBaseContext(), R.string.error_no_borrowable_asset, Toast.LENGTH_SHORT).show();
             return;
         }
         if (WDp.getAvailableCoin(getBaseDao().mBalances, mHardMoneyMarketDenom).compareTo(BigDecimal.ZERO) <= 0) {
-            Toast.makeText(getBaseContext(), R.string.error_no_repay_asset, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
             return;
         }
 
