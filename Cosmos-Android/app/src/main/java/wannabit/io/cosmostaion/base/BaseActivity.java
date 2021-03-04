@@ -864,7 +864,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mCdpParam = cdpParam;
             }
 
-        }else if (result.taskType == TASK_FETCH_KAVA_PRICE_FEED_PARAM) {
+        } else if (result.taskType == TASK_FETCH_KAVA_PRICE_FEED_PARAM) {
             getBaseDao().mKavaTokenPrices.clear();
             if (result.isSuccess && result.resultData != null) {
                 final ResKavaPriceFeedParam.KavaPriceParam kavaPriceParam = (ResKavaPriceFeedParam.KavaPriceParam)result.resultData;

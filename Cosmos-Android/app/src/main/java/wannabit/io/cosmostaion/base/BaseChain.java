@@ -232,7 +232,7 @@ public enum BaseChain {
 //        result.add(COSMOS_TEST);
 //        result.add(IRIS_TEST);
 //        result.add(BNB_TEST);
-//        result.add(KAVA_TEST);
+        result.add(KAVA_TEST);
 //        result.add(IOV_TEST);
 //        result.add(OK_TEST);
 //        result.add(CERTIK_TEST);

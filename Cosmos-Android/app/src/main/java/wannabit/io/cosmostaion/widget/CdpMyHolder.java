@@ -60,9 +60,14 @@ public class CdpMyHolder extends BaseHolder {
         final MarketPrice price = baseData.mKavaTokenPrices.get(collateralParam.liquidation_market_id);
         final int denomPDecimal = WUtil.getKavaCoinDecimal(myCdp.getPDenom());
 
-        final BigDecimal currentPrice = new BigDecimal(price.price);
-        final BigDecimal liquidationPrice = myCdp.getLiquidationPrice(c, collateralParam);
-        final BigDecimal riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+        BigDecimal currentPrice = BigDecimal.ZERO;
+        BigDecimal liquidationPrice = BigDecimal.ZERO;
+        BigDecimal riskRate = BigDecimal.ZERO;
+        if (price != null) {
+            currentPrice = new BigDecimal(price.price);
+            liquidationPrice = myCdp.getLiquidationPrice(c, collateralParam);
+            riskRate = new BigDecimal(100).subtract((currentPrice.subtract(liquidationPrice)).movePointRight(2).divide(currentPrice, 2, RoundingMode.DOWN));
+        }
 
         itemCollateralType.setText(collateralParam.type.toUpperCase());
         itemTitleMarket.setText(collateralParam.getDpMarketId());

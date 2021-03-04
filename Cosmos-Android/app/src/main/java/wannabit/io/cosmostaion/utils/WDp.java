@@ -652,7 +652,8 @@ public class WDp {
                 BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
                 return amount.movePointLeft(dpDecimal).multiply(price);
 
-            } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
+//            } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
+            } else if (denom.contains("xrp") && prices.get("xrp:usd:30") != null) {
                 BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
                 return amount.movePointLeft(dpDecimal).multiply(price);
             }
