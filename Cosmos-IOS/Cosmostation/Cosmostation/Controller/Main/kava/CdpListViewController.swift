@@ -12,7 +12,6 @@ import Alamofire
 class CdpListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var cdpTableView: UITableView!
-    var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
     var cdpParam: CdpParam?
@@ -42,21 +41,6 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         
         self.onFetchCdpData()
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
-    }
-    
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
     
     var mFetchCnt = 0
     @objc func onFetchCdpData() {
@@ -106,13 +90,14 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-            if let rewardCnt = incentiveRewards?.getMintingRewardCnt(), rewardCnt > 0 {
+            if let rewardAmount = incentiveRewards?.getMintingRewardAmount(), rewardAmount.compare(NSDecimalNumber.zero).rawValue > 0 {
                 return 1
             }
             return 0
-
+            
         } else if (section == 1) {
             return myCdps?.count ?? 0
+            
         } else {
             return otherCdps?.count ?? 0
         }

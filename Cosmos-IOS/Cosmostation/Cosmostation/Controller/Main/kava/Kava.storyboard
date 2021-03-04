@@ -61,7 +61,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="harvestTableView" destination="Bid-aa-IiQ" id="3HW-i8-0u1"/>
+                        <outlet property="hardTableView" destination="Bid-aa-IiQ" id="3HW-i8-0u1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xlc-Fg-nk6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

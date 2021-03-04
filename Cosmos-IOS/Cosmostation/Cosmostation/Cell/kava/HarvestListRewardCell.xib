@@ -90,7 +90,7 @@ Depending on the type of coins you provide, you will receive either Hard or KAVA
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.39794234154929575" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="1" green="0.33725490196078434" blue="0.30980392156862746" alpha="0.15179357394366197" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0tT-eV-gpW" firstAttribute="top" secondItem="iMJ-Gx-BRe" secondAttribute="top" constant="16" id="02S-TB-4NG"/>
                             <constraint firstItem="nTL-7o-c3w" firstAttribute="centerY" secondItem="ElC-8R-LqA" secondAttribute="centerY" id="4HV-BL-Q1M"/>

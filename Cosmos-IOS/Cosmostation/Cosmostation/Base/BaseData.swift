@@ -43,8 +43,13 @@ final class BaseData : NSObject{
     
     //kava-5
     var mCdpParam: CdpParam?
+    var mHardParam: HardParam?
     var mIncentiveParam: IncentiveParam?
     var mIncentiveRewards: IncentiveReward?
+    var mMyHardDeposit: Array<HardMyDeposit>?
+    var mMyHardBorrow: Array<HardMyBorrow>?
+    var mModuleCoins: Array<Coin>?
+    var mReserveCoins: Array<Coin>?
     
     
     
