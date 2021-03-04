@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CdpViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class CdpListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var cdpTableView: UITableView!
     var mainTabVC: MainTabViewController!

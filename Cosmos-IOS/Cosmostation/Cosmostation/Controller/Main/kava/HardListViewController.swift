@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HarvestViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class HardListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var harvestTableView: UITableView!
     var mainTabVC: MainTabViewController!

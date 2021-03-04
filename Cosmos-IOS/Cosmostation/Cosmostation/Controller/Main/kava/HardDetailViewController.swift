@@ -9,7 +9,7 @@
 import UIKit
 import Alamofire
 
-class HarvestDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class HardDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var harvestDetailTableView: UITableView!
     @IBOutlet weak var startDepositBtn: UIButton!
