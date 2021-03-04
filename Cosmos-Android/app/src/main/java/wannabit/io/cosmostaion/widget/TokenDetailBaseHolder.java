@@ -22,11 +22,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 
 public class TokenDetailBaseHolder extends BaseHolder {
     private ImageView   mIvToken;
+    private TextView    mTvTokenTitle;
     private TextView    mTvTokenTotal, mTvTokenValue, mTvTokenAvailable;
 
     public TokenDetailBaseHolder(@NonNull View itemView) {
         super(itemView);
         mIvToken            = itemView.findViewById(R.id.token_icon);
+        mTvTokenTitle       = itemView.findViewById(R.id.token_title);
         mTvTokenTotal       = itemView.findViewById(R.id.token_amount);
         mTvTokenValue       = itemView.findViewById(R.id.token_value);
         mTvTokenAvailable   = itemView.findViewById(R.id.token_available);
@@ -38,6 +40,7 @@ public class TokenDetailBaseHolder extends BaseHolder {
         final BigDecimal tokenTotalValue        = WDp.kavaTokenDollorValue(chain, baseData, denom, availableTokenAmount);
         final BigDecimal convertedToKava        = tokenTotalValue.divide(baseData.getLastKavaDollorTic(), 6, RoundingMode.DOWN);
 
+        mTvTokenTitle.setText(denom.toUpperCase());
         mTvTokenAvailable.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
         mTvTokenTotal.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
         mTvTokenValue.setText(WDp.getValueOfKava(context, baseData, convertedToKava.movePointRight(6)));
