@@ -235,7 +235,7 @@ public class WUtil {
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if (lcd.result != null && lcd.height != null) {
+        if (lcd != null && lcd.result != null && lcd.height != null) {
             if(lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                     lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
@@ -316,7 +316,7 @@ public class WUtil {
     public static ArrayList<Balance> getBalancesFromKavaLcd(long accountId, ResLcdKavaAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if (lcd.result != null && lcd.height != null) {
+        if (lcd != null && lcd.result != null && lcd.height != null) {
             if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
