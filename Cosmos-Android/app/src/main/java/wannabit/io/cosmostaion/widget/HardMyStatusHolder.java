@@ -21,13 +21,14 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class HardMyStatusHolder extends BaseHolder {
-    TextView totalDepositValueTv, totalBorrowValueTv, borrowAbleValueTv;
+    TextView totalDepositValueTv, totalBorrowValueTv, borrowAbleValueTv, ltvValueTv;
 
     public HardMyStatusHolder(@NonNull View itemView) {
         super(itemView);
         totalDepositValueTv = itemView.findViewById(R.id.total_deposit_value);
         totalBorrowValueTv = itemView.findViewById(R.id.total_borrow_value);
         borrowAbleValueTv = itemView.findViewById(R.id.borrowable_value);
+        ltvValueTv = itemView.findViewById(R.id.ltv_value);
 
     }
 
@@ -60,6 +61,7 @@ public class HardMyStatusHolder extends BaseHolder {
             }
         }
 //        WLog.w("totalDepostValue" + totalDepostValue);
+        ltvValueTv.setText(WDp.getDpRawDollor(context, totalLTVValue, 2));
         totalDepositValueTv.setText(WDp.getDpRawDollor(context, totalDepostValue, 2));
 
 
