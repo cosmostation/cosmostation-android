@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -217,7 +218,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_HARD_POOL) {
                 HardParam.HardMoneyMarket hardMoneyMarket;
-                if (mIncentiveRewards != null &&  mIncentiveRewards.getHardPoolRewardCnt() > 0) {
+                if (mIncentiveRewards != null && (mIncentiveRewards.getHardPoolHardRewardAmount().compareTo(BigDecimal.ZERO) > 0 || mIncentiveRewards.getHardPoolKavaRewardAmount().compareTo(BigDecimal.ZERO) > 0)) {
                     hardMoneyMarket = mHardParam.money_markets.get(position - 2);
                 } else {
                     hardMoneyMarket = mHardParam.money_markets.get(position - 1);
@@ -229,7 +230,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
         @Override
         public int getItemCount() {
             if (mHardParam == null || mHardParam.money_markets == null) return 0;
-            if (mIncentiveRewards != null &&  mIncentiveRewards.getHardPoolRewardCnt() > 0) {
+            if (mIncentiveRewards != null && (mIncentiveRewards.getHardPoolHardRewardAmount().compareTo(BigDecimal.ZERO) > 0 || mIncentiveRewards.getHardPoolKavaRewardAmount().compareTo(BigDecimal.ZERO) > 0)) {
                 return mHardParam.money_markets.size() + 2;
             } else  {
                 return mHardParam.money_markets.size() + 1;
@@ -238,7 +239,7 @@ public class ListHardFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (mIncentiveRewards != null &&  mIncentiveRewards.getHardPoolRewardCnt() > 0) {
+            if (mIncentiveRewards != null && (mIncentiveRewards.getHardPoolHardRewardAmount().compareTo(BigDecimal.ZERO) > 0 || mIncentiveRewards.getHardPoolKavaRewardAmount().compareTo(BigDecimal.ZERO) > 0)) {
                 if (position == 0) {
                     return TYPE_INCENTIVE;
                 } else if (position == 1) {

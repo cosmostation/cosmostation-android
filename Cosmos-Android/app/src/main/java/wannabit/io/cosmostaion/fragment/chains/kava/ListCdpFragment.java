@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -179,7 +180,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_MY_CDP) {
                 final MyCdp myCdp;
-                if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
+                if (mIncentiveRewards != null && mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
                     myCdp = mMyCdps.get(position - 1);
                 } else {
                     myCdp = mMyCdps.get(position);
@@ -189,7 +190,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
             } else if (getItemViewType(position) == TYPE_OTHER_CDP) {
                 final CollateralParam otherCdp;
-                if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
+                if (mIncentiveRewards != null && mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
                     otherCdp = mOtherCdps.get(position  - mMyCdps.size() - 1);
                 } else {
                     otherCdp = mOtherCdps.get(position - mMyCdps.size() );
@@ -201,7 +202,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
+            if (mIncentiveRewards != null && mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
                 return mMyCdps.size() + mOtherCdps.size() + 1;
             } else {
                 return mMyCdps.size() + mOtherCdps.size();
@@ -210,7 +211,7 @@ public class ListCdpFragment extends BaseFragment implements TaskListener {
 
         @Override
         public int getItemViewType(int position) {
-            if (mIncentiveRewards != null &&  mIncentiveRewards.getMintingRewardCnt() > 0) {
+            if (mIncentiveRewards != null && mIncentiveRewards.getMintingRewardAmount().compareTo(BigDecimal.ZERO) > 0) {
                 if (position == 0) {
                     return TYPE_INCENTIVE;
                 } else if (position < (mMyCdps.size() + 1)) {
