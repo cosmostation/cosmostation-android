@@ -10,22 +10,15 @@ import Foundation
 
 class KavaPriceFeedParam {
     var height: String = ""
-    var result: KavaPriceFeedParamResult = KavaPriceFeedParamResult.init()
-    
-    init() {}
-    
-    init(_ dictionary: [String: Any]) {
-        self.height = dictionary["height"] as? String ?? ""
-        self.result = KavaPriceFeedParamResult.init(dictionary["result"] as! [String : Any])
-    }
+    var result: KavaPriceParam = KavaPriceParam.init()
     
     init(_ dictionary: NSDictionary) {
         self.height = dictionary["height"] as? String ?? ""
-        self.result = KavaPriceFeedParamResult.init(dictionary["result"] as! [String : Any])
+        self.result = KavaPriceParam.init(dictionary["result"] as! [String : Any])
     }
     
-    public class KavaPriceFeedParamResult {
-        var markets: Array<KavaTokenPriceMarket> = Array<KavaTokenPriceMarket>()
+    public class KavaPriceParam {
+        var markets: Array<KavaPriceMarket> = Array<KavaPriceMarket>()
         
         init() {}
         
@@ -33,13 +26,13 @@ class KavaPriceFeedParam {
             if let rawMarkets = dictionary["markets"] as? Array<NSDictionary> {
                 self.markets.removeAll()
                 for rawMarket in rawMarkets {
-                    self.markets.append(KavaTokenPriceMarket(rawMarket as! [String : Any]))
+                    self.markets.append(KavaPriceMarket(rawMarket as! [String : Any]))
                 }
             }
         }
     }
     
-    public class KavaTokenPriceMarket {
+    public class KavaPriceMarket {
         var market_id: String = ""
         var base_asset: String = ""
         var quote_asset: String = ""

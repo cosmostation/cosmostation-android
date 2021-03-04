@@ -218,7 +218,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if  (chainType == ChainType.IRIS_MAIN) {
             return 5;
         } else if  (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            return 6;
+            return 5;
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 4;
         } else if (chainType == ChainType.BAND_MAIN) {
@@ -518,20 +518,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:EventStakeDropCell? = tableView.dequeueReusableCell(withIdentifier:"EventStakeDropCell") as? EventStakeDropCell
-            cell?.rootCard.backgroundColor = WUtils.getChainBg(chainType!)
-            cell?.eventImg.image = UIImage(named: "stakedropimgsKava")
-            cell?.actionClose = {
-                BaseData.instance.setEventTime()
-                self.onShowToast(NSLocalizedString("error_no_more_today", comment: ""))
-                self.walletTableView.reloadData()
-            }
-            cell?.actionEvent = {
-                self.onStartStakeDropEvent()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
@@ -559,7 +545,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             }
             return cell!
             
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
             cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)

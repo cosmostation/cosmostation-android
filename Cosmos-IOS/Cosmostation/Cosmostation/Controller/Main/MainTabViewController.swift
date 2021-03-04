@@ -247,7 +247,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokens()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 16
+            self.mFetchCnt = 11
             BaseData.instance.mCdpParam = nil
             BaseData.instance.mMyCdps.removeAll()
             BaseData.instance.mHavestDeposits.removeAll()
@@ -267,12 +267,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
-            onFetchCdpParam(mAccount)
-            onFetchIncentiveParam(mAccount)
             onFetchPriceFeedParam()
-            onFetchHavestParam()
-            onFetchMyHavestDeposit(mAccount)
-            onFetchMyHavestReward(mAccount)
+            
+//            onFetchCdpParam(mAccount)
+//            onFetchIncentiveParam(mAccount)
+//            onFetchPriceFeedParam()
+//            onFetchHavestParam()
+//            onFetchMyHavestDeposit(mAccount)
+//            onFetchMyHavestReward(mAccount)
             
         } else if (mChainType == ChainType.BAND_MAIN) {
             self.mFetchCnt = 11
@@ -1210,124 +1212,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchCdpParam(_ account:Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_PARAM
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchCdpParam res ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                }
-                let cdpParam = KavaCdpParam.init(responseData)
-                BaseData.instance.mCdpParam = cdpParam
-                for collateralParam in cdpParam.result.collateral_params {
-                    self.mFetchCnt = self.mFetchCnt + 1
-                    self.onFetchOwenCdp(account, collateralParam)
-                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchCdpParam ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
     
-    func onFetchOwenCdp(_ account:Account, _ collateralParam: KavaCdpParam.CollateralParam) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_OWEN + account.account_address + "/" + collateralParam.type
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + collateralParam.type
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchOwenCdp  ", collateralParam.type, " ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                }
-                BaseData.instance.mMyCdps.append(CdpOwen.init(responseData))
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchIncentiveParam(_ account:Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_INCENTIVE_PARAM
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_INCENTIVE_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-                case .success(let res):
-//                    print("IncentiveParam ", res)
-                    guard let responseData = res as? NSDictionary,
-                        let _ = responseData.object(forKey: "height") as? String else {
-                            self.onFetchFinished()
-                            return
-                    }
-                    
-                    let incentiveParam2 = KavaIncentiveParam2.init(responseData)
-                    BaseData.instance.mIncentiveParam2 = incentiveParam2
-                    if let wrapParam = BaseData.instance.mIncentiveParam2 {
-                        for reward in wrapParam.result.rewards {
-                            self.mFetchCnt = self.mFetchCnt + 1
-                            self.onFetchMyIncentive(account, reward)
-                        }
-                    }
-                    
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
-                }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchMyIncentive(_ account: Account, _ incentiveRewardParam: KavaIncentiveParam2.IncentiveRewardParam) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_MY_INCENTIVE + account.account_address + "/" + incentiveRewardParam.collateral_type
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_MY_INCENTIVE + account.account_address + "/" + incentiveRewardParam.collateral_type
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchMyIncentive res ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                }
-                let incentiveParam2 = KavaIncentiveReward2.init(responseData)
-                BaseData.instance.mIncentiveClaimables.append(contentsOf: incentiveParam2.result)
-//                print("mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyIncentive ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
     
     func onFetchPriceFeedParam() {
         var url: String?
@@ -1348,9 +1233,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
                 let priceParam = KavaPriceFeedParam.init(responseData)
                 BaseData.instance.mKavaPrice.removeAll()
+                self.mFetchCnt = self.mFetchCnt + (priceParam.result.markets.count / 2)
                 for market in priceParam.result.markets {
-                    self.mFetchCnt = self.mFetchCnt + 1
-                    self.onFetchPriceFeedPrice(market.market_id)
+                    if (market.market_id.contains(":30")) {
+                        self.onFetchPriceFeedPrice(market.market_id)
+                    }
                 }
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceFeedParam ", error) }
@@ -1386,90 +1273,209 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchHavestParam() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_HAVEST_PARAM
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_HAVEST_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchHavestParam ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                    self.onFetchFinished()
-                    return
-                }
-                let havestParam = KavaHavestParam.init(responseData)
-                BaseData.instance.mHavestParam = havestParam
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchHavestParam ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchMyHavestDeposit(_ account:Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_HAVEST_DEPOSIT
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_HAVEST_DEPOSIT
-        }
-        let param = ["owner":account.account_address]
-        let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchMyHavestDeposit ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                }
-                
-                let kavaHavestDeposits = KavaHavestDeposit.init(responseData)
-                BaseData.instance.mHavestDeposits = kavaHavestDeposits.result
-            
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyHavestDeposit ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchMyHavestReward(_ account:Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_HAVEST_REWARD
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_HAVEST_REWARD
-        }
-        let param = ["owner":account.account_address]
-        let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("onFetchMyHavestReward ", res)
-                guard let responseData = res as? NSDictionary,
-                    let _ = responseData.object(forKey: "height") as? String else {
-                        self.onFetchFinished()
-                        return
-                }
-                
-                let kavaHavestReward = KavaHavestReward.init(responseData)
-                BaseData.instance.mHavestRewards = kavaHavestReward.result
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyHavestReward ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
+//    func onFetchCdpParam(_ account:Account) {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_CDP_PARAM
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_CDP_PARAM
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchCdpParam res ", res)
+//                guard let responseData = res as? NSDictionary,
+//                    let _ = responseData.object(forKey: "height") as? String else {
+//                        self.onFetchFinished()
+//                        return
+//                }
+//                let cdpParam = KavaCdpParam.init(responseData)
+//                BaseData.instance.mCdpParam = cdpParam
+//                for collateralParam in cdpParam.result.collateral_params {
+//                    self.mFetchCnt = self.mFetchCnt + 1
+//                    self.onFetchOwenCdp(account, collateralParam)
+//                }
+//                
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchCdpParam ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
+//    
+//    func onFetchOwenCdp(_ account:Account, _ collateralParam: KavaCdpParam.CollateralParam) {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_CDP_OWEN + account.account_address + "/" + collateralParam.type
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + collateralParam.type
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchOwenCdp  ", collateralParam.type, " ", res)
+//                guard let responseData = res as? NSDictionary,
+//                    let _ = responseData.object(forKey: "height") as? String else {
+//                        self.onFetchFinished()
+//                        return
+//                }
+//                BaseData.instance.mMyCdps.append(CdpOwen.init(responseData))
+//                
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
+//    
+//    func onFetchIncentiveParam(_ account:Account) {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_INCENTIVE_PARAM
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_INCENTIVE_PARAM
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//                case .success(let res):
+////                    print("IncentiveParam ", res)
+//                    guard let responseData = res as? NSDictionary,
+//                        let _ = responseData.object(forKey: "height") as? String else {
+//                            self.onFetchFinished()
+//                            return
+//                    }
+//                    
+//                    let incentiveParam2 = KavaIncentiveParam2.init(responseData)
+//                    BaseData.instance.mIncentiveParam2 = incentiveParam2
+//                    if let wrapParam = BaseData.instance.mIncentiveParam2 {
+//                        for reward in wrapParam.result.rewards {
+//                            self.mFetchCnt = self.mFetchCnt + 1
+//                            self.onFetchMyIncentive(account, reward)
+//                        }
+//                    }
+//                    
+//                case .failure(let error):
+//                    if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
+//                }
+//            self.onFetchFinished()
+//        }
+//    }
+//    
+//    func onFetchMyIncentive(_ account: Account, _ incentiveRewardParam: KavaIncentiveParam2.IncentiveRewardParam) {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_MY_INCENTIVE + account.account_address + "/" + incentiveRewardParam.collateral_type
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_MY_INCENTIVE + account.account_address + "/" + incentiveRewardParam.collateral_type
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchMyIncentive res ", res)
+//                guard let responseData = res as? NSDictionary,
+//                    let _ = responseData.object(forKey: "height") as? String else {
+//                        self.onFetchFinished()
+//                        return
+//                }
+//                let incentiveParam2 = KavaIncentiveReward2.init(responseData)
+//                BaseData.instance.mIncentiveClaimables.append(contentsOf: incentiveParam2.result)
+////                print("mIncentiveClaimables ", BaseData.instance.mIncentiveClaimables.count)
+//                
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchMyIncentive ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
+//    
+//    func onFetchHavestParam() {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_HAVEST_PARAM
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_HAVEST_PARAM
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchHavestParam ", res)
+//                guard let responseData = res as? NSDictionary,
+//                    let _ = responseData.object(forKey: "height") as? String else {
+//                    self.onFetchFinished()
+//                    return
+//                }
+//                let havestParam = KavaHavestParam.init(responseData)
+//                BaseData.instance.mHavestParam = havestParam
+//                
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchHavestParam ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
+//    
+//    func onFetchMyHavestDeposit(_ account:Account) {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_HAVEST_DEPOSIT
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_HAVEST_DEPOSIT
+//        }
+//        let param = ["owner":account.account_address]
+//        let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchMyHavestDeposit ", res)
+//                guard let responseData = res as? NSDictionary,
+//                    let _ = responseData.object(forKey: "height") as? String else {
+//                        self.onFetchFinished()
+//                        return
+//                }
+//                
+//                let kavaHavestDeposits = KavaHavestDeposit.init(responseData)
+//                BaseData.instance.mHavestDeposits = kavaHavestDeposits.result
+//            
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchMyHavestDeposit ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
+//    
+//    func onFetchMyHavestReward(_ account:Account) {
+//        var url: String?
+//        if (mChainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_HAVEST_REWARD
+//        } else if (mChainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_HAVEST_REWARD
+//        }
+//        let param = ["owner":account.account_address]
+//        let request = Alamofire.request(url!, method: .get, parameters: param, encoding: URLEncoding.default, headers: [:])
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+////                print("onFetchMyHavestReward ", res)
+//                guard let responseData = res as? NSDictionary,
+//                    let _ = responseData.object(forKey: "height") as? String else {
+//                        self.onFetchFinished()
+//                        return
+//                }
+//                
+//                let kavaHavestReward = KavaHavestReward.init(responseData)
+//                BaseData.instance.mHavestRewards = kavaHavestReward.result
+//                
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchMyHavestReward ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
     
     func onFetchOkAccountBalance(_ account: Account) {
         var url: String?

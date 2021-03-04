@@ -39,7 +39,7 @@ final class BaseData : NSObject{
     var mHavestParam: KavaHavestParam?
     var mHavestDeposits = Array<KavaHavestDeposit.HavestDeposit>()
     var mHavestRewards = Array<KavaHavestReward.HavestReward>()
-    var mHardPrice: NSDecimalNumber = NSDecimalNumber.zero
+//    var mHardPrice: NSDecimalNumber = NSDecimalNumber.zero
     
     var mBnbTokenList = Array<BnbToken>()
     

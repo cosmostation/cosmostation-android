@@ -146,7 +146,13 @@ class WUtils {
             
             accountInfo.result.value.coins.forEach({ (coin) in
                 if (coin.denom == KAVA_MAIN_DENOM) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = NSDecimalNumber.zero
+                    originalVesting = NSDecimalNumber.zero
+                    remainVesting = NSDecimalNumber.zero
+                    delegatedVesting = NSDecimalNumber.zero
                     dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    
                     accountInfo.result.value.original_vesting.forEach({ (coin) in
                         if (coin.denom == KAVA_MAIN_DENOM) {
                             originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
@@ -166,7 +172,7 @@ class WUtils {
 //                    }
                     
                     remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_MAIN_DENOM)
-//                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
+                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
                     
                     dpVesting = remainVesting.subtracting(delegatedVesting);
 //                    if (SHOW_LOG) { print("Kava dpVesting      ", dpVesting) }
@@ -184,7 +190,13 @@ class WUtils {
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
                     
                 } else if (coin.denom == KAVA_HARD_DENOM) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = NSDecimalNumber.zero
+                    originalVesting = NSDecimalNumber.zero
+                    remainVesting = NSDecimalNumber.zero
+                    delegatedVesting = NSDecimalNumber.zero
                     dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    
                     accountInfo.result.value.original_vesting.forEach({ (coin) in
                         if (coin.denom == KAVA_HARD_DENOM) {
                             originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
@@ -1722,20 +1734,21 @@ class WUtils {
         if (denom == "usdx" || denom == "busd") {
             return amount.multiplying(byPowerOf10: -dpDeciaml)
             
-        } else if (denom == "hard") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: BaseData.instance.mHardPrice)
-            
         } else {
             let prices = BaseData.instance.mKavaPrice
-            let cdpParam = BaseData.instance.mCdpParam
-            if (prices.count <= 0) {
-                return NSDecimalNumber.zero
+            if let price = prices["hard:usd:30"], denom == "hard" {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
             }
-            guard let collateralParam = cdpParam?.result.getcParam(denom), let kavaPrice = prices[collateralParam.liquidation_market_id] else {
-                return NSDecimalNumber.zero
+            if let price = prices["btc:usd:30"], denom.contains("btc") {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
             }
-            
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
+            if let price = prices["bnb:usd:30"], denom.contains("bnb") {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            }
+            if let price = prices["xrp:usd:30"], denom.contains("xrp") {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            }
+            return NSDecimalNumber.zero
         }
     }
     
@@ -2541,7 +2554,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
-            return "kava-4-test"
+            return "kava-testnet-11000"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
@@ -2582,7 +2595,7 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
-            return "kava-4-test"
+            return "kava-testnet-11000"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
@@ -2903,7 +2916,7 @@ class WUtils {
             return 8;
         } else if (denom.caseInsensitiveCompare("busd") == .orderedSame) {
             return 8;
-        } else if (denom.caseInsensitiveCompare("xrpb") == .orderedSame) {
+        } else if (denom.caseInsensitiveCompare("xrpb") == .orderedSame || denom.caseInsensitiveCompare("xrbp") == .orderedSame) {
             return 8;
         } else if (denom.caseInsensitiveCompare("hard") == .orderedSame) {
             return 6;

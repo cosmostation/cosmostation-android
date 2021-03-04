@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -53,8 +53,10 @@ let KAVA_URL                            = "https://lcd-kava.cosmostation.io/";
 let KAVA_API                            = "https://api-kava.cosmostation.io/";
 let KAVA_FAUCET                         = "";
 
-let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
-let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
+//let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
+//let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
+let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-11000/";
+let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-11000/";
 let KAVA_TEST_FAUCET                    = "";
 
 
@@ -1045,19 +1047,19 @@ enum ChainType: String {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
         result.append(IRIS_MAIN)
-        result.append(BINANCE_MAIN)
-        result.append(OKEX_MAIN)
-        result.append(KAVA_MAIN)
-        result.append(BAND_MAIN)
-        result.append(IOV_MAIN)
-        result.append(CERTIK_MAIN)
-        result.append(AKASH_MAIN)
-        result.append(SECRET_MAIN)
+//        result.append(BINANCE_MAIN)
+//        result.append(OKEX_MAIN)
+//        result.append(KAVA_MAIN)
+//        result.append(BAND_MAIN)
+//        result.append(IOV_MAIN)
+//        result.append(CERTIK_MAIN)
+//        result.append(AKASH_MAIN)
+//        result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
 //        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
-//        result.append(KAVA_TEST)
+        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
@@ -1195,7 +1197,7 @@ let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://bifrost.irisplorer.io/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
-let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
+let EXPLORER_KAVA_TEST      = "https://dev.mintscan.io/kava-testnet/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
 let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
 

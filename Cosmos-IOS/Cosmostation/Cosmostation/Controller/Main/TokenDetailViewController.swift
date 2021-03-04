@@ -529,10 +529,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             if (vestingTokenAmount != NSDecimalNumber.zero) {
                 cell?.vestingLayer.isHidden = false
             }
-            cell?.havestDepsoitLayer.isHidden = false
-            if (havestRewardTokenAmount != NSDecimalNumber.zero) {
-                cell?.havsetRewardLayer.isHidden = false
-            }
+//            if (havestDepositTokenAmount != NSDecimalNumber.zero) {
+//                cell?.havestDepsoitLayer.isHidden = false
+//            }
+//            if (havestRewardTokenAmount != NSDecimalNumber.zero) {
+//                cell?.havsetRewardLayer.isHidden = false
+//            }
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {
