@@ -53,28 +53,23 @@ public class TokenKavaHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c,  BaseChain chain, BaseData baseData, String denom) {
-        if (chain.equals(KAVA_MAIN)) {
+        BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, denom);
+        BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, chain);
+        BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
+        BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, denom);
+        BigDecimal vestingAmount = WDp.getLockedCoin(baseData.mBalances, denom);
+        BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount).add(vestingAmount);
 
-        } else if (chain.equals(KAVA_TEST)) {
-            BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, denom);
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, chain);
-            BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
-            BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, denom);
-            BigDecimal vestingAmount = WDp.getLockedCoin(baseData.mBalances, denom);
-            BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount).add(vestingAmount);
+        mTvKavaTotal.setText(WDp.getDpAmount2(c, totalAmount, 6, 6));
+        mTvKavaAvailable.setText(WDp.getDpAmount2(c, availableAmount, 6, 6));
+        mTvKavaDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
+        mTvKavaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
+        mTvKavaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
+        mTvKavaVesting.setText(WDp.getDpAmount2(c, vestingAmount, 6, 6));
+        mTvKavaValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
 
-            mTvKavaTotal.setText(WDp.getDpAmount2(c, totalAmount, 6, 6));
-            mTvKavaAvailable.setText(WDp.getDpAmount2(c, availableAmount, 6, 6));
-            mTvKavaDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
-            mTvKavaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
-            mTvKavaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-            mTvKavaVesting.setText(WDp.getDpAmount2(c, vestingAmount, 6, 6));
-            mTvKavaValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
-            //TODO display deposit kava in hard
-
-            if (!vestingAmount.equals(BigDecimal.ZERO)) {
-                mKavaVestingLayer.setVisibility(View.VISIBLE);
-            }
+        if (!vestingAmount.equals(BigDecimal.ZERO)) {
+            mKavaVestingLayer.setVisibility(View.VISIBLE);
         }
 
     }
