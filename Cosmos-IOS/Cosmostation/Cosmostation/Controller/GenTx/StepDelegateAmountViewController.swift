@@ -224,7 +224,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickMax(_ sender: UIButton) {
-        let maxValue = userBalance.multiplying(by: NSDecimalNumber(value: -mDpDecimal), withBehavior: WUtils.getDivideHandler(mDpDecimal))
+        let maxValue = userBalance.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
         toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
         self.onUIupdate()
         self.showMaxWarnning()
