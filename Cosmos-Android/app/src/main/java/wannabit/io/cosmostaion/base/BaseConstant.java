@@ -3,9 +3,9 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = true;
+    public final static boolean IS_SHOWLOG              = false;
     public final static boolean SUPPORT_MOONPAY         = true;
-    public final static boolean SUPPORT_BEP3_SWAP       = true;
+    public final static boolean SUPPORT_BEP3_SWAP       = false;
     public final static String LOG_TAG                  = "Cosmostation";
 
     public final static String DB_NAME                  = "WannaBit";
@@ -632,7 +632,7 @@ public class BaseConstant {
     public final static String EXPLORER_IOV_MAIN        = "https://www.mintscan.io/starname/";
     public final static String EXPLORER_BINANCE_MAIN    = "https://binance.mintscan.io/";
     public final static String EXPLORER_BAND_MAIN       = "https://cosmoscan.io/";
-    public final static String EXPLORER_SECRET_MAIN     = "https://explorer.cashmaney.com/";
+    public final static String EXPLORER_SECRET_MAIN     = "https://secretnodes.com/secret/chains/secret-2/";
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
 

@@ -190,9 +190,9 @@ public class WebActivity extends BaseActivity {
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl(EXPLORER_SECRET_MAIN + "transactions/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl(EXPLORER_SECRET_MAIN + "proposals/" + mVoteId);
+                mWebview.loadUrl(EXPLORER_SECRET_MAIN + "governance/proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl(EXPLORER_SECRET_MAIN + "account/" + mAddress);
+                mWebview.loadUrl(EXPLORER_SECRET_MAIN + "accounts/" + mAddress);
             else
                 mWebview.loadUrl(EXPLORER_SECRET_MAIN);
 
