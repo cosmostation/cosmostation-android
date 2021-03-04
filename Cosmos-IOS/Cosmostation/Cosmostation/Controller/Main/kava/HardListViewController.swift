@@ -128,19 +128,19 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
             var myLPInfo: KavaHavestParam.DistributionSchedule?
             if (havestLPRewards.count > 0) { myLPInfo = self.myLPs[indexPath.row - 1]
             } else { myLPInfo = self.myLPs[indexPath.row] }
-            let harvestDetailVC = HarvestDetailViewController(nibName: "HarvestDetailViewController", bundle: nil)
-            harvestDetailVC.hidesBottomBarWhenPushed = true
-            harvestDetailVC.mDepositDenom = myLPInfo?.deposit_denom
+            let hardDetailVC = HardDetailViewController(nibName: "HardDetailViewController", bundle: nil)
+            hardDetailVC.hidesBottomBarWhenPushed = true
+            hardDetailVC.mDepositDenom = myLPInfo?.deposit_denom
             self.navigationItem.title = ""
-            self.navigationController?.pushViewController(harvestDetailVC, animated: true)
+            self.navigationController?.pushViewController(hardDetailVC, animated: true)
 
         } else {
             let otherLP = self.otherLPs[indexPath.row]
-            let harvestDetailVC = HarvestDetailViewController(nibName: "HarvestDetailViewController", bundle: nil)
-            harvestDetailVC.hidesBottomBarWhenPushed = true
-            harvestDetailVC.mDepositDenom = otherLP.deposit_denom
+            let hardDetailVC = HardDetailViewController(nibName: "HardDetailViewController", bundle: nil)
+            hardDetailVC.hidesBottomBarWhenPushed = true
+            hardDetailVC.mDepositDenom = otherLP.deposit_denom
             self.navigationItem.title = ""
-            self.navigationController?.pushViewController(harvestDetailVC, animated: true)
+            self.navigationController?.pushViewController(hardDetailVC, animated: true)
         }
     }
     

@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Cdp View Controller-->
+        <!--Cdp List View Controller-->
         <scene sceneID="mjh-xB-hpE">
             <objects>
-                <viewController storyboardIdentifier="CdpViewController" id="bFS-cR-bqB" customClass="CdpViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CdpViewController" id="bFS-cR-bqB" customClass="CdpListViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a7j-G5-Bet">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="wzl-Pg-xwh">
-                                <rect key="frame" x="0.0" y="44" width="414" height="761"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -38,16 +36,16 @@
             </objects>
             <point key="canvasLocation" x="434.78260869565219" y="5216.8526785714284"/>
         </scene>
-        <!--Harvest View Controller-->
+        <!--Hard List View Controller-->
         <scene sceneID="h2v-ZZ-obZ">
             <objects>
-                <viewController storyboardIdentifier="HarvestViewController" id="G5m-T3-xOI" customClass="HarvestViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HarvestViewController" id="G5m-T3-xOI" customClass="HardListViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qwA-ug-T0E">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Bid-aa-IiQ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="761"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -73,14 +71,14 @@
             <objects>
                 <viewController storyboardIdentifier="DAppsListViewController" id="8Xf-Vc-Wqi" customClass="DAppsListViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="nCX-dd-vve">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="dc0-V5-C80">
-                                <rect key="frame" x="0.0" y="5" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dsW-2h-aBR">
-                                <rect key="frame" x="139.5" y="52" width="135" height="32"/>
+                                <rect key="frame" x="232.5" y="8" width="135" height="32"/>
                                 <segments>
                                     <segment title="CDP"/>
                                     <segment title="Harvest"/>
@@ -91,13 +89,13 @@
                                 </connections>
                             </segmentedControl>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G5g-pJ-7ho">
-                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <rect key="frame" x="0.0" y="47" width="600" height="553"/>
                                 <connections>
                                     <segue destination="bFS-cR-bqB" kind="embed" id="ODJ-bg-cNe"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7L0-eL-ewh">
-                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <rect key="frame" x="0.0" y="47" width="600" height="553"/>
                                 <connections>
                                     <segue destination="G5m-T3-xOI" kind="embed" id="bin-og-V7p"/>
                                 </connections>

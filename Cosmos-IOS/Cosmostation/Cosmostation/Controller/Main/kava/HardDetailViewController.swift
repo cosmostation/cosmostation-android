@@ -1,5 +1,5 @@
 //
-//  HarvestDetailViewController.swift
+//  HardDetailViewController.swift
 //  Cosmostation
 //
 //  Created by 정용주 on 2020/10/14.
