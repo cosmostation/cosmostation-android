@@ -247,7 +247,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokens()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
             BaseData.instance.mCdpParam = nil
             BaseData.instance.mMyCdps.removeAll()
             BaseData.instance.mHavestDeposits.removeAll()
@@ -268,13 +268,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
             onFetchPriceFeedParam()
-            
-//            onFetchCdpParam(mAccount)
-//            onFetchIncentiveParam(mAccount)
-//            onFetchPriceFeedParam()
-//            onFetchHavestParam()
-//            onFetchMyHavestDeposit(mAccount)
-//            onFetchMyHavestReward(mAccount)
+            onFetchIncentiveParam()
             
         } else if (mChainType == ChainType.BAND_MAIN) {
             self.mFetchCnt = 11
@@ -1273,6 +1267,34 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    func onFetchIncentiveParam() {
+        var url: String?
+        if (mChainType == ChainType.KAVA_MAIN) {
+            url = KAVA_INCENTIVE_PARAM
+        } else if (mChainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_INCENTIVE_PARAM
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+                case .success(let res):
+//                    print("IncentiveParam ", res)
+                    guard let responseData = res as? NSDictionary,
+                        let _ = responseData.object(forKey: "height") as? String else {
+                            self.onFetchFinished()
+                            return
+                    }
+                    let kavaIncentiveParam = KavaIncentiveParam.init(responseData)
+                    BaseData.instance.mIncentiveParam = kavaIncentiveParam.result
+//                    print("mIncentiveParam ", BaseData.instance.mIncentiveParam)
+                    
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
+                }
+            self.onFetchFinished()
+        }
+    }
+    
 //    func onFetchCdpParam(_ account:Account) {
 //        var url: String?
 //        if (mChainType == ChainType.KAVA_MAIN) {
@@ -1304,7 +1326,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //        }
 //    }
 //    
-//    func onFetchOwenCdp(_ account:Account, _ collateralParam: KavaCdpParam.CollateralParam) {
+//    func onFetchOwenCdp(_ account:Account, _ collateralParam: CollateralParam) {
 //        var url: String?
 //        if (mChainType == ChainType.KAVA_MAIN) {
 //            url = KAVA_CDP_OWEN + account.account_address + "/" + collateralParam.type
@@ -1330,39 +1352,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //        }
 //    }
 //    
-//    func onFetchIncentiveParam(_ account:Account) {
-//        var url: String?
-//        if (mChainType == ChainType.KAVA_MAIN) {
-//            url = KAVA_INCENTIVE_PARAM
-//        } else if (mChainType == ChainType.KAVA_TEST) {
-//            url = KAVA_TEST_INCENTIVE_PARAM
-//        }
-//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-//        request.responseJSON { (response) in
-//            switch response.result {
-//                case .success(let res):
-////                    print("IncentiveParam ", res)
-//                    guard let responseData = res as? NSDictionary,
-//                        let _ = responseData.object(forKey: "height") as? String else {
-//                            self.onFetchFinished()
-//                            return
-//                    }
-//                    
-//                    let incentiveParam2 = KavaIncentiveParam2.init(responseData)
-//                    BaseData.instance.mIncentiveParam2 = incentiveParam2
-//                    if let wrapParam = BaseData.instance.mIncentiveParam2 {
-//                        for reward in wrapParam.result.rewards {
-//                            self.mFetchCnt = self.mFetchCnt + 1
-//                            self.onFetchMyIncentive(account, reward)
-//                        }
-//                    }
-//                    
-//                case .failure(let error):
-//                    if (SHOW_LOG) { print("onFetchIncentiveParam ", error) }
-//                }
-//            self.onFetchFinished()
-//        }
-//    }
+
 //    
 //    func onFetchMyIncentive(_ account: Account, _ incentiveRewardParam: KavaIncentiveParam2.IncentiveRewardParam) {
 //        var url: String?

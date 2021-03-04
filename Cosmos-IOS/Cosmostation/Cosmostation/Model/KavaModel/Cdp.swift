@@ -49,6 +49,23 @@ public struct Cdp: Codable {
         }
     }
     
+    init(_ dictionary: NSDictionary?) {
+        self.id = dictionary?["id"] as? String
+        self.type = dictionary?["type"] as? String
+        self.owner = dictionary?["owner"] as? String
+        if let rawCollateral = dictionary?["collateral"] as? NSDictionary {
+            self.collateral = Coin.init(rawCollateral)
+        }
+        if let rawPrincipal = dictionary?["principal"] as? NSDictionary {
+            self.principal = Coin.init(rawPrincipal)
+        }
+        if let rawAccumulatedFees = dictionary?["accumulated_fees"] as? NSDictionary {
+            self.accumulated_fees = Coin.init(rawAccumulatedFees)
+        }
+        self.fees_updated = dictionary?["fees_updated"] as? String
+    }
+    
+    
     public func getCdpId() -> Int {
         return Int.init(id!)!
     }
@@ -76,26 +93,26 @@ public struct Cdp: Codable {
         return NSDecimalNumber.init(string: principal!.amount)
     }
     
-    public func getHiddenFee(_ cParam:KavaCdpParam.CollateralParam) -> NSDecimalNumber {
+    public func getHiddenFee(_ cParam:CollateralParam) -> NSDecimalNumber {
         let rawDebtAmount = getRawDebtAmount()
         let now = Date().millisecondsSince1970
         let start = WUtils.nodeTimeToInt64(input: fees_updated!).millisecondsSince1970
         let gap = (now - start)/1000 + 30
         
-        let doubel1 = Double(cParam.stability_fee)
+        let doubel1 = Double(cParam.stability_fee!)
         let doubel2 = Double(gap)
         let power = Double(pow(doubel1!, doubel2))
         return (rawDebtAmount.multiplying(by: NSDecimalNumber.init(value: power), withBehavior: WUtils.handler0Up)).subtracting(rawDebtAmount)
     }
     
-    public func getEstimatedTotalFee(_ cParam:KavaCdpParam.CollateralParam) -> NSDecimalNumber {
+    public func getEstimatedTotalFee(_ cParam:CollateralParam) -> NSDecimalNumber {
         if (accumulated_fees != nil) {
             return NSDecimalNumber.init(string: accumulated_fees!.amount).adding(getHiddenFee(cParam))
         }
         return getHiddenFee(cParam)
     }
     
-    public func getEstimatedTotalDebt(_ cParam:KavaCdpParam.CollateralParam) -> NSDecimalNumber {
+    public func getEstimatedTotalDebt(_ cParam:CollateralParam) -> NSDecimalNumber {
         return getRawDebtAmount().adding(getHiddenFee(cParam))
     }
     

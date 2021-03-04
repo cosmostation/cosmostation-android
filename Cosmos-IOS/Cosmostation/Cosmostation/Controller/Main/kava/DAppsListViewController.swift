@@ -13,11 +13,13 @@ class DAppsListViewController: BaseViewController {
     @IBOutlet weak var dAppsSegment: UISegmentedControl!
     @IBOutlet weak var cdpView: UIView!
     @IBOutlet weak var havestView: UIView!
-
+    @IBOutlet weak var auctionView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         cdpView.alpha = 1
         havestView.alpha = 0
+        auctionView.alpha = 0
     
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
@@ -36,9 +38,15 @@ class DAppsListViewController: BaseViewController {
         if sender.selectedSegmentIndex == 0 {
             cdpView.alpha = 1
             havestView.alpha = 0
+            auctionView.alpha = 0
         } else if sender.selectedSegmentIndex == 1 {
             cdpView.alpha = 0
             havestView.alpha = 1
+            auctionView.alpha = 0
+        } else if sender.selectedSegmentIndex == 2 {
+            cdpView.alpha = 0
+            havestView.alpha = 0
+            auctionView.alpha = 1
         }
     }
     

@@ -45,8 +45,8 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     var cDpDecimal:Int16 = 6
     var pDpDecimal:Int16 = 6
     var mMarketID: String = ""
-    var mCdpParam:KavaCdpParam?
-    var mCollateralParam: KavaCdpParam.CollateralParam?
+    var mCdpParam: CdpParam?
+    var mCollateralParam: CollateralParam?
     var mMyCdpStatus: CdpOwen?
     var mPrice: KavaPriceFeedPrice?
     
@@ -72,7 +72,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         mCDenom = pageHolderVC.mCDenom!
         mMarketID = pageHolderVC.mMarketID!
         mCdpParam = BaseData.instance.mCdpParam
-        mCollateralParam = mCdpParam?.result.getcParamByType(pageHolderVC.mCollateralParamType!)
+        mCollateralParam = mCdpParam?.getcParamByType(pageHolderVC.mCollateralParamType!)
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()
@@ -468,12 +468,12 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
                 print("ERROR");
                 return
             }
-            mPDenom = mCollateralParam!.getpDenom()
+            mPDenom = mCollateralParam!.getpDenom()!
             
             cDpDecimal = WUtils.getKavaCoinDecimal(mCDenom)
             pDpDecimal = WUtils.getKavaCoinDecimal(mPDenom)
             
-            pMinAmount = NSDecimalNumber.init(string: mCdpParam!.result.debt_param?.debt_floor)
+            pMinAmount = NSDecimalNumber.init(string: mCdpParam!.debt_param?.debt_floor)
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
             cMaxAmount = account!.getTokenBalance(mCDenom)
             cMinAmount = pMinAmount.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: mCollateralParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)

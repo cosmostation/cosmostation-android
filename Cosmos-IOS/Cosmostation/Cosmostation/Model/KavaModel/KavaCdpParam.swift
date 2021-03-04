@@ -8,6 +8,18 @@
 
 import Foundation
 
+public struct KavaCdpParam {
+    var height: String?
+    var result: CdpParam?
+    
+    init(_ dictionary: NSDictionary) {
+        self.height = dictionary["height"] as? String
+        if let rawCdpParam = dictionary["result"] as? NSDictionary {
+            self.result = CdpParam.init(rawCdpParam)
+        }
+    }
+}
+/*
 public class KavaCdpParam {
     var height: String = ""
     var result: CdpParamResult = CdpParamResult.init()
@@ -235,3 +247,4 @@ public class KavaCdpParam {
         }
     }
 }
+ */

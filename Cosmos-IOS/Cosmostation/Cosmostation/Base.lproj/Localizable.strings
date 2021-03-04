@@ -399,7 +399,7 @@
 "title_guide" = "FAQ";
 "title_vote" = "Vote";
 "title_tx_detail" = "Transaction Detail";
-"title_dapp_market" = "CDP & Harvest";
+"title_dapp_market" = "KAVA DeFi";
 "title_cdp_list" = "CDP Market";
 "title_cdp_detail" = "CDP Status";
 "title_harvest_detail" = "Harvest Status";
