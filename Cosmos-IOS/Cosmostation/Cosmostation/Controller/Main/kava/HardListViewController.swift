@@ -192,11 +192,11 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindLPClaim(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestListRewardCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListRewardCell") as? HarvestListRewardCell
-        var hardReward = NSDecimalNumber.zero
-        for hReward in havestLPRewards {
-            hardReward = hardReward.adding(WUtils.plainStringToDecimal(hReward.amount.amount))
-        }
-        cell?.rewardSumAmount.attributedText = WUtils.displayAmount2(hardReward.stringValue, cell!.rewardSumAmount.font, 6, 6)
+//        var hardReward = NSDecimalNumber.zero
+//        for hReward in havestLPRewards {
+//            hardReward = hardReward.adding(WUtils.plainStringToDecimal(hReward.amount.amount))
+//        }
+//        cell?.rewardSumAmount.attributedText = WUtils.displayAmount2(hardReward.stringValue, cell!.rewardSumAmount.font, 6, 6)
         return cell!
     }
     

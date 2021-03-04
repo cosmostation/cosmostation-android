@@ -10,15 +10,16 @@ import UIKit
 
 class HarvestListRewardCell: UITableViewCell {
 
-    @IBOutlet weak var rewardSumAmount: UILabel!
+    @IBOutlet weak var kavaIncentiveAmount: UILabel!
+    @IBOutlet weak var hardIncentiveAmount: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
     }
     
-    
-//    var actionClaim: (() -> Void)? = nil
-//    @IBAction func onClickReward(_ sender: UIButton) {
-//        actionClaim?()
-//    }
+    var actionClaim: (() -> Void)? = nil
+    @IBAction func onClickReward(_ sender: UIButton) {
+        actionClaim?()
+    }
 }

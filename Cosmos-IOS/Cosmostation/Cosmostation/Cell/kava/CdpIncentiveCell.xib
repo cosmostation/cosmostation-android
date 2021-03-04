@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="171" id="KGk-i7-Jjw" customClass="CdpIncentiveCell" customModule="Cosmostation" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="481" height="171"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="238" id="KGk-i7-Jjw" customClass="CdpIncentiveCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="506" height="238"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="481" height="171"/>
+                <rect key="frame" x="0.0" y="0.0" width="506" height="238"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6R-xQ-LDf" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="457" height="163"/>
+                        <rect key="frame" x="12" y="4" width="482" height="230"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Crypto Payday" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZo-Hm-go1">
-                                <rect key="frame" x="16" y="16" width="88" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="USDX Minting Incentive" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZo-Hm-go1">
+                                <rect key="frame" x="16" y="16" width="143" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" ambiguous="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EKd-ZJ-4SD">
-                                <rect key="frame" x="16" y="38" width="425" height="46.5"/>
-                                <string key="text">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly! The more USDX you mint, the more KAVA rewards you get.</string>
+                                <rect key="frame" x="16" y="38" width="450" height="46.5"/>
+                                <string key="text">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly!
+The more USDX you mint, the more KAVA rewards you get.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
@@ -40,28 +41,56 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="KAVA" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1GD-76-xt2">
-                                <rect key="frame" x="410" y="100.5" width="31" height="14.5"/>
+                                <rect key="frame" x="435" y="100.5" width="31" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="1" green="0.33725490200000002" blue="0.30980392159999998" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUm-mu-xoT">
-                                <rect key="frame" x="396.5" y="100.5" width="11.5" height="14.5"/>
+                                <rect key="frame" x="421.5" y="100.5" width="11.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2HG-bF-qKx">
+                                <rect key="frame" x="16" y="170" width="450" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="QWS-cy-P4O"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <state key="normal" title="  Claim Incentive" image="incentiveIcs">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.69999999999999996"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onClickClaim:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="6sk-yt-LNC"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.33725490196078434" blue="0.30980392156862746" alpha="0.14807988556338017" colorSpace="deviceRGB"/>
                         <constraints>
                             <constraint firstItem="CZo-Hm-go1" firstAttribute="top" secondItem="D6R-xQ-LDf" secondAttribute="top" constant="16" id="69S-JG-kIt"/>
                             <constraint firstItem="EKd-ZJ-4SD" firstAttribute="leading" secondItem="CZo-Hm-go1" secondAttribute="leading" id="BJg-NU-9ll"/>
-                            <constraint firstAttribute="bottom" secondItem="8Ny-AS-W3o" secondAttribute="bottom" constant="20" id="ENz-3Y-6io"/>
+                            <constraint firstAttribute="bottom" secondItem="2HG-bF-qKx" secondAttribute="bottom" constant="20" id="FH9-6x-64n"/>
                             <constraint firstItem="8Ny-AS-W3o" firstAttribute="top" secondItem="EKd-ZJ-4SD" secondAttribute="bottom" constant="16" id="GQO-Cu-rx8"/>
                             <constraint firstAttribute="trailing" secondItem="1GD-76-xt2" secondAttribute="trailing" constant="16" id="Kzf-M5-5Bo"/>
                             <constraint firstItem="CZo-Hm-go1" firstAttribute="leading" secondItem="D6R-xQ-LDf" secondAttribute="leading" constant="16" id="L2I-QE-bsv"/>
+                            <constraint firstItem="2HG-bF-qKx" firstAttribute="leading" secondItem="D6R-xQ-LDf" secondAttribute="leading" constant="16" id="Tfw-Ve-aUy"/>
+                            <constraint firstItem="2HG-bF-qKx" firstAttribute="top" secondItem="8Ny-AS-W3o" secondAttribute="bottom" constant="16" id="Z6Y-Py-vha"/>
                             <constraint firstItem="1GD-76-xt2" firstAttribute="leading" secondItem="SUm-mu-xoT" secondAttribute="trailing" constant="2" id="ais-sr-i5o"/>
                             <constraint firstAttribute="trailing" secondItem="EKd-ZJ-4SD" secondAttribute="trailing" constant="16" id="djX-wo-MBg"/>
+                            <constraint firstAttribute="trailing" secondItem="2HG-bF-qKx" secondAttribute="trailing" constant="16" id="iC0-py-kVK"/>
                             <constraint firstItem="EKd-ZJ-4SD" firstAttribute="top" secondItem="CZo-Hm-go1" secondAttribute="bottom" constant="6" id="nVx-m3-wD4"/>
                             <constraint firstItem="8Ny-AS-W3o" firstAttribute="leading" secondItem="D6R-xQ-LDf" secondAttribute="leading" constant="16" id="uT6-B2-ooU"/>
                             <constraint firstItem="1GD-76-xt2" firstAttribute="centerY" secondItem="8Ny-AS-W3o" secondAttribute="centerY" id="yZa-c5-DOI"/>
@@ -100,7 +129,10 @@
                 <outlet property="incentiveSumAmount" destination="SUm-mu-xoT" id="qB7-Ii-PZO"/>
                 <outlet property="rootCard" destination="D6R-xQ-LDf" id="CyJ-zA-VKg"/>
             </connections>
-            <point key="canvasLocation" x="-267.39130434782612" y="195.87053571428569"/>
+            <point key="canvasLocation" x="-249.27536231884059" y="218.30357142857142"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="incentiveIcs" width="24" height="24"/>
+    </resources>
 </document>
