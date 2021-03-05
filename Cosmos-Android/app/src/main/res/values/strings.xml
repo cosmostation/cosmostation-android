@@ -27,7 +27,7 @@
     <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
-    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava.cosmostation.io/</string>
+    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
     <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
     <string name="url_kava_faucet" translatable="false"></string>
 
