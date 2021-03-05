@@ -2532,7 +2532,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
         } else if (chainS == CHAIN_KAVA_S) {
-            return "kava-4"
+            return "kava-6"
         } else if (chainS == CHAIN_IOV_S) {
             return "iov-mainnet-2"
         } else if (chainS == CHAIN_BAND_S) {
@@ -2573,7 +2573,7 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_MAIN) {
             return "Binance-Chain-Tigris"
         } else if (chain == ChainType.KAVA_MAIN) {
-            return "kava-4"
+            return "kava-6"
         } else if (chain == ChainType.IOV_MAIN) {
             return "iov-mainnet-2"
         } else if (chain == ChainType.BAND_MAIN) {

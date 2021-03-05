@@ -174,7 +174,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.navigationController?.pushViewController(voteDetailsVC, animated: true)
                 
             } else {
-                guard let url = URL(string: EXPLORER_SECRET_MAIN + "proposals/" + proposal.id) else { return }
+                guard let url = URL(string: EXPLORER_SECRET_MAIN + "governance/proposals/" + proposal.id) else { return }
                 self.onShowSafariWeb(url)
             }
             
