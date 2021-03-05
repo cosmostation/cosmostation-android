@@ -1168,18 +1168,9 @@ public class WUtil {
         Collections.sort(proposals, new Comparator<Proposal>() {
             @Override
             public int compare(Proposal o1, Proposal o2) {
-                if (chain.equals(COSMOS_MAIN)) {
-                    if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
-                    else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
-                    else return 0;
-
-                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN)) {
-                    if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
-                    else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
-                    else return 0;
-
-                }
-                return 0;
+                if (Integer.parseInt(o1.id) < Integer.parseInt(o2.id)) return 1;
+                else if (Integer.parseInt(o1.id) > Integer.parseInt(o2.id)) return -1;
+                else return 0;
             }
         });
     }
