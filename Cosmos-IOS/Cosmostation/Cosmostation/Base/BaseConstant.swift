@@ -82,7 +82,7 @@ let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostat
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 
-let SECRET_URL                          = "https://lcd.enigma.co/";
+let SECRET_URL                          = "https://secret-2.node.enigma.co/";
 let SECRET_API                          = "";
 
 
@@ -1188,7 +1188,7 @@ let EXPLORER_KAVA_MAIN      = "https://www.mintscan.io/kava/";
 let EXPLORER_IOV_MAIN       = "https://www.mintscan.io/starname/";
 let EXPLORER_BINANCE_MAIN   = "https://binance.mintscan.io/";
 let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
-let EXPLORER_SECRET_MAIN    = "https://explorer.cashmaney.com/";
+let EXPLORER_SECRET_MAIN    = "https://secretnodes.com/secret/chains/secret-2/";
 let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 

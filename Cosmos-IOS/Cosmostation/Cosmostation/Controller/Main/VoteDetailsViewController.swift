@@ -84,7 +84,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.SECRET_MAIN) {
-            guard let url = URL(string: EXPLORER_SECRET_MAIN + "proposals/" + proposalId!) else { return }
+            guard let url = URL(string: EXPLORER_SECRET_MAIN + "governance/proposals/" + proposalId!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
