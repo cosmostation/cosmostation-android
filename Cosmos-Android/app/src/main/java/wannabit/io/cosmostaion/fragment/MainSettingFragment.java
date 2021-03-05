@@ -256,6 +256,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 startActivity(intent);
             }
 
+
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));
             startActivity(intent);

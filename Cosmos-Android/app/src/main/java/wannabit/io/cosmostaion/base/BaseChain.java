@@ -28,7 +28,8 @@ public enum BaseChain {
     KAVA_LEGACY2("kava-2"),
     KAVA_LEGACY3("kava-3"),
     KAVA_LEGACY4("kava-4"),
-    KAVA_MAIN("kava-5"),
+    KAVA_LEGACY5("kava-5"),
+    KAVA_MAIN("kava-6"),
     BAND_MAIN_LEGACY1("band-wenchang-mainnet"),
     BAND_MAIN("band-guanyu-mainnet"),
     CERTIK_MAIN("shentu-1"),
@@ -85,6 +86,7 @@ public enum BaseChain {
                 chainName.equals(KAVA_LEGACY2.chainName) ||
                 chainName.equals(KAVA_LEGACY3.chainName) ||
                 chainName.equals(KAVA_LEGACY4.chainName) ||
+                chainName.equals(KAVA_LEGACY5.chainName) ||
                 chainName.equals(KAVA_MAIN.chainName)) {
             return KAVA_MAIN;
         }
@@ -161,6 +163,7 @@ public enum BaseChain {
                 chain.equals(KAVA_LEGACY2.chainName) ||
                 chain.equals(KAVA_LEGACY3.chainName) ||
                 chain.equals(KAVA_LEGACY4.chainName) ||
+                chain.equals(KAVA_LEGACY5.chainName) ||
                 chain.equals(KAVA_MAIN.chainName)) {
             return KAVA_MAIN.chainName;
         }
