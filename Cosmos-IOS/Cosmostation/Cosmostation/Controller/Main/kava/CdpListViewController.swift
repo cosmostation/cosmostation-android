@@ -217,6 +217,10 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     func onMintingIncentiveClaim() {
         print("onMintingIncentiveClaim")
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
     }
     
     

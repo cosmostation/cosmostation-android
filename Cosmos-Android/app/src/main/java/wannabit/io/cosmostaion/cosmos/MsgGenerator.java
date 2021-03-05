@@ -394,7 +394,9 @@ public class MsgGenerator {
             value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
             value.timestamp = String.valueOf(timestamp);
             value.amount = sendCoins;
-            value.height_span = "250";
+            //Check SPAN
+//            value.height_span = "250";
+            value.height_span = "24686";
 
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
             result.value = value;
@@ -491,7 +493,9 @@ public class MsgGenerator {
                 token.setAmount(sendAmount.longValue());
                 htltReq.setOutAmount(Collections.singletonList(token));
                 htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
-                htltReq.setHeightSpan(10001);
+//                htltReq.setHeightSpan(10001);
+                //Check SPAN
+                htltReq.setHeightSpan(407547);
                 htltReq.setCrossChain(true);
             }
 
