@@ -66,6 +66,7 @@
                 android:layout_marginRight="@dimen/space_16"/>
 
             <RelativeLayout
+                android:id="@+id/vote_proposer_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_12"

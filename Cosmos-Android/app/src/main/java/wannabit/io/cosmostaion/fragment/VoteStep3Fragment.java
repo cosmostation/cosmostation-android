@@ -63,15 +63,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN) ||
-                getSActivity().mBaseChain.equals(BaseChain.CERTIK_MAIN) || getSActivity().mBaseChain.equals(BaseChain.CERTIK_TEST) || getSActivity().mBaseChain.equals(BaseChain.IOV_MAIN) ||
-                getSActivity().mBaseChain.equals(BaseChain.AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 18, getSActivity().mBaseChain));
-
-        }
+        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
         mOpinion.setText(getSActivity().mOpinion);
         mMemo.setText(getSActivity().mMemo);
     }

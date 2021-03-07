@@ -65,6 +65,21 @@ public class Msg {
         public Object amount;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        public ArrayList<Coin> getCoins() {
+            ArrayList<Coin> result = new ArrayList<>();
+            try {
+                Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
+                result.add(temp);
+
+            } catch (Exception e) {}
+
+            try {
+                result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>(){}.getType());
+            } catch (Exception e) { }
+            return result;
+        }
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("delegator_address")
         public String delegator_address;
 
@@ -96,22 +111,6 @@ public class Msg {
         @SerializedName("shares")
         public String shares;
 
-
-        @JsonInclude(JsonInclude.Include.NON_NULL)
-        public ArrayList<Coin> getCoins() {
-            ArrayList<Coin> result = new ArrayList<>();
-            try {
-                Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
-                result.add(temp);
-
-            } catch (Exception e) {}
-
-            try {
-                result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>(){}.getType());
-            } catch (Exception e) { }
-            return result;
-        }
-
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("delegation")
         public Coin delegation;
@@ -126,7 +125,21 @@ public class Msg {
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("option")
-        public String option;
+        public Object option;
+
+        public String getOption() {
+            try {
+                int temp = new Gson().fromJson(new Gson().toJson(option), Integer.class);
+                return String.valueOf(temp);
+
+            } catch (Exception e) {}
+
+            try {
+                String temp = new Gson().fromJson(new Gson().toJson(option), String.class);
+                return temp;
+            } catch (Exception e) { }
+            return "";
+        }
 
 
 

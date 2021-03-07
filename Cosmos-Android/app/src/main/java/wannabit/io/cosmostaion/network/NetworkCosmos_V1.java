@@ -15,6 +15,10 @@ import wannabit.io.cosmostaion.network.res.ResDelegation_V1;
 import wannabit.io.cosmostaion.network.res.ResDelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResInflation_V1;
 import wannabit.io.cosmostaion.network.res.ResParamMint_V1;
+import wannabit.io.cosmostaion.network.res.ResProposalDetail_V1;
+import wannabit.io.cosmostaion.network.res.ResProposalMyVoted_V1;
+import wannabit.io.cosmostaion.network.res.ResProposalTally_V1;
+import wannabit.io.cosmostaion.network.res.ResProposalVoterList_V1;
 import wannabit.io.cosmostaion.network.res.ResProposal_V1;
 import wannabit.io.cosmostaion.network.res.ResProvision_V1;
 import wannabit.io.cosmostaion.network.res.ResRedelegations_V1;
@@ -83,6 +87,18 @@ public interface NetworkCosmos_V1 {
 
     @GET("/cosmos/gov/v1beta1/proposals")
     Call<ResProposal_V1> getProposals();
+
+    @GET("/cosmos/gov/v1beta1/proposals/{proposal_id}")
+    Call<ResProposalDetail_V1> getProposalDetail(@Path("proposal_id") String proposalId);
+
+    @GET("/cosmos/gov/v1beta1/proposals/{proposal_id}/tally")
+    Call<ResProposalTally_V1> getProposalTally(@Path("proposal_id") String proposalId);
+
+    @GET("/cosmos/gov/v1beta1/proposals/{proposal_id}/votes")
+    Call<ResProposalVoterList_V1> getProposalAllVoters(@Path("proposal_id") String proposalId, @Query("pagination.limit") int limit, @Query("pagination.offset") int offset);
+
+    @GET("/cosmos/gov/v1beta1/proposals/{proposal_id}/votes/{address}")
+    Call<ResProposalMyVoted_V1> getProposalMyVoted(@Path("proposal_id") String proposalId, @Path("address") String address);
 
     //Broadcast Tx
     @POST("txs")

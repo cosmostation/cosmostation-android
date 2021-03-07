@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -26,13 +27,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.Proposal_V1;
+import wannabit.io.cosmostaion.model.Tally_V1;
+import wannabit.io.cosmostaion.model.Vote_V1;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Tally;
 import wannabit.io.cosmostaion.model.type.Vote;
-import wannabit.io.cosmostaion.task.FetchTask.IrisProposalDetailTask;
-import wannabit.io.cosmostaion.task.FetchTask.IrisVoteListTask;
 import wannabit.io.cosmostaion.task.FetchTask.MyVoteCheckTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalDetailTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalProposerTask;
@@ -40,16 +41,25 @@ import wannabit.io.cosmostaion.task.FetchTask.ProposalTallyTask;
 import wannabit.io.cosmostaion.task.FetchTask.ProposalVotedListTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.V1Task.ProposalDetailTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.ProposalMyVote_V1;
+import wannabit.io.cosmostaion.task.V1Task.ProposalTally_V1;
+import wannabit.io.cosmostaion.task.V1Task.ProposalVoterList_V1;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_IRIS_VOTE_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_DETAIL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_PROPOSER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_TALLY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_VOTED;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_IRIS_PROPOSAL_DETAIL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSAL_DETAIL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSAL_MY_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSAL_TALLY;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSAL_VOTERS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -71,10 +81,18 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     private String              mProposalId;
     private Proposal            mProposal;
     private String              mProposer;
-    private IrisProposal        mIrisProposal;
+//    private IrisProposal        mIrisProposal;
     private Tally               mTally;
     private ArrayList<Vote>     mVotes = new ArrayList<>();
     private Vote                mMyVote;
+
+
+    private String              mProposalId_V1;
+    private Proposal_V1         mProposalDetail_V1;
+    private Tally_V1            mTally_V1;
+    private ArrayList<Vote_V1>  mAllVoter_V1 = new ArrayList<>();
+    private Vote_V1             mMyVote_V1;
+
 
 
     @Override
@@ -88,9 +106,10 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         mVoteBtn            = findViewById(R.id.btn_action);
         mVoteBtn.setOnClickListener(this);
 
-        mProposalId = getIntent().getStringExtra("proposalId");
-        mAccount    = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
-        mBaseChain  = BaseChain.getChain(mAccount.baseChain);
+        mProposalId     = getIntent().getStringExtra("proposalId");
+        mProposalId_V1  = getIntent().getStringExtra("proposalId");
+        mAccount        = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
+        mBaseChain      = BaseChain.getChain(mAccount.baseChain);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -142,8 +161,24 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+                if (!mProposalDetail_V1.status.equals("PROPOSAL_STATUS_VOTING_PERIOD")) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (getBaseDao().mDelegations_V1 == null || getBaseDao().mDelegations_V1.size() <= 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+                if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
@@ -151,28 +186,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
                 if (getBaseDao().mBondings.size() == 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-                if (!mIrisProposal.value.basicProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().mBondings.size() == 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (mMyVote != null) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_iris_already_voted), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IRIS_ATTO).compareTo(new BigDecimal("80000000000000000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -255,31 +268,32 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposalTitle() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            return mProposalDetail_V1.getTitle();
+        } else {
             return mProposal.getTitle();
-
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            return mIrisProposal.getTitle();
         }
-        return "";
     }
 
     private String getProposer() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            return "";
+        } else {
             return mProposer;
-
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            return mIrisProposal.value.basicProposal.proposer;
         }
-        return "";
-
     }
 
-
     public void onFetch() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            this.mTaskCount = 4;
+            new ProposalDetailTask_V1(getBaseApplication(), this, mBaseChain, mProposalId_V1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalTally_V1(getBaseApplication(), this, mBaseChain, mProposalId_V1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalVoterList_V1(getBaseApplication(), this, mBaseChain, mProposalId_V1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ProposalMyVote_V1(getBaseApplication(), this, mBaseChain, mProposalId_V1, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        }
+
+        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
                 mBaseChain.equals(BaseChain.CERTIK_TEST)|| mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
             this.mTaskCount = 5;
             new ProposalDetailTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -287,11 +301,6 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             new ProposalVotedListTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new MyVoteCheckTask(getBaseApplication(), this, mProposalId, mAccount.address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalProposerTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN)) {
-            this.mTaskCount = 2;
-            new IrisProposalDetailTask(getBaseApplication(), this, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IrisVoteListTask(getBaseApplication(), this, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
     }
@@ -314,14 +323,30 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
         } else if (result.taskType == TASK_FETCH_PROPOSAL_PROPOSER) {
             mProposer = (String)result.resultData;
 
-        } else if (result.taskType == TASK_IRIS_PROPOSAL_DETAIL) {
-            mIrisProposal = (IrisProposal)result.resultData;
-
-        } else if (result.taskType == TASK_FETCH_IRIS_VOTE_LIST) {
-            mVotes = (ArrayList<Vote>)result.resultData;
-            mMyVote = WUtil.getMyVote(mVotes, mAccount.address);
         }
 
+        // v.40 after.
+        else if (result.taskType == TASK_V1_FETCH_PROPOSAL_DETAIL) {
+            if (result.isSuccess && result.resultData != null) {
+                mProposalDetail_V1 = (Proposal_V1)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_PROPOSAL_TALLY) {
+            if (result.isSuccess && result.resultData != null) {
+                mTally_V1 = (Tally_V1)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_PROPOSAL_VOTERS) {
+            if (result.isSuccess && result.resultData != null) {
+                mAllVoter_V1 = (ArrayList<Vote_V1>)result.resultData;
+            }
+
+        } else if (result.taskType == TASK_V1_FETCH_PROPOSAL_MY_VOTE) {
+            if (result.isSuccess && result.resultData != null) {
+                mMyVote_V1 = (Vote_V1)result.resultData;
+            }
+
+        }
         if (mTaskCount == 0) {
             onUpdateView();
         }
@@ -368,8 +393,18 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
-            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                    mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) && mProposal != null) {
+            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) && mProposalDetail_V1 != null) {
+                holder.itemStatusImg.setImageDrawable(mProposalDetail_V1.getStatusImg(getBaseContext()));
+                holder.itemStatusTxt.setText(mProposalDetail_V1.getStatusText(getBaseContext()));
+                holder.itemTitle.setText(mProposalDetail_V1.getTitle());
+                holder.itemProposerLayer.setVisibility(View.GONE);
+                holder.itemType.setText(mProposalDetail_V1.getType());
+                holder.itemStartTime.setText(mProposalDetail_V1.getStartTime(getBaseContext()));
+                holder.itemFinishTime.setText(mProposalDetail_V1.getEndTime(getBaseContext()));
+                holder.itemMsg.setText(mProposalDetail_V1.content.description);
+
+
+            } else if (mProposal != null) {
                 holder.itemStatusImg.setImageDrawable(mProposal.getStatusImg(getBaseContext()));
                 holder.itemStatusTxt.setText(mProposal.proposal_status);
                 holder.itemTitle.setText(mProposal.getTitle());
@@ -383,18 +418,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     WDp.showCoinDp(getBaseContext(), requestCoin.get(0), holder.itemRequestAmountDenom, holder.itemRequestAmount, mBaseChain);
                     holder.itemRequestLayer.setVisibility(View.VISIBLE);
                 }
-
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisProposal != null) {
-                holder.itemStatusImg.setImageDrawable(mIrisProposal.getStatusImg(getBaseContext()));
-                holder.itemStatusTxt.setText(mIrisProposal.value.basicProposal.proposal_status);
-                holder.itemTitle.setText(mIrisProposal.getTitle());
-                holder.itemProposer.setText(mIrisProposal.value.basicProposal.proposer);
-                holder.itemType.setText(mIrisProposal.getType());
-                holder.itemStartTime.setText(mIrisProposal.getStartTime(getBaseContext()));
-                holder.itemFinishTime.setText(mIrisProposal.getEndTime(getBaseContext()));
-                holder.itemMsg.setText(mIrisProposal.value.basicProposal.description);
-
             }
+
             holder.itemWebBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -421,66 +446,86 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
             final VoteTallyHolder holder = (VoteTallyHolder)viewHolder;
-            Tally tally = null;
+            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) && mTally_V1 != null) {
+                holder.itemYesProgress.setProgress(mTally_V1.getYesPer().intValue());
+                holder.itemNoProgress.setProgress(mTally_V1.getNoPer().intValue());
+                holder.itemVetoProgress.setProgress(mTally_V1.getVetoPer().intValue());
+                holder.itemAbstainProgress.setProgress(mTally_V1.getAbstainPer().intValue());
 
-            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                    mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) && mTally != null) {
-                tally = mTally;
-                holder.itemYesProgress.setProgress(tally.getYesPer().intValue());
-                holder.itemNoProgress.setProgress(tally.getNoPer().intValue());
-                holder.itemVetoProgress.setProgress(tally.getVetoPer().intValue());
-                holder.itemAbstainProgress.setProgress(tally.getAbstainPer().intValue());
+                holder.itemYesRate.setText(WDp.getDpString(mTally_V1.getYesPer().toPlainString() + "%", 3));
+                holder.itemNoRate.setText(WDp.getDpString(mTally_V1.getNoPer().toPlainString() + "%", 3));
+                holder.itemVetoRate.setText(WDp.getDpString(mTally_V1.getVetoPer().toPlainString() + "%", 3));
+                holder.itemAbstainRate.setText(WDp.getDpString(mTally_V1.getAbstainPer().toPlainString() + "%", 3));
 
-                holder.itemYesRate.setText(WDp.getDpString(tally.getYesPer().toPlainString() + "%", 3));
-                holder.itemNoRate.setText(WDp.getDpString(tally.getNoPer().toPlainString() + "%", 3));
-                holder.itemVetoRate.setText(WDp.getDpString(tally.getVetoPer().toPlainString() + "%", 3));
-                holder.itemAbstainRate.setText(WDp.getDpString(tally.getAbstainPer().toPlainString() + "%", 3));
+                if (mProposalDetail_V1 != null && mProposalDetail_V1.status.equals("PROPOSAL_STATUS_VOTING_PERIOD")) {
+                    onDisplayVote_V1(holder);
+                    holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
+                    holder.itemQuorum.setText(WDp.getDpString(WDp.systemQuorum(mBaseChain) + "%", 3));
+                    holder.itemTurnout.setText(WDp.getDpString(mTally_V1.getTurnout(getBaseDao()).toPlainString() + "%", 3));
+                }
+
+                if (mMyVote_V1 != null) {
+                    if (mMyVote_V1.option.equals(Vote_V1.OPTION_YES)) {
+                        holder.itemYesDone.setVisibility(View.VISIBLE);
+                        holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                    } else if (mMyVote_V1.option.equals(Vote_V1.OPTION_NO)) {
+                        holder.itemNoDone.setVisibility(View.VISIBLE);
+                        holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                    } else if (mMyVote_V1.option.equals(Vote_V1.OPTION_VETO)) {
+                        holder.itemVetoDone.setVisibility(View.VISIBLE);
+                        holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                    } else if (mMyVote_V1.option.equals(Vote_V1.OPTION_ABSTAIN)) {
+                        holder.itemAbstainDone.setVisibility(View.VISIBLE);
+                        holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+
+                    }
+                }
+
+            } else if (mTally != null) {
+                holder.itemYesProgress.setProgress(mTally.getYesPer().intValue());
+                holder.itemNoProgress.setProgress(mTally.getNoPer().intValue());
+                holder.itemVetoProgress.setProgress(mTally.getVetoPer().intValue());
+                holder.itemAbstainProgress.setProgress(mTally.getAbstainPer().intValue());
+
+                holder.itemYesRate.setText(WDp.getDpString(mTally.getYesPer().toPlainString() + "%", 3));
+                holder.itemNoRate.setText(WDp.getDpString(mTally.getNoPer().toPlainString() + "%", 3));
+                holder.itemVetoRate.setText(WDp.getDpString(mTally.getVetoPer().toPlainString() + "%", 3));
+                holder.itemAbstainRate.setText(WDp.getDpString(mTally.getAbstainPer().toPlainString() + "%", 3));
 
                 if (mProposal != null && mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
-                    holder.itemTurnout.setText(WDp.getDpString(tally.getTurnout(getBaseDao().mStakingPool).toPlainString() + "%", 3));
+                    holder.itemTurnout.setText(WDp.getDpString(mTally.getTurnout(getBaseDao().mStakingPool).toPlainString() + "%", 3));
                 }
 
-            } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) && mIrisProposal != null && mIrisProposal.hasTally()) {
-                tally = mIrisProposal.value.basicProposal.tally_result ;
-                holder.itemYesProgress.setProgress(tally.getYesPer().intValue());
-                holder.itemNoProgress.setProgress(tally.getNoPer().intValue());
-                holder.itemVetoProgress.setProgress(tally.getVetoPer().intValue());
-                holder.itemAbstainProgress.setProgress(tally.getAbstainPer().intValue());
+                if (mMyVote != null) {
+                    holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
 
-                holder.itemYesRate.setText(WDp.getDpString(tally.getYesPer().toPlainString() + "%", 3));
-                holder.itemNoRate.setText(WDp.getDpString(tally.getNoPer().toPlainString() + "%", 3));
-                holder.itemVetoRate.setText(WDp.getDpString(tally.getVetoPer().toPlainString() + "%", 3));
-                holder.itemAbstainRate.setText(WDp.getDpString(tally.getAbstainPer().toPlainString() + "%", 3));
-                onDisplayVote(holder);
-            }
+                    if (mMyVote.option.equals(Vote.OPTION_YES)) {
+                        holder.itemYesDone.setVisibility(View.VISIBLE);
+                        holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-            if (mMyVote != null) {
-                holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
-                holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
-                holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
-                holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_quorum));
+                    } else if (mMyVote.option.equals(Vote.OPTION_NO)) {
+                        holder.itemNoDone.setVisibility(View.VISIBLE);
+                        holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                if (mMyVote.option.equals(Vote.OPTION_YES)) {
-                    holder.itemYesDone.setVisibility(View.VISIBLE);
-                    holder.itemYesCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                    } else if (mMyVote.option.equals(Vote.OPTION_VETO)) {
+                        holder.itemVetoDone.setVisibility(View.VISIBLE);
+                        holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                } else if (mMyVote.option.equals(Vote.OPTION_NO)) {
-                    holder.itemNoDone.setVisibility(View.VISIBLE);
-                    holder.itemNoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
+                    } else if (mMyVote.option.equals(Vote.OPTION_ABSTAIN)) {
+                        holder.itemAbstainDone.setVisibility(View.VISIBLE);
+                        holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
 
-                } else if (mMyVote.option.equals(Vote.OPTION_VETO)) {
-                    holder.itemVetoDone.setVisibility(View.VISIBLE);
-                    holder.itemVetoCard.setBackground(getDrawable(R.drawable.box_vote_voted));
-
-                } else if (mMyVote.option.equals(Vote.OPTION_ABSTAIN)) {
-                    holder.itemAbstainDone.setVisibility(View.VISIBLE);
-                    holder.itemAbstainCard.setBackground(getDrawable(R.drawable.box_vote_voted));
-
+                    }
                 }
             }
-
         }
 
         private void onExplorerLink() {
@@ -505,11 +550,28 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             holder.itemAbstainCntImg.setVisibility(View.VISIBLE);
         }
 
+        private void onDisplayVote_V1(VoteTallyHolder holder) {
+            holder.itemYesCnt.setText(""+ WUtil.getVoterTypeCnt_V1(mAllVoter_V1, Vote_V1.OPTION_YES));
+            holder.itemNoCnt.setText(""+WUtil.getVoterTypeCnt_V1(mAllVoter_V1, Vote_V1.OPTION_NO));
+            holder.itemVetoCnt.setText(""+WUtil.getVoterTypeCnt_V1(mAllVoter_V1, Vote_V1.OPTION_VETO));
+            holder.itemAbstainCnt.setText(""+WUtil.getVoterTypeCnt_V1(mAllVoter_V1, Vote_V1.OPTION_ABSTAIN));
+            holder.itemYesCnt.setVisibility(View.VISIBLE);
+            holder.itemNoCnt.setVisibility(View.VISIBLE);
+            holder.itemVetoCnt.setVisibility(View.VISIBLE);
+            holder.itemAbstainCnt.setVisibility(View.VISIBLE);
+            holder.itemYesCntImg.setVisibility(View.VISIBLE);
+            holder.itemNoCntImg.setVisibility(View.VISIBLE);
+            holder.itemVetoCntImg.setVisibility(View.VISIBLE);
+            holder.itemAbstainCntImg.setVisibility(View.VISIBLE);
+
+        }
+
 
 
         public class VoteInfoHolder extends RecyclerView.ViewHolder {
             private ImageView itemStatusImg;
             private TextView itemStatusTxt;
+            private RelativeLayout itemProposerLayer;
             private ImageView itemWebBtn;
             private TextView itemTitle, itemProposer, itemType, itemStartTime, itemFinishTime, itemMsg;
             private ImageView itemExpendBtn;
@@ -520,6 +582,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 super(itemView);
                 itemStatusImg = itemView.findViewById(R.id.vote_status_img);
                 itemStatusTxt = itemView.findViewById(R.id.vote_status);
+                itemProposerLayer = itemView.findViewById(R.id.vote_proposer_layer);
                 itemWebBtn = itemView.findViewById(R.id.vote_detail);
                 itemTitle = itemView.findViewById(R.id.vote_title);
                 itemProposer = itemView.findViewById(R.id.vote_proposer);
@@ -540,8 +603,8 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             private ProgressBar itemYesProgress, itemNoProgress, itemVetoProgress, itemAbstainProgress;
             private TextView itemYesRate, itemYesCnt, itemNoRate, itemNoCnt, itemVetoRate, itemVetoCnt, itemAbstainRate, itemAbstainCnt;
             private ImageView itemYesCntImg, itemNoCntImg, itemVetoCntImg, itemAbstainCntImg;
-            private RelativeLayout itemTurnoutLayer;
-            private TextView itemTurnout;
+            private LinearLayout itemTurnoutLayer;
+            private TextView itemTurnout, itemQuorum;
 
             public VoteTallyHolder(@NonNull View itemView) {
                 super(itemView);
@@ -571,6 +634,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 itemAbstainCntImg = itemView.findViewById(R.id.vote_abstain_cnt_img);
                 itemTurnoutLayer = itemView.findViewById(R.id.turnout_layer);
                 itemTurnout = itemView.findViewById(R.id.current_turnout);
+                itemQuorum = itemView.findViewById(R.id.current_quorum);
             }
         }
     }

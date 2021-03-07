@@ -71,6 +71,7 @@ import wannabit.io.cosmostaion.task.V1Task.broadcast.RedelegateTask_V1;
 import wannabit.io.cosmostaion.task.V1Task.broadcast.SendTask_V1;
 import wannabit.io.cosmostaion.task.V1Task.broadcast.SetRewardAddressTask_V1;
 import wannabit.io.cosmostaion.task.V1Task.broadcast.UndelegateTask_V1;
+import wannabit.io.cosmostaion.task.V1Task.broadcast.VoteTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ChangeRewardAddressGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.ClaimRewardsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.broadcast.DelegateGrpcTask;
@@ -466,13 +467,15 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
-            new SimpleVoteTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mProposalId,
-                    mOpinion,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+                new VoteTask_V1(getBaseApplication(), this, mAccount,
+                        mProposalId, mOpinion, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
+            } else {
+                new SimpleVoteTask(getBaseApplication(), this, mAccount,
+                        mProposalId, mOpinion, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            }
+
 
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
             onShowWaitDialog();
