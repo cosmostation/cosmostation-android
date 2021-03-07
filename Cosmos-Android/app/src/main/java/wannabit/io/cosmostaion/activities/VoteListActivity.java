@@ -209,16 +209,16 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (Integer.parseInt(proposal.proposal_id) >= 38) {
-                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                            voteIntent.putExtra("proposalId", proposal.proposal_id);
-                            startActivity(voteIntent);
-
-                        } else {
+                        if (mBaseChain.equals(COSMOS_MAIN) && Integer.parseInt(proposal.proposal_id) < 38) {
                             Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
                             webintent.putExtra("voteId", proposal.proposal_id);
                             webintent.putExtra("chain", mAccount.baseChain);
                             startActivity(webintent);
+
+                        } else {
+                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                            voteIntent.putExtra("proposalId", proposal.proposal_id);
+                            startActivity(voteIntent);
 
                         }
                     }
