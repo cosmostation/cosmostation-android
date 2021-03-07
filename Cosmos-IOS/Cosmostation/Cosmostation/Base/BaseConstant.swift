@@ -86,7 +86,8 @@ let SECRET_URL                          = "https://secret-2.node.enigma.co/";
 let SECRET_API                          = "";
 
 
-let AKASH_URL                           = "https://lcd-akash.cosmostation.io/";
+//let AKASH_URL                           = "https://lcd-akash.cosmostation.io/";
+let AKASH_URL                           = "https://lcd-office.cosmostation.io/edgenet-6/";
 let AKASH_API                           = "https://api-akash.cosmostation.io/";
 
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -555,7 +556,7 @@ let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
 let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
 
 
-//AKASH_URL
+//AKASH_URL will delete
 let AKASH_TX                                = AKASH_URL + "txs/";
 let AKASH_VALIDATORS                        = AKASH_URL + "staking/validators";
 let AKASH_ACCOUNT_INFO                      = AKASH_URL + "auth/accounts/";
@@ -578,6 +579,34 @@ let AKASH_PROPOSALS_TALLY_TAIL              = "/tally";
 
 let AKASH_API_HISTORY                       = AKASH_API + "v1/account/txs/";
 let AKASH_API_TRANS_HISTORY                 = AKASH_API + "v1/account/transfer_txs/";
+
+//AKASH Mainnet
+let AKASH_MAIN_TX                           = AKASH_URL + "txs/";
+let AKASH_MAIN_BALANCE                      = AKASH_URL + "cosmos/bank/v1beta1/balances/";
+let AKASH_MAIN_AUTH                         = AKASH_URL + "cosmos/auth/v1beta1/accounts/";
+let AKASH_MAIN_VALIDATORS                   = AKASH_URL + "cosmos/staking/v1beta1/validators";
+let AKASH_MAIN_DELEGATIONS                  = AKASH_URL + "cosmos/staking/v1beta1/delegations/";
+let AKASH_MAIN_UNDELEGATIONS                = AKASH_URL + "cosmos/staking/v1beta1/delegators/";
+let AKASH_MAIN_UNDELEGATIONS_T              = "/unbonding_delegations";
+let AKASH_MAIN_REWARDS                      = AKASH_URL + "cosmos/distribution/v1beta1/delegators/";
+let AKASH_MAIN_REWARDS_T                    = "/rewards";
+let AKASH_MAIN_SINGLE_VALIDATOR             = AKASH_URL + "cosmos/staking/v1beta1/validators/";
+let AKASH_MAIN_SINGLE_DELEGATION            = AKASH_URL + "cosmos/staking/v1beta1/validators/";
+let AKASH_MAIN_SINGLE_DELEGATION_M          = "/delegations/";
+let AKASH_MAIN_REDELEGATION                 = AKASH_URL + "/cosmos/staking/v1beta1/delegators/";
+let AKASH_MAIN_REDELEGATION_T               = "/redelegations";
+let AKASH_MAIN_REWARD_ADDRESS               = AKASH_URL + "cosmos/distribution/v1beta1/delegators/";
+let AKASH_MAIN_REWARD_ADDRESS_T             = "/withdraw_address";
+let AKASH_MAIN_INFLATION                    = AKASH_URL + "cosmos/mint/v1beta1/inflation";
+let AKASH_MAIN_PROVISIONS                   = AKASH_URL + "cosmos/mint/v1beta1/annual_provisions";
+let AKASH_MAIN_MINT_PARAM                   = AKASH_URL + "cosmos/mint/v1beta1/params";
+let AKASH_MAIN_STAKING_POOL                 = AKASH_URL + "cosmos/staking/v1beta1/pool";
+let AKASH_MAIN_PROPOSALS                    = AKASH_URL + "cosmos/gov/v1beta1/proposals";
+let AKASH_MAIN_PROPOSAL                     = AKASH_URL + "cosmos/gov/v1beta1/proposals/";
+let AKASH_MAIN_BORAD_TX                     = AKASH_URL + "txs";
+
+let AKASH_MAIN_HISTORY                      = AKASH_API + "v1/account/txs/";
+let AKASH_MAIN_TRANS_HISTORY                = AKASH_API + "v1/account/transfer_txs/";
 
 
 

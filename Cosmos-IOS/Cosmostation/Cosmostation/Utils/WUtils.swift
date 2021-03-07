@@ -1199,7 +1199,7 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
             if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
                 return NSDecimalNumber.zero
             }
@@ -2529,7 +2529,8 @@ class WUtils {
         } else if (chainS == CHAIN_CERTIK_S) {
             return "shentu-1"
         } else if (chainS == CHAIN_AKASH_S) {
-            return "akashnet-1"
+//            return "akashnet-1"
+            return "edgenet-6"
         } else if (chainS == CHAIN_OKEX_S) {
             return "okexchain-66"
         }
@@ -2570,7 +2571,8 @@ class WUtils {
         } else if (chain == ChainType.CERTIK_MAIN) {
             return "shentu-1"
         } else if (chain == ChainType.AKASH_MAIN) {
-            return "akashnet-1"
+//            return "akashnet-1"
+            return "edgenet-6"
         } else if (chain == ChainType.OKEX_MAIN) {
             return "okexchain-66"
         }

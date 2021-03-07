@@ -30,22 +30,11 @@ class WalletAddressCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-            if (account!.account_has_private) {
-                keyState.image = keyState.image?.withRenderingMode(.alwaysTemplate)
-                keyState.tintColor = COLOR_ATOM
-            }
-            dpAddress.text = account?.account_address
-            dpAddress.adjustsFontSizeToFitWidth = true
-            
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-            if (account!.account_has_private) {
-                keyState.image = keyState.image?.withRenderingMode(.alwaysTemplate)
-                keyState.tintColor = COLOR_IRIS
-            }
-            dpAddress.text = account?.account_address
-            dpAddress.adjustsFontSizeToFitWidth = true
-            
+        if (account!.account_has_private) {
+            keyState.image = keyState.image?.withRenderingMode(.alwaysTemplate)
+            keyState.tintColor = WUtils.getChainColor(chainType)
         }
+        dpAddress.text = account?.account_address
+        dpAddress.adjustsFontSizeToFitWidth = true
     }
 }
