@@ -2680,12 +2680,38 @@ public class WDp {
             Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
             result.add(temp);
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         try {
-            result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>(){}.getType());
-        } catch (Exception e) { }
+            result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>() {
+            }.getType());
+        } catch (Exception e) {
+        }
         return result;
+    }
+
+    public static BigDecimal systemQuorum(BaseChain basechain) {
+        BigDecimal result = new BigDecimal("0.5");
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+            result = new BigDecimal("0.4");
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            result = new BigDecimal("0.5");
+        }
+        return result.movePointRight(2).setScale(2);
+    }
+
+    public static String getDpOption(String option) {
+        if (option.equals("1")) {
+            return "Yes";
+        } else if (option.equals("3")) {
+            return "No";
+        } else if (option.equals("4")) {
+            return "No With Veto";
+        } else if (option.equals("2")) {
+            return "Abstain";
+        }
+        return option;
     }
 
 }

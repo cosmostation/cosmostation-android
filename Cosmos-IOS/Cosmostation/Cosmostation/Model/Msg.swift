@@ -38,6 +38,37 @@ enum AmountType: Codable {
     }
 }
 
+enum OptionType: Codable {
+    case intType(Int)
+    case stringType(String)
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.singleValueContainer()
+        if let x = try? container.decode(Int.self) {
+            self = .intType(x)
+            return
+        }
+        if let x = try? container.decode(String.self) {
+            self = .stringType(x)
+            return
+        }
+        throw DecodingError.typeMismatch(OptionType.self, DecodingError.Context(codingPath: decoder.codingPath, debugDescription: "Wrong type for OptionType"))
+
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.singleValueContainer()
+        switch self {
+        case .intType(let x):
+            try container.encode(x)
+        case .stringType(let x):
+            try container.encode(x)
+        }
+    }
+}
+
+
+
 public struct Msg: Codable {
     var type: String = ""
     var value: Value = Value.init()
@@ -71,7 +102,7 @@ public struct Msg: Codable {
         var shares: String?
         var proposal_id: String?
         var voter: String?
-        var option: String?
+        var option: OptionType?
         var from: String?
         var market_id: String?
         var price: String?
@@ -206,6 +237,24 @@ public struct Msg: Codable {
             return result
         }
         
+        public func getOption() -> String? {
+            var result = ""
+            let data = try? JSONEncoder().encode(option)
+            do {
+                result = try JSONDecoder().decode(String.self, from:data!)
+            } catch {
+                print(error)
+            }
+            do {
+                let temp = try JSONDecoder().decode(Int.self, from:data!)
+                result = String.init(temp)
+            } catch {
+                print(error)
+            }
+            return result
+        }
+        
+        
         init() {}
         
         init(_ dictionary: [String: Any]) {
@@ -318,8 +367,27 @@ public struct Msg: Codable {
                 self.voter = voter
             }
             
-            if let option =  dictionary["option"] as? String {
-                self.option = option
+//            if let option =  dictionary["option"] as? String {
+//                self.option = option
+//            }
+            
+            if let rawOption = dictionary["option"] as? String {
+                let data = try? JSONEncoder().encode(rawOption)
+                do {
+                    self.option = try JSONDecoder().decode(OptionType.self, from:data!)
+                } catch {
+                    print(error)
+                }
+                
+            }
+            
+            if let rawOption = dictionary["option"] as? Int {
+                let data = try? JSONEncoder().encode(rawOption)
+                do {
+                    self.option = try JSONDecoder().decode(OptionType.self, from:data!)
+                } catch {
+                    print(error)
+                }
             }
             
             if let from =  dictionary["from"] as? String {

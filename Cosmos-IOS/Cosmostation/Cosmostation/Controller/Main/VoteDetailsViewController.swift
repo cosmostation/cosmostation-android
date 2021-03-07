@@ -19,11 +19,16 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var proposalId: String?
     var mProposal: Proposal?
-    var mIrisProposal: IrisProposal?
     var mProposer: String?
     var mTally: Tally?
     var mVoters = Array<Vote>()
     var mMyVote: Vote?
+    
+    //for v40
+    var mProposalDetail_V1: Proposal_V1?
+    var mTally_V1: Tally_V1?
+    var mVoters_V1: Array<Vote_V1>?
+    var mMyVote_V1: Vote_V1?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -109,35 +114,29 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         }
         
-        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+            if (mProposalDetail_V1?.status != "PROPOSAL_STATUS_VOTING_PERIOD") {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
+            if (BaseData.instance.mMyDelegations_V1.count < 0) {
+                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN) {
             if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
+            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            if (mIrisProposal?.value?.basicProposal?.proposal_status != IrisProposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            if (mMyVote != nil) {
-                self.onShowToast(NSLocalizedString("error_already_vote", comment: ""))
-                return
-            }
-
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (WUtils.getTokenAmount(balances, IRIS_MAIN_DENOM).compare(NSDecimalNumber.init(string: "80000000000000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
@@ -146,6 +145,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
+            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -162,6 +162,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
+            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -178,6 +179,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
+            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -194,6 +196,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
+            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -221,23 +224,19 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getTitle() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+            return mProposalDetail_V1?.getTitle()
+        } else {
             return mProposal?.getTitle()
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            return mIrisProposal?.getTitle()
         }
-        return ""
     }
     
     func getProposer() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+            return ""
+        } else {
             return self.mProposer
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            return mIrisProposal?.value?.basicProposal?.proposer
         }
-        return ""
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -254,7 +253,22 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindVoteInfo(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteInfoTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteInfoTableViewCell") as? VoteInfoTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN) && mProposal != nil) {
+        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) && mProposalDetail_V1 != nil) {
+            cell?.statusImg.image = mProposalDetail_V1?.getStatusImg()
+            cell?.statusTitle.text = mProposalDetail_V1?.getStatusText()
+            cell?.proposalTitle.text = mProposalDetail_V1?.getTitle()
+            cell?.proposerLabel.text = getProposer()
+            cell?.proposalTypeLabel.text = String((mProposalDetail_V1?.content?.type)!.split(separator: ".").last!)
+            cell?.voteStartTime.text = mProposalDetail_V1?.getStartTime()
+            cell?.voteEndTime.text = mProposalDetail_V1?.getEndTime()
+            cell?.voteDescription.text = mProposalDetail_V1?.content?.description
+//            if (mProposalDetail_V1?.content?.amount?.count ?? 0 > 0) {
+//                WUtils.showCoinDp((mProposalDetail_V1?.content?.amount![0])!, cell!.requestAmountDenom, cell!.requestAmount, chainType!)
+//            } else {
+                cell!.requestAmountDenom.text = "N/A"
+//            }
+            
+        } else if (mProposal != nil) {
             cell?.statusImg.image = mProposal?.getStatusImg()
             cell?.statusTitle.text = mProposal?.proposal_status
             cell?.proposalTitle.text = mProposal?.getTitle()
@@ -268,16 +282,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell!.requestAmountDenom.text = "N/A"
             }
-            
-        } else if (chainType == ChainType.IRIS_MAIN && mIrisProposal != nil) {
-            cell?.statusImg.image = mIrisProposal?.getStatusImg()
-            cell?.statusTitle.text = mIrisProposal?.value?.basicProposal?.proposal_status
-            cell?.proposalTitle.text = mIrisProposal?.getTitle()
-            cell?.proposerLabel.text = mIrisProposal?.value?.basicProposal?.proposer
-            cell?.proposalTypeLabel.text = String((mIrisProposal?.type)!.split(separator: "/").last!)
-            cell?.voteStartTime.text = mIrisProposal?.getStartTime()
-            cell?.voteEndTime.text = mIrisProposal?.getEndTime()
-            cell?.voteDescription.text = mIrisProposal?.value?.basicProposal?.description
         }
         cell?.actionLink = {
             self.onClickLink()
@@ -291,35 +295,34 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN) && mTally != nil) {
-            cell?.onUpdateCards(mTally!, mVoters, mProposal?.proposal_status)
-            cell?.onCheckMyVote(mMyVote)
+        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) && mTally_V1 != nil) {
+            cell?.onUpdateCards_V1(chainType!, mTally_V1!, mVoters_V1, mProposalDetail_V1?.status)
+            cell?.onCheckMyVote_V1(mMyVote_V1)
             
-        } else if (chainType == ChainType.IRIS_MAIN && mIrisProposal != nil && mIrisProposal?.value?.basicProposal?.tally_result != nil) {
-            cell?.onUpdateCardIris((mIrisProposal?.value?.basicProposal?.tally_result)!, mVoters)
+        } else if (mTally != nil) {
+            cell?.onUpdateCards(mTally!, mVoters, mProposal?.proposal_status)
             cell?.onCheckMyVote(mMyVote)
         }
         return cell!
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+            mFetchCnt = 4
+            onFetchProposalDetail_V1(proposalId!)
+            onFetchProposalTally_V1(proposalId!)
+            onFetchProposalVoterList_V1(proposalId!)
+            onFetchProposalMyVote_V1(proposalId!, account!.account_address)
+            
+        } else {
             mFetchCnt = 5
             onFetchProposalDetail(proposalId!)
             onFetchTally(proposalId!)
             onFetchMyVote(proposalId!, account!.account_address)
             onFetchProposer(proposalId!)
             onFetchVoteList(proposalId!)
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            mFetchCnt = 2
-            self.mVoters.removeAll()
-            onFetchIrisProposalDetail(proposalId!)
-            onFetchIrisVoteList(proposalId!)
-            
         }
+        
     }
     
     var mFetchCnt = 0
@@ -518,44 +521,86 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     
-    func onFetchIrisProposalDetail(_ id: String) {
-        let url = IRIS_LCD_URL_PROPOSALS + "/" + id
+    func onFetchProposalDetail_V1(_ proposal_id: String) {
+        let url = BaseNetWork.proposalDetail(chainType!, proposal_id)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawProposal = res as? [String : Any] else {
+                guard let responseData = res as? NSDictionary, let rawProposal = responseData.object(forKey: "proposal") as? NSDictionary else {
                     self.onFetchFinished()
                     return
                 }
-                self.mIrisProposal = IrisProposal.init(rawProposal)
+                self.mProposalDetail_V1 = Proposal_V1.init(rawProposal)
+                self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchIrisProposalDetail ", error) }
+                if (SHOW_LOG) { print("onFetchProposalDetail_V1 ", error) }
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
         }
     }
     
-    func onFetchIrisVoteList(_ id: String) {
-        let url = IRIS_LCD_URL_PROPOSALS + "/" + id + "/votes"
+    func onFetchProposalTally_V1(_ proposal_id: String) {
+        let url = BaseNetWork.proposalTally(chainType!, proposal_id)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let rawVotes = res as? Array<NSDictionary> else {
+                guard let responseData = res as? NSDictionary, let rawTally = responseData.object(forKey: "tally") as? NSDictionary else {
                     self.onFetchFinished()
                     return
                 }
-                for RawVote in rawVotes {
-                    self.mVoters.append(Vote.init(RawVote as! [String : Any]))
-                }
-                self.mMyVote = WUtils.getMyIrisVote(self.mVoters, self.account!.account_address)
+                self.mTally_V1 = Tally_V1(rawTally)
+                self.onFetchFinished()
                 
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchIrisVoteList ", error) }
+                if (SHOW_LOG) { print("onFetchProposalTally_V1 ", error) }
+                self.onFetchFinished()
             }
-            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchProposalVoterList_V1(_ proposal_id: String) {
+        let url = BaseNetWork.proposalVoterList(chainType!, proposal_id)
+        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 1000, "pagination.offset":0], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let rawVoters = responseData.object(forKey: "votes") as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mVoters_V1 = Array<Vote_V1>()
+                for rawVoter in rawVoters {
+                    self.mVoters_V1!.append(Vote_V1(rawVoter))
+                }
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchVoterList_V1 ", error) }
+                self.onFetchFinished()
+            }
+        }
+    }
+    
+    func onFetchProposalMyVote_V1(_ proposal_id: String, _ address: String) {
+        let url = BaseNetWork.proposalMyVote(chainType!, proposal_id, address)
+        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let rawVote = responseData.object(forKey: "vote") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                self.mMyVote_V1 = Vote_V1(rawVote)
+                self.onFetchFinished()
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchProposalMyVote_V1 ", error) }
+                self.onFetchFinished()
+            }
         }
     }
 }

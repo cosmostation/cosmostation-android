@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import com.google.gson.annotations.SerializedName;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 public class Proposal_V1 {
     @SerializedName("proposal_id")
@@ -17,8 +19,14 @@ public class Proposal_V1 {
     @SerializedName("content")
     public Proposal_Content_V1 content;
 
+    @SerializedName("voting_start_time")
+    public String voting_start_time;
+
+    @SerializedName("voting_end_time")
+    public String voting_end_time;
+
     public class Proposal_Content_V1 {
-        @SerializedName("type")
+        @SerializedName("@type")
         public String type;
 
         @SerializedName("title")
@@ -65,5 +73,30 @@ public class Proposal_V1 {
 
     public String getTitle() {
         return "# " + proposal_id + ". "  + content.title;
+    }
+
+    public String getType() {
+        String[] split = content.type.split("\\.");
+        return split[split.length - 1];
+    }
+
+    public String getStartTime(Context c) {
+        if (status.equals("PROPOSAL_STATUS_DEPOSIT_PERIOD")) {
+            return c.getString(R.string.str_vote_wait_deposit);
+
+        } else {
+            return WDp.getTimeformat(c, voting_start_time);
+
+        }
+    }
+
+    public String getEndTime(Context c) {
+        if (status.equals("PROPOSAL_STATUS_DEPOSIT_PERIOD")) {
+            return c.getString(R.string.str_vote_wait_deposit);
+
+        } else {
+            return WDp.getTimeformat(c, voting_end_time);
+
+        }
     }
 }

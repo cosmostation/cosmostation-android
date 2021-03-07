@@ -336,6 +336,8 @@
 		28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */; };
 		28E746B825AD76ED004B2C64 /* OkPromotionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E746B625AD76ED004B2C64 /* OkPromotionCell.xib */; };
 		28ED4A59255112BA0073E164 /* MintParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ED4A58255112BA0073E164 /* MintParam.swift */; };
+		28EF22B525F4AEDA008C78E7 /* Tally_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EF22B425F4AEDA008C78E7 /* Tally_V1.swift */; };
+		28EF22B825F4AEEE008C78E7 /* Vote_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28EF22B725F4AEEE008C78E7 /* Vote_V1.swift */; };
 		28F4CF6F25429BBF0050985D /* EventStakeDropViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F4CF6D25429BBF0050985D /* EventStakeDropViewController.swift */; };
 		28F4CF722542AD3A0050985D /* EventStakeDropViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F4CF742542AD3A0050985D /* EventStakeDropViewController.xib */; };
 		C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */; };
@@ -881,6 +883,8 @@
 		28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkPromotionCell.swift; sourceTree = "<group>"; };
 		28E746B625AD76ED004B2C64 /* OkPromotionCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OkPromotionCell.xib; sourceTree = "<group>"; };
 		28ED4A58255112BA0073E164 /* MintParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintParam.swift; sourceTree = "<group>"; };
+		28EF22B425F4AEDA008C78E7 /* Tally_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tally_V1.swift; sourceTree = "<group>"; };
+		28EF22B725F4AEEE008C78E7 /* Vote_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote_V1.swift; sourceTree = "<group>"; };
 		28F4CF6D25429BBF0050985D /* EventStakeDropViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStakeDropViewController.swift; sourceTree = "<group>"; };
 		28F4CF732542AD3A0050985D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/EventStakeDropViewController.xib; sourceTree = "<group>"; };
 		28F4CF772542AD3F0050985D /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/EventStakeDropViewController.strings; sourceTree = "<group>"; };
@@ -1770,6 +1774,8 @@
 				2824CB6A25B91B4F002225CC /* IrisToken_V1.swift */,
 				28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */,
 				28248A9625DE5FA3004F3FB0 /* Proposal_V1.swift */,
+				28EF22B425F4AEDA008C78E7 /* Tally_V1.swift */,
+				28EF22B725F4AEEE008C78E7 /* Vote_V1.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2361,6 +2367,7 @@
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
+				28EF22B525F4AEDA008C78E7 /* Tally_V1.swift in Sources */,
 				282FF35123F5172E0028CC66 /* TxTransferCell.swift in Sources */,
 				E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */,
 				2866CBA02580DB3200A91172 /* MintParam_V1.swift in Sources */,
@@ -2487,6 +2494,7 @@
 				283E94812549331D007A9291 /* DomainDetailViewController.swift in Sources */,
 				2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */,
 				283E94862549333B007A9291 /* AccountDetailViewController.swift in Sources */,
+				28EF22B825F4AEEE008C78E7 /* Vote_V1.swift in Sources */,
 				28D3551A25386AA200B804CF /* StepHarvestReward3ViewController.swift in Sources */,
 				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				28D7BE6125F0FC51006EECD7 /* KavaHardMyDeposit.swift in Sources */,
@@ -3127,14 +3135,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 93;
+				CURRENT_PROJECT_VERSION = 94;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.16;
+				MARKETING_VERSION = 1.4.17;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -3154,14 +3162,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 93;
+				CURRENT_PROJECT_VERSION = 94;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.16;
+				MARKETING_VERSION = 1.4.17;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

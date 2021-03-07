@@ -92,12 +92,12 @@ public class BaseConstant {
     public final static int TASK_FETCH_STAKING_POOL                     = 2035;
     public final static int TASK_GEN_TX_REINVEST                        = 2036;
 //    public final static int TASK_IRIS_REWARD                            = 2037;
-    public final static int TASK_IRIS_POOL                              = 2038;
-    public final static int TASK_IRIS_PROPOSAL                          = 2039;
+//    public final static int TASK_IRIS_POOL                              = 2038;
+//    public final static int TASK_IRIS_PROPOSAL                          = 2039;
 //    public final static int TASK_IRIS_REDELEGATE                        = 2040;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
-    public final static int TASK_FETCH_IRIS_TOKENS                      = 2043;
+//    public final static int TASK_FETCH_IRIS_TOKENS                      = 2043;
 //    public final static int TASK_FETCH_TOKEN_HISTORY                    = 2044;
     public final static int TASK_GEN_TX_BNB_SIMPLE_SEND                 = 2045;
     public final static int TASK_FETCH_PROPOSAL_DETAIL                  = 2046;
@@ -203,6 +203,10 @@ public class BaseConstant {
     public final static int TASK_V1_FETCH_REDELEGATION_TO               = 3016;
     public final static int TASK_V1_FETCH_REDELEGATION_FROM_TO          = 3017;
     public final static int TASK_V1_FETCH_PROPOSALS                     = 3018;
+    public final static int TASK_V1_FETCH_PROPOSAL_DETAIL               = 3019;
+    public final static int TASK_V1_FETCH_PROPOSAL_TALLY                = 3020;
+    public final static int TASK_V1_FETCH_PROPOSAL_VOTERS               = 3021;
+    public final static int TASK_V1_FETCH_PROPOSAL_MY_VOTE              = 3022;
 
     public final static int TASK_V1_BROAD_DELEGATE                      = 3300;
     public final static int TASK_V1_BROAD_UNDELEGATE                    = 3301;
@@ -210,7 +214,8 @@ public class BaseConstant {
     public final static int TASK_V1_BROAD_SEND                          = 3303;
     public final static int TASK_V1_BROAD_REDELEGATE                    = 3304;
     public final static int TASK_V1_BROAD_REINVEST                      = 3305;
-    public final static int TASK_V1_BROAD_REWARD_ADDRESS_CHANGE         = 4306;
+    public final static int TASK_V1_BROAD_REWARD_ADDRESS_CHANGE         = 3306;
+    public final static int TASK_V1_BROAD_VOTE                          = 3307;
 
 
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;

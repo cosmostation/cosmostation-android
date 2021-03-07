@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -52,14 +53,18 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
     private TextView            mEmptyProposal;
-    private VoteAdapter         mVoteAdapter;
-    private GrpcProposalsAdapter mGrpcProposalsAdapter;
+    private RelativeLayout      mLoadingLayer;
 
 
-    private ArrayList<Proposal> mProposals = new ArrayList<>();
-    private ArrayList<Gov.Proposal> mGrpcProposals = new ArrayList<>();
+    private VoteAdapter                 mVoteAdapter;
+    private GrpcProposalsAdapter        mGrpcProposalsAdapter;
+
+
+    private ArrayList<Proposal>         mProposals = new ArrayList<>();
+    private ArrayList<Gov.Proposal>     mGrpcProposals = new ArrayList<>();
+
     //roll back
-    private ArrayList<Proposal_V1> mProposals_V1 = new ArrayList<>();
+    private ArrayList<Proposal_V1>      mProposals_V1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +74,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
         mEmptyProposal          = findViewById(R.id.empty_proposal);
+        mLoadingLayer           = findViewById(R.id.loadingLayer);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -134,51 +140,47 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_ALL_PROPOSAL) {
             mProposals.clear();
+            mLoadingLayer.setVisibility(View.GONE);
             if (result.isSuccess) {
                 ArrayList<Proposal> temp = (ArrayList<Proposal>)result.resultData;
                 if(temp != null && temp.size() > 0) {
                     mProposals = temp;
                     WUtil.onSortingProposal(mProposals, mBaseChain);
                     mVoteAdapter.notifyDataSetChanged();
-                    mEmptyProposal.setVisibility(View.GONE);
                     mRecyclerView.setVisibility(View.VISIBLE);
                 } else {
                     mEmptyProposal.setVisibility(View.VISIBLE);
-                    mRecyclerView.setVisibility(View.GONE);
                 }
             } else {
                 mEmptyProposal.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
             }
 
         } else if (result.taskType == TASK_GRPC_FETCH_PROPOSALS) {
             mGrpcProposals.clear();
             List<Gov.Proposal> temp = (List<Gov.Proposal>)result.resultData;
+            mLoadingLayer.setVisibility(View.GONE);
             if (temp != null && temp.size() > 0) {
                 mGrpcProposals.addAll(temp);
                 WUtil.onSortingGrpcProposals(mGrpcProposals);
                 mGrpcProposalsAdapter.notifyDataSetChanged();
-                mEmptyProposal.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
 
             } else {
                 mEmptyProposal.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
             }
 
         } else if (result.taskType == TASK_V1_FETCH_PROPOSALS) {
             mProposals_V1.clear();
             List<Proposal_V1> temp = (List<Proposal_V1>)result.resultData;
+            mLoadingLayer.setVisibility(View.GONE);
             if (temp != null && temp.size() > 0) {
                 mProposals_V1.addAll(temp);
                 WUtil.onSortingProposalsV1(mProposals_V1);
                 mVoteAdapter.notifyDataSetChanged();
-                mEmptyProposal.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
 
             } else {
                 mEmptyProposal.setVisibility(View.VISIBLE);
-                mRecyclerView.setVisibility(View.GONE);
 
             }
 
@@ -207,10 +209,18 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                        webintent.putExtra("voteId", proposal.proposal_id);
-                        webintent.putExtra("chain", mAccount.baseChain);
-                        startActivity(webintent);
+                        if (mBaseChain.equals(COSMOS_MAIN) && Integer.parseInt(proposal.proposal_id) < 38) {
+                            Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                            webintent.putExtra("voteId", proposal.proposal_id);
+                            webintent.putExtra("chain", mAccount.baseChain);
+                            startActivity(webintent);
+
+                        } else {
+                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                            voteIntent.putExtra("proposalId", proposal.proposal_id);
+                            startActivity(voteIntent);
+
+                        }
                     }
                 });
 

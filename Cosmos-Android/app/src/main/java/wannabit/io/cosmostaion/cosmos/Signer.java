@@ -36,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
 import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
@@ -242,7 +243,38 @@ public class Signer {
         StdTx                   signedTx        = getSignedTx(msgList, fee, memo, signatures);
 
         return getBroadReq(signedTx);
+    }
 
+    public static ReqBroadCast genSignedVoteTxV1(String fromAddress, String accountNum, String sequenceNum,
+                                                     String proposalId, String opinion, Fee fee, String memo,
+                                                     DeterministicKey pKey, BaseChain chain) {
+        ArrayList<Msg>  msgList = new ArrayList<>();
+        Msg             msg     = new Msg();
+        Msg.Value       value   = new Msg.Value();
+
+        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+            value.voter = fromAddress;
+            value.proposal_id = proposalId;
+            if (opinion.equals("Yes")) {
+                value.option = 1;
+            } else if (opinion.equals("No")) {
+                value.option = 3;
+            } else if (opinion.equals("NoWithVeto")) {
+                value.option = 4;
+            } else if (opinion.equals("Abstain")) {
+                value.option = 2;
+            }
+            msg.type = COSMOS_MSG_TYPE_VOTE;
+            msg.value = value;
+        }
+        msgList.add(msg);
+
+        StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
+        String                  signatureTx     = getSingleSignature(pKey, stdToSignMsg.getToSignByte());
+        ArrayList<Signature>    signatures      = getSignatures(pKey, signatureTx, accountNum, sequenceNum);
+        StdTx                   signedTx        = getSignedTx(msgList, fee, memo, signatures);
+
+        return getBroadReq(signedTx);
     }
 
 

@@ -60,6 +60,7 @@ import wannabit.io.cosmostaion.model.Proposal_V1;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.Vote_V1;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -1760,6 +1761,19 @@ public class WUtil {
             return result;
         }
         for (Vote v:votes) {
+            if (v.option.equals(option)) {
+                result = result + 1;
+            }
+        }
+        return result;
+    }
+
+    public static int getVoterTypeCnt_V1(ArrayList<Vote_V1> votes, String option) {
+        int result = 0;
+        if (votes == null) {
+            return result;
+        }
+        for (Vote_V1 v:votes) {
             if (v.option.equals(option)) {
                 result = result + 1;
             }
