@@ -188,6 +188,47 @@ class Signer {
     }
     
     
+    
+    static func genSignedVoteTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
+                                  _ proposalId: String, _ opinion: String, _ fee: Fee, _ memo: String,
+                                  _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
+        var msgList = Array<Msg>()
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        
+        value.voter = fromAddress
+        value.proposal_id = proposalId
+        
+        var data: Data
+        if (opinion == "Yes") {
+            data = try! JSONEncoder().encode(1)
+        } else if (opinion == "No") {
+            data = try! JSONEncoder().encode(3)
+        } else if (opinion == "NoWithVeto") {
+            data = try! JSONEncoder().encode(4)
+        } else if (opinion == "Abstain") {
+            data = try! JSONEncoder().encode(2)
+        } else {
+            data = try! JSONEncoder().encode(0)
+        }
+        do { value.option = try JSONDecoder().decode(OptionType.self, from:data)
+        } catch { print(error) }
+        
+        msg.type = COSMOS_MSG_TYPE_VOTE
+        msg.value = value
+        msgList.append(msg)
+        
+        print("msg.type ", msg.type)
+        print("msg.value ", msg.value)
+        
+        let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
+        let signatureData = getSingleSignature(pKey, stdToSignMsg)
+        let signatures = getSignatures(pKey, signatureData!, accountNum, sequenceNum)
+        return genSignedTx(msgList, fee, memo, signatures)
+    }
+    
+    
+    
     static func getSingleSignature(_ pKey: HDPrivateKey, _ stdToSignMsg: StdSignMsg) -> Data? {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .sortedKeys

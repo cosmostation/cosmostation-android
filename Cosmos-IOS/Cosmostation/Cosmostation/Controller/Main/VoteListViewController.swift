@@ -127,8 +127,15 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (chainType == ChainType.COSMOS_MAIN) {
             let proposal = mProposals_V1[indexPath.row]
-            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "proposals/" + proposal.proposal_id!) else { return }
-            self.onShowSafariWeb(url)
+            if (Int(proposal.proposal_id!)! >= 38) {
+                let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+                voteDetailsVC.proposalId = proposal.proposal_id!
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(voteDetailsVC, animated: true)
+            } else {
+                guard let url = URL(string: EXPLORER_COSMOS_MAIN + "proposals/" + proposal.proposal_id!) else { return }
+                self.onShowSafariWeb(url)
+            }
             
         } else if(chainType == ChainType.COSMOS_TEST) {
             let proposal = mProposals_V1[indexPath.row]
@@ -137,8 +144,10 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if(chainType == ChainType.IRIS_TEST) {
             let proposal = mProposals_V1[indexPath.row]
-            guard let url = URL(string: EXPLORER_IRIS_TEST + "proposals/" + proposal.proposal_id!) else { return }
-            self.onShowSafariWeb(url)
+            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
+            voteDetailsVC.proposalId = proposal.proposal_id!
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
             
         } else if (chainType == ChainType.IRIS_MAIN) {
             let proposal = mProposals_V1[indexPath.row]

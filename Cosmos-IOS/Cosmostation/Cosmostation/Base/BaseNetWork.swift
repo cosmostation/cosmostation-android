@@ -225,6 +225,63 @@ class BaseNetWork {
         return result
     }
     
+    static func proposalDetail(_ chain: ChainType, _ proposal_id: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_PROPOSAL + proposal_id
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_PROPOSAL + proposal_id
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_PROPOSAL + proposal_id
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_PROPOSAL + proposal_id
+        }
+        return result
+    }
+    
+    static func proposalTally(_ chain: ChainType, _ proposal_id: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_PROPOSAL + proposal_id + "/tally"
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_PROPOSAL + proposal_id + "/tally"
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_PROPOSAL + proposal_id + "/tally"
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_PROPOSAL + proposal_id + "/tally"
+        }
+        return result
+    }
+    
+    static func proposalVoterList(_ chain: ChainType, _ proposal_id: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_PROPOSAL + proposal_id + "/votes"
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_PROPOSAL + proposal_id + "/votes"
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_PROPOSAL + proposal_id + "/votes"
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_PROPOSAL + proposal_id + "/votes"
+        }
+        return result
+    }
+    
+    static func proposalMyVote(_ chain: ChainType, _ proposal_id: String, _ address: String) -> String {
+        var result = ""
+        if (chain == ChainType.COSMOS_MAIN) {
+            result = COSMOS_MAIN_PROPOSAL + proposal_id + "/votes/" + address
+        } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_PROPOSAL + proposal_id + "/votes/" + address
+        } else if (chain == ChainType.COSMOS_TEST) {
+            result = COSMOS_TEST_PROPOSAL + proposal_id + "/votes/" + address
+        } else if (chain == ChainType.IRIS_TEST) {
+            result = IRIS_TEST_PROPOSAL + proposal_id + "/votes/" + address
+        }
+        return result
+    }
+    
+    
     static func postTxUrl(_ chain: ChainType) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {

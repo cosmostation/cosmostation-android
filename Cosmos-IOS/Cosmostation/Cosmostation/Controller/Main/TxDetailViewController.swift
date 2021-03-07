@@ -560,7 +560,15 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         cell?.voterLabel.text = msg?.value.voter
         cell?.proposalIdLabel.text = msg?.value.proposal_id
-        cell?.opinionLabel.text = msg?.value.option
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+            if (msg?.value.getOption() == "1") { cell?.opinionLabel.text = "Yes" }
+            else if (msg?.value.getOption() == "3") { cell?.opinionLabel.text = "No" }
+            else if (msg?.value.getOption() == "4") { cell?.opinionLabel.text = "No With Veto" }
+            else if (msg?.value.getOption() == "2") { cell?.opinionLabel.text = "Abstain" }
+            else { cell?.opinionLabel.text = msg?.value.getOption() }
+        } else {
+            cell?.opinionLabel.text = msg?.value.getOption()
+        }
         return cell!
     }
     

@@ -13,6 +13,8 @@ public struct Proposal_V1 {
     var proposal_id: String?
     var status: String?
     var content: Proposal_V1Content?
+    var voting_start_time: String?
+    var voting_end_time: String?
     
     
     init(_ dictionary: NSDictionary?) {
@@ -21,17 +23,28 @@ public struct Proposal_V1 {
         if let rawContent = dictionary?["content"] as? NSDictionary {
             self.content = Proposal_V1Content.init(rawContent)
         }
+        self.voting_start_time = dictionary?["voting_start_time"] as? String ?? ""
+        self.voting_end_time = dictionary?["voting_end_time"] as? String ?? ""
     }
     
     public struct Proposal_V1Content {
-        var type: String = ""
-        var title: String = ""
-        var description: String = ""
+        var type: String?
+        var title: String?
+        var description: String?
+        var recipient: String?
+        var amount: Array<Coin>?
         
         init(_ dictionary: NSDictionary?) {
-            self.type = dictionary?["@type"] as? String ?? ""
-            self.title = dictionary?["title"] as? String ?? ""
-            self.description = dictionary?["description"] as? String ?? ""
+            self.type = dictionary?["@type"] as? String
+            self.title = dictionary?["title"] as? String
+            self.description = dictionary?["description"] as? String
+            self.recipient = dictionary?["recipient"] as? String
+            if let rawAmounts = dictionary?["amount"] as? Array<NSDictionary>  {
+                amount = Array<Coin>()
+                for rawAmount in rawAmounts {
+                    self.amount!.append(Coin(rawAmount["denom"] as! String, rawAmount["amount"] as! String))
+                }
+            }
         }
     }
     
@@ -62,6 +75,22 @@ public struct Proposal_V1 {
     }
     
     public func getTitle() -> String? {
-        return "# " + self.proposal_id! + ". "  + (content!.title)
+        return "# " + self.proposal_id! + ". "  + (content!.title!)
+    }
+    
+    public func getStartTime() -> String? {
+        if (status == "PROPOSAL_STATUS_DEPOSIT_PERIOD") {
+            return NSLocalizedString("waiting_deposit", comment: "")
+        } else {
+            return WUtils.nodeTimetoString(input: voting_start_time)
+        }
+    }
+    
+    public func getEndTime() -> String? {
+        if (status == "PROPOSAL_STATUS_DEPOSIT_PERIOD") {
+            return NSLocalizedString("waiting_deposit", comment: "")
+        } else {
+            return WUtils.nodeTimetoString(input: voting_end_time)
+        }
     }
 }

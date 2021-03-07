@@ -237,7 +237,13 @@ class MsgGenerator {
                 chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST || chain == ChainType.IOV_MAIN || chain == ChainType.AKASH_MAIN) {
             value.proposal_id = proposalId
             value.voter = fromAddress
-            value.option = opinion
+//            value.option = opinion
+            let data = try? JSONEncoder().encode(opinion)
+            do {
+                value.option = try JSONDecoder().decode(OptionType.self, from:data!)
+            } catch {
+                print(error)
+            }
             
             msg.type = COSMOS_MSG_TYPE_VOTE
             msg.value = value
@@ -245,7 +251,13 @@ class MsgGenerator {
         } else if (chain == ChainType.IRIS_MAIN) {
             value.proposal_id = proposalId
             value.voter = fromAddress
-            value.option = opinion
+//            value.option = opinion
+            let data = try? JSONEncoder().encode(opinion)
+            do {
+                value.option = try JSONDecoder().decode(OptionType.self, from:data!)
+            } catch {
+                print(error)
+            }
             
             msg.type = IRIS_MSG_TYPE_VOTE
             msg.value = value

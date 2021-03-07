@@ -2923,18 +2923,22 @@ class WUtils {
 //    }
     
     
-    static func getMyIrisVote(_ votes: Array<Vote>, _ address: String) -> Vote? {
-        for vote in votes {
-            if (vote.voter == address) {
-                return vote
-            }
-        }
-        return nil
-    }
-    
-    static func getIrisVoterTypeCnt(_ votes: Array<Vote>, _ type: String) -> String {
+    static func getVoterTypeCnt(_ votes: Array<Vote>, _ type: String) -> String {
         var result = 0
         for vote in votes {
+            if (vote.option == type) {
+                result = result + 1
+            }
+        }
+        return String(result)
+    }
+    
+    static func getVoterTypeCnt_V1(_ votes: Array<Vote_V1>?, _ type: String) -> String {
+        var result = 0
+        if (votes == nil) {
+            return String(result)
+        }
+        for vote in votes! {
             if (vote.option == type) {
                 result = result + 1
             }
@@ -3311,6 +3315,15 @@ class WUtils {
         return NSDecimalNumber.init(string: "6")
     }
     
+    
+    static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+            return NSDecimalNumber.init(string: "0.4")
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            return NSDecimalNumber.init(string: "0.5")
+        }
+        return NSDecimalNumber.init(string: "0.5")
+    }
     
 }
 
