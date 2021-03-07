@@ -67,7 +67,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onSorting() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
+                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             self.otherValidatorCnt.text = String(BaseData.instance.mUnbondValidators_V1.count)
         } else {
             self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
@@ -84,7 +85,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
+                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             return BaseData.instance.mUnbondValidators_V1.count
         } else {
             return self.mainTabVC.mOtherValidators.count
@@ -93,7 +95,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
+                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             cell?.updateView(BaseData.instance.mUnbondValidators_V1[indexPath.row], self.chainType)
             
         } else {
@@ -110,7 +113,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
+                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
             validatorDetailVC.mValidator_V1 = BaseData.instance.mUnbondValidators_V1[indexPath.row]
             validatorDetailVC.hidesBottomBarWhenPushed = true
@@ -158,11 +162,6 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, NSDecimalNumber.one, chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, NSDecimalNumber.one, chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: AKASH_VAL_URL + validator.operator_address + ".png")!)
-            
         }
         
         cell.monikerLabel.text = validator.description.moniker
@@ -189,8 +188,6 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
             } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
                 cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-            } else if (chainType == ChainType.AKASH_MAIN) {
-                cell.cardView.backgroundColor = TRANS_BG_COLOR_AKASH
             }
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
@@ -198,7 +195,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func sortByPower() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.IRIS_TEST) {
+        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
+                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             BaseData.instance.mUnbondValidators_V1.sort{
                 if ($0.description?.moniker == "Cosmostation") { return true }
                 if ($1.description?.moniker == "Cosmostation") { return false }

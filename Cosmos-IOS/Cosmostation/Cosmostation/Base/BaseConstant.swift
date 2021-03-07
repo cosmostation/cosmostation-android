@@ -940,13 +940,13 @@ let SECRET_GAS_AMOUNT_REINVEST              = "350000"
 let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
 let SECRET_GAS_AMOUNT_VOTE                  = "100000"
 
-let AKASH_GAS_FEE_RATE_AVERAGE              = "0.025"
-let AKASH_GAS_AMOUNT_SEND                   = "100000"
-let AKASH_GAS_AMOUNT_STAKE                  = "200000"
-let AKASH_GAS_AMOUNT_REDELEGATE             = "300000"
-let AKASH_GAS_AMOUNT_REINVEST               = "300000"
-let AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000"
-let AKASH_GAS_AMOUNT_VOTE                   = "100000"
+//let AKASH_GAS_FEE_RATE_AVERAGE              = "0.025"
+//let AKASH_GAS_AMOUNT_SEND                   = "100000"
+//let AKASH_GAS_AMOUNT_STAKE                  = "200000"
+//let AKASH_GAS_AMOUNT_REDELEGATE             = "300000"
+//let AKASH_GAS_AMOUNT_REINVEST               = "300000"
+//let AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000"
+//let AKASH_GAS_AMOUNT_VOTE                   = "100000"
 
 
 // Constant for BEP3-Swap

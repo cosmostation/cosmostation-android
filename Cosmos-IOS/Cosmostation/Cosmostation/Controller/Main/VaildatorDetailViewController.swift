@@ -150,19 +150,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            mUnbondings.removeAll()
-            mRewards.removeAll()
-            mFetchCnt = 5
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            
         }
         
-        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_V1.removeAll()
             BaseData.instance.mMyUnbondings_V1.removeAll()
@@ -183,7 +174,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if (mFetchCnt <= 0) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                        chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
@@ -211,7 +203,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             if (section == 0) {
                 if (BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) { return 2 }
                 else { return 1 }
@@ -236,7 +229,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             if (indexPath.section == 0) {
                 if (indexPath.row == 0 && BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
                     return onSetMyValidatorItemsV1(tableView, indexPath)
@@ -321,10 +315,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             cell?.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + mValidator!.operator_address + ".png")!)
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: AKASH_VAL_URL + mValidator!.operator_address + ".png")!)
         }
         
         if (mSelfBondingShare != nil) {
@@ -346,9 +336,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.AKASH_MAIN)) {
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else {
@@ -415,10 +402,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
             cell?.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + mValidator!.operator_address + ".png")!)
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: AKASH_VAL_URL + mValidator!.operator_address + ".png")!)
         }
         
         if (mSelfBondingShare != nil) {
@@ -440,9 +423,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.AKASH_MAIN) {
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
             
         } else {
@@ -598,27 +578,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
             }
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, 6)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, AKASH_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardSum.stringValue, cell!.myRewardAmount.font, 6, 6)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
-            }
         }
         
         if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
@@ -638,10 +597,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
         } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.AKASH_MAIN) {
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
