@@ -824,7 +824,7 @@
     <string name="str_incentive_participate_step_2">Select transaction fee</string>
     <string name="str_incentive_participate_step_3">Check transaction detail</string>
     <string name="str_claim_harvest_reward">Claim Hard Incentive</string>
-    <string name="str_harvest_reward_step_0">Select hard incentive option</string>
+    <string name="str_harvest_reward_step_0">Select hard pool incentive option</string>
     <string name="str_harvest_reward_step_1">Insert memo (optional)</string>
     <string name="str_harvest_reward_step_2">Select transaction fee</string>
     <string name="str_harvest_reward_step_3">Check transaction detail</string>
