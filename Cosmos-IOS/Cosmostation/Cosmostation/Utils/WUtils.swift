@@ -1414,12 +1414,16 @@ class WUtils {
         return rewardSum
     }
     
-    static func getValidatorReward(_ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {
+    static func getValidatorReward(_ chain: ChainType?,  _ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         for reward in rewards {
             if (reward.reward_v_address == valOpAddr && reward.reward_amount.count > 0) {
-                result = localeStringToDecimal(reward.reward_amount[0].amount)
-                break;
+                for coin in reward.reward_amount {
+                    if (coin.denom == getMainDenom(chain)) {
+                        result = localeStringToDecimal(coin.amount)
+                        break;
+                    }
+                }
             }
         }
         return result

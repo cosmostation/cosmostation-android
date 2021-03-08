@@ -233,12 +233,12 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
 
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
@@ -246,17 +246,17 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else if (chainType == ChainType.SECRET_MAIN) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + validator.operator_address + ".png")!)
             
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
             cell.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
             
         }
@@ -333,15 +333,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.one).rawValue > 0) {
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.one).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
                 }
             }
             myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -349,6 +349,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 toClaimValidator = myBondedValidator
             }
+            print("toClaimValidator ", toClaimValidator.count)
             
         } else if (chainType == ChainType.BAND_MAIN) {
             if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
@@ -359,15 +360,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.one).rawValue > 0) {
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.one).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
                 }
             }
             myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -385,15 +386,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if (bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "37500")).rawValue > 0) {
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "37500")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
                 }
             }
             myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -423,15 +424,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
                 }
             }
             myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -461,15 +462,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
                 }
             }
             myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -499,15 +500,15 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             for validator in self.mainTabVC.mAllValidator {
                 for bonding in self.mainTabVC.mBondingList {
                     if(bonding.bonding_v_address == validator.operator_address &&
-                        WUtils.getValidatorReward(mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "7500")).rawValue > 0) {
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(NSDecimalNumber.init(string: "7500")).rawValue > 0) {
                         myBondedValidator.append(validator)
                         break;
                     }
                 }
             }
             myBondedValidator.sort {
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -672,8 +673,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
                 if (!$0.jailed && $1.jailed) { return true }
-                let reward0 = WUtils.getValidatorReward(mainTabVC.mRewardList, $0.operator_address)
-                let reward1 = WUtils.getValidatorReward(mainTabVC.mRewardList, $1.operator_address)
+                let reward0 = WUtils.getValidatorReward(self.chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(self.chainType, mainTabVC.mRewardList, $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
         }
