@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROPOSAL_MY_VOTE;
@@ -38,6 +39,12 @@ public class ProposalMyVote_V1 extends CommonTask {
 
             } else if (mBaseChain.equals(IRIS_MAIN)) {
                 Response<ResProposalMyVoted_V1> response = ApiClient.getIrisChain(mApp).getProposalMyVoted(mProposalId, mAddress).execute();
+                if (response.isSuccessful() && response.body().vote != null) {
+                    mResult.resultData = response.body().vote;
+                }
+
+            } else if (mBaseChain.equals(AKASH_MAIN)) {
+                Response<ResProposalMyVoted_V1> response = ApiClient.getAkashChain(mApp).getProposalMyVoted(mProposalId, mAddress).execute();
                 if (response.isSuccessful() && response.body().vote != null) {
                     mResult.resultData = response.body().vote;
                 }

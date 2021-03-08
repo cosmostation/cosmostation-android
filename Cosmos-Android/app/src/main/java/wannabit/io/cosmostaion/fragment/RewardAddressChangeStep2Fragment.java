@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -45,7 +46,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_LOW;
@@ -241,30 +241,9 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
-        } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_akash));
-
-            mGasAmount.setText(FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE);
-            mGasRate.setText(WDp.getDpString(FEE_AKASH_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE).multiply(new BigDecimal(FEE_AKASH_GAS_RATE_AVERAGE)).setScale(0);
-            if(getBaseDao().getCurrency() != 5) {
-                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).setScale(2, RoundingMode.DOWN);
-            } else {
-                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastAkashTic())).setScale(8, RoundingMode.DOWN);
-            }
-
-            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
         }
 
-
-        else if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -425,7 +404,8 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
 
             }
 
-            else if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
@@ -452,7 +432,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
     }
 
     private void onUpdateFeeLayer() {
-        if (getSActivity().mBaseChain.equals(BaseChain.COSMOS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
                 mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
