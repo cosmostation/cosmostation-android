@@ -97,15 +97,7 @@ public class SingleUnBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getAkashChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcd(mApp, mAccount.id, response.body().result));
-                    mResult.isSuccess = true;
-                }
-
             }
-
 
         } catch (Exception e) {
             WLog.w("SingleUnBondingStateTask Error " + e.getMessage());

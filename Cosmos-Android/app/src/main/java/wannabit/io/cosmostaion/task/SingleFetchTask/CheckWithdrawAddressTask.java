@@ -134,18 +134,6 @@ public class CheckWithdrawAddressTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getAkashChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             }
 
         } catch (Exception e) {

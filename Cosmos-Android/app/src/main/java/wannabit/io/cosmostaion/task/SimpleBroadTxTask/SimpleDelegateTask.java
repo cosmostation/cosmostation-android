@@ -160,16 +160,6 @@ public class SimpleDelegateTask extends CommonTask {
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
                 mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
 
-            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdKavaAccountInfo> accountResponse = ApiClient.getAkashChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(!accountResponse.isSuccessful()) {
-                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, accountResponse.body()));
-                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
-
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -303,23 +293,6 @@ public class SimpleDelegateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getSecretChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResBroadTx> response = ApiClient.getAkashChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

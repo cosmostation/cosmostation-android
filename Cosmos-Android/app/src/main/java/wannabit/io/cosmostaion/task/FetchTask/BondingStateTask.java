@@ -123,16 +123,6 @@ public class BondingStateTask extends CommonTask {
                     }
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getAkashChain(mApp).getBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateBondingStates(mAccount.id, WUtil.getBondingFromLcds(mAccount.id, response.body().result, AKASH_MAIN));
-                    } else {
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-                    }
-                }
-
             }
             mResult.isSuccess = true;
 
