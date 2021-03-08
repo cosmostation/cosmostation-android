@@ -155,7 +155,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mMaxAvailable = WDp.getDelegation(getBaseDao(), getSActivity().mValOpAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
             mProgress.setVisibility(View.GONE);
@@ -180,9 +180,6 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
                 mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
 
             }
@@ -304,15 +301,10 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 getSActivity().mReDelegateAmount = scrt;
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin akash = new Coin(TOKEN_AKASH, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = akash;
-                return true;
+            }
 
-            } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(mMaxAvailable.movePointLeft(6)) > 0) return false;

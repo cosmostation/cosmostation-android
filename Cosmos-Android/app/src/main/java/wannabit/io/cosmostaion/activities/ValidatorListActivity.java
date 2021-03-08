@@ -367,41 +367,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-        } else if (mBaseChain.equals(AKASH_MAIN)) {
-            if (getBaseDao().mRewards == null) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_AKASH).compareTo(new BigDecimal("3750")) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_AKASH));
-                    }
-                }
-            }
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_AKASH);
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
-            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_AKASH_GAS_RATE_AVERAGE)).setScale(0);
-            BigDecimal available = mAccount.getTokenBalance(TOKEN_AKASH);
-
-            if (available.compareTo(estimateFeeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             ArrayList<Reward_V1> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mRewards_V1 == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
