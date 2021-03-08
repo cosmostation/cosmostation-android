@@ -135,14 +135,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getAkashChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().mKavaAccount = response.body().result;
-                }
-
             }
             mResult.isSuccess = true;
 

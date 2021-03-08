@@ -392,22 +392,6 @@ public class ApiClient {
         return service_secret;
     }
 
-
-//    //Services for Akash mainnet
-//    private static AkashChain service_akash = null;
-//    public static AkashChain getAkashChain(Context c) {
-//        if (service_akash == null) {
-//            synchronized (ApiClient.class) {
-//                Retrofit retrofit = new Retrofit.Builder()
-//                        .baseUrl(c.getString(R.string.url_lcd_akash))
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                service_akash = retrofit.create(AkashChain.class);
-//            }
-//        }
-//        return service_akash;
-//    }
-
     //Services for Akash main net
     private static NetworkAkash_V1 service_akash = null;
     public static NetworkAkash_V1 getAkashChain(Context c) {

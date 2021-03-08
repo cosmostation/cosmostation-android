@@ -121,18 +121,7 @@ public class SingleBondingStateTask extends CommonTask {
                 }
                 mResult.isSuccess = true;
 
-            } else if (getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getAkashChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, CERTIK_TEST));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
-                }
-                mResult.isSuccess = true;
-
             }
-
 
 
         } catch (Exception e) {
