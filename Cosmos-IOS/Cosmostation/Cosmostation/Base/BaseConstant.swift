@@ -86,10 +86,10 @@ let SECRET_URL                          = "https://secret-2.node.enigma.co/";
 let SECRET_API                          = "";
 
 
-//let AKASH_URL                           = "https://lcd-akash.cosmostation.io/";
-//let AKASH_API                           = "https://api-akash.cosmostation.io/";
-let AKASH_URL                           = "https://lcd-office.cosmostation.io/edgenet-6/";
-let AKASH_API                           = "https://api-office.cosmostation.io/edgenet-6/";
+let AKASH_URL                           = "https://lcd-akash-app.cosmostation.io/";
+let AKASH_API                           = "https://api-akash.cosmostation.io/";
+//let AKASH_URL                           = "https://lcd-office.cosmostation.io/edgenet-6/";
+//let AKASH_API                           = "https://api-office.cosmostation.io/edgenet-6/";
 
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";

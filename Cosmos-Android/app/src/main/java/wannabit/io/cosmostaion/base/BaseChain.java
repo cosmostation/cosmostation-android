@@ -35,8 +35,7 @@ public enum BaseChain {
     CERTIK_MAIN("shentu-1"),
     SECRET_MAIN("secret-2"),
     AKASH_LEGACY1("akashnet-1"),
-    AKASH_MAIN("edgenet-6"),
-//    AKASH_MAIN("akashnet-2"),
+    AKASH_MAIN("akashnet-2"),
     OKEX_MAIN("okexchain-66"),
 
     COSMOS_TEST("stargate-final"),

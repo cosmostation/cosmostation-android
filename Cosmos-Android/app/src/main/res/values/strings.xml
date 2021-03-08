@@ -50,7 +50,6 @@
 
     <string name="url_lcd_ok" translatable="false">https://www.okex.com/okexchain/v1/</string>
 
-<!--    <string name="url_lcd_ok_test" translatable="false">https://lcd-office.cosmostation.io/okexchain-testnet1/</string>-->
     <string name="url_lcd_ok_test" translatable="false">https://www.okex.com/okexchain-test/v1/</string>
     <string name="url_api_ok_test" translatable="false"></string>
 
@@ -67,10 +66,10 @@
     <string name="url_api_secret" translatable="false"></string>
 
 
-<!--    <string name="url_lcd_akash" translatable="false">https://lcd-akash.cosmostation.io/</string>-->
-<!--    <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>-->
-    <string name="url_lcd_akash" translatable="false">https://lcd-office.cosmostation.io/edgenet-6/</string>
-    <string name="url_api_akash" translatable="false">https://api-office.cosmostation.io/edgenet-6/</string>
+    <string name="url_lcd_akash" translatable="false">https://lcd-akash-app.cosmostation.io/</string>
+    <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
+<!--    <string name="url_lcd_akash" translatable="false">https://lcd-office.cosmostation.io/edgenet-6/</string>-->
+<!--    <string name="url_api_akash" translatable="false">https://api-office.cosmostation.io/edgenet-6/</string>-->
 
 
 
