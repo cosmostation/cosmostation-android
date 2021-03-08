@@ -81,6 +81,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
@@ -2651,7 +2652,8 @@ public class WDp {
             return COSMOS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             return IRIS_VAL_URL + opAddress + ".png";
-
+        } else if (basechain.equals(AKASH_MAIN)) {
+            return AKASH_VAL_URL + opAddress + ".png";
         }
         return "";
     }
@@ -2662,6 +2664,8 @@ public class WDp {
             result = new BigDecimal("0.4");
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");
+        } else if (basechain.equals(AKASH_MAIN)) {
+            result = new BigDecimal("0.334");
         }
         return result.movePointRight(2).setScale(2);
     }

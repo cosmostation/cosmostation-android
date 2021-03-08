@@ -230,8 +230,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             });
 
             if (mChain.equals(COSMOS_MAIN)) {
-                holder.atomLayer.setVisibility(View.VISIBLE);
-                holder.atomAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), TOKEN_ATOM,"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getCosmosChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
                     @Override
                     public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
@@ -248,8 +248,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(IRIS_MAIN)) {
-                holder.irisLayer.setVisibility(View.VISIBLE);
-                holder.irisAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), TOKEN_IRIS,"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getIrisChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
                     @Override
                     public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
@@ -453,8 +453,8 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(AKASH_MAIN)) {
-                holder.akashLayer.setVisibility(View.VISIBLE);
-                holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), TOKEN_AKASH,"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getAkashChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
                     @Override
                     public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {

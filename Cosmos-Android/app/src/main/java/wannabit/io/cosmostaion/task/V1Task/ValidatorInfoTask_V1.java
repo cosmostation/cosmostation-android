@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -37,15 +38,22 @@ public class ValidatorInfoTask_V1 extends CommonTask {
                     mResult.resultData = response.body().validator;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
-                Response<ResValidatorInfo_V1> response = ApiClient.getCosmosTestChain(mApp).getValidatorInfo(mValOpAddress).execute();
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResValidatorInfo_V1> response = ApiClient.getIrisChain(mApp).getValidatorInfo(mValOpAddress).execute();
                 if (response.isSuccessful() && response.body().validator != null) {
                     mResult.isSuccess = true;
                     mResult.resultData = response.body().validator;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<ResValidatorInfo_V1> response = ApiClient.getIrisChain(mApp).getValidatorInfo(mValOpAddress).execute();
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResValidatorInfo_V1> response = ApiClient.getAkashChain(mApp).getValidatorInfo(mValOpAddress).execute();
+                if (response.isSuccessful() && response.body().validator != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().validator;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+                Response<ResValidatorInfo_V1> response = ApiClient.getCosmosTestChain(mApp).getValidatorInfo(mValOpAddress).execute();
                 if (response.isSuccessful() && response.body().validator != null) {
                     mResult.isSuccess = true;
                     mResult.resultData = response.body().validator;
