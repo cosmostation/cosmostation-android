@@ -318,9 +318,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchProposalDetail(_ id: String) {
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_PROPOSALS + "/" + id
@@ -353,9 +351,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchTally(_ id: String) {
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_PROPOSALS + "/" + id + "/" + COSMOS_URL_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id + "/" + KAVA_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_PROPOSALS + "/" + id + "/" + BAND_PROPOSALS_TALLY_TAIL
@@ -388,9 +384,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchMyVote(_ id: String, _ address: String) {
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_PROPOSALS + "/" + id +  "/votes/" + address
@@ -423,9 +417,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchProposer(_ id: String) {
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_PROPOSALS + "/" + id +  "/proposer"
@@ -458,9 +450,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchVoteList(_ id: String) {
         var url = ""
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_PROPOSALS + "/" + id +  "/votes"

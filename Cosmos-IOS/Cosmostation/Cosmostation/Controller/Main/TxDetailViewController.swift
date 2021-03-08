@@ -1212,11 +1212,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         var url = ""
         var request:DataRequest?
         if (self.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_TX + txHash
+            url = COSMOS_MAIN_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.IRIS_MAIN) {
-            url = IRIS_LCD_URL_TX + txHash
+            url = IRIS_MAIN_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.BINANCE_MAIN) {
@@ -1268,7 +1268,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.AKASH_MAIN) {
-            url = AKASH_TX + txHash
+            url = AKASH_MAIN_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.COSMOS_TEST) {

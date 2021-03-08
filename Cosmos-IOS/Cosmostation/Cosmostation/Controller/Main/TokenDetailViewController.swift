@@ -718,11 +718,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onFetchApiHistory(_ address:String, _ symbol:String) {
         var url: String?
-        if (chainType == ChainType.COSMOS_MAIN) {
-            url = COSMOS_API_TRANS_HISTORY + address
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            url = IRIS_API_TRANS_HISTORY + address
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_TRANS_HISTORY + address
         } else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_API_TRANS_HISTORY + address

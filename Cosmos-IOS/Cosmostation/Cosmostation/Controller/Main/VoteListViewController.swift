@@ -322,26 +322,6 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 self.onUpdateViews()
             }
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            let url = AKASH_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
         }
     }
     

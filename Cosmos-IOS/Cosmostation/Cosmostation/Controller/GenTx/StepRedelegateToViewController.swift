@@ -284,9 +284,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     func onFetchRedelegateState(_ address: String, _ from: String, _ to: String) {
         var url: String?
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_URL_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REDELEGATION;
         } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;

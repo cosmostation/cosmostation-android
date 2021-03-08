@@ -556,11 +556,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     print("params ", params)
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                        url = COSMOS_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                        url = IRIS_LCD_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
@@ -580,8 +576,6 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = OKEX_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-                        url = AKASH_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
