@@ -310,7 +310,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
                 onFetchBondedValidators(0)
             } else {
                 onFetchTopValidatorsInfo()
@@ -437,8 +438,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             url = CERTIK_VALIDATORS
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -446,7 +445,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             case .success(let res):
                 if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN ||
                         self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST ||
-                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST || self.chainType == ChainType.AKASH_MAIN) {
+                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST) {
                     guard let responseData = res as? NSDictionary,
                         let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                              print("no validators!!")

@@ -38,7 +38,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.refresher.tintColor = UIColor.white
         self.voteTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             self.onFetchProposals_V1()
         } else {
             self.onFetchProposals()
@@ -70,7 +71,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
             return self.mProposals.count
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             return self.mProposals_V1.count
         }
         return 0
@@ -80,7 +82,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
             return onBindProposal(tableView, indexPath)
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN  || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             return onBindProposalV1(tableView, indexPath)
         } else {
             let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
@@ -142,16 +145,16 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             guard let url = URL(string: EXPLORER_COSMOS_TEST + "proposals/" + proposal.proposal_id!) else { return }
             self.onShowSafariWeb(url)
             
-        } else if(chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
             let proposal = mProposals_V1[indexPath.row]
             let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
             voteDetailsVC.proposalId = proposal.proposal_id!
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(voteDetailsVC, animated: true)
             
-        } else if (chainType == ChainType.IRIS_MAIN) {
+        } else if(chainType == ChainType.IRIS_TEST) {
             let proposal = mProposals_V1[indexPath.row]
-            guard let url = URL(string: EXPLORER_IRIS_MAIN + "proposals/" + proposal.proposal_id!) else { return }
+            guard let url = URL(string: EXPLORER_IRIS_TEST + "proposals/" + proposal.proposal_id!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -187,7 +190,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.onShowSafariWeb(url)
             }
             
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
             let proposal = mProposals[indexPath.row]
             let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
             voteDetailsVC.proposalId = proposal.id
@@ -366,12 +369,13 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func sortProposals() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             self.mProposals_V1.sort{
                 return Int($0.proposal_id!)! < Int($1.proposal_id!)! ? false : true
             }
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
+                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true
             }

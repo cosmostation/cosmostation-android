@@ -58,14 +58,13 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     func onUpdateView() {
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN  || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 6, pageHolderVC.chainType!)
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
-                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
@@ -81,8 +80,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
 
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
-                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
                 self.onFetchAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
@@ -111,8 +110,6 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            url = AKASH_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -130,7 +127,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithAccountInfo(account, accountInfo))
                     self.onGenUnDelegateTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST || self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -204,70 +201,35 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                        self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                        self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                        self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
-                                                           String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                           String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                           msgList,
-                                                           self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!)
-                    
-                    let encoder = JSONEncoder()
-                    encoder.outputFormatting = .sortedKeys
-                    let data = try? encoder.encode(stdMsg)
-                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                    let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = Crypto.sha256(rawData!)
-                    
-                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                    
-                    var genedSignature = Signature.init()
-                    var genPubkey =  PublicKey.init()
-                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
-                    genedSignature.pub_key = genPubkey
-                    genedSignature.signature = WKey.convertSignature(signedData!)
-                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                    
-                    var signatures: Array<Signature> = Array<Signature>()
-                    signatures.append(genedSignature)
-                    
-                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                    
-                } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                    let irisStdMsg = MsgGenerator.getIrisToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
-                                                                   String(self.pageHolderVC.mAccount!.account_account_numner),
-                                                                   String(self.pageHolderVC.mAccount!.account_sequence_number),
-                                                                   msgList,
-                                                                   self.pageHolderVC.mFee!,
-                                                                   self.pageHolderVC.mMemo!)
-                    
-                    let encoder = JSONEncoder()
-                    encoder.outputFormatting = .sortedKeys
-                    let data = try? encoder.encode(irisStdMsg)
-                    let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
-                    let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = Crypto.sha256(rawData!)
-                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                    
-                    var genedSignature = Signature.init()
-                    var genPubkey =  PublicKey.init()
-                    genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
-                    genedSignature.pub_key = genPubkey
-                    genedSignature.signature = WKey.convertSignature(signedData!)
-                    genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
-                    genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
-                    
-                    var signatures: Array<Signature> = Array<Signature>()
-                    signatures.append(genedSignature)
-                    
-                    stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
-                }
+                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
+                                                       String(self.pageHolderVC.mAccount!.account_account_numner),
+                                                       String(self.pageHolderVC.mAccount!.account_sequence_number),
+                                                       msgList,
+                                                       self.pageHolderVC.mFee!,
+                                                       self.pageHolderVC.mMemo!)
+                
+                let encoder = JSONEncoder()
+                encoder.outputFormatting = .sortedKeys
+                let data = try? encoder.encode(stdMsg)
+                let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
+                let rawData: Data? = rawResult!.data(using: .utf8)
+                let hash = Crypto.sha256(rawData!)
+                
+                let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                
+                var genedSignature = Signature.init()
+                var genPubkey =  PublicKey.init()
+                genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
+                genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                genedSignature.pub_key = genPubkey
+                genedSignature.signature = WKey.convertSignature(signedData!)
+                genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
+                genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
+                
+                var signatures: Array<Signature> = Array<Signature>()
+                signatures.append(genedSignature)
+                
+                stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                 
             } catch {
                 if(SHOW_LOG) { print(error) }
@@ -281,11 +243,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.COSMOS_MAIN) {
-                        url = COSMOS_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IRIS_MAIN) {
-                        url = IRIS_LCD_URL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
+                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
@@ -301,8 +259,6 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-                        url = AKASH_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in

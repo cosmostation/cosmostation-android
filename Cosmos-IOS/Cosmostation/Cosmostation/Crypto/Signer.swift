@@ -39,16 +39,14 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            value.delegator_address = fromAddress
-            value.validator_address = toValAddress
-            let data = try? JSONEncoder().encode(amount)
-            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
-            } catch { print(error) }
-            
-            msg.type = COSMOS_MSG_TYPE_DELEGATE
-            msg.value = value
-        }
+        value.delegator_address = fromAddress
+        value.validator_address = toValAddress
+        let data = try? JSONEncoder().encode(amount)
+        do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch { print(error) }
+        
+        msg.type = COSMOS_MSG_TYPE_DELEGATE
+        msg.value = value
         msgList.append(msg)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
@@ -63,16 +61,14 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            value.delegator_address = fromAddress
-            value.validator_address = toValAddress
-            let data = try? JSONEncoder().encode(amount)
-            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
-            } catch { print(error) }
-            
-            msg.type = COSMOS_MSG_TYPE_UNDELEGATE2
-            msg.value = value
-        }
+        value.delegator_address = fromAddress
+        value.validator_address = toValAddress
+        let data = try? JSONEncoder().encode(amount)
+        do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch { print(error) }
+        
+        msg.type = COSMOS_MSG_TYPE_UNDELEGATE2
+        msg.value = value
         msgList.append(msg)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
@@ -87,17 +83,15 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            value.delegator_address = fromAddress
-            value.validator_src_address = fromValAddress
-            value.validator_dst_address = toValAddress
-            let data = try? JSONEncoder().encode(amount)
-            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
-            } catch { print(error) }
-            
-            msg.type = COSMOS_MSG_TYPE_REDELEGATE2
-            msg.value = value
-        }
+        value.delegator_address = fromAddress
+        value.validator_src_address = fromValAddress
+        value.validator_dst_address = toValAddress
+        let data = try? JSONEncoder().encode(amount)
+        do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch { print(error) }
+        
+        msg.type = COSMOS_MSG_TYPE_REDELEGATE2
+        msg.value = value
         msgList.append(msg)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
@@ -110,18 +104,16 @@ class Signer {
                                     _ validators: Array<Validator_V1>, _ fee: Fee, _ memo: String,
                                   _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
         var msgList = Array<Msg>()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            for validator in validators {
-                var msg = Msg.init()
-                var value = Msg.Value.init()
-                
-                value.delegator_address = fromAddress
-                value.validator_address = validator.operator_address
-                
-                msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
-                msg.value = value
-                msgList.append(msg)
-            }
+        for validator in validators {
+            var msg = Msg.init()
+            var value = Msg.Value.init()
+            
+            value.delegator_address = fromAddress
+            value.validator_address = validator.operator_address
+            
+            msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
+            msg.value = value
+            msgList.append(msg)
         }
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
@@ -134,29 +126,27 @@ class Signer {
                                       _ validators: Validator_V1, _ amount: Coin, _ fee: Fee, _ memo: String,
                                       _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
         var msgList = Array<Msg>()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            var withDrawMsg = Msg.init()
-            var withDrawValue = Msg.Value.init()
-            withDrawValue.delegator_address = fromAddress
-            withDrawValue.validator_address = validators.operator_address
-            withDrawMsg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            withDrawMsg.value = withDrawValue
-            msgList.append(withDrawMsg)
-            
-            
-            
-            var delegateMsg = Msg.init()
-            var delegateValue = Msg.Value.init()
-            delegateValue.delegator_address = fromAddress
-            delegateValue.validator_address = validators.operator_address
-            let data = try? JSONEncoder().encode(amount)
-            do { delegateValue.amount = try JSONDecoder().decode(AmountType.self, from:data!)
-            } catch { print(error) }
-            
-            delegateMsg.type = COSMOS_MSG_TYPE_DELEGATE
-            delegateMsg.value = delegateValue
-            msgList.append(delegateMsg)
-        }
+        var withDrawMsg = Msg.init()
+        var withDrawValue = Msg.Value.init()
+        withDrawValue.delegator_address = fromAddress
+        withDrawValue.validator_address = validators.operator_address
+        withDrawMsg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL
+        withDrawMsg.value = withDrawValue
+        msgList.append(withDrawMsg)
+        
+        
+        
+        var delegateMsg = Msg.init()
+        var delegateValue = Msg.Value.init()
+        delegateValue.delegator_address = fromAddress
+        delegateValue.validator_address = validators.operator_address
+        let data = try? JSONEncoder().encode(amount)
+        do { delegateValue.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch { print(error) }
+        
+        delegateMsg.type = COSMOS_MSG_TYPE_DELEGATE
+        delegateMsg.value = delegateValue
+        msgList.append(delegateMsg)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
         let signatureData = getSingleSignature(pKey, stdToSignMsg)
@@ -170,13 +160,11 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            value.delegator_address = fromAddress
-            value.withdraw_address = rewardAddress
-            
-            msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
-            msg.value = value
-        }
+        value.delegator_address = fromAddress
+        value.withdraw_address = rewardAddress
+        
+        msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY
+        msg.value = value
         msgList.append(msg)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
@@ -215,9 +203,6 @@ class Signer {
         msg.type = COSMOS_MSG_TYPE_VOTE
         msg.value = value
         msgList.append(msg)
-        
-        print("msg.type ", msg.type)
-        print("msg.value ", msg.value)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
         let signatureData = getSingleSignature(pKey, stdToSignMsg)

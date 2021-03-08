@@ -114,7 +114,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         }
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
             if (mProposalDetail_V1?.status != "PROPOSAL_STATUS_VOTING_PERIOD") {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
@@ -191,23 +191,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -224,7 +207,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getTitle() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
             return mProposalDetail_V1?.getTitle()
         } else {
             return mProposal?.getTitle()
@@ -232,7 +215,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getProposer() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
             return ""
         } else {
             return self.mProposer
@@ -253,7 +236,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindVoteInfo(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteInfoTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteInfoTableViewCell") as? VoteInfoTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN) && mProposalDetail_V1 != nil) {
+        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.AKASH_MAIN) && mProposalDetail_V1 != nil) {
             cell?.statusImg.image = mProposalDetail_V1?.getStatusImg()
             cell?.statusTitle.text = mProposalDetail_V1?.getStatusText()
             cell?.proposalTitle.text = mProposalDetail_V1?.getTitle()
@@ -295,7 +278,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) && mTally_V1 != nil) {
+        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) && mTally_V1 != nil) {
             cell?.onUpdateCards_V1(chainType!, mTally_V1!, mVoters_V1, mProposalDetail_V1?.status)
             cell?.onCheckMyVote_V1(mMyVote_V1)
             
@@ -307,7 +290,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
             mFetchCnt = 4
             onFetchProposalDetail_V1(proposalId!)
             onFetchProposalTally_V1(proposalId!)
@@ -349,8 +332,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = CERTIK_TEST_PROPOSALS + "/" + id
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_PROPOSALS + "/" + id
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -386,8 +367,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = CERTIK_TEST_PROPOSALS + "/" + id + "/" + CERTIK_TEST_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id + "/" + IOV_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_PROPOSALS + "/" + id + "/" + AKASH_PROPOSALS_TALLY_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -423,8 +402,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_PROPOSALS + "/" + id +  "/votes/" + address
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -460,8 +437,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = CERTIK_TEST_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_PROPOSALS + "/" + id +  "/proposer"
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -497,8 +472,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_PROPOSALS + "/" + id +  "/votes"
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
