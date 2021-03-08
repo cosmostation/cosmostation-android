@@ -108,8 +108,8 @@ public class BaseConstant {
 //    public final static int TASK_FETCH_IOV_NONCE                        = 2051;
 //    public final static int TASK_FETCH_IOV_ADDRESS_INFO                 = 2052;
 //    public final static int TASK_FETCH_IOV_TOKENS                       = 2053;
-    public final static int TASK_FETCH_IRIS_VOTE_LIST                   = 2054;
-    public final static int TASK_IRIS_PROPOSAL_DETAIL                   = 2055;
+//    public final static int TASK_FETCH_IRIS_VOTE_LIST                   = 2054;
+//    public final static int TASK_IRIS_PROPOSAL_DETAIL                   = 2055;
     public final static int TASK_GEN_TX_SIMPLE_VOTE                     = 2056;
     public final static int TASK_PUSH_STATUS_UPDATE                     = 2057;
     public final static int TASK_MOON_PAY_SIGNATURE                     = 2058;
