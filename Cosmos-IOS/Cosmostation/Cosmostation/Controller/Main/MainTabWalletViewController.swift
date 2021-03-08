@@ -1972,18 +1972,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mCertikSendDenom = CERTIK_MAIN_DENOM
             txVC.mType = CERTIK_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mAkashSendDenom = AKASH_MAIN_DENOM
-            txVC.mType = AKASH_MSG_TYPE_TRANSFER
-            
         }
         
-        else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+        else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
+                    chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
             if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return

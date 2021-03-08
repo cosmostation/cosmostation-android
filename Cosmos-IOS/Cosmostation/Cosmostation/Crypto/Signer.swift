@@ -17,16 +17,14 @@ class Signer {
         var msgList = Array<Msg>()
         var msg = Msg.init()
         var value = Msg.Value.init()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            value.from_address = fromAddress
-            value.to_address = toAddress
-            let data = try? JSONEncoder().encode(amount)
-            do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
-            } catch { print(error) }
-            
-            msg.type = COSMOS_MSG_TYPE_TRANSFER2
-            msg.value = value
-        }
+        value.from_address = fromAddress
+        value.to_address = toAddress
+        let data = try? JSONEncoder().encode(amount)
+        do { value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch { print(error) }
+        
+        msg.type = COSMOS_MSG_TYPE_TRANSFER2
+        msg.value = value
         msgList.append(msg)
         
         let stdToSignMsg = getToSignMsg(WUtils.getChainId(chain), accountNum, sequenceNum, msgList, fee, memo)
