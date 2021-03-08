@@ -455,15 +455,20 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             } else if (mChain.equals(AKASH_MAIN)) {
                 holder.akashLayer.setVisibility(View.VISIBLE);
                 holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
-                ApiClient.getAkashChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
+                ApiClient.getAkashChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
                     @Override
-                    public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.akashAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_AKASH), 6, 6));
+                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
+                        if (response.isSuccessful() && response.body() != null) {
+                            for (Coin coin:  response.body().balances) {
+                                if (coin.denom.equals(TOKEN_AKASH)) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
                     }
                     @Override
-                    public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
-                });
+                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
+                });;
 
             } else if (mChain.equals(SECRET_MAIN)) {
                 holder.secretLayer.setVisibility(View.VISIBLE);

@@ -380,7 +380,7 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN)) {
             if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mProvision_V1 == null || baseData.mParamMint_V1 == null) { return result; }
             BigDecimal provisions = baseData.mProvision_V1;
             BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
@@ -823,7 +823,7 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
