@@ -69,7 +69,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
             return self.mProposals.count
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
                     chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
@@ -80,7 +80,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN || chainType == ChainType.AKASH_MAIN ) {
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
             return onBindProposal(tableView, indexPath)
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
                     chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
