@@ -128,7 +128,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         let cell:AllValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"AllValidatorCell") as? AllValidatorCell
         if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
                 self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-            cell?.updateView(BaseData.instance.mBondedValidators_V1[indexPath.row], self.chainType)
+            if (BaseData.instance.mBondedValidators_V1.count > 0) {
+                cell?.updateView(BaseData.instance.mBondedValidators_V1[indexPath.row], self.chainType)
+            }
             
         } else {
             guard self.mainTabVC.mTopValidators.count > 0 else { return cell! }
