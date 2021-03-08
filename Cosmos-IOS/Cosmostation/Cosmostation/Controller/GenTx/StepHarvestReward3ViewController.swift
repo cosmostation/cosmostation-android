@@ -18,8 +18,10 @@ class StepHarvestReward3ViewController: BaseViewController, PasswordViewDelegate
     @IBOutlet weak var feeAmount: UILabel!
     @IBOutlet weak var feeAmountDenom: UILabel!
 
-    @IBOutlet weak var receivableAmount: UILabel!
-    @IBOutlet weak var receivableDenom: UILabel!
+    @IBOutlet weak var receivableKAmount: UILabel!
+    @IBOutlet weak var receivableKDenom: UILabel!
+    @IBOutlet weak var receivableHAmount: UILabel!
+    @IBOutlet weak var receivableHDenom: UILabel!
     @IBOutlet weak var lockupTime: UILabel!
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var memoLabel: UILabel!
@@ -42,10 +44,11 @@ class StepHarvestReward3ViewController: BaseViewController, PasswordViewDelegate
     func onUpdateView() {
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
-        WUtils.showCoinDp(KAVA_HARD_DENOM, pageHolderVC.mIncentiveReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
+        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveKavaReceivable.stringValue, receivableKDenom, receivableKAmount, chainType!)
+        WUtils.showCoinDp(KAVA_HARD_DENOM, pageHolderVC.mIncentiveHardReceivable.stringValue, receivableHDenom, receivableHAmount, chainType!)
 
-        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup + " Month"
-        type.text = pageHolderVC.mIncentiveMultiplier!.name.uppercased()
+        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup! + " Month"
+        type.text = pageHolderVC.mIncentiveMultiplier!.name!.uppercased()
         memoLabel.text = pageHolderVC.mMemo
     }
     
@@ -112,16 +115,9 @@ class StepHarvestReward3ViewController: BaseViewController, PasswordViewDelegate
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                
-                let msg = MsgGenerator.genHarvestRewardMsg(self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mAccount!.account_address,
-                                                           self.pageHolderVC.mHarvestDepositDenom!,
-                                                           self.pageHolderVC.mIncentiveMultiplier!.name,
-                                                           self.pageHolderVC.mHarvestDepositType!)
-                
+                let msg = MsgGenerator.genClaimHardLiquidityProviderMsg(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
-                
                 let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),

@@ -221,6 +221,18 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             self.onShowAddMenomicDialog()
             return
         }
+        
+        if (cdpParam?.circuit_breaker == true) {
+            self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
+        txVC.mType = KAVA_MSG_TYPE_USDX_MINT_INCENTIVE
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     

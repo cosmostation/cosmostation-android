@@ -268,6 +268,13 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
             return
         }
         print("onHardPoolIncentiveClaim")
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
+//        txVC.mHarvestDepositDenom = mDepositDenom
+//        txVC.mHarvestDepositType = "lp"
+        txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     

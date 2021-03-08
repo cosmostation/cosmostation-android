@@ -469,6 +469,16 @@ class MsgGenerator {
         return msg
     }
     
+    static func genClaimUSDXMintingReward(_ sender: String, _ multiplierName: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.multiplier_name = multiplierName
+        msg.type = KAVA_MSG_TYPE_USDX_MINT_INCENTIVE
+        msg.value = value
+        return msg
+    }
+    
     static func genGetDepositHarvestMsg(_ chainType: ChainType, _ depositor: String, _ amount: Coin, _ deposit_type: String?) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()
@@ -516,6 +526,16 @@ class MsgGenerator {
         value.multiplier_name = multiplierName
         value.deposit_type = depositType
         msg.type = KAVA_MSG_TYPE_CLAIM_HAVEST
+        msg.value = value
+        return msg
+    }
+    
+    static func genClaimHardLiquidityProviderMsg(_ sender: String, _ multiplierName: String) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.multiplier_name = multiplierName
+        msg.type = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE
         msg.value = value
         return msg
     }

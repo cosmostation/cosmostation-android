@@ -43,8 +43,8 @@ class TransactionViewController: UIViewController {
     var mCDenom: String?
     var mMarketID: String?
     var mHarvestDepositDenom: String?
-    var mHarvestDepositType: String? // lp or stake
-    var mIncentiveType: String?
+//    var mHarvestDepositType: String? // lp or stake
+//    var mIncentiveType: String?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
     var mHtlcRefundSwapId: String?
@@ -140,7 +140,7 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_interchain_refund", comment: "")
             
-        } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+        } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
             stepDescription.text = NSLocalizedString("incentive_participate_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_participate_incentive", comment: "")
@@ -155,7 +155,7 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_withdraw_harvest", comment: "")
             
-        } else if (mType == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
             stepDescription.text = NSLocalizedString("reward_harvest_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_reward_harvest", comment: "")
@@ -262,8 +262,8 @@ class TransactionViewController: UIViewController {
             StepVc.mHtlcDenom = self.mHtlcDenom
             StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId
             StepVc.mHarvestDepositDenom = self.mHarvestDepositDenom
-            StepVc.mHarvestDepositType = self.mHarvestDepositType
-            StepVc.mIncentiveType = self.mIncentiveType
+//            StepVc.mHarvestDepositType = self.mHarvestDepositType
+//            StepVc.mIncentiveType = self.mIncentiveType
             StepVc.mCollateralParamType = self.mCollateralParamType
             
             StepVc.mStarnameDomain = self.mStarnameDomain
@@ -340,7 +340,7 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("withdraw_harvest_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
-                } else if (mType == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+                } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
@@ -352,7 +352,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_0", comment: "")
                     
-                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_0", comment: "")
                     
@@ -454,7 +454,7 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("withdraw_harvest_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
-                } else if (mType == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+                } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
@@ -466,7 +466,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_1", comment: "")
                     
-                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_1", comment: "")
                     
@@ -568,7 +568,7 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("withdraw_harvest_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
-                } else if (mType == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+                } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
@@ -580,7 +580,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_2", comment: "")
                     
-                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_2", comment: "")
                     
@@ -682,7 +682,7 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("withdraw_harvest_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
-                } else if (mType == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+                } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
@@ -694,7 +694,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("htlc_refund_step_3", comment: "")
                     
-                } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+                } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("incentive_participate_step_3", comment: "")
                     

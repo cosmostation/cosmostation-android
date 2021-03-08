@@ -43,10 +43,10 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     func onUpdateView() {
         let fAmount = NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount)
         feeAmount.attributedText = WUtils.displayAmount2(fAmount.stringValue, feeAmount.font, 6, 6)
-        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
+        WUtils.showCoinDp(KAVA_MAIN_DENOM, pageHolderVC.mIncentiveKavaReceivable.stringValue, receivableDenom, receivableAmount, chainType!)
 
-        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup + " Month"
-        type.text = pageHolderVC.mIncentiveMultiplier!.name.uppercased()
+        lockupTime.text = pageHolderVC.mIncentiveMultiplier!.months_lockup! + " Month"
+        type.text = pageHolderVC.mIncentiveMultiplier!.name!.uppercased()
         memoLabel.text = pageHolderVC.mMemo
     }
     
@@ -83,8 +83,7 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -113,11 +112,7 @@ class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                
-                let msg = MsgGenerator.genIncentiveReward(self.pageHolderVC.mAccount!.account_address,
-                                                          self.pageHolderVC.mIncentiveType!,
-                                                          self.pageHolderVC.mIncentiveMultiplier!.name)
-                
+                let msg = MsgGenerator.genClaimUSDXMintingReward(self.pageHolderVC.mAccount!.account_address, self.pageHolderVC.mIncentiveMultiplier!.name!)
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 

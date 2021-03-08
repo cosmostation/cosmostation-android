@@ -231,9 +231,9 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
             return
         }
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
-        txVC.mHarvestDepositDenom = mDepositDenom
-        txVC.mHarvestDepositType = "lp"
+//        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
+//        txVC.mHarvestDepositDenom = mDepositDenom
+//        txVC.mHarvestDepositType = "lp"
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }

@@ -88,11 +88,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var pDenom: String?
     var mMarketID: String?
     var mCollateralParam: CollateralParam?
+    var mIncentiveKavaReceivable = NSDecimalNumber.zero
+    var mIncentiveHardReceivable = NSDecimalNumber.zero
     var mHarvestDepositDenom: String?
-    var mHarvestDepositType: String?  // lp or stake
-    var mIncentiveReceivable = NSDecimalNumber.zero
-    var mIncentiveType: String?
-    var mIncentiveMultiplier: KavaClaimMultiplier?
+//    var mHarvestDepositType: String?  // lp or stake
+//    var mIncentiveType: String?
+    var mIncentiveMultiplier: ClaimMultiplier?
     var mHarvestCoin = Coin.init()
     
     var mHtlcDenom: String?
@@ -212,7 +213,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepHtlcRefund3ViewController")]
             
-        } else if (mType == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
+        } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
             return [self.newVc(viewController: "StepIncentive0ViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
@@ -230,7 +231,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepWithdrawHarvestCheckViewController")]
             
-        } else if (mType == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
             return [self.newVc(viewController: "StepHarvestReward0ViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
