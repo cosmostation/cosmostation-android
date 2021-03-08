@@ -1211,7 +1211,7 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
             if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
                 return NSDecimalNumber.zero
             }
@@ -1426,12 +1426,16 @@ class WUtils {
         return rewardSum
     }
     
-    static func getValidatorReward(_ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {
+    static func getValidatorReward(_ chain: ChainType?,  _ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         for reward in rewards {
             if (reward.reward_v_address == valOpAddr && reward.reward_amount.count > 0) {
-                result = localeStringToDecimal(reward.reward_amount[0].amount)
-                break;
+                for coin in reward.reward_amount {
+                    if (coin.denom == getMainDenom(chain)) {
+                        result = localeStringToDecimal(coin.amount)
+                        break;
+                    }
+                }
             }
         }
         return result
@@ -2237,63 +2241,53 @@ class WUtils {
     }
     
     static func getChainDarkColor(_ chain:ChainType) -> UIColor {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST ) {
             return COLOR_ATOM_DARK
-        } else if (chain == ChainType.IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return COLOR_IRIS_DARK
-        } else if (chain == ChainType.BINANCE_MAIN) {
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return COLOR_BNB_DARK
-        } else if (chain == ChainType.KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return COLOR_KAVA_DARK
-        } else if (chain == ChainType.IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             return COLOR_IOV_DARK
         } else if (chain == ChainType.BAND_MAIN) {
             return COLOR_BAND_DARK
         } else if (chain == ChainType.SECRET_MAIN) {
             return COLOR_SECRET_DARK
-        } else if (chain == ChainType.CERTIK_MAIN) {
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             return COLOR_CERTIK_DARK
         } else if (chain == ChainType.AKASH_MAIN) {
             return COLOR_AKASH_DARK
-        } else if (chain == ChainType.OKEX_MAIN) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return COLOR_OK_DARK
         }
-        
-        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
-                    chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
-            return COLOR_DARK_GRAY
-        }
-        return COLOR_ATOM_DARK
+        return COLOR_DARK_GRAY
     }
     
     static func getChainBg(_ chain:ChainType?) -> UIColor {
-        if (chain == ChainType.COSMOS_MAIN) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return TRANS_BG_COLOR_COSMOS
-        } else if (chain == ChainType.IRIS_MAIN) {
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return TRANS_BG_COLOR_IRIS
-        } else if (chain == ChainType.BINANCE_MAIN) {
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             return TRANS_BG_COLOR_BNB
-        } else if (chain == ChainType.KAVA_MAIN) {
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return TRANS_BG_COLOR_KAVA
-        } else if (chain == ChainType.IOV_MAIN) {
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST ) {
             return TRANS_BG_COLOR_IOV
         } else if (chain == ChainType.BAND_MAIN) {
             return TRANS_BG_COLOR_BAND
         } else if (chain == ChainType.SECRET_MAIN) {
             return TRANS_BG_COLOR_SECRET
-        } else if (chain == ChainType.CERTIK_MAIN) {
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             return TRANS_BG_COLOR_CERTIK
         } else if (chain == ChainType.AKASH_MAIN) {
             return TRANS_BG_COLOR_AKASH
-        } else if (chain == ChainType.OKEX_MAIN) {
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return TRANS_BG_COLOR_OK
         }
-        
-        else if (chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST ||
-                    chain == ChainType.IOV_TEST || chain == ChainType.OKEX_TEST || chain == ChainType.CERTIK_TEST) {
-            return COLOR_BG_GRAY
-        }
-        return TRANS_BG_COLOR_COSMOS
+        return COLOR_BG_GRAY
     }
     
     static func getDpMainDenom(_ chain:ChainType) -> String {
@@ -2542,7 +2536,7 @@ class WUtils {
         } else if (chainS == CHAIN_CERTIK_S) {
             return "shentu-1"
         } else if (chainS == CHAIN_AKASH_S) {
-            return "akashnet-1"
+            return "akashnet-2"
         } else if (chainS == CHAIN_OKEX_S) {
             return "okexchain-66"
         }
@@ -2583,7 +2577,7 @@ class WUtils {
         } else if (chain == ChainType.CERTIK_MAIN) {
             return "shentu-1"
         } else if (chain == ChainType.AKASH_MAIN) {
-            return "akashnet-1"
+            return "akashnet-2"
         } else if (chain == ChainType.OKEX_MAIN) {
             return "okexchain-66"
         }
@@ -2807,21 +2801,23 @@ class WUtils {
             }
             
         } else if (chain == ChainType.AKASH_MAIN) {
-            result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))
-            if (type == AKASH_MSG_TYPE_TRANSFER) {
-                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_SEND))
-            } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_STAKE))
-            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = getGasAmountForKavaRewards()[valCnt - 1]
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
-                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REDELEGATE))
-            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
-                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REINVEST))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
-                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
             } else if (type == TASK_TYPE_VOTE) {
-                result = NSDecimalNumber.init(string: String(AKASH_GAS_AMOUNT_VOTE))
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }
             
         }
@@ -2836,6 +2832,11 @@ class WUtils {
             
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
         }
@@ -3328,12 +3329,24 @@ class WUtils {
         return NSDecimalNumber.init(string: "6")
     }
     
+    static func getMonikerImgUrl(_ chain: ChainType?, _ opAddress: String) -> String {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+            return COSMOS_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            return IRIS_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return AKASH_VAL_URL + opAddress + ".png";
+        }
+        return ""
+    }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return NSDecimalNumber.init(string: "0.4")
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.5")
     }

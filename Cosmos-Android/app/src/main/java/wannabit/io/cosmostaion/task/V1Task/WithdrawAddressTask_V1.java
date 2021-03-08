@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -34,18 +35,28 @@ public class WithdrawAddressTask_V1 extends CommonTask {
                     mResult.isSuccess = true;
                     mResult.resultData = response.body().withdraw_address;
                 }
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
-                Response<ResWithdrawAddress_V1> response = ApiClient.getCosmosTestChain(mApp).getRewardAddress(mAccount.address).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.isSuccess = true;
-                    mResult.resultData = response.body().withdraw_address;
-                }
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResWithdrawAddress_V1> response = ApiClient.getIrisChain(mApp).getRewardAddress(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.isSuccess = true;
                     mResult.resultData = response.body().withdraw_address;
                 }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResWithdrawAddress_V1> response = ApiClient.getAkashChain(mApp).getRewardAddress(mAccount.address).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().withdraw_address;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+                Response<ResWithdrawAddress_V1> response = ApiClient.getCosmosTestChain(mApp).getRewardAddress(mAccount.address).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().withdraw_address;
+                }
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_TEST)) {
                 Response<ResWithdrawAddress_V1> response = ApiClient.getIrisTestChain(mApp).getRewardAddress(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {

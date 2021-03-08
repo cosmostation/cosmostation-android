@@ -90,28 +90,11 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getAkashApi(mApp).getAccountTxs(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
             }
 
 
             else if (mChain.equals(COSMOS_MAIN)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(COSMOS_TEST)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -128,7 +111,24 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(IRIS_TEST)) {
+            } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAkashApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+            }  else if (mChain.equals(COSMOS_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            }else if (mChain.equals(IRIS_TEST)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

@@ -999,7 +999,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             final Msg msg = mResTxInfo.getMsg(position - 1);
             holder.itemDelegator.setText(msg.value.voter);
             holder.itemProposalId.setText(msg.value.proposal_id);
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 holder.itemOpinion.setText(WDp.getDpOption(msg.value.getOption()));
             } else {
                 holder.itemOpinion.setText(msg.value.getOption());

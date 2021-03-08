@@ -47,6 +47,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iris", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iris", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.AKASH_MAIN) {
+            guideImg.image = UIImage(named: "akashImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_akash", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_akash", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_akash", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_akash", comment: ""), for: .normal)
+            
         }
     }
 }

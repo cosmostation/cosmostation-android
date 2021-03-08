@@ -82,7 +82,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestFee.amount.get(0).amount), 6, 6));
             BigDecimal current = WDp.getDelegation(getSActivity().getBaseDao(), getSActivity().mValOpAddress);

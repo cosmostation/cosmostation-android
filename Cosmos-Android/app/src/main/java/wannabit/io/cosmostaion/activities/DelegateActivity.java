@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -175,7 +176,7 @@ public class DelegateActivity extends BaseActivity {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE);
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             intent.putExtra("toAddress", mValOpAddress_V1);
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("toAddress", mValOpAddress);

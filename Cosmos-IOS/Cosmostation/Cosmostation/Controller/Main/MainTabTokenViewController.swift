@@ -412,20 +412,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            let allAkt = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), totalValue.font)
-            
         }
         
         else if (chainType! == ChainType.COSMOS_MAIN) {
             let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.COSMOS_TEST) {
-            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
@@ -437,6 +427,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
 //            totalAmount.attributedText = WUtils.dpAllIris(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mIrisRewards, mainTabVC.mAllValidator, totalAmount.font, 6, chainType!)
 //            totalValue.attributedText = WUtils.dpIrisValue(allIris, BaseData.instance.getLastPrice(), totalValue.font)
             
+        } else if (chainType! == ChainType.AKASH_MAIN) {
+            let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        }
+        
+        
+        else if (chainType! == ChainType.COSMOS_TEST) {
+            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            
         } else if (chainType! == ChainType.IRIS_TEST) {
             let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
@@ -445,7 +447,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
+        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
+                chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
             return BaseData.instance.mMyBalances_V1.count
         } else {
             return mainTabVC.mBalances.count;
@@ -827,16 +830,16 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == AKASH_MAIN_DENOM) {
+        let balance = BaseData.instance.mMyBalances_V1[indexPath.row]
+        if (balance.denom == AKASH_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "akashTokenImg")
             cell?.tokenSymbol.text = "AKT"
             cell?.tokenSymbol.textColor = COLOR_AKASH
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
             cell?.tokenDescription.text = "Akash Staking Token"
-            let allAkt = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allAkt, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
             
         } else {
             // TODO no this case yet!

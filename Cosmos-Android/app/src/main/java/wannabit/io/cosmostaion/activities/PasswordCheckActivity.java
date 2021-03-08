@@ -85,6 +85,7 @@ import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -352,7 +353,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new SendTask_V1(getBaseApplication(), this, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -371,7 +372,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new DelegateTask_V1(getBaseApplication(), this, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -386,7 +387,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new UndelegateTask_V1(getBaseApplication(), this, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -401,7 +402,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new ClaimRewardsTask_V1(getBaseApplication(), this, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -424,7 +425,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new RedelegateTask_V1(getBaseApplication(), this, mAccount, mFromReDelegateAddr,
                         mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -439,7 +440,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new SetRewardAddressTask_V1(getBaseApplication(), this, mAccount,
                         mNewRewardAddress, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -455,7 +456,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_REINVEST) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new ReInvestTask_V1(getBaseApplication(), this, mAccount,
                         mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
@@ -471,7 +472,7 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
                 new VoteTask_V1(getBaseApplication(), this, mAccount,
                         mProposalId, mOpinion, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 

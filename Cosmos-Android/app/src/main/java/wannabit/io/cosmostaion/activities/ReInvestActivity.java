@@ -142,10 +142,10 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         });
         if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                 mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
+                mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             new SingleRewardTask(getBaseApplication(), this, mAccount, mValidator.operator_address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -200,7 +200,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     public void onStartReInvest() {
         Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REINVEST);
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("reInvestValAddr", mValOpAddress);
         } else {
             intent.putExtra("reInvestValidator", mValidator);

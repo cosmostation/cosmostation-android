@@ -183,16 +183,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSecretDenom).subtract(new BigDecimal("20000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
-        } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mDpDecimal = 6;
-            setDpDecimals(mDpDecimal);
-            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mAkashDenom).subtract(new BigDecimal("2500"));
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
@@ -380,12 +373,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
 
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
-
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider2), mDpDecimal, RoundingMode.DOWN).toPlainString());
             }
 
@@ -423,19 +414,15 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-                if (getSActivity().mAkashDenom.equals(TOKEN_AKASH)) {
-                    onShowEmptyBlanaceWarnDialog();
-                }
-
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-                if (getSActivity().mAkashDenom.equals(TOKEN_AKASH)) {
+                if (getSActivity().mSecretDenom.equals(SECRET_MAIN)) {
                     onShowEmptyBlanaceWarnDialog();
                 }
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal(mDecimalDivider1), mDpDecimal, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                     onShowEmptyBlanaceWarnDialog();
@@ -527,17 +514,10 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 mToSendCoins.add(certik);
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
-                Coin certik = new Coin(getSActivity().mAkashDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
-                mToSendCoins.add(certik);
-                return true;
-
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;

@@ -54,15 +54,15 @@ public class ApiClient {
     }
 
     //Services for Iris main net
-    private static NetWorkIris_V1 service_iris = null;
-    public static NetWorkIris_V1 getIrisChain(Context c) {
+    private static NetworkIris_V1 service_iris = null;
+    public static NetworkIris_V1 getIrisChain(Context c) {
         if (service_iris == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_iris_main))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_iris = retrofit.create(NetWorkIris_V1.class);
+                service_iris = retrofit.create(NetworkIris_V1.class);
             }
         }
         return service_iris;
@@ -393,16 +393,31 @@ public class ApiClient {
     }
 
 
-    //Services for Akash mainnet
-    private static AkashChain service_akash = null;
-    public static AkashChain getAkashChain(Context c) {
+//    //Services for Akash mainnet
+//    private static AkashChain service_akash = null;
+//    public static AkashChain getAkashChain(Context c) {
+//        if (service_akash == null) {
+//            synchronized (ApiClient.class) {
+//                Retrofit retrofit = new Retrofit.Builder()
+//                        .baseUrl(c.getString(R.string.url_lcd_akash))
+//                        .addConverterFactory(GsonConverterFactory.create())
+//                        .build();
+//                service_akash = retrofit.create(AkashChain.class);
+//            }
+//        }
+//        return service_akash;
+//    }
+
+    //Services for Akash main net
+    private static NetworkAkash_V1 service_akash = null;
+    public static NetworkAkash_V1 getAkashChain(Context c) {
         if (service_akash == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_akash))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_akash = retrofit.create(AkashChain.class);
+                service_akash = retrofit.create(NetworkAkash_V1.class);
             }
         }
         return service_akash;
@@ -422,6 +437,8 @@ public class ApiClient {
         }
         return api_akash;
     }
+
+
 
 
 
@@ -457,15 +474,15 @@ public class ApiClient {
 
 
     //Services for Iris test net
-    private static NetWorkIris_V1 service_iris_test = null;
-    public static NetWorkIris_V1 getIrisTestChain(Context c) {
+    private static NetworkIris_V1 service_iris_test = null;
+    public static NetworkIris_V1 getIrisTestChain(Context c) {
         if (service_iris_test == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
                         .baseUrl(c.getString(R.string.url_lcd_iris_test))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_iris_test = retrofit.create(NetWorkIris_V1.class);
+                service_iris_test = retrofit.create(NetworkIris_V1.class);
             }
         }
         return service_iris_test;

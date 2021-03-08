@@ -34,7 +34,8 @@ public enum BaseChain {
     BAND_MAIN("band-guanyu-mainnet"),
     CERTIK_MAIN("shentu-1"),
     SECRET_MAIN("secret-2"),
-    AKASH_MAIN("akashnet-1"),
+    AKASH_LEGACY1("akashnet-1"),
+    AKASH_MAIN("akashnet-2"),
     OKEX_MAIN("okexchain-66"),
 
     COSMOS_TEST("stargate-final"),
@@ -100,7 +101,8 @@ public enum BaseChain {
         if (chainName.equals(SECRET_MAIN.chainName)) {
             return SECRET_MAIN;
         }
-        if (chainName.equals(AKASH_MAIN.chainName)) {
+        if (chainName.equals(AKASH_LEGACY1.chainName) ||
+                chainName.equals(AKASH_MAIN.chainName)) {
             return AKASH_MAIN;
         }
         if (chainName.equals(OKEX_MAIN.chainName)) {
@@ -177,7 +179,8 @@ public enum BaseChain {
         if (chain.equals(SECRET_MAIN.chainName)) {
             return SECRET_MAIN.chainName;
         }
-        if (chain.equals(AKASH_MAIN.chainName)) {
+        if (chain.equals(AKASH_LEGACY1.chainName) ||
+                chain.equals(AKASH_MAIN.chainName)) {
             return AKASH_MAIN.chainName;
         }
         if (chain.equals(OKEX_MAIN.chainName)) {

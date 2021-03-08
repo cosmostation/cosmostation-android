@@ -161,7 +161,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+            if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
                 if (!mProposalDetail_V1.status.equals("PROPOSAL_STATUS_VOTING_PERIOD")) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
@@ -268,7 +268,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposalTitle() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
             return mProposalDetail_V1.getTitle();
         } else {
             return mProposal.getTitle();
@@ -276,7 +276,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposer() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
             return "";
         } else {
             return mProposer;
@@ -284,7 +284,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onFetch() {
-        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) {
+        if (mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
             this.mTaskCount = 4;
             new ProposalDetailTask_V1(getBaseApplication(), this, mBaseChain, mProposalId_V1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalTally_V1(getBaseApplication(), this, mBaseChain, mProposalId_V1).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -393,7 +393,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
-            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN)) && mProposalDetail_V1 != null) {
+            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) && mProposalDetail_V1 != null) {
                 holder.itemStatusImg.setImageDrawable(mProposalDetail_V1.getStatusImg(getBaseContext()));
                 holder.itemStatusTxt.setText(mProposalDetail_V1.getStatusText(getBaseContext()));
                 holder.itemTitle.setText(mProposalDetail_V1.getTitle());
@@ -446,7 +446,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
             final VoteTallyHolder holder = (VoteTallyHolder)viewHolder;
-            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.KAVA_MAIN)) && mTally_V1 != null) {
+            if ((mBaseChain.equals(BaseChain.COSMOS_MAIN) || mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) && mTally_V1 != null) {
                 holder.itemYesProgress.setProgress(mTally_V1.getYesPer().intValue());
                 holder.itemNoProgress.setProgress(mTally_V1.getNoPer().intValue());
                 holder.itemVetoProgress.setProgress(mTally_V1.getVetoPer().intValue());

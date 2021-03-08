@@ -76,14 +76,14 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
         BigDecimal feeAmount = new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                 getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
+                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
             mTvUndelegateAmount.setText(WDp.getDpAmount(getContext(), toUnDeleagteAmount, 6, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
             mValidatorName.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mUnDelegateMemo);
 
-        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));

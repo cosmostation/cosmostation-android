@@ -61,57 +61,29 @@ class ValidatorDetailCell: UITableViewCell {
     
     
     func updateView(_ validator: Validator_V1?, _ selfDelegationInfo_V1: DelegationInfo_V1?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-            monikerName.text = validator?.description?.moniker
-            monikerName.adjustsFontSizeToFitWidth = true
-            if (validator?.jailed == true) {
-                jailedImg.isHidden = false
-                validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-            } else {
-                jailedImg.isHidden = true
-                validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-            }
-            freeEventImg.isHidden = true
-            website.text = validator?.description?.website
-            descriptionMsg.text = validator?.description?.details
-            
-            totalBondedAmount.attributedText = WUtils.displayAmount2(validator?.tokens, totalBondedAmount.font!, 6, 6)
-            selfBondedRate.attributedText = WUtils.displaySelfBondRate(selfDelegationInfo_V1?.balance?.amount, validator?.tokens, selfBondedRate.font)
-            commissionRate.attributedText = WUtils.displayCommission(validator?.commission?.commission_rates?.rate, font: commissionRate.font)
-            if (validator?.status == BONDED_V1) {
-                avergaeYield.attributedText = WUtils.getDpEstAprCommission(avergaeYield.font, validator!.getCommission(), chainType!)
-            } else {
-                avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: avergaeYield.font)
-                avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator!.operator_address! + ".png")!)
-            
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-            monikerName.text = validator?.description?.moniker
-            monikerName.adjustsFontSizeToFitWidth = true
-            if (validator?.jailed == true) {
-                jailedImg.isHidden = false
-                validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-            } else {
-                jailedImg.isHidden = true
-                validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-            }
-            freeEventImg.isHidden = true
-            website.text = validator?.description?.website
-            descriptionMsg.text = validator?.description?.details
-            
-            totalBondedAmount.attributedText = WUtils.displayAmount2(validator?.tokens, totalBondedAmount.font!, 6, 6)
-            selfBondedRate.attributedText = WUtils.displaySelfBondRate(selfDelegationInfo_V1?.balance?.amount, validator?.tokens, selfBondedRate.font)
-            commissionRate.attributedText = WUtils.displayCommission(validator?.commission?.commission_rates?.rate, font: commissionRate.font)
-            if (validator?.status == BONDED_V1) {
-                avergaeYield.attributedText = WUtils.getDpEstAprCommission(avergaeYield.font, validator!.getCommission(), chainType!)
-            } else {
-                avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: avergaeYield.font)
-                avergaeYield.textColor = UIColor.init(hexString: "f31963")
-            }
-            validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + validator!.operator_address! + ".png")!)
-            
+        monikerName.text = validator?.description?.moniker
+        monikerName.adjustsFontSizeToFitWidth = true
+        if (validator?.jailed == true) {
+            jailedImg.isHidden = false
+            validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            jailedImg.isHidden = true
+            validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
+        freeEventImg.isHidden = true
+        website.text = validator?.description?.website
+        descriptionMsg.text = validator?.description?.details
+        
+        totalBondedAmount.attributedText = WUtils.displayAmount2(validator?.tokens, totalBondedAmount.font!, 6, 6)
+        selfBondedRate.attributedText = WUtils.displaySelfBondRate(selfDelegationInfo_V1?.balance?.amount, validator?.tokens, selfBondedRate.font)
+        commissionRate.attributedText = WUtils.displayCommission(validator?.commission?.commission_rates?.rate, font: commissionRate.font)
+        if (validator?.status == BONDED_V1) {
+            avergaeYield.attributedText = WUtils.getDpEstAprCommission(avergaeYield.font, validator!.getCommission(), chainType!)
+        } else {
+            avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: avergaeYield.font)
+            avergaeYield.textColor = UIColor.init(hexString: "f31963")
+        }
+        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator!.operator_address!))!)
         
     }
 }

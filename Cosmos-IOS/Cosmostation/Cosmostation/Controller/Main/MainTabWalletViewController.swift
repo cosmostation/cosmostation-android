@@ -1242,84 +1242,36 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_AKASH
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
             let cell:WalletAkashCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAkashCell") as? WalletAkashCell
-            let totalAtk = WUtils.getAllAkash(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAtk.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAtk, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, AKASH_MAIN_DENOM, chainType!)
-            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
-            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, AKASH_MAIN_DENOM, chainType!)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAtk.multiplying(byPowerOf10: -6).stringValue)
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
             let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else if (indexPath.row == 3) {
             let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
             let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "akashImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_akash", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_akash", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_akash", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_akash", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
             
         }
@@ -2006,18 +1958,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mCertikSendDenom = CERTIK_MAIN_DENOM
             txVC.mType = CERTIK_MSG_TYPE_TRANSFER
             
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mAkashSendDenom = AKASH_MAIN_DENOM
-            txVC.mType = AKASH_MSG_TYPE_TRANSFER
-            
         }
         
-        else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+        else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
+                    chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
             if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return

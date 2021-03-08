@@ -82,6 +82,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
@@ -382,7 +383,7 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN)) {
             if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mProvision_V1 == null || baseData.mParamMint_V1 == null) { return result; }
             BigDecimal provisions = baseData.mProvision_V1;
             BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
@@ -828,7 +829,7 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
@@ -2669,7 +2670,8 @@ public class WDp {
             return COSMOS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             return IRIS_VAL_URL + opAddress + ".png";
-
+        } else if (basechain.equals(AKASH_MAIN)) {
+            return AKASH_VAL_URL + opAddress + ".png";
         }
         return "";
     }
@@ -2697,6 +2699,8 @@ public class WDp {
             result = new BigDecimal("0.4");
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");
+        } else if (basechain.equals(AKASH_MAIN)) {
+            result = new BigDecimal("0.334");
         }
         return result.movePointRight(2).setScale(2);
     }

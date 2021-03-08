@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class WalletAkashHolder extends BaseHolder {
     private TextView        mTvAkashTotal, mTvAkashValue, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;
@@ -38,10 +39,10 @@ public class WalletAkashHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_AKASH);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_AKASH);
+        final BigDecimal availableAmount = WDp.getAvailable(baseData, TOKEN_AKASH);
+        final BigDecimal delegateAmount = WDp.getDelegationSum(baseData);
+        final BigDecimal unbondingAmount = WDp.getUndelegationSum(baseData);
+        final BigDecimal rewardAmount = WDp.getRewardSum(baseData, TOKEN_AKASH);
         final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 
         mTvAkashTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
@@ -49,9 +50,9 @@ public class WalletAkashHolder extends BaseHolder {
         mTvAkashDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvAkashUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvAkashRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvAkashValue.setText(WDp.getValueOfAkash(mainActivity, baseData, totalAmount));
-
+        mTvAkashValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
+
 
         mBtnAkashStake.setOnClickListener(new View.OnClickListener() {
             @Override

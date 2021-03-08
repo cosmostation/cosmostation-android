@@ -61,28 +61,14 @@ class ValidatorDetailMyActionCell: UITableViewCell {
     
     func updateView(_ validator: Validator_V1?, _ chainType: ChainType?) {
         cardView.backgroundColor = WUtils.getChainBg(chainType)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-            let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator?.operator_address}.first
-            let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator?.operator_address}.first
-            let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator?.operator_address}.first
-            myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, myDelegateAmount.font, 6, 6)
-            myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, myUndelegateAmount.font, 6, 6)
-            myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, myRewardAmount.font, 6, 6)
-            myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
-            myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
-            
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-            let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator?.operator_address}.first
-            let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator?.operator_address}.first
-            let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator?.operator_address}.first
-            myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, myDelegateAmount.font, 6, 6)
-            myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, myUndelegateAmount.font, 6, 6)
-            myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, myRewardAmount.font, 6, 6)
-            myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
-            myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
-            
-        }
-        
+        let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator?.operator_address}.first
+        let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator?.operator_address}.first
+        let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator?.operator_address}.first
+        myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, myDelegateAmount.font, 6, 6)
+        myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, myUndelegateAmount.font, 6, 6)
+        myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, myRewardAmount.font, 6, 6)
+        myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
+        myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
     }
     
     

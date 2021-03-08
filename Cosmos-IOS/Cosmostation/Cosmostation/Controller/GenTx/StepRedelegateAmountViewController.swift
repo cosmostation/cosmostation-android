@@ -26,24 +26,22 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, availableDenomLabel)
         
-        
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
                 pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST ||
-                pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             mDpDecimal = 6
             userDelegated = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.getBondingAmount(pageHolderVC.mTargetValidator!)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
-                    pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mDpDecimal = 6
             userDelegated = BaseData.instance.getDelegated(self.pageHolderVC.mTargetValidator_V1?.operator_address)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
         redelegateInputTextField.delegate = self
         redelegateInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
-    
+        
         let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
         btnAdd01.setTitle(dp, for: .normal)
     }
@@ -121,7 +119,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
     }
     
     @IBAction func onClickNext(_ sender: UIButton) {
-        if(isValiadAmount()) {
+        if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((redelegateInputTextField.text?.trimmingCharacters(in: .whitespaces))!)
             let coin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             pageHolderVC.mToReDelegateAmount = coin

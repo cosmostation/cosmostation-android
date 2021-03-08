@@ -14,6 +14,24 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResDelegation_V1;
 import wannabit.io.cosmostaion.network.res.ResDelegations_V1;
 import wannabit.io.cosmostaion.network.res.ResInflation_V1;
+import wannabit.io.cosmostaion.network.res.ResLcdBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdInflation;
+import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdProposal;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalTally;
+import wannabit.io.cosmostaion.network.res.ResLcdProposalVoted;
+import wannabit.io.cosmostaion.network.res.ResLcdProposals;
+import wannabit.io.cosmostaion.network.res.ResLcdProposer;
+import wannabit.io.cosmostaion.network.res.ResLcdRedelegate;
+import wannabit.io.cosmostaion.network.res.ResLcdRewardFromVal;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
+import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
+import wannabit.io.cosmostaion.network.res.ResLcdValidators;
+import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
+import wannabit.io.cosmostaion.network.res.ResMintParam;
+import wannabit.io.cosmostaion.network.res.ResMyVote;
 import wannabit.io.cosmostaion.network.res.ResParamMint_V1;
 import wannabit.io.cosmostaion.network.res.ResProposalDetail_V1;
 import wannabit.io.cosmostaion.network.res.ResProposalMyVoted_V1;
@@ -21,7 +39,9 @@ import wannabit.io.cosmostaion.network.res.ResProposalTally_V1;
 import wannabit.io.cosmostaion.network.res.ResProposalVoterList_V1;
 import wannabit.io.cosmostaion.network.res.ResProposal_V1;
 import wannabit.io.cosmostaion.network.res.ResProvision_V1;
+import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResRedelegations_V1;
+import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResStakingPool_V1;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.network.res.ResUndelegations_V1;
@@ -29,7 +49,7 @@ import wannabit.io.cosmostaion.network.res.ResValidatorInfo_V1;
 import wannabit.io.cosmostaion.network.res.ResValidators_V1;
 import wannabit.io.cosmostaion.network.res.ResWithdrawAddress_V1;
 
-public interface NetworkCosmos_V1 {
+public interface NetworkAkash_V1 {
 
     @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
@@ -103,4 +123,95 @@ public interface NetworkCosmos_V1 {
     //Broadcast Tx
     @POST("txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    @GET("/auth/accounts/{address}")
+    Call<ResLcdKavaAccountInfo> getAccountInfo(@Path("address") String address);
+
+//    @GET("/txs/{hash}")
+//    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
+
+    @GET("/staking/validators?status=bonded")
+    Call<ResLcdValidators> getBondedValidatorDetailList();
+
+    @GET("/staking/validators?status=unbonding")
+    Call<ResLcdValidators> getUnBondingValidatorDetailList();
+
+    @GET("/staking/validators?status=unbonded")
+    Call<ResLcdValidators> getUnBondedValidatorDetailList();
+
+    @GET("/staking/delegators/{address}/delegations")
+    Call<ResLcdBondings> getBondingList(@Path("address") String address);
+
+    @GET("/staking/delegators/{address}/unbonding_delegations")
+    Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
+
+    @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
+    Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/minting/parameters")
+    Call<ResMintParam> getMintParam();
+
+//    @GET("/minting/inflation")
+//    Call<ResLcdInflation> getInflation();
+
+    @GET("/minting/annual-provisions")
+    Call<ResProvisions> getProvisions();
+
+//    @GET("/staking/pool")
+//    Call<ResStakingPool> getStakingPool();
+
+    @GET("/distribution/delegators/{address}/withdraw_address")
+    Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
+
+
+    @GET("/staking/validators/{validatorAddr}")
+    Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+    Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
+
+    @GET("/staking/redelegations")
+    Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
+
+    @GET("/staking/redelegations")
+    Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
+
+
+    //Broadcast Tx
+//    @POST("/txs")
+//    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+
+    //Proposals
+    @GET("/gov/proposals")
+    Call<ResLcdProposals> getProposalList();
+
+    @GET("/gov/proposals/{proposalId}/proposer")
+    Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
+
+//    @GET("/gov/proposals/{proposalId}")
+//    Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
+
+    @GET("/gov/proposals/{proposalId}/votes")
+    Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
+
+    @GET("/gov/proposals/{proposalId}/tally")
+    Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
+
+    @GET("/gov/proposals/{proposalId}/votes/{address}")
+    Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
 }

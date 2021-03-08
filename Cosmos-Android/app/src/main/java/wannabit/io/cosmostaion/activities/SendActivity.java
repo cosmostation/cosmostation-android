@@ -58,7 +58,6 @@ public class SendActivity extends BaseActivity {
     public String                       mIovDenom;
     public String                       mOkDenom;
     public String                       mCertikDenom;
-    public String                       mAkashDenom;
     public String                       mSecretDenom;
 
     //V1 .40 version
@@ -86,7 +85,6 @@ public class SendActivity extends BaseActivity {
         mIovDenom = getIntent().getStringExtra("iovDenom");
         mOkDenom = getIntent().getStringExtra("okDenom");
         mCertikDenom = getIntent().getStringExtra("certikDenom");
-        mAkashDenom = getIntent().getStringExtra("akashDenom");
         mSecretDenom = getIntent().getStringExtra("secretDenom");
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
@@ -107,8 +105,6 @@ public class SendActivity extends BaseActivity {
             if (TextUtils.isEmpty(mCertikDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.SECRET_MAIN)) {
             if (TextUtils.isEmpty(mSecretDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.AKASH_MAIN)) {
-            if (TextUtils.isEmpty(mAkashDenom)) onBackPressed();
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());

@@ -49,55 +49,28 @@ class MyValidatorCell: UITableViewCell {
     }
     
     func updateView(_ validator: Validator_V1, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-            monikerLabel.text = validator.description?.moniker
-            monikerLabel.adjustsFontSizeToFitWidth = true
-            freeEventImg.isHidden = true
-            if (validator.jailed == true) {
-                revokedImg.isHidden = false
-                validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-            } else {
-                revokedImg.isHidden = true
-                validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-            }
-            
-            let myDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator.operator_address }.first
-            myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(myDelegation?.balance?.amount, myDelegatedAmoutLabel.font, 6, 6)
-            
-            let myUnbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator.operator_address }.first
-            myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, myUndelegatingAmountLabel.font, 6, 6)
-            
-            let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
-            rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, rewardAmoutLabel.font, 6, 6)
-            
-            cardView.backgroundColor = TRANS_BG_COLOR_COSMOS
-            validatorImg.af_setImage(withURL: URL(string: COSMOS_VAL_URL + validator.operator_address! + ".png")!)
-            
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-            monikerLabel.text = validator.description?.moniker
-            monikerLabel.adjustsFontSizeToFitWidth = true
-            freeEventImg.isHidden = true
-            if (validator.jailed == true) {
-                revokedImg.isHidden = false
-                validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
-            } else {
-                revokedImg.isHidden = true
-                validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
-            }
-            
-            let myDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator.operator_address }.first
-            myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(myDelegation?.balance?.amount, myDelegatedAmoutLabel.font, 6, 6)
-            
-            let myUnbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator.operator_address }.first
-            myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, myUndelegatingAmountLabel.font, 6, 6)
-            
-            let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
-            rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, rewardAmoutLabel.font, 6, 6)
-            
-            cardView.backgroundColor = TRANS_BG_COLOR_IRIS
-            validatorImg.af_setImage(withURL: URL(string: IRIS_VAL_URL + validator.operator_address! + ".png")!)
-            
+        monikerLabel.text = validator.description?.moniker
+        monikerLabel.adjustsFontSizeToFitWidth = true
+        freeEventImg.isHidden = true
+        if (validator.jailed == true) {
+            revokedImg.isHidden = false
+            validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
+        } else {
+            revokedImg.isHidden = true
+            validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
+        
+        let myDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator.operator_address }.first
+        myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(myDelegation?.balance?.amount, myDelegatedAmoutLabel.font, 6, 6)
+        
+        let myUnbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator.operator_address }.first
+        myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, myUndelegatingAmountLabel.font, 6, 6)
+        
+        let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
+        rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, rewardAmoutLabel.font, 6, 6)
+        
+        cardView.backgroundColor = WUtils.getChainBg(chainType)
+        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operator_address!))!)
     }
     
 }

@@ -176,13 +176,9 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_SECRET).subtract(new BigDecimal("50000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
-        } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_AKASH).subtract(new BigDecimal("5000"));
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             mMaxAvailable = WDp.getAvailable(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
@@ -309,17 +305,10 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 getSActivity().mToDelegateAmount = coin;
                 return true;
 
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
-                Coin coin = new Coin(TOKEN_AKASH, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
-                return true;
-
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;

@@ -157,7 +157,7 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
         self.showWaittingAlert()
         var url: String?
         if (chainType! == ChainType.COSMOS_MAIN) {
-             url = COSMOS_URL_ACCOUNT_INFO + account.account_address
+             url = COSMOS_MAIN_BALANCE + account.account_address
         } else if (chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
         }
@@ -258,7 +258,7 @@ class EventStakeDropViewController: BaseViewController, QrScannerDelegate, Passw
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
                     var url: String?
                     if (self.chainType! == ChainType.COSMOS_MAIN) {
-                        url = COSMOS_URL_BORAD_TX
+                        url = COSMOS_MAIN_BORAD_TX
                     } else if (self.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
                     }

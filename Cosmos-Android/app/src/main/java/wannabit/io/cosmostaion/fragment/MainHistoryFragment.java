@@ -194,16 +194,13 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             mRecyclerView.setVisibility(View.GONE);
             mNotYet.setVisibility(View.VISIBLE);
             mNotYet.setText("Check with Explorer");
-        } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-            new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
             new OkHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
 
-        else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
-                getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -242,8 +239,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
-                    getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                    WLog.w("Custom hit size " + hits.size());
@@ -286,8 +283,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
-                    getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 final ResApiTxListCustom history = mApiTxCustomHistory.get(position);
                 viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.timestamp));
@@ -406,8 +403,8 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) ||
-                    getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return mApiTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();

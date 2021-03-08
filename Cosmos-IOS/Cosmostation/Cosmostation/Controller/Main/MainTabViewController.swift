@@ -353,18 +353,20 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
         } else if (mChainType == ChainType.AKASH_MAIN) {
-            self.mFetchCnt = 10
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
+            self.mFetchCnt = 11
+            onFetchBondedValidators(0)
+            onFetchUnbondedValidators(0)
+            onFetchUnbondingValidators(0)
             
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
+            onFetchBalance(mAccount.account_address, 0)
+            onFetchDelegations(mAccount.account_address, 0)
+            onFetchUndelegations(mAccount.account_address, 0)
+            onFetchRewards(mAccount.account_address)
+            
+            onFetchMintParamV1()
+            onFetchInflationV1()
+            onFetchProvisionV1()
+            onFetchStakingPoolV1()
             
         } else if (mChainType == ChainType.COSMOS_TEST) {
             self.mFetchCnt = 11
@@ -414,7 +416,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.hideWaittingAlert()
             return
             
-        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.IRIS_TEST) {
+        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN  || mChainType == ChainType.AKASH_MAIN ||
+                    mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
             for validator in BaseData.instance.mAllValidators_V1 {
@@ -531,8 +534,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_VALIDATORS
         } else if (mChainType == ChainType.OKEX_MAIN) {
             url = OKEX_VALIDATORS
         } else if (mChainType == ChainType.OKEX_TEST) {
@@ -587,8 +588,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_VALIDATORS
         } else if (mChainType == ChainType.OKEX_MAIN) {
             url = OKEX_VALIDATORS
         } else if (mChainType == ChainType.OKEX_TEST) {
@@ -642,8 +641,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_VALIDATORS
         } else if (mChainType == ChainType.OKEX_MAIN) {
             url = OKEX_VALIDATORS
         } else if (mChainType == ChainType.OKEX_TEST) {
@@ -703,8 +700,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = OKEX_TEST_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.OKEX_MAIN) {
             url = OKEX_ACCOUNT_INFO + account.account_address
         }
@@ -735,7 +730,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithBnbAccountInfo(account, bnbAccountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithBnbAccountInfo(account, bnbAccountInfo))
                     
-                } else if (self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST || self.mChainType == ChainType.AKASH_MAIN) {
+                } else if (self.mChainType == ChainType.KAVA_MAIN || self.mChainType == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.onFetchFinished()
@@ -782,8 +777,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_BONDING + account.account_address + AKASH_BONDING_TAIL
         }
         let tempAddress = account.account_address
         
@@ -830,8 +823,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_UNBONDING + account.account_address + CERTIK_TEST_UNBONDING_TAIL
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_UNBONDING + account.account_address + AKASH_UNBONDING_TAIL
         }
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -872,8 +863,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_REWARD_FROM_VAL + accountAddr + AKASH_REWARD_FROM_VAL_TAIL + validatorAddr
         }
 //        print("url ", url)
         
@@ -918,8 +907,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_MINT_PARAM
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_MINT_PARAM
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_MINT_PARAM
         }
         BaseData.instance.mMintParam = nil
         
@@ -959,8 +946,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_INFLATION
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_INFLATION
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_INFLATION
         }
         BaseData.instance.mInflation = nil
         
@@ -1000,8 +985,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_PROVISIONS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROVISIONS
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_PROVISIONS
         }
         BaseData.instance.mProvision = nil
         
@@ -1041,8 +1024,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_STAKING_POOL
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_STAKING_POOL
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = AKASH_STAKING_POOL
         }
         BaseData.instance.mStakingPool = nil
         
