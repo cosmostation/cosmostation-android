@@ -101,7 +101,7 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
             mValidatorSize.setText(""+getBaseDao().mOtherValidators_V1.size());
             WUtil.onSortByValidatorPowerV2(getBaseDao().mOtherValidators_V1);
         } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -137,7 +137,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 final Validator_V1 validator  = getBaseDao().mOtherValidators_V1.get(position);
                 String monikerUrl = COSMOS_VAL_URL + validator.operator_address + ".png";
                 try {
@@ -227,11 +227,6 @@ public class ValidatorOtherFragment extends BaseFragment {
                     holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                     monikerUrl = SECRET_VAL_URL + validator.operator_address + ".png";
 
-                } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
-                    monikerUrl = AKASH_VAL_URL + validator.operator_address + ".png";
-
                 }
 
                 try {
@@ -275,7 +270,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 return getBaseDao().mOtherValidators_V1.size();
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return getBaseDao().mGRpcOtherValidators.size();

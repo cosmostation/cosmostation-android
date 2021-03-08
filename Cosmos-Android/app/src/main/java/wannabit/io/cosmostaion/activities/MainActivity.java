@@ -486,7 +486,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
 
         // roll back
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             Intent intent = new Intent(MainActivity.this, SendActivity.class);
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (WDp.getAvailable(getBaseDao(), WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
@@ -556,12 +556,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     hasbalance  = true;
                 }
                 intent.putExtra("secretDenom", TOKEN_SECRET);
-
-            } else if (mBaseChain.equals(AKASH_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_AKASH).compareTo(new BigDecimal("2500")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("akashDenom", TOKEN_AKASH);
 
             }
 

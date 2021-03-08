@@ -50,13 +50,12 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            value.from_address = fromAddress;
-            value.to_address = toAddress;
-            value.amount = amounts;
-            msg.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
-            msg.value = value;
-        }
+        value.from_address = fromAddress;
+        value.to_address = toAddress;
+        value.amount = amounts;
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
+        msg.value = value;
+
         msgList.add(msg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
@@ -74,13 +73,12 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            value.delegator_address = fromAddress;
-            value.validator_address = toValAddress;
-            value.amount = amount;
-            msg.type = COSMOS_MSG_TYPE_DELEGATE;
-            msg.value = value;
-        }
+        value.delegator_address = fromAddress;
+        value.validator_address = toValAddress;
+        value.amount = amount;
+        msg.type = COSMOS_MSG_TYPE_DELEGATE;
+        msg.value = value;
+
         msgList.add(msg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
@@ -102,13 +100,12 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            value.delegator_address = fromAddress;
-            value.validator_address = toValAddress;
-            value.amount = amount;
-            msg.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
-            msg.value = value;
-        }
+        value.delegator_address = fromAddress;
+        value.validator_address = toValAddress;
+        value.amount = amount;
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
+        msg.value = value;
+
         msgList.add(msg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
@@ -128,19 +125,16 @@ public class Signer {
                                                          ArrayList<String> valAddresses, Fee fee, String memo,
                                                        DeterministicKey pKey, BaseChain chain) {
         ArrayList<Msg>  msgList = new ArrayList<>();
+        for (String val: valAddresses) {
+            Msg msg = new Msg();
+            Msg.Value value = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            for (String val: valAddresses) {
-                Msg msg = new Msg();
-                Msg.Value value = new Msg.Value();
+            value.delegator_address = fromAddress;
+            value.validator_address = val;
 
-                value.delegator_address = fromAddress;
-                value.validator_address = val;
-
-                msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL;
-                msg.value = value;
-                msgList.add(msg);
-            }
+            msg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL;
+            msg.value = value;
+            msgList.add(msg);
         }
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
@@ -163,14 +157,13 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            value.delegator_address = fromAddress;
-            value.validator_src_address = fromValAddress;
-            value.validator_dst_address = toValAddress;
-            value.amount = amount;
-            msg.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
-            msg.value = value;
-        }
+        value.delegator_address = fromAddress;
+        value.validator_src_address = fromValAddress;
+        value.validator_dst_address = toValAddress;
+        value.amount = amount;
+        msg.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+        msg.value = value;
+
         msgList.add(msg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
@@ -190,25 +183,22 @@ public class Signer {
                                                        DeterministicKey pKey, BaseChain chain) {
         ArrayList<Msg>  msgList = new ArrayList<>();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            Msg withDrawMsg = new Msg();
-            Msg.Value withDrawValue = new Msg.Value();
-            withDrawValue.delegator_address = fromAddress;
-            withDrawValue.validator_address = valAddress;
-            withDrawMsg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL;
-            withDrawMsg.value = withDrawValue;
-            msgList.add(withDrawMsg);
+        Msg withDrawMsg = new Msg();
+        Msg.Value withDrawValue = new Msg.Value();
+        withDrawValue.delegator_address = fromAddress;
+        withDrawValue.validator_address = valAddress;
+        withDrawMsg.type = COSMOS_MSG_TYPE_WITHDRAW_DEL;
+        withDrawMsg.value = withDrawValue;
+        msgList.add(withDrawMsg);
 
-            Msg delegateMsg = new Msg();
-            Msg.Value delegateValue = new Msg.Value();
-            delegateValue.delegator_address = fromAddress;
-            delegateValue.validator_address = valAddress;
-            delegateValue.amount = amount;
-            delegateMsg.type = COSMOS_MSG_TYPE_DELEGATE;
-            delegateMsg.value = delegateValue;
-            msgList.add(delegateMsg);
-        }
-
+        Msg delegateMsg = new Msg();
+        Msg.Value delegateValue = new Msg.Value();
+        delegateValue.delegator_address = fromAddress;
+        delegateValue.validator_address = valAddress;
+        delegateValue.amount = amount;
+        delegateMsg.type = COSMOS_MSG_TYPE_DELEGATE;
+        delegateMsg.value = delegateValue;
+        msgList.add(delegateMsg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
         String                  signatureTx     = getSingleSignature(pKey, stdToSignMsg.getToSignByte());
@@ -229,12 +219,11 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            value.delegator_address = fromAddress;
-            value.withdraw_address = setAddress;
-            msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
-            msg.value = value;
-        }
+        value.delegator_address = fromAddress;
+        value.withdraw_address = setAddress;
+        msg.type = COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
+        msg.value = value;
+
         msgList.add(msg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);
@@ -252,21 +241,20 @@ public class Signer {
         Msg             msg     = new Msg();
         Msg.Value       value   = new Msg.Value();
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            value.voter = fromAddress;
-            value.proposal_id = proposalId;
-            if (opinion.equals("Yes")) {
-                value.option = 1;
-            } else if (opinion.equals("No")) {
-                value.option = 3;
-            } else if (opinion.equals("NoWithVeto")) {
-                value.option = 4;
-            } else if (opinion.equals("Abstain")) {
-                value.option = 2;
-            }
-            msg.type = COSMOS_MSG_TYPE_VOTE;
-            msg.value = value;
+        value.voter = fromAddress;
+        value.proposal_id = proposalId;
+        if (opinion.equals("Yes")) {
+            value.option = 1;
+        } else if (opinion.equals("No")) {
+            value.option = 3;
+        } else if (opinion.equals("NoWithVeto")) {
+            value.option = 4;
+        } else if (opinion.equals("Abstain")) {
+            value.option = 2;
         }
+        msg.type = COSMOS_MSG_TYPE_VOTE;
+        msg.value = value;
+
         msgList.add(msg);
 
         StdSignMsg              stdToSignMsg    = getToSignMsg(chain.getChain(), accountNum, sequenceNum, msgList, fee, memo);

@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -59,14 +60,6 @@ public class UnBondedValidatorsTask_V1 extends CommonTask {
                     }
                 }
 
-            } else if (mChain.equals(COSMOS_TEST)) {
-                Response<ResValidators_V1> response = ApiClient.getCosmosTestChain(mApp).getUnBondedValidatorList(200,  offset).execute();
-                if (response.isSuccessful()) {
-                    if (response.body() != null && response.body().validators != null) {
-                        resultData = response.body().validators;
-                    }
-                }
-
             } else if (mChain.equals(IRIS_MAIN)) {
                 Response<ResValidators_V1> response = ApiClient.getIrisChain(mApp).getUnBondedValidatorList(200,  offset).execute();
                 if (response.isSuccessful()) {
@@ -75,7 +68,23 @@ public class UnBondedValidatorsTask_V1 extends CommonTask {
                     }
                 }
 
-            } else if (mChain.equals(IRIS_TEST)) {
+            } else if (mChain.equals(AKASH_MAIN)) {
+                Response<ResValidators_V1> response = ApiClient.getAkashChain(mApp).getUnBondedValidatorList(200,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().validators != null) {
+                        resultData = response.body().validators;
+                    }
+                }
+
+            } else if (mChain.equals(COSMOS_TEST)) {
+                Response<ResValidators_V1> response = ApiClient.getCosmosTestChain(mApp).getUnBondedValidatorList(200,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().validators != null) {
+                        resultData = response.body().validators;
+                    }
+                }
+
+            }else if (mChain.equals(IRIS_TEST)) {
                 Response<ResValidators_V1> response = ApiClient.getIrisTestChain(mApp).getUnBondedValidatorList(200,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().validators != null) {

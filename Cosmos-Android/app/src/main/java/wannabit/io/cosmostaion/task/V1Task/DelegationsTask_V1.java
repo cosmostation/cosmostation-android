@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -58,14 +59,6 @@ public class DelegationsTask_V1 extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
-                Response<ResDelegations_V1> response = ApiClient.getCosmosTestChain(mApp).getDelegations(mAccount.address, 100,  offset).execute();
-                if (response.isSuccessful()) {
-                    if (response.body() != null && response.body().delegation_responses != null) {
-                        resultData = response.body().delegation_responses;
-                    }
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
                 Response<ResDelegations_V1> response = ApiClient.getIrisChain(mApp).getDelegations(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
@@ -74,7 +67,23 @@ public class DelegationsTask_V1 extends CommonTask {
                     }
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_TEST)) {
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResDelegations_V1> response = ApiClient.getAkashChain(mApp).getDelegations(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().delegation_responses != null) {
+                        resultData = response.body().delegation_responses;
+                    }
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+                Response<ResDelegations_V1> response = ApiClient.getCosmosTestChain(mApp).getDelegations(mAccount.address, 100,  offset).execute();
+                if (response.isSuccessful()) {
+                    if (response.body() != null && response.body().delegation_responses != null) {
+                        resultData = response.body().delegation_responses;
+                    }
+                }
+
+            }else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_TEST)) {
                 Response<ResDelegations_V1> response = ApiClient.getIrisTestChain(mApp).getDelegations(mAccount.address, 100,  offset).execute();
                 if (response.isSuccessful()) {
                     if (response.body() != null && response.body().delegation_responses != null) {

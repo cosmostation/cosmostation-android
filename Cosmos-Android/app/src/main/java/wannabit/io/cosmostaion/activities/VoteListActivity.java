@@ -115,13 +115,13 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
     private void onFetchProposals() {
         if (mAccount == null) return;
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(BaseChain.IOV_MAIN) ||
+                mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(BaseChain.IOV_MAIN) ||
                 mBaseChain.equals(BaseChain.SECRET_MAIN)) {
             mVoteAdapter = new VoteAdapter();
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
             mVoteAdapter = new VoteAdapter();
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalsTask_V1(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -199,7 +199,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
         @Override
         public void onBindViewHolder(@NonNull VoteAdapter.VoteHolder voteHolder, int position) {
 
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
                 final Proposal_V1 proposal = mProposals_V1.get(position);
                 voteHolder.proposal_id.setText("# " + proposal.proposal_id);
                 voteHolder.proposal_status.setText(proposal.getStatusText(getBaseContext()));
@@ -317,7 +317,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public int getItemCount() {
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN)) {
                 return mProposals_V1.size();
             } else {
                 return mProposals.size();

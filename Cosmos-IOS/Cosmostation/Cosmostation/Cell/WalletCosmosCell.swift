@@ -60,10 +60,6 @@ class WalletCosmosCell: UITableViewCell {
             rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_TEST_DENOM), rewardAmount.font, 6, 6)
             BaseData.instance.updateLastTotal(account, totalAtom.multiplying(byPowerOf10: -6).stringValue)
             
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            
-        } else if (chainType == ChainType.IRIS_TEST) {
-            
         }
     }
     

@@ -10,6 +10,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -34,14 +35,20 @@ public class StakingPoolTask_V1 extends CommonTask {
                     mResult.resultData = response.body().pool;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
-                Response<ResStakingPool_V1> response = ApiClient.getCosmosTestChain(mApp).getStakingPool().execute();
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
+                Response<ResStakingPool_V1> response = ApiClient.getIrisChain(mApp).getStakingPool().execute();
                 if (response.isSuccessful() && response.body().pool != null) {
                     mResult.resultData = response.body().pool;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IRIS_MAIN)) {
-                Response<ResStakingPool_V1> response = ApiClient.getIrisChain(mApp).getStakingPool().execute();
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResStakingPool_V1> response = ApiClient.getAkashChain(mApp).getStakingPool().execute();
+                if (response.isSuccessful() && response.body().pool != null) {
+                    mResult.resultData = response.body().pool;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_TEST)) {
+                Response<ResStakingPool_V1> response = ApiClient.getCosmosTestChain(mApp).getStakingPool().execute();
                 if (response.isSuccessful() && response.body().pool != null) {
                     mResult.resultData = response.body().pool;
                 }

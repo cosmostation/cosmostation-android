@@ -119,7 +119,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
             mValidatorSize.setText(""+getBaseDao().mMyValidators_V1.size());
         } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             mValidatorSize.setText(""+getBaseDao().mGRpcMyValidators.size());
@@ -177,7 +177,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
             } else if (getItemViewType(position) == TYPE_HEADER_WITHDRAW_ALL) {
                 final RewardWithdrawHolder holder = (RewardWithdrawHolder)viewHolder;
                 WDp.DpMainDenom(getContext(), getMainActivity().mAccount.baseChain, holder.itemTvDenom);
-                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                     final BigDecimal allRewardAmount = WDp.getRewardSum(getMainActivity().getBaseDao(), WDp.mainDenom(getMainActivity().mBaseChain));
                     holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, 6, 6));
 
@@ -204,9 +204,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
                         holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_SECRET));
 
-                    } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_AKASH));
-
                     }
                 }
 
@@ -220,7 +217,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
                 final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+                if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                     final Validator_V1 validator = getBaseDao().mMyValidators_V1.get(position);
                     final BigDecimal delegationAmount = WDp.getDelegation(getMainActivity().getBaseDao(), validator.operator_address);
                     final BigDecimal undelegationAmount = WDp.getUndelegation(getMainActivity().getBaseDao(), validator.operator_address);
@@ -341,15 +338,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                                     .into(holder.itemAvatar);
                         } catch (Exception e){}
 
-                    } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                        holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
-                        holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), getBaseDao().mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_AKASH));
-                        try {
-                            Picasso.get().load(AKASH_VAL_URL + validator.operator_address + ".png")
-                                    .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                    .into(holder.itemAvatar);
-                        } catch (Exception e){}
-
                     }
 
                     holder.itemTvMoniker.setText(validator.description.moniker);
@@ -382,7 +370,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 if(getBaseDao().mMyValidators_V1 == null || getBaseDao().mMyValidators_V1.size() < 1) {
                     return 1;
                 } else if (getBaseDao().mMyValidators_V1.size() == 1) {
@@ -414,7 +402,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 if (getBaseDao().mMyValidators_V1 == null ||getBaseDao().mMyValidators_V1.size() < 1) {
                     return TYPE_PROMOTION;
                 } else if (getBaseDao().mMyValidators_V1.size() > 1 && position == getBaseDao().mMyValidators_V1.size()) {
@@ -496,7 +484,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
     }
 
     public void onSortValidator() {
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
             if (getBaseDao().getMyValSorting() == 2) {
                 mSortType.setText(getString(R.string.str_sorting_by_reward));
                 WUtil.onSortByRewardV2(getBaseDao().mMyValidators_V1, WDp.mainDenom(getMainActivity().mBaseChain), getBaseDao());
@@ -545,9 +533,6 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
                     WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_SECRET);
-
-                } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_AKASH);
 
                 }
                 mSortType.setText(getString(R.string.str_sorting_by_reward));

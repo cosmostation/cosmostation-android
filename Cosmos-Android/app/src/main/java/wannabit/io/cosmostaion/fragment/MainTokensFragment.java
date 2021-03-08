@@ -293,7 +293,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
 
         // roll back
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
             mTokenSize.setText(""+getBaseDao().mBalance_V1.size());
             if (getBaseDao().mBalance_V1 != null && getBaseDao().mBalance_V1.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
@@ -433,14 +433,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalScrtAmount));
 
         } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-            BigDecimal totalAktAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_AKASH) ) {
-                    totalAktAmount = totalAktAmount.add(WDp.getAllAkt(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
-                }
-            }
+            BigDecimal totalAktAmount = WDp.getAllMainAsset(getBaseDao(), TOKEN_AKASH);
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAktAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAktAmount));
+            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAktAmount, getMainActivity().mBaseChain));
 
         } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
             BigDecimal totalAtomAmount = getBaseDao().getAllMainAsset(TOKEN_COSMOS_TEST);
@@ -514,7 +509,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 return getBaseDao().mBalance_V1.size();
             } else  if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return getBaseDao().mGrpcBalance.size();
@@ -902,21 +897,23 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindAkashItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_AKASH)) {
+        final Coin coin = getBaseDao().mBalance_V1.get(position);
+        if (coin.denom.equals(TOKEN_AKASH)) {
             holder.itemSymbol.setText(getString(R.string.str_akt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AKASH_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Akash Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
 
-            BigDecimal totalAmount = WDp.getAllAkt(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
+            BigDecimal totalAmount = WDp.getAllMainAsset(getBaseDao(), TOKEN_AKASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfAkash(getContext(), getBaseDao(), totalAmount));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
         } else {
-            //TODO no case yet
 
         }
+
         holder.itemRoot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

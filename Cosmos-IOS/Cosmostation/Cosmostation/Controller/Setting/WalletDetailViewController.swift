@@ -51,7 +51,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         account = BaseData.instance.selectAccountById(id: accountId!)
         chainType = WUtils.getChainType(account!.account_base_chain)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             self.onFetchRewardAddressV1(account!.account_address)
         } else {
             self.onFetchRewardAddress(account!.account_address)
@@ -345,7 +346,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
+                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
             if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
@@ -374,12 +376,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
                 if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType! == ChainType.AKASH_MAIN) {
-                if (WUtils.getTokenAmount(balances, AKASH_MAIN_DENOM).compare(NSDecimalNumber.init(string: "2500")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                     return
                 }
                 
@@ -496,8 +492,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            url = AKASH_REWARD_ADDRESS + accountAddr + AKASH_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in

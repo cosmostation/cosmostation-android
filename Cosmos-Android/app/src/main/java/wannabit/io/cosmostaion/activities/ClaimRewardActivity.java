@@ -108,7 +108,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
 
         } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
@@ -116,7 +116,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
         } else {
             mValidators = (ArrayList<Validator>)(getIntent().getSerializableExtra("opAddresses"));
-            WLog.w("mValidators : " + mValidators.size());
             if(mValidators.size() < 1) {onBackPressed();}
         }
 
@@ -203,8 +202,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     private void onFetchReward() {
         if(mTaskCount > 0) return;
         if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) ||
-                mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) ||
-                mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SECRET_MAIN)) {
+                mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) ||
+                mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             mTaskCount = mValidators.size() + 1;
             mRewards.clear();
             for(Validator val:mValidators) {
@@ -212,7 +211,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             }
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             mTaskCount = 2;
             new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new WithdrawAddressTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -230,7 +229,7 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
             intent.putExtra("valOpAddresses", mValOpAddresses_V1);
         } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("valOpAddresses", mValAddresses);

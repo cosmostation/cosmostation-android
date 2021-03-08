@@ -48,43 +48,9 @@ class ValidatorListViewController: BaseViewController {
         if #available(iOS 13.0, *) {
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             validatorSegment.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
-            
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_COSMOS2
-            } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IRIS2
-            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_KAVA2
-            } else if (chainType == ChainType.BAND_MAIN) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_BAND2
-            } else if (chainType == ChainType.SECRET_MAIN) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_SECRET2
-            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_IOV2
-            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_CERTIK2
-            } else if (chainType == ChainType.AKASH_MAIN) {
-                validatorSegment.selectedSegmentTintColor = TRANS_BG_COLOR_AKASH2
-            }
-            
+            validatorSegment.selectedSegmentTintColor = WUtils.getChainDarkColor(chainType!)
         } else {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
-                validatorSegment.tintColor = COLOR_ATOM
-            } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-                validatorSegment.tintColor = COLOR_IRIS
-            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                validatorSegment.tintColor = COLOR_KAVA
-            } else if (chainType == ChainType.BAND_MAIN) {
-                validatorSegment.tintColor = COLOR_BAND
-            } else if (chainType == ChainType.SECRET_MAIN) {
-                validatorSegment.tintColor = COLOR_SECRET
-            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-                validatorSegment.tintColor = COLOR_IOV
-            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                validatorSegment.tintColor = COLOR_CERTIK
-            } else if (chainType == ChainType.AKASH_MAIN) {
-                validatorSegment.tintColor = COLOR_AKASH
-            }
+            validatorSegment.tintColor = WUtils.getChainColor(chainType)
         }
 
     }

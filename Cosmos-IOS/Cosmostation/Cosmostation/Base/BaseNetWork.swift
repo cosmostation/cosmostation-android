@@ -17,7 +17,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_VALIDATORS
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_VALIDATORS
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_VALIDATORS
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_VALIDATORS
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_VALIDATORS
@@ -31,7 +35,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_DELEGATIONS + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_DELEGATIONS + address
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_DELEGATIONS + address
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_DELEGATIONS + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_DELEGATIONS + address
@@ -45,7 +53,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_UNDELEGATIONS + address + COSMOS_MAIN_UNDELEGATIONS_T
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_UNDELEGATIONS + address + IRIS_MAIN_UNDELEGATIONS_T
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_UNDELEGATIONS + address + AKASH_MAIN_UNDELEGATIONS_T
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_UNDELEGATIONS + address + COSMOS_TEST_UNDELEGATIONS_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_UNDELEGATIONS + address + IRIS_TEST_UNDELEGATIONS_T
@@ -59,7 +71,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_BALANCE + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_BALANCE + address
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_BALANCE + address
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_BALANCE + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_BALANCE + address
@@ -73,7 +89,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_AUTH + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_AUTH + address
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_AUTH + address
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_AUTH + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_AUTH + address
@@ -87,7 +107,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_REWARD_ADDRESS + address + COSMOS_MAIN_REWARD_ADDRESS_T
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_REWARD_ADDRESS + address + IRIS_MAIN_REWARD_ADDRESS_T
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_REWARD_ADDRESS + address + AKASH_MAIN_REWARD_ADDRESS_T
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_REWARD_ADDRESS + address + COSMOS_TEST_REWARD_ADDRESS_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_REWARD_ADDRESS + address + IRIS_TEST_REWARD_ADDRESS_T
@@ -101,7 +125,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_REWARDS + address + COSMOS_MAIN_REWARDS_T
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_REWARDS + address + IRIS_MAIN_REWARDS_T
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_REWARDS + address + AKASH_MAIN_REWARDS_T
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_REWARDS + address + COSMOS_TEST_REWARDS_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_REWARDS + address + IRIS_TEST_REWARDS_T
@@ -114,9 +142,13 @@ class BaseNetWork {
         if (chain == ChainType.COSMOS_MAIN) {
             result = COSMOS_MAIN_REDELEGATION + address + COSMOS_MAIN_REDELEGATION_T
         } else if (chain == ChainType.IRIS_MAIN) {
+            result = IRIS_MAIN_REDELEGATION + address + IRIS_MAIN_REDELEGATION
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_REDELEGATION + address + AKASH_MAIN_REDELEGATION_T
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_REDELEGATION + address + COSMOS_TEST_REDELEGATION_T
-        } else if (chain == ChainType.COSMOS_TEST) {
-            result = IRIS_MAIN_REDELEGATION + address + IRIS_MAIN_REDELEGATION_T
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_REDELEGATION + address + IRIS_TEST_REDELEGATION_T
         }
@@ -129,7 +161,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_MINT_PARAM
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_MINT_PARAM
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_MINT_PARAM
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_MINT_PARAM
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_MINT_PARAM
@@ -141,7 +177,11 @@ class BaseNetWork {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
             result = COSMOS_MAIN_INFLATION
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_INFLATION
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_INFLATION
         }
         return result
@@ -151,7 +191,11 @@ class BaseNetWork {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
             result = COSMOS_MAIN_PROVISIONS
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_PROVISIONS
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROVISIONS
         }
         return result
@@ -163,7 +207,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_STAKING_POOL
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_STAKING_POOL
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_STAKING_POOL
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_STAKING_POOL
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_STAKING_POOL
@@ -189,7 +237,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_SINGLE_VALIDATOR + opAddress
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_SINGLE_VALIDATOR + opAddress
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_SINGLE_VALIDATOR + opAddress
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_SINGLE_VALIDATOR + opAddress
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_SINGLE_VALIDATOR + opAddress
@@ -203,7 +255,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_SINGLE_DELEGATION + opAddress + COSMOS_MAIN_SINGLE_DELEGATION_M + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_SINGLE_DELEGATION + opAddress + IRIS_MAIN_SINGLE_DELEGATION_M + address
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_SINGLE_DELEGATION + opAddress + AKASH_MAIN_SINGLE_DELEGATION_M + address
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_SINGLE_DELEGATION + opAddress + COSMOS_TEST_SINGLE_DELEGATION_M + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_SINGLE_DELEGATION + opAddress + IRIS_TEST_SINGLE_DELEGATION_M + address
@@ -217,7 +273,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_PROPOSALS
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_PROPOSALS
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_PROPOSALS
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROPOSALS
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_PROPOSALS
@@ -231,7 +291,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_PROPOSAL + proposal_id
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_PROPOSAL + proposal_id
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_PROPOSAL + proposal_id
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROPOSAL + proposal_id
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_PROPOSAL + proposal_id
@@ -245,7 +309,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_PROPOSAL + proposal_id + "/tally"
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_PROPOSAL + proposal_id + "/tally"
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_PROPOSAL + proposal_id + "/tally"
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROPOSAL + proposal_id + "/tally"
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_PROPOSAL + proposal_id + "/tally"
@@ -259,7 +327,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_PROPOSAL + proposal_id + "/votes"
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_PROPOSAL + proposal_id + "/votes"
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_PROPOSAL + proposal_id + "/votes"
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROPOSAL + proposal_id + "/votes"
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_PROPOSAL + proposal_id + "/votes"
@@ -273,7 +345,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_PROPOSAL + proposal_id + "/votes/" + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_PROPOSAL + proposal_id + "/votes/" + address
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_PROPOSAL + proposal_id + "/votes/" + address
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_PROPOSAL + proposal_id + "/votes/" + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_PROPOSAL + proposal_id + "/votes/" + address
@@ -288,7 +364,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_BORAD_TX
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_BORAD_TX
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_BORAD_TX
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_BORAD_TX
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_BORAD_TX
@@ -303,7 +383,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_HISTORY + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_HISTORY + address
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_HISTORY + address
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_HISTORY + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_HISTORY + address
@@ -317,7 +401,11 @@ class BaseNetWork {
             result = COSMOS_MAIN_HISTORY + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_HISTORY + address + "/" + valAddress
-        } else if (chain == ChainType.COSMOS_TEST) {
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_HISTORY + address + "/" + valAddress
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
             result = COSMOS_TEST_HISTORY + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_HISTORY + address + "/" + valAddress

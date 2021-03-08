@@ -22,8 +22,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST ||
-                pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
         } else {
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
@@ -141,14 +141,12 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            url = AKASH_REWARD_ADDRESS + accountAddr + AKASH_REWARD_ADDRESS_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("res ", res)
+//                print("res ", res)
                 guard let responseData = res as? NSDictionary,
                     let address = responseData.object(forKey: "result") as? String else {
                         self.onShowToast(NSLocalizedString("error_network", comment: ""))

@@ -11,6 +11,7 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 
+import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_PROVISION;
@@ -29,6 +30,13 @@ public class ProvisionTask_V1 extends CommonTask {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
                 Response<ResProvision_V1> response = ApiClient.getCosmosChain(mApp).getProvision().execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.isSuccess = true;
+                    mResult.resultData = response.body().getProvision();
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(AKASH_MAIN)) {
+                Response<ResProvision_V1> response = ApiClient.getAkashChain(mApp).getProvision().execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.isSuccess = true;
                     mResult.resultData = response.body().getProvision();
