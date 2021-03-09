@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepHarvestReward0ViewController: BaseViewController {
+class StepHardPoolIncentive0ViewController: BaseViewController {
     
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnNext: UIButton!

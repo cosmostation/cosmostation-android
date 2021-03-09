@@ -11,7 +11,7 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class StepIncentive3ViewController: BaseViewController, PasswordViewDelegate {
+class StepUSDXMintingIncentive3ViewController: BaseViewController, PasswordViewDelegate {
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!

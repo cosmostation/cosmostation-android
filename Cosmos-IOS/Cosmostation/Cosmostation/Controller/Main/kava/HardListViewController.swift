@@ -82,8 +82,10 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (section == 0) {
-            if let hardRewardAmount = incentiveRewards?.getHardPoolHardRewardAmount(), hardRewardAmount.compare(NSDecimalNumber.zero).rawValue > 0,
-               let kavaRewardAmount = incentiveRewards?.getHardPoolKavaRewardAmount(), kavaRewardAmount.compare(NSDecimalNumber.zero).rawValue > 0 {
+            if let hardRewardAmount = incentiveRewards?.getHardPoolHardRewardAmount(), hardRewardAmount.compare(NSDecimalNumber.zero).rawValue > 0 {
+                return 1
+            }
+            if let kavaRewardAmount = incentiveRewards?.getHardPoolKavaRewardAmount(), kavaRewardAmount.compare(NSDecimalNumber.zero).rawValue > 0  {
                 return 1
             }
             return 0

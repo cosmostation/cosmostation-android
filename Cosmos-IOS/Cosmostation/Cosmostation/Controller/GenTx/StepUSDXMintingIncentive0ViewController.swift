@@ -8,7 +8,7 @@
 
 import UIKit
 
-class StepIncentive0ViewController: BaseViewController {
+class StepUSDXMintingIncentive0ViewController: BaseViewController {
     
     @IBOutlet weak var btnCancel: UIButton!
     @IBOutlet weak var btnNext: UIButton!
