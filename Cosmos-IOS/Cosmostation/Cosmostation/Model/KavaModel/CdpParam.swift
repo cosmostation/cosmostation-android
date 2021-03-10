@@ -40,7 +40,7 @@ public struct CdpParam {
         }
     }
     
-    public func getcParam(_ denom: String) -> CollateralParam? {
+    public func getCollateralParamByDenom(_ denom: String) -> CollateralParam? {
         return collateral_params?.filter { $0.denom == denom}.first
 //        for param in collateral_params {
 //            if (param.denom == denom) {
@@ -50,7 +50,7 @@ public struct CdpParam {
 //        return nil
     }
     
-    public func getcParamByType(_ type: String) -> CollateralParam? {
+    public func getCollateralParamByType(_ type: String) -> CollateralParam? {
         return collateral_params?.filter { $0.type == type}.first
 //        for param in collateral_params {
 //            if (param.type == type) {

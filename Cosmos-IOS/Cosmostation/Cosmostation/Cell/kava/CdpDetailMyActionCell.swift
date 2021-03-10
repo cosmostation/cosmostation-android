@@ -33,8 +33,6 @@ class CdpDetailMyActionCell: UITableViewCell {
     @IBOutlet weak var darwdebtBtn: UIButton!
     @IBOutlet weak var repayBtn: UIButton!
     
-    @IBOutlet weak var unclaimedIncentiveAmount: UILabel!
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
@@ -53,7 +51,6 @@ class CdpDetailMyActionCell: UITableViewCell {
         interestValue.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_11_caption2)
         remainingValue.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_11_caption2)
         
-        unclaimedIncentiveAmount.font = UIFontMetrics(forTextStyle: .caption2).scaledFont(for: Font_13_footnote)
     }
     
     var helpCollateralSelf: (() -> Void)? = nil
@@ -67,7 +64,6 @@ class CdpDetailMyActionCell: UITableViewCell {
     var actionWithdraw: (() -> Void)? = nil
     var actionDrawDebt: (() -> Void)? = nil
     var actionRepay: (() -> Void)? = nil
-    var actionIncentive: (() -> Void)? = nil
     
     @IBAction func onClickCollateralSelf(_ sender: UIButton) {
         helpCollateralSelf?()
@@ -108,9 +104,5 @@ class CdpDetailMyActionCell: UITableViewCell {
     
     @IBAction func onClickRepay(_ sender: UIButton) {
         actionRepay?()
-    }
-    
-    @IBAction func onClickIncentive(_ sender: UIButton) {
-        actionIncentive?()
     }
 }

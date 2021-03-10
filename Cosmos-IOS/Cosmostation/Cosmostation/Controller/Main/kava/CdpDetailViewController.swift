@@ -33,13 +33,17 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     var riskRate: NSDecimalNumber = NSDecimalNumber.zero
     
     var mCollateralParamType: String?
-    var mCdpParam:  CdpParam?
     var mCollateralParam: CollateralParam?
-    var mMyCdpStatus: CdpOwen?
-    var mMyCdpDeposit: CdpDeposits?
-    var mKavaTotalSupply: KavaSupply?
-    var mPrice: KavaPriceFeedPrice = KavaPriceFeedPrice.init()
-    var mIncentiveClaimables = Array<KavaIncentiveReward2.IncentiveRewardClaimable>()
+//    var mMyCdpStatus: CdpOwen?
+//    var mMyCdpDeposit: CdpDeposits?
+//    var mKavaTotalSupply: KavaSupply?
+//    var mPrice: KavaPriceFeedPrice = KavaPriceFeedPrice.init()
+//    var mIncentiveClaimables = Array<KavaIncentiveReward2.IncentiveRewardClaimable>()
+    
+    var cdpParam: CdpParam?
+    var myCdp: MyCdp?
+    var mDebtAmount: NSDecimalNumber = NSDecimalNumber.zero
+    var mSelfDepositAmount: NSDecimalNumber = NSDecimalNumber.zero
     
     
     override func viewDidLoad() {
@@ -65,13 +69,13 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         
         if (SHOW_LOG) {
             print("mCollateralParamType ", mCollateralParamType)
-            print("mCDenom ", mCDenom)
-            print("mMarketID ", mMarketID)
         }
         
-        mCdpParam = BaseData.instance.mCdpParam
-        mCollateralParam = mCdpParam?.getcParamByType(mCollateralParamType!)
-        mIncentiveClaimables = BaseData.instance.mIncentiveClaimables
+//        mCdpParam = BaseData.instance.mCdpParam
+//        mCollateralParam = mCdpParam?.getCollateralParamByType(mCollateralParamType!)
+//        mIncentiveClaimables = BaseData.instance.mIncentiveClaimables
+        
+        cdpParam = BaseData.instance.mCdpParam
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()
@@ -85,11 +89,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
-    
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if ((mMyCdpStatus) != nil) {
+        if (myCdp != nil) {
             return 3
         } else {
             return 2
@@ -97,7 +99,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (mMyCdpStatus != nil && mMyCdpDeposit != nil) {
+        if (myCdp != nil) {
             if (indexPath.row == 0) {
                 return self.onSetMyTopItems(tableView, indexPath)
             } else if (indexPath.row == 1) {
@@ -105,7 +107,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             } else {
                 return self.onSetAssetsItems(tableView, indexPath)
             }
-            
+
         } else {
             if (indexPath.row == 0) {
                 return self.onSetTopItems(tableView, indexPath)
@@ -123,13 +125,14 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), cell!.minCollateralRate.font)
             cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), cell!.stabilityFee.font)
             cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
-            
+
             cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), mCDenom.uppercased())
             cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
-            
-            cell?.systemMax.attributedText = WUtils.displayAmount2(mCdpParam!.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
-            cell?.remainCap.attributedText = WUtils.displayAmount2(mCdpParam!.getGlobalDebtAmount().subtracting(mKavaTotalSupply?.getDebtAmount() ?? NSDecimalNumber.zero).stringValue, cell!.remainCap.font, 6, 6)
-            
+
+            let cdpParam = BaseData.instance.mCdpParam
+            cell?.systemMax.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
+            cell?.remainCap.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().subtracting(mDebtAmount).stringValue, cell!.remainCap.font, 6, 6)
+
             let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
             cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             cell?.helpCollateralRate = {
@@ -148,34 +151,34 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     
     func onSetMyTopItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:CdpDetailMyTopCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailMyTopCell") as? CdpDetailMyTopCell
-        
-        liquidationPrice = mMyCdpStatus!.result.getLiquidationPrice(mCDenom, mPDenom, mCollateralParam!)
+        liquidationPrice = myCdp!.getLiquidationPrice(mCDenom, mPDenom, mCollateralParam!)
         riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
-        
+
         if (SHOW_LOG) {
             print("currentPrice ", currentPrice)
             print("liquidationPrice ", liquidationPrice)
             print("riskRate ", riskRate)
         }
-        
+
         cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
         cell?.marketType.text = mCollateralParam!.type!.uppercased()
         WUtils.showRiskRate(riskRate, cell!.riskScore, _rateIamg: cell!.riskRateImg)
-        
+
         cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationRatio(), cell!.minCollateralRate.font)
         cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam!.getDpStabilityFee(), cell!.stabilityFee.font)
         cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam!.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
-        
+
         cell?.currentPriceTitle.text = String(format: NSLocalizedString("current_price_format", comment: ""), mCDenom.uppercased())
         cell?.currentPrice.attributedText = WUtils.getDPRawDollor(currentPrice.stringValue, 4, cell!.currentPrice.font)
-        
+
         cell?.liquidationPriceTitle.text = String(format: NSLocalizedString("liquidation_price_format", comment: ""), mCDenom.uppercased())
         cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
         cell?.liquidationPrice.textColor = WUtils.getRiskColor(riskRate)
-        
-        cell?.systemMax.attributedText = WUtils.displayAmount2(mCdpParam!.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
-        cell?.remainCap.attributedText = WUtils.displayAmount2(mCdpParam!.getGlobalDebtAmount().subtracting(mKavaTotalSupply?.getDebtAmount() ?? NSDecimalNumber.zero).stringValue, cell!.remainCap.font, 6, 6)
-        
+
+        let cdpParam = BaseData.instance.mCdpParam
+        cell?.systemMax.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
+        cell?.remainCap.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().subtracting(mDebtAmount).stringValue, cell!.remainCap.font, 6, 6)
+
         let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
         cell?.marketImg.af_setImage(withURL: URL(string: url)!)
         cell?.helpCollateralRate = {
@@ -202,30 +205,28 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     
     func onSetMyActionItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell  {
         let cell:CdpDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailMyActionCell") as? CdpDetailMyActionCell
-        
         cell?.collateralDenom.text = mCDenom.uppercased()
-        let selfDepositAmount = mMyCdpDeposit!.getSelfDeposit(account!.account_address)
-        let selfDepositValue = selfDepositAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
-        cell?.collateralSelfAmount.attributedText = WUtils.displayAmount2(selfDepositAmount.stringValue, cell!.collateralSelfAmount.font!, cDpDecimal, cDpDecimal)
+        let selfDepositValue = mSelfDepositAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
+        cell?.collateralSelfAmount.attributedText = WUtils.displayAmount2(mSelfDepositAmount.stringValue, cell!.collateralSelfAmount.font!, cDpDecimal, cDpDecimal)
         cell?.collateralSelfValue.attributedText = WUtils.getDPRawDollor(selfDepositValue.stringValue, 2, cell!.collateralSelfValue.font)
-        
-        let totalDepositAmount = mMyCdpStatus!.result.getTotalCollateralAmount()
+
+        let totalDepositAmount = myCdp!.getTotalCollateralAmount()
         let totalDepositValue = totalDepositAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
         cell?.collateralTotalAmount.attributedText = WUtils.displayAmount2(totalDepositAmount.stringValue, cell!.collateralTotalAmount.font!, cDpDecimal, cDpDecimal)
         cell?.collateralTotalValue.attributedText = WUtils.getDPRawDollor(totalDepositValue.stringValue, 2, cell!.collateralTotalValue.font)
-        
+
         cell?.collateralWithdrawableTitle.text = String(format: NSLocalizedString("withdrawable_format", comment: ""), mCDenom.uppercased())
-        let maxWithdrawableAmount = mMyCdpStatus!.result.getWithdrawableAmount(mCDenom, mPDenom, mCollateralParam!, currentPrice, selfDepositAmount)
+        let maxWithdrawableAmount = myCdp!.getWithdrawableAmount(mCDenom, mPDenom, mCollateralParam!, currentPrice, mSelfDepositAmount)
         let maxWithdrawableValue = maxWithdrawableAmount.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
 //        print("maxWithdrawableAmount ", maxWithdrawableAmount)
 //        print("maxWithdrawableValue ", maxWithdrawableValue)
-        
+
         cell?.collateralWithdrawableAmount.attributedText = WUtils.displayAmount2(maxWithdrawableAmount.stringValue, cell!.collateralWithdrawableAmount.font!, cDpDecimal, cDpDecimal)
         cell?.collateralWithdrawableValue.attributedText = WUtils.getDPRawDollor(maxWithdrawableValue.stringValue, 2, cell!.collateralWithdrawableValue.font)
-        
+
         cell?.depositBtn.setTitle(String(format: NSLocalizedString("str_deposit", comment: ""), mCDenom.uppercased()), for: .normal)
         cell?.withdrawBtn.setTitle(String(format: NSLocalizedString("str_withdraw", comment: ""), mCDenom.uppercased()), for: .normal)
-        
+
         cell?.helpCollateralSelf = {
             self.onShowSimpleHelp(NSLocalizedString("help_self_deposited_title", comment: ""), String(format: NSLocalizedString("help_self_deposited_msg", comment: ""), self.mCDenom.uppercased()))
         }
@@ -241,21 +242,21 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.actionWithdraw = {
             self.onClickWithdraw()
         }
-        
-        
+
+
         cell?.principalDenom.text = mPDenom.uppercased()
-        let rawPricipalAmount = mMyCdpStatus!.result.cdp.getRawPrincipalAmount()
+        let rawPricipalAmount = myCdp!.cdp!.getRawPrincipalAmount()
         cell?.principalAmount.attributedText = WUtils.displayAmount2(rawPricipalAmount.stringValue, cell!.principalAmount.font!, pDpDecimal, pDpDecimal)
         cell?.principalValue.attributedText = WUtils.getDPRawDollor(rawPricipalAmount.multiplying(byPowerOf10: -pDpDecimal).stringValue, 2, cell!.principalValue.font)
-        
-        let totalFeeAmount = mMyCdpStatus!.result.cdp.getEstimatedTotalFee(mCollateralParam!)
+
+        let totalFeeAmount = myCdp!.cdp!.getEstimatedTotalFee(mCollateralParam!)
         cell?.interestAmount.attributedText = WUtils.displayAmount2(totalFeeAmount.stringValue, cell!.interestAmount.font!, pDpDecimal, pDpDecimal)
         cell?.interestValue.attributedText = WUtils.getDPRawDollor(totalFeeAmount.multiplying(byPowerOf10: -pDpDecimal).stringValue, 2, cell!.principalValue.font)
-        
-        let moreDebtAmount = mMyCdpStatus!.result.getMoreLoanableAmount(mCollateralParam!)
+
+        let moreDebtAmount = myCdp!.getMoreLoanableAmount(mCollateralParam!)
         cell?.remainingAmount.attributedText = WUtils.displayAmount2(moreDebtAmount.stringValue, cell!.remainingAmount.font!, pDpDecimal, pDpDecimal)
         cell?.remainingValue.attributedText = WUtils.getDPRawDollor(moreDebtAmount.multiplying(byPowerOf10: -pDpDecimal).stringValue, 2, cell!.remainingValue.font)
-        
+
         cell?.helpPrincipal = {
             self.onShowSimpleHelp(NSLocalizedString("help_loaned_amount_title", comment: ""), NSLocalizedString("help_loaned_amount_msg", comment: ""))
         }
@@ -271,54 +272,43 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.actionRepay = {
             self.onClickRepay()
         }
-        
+
         cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mCDenom + ".png")!)
         cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mPDenom + ".png")!)
         
-        var claimableIncentive = NSDecimalNumber.zero
-        for incentive in mIncentiveClaimables {
-            if (mCollateralParam?.type == incentive.claim.collateral_type && incentive.claimable) {
-                claimableIncentive = claimableIncentive.adding(NSDecimalNumber.init(string: incentive.claim.reward.amount))
-            }
-        }
-        cell?.unclaimedIncentiveAmount.attributedText = WUtils.displayAmount2(claimableIncentive.stringValue, cell!.unclaimedIncentiveAmount.font, 6, 6)
-        cell?.actionIncentive = {
-            self.onClickClaim(claimableIncentive)
-        }
         return cell!
     }
     
     func onSetAssetsItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:CdpDetailAssetsCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailAssetsCell") as? CdpDetailAssetsCell
-        
         cell?.collateralDenom.text = mCDenom.uppercased()
         cell?.collateralAmount.attributedText = WUtils.displayAmount2(cAvailable.stringValue, cell!.collateralAmount.font!, cDpDecimal, cDpDecimal)
         let collateralValue = cAvailable.multiplying(byPowerOf10: -cDpDecimal).multiplying(by: currentPrice, withBehavior: WUtils.handler2Down)
         cell?.collateralValue.attributedText = WUtils.getDPRawDollor(collateralValue.stringValue, 2, cell!.collateralValue.font)
-        
+
         cell?.principalDenom.text = mPDenom.uppercased()
         cell?.principalAmount.attributedText = WUtils.displayAmount2(pAvailable.stringValue, cell!.principalAmount.font!, pDpDecimal, pDpDecimal)
         let principalValue = pAvailable.multiplying(byPowerOf10: -pDpDecimal)
         cell?.principalValue.attributedText = WUtils.getDPRawDollor(principalValue.stringValue, 2, cell!.principalValue.font)
-        
+
         cell?.kavaAmount.attributedText = WUtils.displayAmount2(kAvailable.stringValue, cell!.kavaAmount.font!, kDpDecimal, kDpDecimal)
         let kavaValue = kAvailable.multiplying(byPowerOf10: -kDpDecimal).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
         cell?.kavaValue.attributedText = WUtils.getDPRawDollor(kavaValue.stringValue, 2, cell!.kavaValue.font)
-        
+
         cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mCDenom + ".png")!)
         cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mPDenom + ".png")!)
         return cell!
     }
-
+    
     @IBAction func onClickCreateCdp(_ sender: UIButton) {
         if (!onCommonCheck()) { return }
-        let debtFloor = NSDecimalNumber.init(string: mCdpParam!.debt_param?.debt_floor)
+        let debtFloor = NSDecimalNumber.init(string: BaseData.instance.mCdpParam?.debt_param?.debt_floor)
         let cMinAmount = debtFloor.multiplying(byPowerOf10: cDpDecimal - pDpDecimal).multiplying(by: NSDecimalNumber.init(string: "1.05263157895")).multiplying(by: mCollateralParam!.getLiquidationRatio()).dividing(by: currentPrice, withBehavior: WUtils.handler0Up)
         if (cAvailable.compare(cMinAmount).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_less_than_min_deposit", comment: ""))
             return
         }
-        if (!onCheckSupply()) {
+        if (BaseData.instance.mCdpParam!.getGlobalDebtAmount().compare(mDebtAmount).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_no_more_debt_kava", comment: ""))
             return
         }
@@ -327,7 +317,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         txVC.mType = KAVA_MSG_TYPE_CREATE_CDP
         txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = self.mCDenom
-        txVC.mMarketID = self.mMarketID
+        txVC.mMarketID = self.mCollateralParam?.liquidation_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
@@ -342,16 +332,15 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_DEPOSIT_CDP
         txVC.mCollateralParamType = self.mCollateralParamType
-        txVC.mCDenom = mCDenom
-        txVC.mMarketID = mMarketID
+        txVC.mCDenom = self.mCDenom
+        txVC.mMarketID = self.mCollateralParam?.liquidation_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickWithdraw() {
         if (!onCommonCheck()) { return }
-        let selfDepositAmount = mMyCdpDeposit!.getSelfDeposit(account!.account_address)
-        let maxWithdrawableAmount = mMyCdpStatus!.result.getWithdrawableAmount(mCDenom, mPDenom, mCollateralParam!, currentPrice, selfDepositAmount)
+        let maxWithdrawableAmount = myCdp!.getWithdrawableAmount(mCDenom, mPDenom, mCollateralParam!, currentPrice, mSelfDepositAmount)
         if (maxWithdrawableAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_not_enought_withdraw_asset", comment: ""))
             return
@@ -360,19 +349,19 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_WITHDRAW_CDP
         txVC.mCollateralParamType = self.mCollateralParamType
-        txVC.mCDenom = mCDenom
-        txVC.mMarketID = mMarketID
+        txVC.mCDenom = self.mCDenom
+        txVC.mMarketID = self.mCollateralParam?.liquidation_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickDrawDebt() {
         if (!onCommonCheck()) { return }
-        if (mMyCdpStatus!.result.getMoreLoanableAmount(mCollateralParam!).compare(NSDecimalNumber.zero).rawValue <= 0) {
+        if (myCdp!.getMoreLoanableAmount(mCollateralParam!).compare(NSDecimalNumber.zero).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_can_not_draw_debt", comment: ""))
             return
         }
-        if (!onCheckSupply()) {
+        if (BaseData.instance.mCdpParam!.getGlobalDebtAmount().compare(mDebtAmount).rawValue <= 0) {
             self.onShowToast(NSLocalizedString("error_no_more_debt_kava", comment: ""))
             return
         }
@@ -381,7 +370,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         txVC.mType = KAVA_MSG_TYPE_DRAWDEBT_CDP
         txVC.mCollateralParamType = self.mCollateralParamType
         txVC.mCDenom = self.mCDenom
-        txVC.mMarketID = self.mMarketID
+        txVC.mMarketID = self.mCollateralParam?.liquidation_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
@@ -394,9 +383,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         }
         var repayAll = true
         var repayPart = true
-        let debtFloor = NSDecimalNumber.init(string: mCdpParam!.debt_param?.debt_floor)
-        let rawDebt = mMyCdpStatus!.result.cdp.getRawPrincipalAmount()
-        let totalDebt = mMyCdpStatus!.result.cdp.getEstimatedTotalDebt(mCollateralParam!)
+        let debtFloor = NSDecimalNumber.init(string: BaseData.instance.mCdpParam?.debt_param?.debt_floor)
+        let rawDebt = myCdp!.cdp!.getRawPrincipalAmount()
+        let totalDebt = myCdp!.cdp!.getEstimatedTotalDebt(mCollateralParam!)
         if (totalDebt.compare(pAvailable).rawValue > 0) { repayAll = false }
         if (rawDebt.compare(debtFloor).rawValue <= 0) { repayPart = false }
         if (!repayAll && !repayPart) {
@@ -407,33 +396,20 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         txVC.mType = KAVA_MSG_TYPE_REPAYDEBT_CDP
         txVC.mCollateralParamType = self.mCollateralParamType
-        txVC.mCDenom = mCDenom
-        txVC.mMarketID = mMarketID
+        txVC.mCDenom = self.mCDenom
+        txVC.mMarketID = self.mCollateralParam?.liquidation_market_id
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
     }
     
-    func onClickClaim(_ incentive: NSDecimalNumber) {
-        if (!onCommonCheck()) { return }
-        if (incentive.compare(NSDecimalNumber.zero).rawValue <= 0) {
-            self.onShowToast(NSLocalizedString("error_no_incentive_to_claim", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = KAVA_MSG_TYPE_INCENTIVE_REWARD
-//        txVC.mIncentiveType = mCollateralParam?.type
-        txVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
-    }
     
     func onCommonCheck() -> Bool {
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return false
         }
-        if (mCdpParam!.circuit_breaker!) {
+        
+        if (BaseData.instance.mCdpParam?.circuit_breaker == true) {
             self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
             return false
         }
@@ -447,33 +423,42 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.refresher.endRefreshing()
             return
         }
-        self.mFetchCnt = 4
-        onFetchOwenCdp(account!, self.mCollateralParam!)
-        onFetchCdpDeposit(account!, self.mCollateralParam!)
-        onFetchKavaPrice(self.mMarketID)
+        self.mFetchCnt = 3
+        onFetchOwenCdp(account!.account_address)
+        onFetchCdpDeposit(account!, self.mCollateralParamType!)
         onFetchTotalSupply()
+//        onFetchKavaPrice(self.mMarketID)
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            if ((mCollateralParam) == nil) {
-                print("ERROR");
-                return
-            }
-            mPDenom = mCollateralParam!.getpDenom()!
-            cDpDecimal = WUtils.getKavaCoinDecimal(mCDenom)
-            pDpDecimal = WUtils.getKavaCoinDecimal(mPDenom)
-            kDpDecimal = WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)
-            cAvailable = account!.getTokenBalance(mCDenom)
-            pAvailable = account!.getTokenBalance(mPDenom)
-            kAvailable = account!.getTokenBalance(KAVA_MAIN_DENOM)
-            currentPrice = NSDecimalNumber.init(string: mPrice.result.price)
+            
+            self.mCollateralParam = BaseData.instance.mCdpParam?.getCollateralParamByType(mCollateralParamType!)
+            self.mCDenom = mCollateralParam!.getcDenom()!
+            self.mPDenom = mCollateralParam!.getpDenom()!
+            self.cDpDecimal = WUtils.getKavaCoinDecimal(mCDenom)
+            self.pDpDecimal = WUtils.getKavaCoinDecimal(mPDenom)
+            self.kDpDecimal = WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)
+            self.cAvailable = account!.getTokenBalance(mCDenom)
+            self.pAvailable = account!.getTokenBalance(mPDenom)
+            self.kAvailable = account!.getTokenBalance(KAVA_MAIN_DENOM)
+            
+            let mPrice = BaseData.instance.mKavaPrice[mCollateralParam!.liquidation_market_id!]
+            self.currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
+            
+//            print("mCollateralParam ", mCollateralParam)
+//            print("mCDenom ", mCDenom)
+//            print("mPDenom ", mPDenom)
+//            print("cDpDecimal ", cDpDecimal)
+//            print("pDpDecimal ", pDpDecimal)
+//            print("kDpDecimal ", kDpDecimal)
+//
 //            print("cAvailable ", cAvailable)
 //            print("pAvailable ", pAvailable)
 //            print("kAvailable ", kAvailable)
             
-            if ((mMyCdpStatus) != nil) {
+            if (myCdp != nil) {
                 emptyConstraint?.isActive = false
                 owenConstraint?.isActive = true
                 createCdpBtn.isHidden = true
@@ -511,24 +496,25 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func onFetchOwenCdp(_ account:Account, _ collateralParam: CollateralParam) {
+    func onFetchOwenCdp(_ address: String) {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_OWEN + account.account_address + "/" + collateralParam.type!
+            url = KAVA_CDP_OWEN
         } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_OWEN + account.account_address + "/" + collateralParam.type!
+            url = KAVA_TEST_CDP_OWEN
         }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(url!, method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let _ = responseData.object(forKey: "height") as? String,
-                        responseData.object(forKey: "result") != nil else {
-                            self.onFetchFinished()
-                            return
+                    guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+                        self.onFetchFinished()
+                        return
                     }
-                    self.mMyCdpStatus = CdpOwen.init(responseData)
+                    let myCdps = KavaMyCdps.init(responseData)
+                    self.myCdp = myCdps.result?.filter { $0.cdp?.type == self.mCollateralParamType}.first
+                    print("myCdp ", self.myCdp)
+                    
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchOwenCdp ", error) }
                 }
@@ -536,57 +522,34 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func onFetchCdpDeposit(_ account:Account, _ collateralParam: CollateralParam) {
+    func onFetchCdpDeposit(_ account:Account, _ collateralType: String) {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + collateralParam.type!
+            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + collateralType
         } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + collateralParam.type!
+            url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + collateralType
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let _ = responseData.object(forKey: "height") as? String,
-                        responseData.object(forKey: "result") != nil else {
-                            self.onFetchFinished()
-                            return
-                    }
-                    self.mMyCdpDeposit = CdpDeposits.init(responseData)
-                    
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
+                    return
                 }
+                let cdpDeposits = KavaCdpDeposits.init(responseData)
+                if let selfDeposit = cdpDeposits.result?.filter { $0.depositor == self.account?.account_address}.first {
+                    self.mSelfDepositAmount = NSDecimalNumber.init(string: selfDeposit.amount?.amount)
+                }
+                print("mSelfDepositAmount ", self.mSelfDepositAmount)
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchCdpDeposit ", error) }
+            }
             self.onFetchFinished()
         }
     }
-    
-    func onFetchKavaPrice(_ market:String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PRICE_FEED_PRICE + market
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_PRICE_FEED_PRICE + market
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let _ = responseData.object(forKey: "height") as? String else {
-                            self.onFetchFinished()
-                            return
-                    }
-                    self.mPrice = KavaPriceFeedPrice.init(responseData)
-                    
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
-                }
-            self.onFetchFinished()
-        }
-    }
-    
+
     func onFetchTotalSupply() {
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
@@ -598,11 +561,13 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
+                guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+                    self.onFetchFinished()
                     return
                 }
-                self.mKavaTotalSupply = KavaSupply.init(info)
+                let totalSupply = KavaSupply.init(responseData)
+                self.mDebtAmount = totalSupply.getDebtAmount()
+                print("mDebtAmount ", self.mDebtAmount)
                 
             case .failure(let error):
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
@@ -612,10 +577,36 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         }
     }
     
-    func onCheckSupply() -> Bool {
-        if (mCdpParam!.getGlobalDebtAmount().compare(mKavaTotalSupply!.getDebtAmount()).rawValue <= 0 ) {
-            return false;
-        }
-        return true
-    }
+//    func onFetchKavaPrice(_ market:String) {
+//        var url: String?
+//        if (chainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_PRICE_FEED_PRICE + market
+//        } else if (chainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_PRICE_FEED_PRICE + market
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+//                guard let responseData = res as? NSDictionary,
+//                      let _ = responseData.object(forKey: "height") as? String else {
+//                    self.onFetchFinished()
+//                    return
+//                }
+//                self.mPrice = KavaPriceFeedPrice.init(responseData)
+//
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
+//
+//
+//    func onCheckSupply() -> Bool {
+//        if (mCdpParam!.getGlobalDebtAmount().compare(mKavaTotalSupply!.getDebtAmount()).rawValue <= 0 ) {
+//            return false;
+//        }
+//        return true
+//    }
 }

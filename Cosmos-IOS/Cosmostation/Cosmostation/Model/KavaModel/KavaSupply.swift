@@ -8,18 +8,16 @@
 
 import Foundation
 
-public class KavaSupply {
-    var height: String = ""
-    var result: Array<Coin> = Array<Coin>()
+public struct KavaSupply {
+    var height: String?
+    var result: Array<Coin>?
     
-    init() {}
-    
-    init(_ dictionary: [String: Any]) {
-        self.height = dictionary["height"] as? String ?? ""
-        if let results = dictionary["result"] as? Array<NSDictionary> {
-            self.result.removeAll()
-            for coin in results {
-                self.result.append(Coin(coin as! [String : Any]))
+    init(_ dictionary: NSDictionary?) {
+        self.height = dictionary?["height"] as? String
+        if let rawResults = dictionary?["result"] as? Array<NSDictionary> {
+            self.result = Array<Coin>()
+            for rawResult in rawResults {
+                self.result?.append(Coin.init(rawResult))
             }
         }
     }
@@ -33,7 +31,10 @@ public class KavaSupply {
     }
     
     public func getDebt() -> Coin? {
-        for coin in result {
+        if (result == nil) {
+            return nil
+        }
+        for coin in result! {
             if (coin.denom == "debt") {
                 return coin
             }

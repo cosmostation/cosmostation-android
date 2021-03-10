@@ -41,6 +41,10 @@ public struct CollateralParam {
         return debt_limit?.denom
     }
     
+    func getcDenom() -> String? {
+        return denom
+    }
+    
     func getMarketImgPath() -> String? {
         return spot_market_id?.replacingOccurrences(of: ":", with: "")
     }

@@ -136,7 +136,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         let cell:CdpLisyMyCell? = tableView.dequeueReusableCell(withIdentifier:"CdpLisyMyCell") as? CdpLisyMyCell
         
         let myCdp = myCdps![position]
-        let mCollateralParam = cdpParam!.getcParamByType(myCdp.cdp!.type!)
+        let mCollateralParam = cdpParam!.getCollateralParamByType(myCdp.cdp!.type!)
         let mCDenom = myCdp.cdp!.getcDenom()
         let mPDenom = myCdp.cdp!.getpDenom()
         let mPrice = BaseData.instance.mKavaPrice[mCollateralParam!.liquidation_market_id!]
@@ -192,27 +192,21 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (indexPath.section == 1) {
-//            let mMyCdpStatus = myCdps[indexPath.row]
-//            let mCollateralParam = cdpParam!.result.getcParamByType(mMyCdpStatus.result.cdp.type!)
-//            let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
-//            cdpDetailVC.hidesBottomBarWhenPushed = true
-//            cdpDetailVC.mCollateralParamType = mCollateralParam!.type
-//            cdpDetailVC.mCDenom = mCollateralParam!.denom
-//            cdpDetailVC.mMarketID = mCollateralParam!.liquidation_market_id
-//            self.navigationItem.title = ""
-//            self.navigationController?.pushViewController(cdpDetailVC, animated: true)
-//
-//        } else if (indexPath.section == 2) {
-//            let mCollateralParam = otherCdps[indexPath.row]
-//            let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
-//            cdpDetailVC.hidesBottomBarWhenPushed = true
-//            cdpDetailVC.mCollateralParamType = mCollateralParam.type
-//            cdpDetailVC.mCDenom = mCollateralParam.denom
-//            cdpDetailVC.mMarketID = mCollateralParam.liquidation_market_id
-//            self.navigationItem.title = ""
-//            self.navigationController?.pushViewController(cdpDetailVC, animated: true)
-//        }
+        if (indexPath.section == 1) {
+            let myCdp = myCdps![indexPath.row]
+            let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
+            cdpDetailVC.hidesBottomBarWhenPushed = true
+            cdpDetailVC.mCollateralParamType = myCdp.cdp!.type!
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(cdpDetailVC, animated: true)
+            
+        } else if (indexPath.section == 2) {
+            let mCollateralParam = otherCdps![indexPath.row]
+            let cdpDetailVC = CdpDetailViewController(nibName: "CdpDetailViewController", bundle: nil)
+            cdpDetailVC.mCollateralParamType = mCollateralParam.type
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(cdpDetailVC, animated: true)
+        }
     }
     
     func onMintingIncentiveClaim() {
