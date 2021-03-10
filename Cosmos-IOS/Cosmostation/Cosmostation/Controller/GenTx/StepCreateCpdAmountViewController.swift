@@ -45,9 +45,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     var cDpDecimal:Int16 = 6
     var pDpDecimal:Int16 = 6
     var mMarketID: String = ""
-    var mCdpParam: CdpParam?
+    
+    var mCollateralParamType: String?
     var mCollateralParam: CollateralParam?
-    var mMyCdpStatus: CdpOwen?
+    var mCdpParam: CdpParam?
     var mPrice: KavaPriceFeedPrice?
     
     var currentPrice: NSDecimalNumber = NSDecimalNumber.zero
@@ -69,10 +70,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         
         pageHolderVC = self.parent as? StepGenTxViewController
-        mCDenom = pageHolderVC.mCDenom!
-        mMarketID = pageHolderVC.mMarketID!
+        mCollateralParamType = pageHolderVC.mCollateralParamType
         mCdpParam = BaseData.instance.mCdpParam
-        mCollateralParam = mCdpParam?.getcParamByType(pageHolderVC.mCollateralParamType!)
+        mCollateralParam = mCdpParam?.getCollateralParamByType(pageHolderVC.mCollateralParamType!)
+        mMarketID = mCollateralParam!.liquidation_market_id!
         
         self.loadingImg.onStartAnimation()
         self.onFetchCdpData()
@@ -464,14 +465,10 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            if (mCollateralParam == nil || mPrice == nil) {
-                print("ERROR");
-                return
-            }
-            mPDenom = mCollateralParam!.getpDenom()!
-            
-            cDpDecimal = WUtils.getKavaCoinDecimal(mCDenom)
-            pDpDecimal = WUtils.getKavaCoinDecimal(mPDenom)
+            self.mCDenom = mCollateralParam!.getcDenom()!
+            self.mPDenom = mCollateralParam!.getpDenom()!
+            self.cDpDecimal = WUtils.getKavaCoinDecimal(mCDenom)
+            self.pDpDecimal = WUtils.getKavaCoinDecimal(mPDenom)
             
             pMinAmount = NSDecimalNumber.init(string: mCdpParam!.debt_param?.debt_floor)
             currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
@@ -497,6 +494,7 @@ class StepCreateCpdAmountViewController: BaseViewController, UITextFieldDelegate
             onUpdateView()
             self.loadingImg.onStopAnimation()
             self.loadingImg.isHidden = true
+            
         }
     }
     

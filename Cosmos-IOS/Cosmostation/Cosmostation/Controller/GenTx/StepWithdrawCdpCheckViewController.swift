@@ -103,9 +103,8 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("res : ", res)
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+//                print("res : ", res)
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -210,8 +209,7 @@ class StepWithdrawCdpCheckViewController: BaseViewController, PasswordViewDelega
 
                         if (self.waitAlert != nil) {
                             self.waitAlert?.dismiss(animated: true, completion: {
-                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                                     txResult["type"] = COSMOS_MSG_TYPE_DELEGATE
                                     self.onStartTxDetail(txResult)
                                 }
