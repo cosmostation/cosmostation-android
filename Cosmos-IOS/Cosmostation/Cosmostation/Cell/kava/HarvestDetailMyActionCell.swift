@@ -13,31 +13,29 @@ class HarvestDetailMyActionCell: UITableViewCell {
     @IBOutlet weak var depositImg: UIImageView!
     @IBOutlet weak var depositSymbol: UILabel!
     @IBOutlet weak var depositAmount: UILabel!
-    @IBOutlet weak var depositDenom: UILabel!
     @IBOutlet weak var depositValue: UILabel!
-    @IBOutlet weak var rewardImg: UIImageView!
-    @IBOutlet weak var rewardAmount: UILabel!
-    @IBOutlet weak var rewardDenom: UILabel!
-    @IBOutlet weak var rewardValue: UILabel!
-    @IBOutlet weak var dailyRewardAmount: UILabel!
-    @IBOutlet weak var dailyReardDenom: UILabel!
-    
+    @IBOutlet weak var borrowedAmount: UILabel!
+    @IBOutlet weak var borrowedValue: UILabel!
+    @IBOutlet weak var borroweableAmount: UILabel!
+    @IBOutlet weak var borroweableValue: UILabel!
     @IBOutlet weak var depositBtn: UIButton!
     @IBOutlet weak var withdrawBtn: UIButton!
-    @IBOutlet weak var rewardBtn: UIButton!
+    @IBOutlet weak var borrowBtn: UIButton!
+    @IBOutlet weak var repayBtn: UIButton!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
         
         depositAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
-        dailyRewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        borrowedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        borroweableAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
     var actionDepoist: (() -> Void)? = nil
     var actionWithdraw: (() -> Void)? = nil
-    var actionClaim: (() -> Void)? = nil
+    var actionBorrow: (() -> Void)? = nil
+    var actionRepay: (() -> Void)? = nil
     
     @IBAction func onClickDeposit(_ sender: UIButton) {
         actionDepoist?()
@@ -47,8 +45,13 @@ class HarvestDetailMyActionCell: UITableViewCell {
         actionWithdraw?()
     }
     
-    @IBAction func onClickClaim(_ sender: UIButton) {
-        actionClaim?()
+    @IBAction func onClickBorrow(_ sender: UIButton) {
+        actionBorrow?()
     }
+    
+    @IBAction func onClickRepay(_ sender: UIButton) {
+        actionRepay?()
+    }
+    
     
 }

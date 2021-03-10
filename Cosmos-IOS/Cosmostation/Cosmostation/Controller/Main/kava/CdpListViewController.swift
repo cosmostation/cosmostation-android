@@ -141,19 +141,15 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         let mPDenom = myCdp.cdp!.getpDenom()
         let mPrice = BaseData.instance.mKavaPrice[mCollateralParam!.liquidation_market_id!]
 
-        if (SHOW_LOG) {
-            print("getEstimatedTotalDebt ", myCdp.cdp!.getEstimatedTotalDebt(mCollateralParam!))
-        }
+//        print("getEstimatedTotalDebt ", myCdp.cdp!.getEstimatedTotalDebt(mCollateralParam!))
 
         let currentPrice = NSDecimalNumber.init(string: mPrice?.result.price)
         let liquidationPrice = myCdp.getLiquidationPrice(mCDenom, mPDenom, mCollateralParam!)
         let riskRate = NSDecimalNumber.init(string: "100").subtracting(currentPrice.subtracting(liquidationPrice).multiplying(byPowerOf10: 2).dividing(by: currentPrice, withBehavior: WUtils.handler2Down))
 
-        if (SHOW_LOG) {
-            print("currentPrice ", currentPrice)
-            print("liquidationPrice ", liquidationPrice)
-            print("riskRate ", riskRate)
-        }
+//        print("currentPrice ", currentPrice)
+//        print("liquidationPrice ", liquidationPrice)
+//        print("riskRate ", riskRate)
 
         cell?.marketType.text = mCollateralParam!.type!.uppercased()
         cell?.marketTitle.text = mCollateralParam!.getDpMarketId()
@@ -210,7 +206,6 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func onMintingIncentiveClaim() {
-        print("onMintingIncentiveClaim")
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return

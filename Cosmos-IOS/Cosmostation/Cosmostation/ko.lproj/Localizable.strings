@@ -404,7 +404,7 @@
 "title_dapp_market" = "KAVA DeFi";
 "title_cdp_list" = "CDP 목록";
 "title_cdp_detail" = "CDP 상세";
-"title_harvest_detail" = "Harvest 상세";
+"title_harvest_detail" = "하드 풀 상세";
 "title_create_cdp" = "CDP 개설";
 "title_deposit_cdp" = "담보 입금";
 "title_withdraw_cdp" = "담보 출금";

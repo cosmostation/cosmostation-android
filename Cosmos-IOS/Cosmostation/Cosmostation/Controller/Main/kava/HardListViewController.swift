@@ -112,30 +112,12 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        if (indexPath.section == 0) {
-//            return
-//
-//        } else if (indexPath.section == 1) {
-//            if (havestLPRewards.count > 0 && indexPath.row == 0) {
-//                return
-//            }
-//            var myLPInfo: KavaHavestParam.DistributionSchedule?
-//            if (havestLPRewards.count > 0) { myLPInfo = self.myLPs[indexPath.row - 1]
-//            } else { myLPInfo = self.myLPs[indexPath.row] }
-//            let hardDetailVC = HardDetailViewController(nibName: "HardDetailViewController", bundle: nil)
-//            hardDetailVC.hidesBottomBarWhenPushed = true
-//            hardDetailVC.mDepositDenom = myLPInfo?.deposit_denom
-//            self.navigationItem.title = ""
-//            self.navigationController?.pushViewController(hardDetailVC, animated: true)
-//
-//        } else {
-//            let otherLP = self.otherLPs[indexPath.row]
-//            let hardDetailVC = HardDetailViewController(nibName: "HardDetailViewController", bundle: nil)
-//            hardDetailVC.hidesBottomBarWhenPushed = true
-//            hardDetailVC.mDepositDenom = otherLP.deposit_denom
-//            self.navigationItem.title = ""
-//            self.navigationController?.pushViewController(hardDetailVC, animated: true)
-//        }
+        if (indexPath.section == 2) {
+            let hardDetailVC = HardDetailViewController(nibName: "HardDetailViewController", bundle: nil)
+            hardDetailVC.mHardMoneyMarketDenom = hardParam!.money_markets![indexPath.row].denom
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(hardDetailVC, animated: true)
+        }
     }
     
     func onBindIncentiveCell(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
@@ -205,7 +187,6 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindHardPoolCell(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestListAllCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestListAllCell") as? HarvestListAllCell
-        
         guard let hardMoneyMarket = hardParam?.money_markets?[position] else {
             return cell!
         }
@@ -269,11 +250,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onShowAddMenomicDialog()
             return
         }
-        print("onHardPoolIncentiveClaim")
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
-//        txVC.mHarvestDepositDenom = mDepositDenom
-//        txVC.mHarvestDepositType = "lp"
         txVC.mType = KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

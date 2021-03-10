@@ -261,6 +261,10 @@
 		28A7BD762535DB1200969295 /* TxWithdrawHavestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A7BD742535DB1200969295 /* TxWithdrawHavestCell.xib */; };
 		28A7BD7A2535DB2600969295 /* TxClaimRewardHavestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28A7BD782535DB2600969295 /* TxClaimRewardHavestCell.swift */; };
 		28A7BD7B2535DB2600969295 /* TxClaimRewardHavestCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28A7BD792535DB2600969295 /* TxClaimRewardHavestCell.xib */; };
+		28AABEC525F8CB860019091F /* KavaHardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */; };
+		28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */; };
+		28AABECB25F8CBDB0019091F /* HardAccountValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABECA25F8CBDB0019091F /* HardAccountValue.swift */; };
+		28AABECE25F8CDAA0019091F /* KavaHardReserves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABECD25F8CDAA0019091F /* KavaHardReserves.swift */; };
 		28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4302924F76AD500BD7BB2 /* OkTransfer.swift */; };
 		28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */; };
 		28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B4303424F7766200BD7BB2 /* TxOkDirectVoteCell.xib */; };
@@ -810,6 +814,10 @@
 		28A7BD742535DB1200969295 /* TxWithdrawHavestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxWithdrawHavestCell.xib; sourceTree = "<group>"; };
 		28A7BD782535DB2600969295 /* TxClaimRewardHavestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxClaimRewardHavestCell.swift; sourceTree = "<group>"; };
 		28A7BD792535DB2600969295 /* TxClaimRewardHavestCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxClaimRewardHavestCell.xib; sourceTree = "<group>"; };
+		28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHardModuleAccount.swift; sourceTree = "<group>"; };
+		28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardModuleAccount.swift; sourceTree = "<group>"; };
+		28AABECA25F8CBDB0019091F /* HardAccountValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardAccountValue.swift; sourceTree = "<group>"; };
+		28AABECD25F8CDAA0019091F /* KavaHardReserves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHardReserves.swift; sourceTree = "<group>"; };
 		28B4302924F76AD500BD7BB2 /* OkTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTransfer.swift; sourceTree = "<group>"; };
 		28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxOkDirectVoteCell.swift; sourceTree = "<group>"; };
 		28B4303424F7766200BD7BB2 /* TxOkDirectVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxOkDirectVoteCell.xib; sourceTree = "<group>"; };
@@ -1404,6 +1412,8 @@
 				28D7BE6B25F0FD4F006EECD7 /* KavaHardMyBorrow.swift */,
 				2877013525F78E0E00E9663F /* KavaCdpDeposits.swift */,
 				2868559F2498DBBF0099D18F /* KavaSupply.swift */,
+				28AABEC425F8CB860019091F /* KavaHardModuleAccount.swift */,
+				28AABECD25F8CDAA0019091F /* KavaHardReserves.swift */,
 				28D7BE0325F0BBC1006EECD7 /* CdpParam.swift */,
 				28D7BDA325F0B75F006EECD7 /* IncentiveParam.swift */,
 				28D7BDA725F0B792006EECD7 /* ClaimMultiplier.swift */,
@@ -1418,6 +1428,8 @@
 				28D7BE6E25F0FDB3006EECD7 /* HardMyBorrow.swift */,
 				28D7BE6825F0FCA1006EECD7 /* HardIndex.swift */,
 				2877013925F78E4500E9663F /* CdpDeposit.swift */,
+				28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */,
+				28AABECA25F8CBDB0019091F /* HardAccountValue.swift */,
 			);
 			path = KavaModel;
 			sourceTree = "<group>";
@@ -2232,6 +2244,7 @@
 				28D3551725386A9300B804CF /* StepHardPoolIncentive0ViewController.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
 				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
+				28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkUnbonding.swift in Sources */,
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
@@ -2243,6 +2256,7 @@
 				28D7BE6925F0FCA1006EECD7 /* HardIndex.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
 				289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */,
+				28AABEC525F8CB860019091F /* KavaHardModuleAccount.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
 				28A7BD702535DAFF00969295 /* TxDepositHavestCell.swift in Sources */,
 				28D7BE5A25F0FBB7006EECD7 /* KavaHardTotalDeposit.swift in Sources */,
@@ -2388,6 +2402,7 @@
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
+				28AABECE25F8CDAA0019091F /* KavaHardReserves.swift in Sources */,
 				289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
 				E151B64522484FAE0026B8C0 /* Delegation.swift in Sources */,
@@ -2404,6 +2419,7 @@
 				28B4304624F8B36600BD7BB2 /* OkMyValidatorViewController.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
+				28AABECB25F8CBDB0019091F /* HardAccountValue.swift in Sources */,
 				283D2EA624F5308900247424 /* OkTokenList.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
