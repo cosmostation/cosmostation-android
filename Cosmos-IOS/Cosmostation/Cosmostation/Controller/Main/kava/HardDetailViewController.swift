@@ -12,17 +12,8 @@ import Alamofire
 class HardDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var harvestDetailTableView: UITableView!
-    @IBOutlet weak var startDepositBtn: UIButton!
     @IBOutlet weak var loadingImg: LoadingImageView!
-    @IBOutlet weak var emptyConstraint: NSLayoutConstraint!
-    @IBOutlet weak var owenConstraint: NSLayoutConstraint!
     var refresher: UIRefreshControl!
-    
-//    var mDepositDenom: String?
-//    var distributionSchedule: KavaHavestParam.DistributionSchedule?
-//    var kavaPoolAccount: KavaHarvestAccount.HarvestAccountValue?
-//    var myHavestDeposit: KavaHavestDeposit.HavestDeposit?
-//    var myHavestReward: KavaHavestReward.HavestReward?
     
     var mHardMoneyMarketDenom: String?
     var hardParam: HardParam?
@@ -49,7 +40,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
         self.harvestDetailTableView.dataSource = self
         self.harvestDetailTableView.register(UINib(nibName: "HarvestDetailTopCell", bundle: nil), forCellReuseIdentifier: "HarvestDetailTopCell")
         self.harvestDetailTableView.register(UINib(nibName: "HarvestDetailMyActionCell", bundle: nil), forCellReuseIdentifier: "HarvestDetailMyActionCell")
-        self.harvestDetailTableView.register(UINib(nibName: "CdpDetailAssetsCell", bundle: nil), forCellReuseIdentifier: "CdpDetailAssetsCell")
+        self.harvestDetailTableView.register(UINib(nibName: "HardDetailAssetsCell", bundle: nil), forCellReuseIdentifier: "HardDetailAssetsCell")
         self.harvestDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.harvestDetailTableView.rowHeight = UITableView.automaticDimension
         self.harvestDetailTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -88,116 +79,156 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
     
     func onBindTop(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestDetailTopCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestDetailTopCell") as? HarvestDetailTopCell
-//        if (distributionSchedule != nil && kavaPoolAccount != nil) {
-//            let title = (distributionSchedule!.deposit_denom == KAVA_MAIN_DENOM) ? "kava" : distributionSchedule!.deposit_denom
-//            cell?.harvestTitle.text = title.uppercased() + " POOL"
-//            cell?.eventTime.text = WUtils.txTimetoShortString(input: distributionSchedule!.start) + " ~ " + WUtils.txTimetoShortString(input: distributionSchedule!.end)
-//            cell?.rewardForSecond.attributedText = WUtils.displayAmount2(distributionSchedule!.rewards_per_second.amount, cell!.rewardForSecond.font, 6, 6)
-//
-//            var poolValue = NSDecimalNumber.zero
-//            WUtils.showCoinDp(mDepositDenom!, "0", cell!.totolDepositedDenom, cell!.totolDepositedAmount, chainType!)
-//            if let poolCoin = kavaPoolAccount?.coins.filter({ $0.denom == mDepositDenom}).first {
-//                WUtils.showCoinDp(poolCoin, cell!.totolDepositedDenom, cell!.totolDepositedAmount, chainType!)
-//                if (mDepositDenom == "usdx") {
-//                    poolValue = NSDecimalNumber.init(string: poolCoin.amount).multiplying(byPowerOf10: -6)
-//
-//                } else if (mDepositDenom == "bnb") {
-//                    if let bnbPrice = BaseData.instance.mKavaPrice["bnb:usd"] {
-//                        poolValue = NSDecimalNumber.init(string: poolCoin.amount).multiplying(byPowerOf10: -8).multiplying(by: NSDecimalNumber.init(string: bnbPrice.result.price)).rounding(accordingToBehavior: WUtils.handler2)
-//                    }
-//
-//                } else if (mDepositDenom == "ukava") {
-//                    poolValue = NSDecimalNumber.init(string: poolCoin.amount).multiplying(byPowerOf10: -6).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
-//                }
-//                cell?.totalDepositedValue.attributedText = WUtils.getDPRawDollor(poolValue.stringValue, 2, cell!.totalDepositedValue.font)
-//            }
-//            let url = KAVA_HARVEST_MARKET_IMG_URL + "lp" + distributionSchedule!.deposit_denom + ".png"
-//            cell?.harvestImg.af_setImage(withURL: URL(string: url)!)
-//        }
+        cell?.harvestImg.af_setImage(withURL: URL(string: KAVA_HARVEST_MARKET_IMG_URL + "lp" + mHardMoneyMarketDenom! + ".png")!)
+        
+        let marketTitle = mHardMoneyMarketDenom == KAVA_MAIN_DENOM ? "kava" : mHardMoneyMarketDenom
+        cell?.harvestTitle.text = marketTitle!.uppercased() + " POOL"
+        
+        var supplyApy = NSDecimalNumber.zero
+        var borrowApy = NSDecimalNumber.zero
+        if let interestRate = interestRates?.filter({ $0.denom == mHardMoneyMarketDenom}).first {
+            supplyApy = NSDecimalNumber.init(string: interestRate.supply_interest_rate)
+            borrowApy = NSDecimalNumber.init(string: interestRate.borrow_interest_rate)
+        }
+        cell?.supplyAPILabel.attributedText = WUtils.displayPercent(supplyApy.multiplying(byPowerOf10: 2), cell!.supplyAPILabel.font)
+        cell?.borrowAPILabel.attributedText = WUtils.displayPercent(borrowApy.multiplying(byPowerOf10: 2), cell!.borrowAPILabel.font)
+        
+        WUtils.showCoinDp(mHardMoneyMarketDenom!, "0", cell!.systemSuppliedDenom, cell!.systemSuppliedAmount, chainType!)
+        WUtils.showCoinDp(mHardMoneyMarketDenom!, "0", cell!.systemBorrowedDenom, cell!.systemBorrowedAmount, chainType!)
+        WUtils.showCoinDp(mHardMoneyMarketDenom!, "0", cell!.systemRemainBorrowableDenom, cell!.systemRemainBorrowableAmount, chainType!)
+        cell?.systemSuppliedValue.attributedText = WUtils.getDPRawDollor("0", 2, cell!.systemSuppliedValue.font)
+        cell?.systemBorrowedValue.attributedText = WUtils.getDPRawDollor("0", 2, cell!.systemBorrowedValue.font)
+        cell?.systemRemainBorrowableValue.attributedText = WUtils.getDPRawDollor("0", 2, cell!.systemRemainBorrowableValue.font)
+
+        let dpDecimal = WUtils.getKavaCoinDecimal(mHardMoneyMarketDenom!)
+        var targetPrice = NSDecimalNumber.one;
+        if (mHardMoneyMarketDenom != "usdx") {
+            let targetPriceTic = BaseData.instance.mKavaPrice[hardParam!.getHardMoneyMarket(mHardMoneyMarketDenom!)!.spot_market_id! + ":30"]
+            if (targetPriceTic != nil) {
+                targetPrice = NSDecimalNumber.init(string: targetPriceTic?.result.price)
+            } else {
+                targetPrice = NSDecimalNumber.zero
+            }
+        }
+        
+        // display system total supplied
+        if let totalDepositCoin = totalDeposit?.filter({ $0.denom == mHardMoneyMarketDenom}).first {
+            WUtils.showCoinDp(mHardMoneyMarketDenom!, totalDepositCoin.amount, cell!.systemSuppliedDenom, cell!.systemSuppliedAmount, chainType!)
+            let supplyValue = NSDecimalNumber.init(string: totalDepositCoin.amount).multiplying(byPowerOf10: -dpDecimal).multiplying(by: targetPrice, withBehavior: WUtils.handler2Down)
+            cell?.systemSuppliedValue.attributedText = WUtils.getDPRawDollor(supplyValue.stringValue, 2, cell!.systemSuppliedValue.font)
+        }
+
+        // display system total borrowed
+        if let totalBorrowedCoin = totalBorrow?.filter({ $0.denom == mHardMoneyMarketDenom}).first {
+            WUtils.showCoinDp(mHardMoneyMarketDenom!, totalBorrowedCoin.amount, cell!.systemBorrowedDenom, cell!.systemBorrowedAmount, chainType!)
+            let BorrowedValue = NSDecimalNumber.init(string: totalBorrowedCoin.amount).multiplying(byPowerOf10: -dpDecimal).multiplying(by: targetPrice, withBehavior: WUtils.handler2Down)
+            cell?.systemBorrowedValue.attributedText = WUtils.getDPRawDollor(BorrowedValue.stringValue, 2, cell!.systemBorrowedValue.font)
+        }
+
+        // display system remain borrowable
+        var SystemBorrowableAmount = NSDecimalNumber.zero
+        var SystemBorrowableValue = NSDecimalNumber.zero
+        var moduleAmount = NSDecimalNumber.zero
+        var reserveAmount = NSDecimalNumber.zero
+        if let moduleCoin = moduleCoins?.filter({ $0.denom == mHardMoneyMarketDenom}).first {
+            moduleAmount = NSDecimalNumber.init(string: moduleCoin.amount)
+        }
+        if let reserveCoin = reserveCoins?.filter({ $0.denom == mHardMoneyMarketDenom}).first {
+            reserveAmount = NSDecimalNumber.init(string: reserveCoin.amount)
+        }
+
+        let moduleBorrowable = moduleAmount.subtracting(reserveAmount)
+        if (hardParam?.getHardMoneyMarket(mHardMoneyMarketDenom!)?.borrow_limit?.has_max_limit == true) {
+            let maximum_limit = NSDecimalNumber.init(string: hardParam?.getHardMoneyMarket(mHardMoneyMarketDenom!)?.borrow_limit?.maximum_limit)
+            SystemBorrowableAmount = maximum_limit.compare(moduleBorrowable).rawValue > 0 ? moduleBorrowable : maximum_limit
+        } else {
+            SystemBorrowableAmount = moduleBorrowable
+        }
+        WUtils.showCoinDp(mHardMoneyMarketDenom!, SystemBorrowableAmount.stringValue, cell!.systemRemainBorrowableDenom, cell!.systemRemainBorrowableAmount, chainType!)
+        SystemBorrowableValue = SystemBorrowableAmount.multiplying(byPowerOf10: -dpDecimal).multiplying(by: targetPrice, withBehavior: WUtils.handler2Down)
+        cell?.systemRemainBorrowableValue.attributedText = WUtils.getDPRawDollor(SystemBorrowableValue.stringValue, 2, cell!.systemRemainBorrowableValue.font)
         return cell!
     }
     
     func onBindAction(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestDetailMyActionCell") as? HarvestDetailMyActionCell
-//        if (distributionSchedule != nil && kavaPoolAccount != nil) {
-//            if (mDepositDenom == KAVA_MAIN_DENOM) {
-//                WUtils.setDenomTitle(chainType, cell!.depositSymbol)
-//            } else {
-//                cell?.depositSymbol.textColor = .white
-//                cell?.depositSymbol.text = mDepositDenom!.uppercased()
-//            }
-//
-//            WUtils.showCoinDp(mDepositDenom!, "0", cell!.depositDenom, cell!.depositAmount, chainType!)
-//            WUtils.showCoinDp(KAVA_HARD_DENOM, "0", cell!.dailyReardDenom, cell!.dailyRewardAmount, chainType!)
-//            WUtils.showCoinDp(KAVA_HARD_DENOM, "0", cell!.rewardDenom, cell!.rewardAmount, chainType!)
-//
-//            if let depositedCoin = myHavestDeposit?.amount {
-//                WUtils.showCoinDp(depositedCoin, cell!.depositDenom, cell!.depositAmount, chainType!)
-//                if let poolCoin = kavaPoolAccount?.coins.filter({ $0.denom == mDepositDenom}).first {
-//                    let dailyReward =  NSDecimalNumber.init(string: depositedCoin.amount).multiplying(by: NSDecimalNumber.init(string: distributionSchedule!.rewards_per_second.amount)).multiplying(by: NSDecimalNumber.init(string: "86400")).dividing(by: NSDecimalNumber.init(string: poolCoin.amount), withBehavior: WUtils.handler0Down);
-//                    WUtils.showCoinDp(KAVA_HARD_DENOM, dailyReward.stringValue, cell!.dailyReardDenom, cell!.dailyRewardAmount, chainType!)
-//                }
-//            }
-//
-//            if let rewardCoin = myHavestReward?.amount {
-//                WUtils.showCoinDp(rewardCoin, cell!.rewardDenom, cell!.rewardAmount, chainType!)
-//            }
-//            let title = (mDepositDenom == KAVA_MAIN_DENOM) ? "kava" : mDepositDenom
-//            cell?.depositBtn.setTitle(String(format: NSLocalizedString("str_deposit", comment: ""), title!.uppercased()), for: .normal)
-//            cell?.withdrawBtn.setTitle(String(format: NSLocalizedString("str_withdraw", comment: ""), title!.uppercased()), for: .normal)
-//            cell?.depositImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mDepositDenom! + ".png")!)
-//            cell?.rewardImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + "hard" + ".png")!)
-//            cell?.actionDepoist = {
-//                self.onClickDeposit()
-//            }
-//            cell?.actionWithdraw = {
-//                self.onClickWithdraw()
-//            }
-//            cell?.actionClaim = {
-//                self.onClickClaim()
-//            }
-//        }
+        cell?.depositImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mHardMoneyMarketDenom! + ".png")!)
+        if (mHardMoneyMarketDenom == KAVA_MAIN_DENOM) {
+            WUtils.setDenomTitle(chainType, cell!.depositSymbol)
+        } else {
+            cell?.depositSymbol.textColor = .white
+            cell?.depositSymbol.text = mHardMoneyMarketDenom!.uppercased()
+        }
+        
+        let decimal = WUtils.getKavaCoinDecimal(mHardMoneyMarketDenom!)
+        let mySuppliedAmount = WUtils.getHardSuppliedAmountByDenom(mHardMoneyMarketDenom!, myDeposit)
+        let mySuppliedValue = WUtils.getHardSuppliedValueByDenom(mHardMoneyMarketDenom!, myDeposit)
+        cell!.depositAmount.attributedText = WUtils.displayAmount2(mySuppliedAmount.stringValue, cell!.depositAmount.font, decimal, decimal)
+        cell?.depositValue.attributedText = WUtils.getDPRawDollor(mySuppliedValue.stringValue, 2, cell!.depositValue.font)
+        
+        let myBorrowedAmount = WUtils.getHardBorrowedAmountByDenom(mHardMoneyMarketDenom!, myBorrow)
+        let myBorrowedValue = WUtils.getHardBorrowedValueByDenom(mHardMoneyMarketDenom!, myBorrow)
+        cell!.borrowedAmount.attributedText = WUtils.displayAmount2(myBorrowedAmount.stringValue, cell!.borrowedAmount.font, decimal, decimal)
+        cell?.borrowedValue.attributedText = WUtils.getDPRawDollor(myBorrowedValue.stringValue, 2, cell!.borrowedValue.font)
+        
+        let myBorrowableAmount = WUtils.getHardBorrowableAmountByDenom(mHardMoneyMarketDenom!, myDeposit, myBorrow, moduleCoins, reserveCoins)
+        let myBorrowableValue = WUtils.getHardBorrowableValueByDenom(mHardMoneyMarketDenom!, myDeposit, myBorrow, moduleCoins, reserveCoins)
+        cell!.borroweableAmount.attributedText = WUtils.displayAmount2(myBorrowableAmount.stringValue, cell!.borroweableAmount.font, decimal, decimal)
+        cell?.borroweableValue.attributedText = WUtils.getDPRawDollor(myBorrowableValue.stringValue, 2, cell!.borroweableValue.font)
+        
+        cell?.actionDepoist = {
+            self.onClickDeposit()
+        }
+        cell?.actionWithdraw = {
+            self.onClickWithdraw()
+        }
+        cell?.actionBorrow = {
+            self.onClickBorrow()
+        }
+        cell?.actionRepay = {
+            self.onClickRepay()
+        }
+        
         return cell!
         
     }
     
     func onBindAsset(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:CdpDetailAssetsCell? = tableView.dequeueReusableCell(withIdentifier:"CdpDetailAssetsCell") as? CdpDetailAssetsCell
-//        cell?.collateralDenom.text = mDepositDenom!.uppercased()
-//        cell?.principalDenom.text = "HARD"
-//        cell?.principalDenom.textColor = COLOR_HARD
-//        cell?.collateralValue.isHidden = true
-//        cell?.principalValue.isHidden = true
-//        cell?.kavaValue.isHidden = true
-//
-//        if (mDepositDenom == KAVA_HARD_DENOM || mDepositDenom == KAVA_MAIN_DENOM) {
-//            cell?.collateralDenom.isHidden = true
-//            cell?.collateralImg.isHidden = true
-//            cell?.collateralAmount.isHidden = true
-//        }
-//
-//        let targetAvailable = WUtils.availableAmount(balances, mDepositDenom!)
-//        let hardAvailable = WUtils.availableAmount(balances, KAVA_HARD_DENOM)
-//        let kavaAvailable = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-////        print("targetAvailable ", targetAvailable)
-////        print("hardAvailable ", hardAvailable)
-////        print("kavaAvailable ", kavaAvailable)
-//
-//        let dpDecimal = WUtils.getKavaCoinDecimal(mDepositDenom!)
-//        cell?.collateralAmount.attributedText = WUtils.displayAmount2(targetAvailable.stringValue, cell!.principalAmount.font!, dpDecimal, dpDecimal)
-//        cell?.principalAmount.attributedText = WUtils.displayAmount2(hardAvailable.stringValue, cell!.principalAmount.font!, 6, 6)
-//        cell?.kavaAmount.attributedText = WUtils.displayAmount2(kavaAvailable.stringValue, cell!.kavaAmount.font!, 6, 6)
-//        cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mDepositDenom! + ".png")!)
-//        cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + "hard" + ".png")!)
+        let cell:HardDetailAssetsCell? = tableView.dequeueReusableCell(withIdentifier:"HardDetailAssetsCell") as? HardDetailAssetsCell
+        cell?.marketImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mHardMoneyMarketDenom! + ".png")!)
+        cell?.marketDenom.text = mHardMoneyMarketDenom!.uppercased()
+
+        if (mHardMoneyMarketDenom == KAVA_MAIN_DENOM) {
+            cell?.marketLayer.isHidden = true
+        }
+
+        let dpDecimal = WUtils.getKavaCoinDecimal(mHardMoneyMarketDenom!)
+        let targetAvailable = WUtils.availableAmount(balances, mHardMoneyMarketDenom!)
+        var targetPrice = NSDecimalNumber.one;
+        if (mHardMoneyMarketDenom != "usdx") {
+            let targetPriceTic = BaseData.instance.mKavaPrice[hardParam!.getHardMoneyMarket(mHardMoneyMarketDenom!)!.spot_market_id! + ":30"]
+            if (targetPriceTic != nil) {
+                targetPrice = NSDecimalNumber.init(string: targetPriceTic?.result.price)
+            } else {
+                targetPrice = NSDecimalNumber.zero
+            }
+        }
+        let marketValue = targetAvailable.multiplying(byPowerOf10: -dpDecimal).multiplying(by: targetPrice, withBehavior: WUtils.handler2Down)
+        cell?.marketAmountLabel.attributedText = WUtils.displayAmount2(targetAvailable.stringValue, cell!.marketAmountLabel.font!, dpDecimal, dpDecimal)
+        cell?.marketValueLabel.attributedText = WUtils.getDPRawDollor(marketValue.stringValue, 2, cell!.marketValueLabel.font)
+
+
+        let kavaAvailable = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
+        let kavaPriceTic = BaseData.instance.mKavaPrice["kava:usd:30"]
+        let kavaPrice = NSDecimalNumber.init(string: kavaPriceTic?.result.price)
+        let kavaValue = kavaAvailable.multiplying(byPowerOf10: -6).multiplying(by: kavaPrice, withBehavior: WUtils.handler2Down)
+        cell?.kavaAmountLabel.attributedText = WUtils.displayAmount2(kavaAvailable.stringValue, cell!.kavaAmountLabel.font!, 6, 6)
+        cell?.kavaValueLable.attributedText = WUtils.getDPRawDollor(kavaValue.stringValue, 2, cell!.kavaValueLable.font)
         return cell!
         
     }
     
     
-
-    @IBAction func onStartDeposit(_ sender: UIButton) {
-        self.onClickDeposit()
-    }
     
     func onClickDeposit() {
 //        if (!onCommonCheck()) { return }
@@ -225,18 +256,12 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
 //        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
-    func onClickClaim() {
-//        if (!onCommonCheck()) { return }
-//        guard let rewardCoin = myHavestReward?.amount, NSDecimalNumber.init(string: rewardCoin.denom).compare(NSDecimalNumber.zero).rawValue <= 0 else  {
-//            self.onShowToast(NSLocalizedString("error_no_harvest_reward_to_claim", comment: ""))
-//            return
-//        }
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-////        txVC.mType = KAVA_MSG_TYPE_CLAIM_HAVEST
-////        txVC.mHarvestDepositDenom = mDepositDenom
-////        txVC.mHarvestDepositType = "lp"
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
+    func onClickBorrow() {
+        
+    }
+    
+    func onClickRepay() {
+        
     }
     
     func onCommonCheck() -> Bool {
@@ -272,26 +297,6 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-//            self.balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-//            self.distributionSchedule = BaseData.instance.mHavestParam?.result.liquidity_provider_schedules.filter({ $0.deposit_denom == mDepositDenom}).first
-//            self.myHavestDeposit = BaseData.instance.mHavestDeposits.filter({ $0.amount.denom == mDepositDenom}).first
-//            self.myHavestReward = BaseData.instance.mHavestRewards.filter({ $0.deposit_denom == mDepositDenom && $0.type == "lp"}).first
-//
-//            print("kavaPoolAccount ", self.kavaPoolAccount?.address)
-//            print("distributionSchedule ", distributionSchedule?.start)
-//            print("myHavestDeposit ", myHavestDeposit?.type)
-//            print("myHavestReward ", myHavestReward?.type)
-//
-//            if (distributionSchedule == nil || kavaPoolAccount == nil) {
-//                print("error")
-//            }
-//
-//            if (myHavestDeposit != nil || myHavestReward != nil) {
-//                startDepositBtn.isHidden = true
-//            } else {
-//                startDepositBtn.isHidden = false
-//            }
-//
             self.harvestDetailTableView.reloadData()
             self.harvestDetailTableView.isHidden = false
             self.loadingImg.onStopAnimation()
@@ -343,7 +348,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                     let kavaHardModuleAccount = KavaHardModuleAccount.init(responseData)
                     self.moduleCoins = kavaHardModuleAccount.result?[0].value?.coins
-                    print("self.moduleCoins ", self.moduleCoins)
+//                    print("self.moduleCoins ", self.moduleCoins)
                     
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchHardModuleAccount ", error) }
@@ -369,7 +374,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                     let kavaHardReserves = KavaHardReserves.init(responseData)
                     self.reserveCoins = kavaHardReserves.result
-                    print("self.reserveCoins ", self.reserveCoins)
+//                    print("self.reserveCoins ", self.reserveCoins)
                     
                 case .failure(let error):
                     if (SHOW_LOG) { print("onFetchHardReserves ", error) }

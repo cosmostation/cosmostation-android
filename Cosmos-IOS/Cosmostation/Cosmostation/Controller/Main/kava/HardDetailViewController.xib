@@ -11,11 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HardDetailViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
-                <outlet property="emptyConstraint" destination="xNl-fy-cCn" id="b9p-fR-vWQ"/>
                 <outlet property="harvestDetailTableView" destination="HBl-SF-ofS" id="Qv9-sc-u5Z"/>
                 <outlet property="loadingImg" destination="qDl-m8-7bg" id="Nza-kn-dSd"/>
-                <outlet property="owenConstraint" destination="8V5-Kc-6Ri" id="EmA-ja-ItI"/>
-                <outlet property="startDepositBtn" destination="Aml-0y-j5B" id="ENg-y1-wd5"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -38,45 +35,17 @@
                         <constraint firstAttribute="width" constant="60" id="Whr-jh-8ee"/>
                     </constraints>
                 </imageView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aml-0y-j5B">
-                    <rect key="frame" x="16" y="796" width="382" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="50" id="ImU-on-hZN"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                    <state key="normal" title="Start Deposit">
-                        <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </state>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                            <real key="value" value="1"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="8"/>
-                        </userDefinedRuntimeAttribute>
-                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                    <connections>
-                        <action selector="onStartDeposit:" destination="-1" eventType="touchUpInside" id="FqI-V5-DkL"/>
-                    </connections>
-                </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="qDl-m8-7bg" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="6df-fd-NCe"/>
-                <constraint firstItem="Aml-0y-j5B" firstAttribute="top" secondItem="HBl-SF-ofS" secondAttribute="bottom" priority="250" constant="8" id="8V5-Kc-6Ri"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="P5O-L8-FPH" secondAttribute="leading" id="ClW-Fm-t6A"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="P5O-L8-FPH" secondAttribute="trailing" id="CrR-eY-hj4"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Aml-0y-j5B" secondAttribute="trailing" constant="16" id="E0D-Vb-j87"/>
                 <constraint firstItem="HBl-SF-ofS" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Epk-ca-2Sn"/>
                 <constraint firstItem="qDl-m8-7bg" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="Mai-db-BJe"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Aml-0y-j5B" secondAttribute="bottom" constant="16" id="QfD-co-CKU"/>
                 <constraint firstItem="P5O-L8-FPH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Trr-ia-8WY"/>
                 <constraint firstItem="P5O-L8-FPH" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="YjW-E5-CBj"/>
-                <constraint firstItem="Aml-0y-j5B" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="oDd-8M-gKk"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="HBl-SF-ofS" secondAttribute="top" id="qs1-Qx-lyg"/>
                 <constraint firstItem="HBl-SF-ofS" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="v35-Hr-GFS"/>
                 <constraint firstAttribute="bottom" secondItem="HBl-SF-ofS" secondAttribute="bottom" id="xNl-fy-cCn"/>

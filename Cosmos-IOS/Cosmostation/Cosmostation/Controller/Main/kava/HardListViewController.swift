@@ -199,13 +199,9 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
         //Display API
         var supplyApy = NSDecimalNumber.zero
         var borrowApy = NSDecimalNumber.zero
-        if let rates = self.interestRates {
-            for rate in rates {
-                if (rate.denom == hardMoneyMarket.denom) {
-                    supplyApy = NSDecimalNumber.init(string: rate.supply_interest_rate)
-                    borrowApy = NSDecimalNumber.init(string: rate.borrow_interest_rate)
-                }
-            }
+        if let interestRate = interestRates?.filter({ $0.denom == hardMoneyMarket.denom}).first {
+            supplyApy = NSDecimalNumber.init(string: interestRate.supply_interest_rate)
+            borrowApy = NSDecimalNumber.init(string: interestRate.borrow_interest_rate)
         }
         cell?.supplyAPILabel.attributedText = WUtils.displayPercent(supplyApy.multiplying(byPowerOf10: 2), cell!.supplyAPILabel.font)
         cell?.borrowAPILabel.attributedText = WUtils.displayPercent(borrowApy.multiplying(byPowerOf10: 2), cell!.borrowAPILabel.font)

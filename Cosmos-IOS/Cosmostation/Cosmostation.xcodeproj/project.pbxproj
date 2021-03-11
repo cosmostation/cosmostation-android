@@ -337,6 +337,8 @@
 		28D7BE7D25F10636006EECD7 /* HardListMyStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D7BE7B25F10636006EECD7 /* HardListMyStatusCell.swift */; };
 		28D7BE7E25F10636006EECD7 /* HardListMyStatusCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */; };
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
+		28DB56EB25F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */; };
+		28DB56EC25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
 		28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */; };
@@ -890,6 +892,8 @@
 		28D7BE7B25F10636006EECD7 /* HardListMyStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardListMyStatusCell.swift; sourceTree = "<group>"; };
 		28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardListMyStatusCell.xib; sourceTree = "<group>"; };
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
+		28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardDetailAssetsCell.swift; sourceTree = "<group>"; };
+		28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardDetailAssetsCell.xib; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
 		28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkPromotionCell.swift; sourceTree = "<group>"; };
@@ -1250,6 +1254,8 @@
 				28156E992536DE14006FF06C /* HarvestDetailTopCell.xib */,
 				28156E9D2536DE29006FF06C /* HarvestDetailMyActionCell.swift */,
 				28156E9E2536DE29006FF06C /* HarvestDetailMyActionCell.xib */,
+				28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */,
+				28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */,
 				28D7BE7B25F10636006EECD7 /* HardListMyStatusCell.swift */,
 				28D7BE7C25F10636006EECD7 /* HardListMyStatusCell.xib */,
 			);
@@ -2091,6 +2097,7 @@
 				28B4303A24F7996C00BD7BB2 /* TxOkStakeCell.xib in Resources */,
 				283A80E124514BD0008FF813 /* CdpDetailViewController.xib in Resources */,
 				2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */,
+				28DB56EC25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib in Resources */,
 				E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */,
 				E17748FA22842689003D8CD1 /* AllValidatorCell.xib in Resources */,
 				E126CFAA2387A75E002A546F /* TokenDetailHeaderIrisCell.xib in Resources */,
@@ -2274,6 +2281,7 @@
 				285A33DA244763290052BD3D /* SelectChainCell.swift in Sources */,
 				28D7BD9D25F0B18F006EECD7 /* AuctionListViewController.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
+				28DB56EB25F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift in Sources */,
 				2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */,
 				280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
