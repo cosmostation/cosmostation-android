@@ -51,29 +51,36 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
     public void onBindHardDetailAvailable(HardDetailActivity context, BaseData baseData, BaseChain chain, String denom) {
         final HardParam hardParam                       = baseData.mHardParam;
         final HardParam.HardMoneyMarket hardMoneyMarket = hardParam.getHardMoneyMarket(denom);
+        WLog.w("onBindHardDetailAvailable " + denom);
 
-        if (denom.equals(TOKEN_KAVA) || denom.equals(TOKEN_HARD)) {
+        if (denom.equals(TOKEN_KAVA)) {
             mAssetDepositLayer.setVisibility(View.GONE);
             mDepositValue.setVisibility(View.GONE);
         }
         BigDecimal targetAvailable = WDp.getAvailableCoin(baseData.mBalances, denom);
         BigDecimal kavaAvailable = WDp.getAvailableCoin(baseData.mBalances, TOKEN_KAVA);
 
-        WDp.showCoinDp(context, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
-        WDp.showCoinDp(context, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
-
         // Display each usd value
-        MarketPrice targetPrice = baseData.mKavaTokenPrices.get(denom + ":usd:30");
-        MarketPrice kavaPrice = baseData.mKavaTokenPrices.get("kava:usd:30");
-        BigDecimal targetValue = BigDecimal.ZERO;
-        BigDecimal kavaValue = BigDecimal.ZERO;
-        if (targetPrice != null) {
-            targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(denom)).multiply(new BigDecimal(targetPrice.price));
+        BigDecimal targetPrice = BigDecimal.ZERO;
+        if (!denom.equals("usdx")) {
+            MarketPrice marketPrice = baseData.mKavaTokenPrices.get(hardMoneyMarket.spot_market_id + ":30");
+            if (marketPrice != null) {
+                targetPrice = new BigDecimal(marketPrice.price);
+            }
+        } else {
+            targetPrice = BigDecimal.ONE;
         }
-        if (kavaPrice != null) {
-            kavaValue = targetAvailable.movePointLeft(6).multiply(new BigDecimal(kavaPrice.price));
-        }
+        BigDecimal targetValue = targetAvailable.movePointLeft(WUtil.getKavaCoinDecimal(denom)).multiply(targetPrice);
+        WDp.showCoinDp(context, denom, targetAvailable.toPlainString(), mAssetDepositDenom, mAssetDepositAmount, chain);
         mDepositValue.setText(WDp.getDpRawDollor(context, targetValue, 2));
+
+
+        MarketPrice kavaPrice = baseData.mKavaTokenPrices.get("kava:usd:30");
+        BigDecimal kavaValue = BigDecimal.ZERO;
+        if (kavaPrice != null) {
+            kavaValue = kavaAvailable.movePointLeft(6).multiply(new BigDecimal(kavaPrice.price));
+        }
+        WDp.showCoinDp(context, TOKEN_KAVA, kavaAvailable.toPlainString(), mAssetKavaDenom, mAssetKavaAmount, chain);
         mKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 
         try {

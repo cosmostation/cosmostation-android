@@ -1102,6 +1102,7 @@
     <string name="error_no_deposited_asset">공급한 자산이 없습니다.</string>
     <string name="error_no_borrowable_asset">대출이 불가능 합니다.</string>
     <string name="error_no_repay_asset">상환이 불가능합니다.</string>
+    <string name="error_noting_repay_asset">상환할 내역이 없습니다.</string>
     <string name="error_no_incentive_to_claim">받을 인센티브가 없습니다.</string>
     <string name="error_no_harvest_reward_to_claim">받을 하베스트 리워드가 없습니다.</string>
     <string name="error_no_incentive_claim_option">이자 받기 옵션을 선택해 주세요.</string>

@@ -1274,6 +1274,7 @@
     <string name="error_no_deposited_asset">No supplied asset.</string>
     <string name="error_no_borrowable_asset">Can not borrowable now.</string>
     <string name="error_no_repay_asset">Can not repay now.</string>
+    <string name="error_noting_repay_asset">Noting to be repaid</string>
     <string name="error_no_incentive_to_claim">No incentive to claim.</string>
     <string name="error_no_harvest_reward_to_claim">No harvest reward to claim.</string>
     <string name="error_no_incentive_claim_option">Select incentive claim option.</string>
