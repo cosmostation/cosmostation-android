@@ -2705,6 +2705,8 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             } else if (type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
+            } else if (type == KAVA_MSG_TYPE_DEPOSIT_HARD || type == KAVA_MSG_TYPE_WITHDRAW_HARD || type == KAVA_MSG_TYPE_BORROW_HARD || type == KAVA_MSG_TYPE_REPAY_HARD) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             }
             
         } else if (chain == ChainType.BAND_MAIN) {

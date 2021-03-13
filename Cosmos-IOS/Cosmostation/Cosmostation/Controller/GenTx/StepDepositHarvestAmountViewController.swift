@@ -34,7 +34,7 @@ class StepDepositHarvestAmountViewController: BaseViewController, UITextFieldDel
         self.balances = account!.account_balances
         
         pageHolderVC = self.parent as? StepGenTxViewController
-        mHarvestDepositDenom = pageHolderVC.mHarvestDepositDenom!
+//        mHarvestDepositDenom = pageHolderVC.mHarvestDepositDenom!
         dpDecimal = WUtils.getKavaCoinDecimal(mHarvestDepositDenom)
         availabeMax = account!.getTokenBalance(mHarvestDepositDenom)
         
@@ -158,7 +158,7 @@ class StepDepositHarvestAmountViewController: BaseViewController, UITextFieldDel
         if (isValiadAmount()) {
             let userInput = WUtils.localeStringToDecimal((toDepositInput.text?.trimmingCharacters(in: .whitespaces))!)
             let depositCoin = Coin.init(mHarvestDepositDenom, userInput.multiplying(byPowerOf10: dpDecimal).stringValue)
-            pageHolderVC.mHarvestCoin = depositCoin
+            pageHolderVC.mHardPoolCoin = depositCoin
             sender.isUserInteractionEnabled = false
             pageHolderVC.onNextPage()
             

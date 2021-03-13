@@ -737,7 +737,6 @@ let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
 let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
-let AKASH_MSG_TYPE_TRANSFER                 = "akash_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";

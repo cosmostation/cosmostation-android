@@ -1,9 +1,9 @@
 //
-//  StepWithdrawHarvestCheckViewController.swift
+//  HardPoolRepay3ViewController.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2020/10/15.
-//  Copyright © 2020 wannabit. All rights reserved.
+//  Created by 정용주 on 2021/03/11.
+//  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
@@ -11,22 +11,21 @@ import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
 
-class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDelegate {
+class HardPoolRepay3ViewController: BaseViewController, PasswordViewDelegate {
     
-    @IBOutlet weak var withdrawAmountLabel: UILabel!
-    @IBOutlet weak var withdrawDenomLabel: UILabel!
+    @IBOutlet weak var targetAmountLabel: UILabel!
+    @IBOutlet weak var targetDenomLabel: UILabel!
     @IBOutlet weak var feeAmountLabel: UILabel!
-    @IBOutlet weak var depositTypeLabel: UILabel!
     @IBOutlet weak var memo: UILabel!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
-    var mHarvestDepositDenom: String = ""
     var dpDecimal:Int16 = 6
-    var mToWithdrawCoin: Coin?
-    
+    var hardPoolDenom: String = ""
+    var hardPoolCoin: Coin?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
@@ -42,25 +41,13 @@ class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDe
     }
     
     func onUpdateView() {
-//        mHarvestDepositDenom = pageHolderVC.mHarvestDepositDenom!
-        mToWithdrawCoin = pageHolderVC.mHardPoolCoin
-        dpDecimal = WUtils.getKavaCoinDecimal(mHarvestDepositDenom)
-        
-//        if (mHarvestDepositDenom == KAVA_MAIN_DENOM) {
-//            WUtils.setDenomTitle(chainType!, self.withdrawDenomLabel)
-//        } else if (mHarvestDepositDenom == KAVA_HARD_DENOM) {
-//            self.withdrawDenomLabel.textColor = COLOR_HARD
-//            self.withdrawDenomLabel.text = mHarvestDepositDenom.uppercased()
-//        } else {
-//            self.withdrawDenomLabel.textColor = .white
-//            self.withdrawDenomLabel.text = mHarvestDepositDenom.uppercased()
-//        }
+        hardPoolDenom = pageHolderVC.mHardPoolDenom!
+        hardPoolCoin = pageHolderVC.mHardPoolCoins?[0]
+        dpDecimal = WUtils.getKavaCoinDecimal(hardPoolDenom)
         feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, 6)
-        WUtils.showCoinDp(mToWithdrawCoin!, withdrawDenomLabel, withdrawAmountLabel, chainType!)
-        depositTypeLabel.text = "lp (Liquiduity Provide)"
+        WUtils.showCoinDp(hardPoolCoin!, targetDenomLabel, targetAmountLabel, chainType!)
         memo.text = pageHolderVC.mMemo
     }
-    
     
     
     @IBAction func onClickBack(_ sender: UIButton) {
@@ -96,8 +83,7 @@ class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDe
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN ||
-                    self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                     guard let info = res as? [String : Any] else {
                         _ = BaseData.instance.deleteBalance(account: account)
                         self.hideWaittingAlert()
@@ -107,7 +93,7 @@ class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDe
                     let accountInfo = KavaAccountInfo.init(info)
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithKavaAccountInfo(account, accountInfo))
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
-                    self.onGenWithdrawHarvestTx()
+                    self.onGenRepayHardPoolTx()
                 }
                 
             case .failure( _):
@@ -117,7 +103,7 @@ class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDe
         }
     }
     
-    func onGenWithdrawHarvestTx() {
+    func onGenRepayHardPoolTx() {
         DispatchQueue.global().async {
             var stdTx:StdTx!
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
@@ -126,10 +112,10 @@ class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDe
             
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                let msg = MsgGenerator.genGetWithdrawHarvestMsg(self.pageHolderVC.chainType!,
-                                                         self.pageHolderVC.mAccount!.account_address,
-                                                         self.pageHolderVC.mHardPoolCoin,
-                                                         "lp")
+                let msg = MsgGenerator.genRepayHardMsg(self.pageHolderVC.chainType!,
+                                                          self.pageHolderVC.mAccount!.account_address,
+                                                          self.pageHolderVC.mAccount!.account_address,
+                                                          self.pageHolderVC.mHardPoolCoins!)
                 
                 var msgList = Array<Msg>()
                 msgList.append(msg)
@@ -186,14 +172,12 @@ class StepWithdrawHarvestCheckViewController: BaseViewController, PasswordViewDe
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("WithdrawHarvest ", res) }
+                            if(SHOW_LOG) { print("HardPoolBorrow ", res) }
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) {
-                                print("WithdrawHarvest error ", error)
-                            }
+                            if(SHOW_LOG) { print("HardPoolBorrow error ", error) }
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }

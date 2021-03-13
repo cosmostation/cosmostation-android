@@ -310,6 +310,25 @@
 "reward_harvest_step_2" = "Tx 수수료를 선택하세요";
 "reward_harvest_step_3" = "입력하신 정보를 확인하세요";
 
+"deposit_hardpool_step_0" = "예치하실 수량을 입력하세요";
+"deposit_hardpool_step_1" = "메모를 입력하세요 (선택사항)";
+"deposit_hardpool_step_2" = "Tx 수수료를 선택하세요";
+"deposit_hardpool_step_3" = "입력하신 정보를 확인하세요";
+"withdraw_hardpool_step_0" = "출금하실 디파짓 수량을 설정하세요";
+"withdraw_hardpool_step_1" = "메모를 입력하세요 (선택사항)";
+"withdraw_hardpool_step_2" = "Tx 수수료를 선택하세요";
+"withdraw_hardpool_step_3" = "입력하신 정보를 확인하세요";
+"borrow_hardpool_step_0" = "대출하실 수량을 입력하세요";
+"borrow_hardpool_step_1" = "메모를 입력하세요 (선택사항)";
+"borrow_hardpool_step_2" = "Tx 수수료를 선택하세요";
+"borrow_hardpool_step_3" = "입력하신 정보를 확인하세요";
+"repay_hardpool_step_0" = "상환하실 수량을 입력하세요";
+"repay_hardpool_step_1" = "메모를 입력하세요 (선택사항)";
+"repay_hardpool_step_2" = "Tx 수수료를 선택하세요";
+"repay_hardpool_step_3" = "입력하신 정보를 확인하세요";
+
+
+
 "str_ok_stake_deposit_step_0" = "스테이킹 수량을 설정하세요";
 "str_ok_stake_deposit_step_1" = "메모를 입력하세요 (선택사항)";
 "str_ok_stake_deposit_step_2" = "Tx 수수료를 선택하세요";
@@ -429,6 +448,11 @@
 "title_starname_update_resource" = "주소 등록";
 "title_starname_domain_detail" = "프리미엄 스타네임 상세";
 "title_starname_account_detail" = "베이직 스타네임 상세";
+"title_deposit_hardpool" = "하드 풀 서플라이 입금";
+"title_withdraw_hardpool" = "하드 풀 서플라이 출금";
+"title_borrow_hardpool" = "하드 풀 대출";
+"title_repay_hardpool" = "하드 풀 상환";
+
 
 "proposal_type_basic" = "기본";
 "proposal_type_parameter" = "파라미터 변경";
@@ -531,6 +555,10 @@
 "error_cannot_delete_open_domain" = "Open 타입 도메인은 삭제할 수 없습니다.";
 "error_no_address_export" = "연결할 주소가 없습니다.";
 "error_not_enough_reward" = "요청할 이자가 충분하지 않습니다.";
+"error_no_borrowable_asset" = "대출이 불가능 합니다.";
+"error_no_repay_asset" = "상환이 불가능합니다.";
+"error_noting_repay_asset" = "상환할 내역이 없습니다.";
+"error_remain_borrow_small" = "상환 후 남는 대출 금액이 $10 이하입니다.";
 
 
 

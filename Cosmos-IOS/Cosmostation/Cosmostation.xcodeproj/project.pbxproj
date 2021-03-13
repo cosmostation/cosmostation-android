@@ -339,6 +339,22 @@
 		28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */; };
 		28DB56EB25F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */; };
 		28DB56EC25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */; };
+		28DB56F225FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56F025FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.swift */; };
+		28DB56F325FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB56F125FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib */; };
+		28DB56F725FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56F525FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift */; };
+		28DB56F825FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB56F625FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib */; };
+		28DB56FC25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56FA25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.swift */; };
+		28DB56FD25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB56FB25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib */; };
+		28DB570125FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB56FF25FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.swift */; };
+		28DB570225FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB570025FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib */; };
+		28DB570625FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB570425FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.swift */; };
+		28DB570725FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB570525FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.xib */; };
+		28DB570B25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB570925FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift */; };
+		28DB570C25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB570A25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib */; };
+		28DB571025FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB570E25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.swift */; };
+		28DB571125FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB570F25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib */; };
+		28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB571325FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift */; };
+		28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
 		28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */; };
@@ -894,6 +910,22 @@
 		28DB28B62437ADC8002B01A0 /* RiskCheckPopupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RiskCheckPopupViewController.swift; sourceTree = "<group>"; };
 		28DB56E925F9DC7A00B2F0E5 /* HardDetailAssetsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardDetailAssetsCell.swift; sourceTree = "<group>"; };
 		28DB56EA25F9DC7A00B2F0E5 /* HardDetailAssetsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardDetailAssetsCell.xib; sourceTree = "<group>"; };
+		28DB56F025FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolDeposit0ViewController.swift; sourceTree = "<group>"; };
+		28DB56F125FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolDeposit0ViewController.xib; sourceTree = "<group>"; };
+		28DB56F525FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolDeposit3ViewController.swift; sourceTree = "<group>"; };
+		28DB56F625FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolDeposit3ViewController.xib; sourceTree = "<group>"; };
+		28DB56FA25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolWithdraw0ViewController.swift; sourceTree = "<group>"; };
+		28DB56FB25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolWithdraw0ViewController.xib; sourceTree = "<group>"; };
+		28DB56FF25FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolWithdraw3ViewController.swift; sourceTree = "<group>"; };
+		28DB570025FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolWithdraw3ViewController.xib; sourceTree = "<group>"; };
+		28DB570425FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolBorrow0ViewController.swift; sourceTree = "<group>"; };
+		28DB570525FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolBorrow0ViewController.xib; sourceTree = "<group>"; };
+		28DB570925FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolBorrow3ViewController.swift; sourceTree = "<group>"; };
+		28DB570A25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolBorrow3ViewController.xib; sourceTree = "<group>"; };
+		28DB570E25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolRepay0ViewController.swift; sourceTree = "<group>"; };
+		28DB570F25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolRepay0ViewController.xib; sourceTree = "<group>"; };
+		28DB571325FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolRepay3ViewController.swift; sourceTree = "<group>"; };
+		28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolRepay3ViewController.xib; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
 		28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkPromotionCell.swift; sourceTree = "<group>"; };
@@ -1440,6 +1472,29 @@
 			path = KavaModel;
 			sourceTree = "<group>";
 		};
+		28DB56EF25FA3B1B00B2F0E5 /* kava */ = {
+			isa = PBXGroup;
+			children = (
+				28DB56F025FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.swift */,
+				28DB56F125FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib */,
+				28DB56F525FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift */,
+				28DB56F625FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib */,
+				28DB56FA25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.swift */,
+				28DB56FB25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib */,
+				28DB56FF25FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.swift */,
+				28DB570025FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib */,
+				28DB570425FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.swift */,
+				28DB570525FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.xib */,
+				28DB570925FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift */,
+				28DB570A25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib */,
+				28DB570E25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.swift */,
+				28DB570F25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib */,
+				28DB571325FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift */,
+				28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */,
+			);
+			path = kava;
+			sourceTree = "<group>";
+		};
 		51090F06A9DC4E886F628890 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1508,6 +1563,7 @@
 		E171A067225AF71800C5756C /* GenTx */ = {
 			isa = PBXGroup;
 			children = (
+				28DB56EF25FA3B1B00B2F0E5 /* kava */,
 				2870EBC325ABEC5B00AF4590 /* okex */,
 				283E9455254901B6007A9291 /* starname */,
 				E103DAE522814DFC006C2146 /* GenTx.storyboard */,
@@ -2043,12 +2099,14 @@
 				282FF34A23F50C540028CC66 /* TxUndelegateCell.xib in Resources */,
 				E1F2AE59227EC5B600C87F3F /* MainStoryboard.storyboard in Resources */,
 				282FF35E23F530ED0028CC66 /* TxEditRewardAddressCell.xib in Resources */,
+				28DB56F825FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.xib in Resources */,
 				28474ED3241E06AF00AF5A81 /* TxCreateCdpCell.xib in Resources */,
 				28156EA02536DE29006FF06C /* HarvestDetailMyActionCell.xib in Resources */,
 				283E949025494896007A9291 /* ResourceCell.xib in Resources */,
 				283E94822549331D007A9291 /* DomainDetailViewController.xib in Resources */,
 				E1861D30224DB1570027DED1 /* RestorePathCell.xib in Resources */,
 				283A80E6245158FB008FF813 /* HtlcResultViewController.xib in Resources */,
+				28DB571125FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib in Resources */,
 				E103DAB4228127A3006C2146 /* ValidatorDetailMyDetailCell.xib in Resources */,
 				28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */,
 				280E1F26254AC6460007BA7D /* ReplaceEditAddressViewController.xib in Resources */,
@@ -2057,9 +2115,11 @@
 				285A33EB24486DB60052BD3D /* HtlcResultClaimCell.xib in Resources */,
 				283A80D72451436A008FF813 /* CdpDetailAssetsCell.xib in Resources */,
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
+				28DB56FD25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.xib in Resources */,
 				28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */,
 				283E946E254902E5007A9291 /* TxDeleteDomainCell.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
+				28DB570225FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib in Resources */,
 				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */,
@@ -2071,10 +2131,12 @@
 				283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */,
 				282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
+				28DB56F325FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib in Resources */,
 				283A80DC24514AB8008FF813 /* RiskCheckPopupViewController.xib in Resources */,
 				E16B89162341C558003E0922 /* TokenCell.xib in Resources */,
 				2868559424989AA50099D18F /* Bep3WarnPopup.xib in Resources */,
 				28156E9B2536DE14006FF06C /* HarvestDetailTopCell.xib in Resources */,
+				28DB570725FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.xib in Resources */,
 				282FF34223F4FFD20028CC66 /* TxCommissionCell.xib in Resources */,
 				280E1F0D254AB5BA0007BA7D /* ReplaceResource0ViewController.xib in Resources */,
 				E11338FE235D70D20011B61D /* ManageAccountAddCell.xib in Resources */,
@@ -2161,6 +2223,8 @@
 				2868559024989A8F0099D18F /* Bep3SupplyPopup.xib in Resources */,
 				E126CF872387A4B4002A546F /* WalletIrisCell.xib in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
+				28DB570C25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib in Resources */,
+				28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */,
 				E126CF962387A5C9002A546F /* WalletIovCell.xib in Resources */,
 				E103DAE322814DFC006C2146 /* GenTx.storyboard in Resources */,
 				E177490122842724003D8CD1 /* MyValidatorCell.xib in Resources */,
@@ -2351,6 +2415,7 @@
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				28BB2A912533DA2D00CFF097 /* AccountCell.swift in Sources */,
+				28DB56F225FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.swift in Sources */,
 				28B4304224F7EE4B00BD7BB2 /* StepOkWithdrawCheckViewController.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				284D17DF2535573D00C364F9 /* HardListViewController.swift in Sources */,
@@ -2364,6 +2429,7 @@
 				2866CB9D2580C59A00A91172 /* UnbondingInfo_V1.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				28A209DF248897F400C2C078 /* TokenDetailVestingDetailCell.swift in Sources */,
+				28DB570B25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift in Sources */,
 				2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */,
 				2877013A25F78E4500E9663F /* CdpDeposit.swift in Sources */,
 				283E948A2549434F007A9291 /* IovStarNameDomainInfo.swift in Sources */,
@@ -2394,6 +2460,7 @@
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
 				28CE973325870E29006DEBEE /* Auth_V1.swift in Sources */,
 				2866CBA62580DB5E00A91172 /* Provision_V1.swift in Sources */,
+				28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
@@ -2410,6 +2477,7 @@
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
+				28DB56F725FA3B8800B2F0E5 /* HardPoolDeposit3ViewController.swift in Sources */,
 				28AABECE25F8CDAA0019091F /* KavaHardReserves.swift in Sources */,
 				289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
@@ -2447,6 +2515,7 @@
 				28089AA424FF8FC4007E9C40 /* IovStarNameResolve.swift in Sources */,
 				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
 				282FF34D23F50E010028CC66 /* TxRedelegateCell.swift in Sources */,
+				28DB571025FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.swift in Sources */,
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
@@ -2530,6 +2599,7 @@
 				28D3551A25386AA200B804CF /* StepHardPoolIncentive3ViewController.swift in Sources */,
 				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				28D7BE6125F0FC51006EECD7 /* KavaHardMyDeposit.swift in Sources */,
+				28DB56FC25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
 				28D7BE4325F0D304006EECD7 /* KavaIncentiveReward.swift in Sources */,
@@ -2558,6 +2628,7 @@
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
+				28DB570625FA3BBC00B2F0E5 /* HardPoolBorrow0ViewController.swift in Sources */,
 				283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */,
 				283E9463254902BA007A9291 /* TxRegisterDomainCell.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
@@ -2569,6 +2640,7 @@
 				285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */,
 				28D372A5254BFCD70071B136 /* RegisterAccount1ViewController.swift in Sources */,
 				28B4304824F8B37600BD7BB2 /* OkTopValidatorViewController.swift in Sources */,
+				28DB570125FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.swift in Sources */,
 				2858CCF02538105400E0A44D /* StepWithdrawHarvestAmountViewController.swift in Sources */,
 				28592E7425805F7300C31460 /* Validator_V1.swift in Sources */,
 				2842AB67242C3ED900248EEB /* KavaPriceFeedParam.swift in Sources */,

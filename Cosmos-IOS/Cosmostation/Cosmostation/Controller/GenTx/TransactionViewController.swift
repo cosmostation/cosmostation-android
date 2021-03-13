@@ -42,7 +42,7 @@ class TransactionViewController: UIViewController {
     var mCollateralParamType: String?
     var mCDenom: String?
     var mMarketID: String?
-    var mHarvestDepositDenom: String?
+    var mHardPoolDenom: String?
 //    var mHarvestDepositType: String? // lp or stake
 //    var mIncentiveType: String?
     
@@ -80,7 +80,7 @@ class TransactionViewController: UIViewController {
             
         } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                     mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                    mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                    mType == CERTIK_MSG_TYPE_TRANSFER) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
@@ -159,6 +159,26 @@ class TransactionViewController: UIViewController {
             stepDescription.text = NSLocalizedString("reward_harvest_step_0", comment: "")
             stepImg.image = UIImage.init(named: "4StepImg1")
             self.titleLabel.text =  NSLocalizedString("title_reward_harvest", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+            stepDescription.text = NSLocalizedString("deposit_hardpool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_deposit_hardpool", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+            stepDescription.text = NSLocalizedString("withdraw_hardpool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_withdraw_hardpool", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
+            stepDescription.text = NSLocalizedString("borrow_hardpool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_borrow_hardpool", comment: "")
+            
+        } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
+            stepDescription.text = NSLocalizedString("repay_hardpool_step_0", comment: "")
+            stepImg.image = UIImage.init(named: "4StepImg1")
+            self.titleLabel.text =  NSLocalizedString("title_repay_hardpool", comment: "")
             
         } else if (mType == OK_MSG_TYPE_DEPOSIT) {
             stepDescription.text = NSLocalizedString("str_ok_stake_deposit_step_0", comment: "")
@@ -261,7 +281,7 @@ class TransactionViewController: UIViewController {
             StepVc.mMarketID = self.mMarketID
             StepVc.mHtlcDenom = self.mHtlcDenom
             StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId
-            StepVc.mHarvestDepositDenom = self.mHarvestDepositDenom
+            StepVc.mHardPoolDenom = self.mHardPoolDenom
 //            StepVc.mHarvestDepositType = self.mHarvestDepositType
 //            StepVc.mIncentiveType = self.mIncentiveType
             StepVc.mCollateralParamType = self.mCollateralParamType
@@ -292,7 +312,7 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                             mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                            mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("send_step_1", comment: "")
                     
@@ -344,7 +364,23 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_0", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     
-                }  else if (mType == TASK_TYPE_HTLC_SWAP) {
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+                    stepDescription.text = NSLocalizedString("deposit_hardpool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+                    stepDescription.text = NSLocalizedString("withdraw_hardpool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
+                    stepDescription.text = NSLocalizedString("borrow_hardpool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
+                    stepDescription.text = NSLocalizedString("repay_hardpool_step_0", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg1")
+                    
+                } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg1")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_0", comment: "")
                     
@@ -406,7 +442,7 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                             mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                            mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("send_step_2", comment: "")
                     
@@ -456,6 +492,22 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+                    stepDescription.text = NSLocalizedString("deposit_hardpool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+                    stepDescription.text = NSLocalizedString("withdraw_hardpool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
+                    stepDescription.text = NSLocalizedString("borrow_hardpool_step_1", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg2")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
+                    stepDescription.text = NSLocalizedString("repay_hardpool_step_1", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg2")
                     
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
@@ -520,7 +572,7 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                             mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                            mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("send_step_3", comment: "")
                     
@@ -570,6 +622,22 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+                    stepDescription.text = NSLocalizedString("deposit_hardpool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+                    stepDescription.text = NSLocalizedString("withdraw_hardpool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
+                    stepDescription.text = NSLocalizedString("borrow_hardpool_step_2", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg3")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
+                    stepDescription.text = NSLocalizedString("repay_hardpool_step_2", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg3")
                     
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
@@ -634,7 +702,7 @@ class TransactionViewController: UIViewController {
                     
                 } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                             mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                            mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("send_step_4", comment: "")
                     
@@ -686,6 +754,22 @@ class TransactionViewController: UIViewController {
                     stepDescription.text = NSLocalizedString("reward_harvest_step_3", comment: "")
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     
+                } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+                    stepDescription.text = NSLocalizedString("deposit_hardpool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+                    stepDescription.text = NSLocalizedString("withdraw_hardpool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
+                    stepDescription.text = NSLocalizedString("borrow_hardpool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
+                } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
+                    stepDescription.text = NSLocalizedString("repay_hardpool_step_3", comment: "")
+                    stepImg.image = UIImage.init(named: "4StepImg4")
+                    
                 } else if (mType == TASK_TYPE_HTLC_SWAP) {
                     stepImg.image = UIImage.init(named: "4StepImg4")
                     stepDescription.text = NSLocalizedString("htlc_swap_step_3", comment: "")
@@ -735,7 +819,7 @@ class TransactionViewController: UIViewController {
             } else if (step == 4) {
                 if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                         mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                        mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                        mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("send_step_5", comment: "")
                     

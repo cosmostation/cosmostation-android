@@ -291,7 +291,7 @@ class StepFeeViewController: BaseViewController {
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             available = WUtils.getTokenAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM);
             toSpend = getSpendAmount()
-            if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM || pageHolderVC.mHarvestDepositDenom == KAVA_MAIN_DENOM) {
+            if (pageHolderVC.mKavaSendDenom == KAVA_MAIN_DENOM || pageHolderVC.mHardPoolDenom == KAVA_MAIN_DENOM) {
                 if (toSpend.adding(feeAmount).compare(available).rawValue > 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                     self.feeSlider.setValue(0, animated: true)
@@ -504,7 +504,7 @@ class StepFeeViewController: BaseViewController {
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_REDELEGATE2) {
         } else if(pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
         } else if(pageHolderVC.mType == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
-            result = WUtils.localeStringToDecimal(pageHolderVC.mHarvestCoin.amount)
+            result = WUtils.localeStringToDecimal(pageHolderVC.mHardPoolCoin.amount)
         }
         return result
 

@@ -310,6 +310,23 @@
 "reward_harvest_step_2" = "Select transaction fee";
 "reward_harvest_step_3" = "Check transaction detail";
 
+"deposit_hardpool_step_0" = "Enter deposit amount to supply";
+"deposit_hardpool_step_1" = "Insert memo (optional)";
+"deposit_hardpool_step_2" = "Select transaction fee";
+"deposit_hardpool_step_3" = "Check transaction detail";
+"withdraw_hardpool_step_0" = "Enter hard pool withdrawal amount";
+"withdraw_hardpool_step_1" = "Insert memo (optional)";
+"withdraw_hardpool_step_2" = "Select transaction fee";
+"withdraw_hardpool_step_3" = "Check transaction detail";
+"borrow_hardpool_step_0" = "Enter borrow amount";
+"borrow_hardpool_step_1" = "Insert memo (optional)";
+"borrow_hardpool_step_2" = "Select transaction fee";
+"borrow_hardpool_step_3" = "Check transaction detail";
+"repay_hardpool_step_0" = "Enter repay amount";
+"repay_hardpool_step_1" = "Insert memo (optional)";
+"repay_hardpool_step_2" = "Select transaction fee";
+"repay_hardpool_step_3" = "Check transaction detail";
+
 "str_ok_stake_deposit_step_0" = "Insert amount to staking";
 "str_ok_stake_deposit_step_1" = "Insert memo (optional)";
 "str_ok_stake_deposit_step_2" = "Select transaction fee";
@@ -427,6 +444,10 @@
 "title_starname_update_resource" = "Replace Address";
 "title_starname_domain_detail" = "Premium Starname Detail";
 "title_starname_account_detail" = "Basic Starname Detail";
+"title_deposit_hardpool" = "Deposit Hard Pool Supply";
+"title_withdraw_hardpool" = "Withdraw Hard Pool";
+"title_borrow_hardpool" = "Borrow from Hard Pool";
+"title_repay_hardpool" = "Repay to Hard Pool";
 
 
 "proposal_type_basic" = "Basic";
@@ -534,6 +555,10 @@
 "error_cannot_delete_open_domain" = "Can not delete open domain.";
 "error_no_address_export" = "No Address for Export.";
 "error_not_enough_reward" = "Not enough rewards to Claim.";
+"error_no_borrowable_asset" = "Can not borrowable now.";
+"error_no_repay_asset" = "Can not repay now.";
+"error_noting_repay_asset" = "Noting to be repaid";
+"error_remain_borrow_small" = "Remain borrow amount less than $10";
 
 
 

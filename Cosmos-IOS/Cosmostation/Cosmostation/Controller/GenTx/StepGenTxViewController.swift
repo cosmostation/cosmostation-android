@@ -90,11 +90,14 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mCollateralParam: CollateralParam?
     var mIncentiveKavaReceivable = NSDecimalNumber.zero
     var mIncentiveHardReceivable = NSDecimalNumber.zero
-    var mHarvestDepositDenom: String?
+    var mHardPoolDenom: String?
+    var mHardPoolCoins: Array<Coin>?
+    var mIncentiveMultiplier: ClaimMultiplier?
+    
 //    var mHarvestDepositType: String?  // lp or stake
 //    var mIncentiveType: String?
-    var mIncentiveMultiplier: ClaimMultiplier?
-    var mHarvestCoin = Coin.init()
+    var mHardPoolCoin = Coin.init()
+    
     
     var mHtlcDenom: String?
     var mHtlcToChain: ChainType?
@@ -139,7 +142,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             
         } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
                     mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                    mType == CERTIK_MSG_TYPE_TRANSFER || mType == AKASH_MSG_TYPE_TRANSFER) {
+                    mType == CERTIK_MSG_TYPE_TRANSFER) {
             return [self.newVc(viewController: "StepSendAddressViewController"),
                     self.newVc(viewController: "StepSendAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
@@ -236,6 +239,30 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepHarvestReward3ViewController")]
+            
+        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+            return [HardPoolDeposit0ViewController(nibName: "HardPoolDeposit0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    HardPoolDeposit3ViewController(nibName: "HardPoolDeposit3ViewController", bundle: nil)]
+            
+        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+            return [HardPoolWithdraw0ViewController(nibName: "HardPoolWithdraw0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    HardPoolWithdraw3ViewController(nibName: "HardPoolWithdraw3ViewController", bundle: nil)]
+            
+        } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
+            return [HardPoolBorrow0ViewController(nibName: "HardPoolBorrow0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    HardPoolBorrow3ViewController(nibName: "HardPoolBorrow3ViewController", bundle: nil)]
+            
+        } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
+            return [HardPoolRepay0ViewController(nibName: "HardPoolRepay0ViewController", bundle: nil),
+                    self.newVc(viewController: "StepMemoViewController"),
+                    self.newVc(viewController: "StepFeeViewController"),
+                    HardPoolRepay3ViewController(nibName: "HardPoolRepay3ViewController", bundle: nil)]
             
         } else if (mType == OK_MSG_TYPE_DEPOSIT) {
             return [self.newVc(viewController: "StepOkDepositAmountViewController"),
@@ -376,7 +403,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         if ((currentIndex <= 3 &&
                 (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE || mType == BNB_MSG_TYPE_TRANSFER ||
                     mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                    mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT || mType == AKASH_MSG_TYPE_TRANSFER) || currentIndex <= 2) {
+                    mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

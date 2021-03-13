@@ -540,6 +540,68 @@ class MsgGenerator {
         return msg
     }
     
+    static func genDepositHardMsg(_ chainType: ChainType, _ depositor: String, _ coins: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.depositor = depositor
+        let data = try? JSONEncoder().encode(coins)
+        do {
+            value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch {
+            print(error)
+        }
+        msg.type = KAVA_MSG_TYPE_DEPOSIT_HARD
+        msg.value = value
+        return msg
+    }
+    
+    static func genWithdrawHardMsg(_ chainType: ChainType, _ depositor: String, _ coins: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.depositor = depositor
+        let data = try? JSONEncoder().encode(coins)
+        do {
+            value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch {
+            print(error)
+        }
+        msg.type = KAVA_MSG_TYPE_WITHDRAW_HARD
+        msg.value = value
+        return msg
+    }
+    
+    static func genBorrowHardMsg(_ chainType: ChainType, _ borrower: String, _ coins: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.borrower = borrower
+        let data = try? JSONEncoder().encode(coins)
+        do {
+            value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch {
+            print(error)
+        }
+        msg.type = KAVA_MSG_TYPE_BORROW_HARD
+        msg.value = value
+        return msg
+    }
+    
+    static func genRepayHardMsg(_ chainType: ChainType, _ sender: String, _ owner: String, _ coins: Array<Coin>) -> Msg {
+        var msg = Msg.init()
+        var value = Msg.Value.init()
+        value.sender = sender
+        value.owner = owner
+        let data = try? JSONEncoder().encode(coins)
+        do {
+            value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
+        } catch {
+            print(error)
+        }
+        msg.type = KAVA_MSG_TYPE_REPAY_HARD
+        msg.value = value
+        return msg
+    }
+    
+    
     static func genOkDepositMsg(_ delegator: String, _ coin: Coin) -> Msg {
         var msg = Msg.init()
         var value = Msg.Value.init()

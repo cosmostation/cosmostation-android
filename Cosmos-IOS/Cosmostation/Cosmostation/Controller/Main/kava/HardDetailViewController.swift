@@ -231,51 +231,72 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
     
     
     func onClickDeposit() {
-//        if (!onCommonCheck()) { return }
-//        if (WUtils.availableAmount(balances, mDepositDenom!).compare(NSDecimalNumber.zero).rawValue <= 0) {
-//            self.onShowToast(NSLocalizedString("error_no_available_to_deposit", comment: ""))
-//            return
-//        }
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = KAVA_MSG_TYPE_DEPOSIT_HAVEST
-//        txVC.mHarvestDepositDenom = mDepositDenom
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
+        if (!onCommonCheck()) { return }
+        if (WUtils.availableAmount(balances, mHardMoneyMarketDenom!).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_available_to_deposit", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_DEPOSIT_HARD
+        txVC.mHardPoolDenom = mHardMoneyMarketDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickWithdraw() {
-//        if (!onCommonCheck()) { return }
-//        guard let depositedCoin = myHavestDeposit?.amount, NSDecimalNumber.init(string: depositedCoin.denom).compare(NSDecimalNumber.zero).rawValue <= 0 else {
-//            self.onShowToast(NSLocalizedString("error_no_deposited_asset", comment: ""))
-//            return
-//        }
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = KAVA_MSG_TYPE_WITHDRAW_HAVEST
-//        txVC.mHarvestDepositDenom = mDepositDenom
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
+        if (!onCommonCheck()) { return }
+        let mySuppliedAmount = WUtils.getHardSuppliedAmountByDenom(mHardMoneyMarketDenom!, myDeposit)
+        if (mySuppliedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_deposited_asset", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_WITHDRAW_HARD
+        txVC.mHardPoolDenom = mHardMoneyMarketDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickBorrow() {
-        
+        if (!onCommonCheck()) { return }
+        let myBorrowableAmount = WUtils.getHardBorrowableAmountByDenom(mHardMoneyMarketDenom!, myDeposit, myBorrow, moduleCoins, reserveCoins)
+        if (myBorrowableAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_borrowable_asset", comment: ""))
+            return
+        }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_BORROW_HARD
+        txVC.mHardPoolDenom = mHardMoneyMarketDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onClickRepay() {
+        if (!onCommonCheck()) { return }
+        if (WUtils.availableAmount(balances, mHardMoneyMarketDenom!).compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_no_repay_asset", comment: ""))
+            return
+        }
+        let myBorrowedAmount = WUtils.getHardBorrowedAmountByDenom(mHardMoneyMarketDenom!, myBorrow)
+        if (myBorrowedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
+            self.onShowToast(NSLocalizedString("error_noting_repay_asset", comment: ""))
+            return
+        }
         
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = KAVA_MSG_TYPE_REPAY_HARD
+        txVC.mHardPoolDenom = mHardMoneyMarketDenom
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func onCommonCheck() -> Bool {
-//        if (!account!.account_has_private) {
-//            self.onShowAddMenomicDialog()
-//            return false
-//        }
-//        if (!distributionSchedule!.active) {
-//            self.onShowToast(NSLocalizedString("error_circuit_breaker", comment: ""))
-//            return false
-//        }
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return false
+        }
         return true
     }
-
     
     var mFetchCnt = 0
     @objc func onFetchHardInfo() {
@@ -348,6 +369,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                     let kavaHardModuleAccount = KavaHardModuleAccount.init(responseData)
                     self.moduleCoins = kavaHardModuleAccount.result?[0].value?.coins
+                    BaseData.instance.mModuleCoins = self.moduleCoins
 //                    print("self.moduleCoins ", self.moduleCoins)
                     
                 case .failure(let error):
@@ -374,6 +396,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
                     }
                     let kavaHardReserves = KavaHardReserves.init(responseData)
                     self.reserveCoins = kavaHardReserves.result
+                    BaseData.instance.mReserveCoins = self.reserveCoins
 //                    print("self.reserveCoins ", self.reserveCoins)
                     
                 case .failure(let error):
