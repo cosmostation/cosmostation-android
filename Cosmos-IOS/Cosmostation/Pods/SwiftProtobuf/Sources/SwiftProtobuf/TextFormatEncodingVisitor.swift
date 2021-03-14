@@ -63,6 +63,12 @@ internal struct TextFormatEncodingVisitor: Visitor {
     self.options = options
   }
 
+  // TODO: This largely duplicates emitFieldName() below.
+  // But, it's slower so we don't want to just have emitFieldName() use
+  // formatFieldName().  Also, we need to measure whether the optimization
+  // this provides to repeated fields is worth the effort; consider just
+  // removing this and having repeated fields just re-run emitFieldName()
+  // for each item.
   private func formatFieldName(lookingUp fieldNumber: Int) -> [UInt8] {
       var bytes = [UInt8]()
       if let protoName = nameMap?.names(for: fieldNumber)?.proto {
@@ -150,7 +156,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
               encoder.endRegularField()
           case .lengthDelimited:
               encoder.emitFieldNumber(number: tag.fieldNumber)
-              var bytes = Internal.emptyData
+              var bytes = Data()
               try decoder.decodeSingularBytesField(value: &bytes)
               bytes.withUnsafeBytes { (body: UnsafeRawBufferPointer) -> () in
                   if let baseAddress = body.baseAddress, body.count > 0 {
@@ -328,6 +334,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   // the name lookup once for the array, rather than once for each element:
 
   mutating func visitRepeatedFloatField(value: [Float], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -338,6 +345,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedDoubleField(value: [Double], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -348,6 +356,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedInt32Field(value: [Int32], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -358,6 +367,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedInt64Field(value: [Int64], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -368,6 +378,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedUInt32Field(value: [UInt32], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -378,6 +389,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedUInt64Field(value: [UInt64], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -407,6 +419,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedBoolField(value: [Bool], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -417,6 +430,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedStringField(value: [String], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -427,6 +441,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedBytesField(value: [Data], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -437,6 +452,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   }
 
   mutating func visitRepeatedEnumField<E: Enum>(value: [E], fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       for v in value {
           encoder.emitFieldName(name: fieldName)
@@ -449,6 +465,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
   // Messages and groups
   mutating func visitRepeatedMessageField<M: Message>(value: [M],
                                              fieldNumber: Int) throws {
+      assert(!value.isEmpty)
       // Look up field name against outer message encoding state
       let fieldName = formatFieldName(lookingUp: fieldNumber)
       // Cache old encoder state
@@ -493,6 +510,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     value: [T], fieldNumber: Int,
     encode: (T, inout TextFormatEncoder) -> ()
   ) throws {
+      assert(!value.isEmpty)
       emitFieldName(lookingUp: fieldNumber)
       encoder.startRegularField()
       var firstItem = true
@@ -593,9 +611,10 @@ internal struct TextFormatEncodingVisitor: Visitor {
   private mutating func _visitMap<K, V>(
     map: Dictionary<K, V>,
     fieldNumber: Int,
+    isOrderedBefore: (K, K) -> Bool,
     coder: (inout TextFormatEncodingVisitor, K, V) throws -> ()
   ) throws {
-      for (k,v) in map {
+      for (k,v) in map.sorted(by: { isOrderedBefore( $0.0, $1.0) }) {
           emitFieldName(lookingUp: fieldNumber)
           encoder.startMessageField()
           var visitor = TextFormatEncodingVisitor(nameMap: nil, nameResolver: mapNameResolver, extensions: nil, encoder: encoder, options: options)
@@ -610,7 +629,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     value: _ProtobufMap<KeyType, ValueType>.BaseType,
     fieldNumber: Int
   ) throws {
-      try _visitMap(map: value, fieldNumber: fieldNumber) {
+      try _visitMap(map: value, fieldNumber: fieldNumber, isOrderedBefore: KeyType._lessThan) {
           (visitor: inout TextFormatEncodingVisitor, key, value) throws -> () in
           try KeyType.visitSingular(value: key, fieldNumber: 1, with: &visitor)
           try ValueType.visitSingular(value: value, fieldNumber: 2, with: &visitor)
@@ -622,7 +641,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     value: _ProtobufEnumMap<KeyType, ValueType>.BaseType,
     fieldNumber: Int
   ) throws where ValueType.RawValue == Int {
-      try _visitMap(map: value, fieldNumber: fieldNumber) {
+      try _visitMap(map: value, fieldNumber: fieldNumber, isOrderedBefore: KeyType._lessThan) {
           (visitor: inout TextFormatEncodingVisitor, key, value) throws -> () in
           try KeyType.visitSingular(value: key, fieldNumber: 1, with: &visitor)
           try visitor.visitSingularEnumField(value: value, fieldNumber: 2)
@@ -634,7 +653,7 @@ internal struct TextFormatEncodingVisitor: Visitor {
     value: _ProtobufMessageMap<KeyType, ValueType>.BaseType,
     fieldNumber: Int
   ) throws {
-      try _visitMap(map: value, fieldNumber: fieldNumber) {
+      try _visitMap(map: value, fieldNumber: fieldNumber, isOrderedBefore: KeyType._lessThan) {
           (visitor: inout TextFormatEncodingVisitor, key, value) throws -> () in
           try KeyType.visitSingular(value: key, fieldNumber: 1, with: &visitor)
           try visitor.visitSingularMessageField(value: value, fieldNumber: 2)
