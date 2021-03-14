@@ -10,6 +10,9 @@ import UIKit
 import Alamofire
 import Toast_Swift
 import NotificationBannerSwift
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBCardPopupDelegate, AccountSelectDelegate {
     
@@ -207,37 +210,80 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mProvision_V1 = nil
         BaseData.instance.mInflation_V1 = nil
         
+        
+        //gRPC
+        BaseData.instance.mAllValidators_gRPC.removeAll()
+        BaseData.instance.mBondedValidators_gRPC.removeAll()
+        BaseData.instance.mUnbondValidators_gRPC.removeAll()
+        BaseData.instance.mMyValidators_gRPC.removeAll()
+        
+        BaseData.instance.mMintParam_gRPC = nil
+        BaseData.instance.mStakingPool_gRPC = nil
+        BaseData.instance.mProvision_gRPC = NSDecimalNumber.zero
+        BaseData.instance.mInflation_gRPC = NSDecimalNumber.zero
+        
+        BaseData.instance.mIrisMintParam_gRPC = nil
+        BaseData.instance.mIrisTokens_gRPC.removeAll()
+        
+        
         if (mChainType == ChainType.COSMOS_MAIN) {
             self.mFetchCnt = 11
-            onFetchBondedValidators(0)
-            onFetchUnbondedValidators(0)
-            onFetchUnbondingValidators(0)
+//            onFetchBondedValidators(0)
+//            onFetchUnbondedValidators(0)
+//            onFetchUnbondingValidators(0)
+//
+//            onFetchBalance(mAccount.account_address, 0)
+//            onFetchDelegations(mAccount.account_address, 0)
+//            onFetchUndelegations(mAccount.account_address, 0)
+//            onFetchRewards(mAccount.account_address)
+//
+//            onFetchMintParamV1()
+//            onFetchInflationV1()
+//            onFetchProvisionV1()
+//            onFetchStakingPoolV1()
             
-            onFetchBalance(mAccount.account_address, 0)
-            onFetchDelegations(mAccount.account_address, 0)
-            onFetchUndelegations(mAccount.account_address, 0)
-            onFetchRewards(mAccount.account_address)
-            
-            onFetchMintParamV1()
-            onFetchInflationV1()
-            onFetchProvisionV1()
-            onFetchStakingPoolV1()
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+
+            onFetchgRPCMintParam()
+            onFetchgRPCInflation()
+            onFetchgRPCProvision()
+            onFetchgRPCStakingPool()
             
         } else if (mChainType == ChainType.IRIS_MAIN) {
             self.mFetchCnt = 10
-            onFetchBondedValidators(0)
-            onFetchUnbondedValidators(0)
-            onFetchUnbondingValidators(0)
+//            onFetchBondedValidators(0)
+//            onFetchUnbondedValidators(0)
+//            onFetchUnbondingValidators(0)
+//
+//            onFetchBalance(mAccount.account_address, 0)
+//            onFetchDelegations(mAccount.account_address, 0)
+//            onFetchUndelegations(mAccount.account_address, 0)
+//            onFetchRewards(mAccount.account_address)
+//
+//            onFetchMintParamV1()
+//            onFetchStakingPoolV1()
+//            onFetchIrisTokensV1()
             
-            onFetchBalance(mAccount.account_address, 0)
-            onFetchDelegations(mAccount.account_address, 0)
-            onFetchUndelegations(mAccount.account_address, 0)
-            onFetchRewards(mAccount.account_address)
             
-            onFetchMintParamV1()
-            onFetchStakingPoolV1()
-            onFetchIrisTokensV1()
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
             
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+            
+            onFetchgRPCStakingPool()
+            onFetchgRPCIrisMintParam()
+            onFetchgRPCIrisTokens()
             
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 3
@@ -412,7 +458,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //        print("onFetchFinished ", self.mFetchCnt)
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt > 0) { return }
-        
+        print("onFetchFinished!!! ", self.mFetchCnt)
         if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
@@ -420,8 +466,44 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.hideWaittingAlert()
             return
             
-        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN  || mChainType == ChainType.AKASH_MAIN ||
-                    mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
+        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN) {
+            BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mBondedValidators_gRPC)
+            BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mUnbondValidators_gRPC)
+            for validator in BaseData.instance.mAllValidators_gRPC {
+                var mine = false;
+                for delegation in BaseData.instance.mMyDelegations_gRPC {
+                    if (delegation.delegation.validatorAddress == validator.operatorAddress) {
+                        mine = true;
+                        break;
+                    }
+                }
+                for unbonding in BaseData.instance.mMyUnbondings_gRPC {
+                    if (unbonding.validatorAddress == validator.operatorAddress) {
+                        mine = true;
+                        break;
+                    }
+                }
+                if (mine) {
+                    BaseData.instance.mMyValidators_gRPC.append(validator)
+                }
+            }
+            
+            if (SHOW_LOG) {
+                print("BaseData.instance.mAllValidators_gRPC ", BaseData.instance.mAllValidators_gRPC.count)
+                print("BaseData.instance.mBondedValidators_gRPC ", BaseData.instance.mBondedValidators_gRPC.count)
+                print("BaseData.instance.mUnbondValidators_gRPC ", BaseData.instance.mUnbondValidators_gRPC.count)
+                print("BaseData.instance.mMyValidators_gRPC ", BaseData.instance.mMyValidators_gRPC.count)
+                print("BaseData.instance.mMyBalances_gRPC ", BaseData.instance.mMyBalances_gRPC.count)
+            }
+            
+            if (BaseData.instance.mAllValidators_gRPC.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            }
+            NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+            self.hideWaittingAlert()
+            return
+            
+        } else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
             BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
             for validator in BaseData.instance.mAllValidators_V1 {
@@ -1925,7 +2007,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    
     func onFetchIrisTokensV1() {
         let url = BaseNetWork.irisTokensUrl(mChainType)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
@@ -1947,6 +2028,367 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
         }
     }
+    
+    
+    //gRPC
+    func onFetchgRPCBondedValidators(_ offset: Int) {
+//        print("onFetchgRPCBondedValidators")
+        DispatchQueue.global().async {
+            
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                $0.limit = 125
+            }
+            let req = Cosmos_Staking_V1beta1_QueryValidatorsRequest.with {
+                $0.pagination = page
+                $0.status = "BOND_STATUS_BONDED"
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+//                print("onFetchgRPCBondedValidators: \(response.validators.count)")
+                response.validators.forEach { validator in
+                    BaseData.instance.mBondedValidators_gRPC.append(validator)
+                }
+            } catch {
+                print("onFetchgRPCBondedValidators failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCUnbondedValidators(_ offset:Int) {
+//        print("onFetchgRPCUnbondedValidators")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                $0.limit = 125
+            }
+            let req = Cosmos_Staking_V1beta1_QueryValidatorsRequest.with {
+                $0.pagination = page
+                $0.status = "BOND_STATUS_UNBONDED"
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+//                print("onFetchgRPCUnbondedValidators: \(response.validators.count)")
+                response.validators.forEach { validator in
+                    BaseData.instance.mUnbondValidators_gRPC.append(validator)
+                }
+            } catch {
+                print("onFetchgRPCUnbondedValidators failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCUnbondingValidators(_ offset:Int) {
+//        print("onFetchgRPCUnbondingValidators")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                $0.limit = 125
+            }
+            let req = Cosmos_Staking_V1beta1_QueryValidatorsRequest.with {
+                $0.pagination = page
+                $0.status = "BOND_STATUS_UNBONDING"
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+//                print("onFetchgRPCUnbondingValidators: \(response.validators.count)")
+                response.validators.forEach { validator in
+                    BaseData.instance.mUnbondValidators_gRPC.append(validator)
+                }
+            } catch {
+                print("onFetchgRPCUnbondingValidators failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCBalance(_ address: String, _ offset:Int) {
+//        print("onFetchgRPCDelegations")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Bank_V1beta1_QueryAllBalancesRequest.with {
+                $0.address = address
+            }
+            do {
+                let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req).response.wait()
+//                print("onFetchgRPCBalance: \(response.balances.count)")
+                response.balances.forEach { balance in
+                    BaseData.instance.mMyBalances_gRPC.append(Coin.init(balance.denom, balance.amount))
+                }
+            } catch {
+                print("onFetchgRPCBalance failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCDelegations(_ address: String, _ offset:Int) {
+//        print("onFetchgRPCDelegations")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryDelegatorDelegationsRequest.with {
+                $0.delegatorAddr = address
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorDelegations(req).response.wait()
+//                print("onFetchgRPCDelegations: \(response.delegationResponses.count)")
+                response.delegationResponses.forEach { delegationResponse in
+                    BaseData.instance.mMyDelegations_gRPC.append(delegationResponse)
+                }
+            } catch {
+                print("onFetchgRPCDelegations failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCUndelegations(_ address: String, _ offset:Int) {
+//        print("onFetchgRPCUndelegations")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryDelegatorUnbondingDelegationsRequest.with {
+                $0.delegatorAddr = address
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorUnbondingDelegations(req).response.wait()
+//                print("onFetchgRPCUndelegations: \(response.unbondingResponses.count)")
+                response.unbondingResponses.forEach { unbondingResponse in
+                    BaseData.instance.mMyUnbondings_gRPC.append(unbondingResponse)
+                }
+            } catch {
+                print("onFetchgRPCUndelegations failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCRewards(_ address: String, _ offset:Int) {
+//        print("onFetchgRPCRewards")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegationTotalRewardsRequest.with {
+                $0.delegatorAddress = address
+            }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req).response.wait()
+//            print("onFetchgRPCRewards: \(response.rewards.count)")
+                response.rewards.forEach { reward in
+                    BaseData.instance.mMyReward_gRPC.append(reward)
+                }
+            } catch {
+                print("onFetchgRPCRewards failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCMintParam() {
+//        print("onFetchgRPCMintParam")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Mint_V1beta1_QueryParamsRequest()
+            do {
+                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).params(req).response.wait()
+//                print("onFetchgRPCMintParam: \(response.params)")
+                BaseData.instance.mMintParam_gRPC = response.params
+            } catch {
+                print("onFetchgRPCMintParam failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCInflation() {
+//        print("onFetchgRPCInflation")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Mint_V1beta1_QueryInflationRequest()
+            do {
+                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).inflation(req).response.wait()
+                BaseData.instance.mInflation_gRPC = NSDecimalNumber.init(string: String(data: response.inflation, encoding: .utf8)).multiplying(byPowerOf10: -18)
+//                print("onFetchgRPCInflation:  ", BaseData.instance.mInflation_gRPC)
+            } catch {
+                print("onFetchgRPCInflation failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCProvision() {
+//        print("onFetchgRPCProvision")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Mint_V1beta1_QueryAnnualProvisionsRequest()
+            do {
+                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).annualProvisions(req).response.wait()
+                BaseData.instance.mProvision_gRPC = NSDecimalNumber.init(string: String(data: response.annualProvisions, encoding: .utf8)).multiplying(byPowerOf10: -18)
+    //            print("onFetchgRPCProvision:  ", BaseData.instance.mProvision_gRPC)
+            } catch {
+                print("onFetchgRPCProvision failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCStakingPool() {
+//        print("onFetchgRPCStakingPool")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryPoolRequest()
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).pool(req).response.wait()
+//                print("onFetchgRPCStakingPool: \(response.pool)")
+                BaseData.instance.mStakingPool_gRPC = response.pool
+            } catch {
+                print("onFetchgRPCIrisMintParam failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCIrisMintParam() {
+//        print("onFetchgRPCIrisMintParam")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Irishub_Mint_QueryParamsRequest()
+            do {
+                let response = try Irishub_Mint_QueryClient(channel: channel).params(req).response.wait()
+//                print("onFetchgRPCIrisMintParam: \(response.params)")
+                BaseData.instance.mIrisMintParam_gRPC = response.params
+            } catch {
+                print("onFetchgRPCIrisMintParam failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    
+    func onFetchgRPCIrisTokens() {
+//        print("onFetchgRPCIrisTokens")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                $0.limit = 500
+            }
+            let req = Irismod_Token_QueryTokensRequest.with {
+                $0.pagination = page
+            }
+            do {
+                let response = try Irismod_Token_QueryClient(channel: channel).tokens(req).response.wait()
+//                print("onFetchgRPCIrisTokens: \(response.tokens.count)")
+                response.tokens.forEach { token in
+                    BaseData.instance.mIrisTokens_gRPC.append(try! Irismod_Token_Token.init(serializedData: token.value))
+                }
+            } catch {
+                print("onFetchgRPCIrisTokens failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    
     
     
     func onShowToast(_ text:String) {

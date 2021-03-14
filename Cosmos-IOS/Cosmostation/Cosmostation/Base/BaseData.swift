@@ -75,6 +75,28 @@ final class BaseData : NSObject{
     
     var mIrisTokens_V1 = Array<IrisToken_V1>()
     
+    
+    //For ProtoBuf and gRPC
+    var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    var mBondedValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    var mUnbondValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    var mMyValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    
+    var mMyDelegations_gRPC = Array<Cosmos_Staking_V1beta1_DelegationResponse>()
+    var mMyUnbondings_gRPC = Array<Cosmos_Staking_V1beta1_UnbondingDelegation>()
+    var mMyBalances_gRPC = Array<Coin>()
+    var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
+    
+    var mMintParam_gRPC: Cosmos_Mint_V1beta1_Params?
+    var mStakingPool_gRPC: Cosmos_Staking_V1beta1_Pool?
+    var mProvision_gRPC: NSDecimalNumber?
+    var mInflation_gRPC: NSDecimalNumber?
+    
+    var mIrisMintParam_gRPC: Irishub_Mint_Params?
+    var mIrisTokens_gRPC = Array<Irismod_Token_Token>()
+    
+    
+    
     func checkZeroMainDenom(_ chain: ChainType?) {
         if (!mMyBalances_V1.contains(where: {$0.denom == WUtils.getMainDenom(chain)})) {
             mMyBalances_V1.append(Coin.init(WUtils.getMainDenom(chain), "0"))
