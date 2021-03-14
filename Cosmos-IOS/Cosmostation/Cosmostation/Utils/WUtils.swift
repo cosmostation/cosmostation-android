@@ -1200,21 +1200,21 @@ class WUtils {
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
-            if (data.mStakingPool_V1 == nil || data.mProvision_V1 == nil || data.mMintParam_V1 == nil) {
+            if (data.mStakingPool_gRPC == nil || data.mProvision_gRPC == nil || data.mMintParam_gRPC == nil) {
                 return NSDecimalNumber.zero
             }
-            let provisions = WUtils.plainStringToDecimal(data.mProvision_V1?.annual_provisions)
-            let bonded = WUtils.plainStringToDecimal(data.mStakingPool_V1?.bonded_tokens)
-            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam_V1?.blocks_per_year)
+            let provisions = data.mProvision_gRPC!
+            let bonded = plainStringToDecimal(data.mStakingPool_gRPC!.bondedTokens)
+            let blocksPerYear = NSDecimalNumber.init(value: data.mMintParam_gRPC!.blocksPerYear)
             return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
             
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            if (data.mStakingPool_V1 == nil || data.mMintParam_V1 == nil) {
+            if (data.mStakingPool_gRPC == nil || data.mIrisMintParam_gRPC == nil) {
                 return NSDecimalNumber.zero
             } else {
                 let inflation_base = NSDecimalNumber.init(string: "2000000000000000")
-                let provisions = inflation_base.multiplying(by: data.mMintParam_V1!.getInflation())
-                let bonded = data.mStakingPool_V1!.getBondedTokens()
+                let provisions = inflation_base.multiplying(by: plainStringToDecimal(data.mIrisMintParam_gRPC!.inflation)).multiplying(byPowerOf10: -18)
+                let bonded = plainStringToDecimal(data.mStakingPool_gRPC!.bondedTokens)
                 return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: plainStringToDecimal("6311520"), withBehavior: handler24Down)
             }
             
@@ -1226,7 +1226,6 @@ class WUtils {
             let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
             let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
             return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
-            
         }
     }
     
@@ -1455,19 +1454,25 @@ class WUtils {
     static func getAllMainAsset(_ denom: String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         let data = BaseData.instance
-        for balance in data.mMyBalances_V1 {
+        for balance in data.mMyBalances_gRPC {
             if (balance.denom == denom) {
                 amount = plainStringToDecimal(balance.amount)
             }
         }
-        for delegation in data.mMyDelegations_V1 {
-            amount = amount.adding(plainStringToDecimal(delegation.balance?.amount))
+        for delegation in data.mMyDelegations_gRPC {
+            amount = amount.adding(plainStringToDecimal(delegation.balance.amount))
         }
-        for unbonding in data.mMyUnbondings_V1 {
-            amount = amount.adding(unbonding.getAllUnbondingBalance())
+        for unbonding in data.mMyUnbondings_gRPC {
+            for entry in unbonding.entries {
+                amount = amount.adding(plainStringToDecimal(entry.balance))
+            }
         }
-        for reward in data.mMyReward_V1 {
-            amount = amount.adding(reward.getRewardByDenom(denom))
+        for reward in data.mMyReward_gRPC {
+            for coin in reward.reward {
+                if (coin.denom == denom) {
+                    amount = amount.adding(plainStringToDecimal(coin.amount).multiplying(byPowerOf10: -18))
+                }
+            }
         }
         return amount
     }

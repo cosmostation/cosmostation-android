@@ -428,11 +428,10 @@ class BaseNetWork {
 //            return ClientConnection.insecure(group: group).connect(host: "54.180.225.240", port: 9090)
             
         } else if (chain == ChainType.IRIS_MAIN) {
-//            return ClientConnection.insecure(group: group).connect(host: "lcd-iris-app.cosmostation.io", port: 9090)
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9095)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-iris-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.AKASH_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-akash-app.cosmostation.io", port: 41009)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-akash-app.cosmostation.io", port: 9090)
             
         }
         

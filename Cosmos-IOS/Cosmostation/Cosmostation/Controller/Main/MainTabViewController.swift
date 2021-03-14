@@ -217,6 +217,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mUnbondValidators_gRPC.removeAll()
         BaseData.instance.mMyValidators_gRPC.removeAll()
         
+        BaseData.instance.mMyDelegations_gRPC.removeAll()
+        BaseData.instance.mMyUnbondings_gRPC.removeAll()
+        BaseData.instance.mMyBalances_gRPC.removeAll()
+        BaseData.instance.mMyReward_gRPC.removeAll()
+        
         BaseData.instance.mMintParam_gRPC = nil
         BaseData.instance.mStakingPool_gRPC = nil
         BaseData.instance.mProvision_gRPC = NSDecimalNumber.zero
@@ -404,50 +409,50 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.AKASH_MAIN) {
             self.mFetchCnt = 11
-            onFetchBondedValidators(0)
-            onFetchUnbondedValidators(0)
-            onFetchUnbondingValidators(0)
-            
-            onFetchBalance(mAccount.account_address, 0)
-            onFetchDelegations(mAccount.account_address, 0)
-            onFetchUndelegations(mAccount.account_address, 0)
-            onFetchRewards(mAccount.account_address)
-            
-            onFetchMintParamV1()
-            onFetchInflationV1()
-            onFetchProvisionV1()
-            onFetchStakingPoolV1()
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+
+            onFetchgRPCMintParam()
+            onFetchgRPCInflation()
+            onFetchgRPCProvision()
+            onFetchgRPCStakingPool()
             
         } else if (mChainType == ChainType.COSMOS_TEST) {
             self.mFetchCnt = 11
-            onFetchBondedValidators(0)
-            onFetchUnbondedValidators(0)
-            onFetchUnbondingValidators(0)
-            
-            onFetchBalance(mAccount.account_address, 0)
-            onFetchDelegations(mAccount.account_address, 0)
-            onFetchUndelegations(mAccount.account_address, 0)
-            onFetchRewards(mAccount.account_address)
-            
-            onFetchMintParamV1()
-            onFetchInflationV1()
-            onFetchProvisionV1()
-            onFetchStakingPoolV1()
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+
+            onFetchgRPCMintParam()
+            onFetchgRPCInflation()
+            onFetchgRPCProvision()
+            onFetchgRPCStakingPool()
             
         } else if (mChainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 10
-            onFetchBondedValidators(0)
-            onFetchUnbondedValidators(0)
-            onFetchUnbondingValidators(0)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
             
-            onFetchBalance(mAccount.account_address, 0)
-            onFetchDelegations(mAccount.account_address, 0)
-            onFetchUndelegations(mAccount.account_address, 0)
-            onFetchRewards(mAccount.account_address)
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
             
-            onFetchMintParamV1()
-            onFetchStakingPoolV1()
-            onFetchIrisTokensV1()
+            onFetchgRPCStakingPool()
+            onFetchgRPCIrisMintParam()
+            onFetchgRPCIrisTokens()
             
         }
         onFetchPriceTic(false)
@@ -466,7 +471,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.hideWaittingAlert()
             return
             
-        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN) {
+        } else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
             BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mBondedValidators_gRPC)
             BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mUnbondValidators_gRPC)
             for validator in BaseData.instance.mAllValidators_gRPC {
@@ -497,43 +502,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             
             if (BaseData.instance.mAllValidators_gRPC.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
-            }
-            NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
-            self.hideWaittingAlert()
-            return
-            
-        } else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.IRIS_TEST) {
-            BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mBondedValidators_V1)
-            BaseData.instance.mAllValidators_V1.append(contentsOf: BaseData.instance.mUnbondValidators_V1)
-            for validator in BaseData.instance.mAllValidators_V1 {
-                var mine = false;
-                for delegation in BaseData.instance.mMyDelegations_V1 {
-                    if (delegation.delegation?.validator_address == validator.operator_address) {
-                        mine = true;
-                        break;
-                    }
-                }
-                for unbonding in BaseData.instance.mMyUnbondings_V1 {
-                    if (unbonding.validator_address == validator.operator_address) {
-                        mine = true;
-                        break;
-                    }
-                }
-                if (mine) {
-                    BaseData.instance.mMyValidators_V1.append(validator)
-                }
-            }
-            
-            if (SHOW_LOG) {
-                print("BaseData.instance.mAllValidators_V1 ", BaseData.instance.mAllValidators_V1.count)
-                print("BaseData.instance.mBondedValidators_V1 ", BaseData.instance.mBondedValidators_V1.count)
-                print("BaseData.instance.mUnbondValidators_V1 ", BaseData.instance.mUnbondValidators_V1.count)
-                print("BaseData.instance.mMyValidators_V1 ", BaseData.instance.mMyValidators_V1.count)
-                print("BaseData.instance.mMyBalances_V1 ", BaseData.instance.mMyBalances_V1.count)
-            }
-            
-            if (BaseData.instance.mAllValidators_V1.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
