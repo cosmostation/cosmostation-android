@@ -143,6 +143,18 @@ final class BaseData : NSObject{
         return amount.stringValue;
     }
     
+    func getUnbonding(_ opAddress: String?) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for unbonding in mMyUnbondings_gRPC {
+            if (unbonding.validatorAddress == opAddress) {
+                for entry in unbonding.entries {
+                    amount = amount.adding(WUtils.plainStringToDecimal(entry.balance))
+                }
+            }
+        }
+        return amount;
+    }
+    
     func getRewardSum(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero
         for reward in mMyReward_gRPC {

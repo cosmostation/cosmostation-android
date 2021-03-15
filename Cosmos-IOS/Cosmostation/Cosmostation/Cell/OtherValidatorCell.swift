@@ -46,12 +46,12 @@ class OtherValidatorCell: UITableViewCell {
         super.prepareForReuse()
     }
     
-    func updateView(_ validator: Validator_V1, _ chainType: ChainType?) {
+    func updateView(_ validator: Cosmos_Staking_V1beta1_Validator, _ chainType: ChainType?) {
         powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, powerLabel.font!, 6, 6)
         commissionLabel.attributedText = WUtils.getDpEstAprCommission(commissionLabel.font, NSDecimalNumber.one, chainType!)
-        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operator_address!))!)
+        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operatorAddress))!)
         
-        monikerLabel.text = validator.description?.moniker
+        monikerLabel.text = validator.description_p.moniker
         monikerLabel.adjustsFontSizeToFitWidth = true
         freeEventImg.isHidden = true
         if (validator.jailed == true) {
@@ -61,7 +61,7 @@ class OtherValidatorCell: UITableViewCell {
             revokedImg.isHidden = true
             validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
-        if BaseData.instance.mMyValidators_V1.first(where: {$0.operator_address == validator.operator_address}) != nil {
+        if BaseData.instance.mMyValidators_gRPC.first(where: {$0.operatorAddress == validator.operatorAddress}) != nil {
             cardView.backgroundColor = WUtils.getChainBg(chainType)
         } else {
             cardView.backgroundColor = COLOR_BG_GRAY

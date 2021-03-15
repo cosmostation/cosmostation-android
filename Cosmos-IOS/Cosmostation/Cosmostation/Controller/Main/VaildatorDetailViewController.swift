@@ -31,6 +31,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mSelfDelegationInfo_V1: DelegationInfo_V1?
     var mApiCustomHistories = Array<ApiHistoryCustom>()
     
+    //grpc
+    var mValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
+    
     var mInflation: String?
     var mProvision: String?
     var mStakingPool: NSDictionary?

@@ -423,8 +423,8 @@ class BaseNetWork {
     
     static func getConnection(_ chain: ChainType, _ group: MultiThreadedEventLoopGroup) -> ClientConnection? {
         if (chain == ChainType.COSMOS_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 41009)
-//            return ClientConnection.insecure(group: group).connect(host: "lcd-cosmos-app.cosmostation.io", port: 9090)
+//            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 41009)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-cosmos-app.cosmostation.io", port: 9090)
 //            return ClientConnection.insecure(group: group).connect(host: "54.180.225.240", port: 9090)
             
         } else if (chain == ChainType.IRIS_MAIN) {
