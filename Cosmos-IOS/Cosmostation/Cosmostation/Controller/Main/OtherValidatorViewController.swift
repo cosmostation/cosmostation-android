@@ -118,7 +118,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
                 self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-            validatorDetailVC.mValidator_gRPC = BaseData.instance.mBondedValidators_gRPC[indexPath.row]
+            validatorDetailVC.mValidator_gRPC = BaseData.instance.mUnbondValidators_gRPC[indexPath.row]
             validatorDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
