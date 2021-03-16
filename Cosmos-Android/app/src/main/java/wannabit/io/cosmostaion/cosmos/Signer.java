@@ -2,9 +2,8 @@ package wannabit.io.cosmostaion.cosmos;
 
 import android.util.Base64;
 
-
-import com.google.protobuf2.Any;
 import com.google.protobuf.ByteString;
+import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Sha256Hash;
@@ -15,6 +14,8 @@ import java.util.ArrayList;
 
 import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
+import cosmos.gov.v1beta1.Gov;
+import cosmos.gov.v1beta1.Tx;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.tx.v1beta1.TxOuterClass;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -31,10 +32,6 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.utils.WKey;
 
 import static cosmos.tx.signing.v1beta1.Signing.SignMode.SIGN_MODE_DIRECT;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
@@ -439,6 +436,28 @@ public class Signer {
         Any msgSetWithdrawAddressAny = Any.newBuilder().setTypeUrl("/cosmos.distribution.v1beta1.MsgSetWithdrawAddress").setValue(msgSetWithdrawAddress.toByteString()).build();
 
         TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSetWithdrawAddressAny, memo);
+        TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(fromAccount, pKey);
+        TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
+        TxOuterClass.TxRaw rawTx            = getGrpcRawTx(fromAccount, txBody, authInfo, pKey, chain);
+
+        return ServiceOuterClass.BroadcastTxRequest.newBuilder().setModeValue(ServiceOuterClass.BroadcastMode.BROADCAST_MODE_SYNC.getNumber()).setTxBytes(rawTx.toByteString()).build();
+    }
+
+    public static ServiceOuterClass.BroadcastTxRequest getGrpcVoteReq(Auth.BaseAccount fromAccount, String proposalId, String option, Fee fee, String memo, DeterministicKey pKey, BaseChain chain) {
+        Gov.VoteOption msgOption = null;
+        if (option.equals("Yes")) {
+            msgOption = Gov.VoteOption.VOTE_OPTION_YES;
+        } else if (option.equals("No")) {
+            msgOption = Gov.VoteOption.VOTE_OPTION_NO;
+        } else if (option.equals("NoWithVeto")) {
+            msgOption = Gov.VoteOption.VOTE_OPTION_NO_WITH_VETO;
+        } else if (option.equals("Abstain")) {
+            msgOption = Gov.VoteOption.VOTE_OPTION_ABSTAIN;
+        }
+        Tx.MsgVote msgVote = Tx.MsgVote.newBuilder().setProposalId(Long.parseLong(proposalId)).setVoter(fromAccount.getAddress()).setOption(msgOption).build();
+        Any msgSendAny = Any.newBuilder().setTypeUrl("/cosmos.gov.v1beta1.MsgVote").setValue(msgVote.toByteString()).build();
+
+        TxOuterClass.TxBody txBody          = getGrpcTxBody(msgSendAny, memo);
         TxOuterClass.SignerInfo signerInfo  = getGrpcSignerInfo(fromAccount, pKey);
         TxOuterClass.AuthInfo authInfo      = getGrpcAuthInfo(signerInfo, fee);
         TxOuterClass.TxRaw rawTx            = getGrpcRawTx(fromAccount, txBody, authInfo, pKey, chain);

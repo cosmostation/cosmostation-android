@@ -41,7 +41,7 @@ public class UnBondedValidatorsGrpcTask extends CommonTask {
 
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
-            WLog.w("UnBondedValidators " + mResultData.size());
+//            WLog.w("UnBondedValidators " + mResultData.size());
 
 
 //            QueryOuterClass.QueryValidatorsRequest request = QueryOuterClass.QueryValidatorsRequest.newBuilder().setStatus(BOND_STATUS_UNBONDED.name()).build();

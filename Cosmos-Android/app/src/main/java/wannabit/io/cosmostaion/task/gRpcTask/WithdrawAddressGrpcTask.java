@@ -34,7 +34,7 @@ public class WithdrawAddressGrpcTask extends CommonTask {
             QueryOuterClass.QueryDelegatorWithdrawAddressResponse response = mStub.delegatorWithdrawAddress(request);
 //            QueryOuterClass.QueryParamsRequest request = QueryOuterClass.QueryParamsRequest.newBuilder().build();
 //            QueryOuterClass.QueryParamsResponse response = mStub.params(request);
-            WLog.w("getWithdrawAddress " + response.getWithdrawAddress());
+//            WLog.w("getWithdrawAddress " + response.getWithdrawAddress());
 //
             this.mResult.isSuccess = true;
             this.mResult.resultData = response.getWithdrawAddress();

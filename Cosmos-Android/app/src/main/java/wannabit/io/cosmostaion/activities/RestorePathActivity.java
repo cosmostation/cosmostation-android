@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -38,6 +40,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
 import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
+import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -229,41 +232,22 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            if (mChain.equals(COSMOS_MAIN)) {
+            if (mChain.equals(COSMOS_MAIN) || mChain.equals(IRIS_MAIN) || mChain.equals(AKASH_MAIN) || mChain.equals(COSMOS_TEST) || mChain.equals(IRIS_TEST)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), TOKEN_ATOM,"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getCosmosChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
                     @Override
-                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            for (Coin coin:  response.body().balances) {
-                                if (coin.denom.equals(TOKEN_ATOM)) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                    public void onTaskResponse(TaskResult result) {
+                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>)result.resultData;
+                        if (balances != null && balances.size() > 0) {
+                            for (CoinOuterClass.Coin balance: balances) {
+                                if (balance.getDenom().equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
                                 }
                             }
                         }
                     }
-                    @Override
-                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
-                });
-
-            } else if (mChain.equals(IRIS_MAIN)) {
-                holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), TOKEN_IRIS,"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getIrisChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
-                    @Override
-                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            for (Coin coin:  response.body().balances) {
-                                if (coin.denom.equals(TOKEN_IRIS)) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
-                });
+                }, mChain, address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             } else if (mChain.equals(BNB_MAIN)) {
                 holder.bnbLayer.setVisibility(View.VISIBLE);
@@ -452,24 +436,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
 
-            } else if (mChain.equals(AKASH_MAIN)) {
-                holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), TOKEN_AKASH,"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getAkashChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
-                    @Override
-                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            for (Coin coin:  response.body().balances) {
-                                if (coin.denom.equals(TOKEN_AKASH)) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
-                });;
-
             } else if (mChain.equals(SECRET_MAIN)) {
                 holder.secretLayer.setVisibility(View.VISIBLE);
                 holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
@@ -484,42 +450,6 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     }
                     @Override
                     public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
-                });
-
-            } else if (mChain.equals(COSMOS_TEST)) {
-                holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), TOKEN_COSMOS_TEST,"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getCosmosTestChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
-                    @Override
-                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            for (Coin coin:  response.body().balances) {
-                                if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
-                });
-
-            } else if (mChain.equals(IRIS_TEST)) {
-                holder.coinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), TOKEN_IRIS_TEST,"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getIrisTestChain(getBaseContext()).getBalance(address, 100, 0).enqueue(new Callback<ResBalance_V1>() {
-                    @Override
-                    public void onResponse(Call<ResBalance_V1> call, Response<ResBalance_V1> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            for (Coin coin:  response.body().balances) {
-                                if (coin.denom.equals(TOKEN_IRIS_TEST)) {
-                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
-                                }
-                            }
-                        }
-                    }
-                    @Override
-                    public void onFailure(Call<ResBalance_V1> call, Throwable t) { }
                 });
 
             }

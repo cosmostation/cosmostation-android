@@ -38,7 +38,7 @@ public class ReDelegationsFromToGrpcTask extends CommonTask {
 
             this.mResult.isSuccess = true;
             this.mResult.resultData = response.getRedelegationResponsesList();
-            WLog.w("ReDelegationsFromToGrpcTask " + response.getRedelegationResponsesList().size());
+//            WLog.w("ReDelegationsFromToGrpcTask " + response.getRedelegationResponsesList().size());
 
         } catch (Exception e) { WLog.e( "ReDelegationsFromToGrpcTask "+ e.getMessage()); }
         return mResult;

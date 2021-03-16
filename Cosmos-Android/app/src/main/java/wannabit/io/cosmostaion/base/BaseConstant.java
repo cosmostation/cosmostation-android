@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = false;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -226,6 +226,10 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_TO            = 4017;
     public final static int TASK_GRPC_FETCH_REDELEGATIONS_FROM_TO       = 4018;
     public final static int TASK_GRPC_FETCH_PROPOSALS                   = 4019;
+    public final static int TASK_GRPC_FETCH_PROPOSAL_DETAIL             = 4020;
+    public final static int TASK_GRPC_FETCH_PROPOSAL_TALLY              = 4021;
+    public final static int TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST         = 4022;
+    public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
@@ -234,6 +238,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_BROAD_REDELEGATE                  = 4304;
     public final static int TASK_GRPC_BROAD_REINVEST                    = 4305;
     public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
+    public final static int TASK_GRPC_BROAD_VOTE                        = 4307;
 
 
 

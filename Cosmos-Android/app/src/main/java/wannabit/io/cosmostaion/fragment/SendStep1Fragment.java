@@ -185,18 +185,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
-                mDpDecimal = 6;
-                setDpDecimals(mDpDecimal);
-                WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(feeAmount);
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 setDpDecimals(mDpDecimal);
@@ -208,29 +197,17 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
             }
 
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mDpDecimal = getSActivity().mIrisToken_V1.scale;
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            mDpDecimal = getSActivity().mIrisToken_Grpc.getScale();
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 setDpDecimals(mDpDecimal);
                 WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
 
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                mMaxAvailable = WDp.getAvailable(getBaseDao(), getSActivity().mDenom).subtract(feeAmount);
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, mDpDecimal));
+                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(feeAmount);
+                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
             } else {
-
-            }
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
-                mDpDecimal = 6;
-                setDpDecimals(mDpDecimal);
-                WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                mMaxAvailable = getBaseDao().getAvailable(getSActivity().mDenom).subtract(feeAmount);
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
             }
         }
