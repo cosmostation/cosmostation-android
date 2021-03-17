@@ -1151,7 +1151,7 @@ let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
-let EXPLORER_IRIS_TEST      = "https://bifrost.irisplorer.io/";
+let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";

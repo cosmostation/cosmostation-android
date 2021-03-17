@@ -79,7 +79,7 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (mTxRespose == nil || mTxRespose?.tx.body.messages.count == nil) {
+        if (mTxRespose == nil || mTxRespose!.tx.body.messages.count <= 0) {
             return 0
         }
         return mTxRespose!.tx.body.messages.count + 1

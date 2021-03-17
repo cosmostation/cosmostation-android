@@ -3299,7 +3299,7 @@ class WUtils {
             return EXPLORER_COSMOS_TEST + "txs/" + hash
             
         } else if (chain == ChainType.IRIS_TEST) {
-            return EXPLORER_IRIS_TEST + "#/tx?txHash=" + hash
+            return EXPLORER_IRIS_TEST + "txs/" + hash
             
         }
         return ""
@@ -3321,7 +3321,7 @@ class WUtils {
             return EXPLORER_COSMOS_TEST + "proposals/" + proposalId
             
         } else if (chain == ChainType.IRIS_TEST) {
-            return EXPLORER_IRIS_TEST + "#/gov/proposals/" + proposalId
+            return EXPLORER_IRIS_TEST + "proposals/" + proposalId
             
         }
         return ""
@@ -3353,7 +3353,11 @@ class WUtils {
     }
     
     static func onParseFeeAmountGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse) -> NSDecimalNumber {
-        return NSDecimalNumber.init(string: tx.tx.authInfo.fee.amount[0].amount)
+        var result = NSDecimalNumber.zero
+        if (tx.tx.authInfo.fee.amount.count > 0) {
+            return NSDecimalNumber.init(string: tx.tx.authInfo.fee.amount[0].amount)
+        }
+        return result
     }
     
     static func onParseAutoRewardGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ address: String, _ position: Int) -> NSDecimalNumber {
