@@ -155,8 +155,8 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "fixedfeeimg")
             self.speedMsg.text = NSLocalizedString("fee_speed_fixed_fee", comment: "")
             
-            feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
-            self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
+            feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count)
+            self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count).stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE), font: rateFeeGasRateLabel.font, 3)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
@@ -171,8 +171,8 @@ class StepFeeViewController: BaseViewController {
             self.speedImg.image = UIImage.init(named: "fixedfeeimg")
             self.speedMsg.text = NSLocalizedString("fee_speed_fixed_fee", comment: "")
             
-            feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count)
-            self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
+            feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count)
+            self.rateFeeGasAmountLabel.text = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count).stringValue
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS), font: rateFeeGasRateLabel.font, 2)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
             self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
@@ -464,11 +464,10 @@ class StepFeeViewController: BaseViewController {
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                            pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             feeCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.stringValue)
             var fee = Fee.init()
-            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_V1.count).stringValue
+            let estGas = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators_gRPC.count).stringValue
             fee.gas = estGas
             
             var estAmount: Array<Coin> = Array<Coin>()

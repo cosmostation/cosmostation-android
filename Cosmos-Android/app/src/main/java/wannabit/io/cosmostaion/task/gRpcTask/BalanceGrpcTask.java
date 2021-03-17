@@ -19,14 +19,14 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
 
 public class BalanceGrpcTask extends CommonTask {
     private BaseChain mChain;
-    private Account mAccount;
+    private String mAddress;
     private ArrayList<CoinOuterClass.Coin> mResultData = new ArrayList<>();
     private QueryGrpc.QueryBlockingStub mStub;
 
-    public BalanceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, Account account) {
+    public BalanceGrpcTask(BaseApplication app, TaskListener listener, BaseChain chain, String address) {
         super(app, listener);
         this.mChain = chain;
-        this.mAccount = account;
+        this.mAddress = address;
         this.mResult.taskType = TASK_GRPC_FETCH_BALANCE;
         this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
     }
@@ -34,17 +34,17 @@ public class BalanceGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(mAccount.address).build();
+            QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setAddress(mAddress).build();
             QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
             mResultData.addAll(response.getBalancesList());
-            WLog.w("response " + response.getBalancesList());
+//            WLog.w("response " + response.getBalancesList());
 
 //            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
 //                pageJob(response.getPagination().getNextKey());
 //            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
-            WLog.w("Balance " + mResultData.size());
+//            WLog.w("Balance " + mResultData.size());
 
         } catch (Exception e) { WLog.e( "BalanceGrpcTask "+ e.getMessage()); }
         return mResult;
@@ -53,7 +53,7 @@ public class BalanceGrpcTask extends CommonTask {
     private QueryOuterClass.QueryAllBalancesResponse pageJob(com.google.protobuf.ByteString nextKey) {
         try {
             Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setKey(nextKey).build();
-            QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(mAccount.address).build();
+            QueryOuterClass.QueryAllBalancesRequest request = QueryOuterClass.QueryAllBalancesRequest.newBuilder().setPagination(pageRequest).setAddress(mAddress).build();
             QueryOuterClass.QueryAllBalancesResponse response = mStub.allBalances(request);
             mResultData.addAll(response.getBalancesList());
             if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {

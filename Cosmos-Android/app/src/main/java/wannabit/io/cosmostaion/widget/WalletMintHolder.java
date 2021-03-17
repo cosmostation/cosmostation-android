@@ -36,26 +36,18 @@ public class WalletMintHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(AKASH_MAIN)) {
-            if (baseData.mInflation_V1 != null) mInflation.setText(WDp.getPercentDp(baseData.mInflation_V1.multiply(new BigDecimal("100"))));
-            mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
-
-        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN)) {
-            mInflation.setText(WDp.getPercentDp(new BigDecimal("4")));
-            mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
-
-        } else if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
+        if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(AKASH_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST)) {
             if (baseData.mGrpcInflation != null) mInflation.setText(WDp.getPercentDp(baseData.mGrpcInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
-        } else if (mainActivity.mBaseChain.equals(IRIS_TEST)) {
+        } else if (mainActivity.mBaseChain.equals(IRIS_MAIN) || mainActivity.mBaseChain.equals(IRIS_TEST)) {
             if (baseData.mGrpcIrisParamMint != null) {
                 BigDecimal inflation = new BigDecimal(baseData.mGrpcIrisParamMint.getInflation()).movePointLeft(18);
                 mInflation.setText(WDp.getPercentDp(inflation.multiply(new BigDecimal("100"))));
             }
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 
-        }else {
+        } else {
             mInflation.setText(WDp.getPercentDp(baseData.mInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
         }

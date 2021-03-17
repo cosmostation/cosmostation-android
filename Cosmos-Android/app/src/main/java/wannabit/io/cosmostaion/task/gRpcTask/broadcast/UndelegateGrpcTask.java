@@ -36,7 +36,7 @@ public class UndelegateGrpcTask extends CommonTask {
     private String              mMemo;
     private Fee                 mFees;
 
-    private Auth.BaseAccount    mAuthAccount;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
     public UndelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees) {
@@ -65,8 +65,7 @@ public class UndelegateGrpcTask extends CommonTask {
 
             QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
-            QueryOuterClass.QueryAccountResponse response = authStub.account(request);
-            mAuthAccount = Auth.BaseAccount.parseFrom(response.getAccount().getValue());
+            mAuthResponse = authStub.account(request);
             mResult.isSuccess = true;
 
         } catch (Exception e) {
@@ -85,7 +84,7 @@ public class UndelegateGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcUnDelegateReq(mAuthAccount, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcUnDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {

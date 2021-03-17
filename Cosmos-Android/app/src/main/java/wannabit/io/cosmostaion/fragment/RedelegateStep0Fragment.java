@@ -155,12 +155,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mMaxAvailable = WDp.getDelegation(getBaseDao(), getSActivity().mValOpAddress);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-            mProgress.setVisibility(View.GONE);
-
-        } else  if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValOpAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
             mProgress.setVisibility(View.GONE);

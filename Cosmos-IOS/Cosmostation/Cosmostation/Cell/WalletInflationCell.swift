@@ -34,10 +34,12 @@ class WalletInflationCell: UITableViewCell {
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST) {
-            infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mInflation_V1?.inflation, font: infaltionLabel.font)
+            infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mInflation_gRPC?.stringValue, font: infaltionLabel.font)
             yieldLabel.attributedText = WUtils.getDpEstApr(yieldLabel.font, chainType!)
+            
         } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-            infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mMintParam_V1?.inflation, font: infaltionLabel.font)
+            let irisInflation = NSDecimalNumber.init(string: BaseData.instance.mIrisMintParam_gRPC?.inflation).multiplying(byPowerOf10: -18, withBehavior: WUtils.handler2)
+            infaltionLabel.attributedText = WUtils.displayInflation(irisInflation.stringValue , font: infaltionLabel.font)
             yieldLabel.attributedText = WUtils.getDpEstApr(yieldLabel.font, chainType!)
             
         }

@@ -101,6 +101,15 @@ class BaseViewController: UIViewController {
         self.navigationController?.pushViewController(txDetailVC, animated: true)
     }
     
+    func onStartTxDetailgRPC(_ response: Cosmos_Tx_V1beta1_BroadcastTxResponse) {
+        let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
+        txDetailVC.mIsGen = true
+        txDetailVC.mBroadCaseResult = response
+        self.navigationItem.title = ""
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false;
+        self.navigationController?.pushViewController(txDetailVC, animated: true)
+    }
+    
     func onDeleteWallet(_ account:Account) {
         self.showWaittingAlert()
         self.onDeleteAlarm(account)

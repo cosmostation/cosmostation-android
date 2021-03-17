@@ -65,16 +65,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            if (getSActivity().mReinvestCoin != null) {
-                BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-            }
-            mTvFromValidators.setText(WDp.getValidatorInfo(getSActivity().getBaseDao(), getSActivity().mValOpAddress).description.moniker);
-            mProgressBar.setVisibility(View.GONE);
-            mNextBtn.setClickable(true);
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getSActivity().mReinvestCoin != null) {
                 BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));

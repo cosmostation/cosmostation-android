@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import SafariServices
+import GRPC
+import NIO
 
 class VoteListViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -17,7 +19,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     @IBOutlet weak var emptyLabel: UILabel!
     
     var mProposals = Array<Proposal>()
-    var mProposals_V1 = Array<Proposal_V1>()
+    var mProposals_gRPC = Array<Cosmos_Gov_V1beta1_Proposal>()
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
     
@@ -38,9 +40,8 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.refresher.tintColor = UIColor.white
         self.voteTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            self.onFetchProposals_V1()
+        if (WUtils.isGRPC(chainType!)) {
+            self.onFetchProposals_gRPC()
         } else {
             self.onFetchProposals()
         }
@@ -56,7 +57,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onUpdateViews() {
-        if(mProposals.count > 0 || mProposals_V1.count > 0) {
+        if(mProposals.count > 0 || mProposals_gRPC.count > 0) {
             self.emptyLabel.isHidden = true
             self.voteTableView.reloadData()
         } else {
@@ -68,24 +69,22 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
+         if (WUtils.isGRPC(chainType!)) {
+            return self.mProposals_gRPC.count
+         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
+                        chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
             return self.mProposals.count
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            return self.mProposals_V1.count
-        }
+         }
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
+        if (WUtils.isGRPC(chainType!)) {
+            return onBindProposal_gRPC(tableView, indexPath)
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
             return onBindProposal(tableView, indexPath)
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            return onBindProposalV1(tableView, indexPath)
-        } else {
+        } else  {
             let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
             return cell!
         }
@@ -112,14 +111,14 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindProposalV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell  {
+    func onBindProposal_gRPC(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell  {
         let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
-        let proposal = mProposals_V1[indexPath.row]
-        cell?.proposalIdLabel.text = "# ".appending(proposal.proposal_id!)
-        cell?.proposalTitleLabel.text = proposal.content?.title
-        cell?.proposalMsgLabel.text = proposal.content?.description
-        cell?.proposalStateLabel.text = proposal.getStatusText()
-        cell?.proposalStateImg.image = proposal.getStatusImg()
+        let proposal = mProposals_gRPC[indexPath.row]
+        cell?.proposalIdLabel.text = "# ".appending(String(proposal.proposalID))
+        cell?.proposalTitleLabel.text = WUtils.onParseProposalTitle(proposal)
+        cell?.proposalMsgLabel.text = WUtils.onParseProposalDescription(proposal)
+        cell?.proposalStateLabel.text = WUtils.onParseProposalStatusTxt(proposal)
+        cell?.proposalStateImg.image = WUtils.onParseProposalStatusImg(proposal)
         return cell!
     }
     
@@ -128,34 +127,18 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            let proposal = mProposals_V1[indexPath.row]
-            if (Int(proposal.proposal_id!)! >= 38) {
+        if (WUtils.isGRPC(chainType!)) {
+            let proposal = mProposals_gRPC[indexPath.row]
+            if (proposal.status  == Cosmos_Gov_V1beta1_ProposalStatus.passed || proposal.status  == Cosmos_Gov_V1beta1_ProposalStatus.rejected) {
+                let link = WUtils.getProposalExplorer(self.chainType!, String(proposal.proposalID))
+                guard let url = URL(string: link) else { return }
+                self.onShowSafariWeb(url)
+            } else {
                 let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
-                voteDetailsVC.proposalId = proposal.proposal_id!
+                voteDetailsVC.proposalId = String(proposal.proposalID)
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(voteDetailsVC, animated: true)
-            } else {
-                guard let url = URL(string: EXPLORER_COSMOS_MAIN + "proposals/" + proposal.proposal_id!) else { return }
-                self.onShowSafariWeb(url)
             }
-            
-        } else if(chainType == ChainType.COSMOS_TEST) {
-            let proposal = mProposals_V1[indexPath.row]
-            guard let url = URL(string: EXPLORER_COSMOS_TEST + "proposals/" + proposal.proposal_id!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
-            let proposal = mProposals_V1[indexPath.row]
-            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
-            voteDetailsVC.proposalId = proposal.proposal_id!
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
-            
-        } else if(chainType == ChainType.IRIS_TEST) {
-            let proposal = mProposals_V1[indexPath.row]
-            guard let url = URL(string: EXPLORER_IRIS_TEST + "proposals/" + proposal.proposal_id!) else { return }
-            self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.KAVA_MAIN) {
             let proposal = mProposals[indexPath.row]
@@ -325,34 +308,32 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         }
     }
     
-    @objc func onFetchProposals_V1() {
-        let url = BaseNetWork.proposals(chainType!)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let proposals = responseData.object(forKey: "proposals") as? Array<NSDictionary> else {
-                        self.onUpdateViews()
-                        return
-                }
-                self.mProposals_V1.removeAll()
-                for proposal in proposals {
-                    self.mProposals_V1.append(Proposal_V1(proposal))
-                }
+    @objc func onFetchProposals_gRPC() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Gov_V1beta1_QueryProposalsRequest.init()
+            do {
+                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).proposals(req).response.wait()
+                self.mProposals_gRPC = response.proposals
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposals_V1 ", error) }
+            } catch {
+                print("onFetchProposals_gRPC failed: \(error)")
             }
-            self.onUpdateViews()
+            DispatchQueue.main.async(execute: {
+                self.onUpdateViews()
+            });
         }
-        
     }
     
     func sortProposals() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            self.mProposals_V1.sort{
-                return Int($0.proposal_id!)! < Int($1.proposal_id!)! ? false : true
+        if (WUtils.isGRPC(chainType!)) {
+            self.mProposals_gRPC.sort{
+                return $0.proposalID < $1.proposalID ? false : true
             }
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
                     chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {

@@ -370,7 +370,7 @@ public class Message {
                           self.timestamp,
                           self.toAddress)
                               
-      case .claimHtlc:
+        case .claimHtlc:
           return String(format: JSON.claimHtlc,
                         self.wallet.account,
                         self.randomNumber,

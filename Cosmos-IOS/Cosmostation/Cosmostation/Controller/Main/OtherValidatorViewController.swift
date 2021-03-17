@@ -67,9 +67,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onSorting() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-            self.otherValidatorCnt.text = String(BaseData.instance.mUnbondValidators_V1.count)
+        if (WUtils.isGRPC(chainType!)) {
+            self.otherValidatorCnt.text = String(BaseData.instance.mUnbondValidators_gRPC.count)
         } else {
             self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
         }
@@ -85,9 +84,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-            return BaseData.instance.mUnbondValidators_V1.count
+        if (WUtils.isGRPC(chainType!)) {
+            return BaseData.instance.mUnbondValidators_gRPC.count
         } else {
             return self.mainTabVC.mOtherValidators.count
         }
@@ -95,10 +93,9 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:OtherValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"OtherValidatorCell") as? OtherValidatorCell
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-            if (BaseData.instance.mUnbondValidators_V1.count > 0) {
-                cell?.updateView(BaseData.instance.mUnbondValidators_V1[indexPath.row], self.chainType)
+        if (WUtils.isGRPC(chainType!)) {
+            if (BaseData.instance.mUnbondValidators_gRPC.count > 0) {
+                cell?.updateView(BaseData.instance.mUnbondValidators_gRPC[indexPath.row], self.chainType)
             }
             
         } else {
@@ -115,10 +112,9 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-            validatorDetailVC.mValidator_V1 = BaseData.instance.mUnbondValidators_V1[indexPath.row]
+            validatorDetailVC.mValidator_gRPC = BaseData.instance.mUnbondValidators_gRPC[indexPath.row]
             validatorDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
@@ -197,14 +193,13 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func sortByPower() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
-            BaseData.instance.mUnbondValidators_V1.sort{
-                if ($0.description?.moniker == "Cosmostation") { return true }
-                if ($1.description?.moniker == "Cosmostation") { return false }
-                if ($0.jailed! && !$1.jailed!) { return false }
-                if (!$0.jailed! && $1.jailed!) { return true }
-                return Double($0.tokens!)! > Double($1.tokens!)!
+        if (WUtils.isGRPC(chainType!)) {
+            BaseData.instance.mUnbondValidators_gRPC.sort{
+                if ($0.description_p.moniker == "Cosmostation") { return true }
+                if ($1.description_p.moniker == "Cosmostation") { return false }
+                if ($0.jailed && !$1.jailed) { return false }
+                if (!$0.jailed && $1.jailed) { return true }
+                return Double($0.tokens)! > Double($1.tokens)!
             }
         } else {
             mainTabVC.mOtherValidators.sort{

@@ -16,6 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import irismod.token.TokenOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -62,7 +63,7 @@ public class SendActivity extends BaseActivity {
 
     //V1 .40 version
     public String                       mDenom;
-    public IrisToken_V1                 mIrisToken_V1;
+    public TokenOuterClass.Token        mIrisToken_Grpc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class SendActivity extends BaseActivity {
         mSecretDenom = getIntent().getStringExtra("secretDenom");
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
-        mIrisToken_V1 = WDp.getIrisToken(getBaseDao(), mDenom);
+        mIrisToken_Grpc = getBaseDao().getIrisToken(mDenom);
 
         mTvStep.setText(getString(R.string.str_send_step_0));
 

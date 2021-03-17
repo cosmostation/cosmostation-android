@@ -39,7 +39,7 @@ public class AllRewardGrpcTask extends CommonTask {
             mResultData.addAll(response.getRewardsList());
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
-            WLog.w("AllReward " + mResultData.size());
+//            WLog.w("AllReward " + mResultData.size());
 
         } catch (Exception e) { WLog.e( "AllRewardGrpcTask "+ e.getMessage()); }
         return mResult;

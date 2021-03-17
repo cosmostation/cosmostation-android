@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import SafariServices
+import GRPC
+import NIO
 
 class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -25,10 +27,15 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     var mMyVote: Vote?
     
     //for v40
-    var mProposalDetail_V1: Proposal_V1?
-    var mTally_V1: Tally_V1?
-    var mVoters_V1: Array<Vote_V1>?
-    var mMyVote_V1: Vote_V1?
+//    var mProposalDetail_V1: Proposal_V1?
+//    var mTally_V1: Tally_V1?
+//    var mVoters_V1: Array<Vote_V1>?
+//    var mMyVote_V1: Vote_V1?
+    
+    var mProposalDetail_gRPC: Cosmos_Gov_V1beta1_Proposal?
+    var mTally_gRPC: Cosmos_Gov_V1beta1_TallyResult?
+    var mVoters_gRPC: Array<Cosmos_Gov_V1beta1_Vote>?
+    var mMyVote_gRPC: Cosmos_Gov_V1beta1_Vote?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,12 +79,9 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onClickLink() {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "proposals/" + proposalId!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: EXPLORER_IRIS_MAIN + "proposals/" + proposalId!) else { return }
+        if (WUtils.isGRPC(chainType!)) {
+            let link = WUtils.getProposalExplorer(self.chainType!, proposalId!)
+            guard let url = URL(string: link) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType == ChainType.KAVA_MAIN) {
@@ -100,10 +104,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             guard let url = URL(string: EXPLORER_IOV_MAIN + "proposals/" + proposalId!) else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            guard let url = URL(string: EXPLORER_AKASH_MAIN + "proposals/" + proposalId!) else { return }
-            self.onShowSafariWeb(url)
-            
         }
     }
     
@@ -115,11 +115,11 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
-            if (mProposalDetail_V1?.status != "PROPOSAL_STATUS_VOTING_PERIOD") {
+            if (mProposalDetail_gRPC?.status != Cosmos_Gov_V1beta1_ProposalStatus.votingPeriod ) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
-            if (BaseData.instance.mMyDelegations_V1.count < 0) {
+            if (BaseData.instance.mMyDelegations_gRPC.count < 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
             }
@@ -208,14 +208,14 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func getTitle() -> String? {
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
-            return mProposalDetail_V1?.getTitle()
+            return WUtils.onParseProposalTitle(mProposalDetail_gRPC!)
         } else {
             return mProposal?.getTitle()
         }
     }
     
     func getProposer() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (WUtils.isGRPC(chainType!)) {
             return ""
         } else {
             return self.mProposer
@@ -236,21 +236,21 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindVoteInfo(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteInfoTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteInfoTableViewCell") as? VoteInfoTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.AKASH_MAIN) && mProposalDetail_V1 != nil) {
-            cell?.statusImg.image = mProposalDetail_V1?.getStatusImg()
-            cell?.statusTitle.text = mProposalDetail_V1?.getStatusText()
-            cell?.proposalTitle.text = mProposalDetail_V1?.getTitle()
+        if (WUtils.isGRPC(chainType!) && mProposalDetail_gRPC != nil) {
+            cell?.statusImg.image = WUtils.onParseProposalStatusImg(mProposalDetail_gRPC!)
+            cell?.statusTitle.text = WUtils.onParseProposalStatusTxt(mProposalDetail_gRPC!)
+            cell?.proposalTitle.text = WUtils.onParseProposalTitle(mProposalDetail_gRPC!)
             cell?.proposerLabel.text = getProposer()
-            cell?.proposalTypeLabel.text = String((mProposalDetail_V1?.content?.type)!.split(separator: ".").last!)
-            cell?.voteStartTime.text = mProposalDetail_V1?.getStartTime()
-            cell?.voteEndTime.text = mProposalDetail_V1?.getEndTime()
-            cell?.voteDescription.text = mProposalDetail_V1?.content?.description
-//            if (mProposalDetail_V1?.content?.amount?.count ?? 0 > 0) {
-//                WUtils.showCoinDp((mProposalDetail_V1?.content?.amount![0])!, cell!.requestAmountDenom, cell!.requestAmount, chainType!)
-//            } else {
+            cell?.proposalTypeLabel.text = String((mProposalDetail_gRPC!.content.typeURL).split(separator: ".").last!)
+            cell?.voteStartTime.text = WUtils.onParseProposalStartTime(mProposalDetail_gRPC!)
+            cell?.voteEndTime.text = WUtils.onParseProposalEndTime(mProposalDetail_gRPC!)
+            cell?.voteDescription.text = WUtils.onParseProposalDescription(mProposalDetail_gRPC!)
+            if let coin = WUtils.onParseProposalRequestAmount(mProposalDetail_gRPC!) {
+                WUtils.showCoinDp(coin, cell!.requestAmountDenom, cell!.requestAmount, chainType!)
+            } else {
                 cell!.requestAmountDenom.text = "N/A"
-//            }
-            
+            }
+
         } else if (mProposal != nil) {
             cell?.statusImg.image = mProposal?.getStatusImg()
             cell?.statusTitle.text = mProposal?.proposal_status
@@ -278,10 +278,10 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onBindTally(_ tableView: UITableView) -> UITableViewCell {
         let cell:VoteTallyTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"VoteTallyTableViewCell") as? VoteTallyTableViewCell
-        if ((chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) && mTally_V1 != nil) {
-            cell?.onUpdateCards_V1(chainType!, mTally_V1!, mVoters_V1, mProposalDetail_V1?.status)
-            cell?.onCheckMyVote_V1(mMyVote_V1)
-            
+        if (WUtils.isGRPC(chainType!) && mTally_gRPC != nil) {
+            cell?.onUpdateCards_gRPC(chainType!, mTally_gRPC!, mVoters_gRPC, mProposalDetail_gRPC)
+            cell?.onCheckMyVote_gRPC(mMyVote_gRPC)
+
         } else if (mTally != nil) {
             cell?.onUpdateCards(mTally!, mVoters, mProposal?.proposal_status)
             cell?.onCheckMyVote(mMyVote)
@@ -290,12 +290,12 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (WUtils.isGRPC(chainType!)) {
             mFetchCnt = 4
-            onFetchProposalDetail_V1(proposalId!)
-            onFetchProposalTally_V1(proposalId!)
-            onFetchProposalVoterList_V1(proposalId!)
-            onFetchProposalMyVote_V1(proposalId!, account!.account_address)
+            onFetchProposalDetail_gRPC(proposalId!)
+            onFetchProposalTally_gRPC(proposalId!)
+            onFetchProposalVoterList_gRPC(proposalId!)
+            onFetchProposalMyVote_gRPC(proposalId!, account!.account_address)
             
         } else {
             mFetchCnt = 5
@@ -484,86 +484,104 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     
-    func onFetchProposalDetail_V1(_ proposal_id: String) {
-        let url = BaseNetWork.proposalDetail(chainType!, proposal_id)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rawProposal = responseData.object(forKey: "proposal") as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mProposalDetail_V1 = Proposal_V1.init(rawProposal)
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposalDetail_V1 ", error) }
-                self.onFetchFinished()
+    func onFetchProposalDetail_gRPC(_ proposal_id: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Gov_V1beta1_QueryProposalRequest.with {
+                $0.proposalID = UInt64(proposal_id)!
             }
+            do {
+                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).proposal(req).response.wait()
+                self.mProposalDetail_gRPC = response.proposal
+                
+            } catch {
+                print("onFetchProposalDetail_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchProposalTally_V1(_ proposal_id: String) {
-        let url = BaseNetWork.proposalTally(chainType!, proposal_id)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rawTally = responseData.object(forKey: "tally") as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mTally_V1 = Tally_V1(rawTally)
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposalTally_V1 ", error) }
-                self.onFetchFinished()
+    func onFetchProposalTally_gRPC(_ proposal_id: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Gov_V1beta1_QueryTallyResultRequest.with {
+                $0.proposalID = UInt64(proposal_id)!
             }
+            do {
+                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).tallyResult(req).response.wait()
+                self.mTally_gRPC = response.tally
+                
+            } catch {
+                print("onFetchProposalTally_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchProposalVoterList_V1(_ proposal_id: String) {
-        let url = BaseNetWork.proposalVoterList(chainType!, proposal_id)
-        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 1000, "pagination.offset":0], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rawVoters = responseData.object(forKey: "votes") as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mVoters_V1 = Array<Vote_V1>()
-                for rawVoter in rawVoters {
-                    self.mVoters_V1!.append(Vote_V1(rawVoter))
-                }
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchVoterList_V1 ", error) }
-                self.onFetchFinished()
+    func onFetchProposalVoterList_gRPC(_ proposal_id: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                $0.limit = 2000
             }
+            let req = Cosmos_Gov_V1beta1_QueryVotesRequest.with {
+                $0.pagination = page
+                $0.proposalID = UInt64(proposal_id)!
+            }
+            do {
+                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).votes(req).response.wait()
+                self.mVoters_gRPC = response.votes
+                
+            } catch {
+                print("onFetchProposalVoterList_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchProposalMyVote_V1(_ proposal_id: String, _ address: String) {
-        let url = BaseNetWork.proposalMyVote(chainType!, proposal_id, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rawVote = responseData.object(forKey: "vote") as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mMyVote_V1 = Vote_V1(rawVote)
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProposalMyVote_V1 ", error) }
-                self.onFetchFinished()
+    func onFetchProposalMyVote_gRPC(_ proposal_id: String, _ address: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Gov_V1beta1_QueryVoteRequest.with {
+                $0.voter = address
+                $0.proposalID = UInt64(proposal_id)!
             }
+            do {
+                let response = try Cosmos_Gov_V1beta1_QueryClient(channel: channel).vote(req).response.wait()
+                self.mMyVote_gRPC = response.vote
+                
+            } catch {
+                print("onFetchProposalMyVote_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
 }

@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import GRPC
+import NIO
 
 class ReInvestAmountViewController: BaseViewController {
 
@@ -34,9 +36,8 @@ class ReInvestAmountViewController: BaseViewController {
                 pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             self.onFetchReward(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            self.onFetchRewards(pageHolderVC.mAccount!.account_address)
+        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            self.onFetchRewards_gRPC(pageHolderVC.mAccount!.account_address)
             
         }
     }
@@ -106,11 +107,10 @@ class ReInvestAmountViewController: BaseViewController {
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_V1!.operator_address)
+        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
             rewardAmountLabel.attributedText = WUtils.displayAmount2(cReward.stringValue, rewardAmountLabel.font, 6, 6)
-            validatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
+            validatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             
             let coin = Coin(WUtils.getMainDenom(pageHolderVC.chainType), cReward.rounding(accordingToBehavior: WUtils.handler0Down).stringValue)
             self.pageHolderVC.mReinvestReward = coin
@@ -241,24 +241,29 @@ class ReInvestAmountViewController: BaseViewController {
         }
     }
     
-    func onFetchRewards(_ address: String) {
-        let url = BaseNetWork.rewardsUrl(pageHolderVC.chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
-                    self.updateView()
-                    return
-                }
-                for reward in rewards {
-                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
-                }
-                self.updateView()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchRewards ", error) }
+    func onFetchRewards_gRPC(_ address: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegationTotalRewardsRequest.with {
+                $0.delegatorAddress = address
             }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req).response.wait()
+//            print("onFetchgRPCRewards: \(response.rewards.count)")
+                response.rewards.forEach { reward in
+                    BaseData.instance.mMyReward_gRPC.append(reward)
+                }
+            } catch {
+                print("onFetchgRPCRewards failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.updateView()
+            });
         }
     }
     

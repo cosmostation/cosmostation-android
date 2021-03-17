@@ -32,9 +32,9 @@ public class ProvisionGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             QueryOuterClass.QueryAnnualProvisionsRequest request = QueryOuterClass.QueryAnnualProvisionsRequest.newBuilder().build();
-            WLog.w("ProvisionGrpcTask request "+ request.toString());
+//            WLog.w("ProvisionGrpcTask request "+ request.toString());
             QueryOuterClass.QueryAnnualProvisionsResponse response = mStub.annualProvisions(request);
-            WLog.w("getAnnualProvisions " + response.getAnnualProvisions().toString("UTF-8"));
+//            WLog.w("getAnnualProvisions " + response.getAnnualProvisions().toString("UTF-8"));
 
             BigDecimal provision = new BigDecimal(response.getAnnualProvisions().toString("UTF-8")).movePointLeft(18);
             this.mResult.isSuccess = true;

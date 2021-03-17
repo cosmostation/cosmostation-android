@@ -48,8 +48,8 @@ class MyValidatorCell: UITableViewCell {
         super.prepareForReuse()
     }
     
-    func updateView(_ validator: Validator_V1, _ chainType: ChainType?) {
-        monikerLabel.text = validator.description?.moniker
+    func updateView(_ validator: Cosmos_Staking_V1beta1_Validator, _ chainType: ChainType?) {
+        monikerLabel.text = validator.description_p.moniker
         monikerLabel.adjustsFontSizeToFitWidth = true
         freeEventImg.isHidden = true
         if (validator.jailed == true) {
@@ -60,17 +60,12 @@ class MyValidatorCell: UITableViewCell {
             validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
         
-        let myDelegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator.operator_address }.first
-        myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(myDelegation?.balance?.amount, myDelegatedAmoutLabel.font, 6, 6)
-        
-        let myUnbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator.operator_address }.first
-        myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(myUnbonding?.getAllUnbondingBalance().stringValue, myUndelegatingAmountLabel.font, 6, 6)
-        
-        let myReward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator.operator_address }.first
-        rewardAmoutLabel.attributedText = WUtils.displayAmount2(myReward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, rewardAmoutLabel.font, 6, 6)
+        myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegated(validator.operatorAddress).stringValue, myDelegatedAmoutLabel.font, 6, 6)
+        myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbonding(validator.operatorAddress).stringValue, myUndelegatingAmountLabel.font, 6, 6)
+        rewardAmoutLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operatorAddress).stringValue, rewardAmoutLabel.font, 6, 6)
         
         cardView.backgroundColor = WUtils.getChainBg(chainType)
-        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operator_address!))!)
+        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operatorAddress))!)
     }
     
 }

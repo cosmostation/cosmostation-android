@@ -249,28 +249,13 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
         }
 
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_cosmos));
-
-            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
-            mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
-            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_stargate));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
 
             mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
@@ -279,28 +264,13 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
 
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iris));
-
-            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
-            mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValOpAddresses_V1.size()));
-            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_bifrost));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
 
             mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, (getSActivity().mValAddresses.size()));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());

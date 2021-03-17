@@ -93,35 +93,6 @@ public class Account {
         this.balances = balances;
     }
 
-
-    public BigDecimal getAtomBalance() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal getIrisBalance() {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_IRIS_ATTO)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
     public BigDecimal getBnbBalance() {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {
@@ -157,20 +128,6 @@ public class Account {
         }
         for(Balance balance:balances) {
             if(balance.symbol.equals(symbol)) {
-                result = balance.balance;
-                break;
-            }
-        }
-        return result;
-    }
-
-    public BigDecimal getIrisTokenBalance(String symbol) {
-        BigDecimal result = BigDecimal.ZERO;
-        if(balances == null || balances.size() == 0)  {
-            return result;
-        }
-        for(Balance balance:balances) {
-            if(balance.symbol.split("-")[0].equals(symbol)) {
                 result = balance.balance;
                 break;
             }

@@ -123,8 +123,7 @@
                 android:id="@+id/tx_undelegate_auto_reward"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_16"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:id="@+id/tx_auto_claimed_amount_title"
                     android:layout_width="wrap_content"

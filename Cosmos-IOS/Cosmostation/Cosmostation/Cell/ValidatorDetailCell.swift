@@ -60,8 +60,8 @@ class ValidatorDetailCell: UITableViewCell {
     
     
     
-    func updateView(_ validator: Validator_V1?, _ selfDelegationInfo_V1: DelegationInfo_V1?, _ chainType: ChainType?) {
-        monikerName.text = validator?.description?.moniker
+    func updateView(_ validator: Cosmos_Staking_V1beta1_Validator?, _ selfDelegation: Cosmos_Staking_V1beta1_DelegationResponse?, _ chainType: ChainType?) {
+        monikerName.text = validator?.description_p.moniker
         monikerName.adjustsFontSizeToFitWidth = true
         if (validator?.jailed == true) {
             jailedImg.isHidden = false
@@ -71,19 +71,19 @@ class ValidatorDetailCell: UITableViewCell {
             validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
         freeEventImg.isHidden = true
-        website.text = validator?.description?.website
-        descriptionMsg.text = validator?.description?.details
+        website.text = validator?.description_p.website
+        descriptionMsg.text = validator?.description_p.details
         
         totalBondedAmount.attributedText = WUtils.displayAmount2(validator?.tokens, totalBondedAmount.font!, 6, 6)
-        selfBondedRate.attributedText = WUtils.displaySelfBondRate(selfDelegationInfo_V1?.balance?.amount, validator?.tokens, selfBondedRate.font)
-        commissionRate.attributedText = WUtils.displayCommission(validator?.commission?.commission_rates?.rate, font: commissionRate.font)
-        if (validator?.status == BONDED_V1) {
-            avergaeYield.attributedText = WUtils.getDpEstAprCommission(avergaeYield.font, validator!.getCommission(), chainType!)
+        selfBondedRate.attributedText = WUtils.displaySelfBondRate(selfDelegation?.balance.amount, validator?.tokens, selfBondedRate.font)
+        commissionRate.attributedText = WUtils.displayCommission(NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18).stringValue, font: commissionRate.font)
+        if (validator?.status == Cosmos_Staking_V1beta1_BondStatus.bonded) {
+            avergaeYield.attributedText = WUtils.getDpEstAprCommission(avergaeYield.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), chainType!)
         } else {
             avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: avergaeYield.font)
             avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
-        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator!.operator_address!))!)
+        validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator!.operatorAddress))!)
         
     }
 }

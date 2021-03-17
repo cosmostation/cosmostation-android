@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
+import GRPC
+import NIO
 
 class RestorePathViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -43,7 +45,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN || userChain == ChainType.CERTIK_TEST || userChain == ChainType.AKASH_MAIN || userChain == ChainType.COSMOS_TEST || userChain == ChainType.IRIS_TEST) {
+        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN ||
+                userChain == ChainType.CERTIK_TEST || userChain == ChainType.AKASH_MAIN || userChain == ChainType.COSMOS_TEST || userChain == ChainType.IRIS_TEST) {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.BINANCE_MAIN || userChain == ChainType.BINANCE_TEST) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
@@ -89,44 +92,33 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         cell?.stateLabel.textColor = UIColor.white
                     }
                 }
+                if (WUtils.isGRPC(self.userChain!)) {
+                    DispatchQueue.global().async {
+                        var amount = "0"
+                        let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+                        defer { try! group.syncShutdownGracefully() }
+                        
+                        let channel = BaseNetWork.getConnection(self.userChain!, group)!
+                        defer { try! channel.close().wait() }
+                        
+                        let req = Cosmos_Bank_V1beta1_QueryAllBalancesRequest.with {
+                            $0.address = address
+                        }
+                        do {
+                            let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req).response.wait()
+                            response.balances.forEach { balance in
+                                if (balance.denom == WUtils.getMainDenom(self.userChain)) {
+                                    amount = balance.amount
+                                }
+                            }
+                        } catch { }
+                        DispatchQueue.main.async(execute: {
+                            cell?.denomAmount.attributedText = WUtils.displayAmount2(amount, cell!.denomAmount.font!, 6, 6)
+                        });
+                    }
+                }
                 
-                if (self.userChain == ChainType.COSMOS_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(COSMOS_MAIN_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
-                                balances.forEach({ (balance) in
-                                    if (balance.object(forKey: "denom") as? String == COSMOS_MAIN_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
-                                    }
-                                })
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.IRIS_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(IRIS_MAIN_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
-                                balances.forEach({ (balance) in
-                                    if (balance.object(forKey: "denom") as? String == IRIS_MAIN_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
-                                    }
-                                })
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.BINANCE_MAIN) {
+                else if (self.userChain == ChainType.BINANCE_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
                     let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -241,43 +233,30 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.COSMOS_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(COSMOS_TEST_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                } else if (self.userChain == ChainType.OKEX_MAIN) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 18)
+                    let request = Alamofire.request(OKEX_ACCOUNT_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
-                                balances.forEach({ (balance) in
-                                    if (balance.object(forKey: "denom") as? String == COSMOS_TEST_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
-                                    }
-                                })
+                            guard let okAccountBalancesInfo = res as? [String : Any] else {
+                                return
                             }
+                            let okAccountBalances = OkAccountToken.init(okAccountBalancesInfo)
+                            for currency in okAccountBalances.data.currencies {
+                                if (currency.symbol == OKEX_MAIN_DENOM) {
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(currency.available, cell!.denomAmount.font!, 0, 18)
+                                    return
+                                }
+                            }
+                            
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
                     }
-                    
-                } else if (self.userChain == ChainType.IRIS_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(IRIS_TEST_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
-                                balances.forEach({ (balance) in
-                                    if (balance.object(forKey: "denom") as? String == IRIS_TEST_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
-                                    }
-                                })
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.BINANCE_TEST) {
+                }
+                
+                else if (self.userChain == ChainType.BINANCE_TEST) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
                     let request = Alamofire.request(BNB_TEST_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
@@ -376,45 +355,6 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         }
                     }
                     
-                } else if (self.userChain == ChainType.AKASH_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(AKASH_MAIN_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            if let responseData = res as? NSDictionary, let balances = responseData.object(forKey: "balances") as? Array<NSDictionary> {
-                                balances.forEach({ (balance) in
-                                    if (balance.object(forKey: "denom") as? String == AKASH_MAIN_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(balance.object(forKey: "amount") as? String, cell!.denomAmount.font!, 6, 6)
-                                    }
-                                })
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.OKEX_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 18)
-                    let request = Alamofire.request(OKEX_ACCOUNT_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let okAccountBalancesInfo = res as? [String : Any] else {
-                                return
-                            }
-                            let okAccountBalances = OkAccountToken.init(okAccountBalancesInfo)
-                            for currency in okAccountBalances.data.currencies {
-                                if (currency.symbol == OKEX_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(currency.available, cell!.denomAmount.font!, 0, 18)
-                                    return
-                                }
-                            }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
                 }
             });
         }

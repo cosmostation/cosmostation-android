@@ -139,7 +139,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
 import static wannabit.io.cosmostaion.network.res.ResKavaSwapInfo.STATUS_EXPIRED;
 
-public class TxDetailActivity extends BaseActivity implements View.OnClickListener {
+public class TxDetailActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
 
     private Toolbar mToolbar;
     private RecyclerView mTxRecyclerView;
@@ -2157,7 +2157,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private void onShowMoreWait() {
         Dialog_MoreWait waitMore = Dialog_MoreWait.newInstance(null);
         waitMore.setCancelable(false);
-        getSupportFragmentManager().beginTransaction().add(waitMore, "dialog").commitNowAllowingStateLoss();
+        waitMore.show(getSupportFragmentManager(), "dialog");
     }
 
     public void onWaitMore() {
