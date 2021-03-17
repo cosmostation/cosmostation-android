@@ -38,7 +38,7 @@ public class SendGrpcTask extends CommonTask {
     private String          mMemo;
     private Fee             mFees;
 
-    private Auth.BaseAccount mAuthAccount;
+    private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey deterministicKey;
 
     public SendGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toAddress, ArrayList<Coin> amount, String memo, Fee fee) {
@@ -67,8 +67,7 @@ public class SendGrpcTask extends CommonTask {
 
             QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
-            QueryOuterClass.QueryAccountResponse response = authStub.account(request);
-            mAuthAccount = Auth.BaseAccount.parseFrom(response.getAccount().getValue());
+            mAuthResponse = authStub.account(request);
             mResult.isSuccess = true;
 
         } catch (Exception e) {
@@ -87,7 +86,7 @@ public class SendGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(mAuthAccount, mToAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcSendReq(mAuthResponse, mToAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
 
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
