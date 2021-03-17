@@ -20,11 +20,9 @@ class TransactionViewController: UIViewController {
     var mAccount: Account?
     var mUserChain: ChainType?
     var mTargetValidator: Validator?
-    var mTargetValidator_V1: Validator_V1?
     var mTargetValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
-    var mRewardTargetValidators_V1 = Array<Validator_V1>()
     var mRewardTargetValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mIrisRedelegate: Array<NSDictionary>?
     

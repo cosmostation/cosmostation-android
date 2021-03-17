@@ -69,8 +69,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             self.onSorting()
             self.refresher.endRefreshing()
         } else {
@@ -89,8 +88,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     @objc func onSorting() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             self.allValidatorCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
         } else {
             self.allValidatorCnt.text = String(self.mainTabVC.mTopValidators.count)
@@ -116,8 +114,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             return BaseData.instance.mBondedValidators_gRPC.count
         } else {
             return self.mainTabVC.mTopValidators.count
@@ -126,8 +123,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:AllValidatorCell? = tableView.dequeueReusableCell(withIdentifier:"AllValidatorCell") as? AllValidatorCell
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             if (BaseData.instance.mBondedValidators_gRPC.count > 0) {
                 cell?.updateView(BaseData.instance.mBondedValidators_gRPC[indexPath.row], self.chainType)
             }
@@ -146,8 +142,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
             validatorDetailVC.mValidator_gRPC = BaseData.instance.mBondedValidators_gRPC[indexPath.row]
             validatorDetailVC.hidesBottomBarWhenPushed = true
@@ -248,8 +243,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByName() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mBondedValidators_gRPC.sort{
                 if ($0.description_p.moniker == "Cosmostation") { return true }
                 if ($1.description_p.moniker == "Cosmostation") { return false }
@@ -269,8 +263,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByPower() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mBondedValidators_gRPC.sort{
                 if ($0.description_p.moniker == "Cosmostation") { return true }
                 if ($1.description_p.moniker == "Cosmostation") { return false }
@@ -290,8 +283,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func sortByCommission() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mBondedValidators_gRPC.sort{
                 if ($0.description_p.moniker == "Cosmostation") { return true }
                 if ($1.description_p.moniker == "Cosmostation") { return false }

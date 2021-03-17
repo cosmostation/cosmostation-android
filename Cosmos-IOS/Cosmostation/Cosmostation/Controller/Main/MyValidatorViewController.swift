@@ -72,8 +72,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onSortingMy() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             self.myValidatorCnt.text = String(BaseData.instance.mMyValidators_gRPC.count)
         } else {
             self.myValidatorCnt.text = String(self.mainTabVC.mMyValidators.count)
@@ -99,8 +98,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             if (BaseData.instance.mMyValidators_gRPC.count < 1) { return 1; }
             else if (BaseData.instance.mMyValidators_gRPC.count == 1) { return 1; }
             else { return BaseData.instance.mMyValidators_gRPC.count + 1; }
@@ -113,8 +111,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             if (BaseData.instance.mMyValidators_gRPC.count < 1) {
                 let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
                 cell?.cardView.backgroundColor = WUtils.getChainBg(chainType)
@@ -179,8 +176,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             if (BaseData.instance.mMyValidators_gRPC.count > 0 && indexPath.row != BaseData.instance.mMyValidators_gRPC.count) {
                 let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
                 validatorDetailVC.mValidator_gRPC = BaseData.instance.mMyValidators_gRPC[indexPath.row]
@@ -262,8 +258,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(WUtils.getMainDenom(chainType)), cell.totalRewardLabel.font, 6, 6)
             cell.delegate = self
             
@@ -520,8 +515,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
         }
         
-        else if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                    self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        else if (WUtils.isGRPC(chainType!)) {
             var claimAbleValidators = Array<Cosmos_Staking_V1beta1_Validator>()
             BaseData.instance.mMyValidators_gRPC.forEach { validator in
                 if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operatorAddress).compare(NSDecimalNumber.init(string: "3750")).rawValue > 0) {
@@ -585,8 +579,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByName() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mMyValidators_gRPC.sort{
                 if ($0.description_p.moniker == "Cosmostation") { return true }
                 if ($1.description_p.moniker == "Cosmostation") { return false }
@@ -607,8 +600,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByDelegated() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mMyValidators_gRPC.sort {
                 if ($0.description_p.moniker == "Cosmostation") { return true }
                 if ($1.description_p.moniker == "Cosmostation") { return false }
@@ -640,8 +632,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func sortByReward() {
-        if (self.chainType == ChainType.COSMOS_MAIN || self.chainType == ChainType.IRIS_MAIN || self.chainType == ChainType.AKASH_MAIN ||
-                self.chainType == ChainType.COSMOS_TEST || self.chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mMyValidators_gRPC.sort {
                 if ($0.description_p.moniker == "Cosmostation") { return true }
                 if ($1.description_p.moniker == "Cosmostation") { return false }

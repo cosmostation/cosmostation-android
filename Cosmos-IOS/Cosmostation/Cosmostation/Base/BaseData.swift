@@ -56,26 +56,6 @@ final class BaseData : NSObject{
     var mBandOracleStatus: BandOracleStatus?
     
     
-    
-    //For StarGate after v0.40
-//    var mAllValidators_V1 = Array<Validator_V1>()
-//    var mBondedValidators_V1 = Array<Validator_V1>()
-//    var mUnbondValidators_V1 = Array<Validator_V1>()
-//    var mMyValidators_V1 = Array<Validator_V1>()
-//
-//    var mMyDelegations_V1 = Array<DelegationInfo_V1>()
-//    var mMyUnbondings_V1 = Array<UnbondingInfo_V1>()
-//    var mMyBalances_V1 = Array<Coin>()
-//    var mMyReward_V1 = Array<Reward_V1>()
-//
-//    var mMintParam_V1: MintParam_V1?
-//    var mStakingPool_V1: StakingPool_V1?
-//    var mProvision_V1: Provision_V1?
-//    var mInflation_V1: Inflation_V1?
-//
-//    var mIrisTokens_V1 = Array<IrisToken_V1>()
-    
-    
     //For ProtoBuf and gRPC
     var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mBondedValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
@@ -94,14 +74,6 @@ final class BaseData : NSObject{
     
     var mIrisMintParam_gRPC: Irishub_Mint_Params?
     var mIrisTokens_gRPC = Array<Irismod_Token_Token>()
-    
-    
-    
-//    func checkZeroMainDenom(_ chain: ChainType?) {
-//        if (!mMyBalances_V1.contains(where: {$0.denom == WUtils.getMainDenom(chain)})) {
-//            mMyBalances_V1.append(Coin.init(WUtils.getMainDenom(chain), "0"))
-//        }
-//    }
     
     func getAvailable(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero.stringValue

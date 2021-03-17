@@ -455,8 +455,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
-                chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             return BaseData.instance.mMyBalances_gRPC.count
         } else {
             return mainTabVC.mBalances.count;
@@ -1129,8 +1128,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
-                    chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mMyBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
@@ -1173,8 +1171,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return WUtils.localeStringToDecimal($0.balance_amount).adding(WUtils.localeStringToDecimal($0.balance_locked)).stringValue > WUtils.localeStringToDecimal($1.balance_amount).adding(WUtils.localeStringToDecimal($1.balance_locked)).stringValue
             }
             
-        } else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
-                    chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mMyBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
@@ -1220,8 +1217,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.balance_denom < $1.balance_denom
             }
             
-        } else if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.AKASH_MAIN ||
-                    chainType! == ChainType.COSMOS_TEST || chainType! == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(chainType!)) {
             BaseData.instance.mMyBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
