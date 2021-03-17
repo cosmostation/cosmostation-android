@@ -2012,6 +2012,7 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.AKASH_MAIN) {
+            print("AKASH_MAIN ", coin.denom)
             if (coin.denom == AKASH_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -3332,6 +3333,28 @@ class WUtils {
         return ""
     }
     
+    static func getTxExplorer(_ chain: ChainType, _ hash: String) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return EXPLORER_COSMOS_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return EXPLORER_IRIS_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return EXPLORER_AKASH_MAIN + "txs/" + hash
+            
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
+            return EXPLORER_COSMOS_TEST + "txs/" + hash
+            
+        } else if (chain == ChainType.IRIS_TEST) {
+            return EXPLORER_IRIS_TEST + "#/tx?txHash=" + hash
+            
+        }
+        return ""
+    }
+    
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return NSDecimalNumber.init(string: "0.4")
@@ -3341,6 +3364,73 @@ class WUtils {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.5")
+    }
+    
+    static func onParseAuthGrpc(_ response :Cosmos_Auth_V1beta1_QueryAccountResponse) -> (String?, Google_Protobuf2_Any?, UInt64?, UInt64?) {
+        if (response.account.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName)) {
+            let auth = try! Cosmos_Auth_V1beta1_BaseAccount.init(serializedData: response.account.value)
+            return (auth.address, auth.pubKey, auth.accountNumber, auth.sequence)
+            
+        } else if (response.account.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName)) {
+            let auth = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: response.account.value).baseVestingAccount.baseAccount
+            return (auth.address , auth.pubKey, auth.accountNumber, auth.sequence)
+            
+        }
+        return (nil, nil, nil, nil)
+    }
+    
+    static func onParseFeeAmountGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse) -> NSDecimalNumber {
+        return NSDecimalNumber.init(string: tx.tx.authInfo.fee.amount[0].amount)
+    }
+    
+    static func onParseAutoRewardGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ address: String, _ position: Int) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        tx.txResponse.logs[position].events.forEach { (event) in
+            for i in 0...event.attributes.count - 1 {
+                if (event.attributes[i].key == "recipient" && event.attributes[i].value == address) {
+                    for j in i...event.attributes.count - 1 {
+                        if (event.attributes[j].key == "amount") {
+                            let amount = event.attributes[j].value.filter{ $0.isNumber }
+                            result = NSDecimalNumber.init(string: amount)
+                            break
+                        }
+                    }
+                }
+            }
+        }
+        return result
+    }
+    
+    static func onParseStakeRewardGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ opAddress: String, _ position: Int) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        tx.txResponse.logs[position].events.forEach { (event) in
+            if (event.type == "withdraw_rewards") {
+                for i in 0...event.attributes.count - 1 {
+                    if (event.attributes[i].key == "validator" && event.attributes[i].value == opAddress) {
+                        let amount = event.attributes[i - 1].value.filter{ $0.isNumber }
+                        result = NSDecimalNumber.init(string: amount)
+                        break
+                    }
+                }
+            }
+        }
+        return result
+    }
+    
+    static func onParseCommisiondGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        tx.txResponse.logs[position].events.forEach { (event) in
+            if (event.type == "withdraw_commission") {
+                for i in 0...event.attributes.count - 1 {
+                    if (event.attributes[i].key == "amount") {
+                        let amount = event.attributes[i].value.filter{ $0.isNumber }
+                        result = NSDecimalNumber.init(string: amount)
+                        break
+                    }
+                }
+            }
+        }
+        return result
     }
     
 }

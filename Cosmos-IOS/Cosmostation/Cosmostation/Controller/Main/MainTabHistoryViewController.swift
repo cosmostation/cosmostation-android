@@ -455,8 +455,15 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
             chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+//            let history = mApiCustomHistories[indexPath.row]
+//            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+//            txDetailVC.mIsGen = false
+//            txDetailVC.mTxHash = history.tx_hash
+//            txDetailVC.hidesBottomBarWhenPushed = true
+//            self.navigationItem.title = ""
+//            self.navigationController?.pushViewController(txDetailVC, animated: true)
             let history = mApiCustomHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
             txDetailVC.mIsGen = false
             txDetailVC.mTxHash = history.tx_hash
             txDetailVC.hidesBottomBarWhenPushed = true

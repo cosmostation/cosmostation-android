@@ -423,7 +423,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindTransfer(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell:TxTransferCell? = tableView.dequeueReusableCell(withIdentifier:"TxTransferCell") as? TxTransferCell
         let msg = mTxInfo?.getMsg(position - 1)
-        cell?.setDenomType(chainType!)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
@@ -467,37 +466,24 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             }
             coins = sortCoins(coins!, chainType!)
-            if (coins!.count <= 1) {
-                cell?.multiAmountStack.isHidden = true
-                cell?.amountLabel.isHidden = false
-                cell?.amountDenomLabel.isHidden = false
-                cell?.multiAmountConstraint.priority = .defaultLow
-                cell?.singleAmountConstraint.priority = .defaultHigh
-                WUtils.showCoinDp(coins![0], cell!.amountDenomLabel, cell!.amountLabel, chainType!)
-            } else {
-                cell?.multiAmountStack.isHidden = false
-                cell?.amountLabel.isHidden = true
-                cell?.amountDenomLabel.isHidden = true
-                cell?.multiAmountConstraint.priority = .defaultHigh
-                cell?.singleAmountConstraint.priority = .defaultLow
-                cell?.multiAmountLayer0.isHidden = false
-                WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
-                if (coins!.count > 1) {
-                    cell?.multiAmountLayer1.isHidden = false
-                    WUtils.showCoinDp(coins![1], cell!.multiAmountDenom1, cell!.multiAmount1, chainType!)
-                }
-                if (coins!.count > 2) {
-                    cell?.multiAmountLayer2.isHidden = false
-                    WUtils.showCoinDp(coins![2], cell!.multiAmountDenom2, cell!.multiAmount2, chainType!)
-                }
-                if (coins!.count > 3) {
-                    cell?.multiAmountLayer3.isHidden = false
-                    WUtils.showCoinDp(coins![3], cell!.multiAmountDenom3, cell!.multiAmount3, chainType!)
-                }
-                if (coins!.count > 4) {
-                    cell?.multiAmountLayer4.isHidden = false
-                    WUtils.showCoinDp(coins![4], cell!.multiAmountDenom4, cell!.multiAmount4, chainType!)
-                }
+            cell?.multiAmountStack.isHidden = false
+            cell?.multiAmountLayer0.isHidden = false
+            WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
+            if (coins!.count > 1) {
+                cell?.multiAmountLayer1.isHidden = false
+                WUtils.showCoinDp(coins![1], cell!.multiAmountDenom1, cell!.multiAmount1, chainType!)
+            }
+            if (coins!.count > 2) {
+                cell?.multiAmountLayer2.isHidden = false
+                WUtils.showCoinDp(coins![2], cell!.multiAmountDenom2, cell!.multiAmount2, chainType!)
+            }
+            if (coins!.count > 3) {
+                cell?.multiAmountLayer3.isHidden = false
+                WUtils.showCoinDp(coins![3], cell!.multiAmountDenom3, cell!.multiAmount3, chainType!)
+            }
+            if (coins!.count > 4) {
+                cell?.multiAmountLayer4.isHidden = false
+                WUtils.showCoinDp(coins![4], cell!.multiAmountDenom4, cell!.multiAmount4, chainType!)
             }
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
@@ -509,12 +495,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
             }
             let coins = msg?.value.inputs?[0].coins
-            cell?.multiAmountStack.isHidden = true
-            cell?.amountLabel.isHidden = false
-            cell?.amountDenomLabel.isHidden = false
-            cell?.multiAmountConstraint.priority = .defaultLow
-            cell?.singleAmountConstraint.priority = .defaultHigh
-            WUtils.showCoinDp(coins![0], cell!.amountDenomLabel, cell!.amountLabel, chainType!)
+            cell?.multiAmountStack.isHidden = false
+            WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
         }
         return cell!
     }

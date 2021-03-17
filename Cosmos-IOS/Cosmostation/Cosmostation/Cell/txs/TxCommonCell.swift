@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxCommonCell: UITableViewCell {
+class TxCommonCell: TxCell {
 
     @IBOutlet weak var statusImg: UIImageView!
     @IBOutlet weak var statusLabel: UILabel!
@@ -61,6 +61,35 @@ class TxCommonCell: UITableViewCell {
         WUtils.setDenomTitle(chainType, feeDenomLabel)
         WUtils.setDenomTitle(chainType, usedFeeDenomLabel)
         WUtils.setDenomTitle(chainType, limitFeeDenomLabel)
+    }
+    
+    override func onBind(_ chain: ChainType, _ tx: Cosmos_Tx_V1beta1_GetTxResponse) {
+        setDenomType(chain)
+        feeLayer.isHidden = false
+        usedFeeLayer.isHidden = true
+        limitFeeLayer.isHidden = true
+        if (tx.txResponse.code != 0) {
+            statusImg.image = UIImage(named: "failIc")
+            errorMsg.text = tx.txResponse.rawLog
+            errorMsg.isHidden = false
+            errorConstraint.priority = .defaultHigh
+            successConstraint.priority = .defaultLow
+        } else {
+            statusImg.image = UIImage(named: "successIc")
+            statusLabel.text = NSLocalizedString("tx_success", comment: "")
+            errorMsg.isHidden = true
+            errorConstraint.priority = .defaultLow
+            successConstraint.priority = .defaultHigh
+        }
+        heightLabel.text = String(tx.txResponse.height)
+        msgCntLabel.text = String(tx.tx.body.messages.count)
+        gasAmountLabel.text = String(tx.txResponse.gasUsed) + " / " + String(tx.txResponse.gasWanted)
+        timeLabel.text = WUtils.txTimetoString(input: tx.txResponse.timestamp)
+        timeGapLabel.text = WUtils.txTimeGap(input: tx.txResponse.timestamp)
+        hashLabel.text = tx.txResponse.txhash
+        memoLabel.text = tx.tx.body.memo
+        feeAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseFeeAmountGrpc(tx).stringValue, feeAmountLabel.font!, 6, 6)
+        
     }
     
 }

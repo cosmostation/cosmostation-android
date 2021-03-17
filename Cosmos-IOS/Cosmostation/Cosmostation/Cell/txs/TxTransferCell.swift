@@ -14,8 +14,6 @@ class TxTransferCell: UITableViewCell {
     @IBOutlet weak var txTitleLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
     @IBOutlet weak var toLabel: UILabel!
-    @IBOutlet weak var amountLabel: UILabel!
-    @IBOutlet weak var amountDenomLabel: UILabel!
 
     @IBOutlet weak var multiAmountStack: UIStackView!
     @IBOutlet weak var multiAmountLayer0: UIView!
@@ -35,13 +33,11 @@ class TxTransferCell: UITableViewCell {
     @IBOutlet weak var multiAmount4: UILabel!
     
     @IBOutlet weak var singleAmountConstraint: NSLayoutConstraint!
-    @IBOutlet weak var multiAmountConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
         
-        amountLabel.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
         
         multiAmount0.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
         multiAmount1.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
@@ -50,19 +46,53 @@ class TxTransferCell: UITableViewCell {
         multiAmount4.font = UIFontMetrics(forTextStyle: .caption1).scaledFont(for: Font_12_caption1)
     }
     
-    func setDenomType(_ chainType:ChainType) {
-        WUtils.setDenomTitle(chainType, amountDenomLabel)
-    }
-    
-    
     override func prepareForReuse() {
         super.prepareForReuse()
-        self.multiAmountStack.isHidden = true
+        self.multiAmountStack.isHidden = false
         self.multiAmountLayer0.isHidden = true
         self.multiAmountLayer1.isHidden = true
         self.multiAmountLayer2.isHidden = true
         self.multiAmountLayer3.isHidden = true
         self.multiAmountLayer4.isHidden = true
+        
+    }
+    
+    func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int, _ myAddress: String) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        let msg = try! Cosmos_Bank_V1beta1_MsgSend.init(serializedData: response.tx.body.messages[position].value)
+        fromLabel.text = msg.fromAddress
+        toLabel.text = msg.toAddress
+        if (myAddress == msg.fromAddress) {
+            txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+        }
+        if (myAddress == msg.toAddress) {
+            txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+        }
+        var coins = Array<Coin>()
+        for coin in msg.amount {
+            coins.append(Coin.init(coin.denom, coin.amount))
+        }
+//        print("coins size", coins.count)
+        multiAmountLayer0.isHidden = false
+        WUtils.showCoinDp(coins[0], multiAmountDenom0, multiAmount0, chain)
+        if (coins.count > 1) {
+            multiAmountLayer1.isHidden = false
+            WUtils.showCoinDp(coins[1], multiAmountDenom1, multiAmount1, chain)
+        }
+        if (coins.count > 2) {
+            multiAmountLayer2.isHidden = false
+            WUtils.showCoinDp(coins[2], multiAmountDenom2, multiAmount2, chain)
+        }
+        if (coins.count > 3) {
+            multiAmountLayer3.isHidden = false
+            WUtils.showCoinDp(coins[3], multiAmountDenom3, multiAmount3, chain)
+        }
+        if (coins.count > 4) {
+            multiAmountLayer4.isHidden = false
+            WUtils.showCoinDp(coins[4], multiAmountDenom4, multiAmount4, chain)
+        }
         
     }
 }

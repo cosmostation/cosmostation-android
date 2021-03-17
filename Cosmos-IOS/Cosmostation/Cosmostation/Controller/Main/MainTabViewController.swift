@@ -261,6 +261,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCProvision()
             onFetchgRPCStakingPool()
             
+//            onFetchgRPCAuth(mAccount)
+            
         } else if (mChainType == ChainType.IRIS_MAIN) {
             self.mFetchCnt = 10
 //            onFetchBondedValidators(0)
@@ -422,6 +424,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCInflation()
             onFetchgRPCProvision()
             onFetchgRPCStakingPool()
+            
+            onFetchgRPCAuth(mAccount)
             
         } else if (mChainType == ChainType.COSMOS_TEST) {
             self.mFetchCnt = 11
@@ -2110,7 +2114,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             do {
                 let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req).response.wait()
-//                print("onFetchgRPCBalance: \(response.balances.count)")
+                print("onFetchgRPCBalance: \(response.balances)")
                 response.balances.forEach { balance in
                     BaseData.instance.mMyBalances_gRPC.append(Coin.init(balance.denom, balance.amount))
                 }
@@ -2356,6 +2360,32 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    func onFetchgRPCAuth(_ account: Account) {
+        print("onFetchgRPCAuth")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+
+            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
+                $0.address = account.account_address
+            }
+            do {
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                print("check ", WUtils.onParseAuthGrpc(response))
+
+            } catch {
+                print("onFetchgRPCAuth failed: \(error)")
+            }
+
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+
+    }
     
     
     

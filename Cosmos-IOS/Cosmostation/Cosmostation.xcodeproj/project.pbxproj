@@ -218,6 +218,9 @@
 		28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A802432944F006D66EA /* StepDepositCdpCheckViewController.swift */; };
 		28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A8224333B90006D66EA /* StepWithdrawCdpAmountViewController.swift */; };
 		28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A8424333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift */; };
+		28641F2C2601959E000AAEB8 /* TxDetailgRPCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28641F2A2601959E000AAEB8 /* TxDetailgRPCViewController.swift */; };
+		28641F2D2601959E000AAEB8 /* TxDetailgRPCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28641F2B2601959E000AAEB8 /* TxDetailgRPCViewController.xib */; };
+		28641F302601AD59000AAEB8 /* TxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28641F2F2601AD59000AAEB8 /* TxCell.swift */; };
 		28663BEF248A4FB000080311 /* WalletBandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28663BED248A4FB000080311 /* WalletBandCell.swift */; };
 		28663BF0248A4FB000080311 /* WalletBandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28663BEE248A4FB000080311 /* WalletBandCell.xib */; };
 		2866CB9D2580C59A00A91172 /* UnbondingInfo_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2866CB9C2580C59A00A91172 /* UnbondingInfo_V1.swift */; };
@@ -968,6 +971,9 @@
 		28617A802432944F006D66EA /* StepDepositCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDepositCdpCheckViewController.swift; sourceTree = "<group>"; };
 		28617A8224333B90006D66EA /* StepWithdrawCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWithdrawCdpAmountViewController.swift; sourceTree = "<group>"; };
 		28617A8424333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWithdrawCdpCheckViewController.swift; sourceTree = "<group>"; };
+		28641F2A2601959E000AAEB8 /* TxDetailgRPCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailgRPCViewController.swift; sourceTree = "<group>"; };
+		28641F2B2601959E000AAEB8 /* TxDetailgRPCViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxDetailgRPCViewController.xib; sourceTree = "<group>"; };
+		28641F2F2601AD59000AAEB8 /* TxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCell.swift; sourceTree = "<group>"; };
 		28663BED248A4FB000080311 /* WalletBandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBandCell.swift; sourceTree = "<group>"; };
 		28663BEE248A4FB000080311 /* WalletBandCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletBandCell.xib; sourceTree = "<group>"; };
 		2866CB9C2580C59A00A91172 /* UnbondingInfo_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnbondingInfo_V1.swift; sourceTree = "<group>"; };
@@ -1891,6 +1897,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				28641F2F2601AD59000AAEB8 /* TxCell.swift */,
 				2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */,
 				2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */,
 				282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */,
@@ -2259,6 +2266,8 @@
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
 				2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */,
 				2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */,
+				28641F2A2601959E000AAEB8 /* TxDetailgRPCViewController.swift */,
+				28641F2B2601959E000AAEB8 /* TxDetailgRPCViewController.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -2652,6 +2661,7 @@
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */,
 				283E946E254902E5007A9291 /* TxDeleteDomainCell.xib in Resources */,
+				28641F2D2601959E000AAEB8 /* TxDetailgRPCViewController.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
 				28156E8F25369622006FF06C /* HarvestListStakeCell.xib in Resources */,
@@ -2956,6 +2966,7 @@
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
 				28ED4A59255112BA0073E164 /* MintParam.swift in Sources */,
 				287AC5B625FDF7250070837E /* token_token.pb.swift in Sources */,
+				28641F2C2601959E000AAEB8 /* TxDetailgRPCViewController.swift in Sources */,
 				287AC64625FDF7260070837E /* ibc_core_types_v1_genesis.pb.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
 				287AC5BC25FDF7250070837E /* tendermint_crypto_proof.pb.swift in Sources */,
@@ -2986,6 +2997,7 @@
 				28156E922536982A006FF06C /* HarvestListHeader.swift in Sources */,
 				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
+				28641F302601AD59000AAEB8 /* TxCell.swift in Sources */,
 				287AC5AF25FDF7250070837E /* akash_audit_v1beta1_audit.pb.swift in Sources */,
 				2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */,
 				287AC5F025FDF7260070837E /* cosmos_vesting_v1beta1_vesting.pb.swift in Sources */,
