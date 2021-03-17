@@ -24,10 +24,12 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import cosmos.base.abci.v1beta1.Abci;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.params.v1beta1.Params;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.tx.v1beta1.ServiceOuterClass;
 import cosmos.upgrade.v1beta1.Upgrade;
 import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.R;
@@ -2706,6 +2708,7 @@ public class WDp {
         }
         return new BigDecimal(tally.getNoWithVeto()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
     }
+
     public static BigDecimal getTurnout(BaseData baseData, Gov.TallyResult tally) {
         BigDecimal result = BigDecimal.ZERO;
         if (baseData != null && baseData.mGrpcStakingPool != null) {
@@ -2715,6 +2718,74 @@ public class WDp {
             } else {
                 BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
                 return geTallySum(tally).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseFee(ServiceOuterClass.GetTxResponse response) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTx().getAuthInfo().getFee().getAmountCount() > 0) {
+            return new BigDecimal(response.getTx().getAuthInfo().getFee().getAmount(0).getAmount());
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("transfer")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i ++) {
+                        if (event.getAttributes(i).getKey().equals("recipient") && event.getAttributes(i).getValue().equals(Addr)) {
+                            for (int j = i; j < event.getAttributesList().size(); j ++) {
+                                if (event.getAttributes(j).getKey().equals("amount") && event.getAttributes(j).getValue() != null) {
+                                    String temp = event.getAttributes(j).getValue().replaceAll("[^0-9]", "");
+                                    result = result.add(new BigDecimal(temp));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseStakeReward(ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("withdraw_rewards")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i ++) {
+                        if (event.getAttributes(i).getKey().equals("validator") && event.getAttributes(i).getValue().equals(valAddr)) {
+                            String temp = event.getAttributes(i - 1).getValue().replaceAll("[^0-9]", "");
+                            result = result.add(new BigDecimal(temp));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseCommission(ServiceOuterClass.GetTxResponse response, int position) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("withdraw_commission")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i ++) {
+                        if (event.getAttributes(i).getKey().equals("amount")) {
+                            if (event.getAttributes(i).getValue() != null) {
+                                String temp = event.getAttributes(i).getValue().replaceAll("[^0-9]", "");
+                                result = result.add(new BigDecimal(temp));
+                                break;
+                            }
+                        }
+                    }
+                }
             }
         }
         return result;

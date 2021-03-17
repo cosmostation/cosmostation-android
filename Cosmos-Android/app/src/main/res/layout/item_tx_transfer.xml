@@ -88,12 +88,6 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_marginTop="@dimen/space_16"
-                android:layout_height="1dp"
-                android:background="@color/colorGray3"/>
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -146,13 +140,15 @@
                             android:id="@+id/tx_transfer_amount_symbol0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:text="ATOM"
                             style="@style/font_ss_12_white"/>
                         <TextView
                             android:id="@+id/tx_transfer_amount0"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_toLeftOf="@+id/tx_transfer_amount_symbol0"
+                            android:layout_marginRight="@dimen/space_4"
                             android:text="-"
                             style="@style/font_ss_12_white"/>
                     </RelativeLayout>
@@ -167,13 +163,15 @@
                             android:id="@+id/tx_transfer_amount_symbol1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:text="COIN"
                             style="@style/font_ss_12_white"/>
                         <TextView
                             android:id="@+id/tx_transfer_amount1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_toLeftOf="@+id/tx_transfer_amount_symbol1"
+                            android:layout_marginRight="@dimen/space_4"
                             android:text="-"
                             style="@style/font_ss_12_white"/>
                     </RelativeLayout>
@@ -188,13 +186,15 @@
                             android:id="@+id/tx_transfer_amount_symbol2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:text="COIN"
                             style="@style/font_ss_12_white"/>
                         <TextView
                             android:id="@+id/tx_transfer_amount2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_toLeftOf="@+id/tx_transfer_amount_symbol2"
+                            android:layout_marginRight="@dimen/space_4"
                             android:text="-"
                             style="@style/font_ss_12_white"/>
                     </RelativeLayout>
@@ -209,13 +209,15 @@
                             android:id="@+id/tx_transfer_amount_symbol3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:text="COIN"
                             style="@style/font_ss_12_white"/>
                         <TextView
                             android:id="@+id/tx_transfer_amount3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_toLeftOf="@+id/tx_transfer_amount_symbol3"
+                            android:layout_marginRight="@dimen/space_4"
                             android:text="-"
                             style="@style/font_ss_12_white"/>
                     </RelativeLayout>
@@ -230,13 +232,15 @@
                             android:id="@+id/tx_transfer_amount_symbol4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
                             android:text="COIN"
                             style="@style/font_ss_12_white"/>
                         <TextView
                             android:id="@+id/tx_transfer_amount4"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
+                            android:layout_toLeftOf="@+id/tx_transfer_amount_symbol4"
+                            android:layout_marginRight="@dimen/space_4"
                             android:text="-"
                             style="@style/font_ss_12_white"/>
                     </RelativeLayout>

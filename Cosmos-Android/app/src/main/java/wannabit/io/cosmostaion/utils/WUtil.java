@@ -116,6 +116,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
@@ -2205,5 +2210,27 @@ public class WUtil {
 
         }
         return BigDecimal.ZERO;
+    }
+
+    public static String getTxExplorer(BaseChain basechain, String hash) {
+        if (basechain.equals(COSMOS_MAIN)) {
+            return EXPLORER_COSMOS_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(IRIS_MAIN)) {
+            return EXPLORER_IRIS_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(AKASH_MAIN)) {
+            return EXPLORER_AKASH_MAIN + "txs/" + hash;
+
+        }
+
+        else if (basechain.equals(COSMOS_TEST)) {
+            return EXPLORER_COSMOS_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(IRIS_TEST)) {
+            return EXPLORER_IRIS_TEST + "txs/" + hash;
+
+        }
+        return "";
     }
 }
