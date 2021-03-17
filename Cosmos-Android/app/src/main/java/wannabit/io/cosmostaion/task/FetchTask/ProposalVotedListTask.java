@@ -27,21 +27,7 @@ public class ProposalVotedListTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-//                Response<ResLcdProposalVoted> response = ApiClient.getCosmosChain(mApp).getVotedList(mProposalId).execute();
-//                if (!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if (response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(BaseChain.KAVA_MAIN)) {
+            if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResLcdProposalVoted> response = ApiClient.getKavaChain(mApp).getVotedList(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;

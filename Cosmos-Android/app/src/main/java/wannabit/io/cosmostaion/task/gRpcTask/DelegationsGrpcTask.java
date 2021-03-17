@@ -38,14 +38,14 @@ public class DelegationsGrpcTask extends CommonTask {
             QueryOuterClass.QueryDelegatorDelegationsRequest requset = QueryOuterClass.QueryDelegatorDelegationsRequest.newBuilder().setDelegatorAddr(mAccount.address).build();
             QueryOuterClass.QueryDelegatorDelegationsResponse response = mStub.delegatorDelegations(requset);
             mResultData.addAll(response.getDelegationResponsesList());
-            WLog.w("Delegations " + response.getDelegationResponsesList());
+//            WLog.w("Delegations " + response.getDelegationResponsesList());
 
 //            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
 //                pageJob(response.getPagination().getNextKey());
 //            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
-            WLog.w("Delegations " + mResultData.size());
+//            WLog.w("Delegations " + mResultData.size());
 
         } catch (Exception e) { WLog.e( "DelegationsGrpc "+ e.getMessage()); }
         return mResult;

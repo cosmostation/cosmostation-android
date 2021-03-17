@@ -232,8 +232,8 @@ public enum BaseChain {
         result.add(AKASH_MAIN);
         result.add(SECRET_MAIN);
 
-//        result.add(COSMOS_TEST);
-//        result.add(IRIS_TEST);
+        result.add(COSMOS_TEST);
+        result.add(IRIS_TEST);
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);
 //        result.add(IOV_TEST);

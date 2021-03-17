@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxEditRewardAddressCell: UITableViewCell {
+class TxEditRewardAddressCell: TxCell {
     
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var delegatorLabel: UILabel!
@@ -17,5 +17,14 @@ class TxEditRewardAddressCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
+    }
+    
+    override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
+        txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
+        txIcon.tintColor = WUtils.getChainColor(chain)
+        
+        let msg = try! Cosmos_Distribution_V1beta1_MsgSetWithdrawAddress.init(serializedData: response.tx.body.messages[position].value)
+        delegatorLabel.text = msg.delegatorAddress
+        widthrawAddressLabel.text = msg.withdrawAddress
     }
 }

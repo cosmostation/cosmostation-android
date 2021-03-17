@@ -10,6 +10,8 @@ import UIKit
 import QRCode
 import Alamofire
 import UserNotifications
+import GRPC
+import NIO
 
 class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
 
@@ -53,7 +55,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
                 chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            self.onFetchRewardAddressV1(account!.account_address)
+            self.onFetchRewardAddress_gRPC(account!.account_address)
         } else {
             self.onFetchRewardAddress(account!.account_address)
         }
@@ -514,26 +516,32 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func onFetchRewardAddressV1(_ address: String) {
-        let url = BaseNetWork.rewardAddressUrl(chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
-                        return;
-                }
-                self.rewardCard.isHidden = false
-                let trimAddress = withdraw_address.replacingOccurrences(of: "\"", with: "")
-                self.rewardAddress.text = trimAddress
-                if (trimAddress != address) {
+    func onFetchRewardAddress_gRPC(_ address: String) {
+        DispatchQueue.global().async {
+            var responseAddress = ""
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegatorWithdrawAddressRequest.with {
+                $0.delegatorAddress = address
+            }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegatorWithdrawAddress(req).response.wait()
+                responseAddress = response.withdrawAddress.replacingOccurrences(of: "\"", with: "")
+            } catch {
+                print("onFetchRedelegation_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.rewardAddress.text = responseAddress
+                if (responseAddress != address) {
                     self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
                 }
                 self.rewardAddress.adjustsFontSizeToFitWidth = true
-                
-            case .failure(let error):
-                if(SHOW_LOG) { print("onFetchRewardAddressV1 ", error) }
-            }
+                self.rewardCard.isHidden = false
+            });
         }
     }
     

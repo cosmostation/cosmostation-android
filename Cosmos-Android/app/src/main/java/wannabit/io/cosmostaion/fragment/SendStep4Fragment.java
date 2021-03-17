@@ -268,47 +268,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
-                mDpDecimal = 6;
-                mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-                mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
-                mTotalPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), feeAmount.add(toSendAmount), getSActivity().mBaseChain));
-
-                BigDecimal currentAvail = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
-                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvail, 6, 6));
-                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvail.subtract(toSendAmount).subtract(feeAmount), 6, 6));
-                mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mDpDecimal = getSActivity().mIrisToken_V1.scale;
-            mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, mDpDecimal));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
-                mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, mDpDecimal));
-                mTotalPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), feeAmount.add(toSendAmount), getSActivity().mBaseChain));
-
-                BigDecimal currentAvail = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
-                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvail, 6, 6));
-                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvail.subtract(toSendAmount).subtract(feeAmount), 6, 6));
-                mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
-
-            } else {
-                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorWhite));
-                mTotalSpendLayer.setVisibility(View.GONE);
-                mTotalPrice.setVisibility(View.GONE);
-                mRemainingPrice.setVisibility(View.GONE);
-
-                BigDecimal currentAvai  = WDp.getAvailable(getBaseDao(), getSActivity().mDenom);
-                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, mDpDecimal));
-                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount), 0, mDpDecimal));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                 mDpDecimal = 6;
                 mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
@@ -322,6 +282,32 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvail.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
             } else {
                 //TODO  not yet!
+            }
+
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            mDpDecimal = getSActivity().mIrisToken_Grpc.getScale();
+
+            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                mSendAmount.setText(WDp.getDpAmount2(getContext(), toSendAmount, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                mTotalSpendAmount.setText(WDp.getDpAmount2(getContext(), feeAmount.add(toSendAmount), 6, 6));
+                mTotalPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), feeAmount.add(toSendAmount), getSActivity().mBaseChain));
+
+                BigDecimal currentAvai = getBaseDao().getAvailable(getSActivity().mDenom);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 6, 6));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 6, 6));
+                mRemainingPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), currentAvai.subtract(toSendAmount).subtract(feeAmount), getSActivity().mBaseChain));
+            } else {
+                mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomCurrentAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mDenomRemainAmount.setTextColor(getResources().getColor(R.color.colorWhite));
+                mTotalSpendLayer.setVisibility(View.GONE);
+                mTotalPrice.setVisibility(View.GONE);
+                mRemainingPrice.setVisibility(View.GONE);
+
+                BigDecimal currentAvai = getBaseDao().getAvailable(getSActivity().mDenom);
+                mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, mDpDecimal));
+                mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount), 0, mDpDecimal));
             }
 
         }

@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
+import GRPC
+import NIO
 
 class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
@@ -70,9 +72,8 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-                self.onFetchAuth(pageHolderVC.mAccount!)
+            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+                self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             }
@@ -130,31 +131,6 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
             }
         }
     }
-    
-    
-    
-    func onFetchAuth(_ account: Account) {
-        self.showWaittingAlert()
-        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                    return
-                }
-                let auth = Auth_V1.init(account)
-                self.onBroadcastTxV1(auth)
-                
-            case .failure(let error):
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAuth ", error) }
-            }
-        }
-        
-    }
-    
     
     func onGenVoteTx() {
         DispatchQueue.global().async {
@@ -247,6 +223,57 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                 }
                 
             });
+        }
+    }
+    
+    func onFetchgRPCAuth(_ account: Account) {
+        self.showWaittingAlert()
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
+                $0.address = account.account_address
+            }
+            do {
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                self.onBroadcastGrpcTx(response)
+            } catch {
+                print("onFetchgRPCAuth failed: \(error)")
+            }
+        }
+    }
+    
+    func onBroadcastGrpcTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse?) {
+        DispatchQueue.global().async {
+            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
+                return
+            }
+            let reqTx = Signer.genSignedVoteTxgRPC(auth!, self.pageHolderVC.mProposeId!, self.pageHolderVC.mVoteOpinion!, self.pageHolderVC.mFee!,
+                                                   self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).broadcastTx(reqTx).response.wait()
+//                print("response ", response.txResponse.txhash)
+                DispatchQueue.main.async(execute: {
+                    if (self.waitAlert != nil) {
+                        self.waitAlert?.dismiss(animated: true, completion: {
+                            self.onStartTxDetailgRPC(response)
+                        })
+                    }
+                });
+            } catch {
+                print("onBroadcastGrpcTx failed: \(error)")
+            }
         }
     }
     

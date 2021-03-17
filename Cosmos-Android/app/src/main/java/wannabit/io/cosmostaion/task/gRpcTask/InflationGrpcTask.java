@@ -31,7 +31,6 @@ public class InflationGrpcTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             QueryOuterClass.QueryInflationRequest request = QueryOuterClass.QueryInflationRequest.newBuilder().build();
-            WLog.w("InflationGrpcTask request "+ request.toString());
             QueryOuterClass.QueryInflationResponse response = mStub.inflation(request);
 //            WLog.w("Inflation " + response.getInflation().toString("UTF-8"));
             BigDecimal inflation = new BigDecimal(response.getInflation().toString("UTF-8")).movePointLeft(18);

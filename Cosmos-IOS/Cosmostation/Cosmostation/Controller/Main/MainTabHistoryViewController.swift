@@ -49,8 +49,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
@@ -196,8 +195,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
@@ -223,8 +221,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return self.mBnbHistories.count
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return self.mOkHistories.count
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(chainType!)) {
             return self.mApiCustomHistories.count
         } else {
             return self.mApiHistories.count
@@ -232,8 +229,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             return onSetCustomHistoryItems(tableView, indexPath);
         } else if (chainType == ChainType.KAVA_MAIN) {
             return onSetKavaItem(tableView, indexPath);
@@ -453,10 +449,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             guard let url = URL(string: EXPLORER_OKEX_TEST + "tx/" + okHistory.txhash!) else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-            chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(chainType!)) {
             let history = mApiCustomHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
             txDetailVC.mIsGen = false
             txDetailVC.mTxHash = history.tx_hash
             txDetailVC.hidesBottomBarWhenPushed = true
@@ -578,7 +573,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func onFetchApiHistoryCustom(_ address:String) {
         let url = BaseNetWork.accountHistory(chainType!, address)
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
-        print("request ", request.request?.url)
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

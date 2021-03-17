@@ -28,7 +28,6 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
-import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -36,7 +35,6 @@ import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
-import wannabit.io.cosmostaion.task.V1Task.BondedValidatorsTask_V1;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -48,7 +46,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BONDEB_VALIDATOR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_BONDED_VALIDATORS;
 
 public class RedelegateActivity extends BaseActivity implements TaskListener {
 
@@ -72,10 +69,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
     private int                             mTaskCount;
-
-    //roll back
-    public ArrayList<Validator_V1>          mToValidators_V1 = new ArrayList<>();
-    public Validator_V1                     mToValidator_V1;
 
     //gRPC
     public ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
@@ -203,10 +196,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     public void onStartRedelegate() {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
-            intent.putExtra("fromValidatorAddr", mValOpAddress);
-            intent.putExtra("toValidatorAddr", mToValidator_V1.operator_address);
-        } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("fromValidatorAddr", mValOpAddress);
             intent.putExtra("toValidatorAddr", mToValOpAddress);
         } else {
@@ -226,10 +216,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private void onFetchValidtors() {
         if(mTaskCount > 0) return;
         mTaskCount = 1;
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
-            new BondedValidatorsTask_V1(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
@@ -256,19 +243,6 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             }
             if(!result.isSuccess) { Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show(); }
 
-        } else if (result.taskType == TASK_V1_FETCH_BONDED_VALIDATORS) {
-            ArrayList<Validator_V1> temp = (ArrayList<Validator_V1>)result.resultData;
-            if (temp != null) {
-                for (Validator_V1 val:temp) {
-                    if (!val.operator_address.equals(mValOpAddress)) {
-                        mToValidators_V1.add(val);
-                    }
-                }
-                WUtil.onSortByValidatorPowerV2(mToValidators_V1);
-
-            } else {
-                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-            }
         } else if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
             ArrayList<Staking.Validator> temp = (ArrayList<Staking.Validator>)result.resultData;
             if (temp != null) {

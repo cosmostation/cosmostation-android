@@ -81,7 +81,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         }
         
         //after 40.0
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
@@ -92,16 +92,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST ) {
-            mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
-            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-                let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
-            } else {
-                maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
-            }
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
             mDpDecimal = 6
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
@@ -168,13 +158,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             return
         }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                pageHolderVC.chainType! == ChainType.IRIS_TEST || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -221,11 +206,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-                return
-            }
         }
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
@@ -236,13 +216,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-                return false
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                pageHolderVC.chainType! == ChainType.IRIS_TEST || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
@@ -296,11 +271,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return false
             }
             
-        } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
-            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-                return false
-            }
         }
         return true
     }
@@ -339,17 +309,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             }
             
             
-            else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-                toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-                toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
-                
-            } else if (pageHolderVC.chainType! == ChainType.AKASH_MAIN) {
+            else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
+                        pageHolderVC.chainType! == ChainType.IRIS_TEST || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
                 toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             }
-            
             
             var tempList = Array<Coin>()
             tempList.append(toSendCoin!)

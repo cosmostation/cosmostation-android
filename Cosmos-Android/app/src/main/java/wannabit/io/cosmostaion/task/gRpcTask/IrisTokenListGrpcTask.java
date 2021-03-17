@@ -35,15 +35,20 @@ public class IrisTokenListGrpcTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-            QueryOuterClass.QueryTokensRequest request = QueryOuterClass.QueryTokensRequest.newBuilder().build();
+            Pagination.PageRequest pageRequest = Pagination.PageRequest.newBuilder().setLimit(500).build();
+            QueryOuterClass.QueryTokensRequest request = QueryOuterClass.QueryTokensRequest.newBuilder().setPagination(pageRequest).build();
             QueryOuterClass.QueryTokensResponse response = mStub.tokens(request);
+//            mResultData.addAll(response.getTokensList());
+
+//            QueryOuterClass.QueryTokensRequest request = QueryOuterClass.QueryTokensRequest.newBuilder() .build();
+//            QueryOuterClass.QueryTokensResponse response = mStub.tokens(request);
             for (Any token: response.getTokensList()) {
                 mResultData.add(TokenOuterClass.Token.parseFrom(token.getValue()));
             }
-
-            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
-                pageJob(response.getPagination().getNextKey());
-            }
+//
+//            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
+//                pageJob(response.getPagination().getNextKey());
+//            }
             this.mResult.isSuccess = true;
             this.mResult.resultData = mResultData;
 //            WLog.w("Iris tokens " + mResultData.size());

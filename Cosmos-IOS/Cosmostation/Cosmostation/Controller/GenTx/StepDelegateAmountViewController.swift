@@ -59,8 +59,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             mDpDecimal = 6
             let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
             userBalance = BaseData.instance.getAvailable(WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
@@ -73,12 +72,6 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         let dp = "+ " + WUtils.decimalNumberToLocaleString(NSDecimalNumber(string: "0.1"), 1)
         btn01.setTitle(dp, for: .normal)
         
-//        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(500), execute: {
-//            if ((self.pageHolderVC.chainType! == ChainType.KAVA_MAIN || self.pageHolderVC.chainType! == ChainType.KAVA_TEST) &&
-//                WUtils.localeStringToDecimal(self.pageHolderVC.mBalances[0].balance_locked) != NSDecimalNumber.zero) {
-//                self.showVestingWarnning()
-//            }
-//        })
     }
     
     

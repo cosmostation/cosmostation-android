@@ -116,6 +116,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
@@ -955,28 +960,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortByDelegateV2(final long userId, ArrayList<Validator_V1> validators, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal bondingO1 = WDp.getDelegation(dao, o1.operator_address);
-                BigDecimal bondingO2 = WDp.getDelegation(dao, o2.operator_address);
-                return bondingO2.compareTo(bondingO1);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
     public static void onSortByReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards, String denom) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
@@ -1015,29 +998,6 @@ public class WUtil {
             public int compare(Staking.Validator o1, Staking.Validator o2) {
                 if (o1.getJailed() && !o2.getJailed()) return 1;
                 else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
-        });
-    }
-
-
-    public static void onSortByRewardV2(ArrayList<Validator_V1> validators, String denom, final BaseData dao) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal rewardO1 = WDp.getReward(dao, denom, o1.operator_address);
-                BigDecimal rewardO2 = WDp.getReward(dao, denom, o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
                 else return 0;
             }
         });
@@ -1642,16 +1602,6 @@ public class WUtil {
         return null;
     }
 
-    public static IrisToken getIrisToken(ArrayList<IrisToken> all, Balance balance) {
-        if (all == null || balance == null) return null;
-        for (IrisToken token:all) {
-            if(balance.symbol.split("-")[0].equals(token.base_token.id)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
     public static OkToken getOkToken(ResOkTokenList okTokenList, String denom) {
         if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
         for (OkToken token:okTokenList.data) {
@@ -1792,30 +1742,17 @@ public class WUtil {
         return result;
     }
 
-    public static int getVoterTypeCnt_V1(ArrayList<Vote_V1> votes, String option) {
+    public static int getVoterTypeCnt_gRPC(ArrayList<Gov.Vote> votes, Gov.VoteOption option) {
         int result = 0;
         if (votes == null) {
             return result;
         }
-        for (Vote_V1 v:votes) {
-            if (v.option.equals(option)) {
+        for (Gov.Vote v:votes) {
+            if (v.getOption().equals(option)) {
                 result = result + 1;
             }
         }
         return result;
-    }
-
-    public static Vote getMyVote(ArrayList<Vote> votes, String address) {
-        if (votes == null) {
-            return null;
-        }
-        for (Vote v:votes) {
-            if (v.voter.equals(address)) {
-                return v;
-            }
-        }
-        return null;
-
     }
 
     public static String getMonikerName(String opAddress, ArrayList<Validator> validators, boolean bracket) {
@@ -2273,5 +2210,27 @@ public class WUtil {
 
         }
         return BigDecimal.ZERO;
+    }
+
+    public static String getTxExplorer(BaseChain basechain, String hash) {
+        if (basechain.equals(COSMOS_MAIN)) {
+            return EXPLORER_COSMOS_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(IRIS_MAIN)) {
+            return EXPLORER_IRIS_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(AKASH_MAIN)) {
+            return EXPLORER_AKASH_MAIN + "txs/" + hash;
+
+        }
+
+        else if (basechain.equals(COSMOS_TEST)) {
+            return EXPLORER_COSMOS_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(IRIS_TEST)) {
+            return EXPLORER_IRIS_TEST + "txs/" + hash;
+
+        }
+        return "";
     }
 }

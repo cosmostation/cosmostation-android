@@ -55,15 +55,15 @@ public class Tally_V1 {
 
     public BigDecimal getTurnout(BaseData baseData) {
         BigDecimal result = BigDecimal.ZERO;
-        if (baseData != null && baseData.mStakingPool_V1 != null) {
-            if (sum().equals(BigDecimal.ZERO)) {
-                return BigDecimal.ZERO.setScale(2);
-
-            } else {
-                BigDecimal bondedToken = baseData.mStakingPool_V1.getBondedTokens();
-                return sum().movePointRight(2).divide(bondedToken, 2, RoundingMode.HALF_UP);
-            }
-        }
+//        if (baseData != null && baseData.mStakingPool_V1 != null) {
+//            if (sum().equals(BigDecimal.ZERO)) {
+//                return BigDecimal.ZERO.setScale(2);
+//
+//            } else {
+//                BigDecimal bondedToken = baseData.mStakingPool_V1.getBondedTokens();
+//                return sum().movePointRight(2).divide(bondedToken, 2, RoundingMode.HALF_UP);
+//            }
+//        }
 
         return result;
     }

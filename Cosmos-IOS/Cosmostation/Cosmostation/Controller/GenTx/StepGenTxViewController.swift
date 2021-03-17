@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import GRPC
+import NIO
 
 class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, UIScrollViewDelegate {
     
@@ -28,20 +30,20 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mRewardAddress: String?
     
     var mTargetValidator: Validator?
-    var mTargetValidator_V1: Validator_V1?
+    var mTargetValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mToDelegateAmount: Coin?
     var mToUndelegateAmount:Coin?
     var mRewardTargetValidators = Array<Validator>()
-    var mRewardTargetValidators_V1 = Array<Validator_V1>()
+    var mRewardTargetValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     
     var mToSendRecipientAddress:String?
     var mToSendAmount = Array<Coin>()
     
     var mToReDelegateAmount: Coin?
     var mToReDelegateValidator: Validator?
-    var mToReDelegateValidator_V1: Validator_V1?
+    var mToReDelegateValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mToReDelegateValidators = Array<Validator>()
-    var mToReDelegateValidators_V1 = Array<Validator_V1>()
+    var mToReDelegateValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     
     var mCurrentRewardAddress: String?
     var mToChangeRewardAddress: String?
@@ -81,7 +83,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mOkSendDenom: String?
     var mCertikSendDenom: String?
     var mSecretSendDenom: String?
-    var mIrisTokenV1: IrisToken_V1?
     
     var mCollateralParamType: String?
     var mCDenom: String?
@@ -310,8 +311,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            if (WUtils.isGRPC(chainType!)) {
                 onFetchBondedValidators(0)
             } else {
                 onFetchTopValidatorsInfo()
@@ -324,8 +324,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                 self.mOkVoteValidators = Array<String>()
             }
         }
-        self.mIrisTokenV1 = WUtils.getIrisTokenV1(mToSendDenom)
-        
             
         self.dataSource = self
         self.delegate = self
@@ -468,29 +466,36 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func onFetchBondedValidators(_ offset:Int) {
-        let url = BaseNetWork.validatorUrl(chainType!)
-        let request = Alamofire.request(url, method: .get, parameters: ["status":BONDED_V1, "pagination.limit": 125, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let validators = responseData.object(forKey: "validators") as? Array<NSDictionary> else {
-                    return
-                }
-                for validator in validators {
-                    let val = Validator_V1(validator)
-                    if (val.operator_address != self.mTargetValidator_V1?.operator_address) {
-                        self.mToReDelegateValidators_V1.append(val)
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                $0.limit = 125
+            }
+            let req = Cosmos_Staking_V1beta1_QueryValidatorsRequest.with {
+                $0.pagination = page
+                $0.status = "BOND_STATUS_BONDED"
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+                response.validators.forEach { validator in
+                    if (validator.operatorAddress != self.mTargetValidator_gRPC?.operatorAddress) {
+                        self.mToReDelegateValidators_gRPC.append(validator)
                     }
                 }
-//                if (validators.count >= 100) {
-//                    self.onFetchBondedValidators(offset + 100)
-//                }
-                self.sortByPower_V1()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBondedValidators ", error) }
+            } catch {
+                print("onFetchgRPCBondedValidators failed: \(error)")
             }
+            
+            DispatchQueue.main.async(execute: {
+                self.sortByPower_gRPC()
+            });
         }
+        
     }
     
     func sortByPower() {
@@ -503,13 +508,13 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         }
     }
     
-    func sortByPower_V1() {
-        mToReDelegateValidators_V1.sort{
-            if ($0.description?.moniker == "Cosmostation") { return true }
-            if ($1.description?.moniker == "Cosmostation") { return false }
-            if ($0.jailed! && !$1.jailed!) { return false }
-            if (!$0.jailed! && $1.jailed!) { return true }
-            return Double($0.tokens!)! > Double($1.tokens!)!
+    func sortByPower_gRPC() {
+        mToReDelegateValidators_gRPC.sort{
+            if ($0.description_p.moniker == "Cosmostation") { return true }
+            if ($1.description_p.moniker == "Cosmostation") { return false }
+            if ($0.jailed && !$1.jailed) { return false }
+            if (!$0.jailed && $1.jailed) { return true }
+            return Double($0.tokens)! > Double($1.tokens)!
         }
     }
 }

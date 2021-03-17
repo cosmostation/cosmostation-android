@@ -59,9 +59,9 @@ public struct Tally_V1 {
     }
     
     public func getTurnout() -> NSDecimalNumber {
-        if let bonded = BaseData.instance.mStakingPool_V1?.getBondedTokens() {
-            return getSum().multiplying(byPowerOf10: 2).dividing(by: bonded, withBehavior: WUtils.handler2)
-        }
+//        if let bonded = BaseData.instance.mStakingPool_V1?.getBondedTokens() {
+//            return getSum().multiplying(byPowerOf10: 2).dividing(by: bonded, withBehavior: WUtils.handler2)
+//        }
         return NSDecimalNumber.zero
     }
 }

@@ -76,12 +76,11 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
     public ArrayList<Validator>         mValidators = new ArrayList<>();
     public ArrayList<Reward>            mRewards = new ArrayList<>();
-    public ResLcdIrisReward             mIrisReward;
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
-    //V1 .40 version
-    public ArrayList<String>            mValOpAddresses_V1;
+//    //V1 .40 version
+//    public ArrayList<String>            mValOpAddresses_V1;
 
     //gRPC
     public ArrayList<String>            mValAddresses;
@@ -108,10 +107,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
-            mValOpAddresses_V1 = getIntent().getStringArrayListExtra("valOpAddresses");
-
-        } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) ||
+                mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
 
         } else {
@@ -211,27 +208,18 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
             }
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
-            mTaskCount = 2;
-            new AllRewardTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new WithdrawAddressTask_V1(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             mTaskCount = 2;
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
-
     }
-
 
     public void onStartReward() {
         Intent intent = new Intent(ClaimRewardActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REWARD);
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
-            intent.putExtra("valOpAddresses", mValOpAddresses_V1);
-        } else  if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("valOpAddresses", mValAddresses);
         } else {
             intent.putExtra("validators", mValidators);
@@ -255,18 +243,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == TASK_FETCH_WITHDRAW_ADDRESS) {
             mWithdrawAddress = (String)result.resultData;
-        }
-
-        //roll back
-        else if (result.taskType == TASK_V1_FETCH_ALL_REWARDS) {
-            if (result.isSuccess) {
-                ArrayList<Reward_V1> rewards = (ArrayList<Reward_V1>)result.resultData;
-                getBaseDao().mRewards_V1 = rewards;
-            }
-
-        } else if (result.taskType == TASK_V1_FETCH_WITHDRAW_ADDRESS) {
-            mWithdrawAddress = (String)result.resultData;
-
         }
 
         else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {

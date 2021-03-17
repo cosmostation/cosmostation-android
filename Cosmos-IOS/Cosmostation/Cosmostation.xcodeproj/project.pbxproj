@@ -218,6 +218,9 @@
 		28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A802432944F006D66EA /* StepDepositCdpCheckViewController.swift */; };
 		28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A8224333B90006D66EA /* StepWithdrawCdpAmountViewController.swift */; };
 		28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28617A8424333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift */; };
+		28641F2C2601959E000AAEB8 /* TxDetailgRPCViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28641F2A2601959E000AAEB8 /* TxDetailgRPCViewController.swift */; };
+		28641F2D2601959E000AAEB8 /* TxDetailgRPCViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28641F2B2601959E000AAEB8 /* TxDetailgRPCViewController.xib */; };
+		28641F302601AD59000AAEB8 /* TxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28641F2F2601AD59000AAEB8 /* TxCell.swift */; };
 		28663BEF248A4FB000080311 /* WalletBandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28663BED248A4FB000080311 /* WalletBandCell.swift */; };
 		28663BF0248A4FB000080311 /* WalletBandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28663BEE248A4FB000080311 /* WalletBandCell.xib */; };
 		2866CB9D2580C59A00A91172 /* UnbondingInfo_V1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2866CB9C2580C59A00A91172 /* UnbondingInfo_V1.swift */; };
@@ -240,6 +243,229 @@
 		2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */; };
 		2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2876AD5E240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib */; };
 		2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */; };
+		287AC58325FDF7250070837E /* nft_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4A425FDF59C0070837E /* nft_query.grpc.swift */; };
+		287AC58425FDF7250070837E /* random_random.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4A525FDF59D0070837E /* random_random.pb.swift */; };
+		287AC58525FDF7250070837E /* coinswap_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4A625FDF59E0070837E /* coinswap_query.grpc.swift */; };
+		287AC58625FDF7250070837E /* nft_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4A725FDF59F0070837E /* nft_tx.pb.swift */; };
+		287AC58725FDF7250070837E /* nft_nft.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4A825FDF5A00070837E /* nft_nft.pb.swift */; };
+		287AC58825FDF7250070837E /* cosmos_vesting_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4A925FDF5A10070837E /* cosmos_vesting_v1beta1_tx.grpc.swift */; };
+		287AC58925FDF7250070837E /* cosmos_mint_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4AA25FDF5A20070837E /* cosmos_mint_v1beta1_genesis.pb.swift */; };
+		287AC58A25FDF7250070837E /* mint_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4AB25FDF5A40070837E /* mint_query.pb.swift */; };
+		287AC58B25FDF7250070837E /* cosmos_tx_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4AC25FDF5A50070837E /* cosmos_tx_v1beta1_tx.pb.swift */; };
+		287AC58C25FDF7250070837E /* cosmos_crisis_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4AD25FDF5A60070837E /* cosmos_crisis_v1beta1_tx.grpc.swift */; };
+		287AC58D25FDF7250070837E /* cosmos_params_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4AE25FDF5A80070837E /* cosmos_params_v1beta1_query.grpc.swift */; };
+		287AC58E25FDF7250070837E /* cosmos_base_kv_v1beta1_kv.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4AF25FDF5AA0070837E /* cosmos_base_kv_v1beta1_kv.pb.swift */; };
+		287AC58F25FDF7250070837E /* akash_provider_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B025FDF5AB0070837E /* akash_provider_v1beta1_genesis.pb.swift */; };
+		287AC59025FDF7250070837E /* ibc_applications_transfer_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B125FDF5AC0070837E /* ibc_applications_transfer_v1_genesis.pb.swift */; };
+		287AC59125FDF7250070837E /* tendermint_types_block.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B225FDF5AD0070837E /* tendermint_types_block.pb.swift */; };
+		287AC59225FDF7250070837E /* akash_deployment_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B325FDF5AF0070837E /* akash_deployment_v1beta1_query.grpc.swift */; };
+		287AC59325FDF7250070837E /* record_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B425FDF5B00070837E /* record_query.grpc.swift */; };
+		287AC59425FDF7250070837E /* ibc_core_connection_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B525FDF5B20070837E /* ibc_core_connection_v1_tx.pb.swift */; };
+		287AC59525FDF7250070837E /* cosmos_evidence_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B625FDF5B30070837E /* cosmos_evidence_v1beta1_tx.grpc.swift */; };
+		287AC59625FDF7250070837E /* google_api_http.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B725FDF5B50070837E /* google_api_http.pb.swift */; };
+		287AC59725FDF7250070837E /* cosmos_bank_v1beta1_bank.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B825FDF5B70070837E /* cosmos_bank_v1beta1_bank.pb.swift */; };
+		287AC59825FDF7250070837E /* cosmos_gov_v1beta1_gov.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4B925FDF5B90070837E /* cosmos_gov_v1beta1_gov.pb.swift */; };
+		287AC59925FDF7250070837E /* coinswap_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4BA25FDF5BB0070837E /* coinswap_tx.grpc.swift */; };
+		287AC59A25FDF7250070837E /* cosmos_slashing_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4BB25FDF5BC0070837E /* cosmos_slashing_v1beta1_query.pb.swift */; };
+		287AC59B25FDF7250070837E /* akash_market_v1beta1_bid.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4BC25FDF5BE0070837E /* akash_market_v1beta1_bid.pb.swift */; };
+		287AC59C25FDF7250070837E /* cosmos_crypto_ed25519_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4BD25FDF5C00070837E /* cosmos_crypto_ed25519_keys.pb.swift */; };
+		287AC59D25FDF7250070837E /* akash_base_v1beta1_attribute.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4BE25FDF5C20070837E /* akash_base_v1beta1_attribute.pb.swift */; };
+		287AC59E25FDF7250070837E /* oracle_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4BF25FDF5C40070837E /* oracle_tx.pb.swift */; };
+		287AC59F25FDF7250070837E /* akash_audit_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C025FDF5C50070837E /* akash_audit_v1beta1_query.pb.swift */; };
+		287AC5A025FDF7250070837E /* cosmos_evidence_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C125FDF5C70070837E /* cosmos_evidence_v1beta1_genesis.pb.swift */; };
+		287AC5A125FDF7250070837E /* akash_escrow_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C225FDF5C90070837E /* akash_escrow_v1beta1_query.pb.swift */; };
+		287AC5A225FDF7250070837E /* ibc_core_connection_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C325FDF5CB0070837E /* ibc_core_connection_v1_query.grpc.swift */; };
+		287AC5A325FDF7250070837E /* cosmos_evidence_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C425FDF5CD0070837E /* cosmos_evidence_v1beta1_tx.pb.swift */; };
+		287AC5A425FDF7250070837E /* cosmos_auth_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C525FDF5CE0070837E /* cosmos_auth_v1beta1_query.grpc.swift */; };
+		287AC5A525FDF7250070837E /* cosmos_base_snapshots_v1beta1_snapshot.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C625FDF5D00070837E /* cosmos_base_snapshots_v1beta1_snapshot.pb.swift */; };
+		287AC5A625FDF7250070837E /* ibc_applications_transfer_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C725FDF5D20070837E /* ibc_applications_transfer_v1_tx.grpc.swift */; };
+		287AC5A725FDF7250070837E /* akash_market_v1beta1_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C825FDF5D40070837E /* akash_market_v1beta1_params.pb.swift */; };
+		287AC5A825FDF7250070837E /* tendermint_types_validator.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4C925FDF5D60070837E /* tendermint_types_validator.pb.swift */; };
+		287AC5A925FDF7250070837E /* htlc_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4CA25FDF5D80070837E /* htlc_query.grpc.swift */; };
+		287AC5AA25FDF7250070837E /* cosmos_gov_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4CB25FDF5D90070837E /* cosmos_gov_v1beta1_tx.pb.swift */; };
+		287AC5AB25FDF7250070837E /* cosmos_staking_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4CC25FDF5DB0070837E /* cosmos_staking_v1beta1_query.grpc.swift */; };
+		287AC5AC25FDF7250070837E /* cosmos_bank_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4CD25FDF5DD0070837E /* cosmos_bank_v1beta1_genesis.pb.swift */; };
+		287AC5AD25FDF7250070837E /* cosmos_params_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4CE25FDF5DF0070837E /* cosmos_params_v1beta1_query.pb.swift */; };
+		287AC5AE25FDF7250070837E /* coinswap_coinswap.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4CF25FDF5E10070837E /* coinswap_coinswap.pb.swift */; };
+		287AC5AF25FDF7250070837E /* akash_audit_v1beta1_audit.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D025FDF5E20070837E /* akash_audit_v1beta1_audit.pb.swift */; };
+		287AC5B025FDF7250070837E /* cosmos_evidence_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D125FDF5E40070837E /* cosmos_evidence_v1beta1_query.grpc.swift */; };
+		287AC5B125FDF7250070837E /* ibc_applications_transfer_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D225FDF5E60070837E /* ibc_applications_transfer_v1_tx.pb.swift */; };
+		287AC5B225FDF7250070837E /* htlc_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D325FDF5E80070837E /* htlc_query.pb.swift */; };
+		287AC5B325FDF7250070837E /* ibc_core_connection_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D425FDF5EA0070837E /* ibc_core_connection_v1_genesis.pb.swift */; };
+		287AC5B425FDF7250070837E /* cosmos_evidence_v1beta1_evidence.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D525FDF5EB0070837E /* cosmos_evidence_v1beta1_evidence.pb.swift */; };
+		287AC5B525FDF7250070837E /* cosmos_upgrade_v1beta1_upgrade.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D625FDF5ED0070837E /* cosmos_upgrade_v1beta1_upgrade.pb.swift */; };
+		287AC5B625FDF7250070837E /* token_token.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D725FDF5EF0070837E /* token_token.pb.swift */; };
+		287AC5B725FDF7250070837E /* oracle_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D825FDF5F10070837E /* oracle_query.grpc.swift */; };
+		287AC5B825FDF7250070837E /* google_protobuf2_any.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4D925FDF5F20070837E /* google_protobuf2_any.pb.swift */; };
+		287AC5B925FDF7250070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4DA25FDF5F40070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift */; };
+		287AC5BA25FDF7250070837E /* akash_cert_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4DB25FDF5F60070837E /* akash_cert_v1beta1_query.pb.swift */; };
+		287AC5BB25FDF7250070837E /* cosmos_bank_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4DC25FDF5F80070837E /* cosmos_bank_v1beta1_tx.pb.swift */; };
+		287AC5BC25FDF7250070837E /* tendermint_crypto_proof.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4DD25FDF5FA0070837E /* tendermint_crypto_proof.pb.swift */; };
+		287AC5BD25FDF7250070837E /* cosmos_capability_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4DE25FDF5FB0070837E /* cosmos_capability_v1beta1_genesis.pb.swift */; };
+		287AC5BE25FDF7250070837E /* akash_provider_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4DF25FDF5FD0070837E /* akash_provider_v1beta1_query.grpc.swift */; };
+		287AC5BF25FDF7250070837E /* akash_deployment_v1beta1_deployment.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E025FDF5FF0070837E /* akash_deployment_v1beta1_deployment.grpc.swift */; };
+		287AC5C025FDF7250070837E /* token_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E125FDF6010070837E /* token_query.pb.swift */; };
+		287AC5C125FDF7250070837E /* coinswap_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E225FDF6030070837E /* coinswap_tx.pb.swift */; };
+		287AC5C225FDF7250070837E /* akash_deployment_v1beta1_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E325FDF6040070837E /* akash_deployment_v1beta1_params.pb.swift */; };
+		287AC5C325FDF7250070837E /* cosmos_distribution_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E425FDF6060070837E /* cosmos_distribution_v1beta1_query.pb.swift */; };
+		287AC5C425FDF7250070837E /* ibc_core_client_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E525FDF6080070837E /* ibc_core_client_v1_genesis.pb.swift */; };
+		287AC5C525FDF7250070837E /* htlc_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E625FDF60A0070837E /* htlc_genesis.pb.swift */; };
+		287AC5C625FDF7250070837E /* guardian_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E725FDF60C0070837E /* guardian_genesis.pb.swift */; };
+		287AC5C725FDF7250070837E /* akash_audit_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E825FDF60D0070837E /* akash_audit_v1beta1_query.grpc.swift */; };
+		287AC5C825FDF7250070837E /* cosmos_bank_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4E925FDF60F0070837E /* cosmos_bank_v1beta1_tx.grpc.swift */; };
+		287AC5C925FDF7250070837E /* akash_deployment_v1beta1_deployment.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4EA25FDF6110070837E /* akash_deployment_v1beta1_deployment.pb.swift */; };
+		287AC5CA25FDF7250070837E /* cosmos_staking_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4EB25FDF6130070837E /* cosmos_staking_v1beta1_query.pb.swift */; };
+		287AC5CB25FDF7250070837E /* ibc_core_commitment_v1_commitment.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4EC25FDF6150070837E /* ibc_core_commitment_v1_commitment.pb.swift */; };
+		287AC5CC25FDF7250070837E /* cosmos_mint_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4ED25FDF6170070837E /* cosmos_mint_v1beta1_query.grpc.swift */; };
+		287AC5CD25FDF7250070837E /* cosmos_upgrade_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4EE25FDF6190070837E /* cosmos_upgrade_v1beta1_query.pb.swift */; };
+		287AC5CE25FDF7250070837E /* token_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4EF25FDF61B0070837E /* token_genesis.pb.swift */; };
+		287AC5CF25FDF7250070837E /* cosmos_gov_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F025FDF61D0070837E /* cosmos_gov_v1beta1_query.grpc.swift */; };
+		287AC5D025FDF7250070837E /* random_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F125FDF61F0070837E /* random_tx.grpc.swift */; };
+		287AC5D125FDF7250070837E /* ibc_applications_transfer_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F225FDF6210070837E /* ibc_applications_transfer_v1_query.pb.swift */; };
+		287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F325FDF6220070837E /* akash_provider_v1beta1_provider.pb.swift */; };
+		287AC5D325FDF7250070837E /* akash_market_v1beta1_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F425FDF6240070837E /* akash_market_v1beta1_service.pb.swift */; };
+		287AC5D425FDF7250070837E /* random_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F525FDF6260070837E /* random_query.grpc.swift */; };
+		287AC5D525FDF7250070837E /* cosmos_crisis_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F625FDF6280070837E /* cosmos_crisis_v1beta1_genesis.pb.swift */; };
+		287AC5D625FDF7250070837E /* cosmos_distribution_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F725FDF62A0070837E /* cosmos_distribution_v1beta1_query.grpc.swift */; };
+		287AC5D725FDF7260070837E /* akash_cert_v1beta1_cert.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F825FDF62B0070837E /* akash_cert_v1beta1_cert.pb.swift */; };
+		287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4F925FDF62D0070837E /* cosmos_mint_v1beta1_query.pb.swift */; };
+		287AC5D925FDF7260070837E /* oracle_oracle.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4FA25FDF62F0070837E /* oracle_oracle.pb.swift */; };
+		287AC5DA25FDF7260070837E /* mint_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4FB25FDF6310070837E /* mint_genesis.pb.swift */; };
+		287AC5DB25FDF7260070837E /* random_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4FC25FDF6330070837E /* random_query.pb.swift */; };
+		287AC5DC25FDF7260070837E /* cosmos_slashing_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4FD25FDF6350070837E /* cosmos_slashing_v1beta1_query.grpc.swift */; };
+		287AC5DD25FDF7260070837E /* cosmos_evidence_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4FE25FDF6360070837E /* cosmos_evidence_v1beta1_query.pb.swift */; };
+		287AC5DE25FDF7260070837E /* htlc_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC4FF25FDF6380070837E /* htlc_tx.pb.swift */; };
+		287AC5DF25FDF7260070837E /* cosmos_slashing_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50025FDF63A0070837E /* cosmos_slashing_v1beta1_tx.grpc.swift */; };
+		287AC5E025FDF7260070837E /* cosmos_slashing_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50125FDF63C0070837E /* cosmos_slashing_v1beta1_tx.pb.swift */; };
+		287AC5E125FDF7260070837E /* akash_market_v1beta1_order.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50225FDF63E0070837E /* akash_market_v1beta1_order.pb.swift */; };
+		287AC5E225FDF7260070837E /* mint_mint.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50325FDF6400070837E /* mint_mint.pb.swift */; };
+		287AC5E325FDF7260070837E /* oracle_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50425FDF6410070837E /* oracle_query.pb.swift */; };
+		287AC5E425FDF7260070837E /* confio_proofs.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50525FDF6430070837E /* confio_proofs.pb.swift */; };
+		287AC5E525FDF7260070837E /* record_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50625FDF6450070837E /* record_genesis.pb.swift */; };
+		287AC5E625FDF7260070837E /* service_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50725FDF6470070837E /* service_query.grpc.swift */; };
+		287AC5E725FDF7260070837E /* ibc_core_client_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50825FDF6490070837E /* ibc_core_client_v1_query.grpc.swift */; };
+		287AC5E825FDF7260070837E /* ibc_core_channel_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50925FDF64A0070837E /* ibc_core_channel_v1_query.grpc.swift */; };
+		287AC5E925FDF7260070837E /* akash_market_v1beta1_lease.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50A25FDF64C0070837E /* akash_market_v1beta1_lease.pb.swift */; };
+		287AC5EA25FDF7260070837E /* akash_cert_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50B25FDF64E0070837E /* akash_cert_v1beta1_query.grpc.swift */; };
+		287AC5EB25FDF7260070837E /* cosmos_base_tendermint_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50C25FDF6500070837E /* cosmos_base_tendermint_v1beta1_query.grpc.swift */; };
+		287AC5EC25FDF7260070837E /* akash_deployment_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50D25FDF6520070837E /* akash_deployment_v1beta1_genesis.pb.swift */; };
+		287AC5ED25FDF7260070837E /* tendermint_types_evidence.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50E25FDF6530070837E /* tendermint_types_evidence.pb.swift */; };
+		287AC5EE25FDF7260070837E /* cosmos_gov_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC50F25FDF6550070837E /* cosmos_gov_v1beta1_tx.grpc.swift */; };
+		287AC5EF25FDF7260070837E /* cosmos_bank_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51025FDF6570070837E /* cosmos_bank_v1beta1_query.pb.swift */; };
+		287AC5F025FDF7260070837E /* cosmos_vesting_v1beta1_vesting.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51125FDF6590070837E /* cosmos_vesting_v1beta1_vesting.pb.swift */; };
+		287AC5F125FDF7260070837E /* akash_deployment_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51225FDF65B0070837E /* akash_deployment_v1beta1_query.pb.swift */; };
+		287AC5F225FDF7260070837E /* ibc_applications_transfer_v1_transfer.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51325FDF65D0070837E /* ibc_applications_transfer_v1_transfer.pb.swift */; };
+		287AC5F325FDF7260070837E /* cosmos_staking_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51425FDF65E0070837E /* cosmos_staking_v1beta1_tx.pb.swift */; };
+		287AC5F425FDF7260070837E /* google_api_httpbody.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51525FDF6600070837E /* google_api_httpbody.pb.swift */; };
+		287AC5F525FDF7260070837E /* cosmos_staking_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51625FDF6620070837E /* cosmos_staking_v1beta1_tx.grpc.swift */; };
+		287AC5F625FDF7260070837E /* ibc_core_connection_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51725FDF6640070837E /* ibc_core_connection_v1_query.pb.swift */; };
+		287AC5F725FDF7260070837E /* cosmos_staking_v1beta1_staking.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51825FDF6650070837E /* cosmos_staking_v1beta1_staking.pb.swift */; };
+		287AC5F825FDF7260070837E /* token_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51925FDF6670070837E /* token_tx.pb.swift */; };
+		287AC5F925FDF7260070837E /* guardian_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51A25FDF6690070837E /* guardian_tx.grpc.swift */; };
+		287AC5FA25FDF7260070837E /* guardian_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51B25FDF66B0070837E /* guardian_tx.pb.swift */; };
+		287AC5FB25FDF7260070837E /* akash_escrow_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51C25FDF66D0070837E /* akash_escrow_v1beta1_query.grpc.swift */; };
+		287AC5FC25FDF7260070837E /* akash_base_v1beta1_resource.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51D25FDF66E0070837E /* akash_base_v1beta1_resource.pb.swift */; };
+		287AC5FD25FDF7260070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51E25FDF6700070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift */; };
+		287AC5FE25FDF7260070837E /* cosmos_auth_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC51F25FDF6720070837E /* cosmos_auth_v1beta1_genesis.pb.swift */; };
+		287AC5FF25FDF7260070837E /* google_api_annotations.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52025FDF6740070837E /* google_api_annotations.pb.swift */; };
+		287AC60025FDF7260070837E /* guardian_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52125FDF6760070837E /* guardian_query.grpc.swift */; };
+		287AC60125FDF7260070837E /* htlc_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52225FDF6770070837E /* htlc_tx.grpc.swift */; };
+		287AC60225FDF7260070837E /* service_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52325FDF6790070837E /* service_query.pb.swift */; };
+		287AC60325FDF7260070837E /* mint_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52425FDF67B0070837E /* mint_query.grpc.swift */; };
+		287AC60425FDF7260070837E /* guardian_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52525FDF67D0070837E /* guardian_query.pb.swift */; };
+		287AC60525FDF7260070837E /* ibc_core_channel_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52625FDF67F0070837E /* ibc_core_channel_v1_tx.grpc.swift */; };
+		287AC60625FDF7260070837E /* ibc_core_channel_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52725FDF6800070837E /* ibc_core_channel_v1_tx.pb.swift */; };
+		287AC60725FDF7260070837E /* akash_audit_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52825FDF6820070837E /* akash_audit_v1beta1_genesis.pb.swift */; };
+		287AC60825FDF7260070837E /* nft_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52925FDF6840070837E /* nft_query.pb.swift */; };
+		287AC60925FDF7260070837E /* ibc_lightclients_solomachine_v1_solomachine.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52A25FDF6860070837E /* ibc_lightclients_solomachine_v1_solomachine.pb.swift */; };
+		287AC60A25FDF7260070837E /* cosmos_base_store_v1beta1_commit_info.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52B25FDF6880070837E /* cosmos_base_store_v1beta1_commit_info.pb.swift */; };
+		287AC60B25FDF7260070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52C25FDF6890070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift */; };
+		287AC60C25FDF7260070837E /* cosmos_mint_v1beta1_mint.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52D25FDF68B0070837E /* cosmos_mint_v1beta1_mint.pb.swift */; };
+		287AC60D25FDF7260070837E /* coinswap_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52E25FDF68D0070837E /* coinswap_genesis.pb.swift */; };
+		287AC60E25FDF7260070837E /* tendermint_p2p_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC52F25FDF68F0070837E /* tendermint_p2p_types.pb.swift */; };
+		287AC60F25FDF7260070837E /* tendermint_types_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53025FDF6910070837E /* tendermint_types_params.pb.swift */; };
+		287AC61025FDF7260070837E /* nft_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53125FDF6930070837E /* nft_genesis.pb.swift */; };
+		287AC61125FDF7260070837E /* tendermint_version_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53225FDF6940070837E /* tendermint_version_types.pb.swift */; };
+		287AC61225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53325FDF6960070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift */; };
+		287AC61325FDF7260070837E /* akash_base_v1beta1_endpoint.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53425FDF6980070837E /* akash_base_v1beta1_endpoint.pb.swift */; };
+		287AC61425FDF7260070837E /* ibc_core_client_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53525FDF69A0070837E /* ibc_core_client_v1_query.pb.swift */; };
+		287AC61525FDF7260070837E /* cosmos_capability_v1beta1_capability.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53625FDF69C0070837E /* cosmos_capability_v1beta1_capability.pb.swift */; };
+		287AC61625FDF7260070837E /* service_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53725FDF69D0070837E /* service_service.pb.swift */; };
+		287AC61725FDF7260070837E /* akash_market_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53825FDF69F0070837E /* akash_market_v1beta1_query.grpc.swift */; };
+		287AC61825FDF7260070837E /* cosmos_params_v1beta1_params.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53925FDF6A10070837E /* cosmos_params_v1beta1_params.pb.swift */; };
+		287AC61925FDF7260070837E /* akash_provider_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53A25FDF6A30070837E /* akash_provider_v1beta1_query.pb.swift */; };
+		287AC61A25FDF7260070837E /* ibc_applications_transfer_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53B25FDF6A50070837E /* ibc_applications_transfer_v1_query.grpc.swift */; };
+		287AC61B25FDF7260070837E /* cosmos_crypto_secp256k1_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53C25FDF6A60070837E /* cosmos_crypto_secp256k1_keys.pb.swift */; };
+		287AC61C25FDF7260070837E /* cosmos_tx_v1beta1_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53D25FDF6A80070837E /* cosmos_tx_v1beta1_service.pb.swift */; };
+		287AC61D25FDF7260070837E /* cosmos_base_query_v1beta1_pagination.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53E25FDF6AA0070837E /* cosmos_base_query_v1beta1_pagination.pb.swift */; };
+		287AC61E25FDF7260070837E /* cosmos_distribution_v1beta1_distribution.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC53F25FDF6AC0070837E /* cosmos_distribution_v1beta1_distribution.pb.swift */; };
+		287AC61F25FDF7260070837E /* cosmos_slashing_v1beta1_slashing.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54025FDF6AE0070837E /* cosmos_slashing_v1beta1_slashing.pb.swift */; };
+		287AC62025FDF7260070837E /* akash_deployment_v1beta1_group.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54125FDF6AF0070837E /* akash_deployment_v1beta1_group.pb.swift */; };
+		287AC62125FDF7260070837E /* cosmos_vesting_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54225FDF6B10070837E /* cosmos_vesting_v1beta1_tx.pb.swift */; };
+		287AC62225FDF7260070837E /* gogoproto_gogo.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54325FDF6B30070837E /* gogoproto_gogo.pb.swift */; };
+		287AC62325FDF7260070837E /* akash_base_v1beta1_resourcevalue.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54425FDF6B50070837E /* akash_base_v1beta1_resourcevalue.pb.swift */; };
+		287AC62425FDF7260070837E /* service_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54525FDF6B70070837E /* service_tx.pb.swift */; };
+		287AC62525FDF7260070837E /* token_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54625FDF6B80070837E /* token_tx.grpc.swift */; };
+		287AC62625FDF7260070837E /* oracle_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54725FDF6BA0070837E /* oracle_genesis.pb.swift */; };
+		287AC62725FDF7260070837E /* cosmos_tx_v1beta1_service.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54825FDF6BC0070837E /* cosmos_tx_v1beta1_service.grpc.swift */; };
+		287AC62825FDF7260070837E /* random_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54925FDF6BE0070837E /* random_genesis.pb.swift */; };
+		287AC62925FDF7260070837E /* random_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54A25FDF6BF0070837E /* random_tx.pb.swift */; };
+		287AC62A25FDF7260070837E /* cosmos_proto_cosmos.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54B25FDF6C10070837E /* cosmos_proto_cosmos.pb.swift */; };
+		287AC62B25FDF7260070837E /* cosmos_distribution_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54C25FDF6C30070837E /* cosmos_distribution_v1beta1_genesis.pb.swift */; };
+		287AC62C25FDF7260070837E /* service_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54D25FDF6C50070837E /* service_tx.grpc.swift */; };
+		287AC62D25FDF7260070837E /* tendermint_types_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54E25FDF6C70070837E /* tendermint_types_types.pb.swift */; };
+		287AC62E25FDF7260070837E /* htlc_htlc.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC54F25FDF6C90070837E /* htlc_htlc.pb.swift */; };
+		287AC62F25FDF7260070837E /* cosmos_auth_v1beta1_auth.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55025FDF6CA0070837E /* cosmos_auth_v1beta1_auth.pb.swift */; };
+		287AC63025FDF7260070837E /* tendermint_crypto_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55125FDF6CC0070837E /* tendermint_crypto_keys.pb.swift */; };
+		287AC63125FDF7260070837E /* oracle_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55225FDF6CE0070837E /* oracle_tx.grpc.swift */; };
+		287AC63225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55325FDF6D00070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift */; };
+		287AC63325FDF7260070837E /* ibc_core_channel_v1_channel.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55425FDF6D20070837E /* ibc_core_channel_v1_channel.pb.swift */; };
+		287AC63425FDF7260070837E /* cosmos_tx_signing_v1beta1_signing.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55525FDF6D40070837E /* cosmos_tx_signing_v1beta1_signing.pb.swift */; };
+		287AC63525FDF7260070837E /* cosmos_genutil_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55625FDF6D50070837E /* cosmos_genutil_v1beta1_genesis.pb.swift */; };
+		287AC63625FDF7260070837E /* cosmos_base_abci_v1beta1_abci.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55725FDF6D70070837E /* cosmos_base_abci_v1beta1_abci.pb.swift */; };
+		287AC63725FDF7260070837E /* akash_cert_v1beta1_cert.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55825FDF6D90070837E /* akash_cert_v1beta1_cert.grpc.swift */; };
+		287AC63825FDF7260070837E /* cosmos_gov_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55925FDF6DB0070837E /* cosmos_gov_v1beta1_genesis.pb.swift */; };
+		287AC63925FDF7260070837E /* cosmos_upgrade_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55A25FDF6DD0070837E /* cosmos_upgrade_v1beta1_query.grpc.swift */; };
+		287AC63A25FDF7260070837E /* cosmos_crypto_multisig_keys.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55B25FDF6DE0070837E /* cosmos_crypto_multisig_keys.pb.swift */; };
+		287AC63B25FDF7260070837E /* cosmos_crisis_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55C25FDF6E00070837E /* cosmos_crisis_v1beta1_tx.pb.swift */; };
+		287AC63C25FDF7260070837E /* cosmos_bank_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55D25FDF6E20070837E /* cosmos_bank_v1beta1_query.grpc.swift */; };
+		287AC63D25FDF7260070837E /* record_record.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55E25FDF6E40070837E /* record_record.pb.swift */; };
+		287AC63E25FDF7260070837E /* coinswap_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC55F25FDF6E60070837E /* coinswap_query.pb.swift */; };
+		287AC63F25FDF7260070837E /* service_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56025FDF6E80070837E /* service_genesis.pb.swift */; };
+		287AC64025FDF7260070837E /* akash_escrow_v1beta1_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56125FDF6E90070837E /* akash_escrow_v1beta1_types.pb.swift */; };
+		287AC64125FDF7260070837E /* ibc_core_connection_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56225FDF6EB0070837E /* ibc_core_connection_v1_tx.grpc.swift */; };
+		287AC64225FDF7260070837E /* tendermint_libs_bits_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56325FDF6ED0070837E /* tendermint_libs_bits_types.pb.swift */; };
+		287AC64325FDF7260070837E /* ibc_core_client_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56425FDF6EF0070837E /* ibc_core_client_v1_tx.grpc.swift */; };
+		287AC64425FDF7260070837E /* akash_audit_v1beta1_audit.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56525FDF6F10070837E /* akash_audit_v1beta1_audit.grpc.swift */; };
+		287AC64525FDF7260070837E /* tendermint_abci_types.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56625FDF6F20070837E /* tendermint_abci_types.pb.swift */; };
+		287AC64625FDF7260070837E /* ibc_core_types_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56725FDF6F40070837E /* ibc_core_types_v1_genesis.pb.swift */; };
+		287AC64725FDF7260070837E /* cosmos_slashing_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56825FDF6F60070837E /* cosmos_slashing_v1beta1_genesis.pb.swift */; };
+		287AC64825FDF7260070837E /* akash_cert_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56925FDF6F80070837E /* akash_cert_v1beta1_genesis.pb.swift */; };
+		287AC64925FDF7260070837E /* ibc_core_channel_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56A25FDF6FA0070837E /* ibc_core_channel_v1_genesis.pb.swift */; };
+		287AC64A25FDF7260070837E /* akash_market_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56B25FDF6FC0070837E /* akash_market_v1beta1_query.pb.swift */; };
+		287AC64B25FDF7260070837E /* cosmos_gov_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56C25FDF6FD0070837E /* cosmos_gov_v1beta1_query.pb.swift */; };
+		287AC64C25FDF7260070837E /* cosmos_staking_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56D25FDF6FF0070837E /* cosmos_staking_v1beta1_genesis.pb.swift */; };
+		287AC64D25FDF7260070837E /* record_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56E25FDF7010070837E /* record_tx.pb.swift */; };
+		287AC64E25FDF7260070837E /* cosmos_distribution_v1beta1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC56F25FDF7030070837E /* cosmos_distribution_v1beta1_tx.grpc.swift */; };
+		287AC64F25FDF7260070837E /* ibc_core_client_v1_client.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57025FDF7050070837E /* ibc_core_client_v1_client.pb.swift */; };
+		287AC65025FDF7260070837E /* cosmos_auth_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57125FDF7060070837E /* cosmos_auth_v1beta1_query.pb.swift */; };
+		287AC65125FDF7260070837E /* nft_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57225FDF7080070837E /* nft_tx.grpc.swift */; };
+		287AC65225FDF7260070837E /* guardian_guardian.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57325FDF70A0070837E /* guardian_guardian.pb.swift */; };
+		287AC65325FDF7260070837E /* akash_provider_v1beta1_provider.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57425FDF70C0070837E /* akash_provider_v1beta1_provider.grpc.swift */; };
+		287AC65425FDF7260070837E /* record_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57525FDF70E0070837E /* record_query.pb.swift */; };
+		287AC65525FDF7260070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57625FDF7100070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift */; };
+		287AC65625FDF7260070837E /* ibc_lightclients_localhost_v1_localhost.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57725FDF7120070837E /* ibc_lightclients_localhost_v1_localhost.pb.swift */; };
+		287AC65725FDF7260070837E /* ibc_core_client_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57825FDF7130070837E /* ibc_core_client_v1_tx.pb.swift */; };
+		287AC65825FDF7260070837E /* ibc_core_connection_v1_connection.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57925FDF7150070837E /* ibc_core_connection_v1_connection.pb.swift */; };
+		287AC65925FDF7260070837E /* akash_escrow_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57A25FDF7170070837E /* akash_escrow_v1beta1_genesis.pb.swift */; };
+		287AC65A25FDF7260070837E /* akash_market_v1beta1_service.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57B25FDF7190070837E /* akash_market_v1beta1_service.grpc.swift */; };
+		287AC65B25FDF7260070837E /* akash_market_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57C25FDF71A0070837E /* akash_market_v1beta1_genesis.pb.swift */; };
+		287AC65C25FDF7260070837E /* tendermint_abci_types.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57D25FDF71C0070837E /* tendermint_abci_types.grpc.swift */; };
+		287AC65D25FDF7260070837E /* ibc_core_channel_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57E25FDF71E0070837E /* ibc_core_channel_v1_query.pb.swift */; };
+		287AC65E25FDF7260070837E /* cosmos_base_v1beta1_coin.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC57F25FDF7200070837E /* cosmos_base_v1beta1_coin.pb.swift */; };
+		287AC65F25FDF7260070837E /* token_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC58025FDF7220070837E /* token_query.grpc.swift */; };
+		287AC66025FDF7260070837E /* record_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC58125FDF7230070837E /* record_tx.grpc.swift */; };
+		287AC66125FDF7260070837E /* cosmos_distribution_v1beta1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 287AC58225FDF7250070837E /* cosmos_distribution_v1beta1_tx.pb.swift */; };
 		2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */; };
 		2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */; };
 		2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */; };
@@ -745,6 +971,9 @@
 		28617A802432944F006D66EA /* StepDepositCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDepositCdpCheckViewController.swift; sourceTree = "<group>"; };
 		28617A8224333B90006D66EA /* StepWithdrawCdpAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWithdrawCdpAmountViewController.swift; sourceTree = "<group>"; };
 		28617A8424333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepWithdrawCdpCheckViewController.swift; sourceTree = "<group>"; };
+		28641F2A2601959E000AAEB8 /* TxDetailgRPCViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxDetailgRPCViewController.swift; sourceTree = "<group>"; };
+		28641F2B2601959E000AAEB8 /* TxDetailgRPCViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxDetailgRPCViewController.xib; sourceTree = "<group>"; };
+		28641F2F2601AD59000AAEB8 /* TxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCell.swift; sourceTree = "<group>"; };
 		28663BED248A4FB000080311 /* WalletBandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletBandCell.swift; sourceTree = "<group>"; };
 		28663BEE248A4FB000080311 /* WalletBandCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletBandCell.xib; sourceTree = "<group>"; };
 		2866CB9C2580C59A00A91172 /* UnbondingInfo_V1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnbondingInfo_V1.swift; sourceTree = "<group>"; };
@@ -769,6 +998,229 @@
 		2876AD62240CE966005B33F4 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/WalletUnbondingInfoCellTableViewCell.strings; sourceTree = "<group>"; };
 		2877B8F9240E2A0200EFE369 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/TxDetailViewController.xib; sourceTree = "<group>"; };
 		2877B8FC240E2A0E00EFE369 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/TxDetailViewController.strings; sourceTree = "<group>"; };
+		287AC4A425FDF59C0070837E /* nft_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nft_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4A525FDF59D0070837E /* random_random.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random_random.pb.swift; sourceTree = "<group>"; };
+		287AC4A625FDF59E0070837E /* coinswap_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coinswap_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4A725FDF59F0070837E /* nft_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nft_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4A825FDF5A00070837E /* nft_nft.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nft_nft.pb.swift; sourceTree = "<group>"; };
+		287AC4A925FDF5A10070837E /* cosmos_vesting_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_vesting_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4AA25FDF5A20070837E /* cosmos_mint_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_mint_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4AB25FDF5A40070837E /* mint_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mint_query.pb.swift; sourceTree = "<group>"; };
+		287AC4AC25FDF5A50070837E /* cosmos_tx_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_tx_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4AD25FDF5A60070837E /* cosmos_crisis_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crisis_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4AE25FDF5A80070837E /* cosmos_params_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_params_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4AF25FDF5AA0070837E /* cosmos_base_kv_v1beta1_kv.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_kv_v1beta1_kv.pb.swift; sourceTree = "<group>"; };
+		287AC4B025FDF5AB0070837E /* akash_provider_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_provider_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4B125FDF5AC0070837E /* ibc_applications_transfer_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_applications_transfer_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4B225FDF5AD0070837E /* tendermint_types_block.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_types_block.pb.swift; sourceTree = "<group>"; };
+		287AC4B325FDF5AF0070837E /* akash_deployment_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4B425FDF5B00070837E /* record_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = record_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4B525FDF5B20070837E /* ibc_core_connection_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_connection_v1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4B625FDF5B30070837E /* cosmos_evidence_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_evidence_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4B725FDF5B50070837E /* google_api_http.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google_api_http.pb.swift; sourceTree = "<group>"; };
+		287AC4B825FDF5B70070837E /* cosmos_bank_v1beta1_bank.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_bank_v1beta1_bank.pb.swift; sourceTree = "<group>"; };
+		287AC4B925FDF5B90070837E /* cosmos_gov_v1beta1_gov.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_gov_v1beta1_gov.pb.swift; sourceTree = "<group>"; };
+		287AC4BA25FDF5BB0070837E /* coinswap_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coinswap_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4BB25FDF5BC0070837E /* cosmos_slashing_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_slashing_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4BC25FDF5BE0070837E /* akash_market_v1beta1_bid.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_bid.pb.swift; sourceTree = "<group>"; };
+		287AC4BD25FDF5C00070837E /* cosmos_crypto_ed25519_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crypto_ed25519_keys.pb.swift; sourceTree = "<group>"; };
+		287AC4BE25FDF5C20070837E /* akash_base_v1beta1_attribute.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_base_v1beta1_attribute.pb.swift; sourceTree = "<group>"; };
+		287AC4BF25FDF5C40070837E /* oracle_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4C025FDF5C50070837E /* akash_audit_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_audit_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4C125FDF5C70070837E /* cosmos_evidence_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_evidence_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4C225FDF5C90070837E /* akash_escrow_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_escrow_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4C325FDF5CB0070837E /* ibc_core_connection_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_connection_v1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4C425FDF5CD0070837E /* cosmos_evidence_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_evidence_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4C525FDF5CE0070837E /* cosmos_auth_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_auth_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4C625FDF5D00070837E /* cosmos_base_snapshots_v1beta1_snapshot.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_snapshots_v1beta1_snapshot.pb.swift; sourceTree = "<group>"; };
+		287AC4C725FDF5D20070837E /* ibc_applications_transfer_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_applications_transfer_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4C825FDF5D40070837E /* akash_market_v1beta1_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_params.pb.swift; sourceTree = "<group>"; };
+		287AC4C925FDF5D60070837E /* tendermint_types_validator.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_types_validator.pb.swift; sourceTree = "<group>"; };
+		287AC4CA25FDF5D80070837E /* htlc_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = htlc_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4CB25FDF5D90070837E /* cosmos_gov_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_gov_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4CC25FDF5DB0070837E /* cosmos_staking_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_staking_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4CD25FDF5DD0070837E /* cosmos_bank_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_bank_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4CE25FDF5DF0070837E /* cosmos_params_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_params_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4CF25FDF5E10070837E /* coinswap_coinswap.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coinswap_coinswap.pb.swift; sourceTree = "<group>"; };
+		287AC4D025FDF5E20070837E /* akash_audit_v1beta1_audit.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_audit_v1beta1_audit.pb.swift; sourceTree = "<group>"; };
+		287AC4D125FDF5E40070837E /* cosmos_evidence_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_evidence_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4D225FDF5E60070837E /* ibc_applications_transfer_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_applications_transfer_v1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4D325FDF5E80070837E /* htlc_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = htlc_query.pb.swift; sourceTree = "<group>"; };
+		287AC4D425FDF5EA0070837E /* ibc_core_connection_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_connection_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4D525FDF5EB0070837E /* cosmos_evidence_v1beta1_evidence.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_evidence_v1beta1_evidence.pb.swift; sourceTree = "<group>"; };
+		287AC4D625FDF5ED0070837E /* cosmos_upgrade_v1beta1_upgrade.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_upgrade_v1beta1_upgrade.pb.swift; sourceTree = "<group>"; };
+		287AC4D725FDF5EF0070837E /* token_token.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = token_token.pb.swift; sourceTree = "<group>"; };
+		287AC4D825FDF5F10070837E /* oracle_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4D925FDF5F20070837E /* google_protobuf2_any.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google_protobuf2_any.pb.swift; sourceTree = "<group>"; };
+		287AC4DA25FDF5F40070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_tendermint_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4DB25FDF5F60070837E /* akash_cert_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_cert_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4DC25FDF5F80070837E /* cosmos_bank_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_bank_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4DD25FDF5FA0070837E /* tendermint_crypto_proof.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_crypto_proof.pb.swift; sourceTree = "<group>"; };
+		287AC4DE25FDF5FB0070837E /* cosmos_capability_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_capability_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4DF25FDF5FD0070837E /* akash_provider_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_provider_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4E025FDF5FF0070837E /* akash_deployment_v1beta1_deployment.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_deployment.grpc.swift; sourceTree = "<group>"; };
+		287AC4E125FDF6010070837E /* token_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = token_query.pb.swift; sourceTree = "<group>"; };
+		287AC4E225FDF6030070837E /* coinswap_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coinswap_tx.pb.swift; sourceTree = "<group>"; };
+		287AC4E325FDF6040070837E /* akash_deployment_v1beta1_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_params.pb.swift; sourceTree = "<group>"; };
+		287AC4E425FDF6060070837E /* cosmos_distribution_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_distribution_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4E525FDF6080070837E /* ibc_core_client_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_client_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4E625FDF60A0070837E /* htlc_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = htlc_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4E725FDF60C0070837E /* guardian_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guardian_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4E825FDF60D0070837E /* akash_audit_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_audit_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4E925FDF60F0070837E /* cosmos_bank_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_bank_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4EA25FDF6110070837E /* akash_deployment_v1beta1_deployment.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_deployment.pb.swift; sourceTree = "<group>"; };
+		287AC4EB25FDF6130070837E /* cosmos_staking_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_staking_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4EC25FDF6150070837E /* ibc_core_commitment_v1_commitment.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_commitment_v1_commitment.pb.swift; sourceTree = "<group>"; };
+		287AC4ED25FDF6170070837E /* cosmos_mint_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_mint_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4EE25FDF6190070837E /* cosmos_upgrade_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_upgrade_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4EF25FDF61B0070837E /* token_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = token_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4F025FDF61D0070837E /* cosmos_gov_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_gov_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4F125FDF61F0070837E /* random_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC4F225FDF6210070837E /* ibc_applications_transfer_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_applications_transfer_v1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4F325FDF6220070837E /* akash_provider_v1beta1_provider.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_provider_v1beta1_provider.pb.swift; sourceTree = "<group>"; };
+		287AC4F425FDF6240070837E /* akash_market_v1beta1_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_service.pb.swift; sourceTree = "<group>"; };
+		287AC4F525FDF6260070837E /* random_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4F625FDF6280070837E /* cosmos_crisis_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crisis_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4F725FDF62A0070837E /* cosmos_distribution_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_distribution_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4F825FDF62B0070837E /* akash_cert_v1beta1_cert.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_cert_v1beta1_cert.pb.swift; sourceTree = "<group>"; };
+		287AC4F925FDF62D0070837E /* cosmos_mint_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_mint_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4FA25FDF62F0070837E /* oracle_oracle.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_oracle.pb.swift; sourceTree = "<group>"; };
+		287AC4FB25FDF6310070837E /* mint_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mint_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC4FC25FDF6330070837E /* random_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random_query.pb.swift; sourceTree = "<group>"; };
+		287AC4FD25FDF6350070837E /* cosmos_slashing_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_slashing_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC4FE25FDF6360070837E /* cosmos_evidence_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_evidence_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC4FF25FDF6380070837E /* htlc_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = htlc_tx.pb.swift; sourceTree = "<group>"; };
+		287AC50025FDF63A0070837E /* cosmos_slashing_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_slashing_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC50125FDF63C0070837E /* cosmos_slashing_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_slashing_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC50225FDF63E0070837E /* akash_market_v1beta1_order.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_order.pb.swift; sourceTree = "<group>"; };
+		287AC50325FDF6400070837E /* mint_mint.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mint_mint.pb.swift; sourceTree = "<group>"; };
+		287AC50425FDF6410070837E /* oracle_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_query.pb.swift; sourceTree = "<group>"; };
+		287AC50525FDF6430070837E /* confio_proofs.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = confio_proofs.pb.swift; sourceTree = "<group>"; };
+		287AC50625FDF6450070837E /* record_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = record_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC50725FDF6470070837E /* service_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service_query.grpc.swift; sourceTree = "<group>"; };
+		287AC50825FDF6490070837E /* ibc_core_client_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_client_v1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC50925FDF64A0070837E /* ibc_core_channel_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_channel_v1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC50A25FDF64C0070837E /* akash_market_v1beta1_lease.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_lease.pb.swift; sourceTree = "<group>"; };
+		287AC50B25FDF64E0070837E /* akash_cert_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_cert_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC50C25FDF6500070837E /* cosmos_base_tendermint_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_tendermint_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC50D25FDF6520070837E /* akash_deployment_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC50E25FDF6530070837E /* tendermint_types_evidence.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_types_evidence.pb.swift; sourceTree = "<group>"; };
+		287AC50F25FDF6550070837E /* cosmos_gov_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_gov_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC51025FDF6570070837E /* cosmos_bank_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_bank_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC51125FDF6590070837E /* cosmos_vesting_v1beta1_vesting.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_vesting_v1beta1_vesting.pb.swift; sourceTree = "<group>"; };
+		287AC51225FDF65B0070837E /* akash_deployment_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC51325FDF65D0070837E /* ibc_applications_transfer_v1_transfer.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_applications_transfer_v1_transfer.pb.swift; sourceTree = "<group>"; };
+		287AC51425FDF65E0070837E /* cosmos_staking_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_staking_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC51525FDF6600070837E /* google_api_httpbody.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google_api_httpbody.pb.swift; sourceTree = "<group>"; };
+		287AC51625FDF6620070837E /* cosmos_staking_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_staking_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC51725FDF6640070837E /* ibc_core_connection_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_connection_v1_query.pb.swift; sourceTree = "<group>"; };
+		287AC51825FDF6650070837E /* cosmos_staking_v1beta1_staking.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_staking_v1beta1_staking.pb.swift; sourceTree = "<group>"; };
+		287AC51925FDF6670070837E /* token_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = token_tx.pb.swift; sourceTree = "<group>"; };
+		287AC51A25FDF6690070837E /* guardian_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guardian_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC51B25FDF66B0070837E /* guardian_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guardian_tx.pb.swift; sourceTree = "<group>"; };
+		287AC51C25FDF66D0070837E /* akash_escrow_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_escrow_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC51D25FDF66E0070837E /* akash_base_v1beta1_resource.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_base_v1beta1_resource.pb.swift; sourceTree = "<group>"; };
+		287AC51E25FDF6700070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_lightclients_tendermint_v1_tendermint.pb.swift; sourceTree = "<group>"; };
+		287AC51F25FDF6720070837E /* cosmos_auth_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_auth_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC52025FDF6740070837E /* google_api_annotations.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = google_api_annotations.pb.swift; sourceTree = "<group>"; };
+		287AC52125FDF6760070837E /* guardian_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guardian_query.grpc.swift; sourceTree = "<group>"; };
+		287AC52225FDF6770070837E /* htlc_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = htlc_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC52325FDF6790070837E /* service_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service_query.pb.swift; sourceTree = "<group>"; };
+		287AC52425FDF67B0070837E /* mint_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = mint_query.grpc.swift; sourceTree = "<group>"; };
+		287AC52525FDF67D0070837E /* guardian_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guardian_query.pb.swift; sourceTree = "<group>"; };
+		287AC52625FDF67F0070837E /* ibc_core_channel_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_channel_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC52725FDF6800070837E /* ibc_core_channel_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_channel_v1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC52825FDF6820070837E /* akash_audit_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_audit_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC52925FDF6840070837E /* nft_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nft_query.pb.swift; sourceTree = "<group>"; };
+		287AC52A25FDF6860070837E /* ibc_lightclients_solomachine_v1_solomachine.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_lightclients_solomachine_v1_solomachine.pb.swift; sourceTree = "<group>"; };
+		287AC52B25FDF6880070837E /* cosmos_base_store_v1beta1_commit_info.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_store_v1beta1_commit_info.pb.swift; sourceTree = "<group>"; };
+		287AC52C25FDF6890070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_store_v1beta1_snapshot.pb.swift; sourceTree = "<group>"; };
+		287AC52D25FDF68B0070837E /* cosmos_mint_v1beta1_mint.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_mint_v1beta1_mint.pb.swift; sourceTree = "<group>"; };
+		287AC52E25FDF68D0070837E /* coinswap_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coinswap_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC52F25FDF68F0070837E /* tendermint_p2p_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_p2p_types.pb.swift; sourceTree = "<group>"; };
+		287AC53025FDF6910070837E /* tendermint_types_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_types_params.pb.swift; sourceTree = "<group>"; };
+		287AC53125FDF6930070837E /* nft_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nft_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC53225FDF6940070837E /* tendermint_version_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_version_types.pb.swift; sourceTree = "<group>"; };
+		287AC53325FDF6960070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_reflection_v1beta1_reflection.pb.swift; sourceTree = "<group>"; };
+		287AC53425FDF6980070837E /* akash_base_v1beta1_endpoint.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_base_v1beta1_endpoint.pb.swift; sourceTree = "<group>"; };
+		287AC53525FDF69A0070837E /* ibc_core_client_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_client_v1_query.pb.swift; sourceTree = "<group>"; };
+		287AC53625FDF69C0070837E /* cosmos_capability_v1beta1_capability.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_capability_v1beta1_capability.pb.swift; sourceTree = "<group>"; };
+		287AC53725FDF69D0070837E /* service_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service_service.pb.swift; sourceTree = "<group>"; };
+		287AC53825FDF69F0070837E /* akash_market_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC53925FDF6A10070837E /* cosmos_params_v1beta1_params.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_params_v1beta1_params.pb.swift; sourceTree = "<group>"; };
+		287AC53A25FDF6A30070837E /* akash_provider_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_provider_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC53B25FDF6A50070837E /* ibc_applications_transfer_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_applications_transfer_v1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC53C25FDF6A60070837E /* cosmos_crypto_secp256k1_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crypto_secp256k1_keys.pb.swift; sourceTree = "<group>"; };
+		287AC53D25FDF6A80070837E /* cosmos_tx_v1beta1_service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_tx_v1beta1_service.pb.swift; sourceTree = "<group>"; };
+		287AC53E25FDF6AA0070837E /* cosmos_base_query_v1beta1_pagination.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_query_v1beta1_pagination.pb.swift; sourceTree = "<group>"; };
+		287AC53F25FDF6AC0070837E /* cosmos_distribution_v1beta1_distribution.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_distribution_v1beta1_distribution.pb.swift; sourceTree = "<group>"; };
+		287AC54025FDF6AE0070837E /* cosmos_slashing_v1beta1_slashing.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_slashing_v1beta1_slashing.pb.swift; sourceTree = "<group>"; };
+		287AC54125FDF6AF0070837E /* akash_deployment_v1beta1_group.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_deployment_v1beta1_group.pb.swift; sourceTree = "<group>"; };
+		287AC54225FDF6B10070837E /* cosmos_vesting_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_vesting_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC54325FDF6B30070837E /* gogoproto_gogo.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gogoproto_gogo.pb.swift; sourceTree = "<group>"; };
+		287AC54425FDF6B50070837E /* akash_base_v1beta1_resourcevalue.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_base_v1beta1_resourcevalue.pb.swift; sourceTree = "<group>"; };
+		287AC54525FDF6B70070837E /* service_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service_tx.pb.swift; sourceTree = "<group>"; };
+		287AC54625FDF6B80070837E /* token_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = token_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC54725FDF6BA0070837E /* oracle_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC54825FDF6BC0070837E /* cosmos_tx_v1beta1_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_tx_v1beta1_service.grpc.swift; sourceTree = "<group>"; };
+		287AC54925FDF6BE0070837E /* random_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC54A25FDF6BF0070837E /* random_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = random_tx.pb.swift; sourceTree = "<group>"; };
+		287AC54B25FDF6C10070837E /* cosmos_proto_cosmos.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_proto_cosmos.pb.swift; sourceTree = "<group>"; };
+		287AC54C25FDF6C30070837E /* cosmos_distribution_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_distribution_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC54D25FDF6C50070837E /* service_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC54E25FDF6C70070837E /* tendermint_types_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_types_types.pb.swift; sourceTree = "<group>"; };
+		287AC54F25FDF6C90070837E /* htlc_htlc.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = htlc_htlc.pb.swift; sourceTree = "<group>"; };
+		287AC55025FDF6CA0070837E /* cosmos_auth_v1beta1_auth.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_auth_v1beta1_auth.pb.swift; sourceTree = "<group>"; };
+		287AC55125FDF6CC0070837E /* tendermint_crypto_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_crypto_keys.pb.swift; sourceTree = "<group>"; };
+		287AC55225FDF6CE0070837E /* oracle_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC55325FDF6D00070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_reflection_v1beta1_reflection.grpc.swift; sourceTree = "<group>"; };
+		287AC55425FDF6D20070837E /* ibc_core_channel_v1_channel.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_channel_v1_channel.pb.swift; sourceTree = "<group>"; };
+		287AC55525FDF6D40070837E /* cosmos_tx_signing_v1beta1_signing.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_tx_signing_v1beta1_signing.pb.swift; sourceTree = "<group>"; };
+		287AC55625FDF6D50070837E /* cosmos_genutil_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_genutil_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC55725FDF6D70070837E /* cosmos_base_abci_v1beta1_abci.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_abci_v1beta1_abci.pb.swift; sourceTree = "<group>"; };
+		287AC55825FDF6D90070837E /* akash_cert_v1beta1_cert.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_cert_v1beta1_cert.grpc.swift; sourceTree = "<group>"; };
+		287AC55925FDF6DB0070837E /* cosmos_gov_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_gov_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC55A25FDF6DD0070837E /* cosmos_upgrade_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_upgrade_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC55B25FDF6DE0070837E /* cosmos_crypto_multisig_keys.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crypto_multisig_keys.pb.swift; sourceTree = "<group>"; };
+		287AC55C25FDF6E00070837E /* cosmos_crisis_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crisis_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC55D25FDF6E20070837E /* cosmos_bank_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_bank_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		287AC55E25FDF6E40070837E /* record_record.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = record_record.pb.swift; sourceTree = "<group>"; };
+		287AC55F25FDF6E60070837E /* coinswap_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = coinswap_query.pb.swift; sourceTree = "<group>"; };
+		287AC56025FDF6E80070837E /* service_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC56125FDF6E90070837E /* akash_escrow_v1beta1_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_escrow_v1beta1_types.pb.swift; sourceTree = "<group>"; };
+		287AC56225FDF6EB0070837E /* ibc_core_connection_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_connection_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC56325FDF6ED0070837E /* tendermint_libs_bits_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_libs_bits_types.pb.swift; sourceTree = "<group>"; };
+		287AC56425FDF6EF0070837E /* ibc_core_client_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_client_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC56525FDF6F10070837E /* akash_audit_v1beta1_audit.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_audit_v1beta1_audit.grpc.swift; sourceTree = "<group>"; };
+		287AC56625FDF6F20070837E /* tendermint_abci_types.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_abci_types.pb.swift; sourceTree = "<group>"; };
+		287AC56725FDF6F40070837E /* ibc_core_types_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_types_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC56825FDF6F60070837E /* cosmos_slashing_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_slashing_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC56925FDF6F80070837E /* akash_cert_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_cert_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC56A25FDF6FA0070837E /* ibc_core_channel_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_channel_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC56B25FDF6FC0070837E /* akash_market_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC56C25FDF6FD0070837E /* cosmos_gov_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_gov_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC56D25FDF6FF0070837E /* cosmos_staking_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_staking_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC56E25FDF7010070837E /* record_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = record_tx.pb.swift; sourceTree = "<group>"; };
+		287AC56F25FDF7030070837E /* cosmos_distribution_v1beta1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_distribution_v1beta1_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC57025FDF7050070837E /* ibc_core_client_v1_client.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_client_v1_client.pb.swift; sourceTree = "<group>"; };
+		287AC57125FDF7060070837E /* cosmos_auth_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_auth_v1beta1_query.pb.swift; sourceTree = "<group>"; };
+		287AC57225FDF7080070837E /* nft_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = nft_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC57325FDF70A0070837E /* guardian_guardian.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = guardian_guardian.pb.swift; sourceTree = "<group>"; };
+		287AC57425FDF70C0070837E /* akash_provider_v1beta1_provider.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_provider_v1beta1_provider.grpc.swift; sourceTree = "<group>"; };
+		287AC57525FDF70E0070837E /* record_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = record_query.pb.swift; sourceTree = "<group>"; };
+		287AC57625FDF7100070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_crypto_multisig_v1beta1_multisig.pb.swift; sourceTree = "<group>"; };
+		287AC57725FDF7120070837E /* ibc_lightclients_localhost_v1_localhost.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_lightclients_localhost_v1_localhost.pb.swift; sourceTree = "<group>"; };
+		287AC57825FDF7130070837E /* ibc_core_client_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_client_v1_tx.pb.swift; sourceTree = "<group>"; };
+		287AC57925FDF7150070837E /* ibc_core_connection_v1_connection.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_connection_v1_connection.pb.swift; sourceTree = "<group>"; };
+		287AC57A25FDF7170070837E /* akash_escrow_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_escrow_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC57B25FDF7190070837E /* akash_market_v1beta1_service.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_service.grpc.swift; sourceTree = "<group>"; };
+		287AC57C25FDF71A0070837E /* akash_market_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = akash_market_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
+		287AC57D25FDF71C0070837E /* tendermint_abci_types.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tendermint_abci_types.grpc.swift; sourceTree = "<group>"; };
+		287AC57E25FDF71E0070837E /* ibc_core_channel_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ibc_core_channel_v1_query.pb.swift; sourceTree = "<group>"; };
+		287AC57F25FDF7200070837E /* cosmos_base_v1beta1_coin.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_base_v1beta1_coin.pb.swift; sourceTree = "<group>"; };
+		287AC58025FDF7220070837E /* token_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = token_query.grpc.swift; sourceTree = "<group>"; };
+		287AC58125FDF7230070837E /* record_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = record_tx.grpc.swift; sourceTree = "<group>"; };
+		287AC58225FDF7250070837E /* cosmos_distribution_v1beta1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = cosmos_distribution_v1beta1_tx.pb.swift; sourceTree = "<group>"; };
 		2888B7FB246BC17300B2EB4A /* BnbNodeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbNodeInfo.swift; sourceTree = "<group>"; };
 		2888B7FD246BC83A00B2EB4A /* BnbSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbSwapInfo.swift; sourceTree = "<group>"; };
 		2888B7FF246BCA3200B2EB4A /* KavaSwapInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapInfo.swift; sourceTree = "<group>"; };
@@ -1111,6 +1563,236 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
+			isa = PBXGroup;
+			children = (
+				287AC56525FDF6F10070837E /* akash_audit_v1beta1_audit.grpc.swift */,
+				287AC4D025FDF5E20070837E /* akash_audit_v1beta1_audit.pb.swift */,
+				287AC52825FDF6820070837E /* akash_audit_v1beta1_genesis.pb.swift */,
+				287AC4E825FDF60D0070837E /* akash_audit_v1beta1_query.grpc.swift */,
+				287AC4C025FDF5C50070837E /* akash_audit_v1beta1_query.pb.swift */,
+				287AC4BE25FDF5C20070837E /* akash_base_v1beta1_attribute.pb.swift */,
+				287AC53425FDF6980070837E /* akash_base_v1beta1_endpoint.pb.swift */,
+				287AC51D25FDF66E0070837E /* akash_base_v1beta1_resource.pb.swift */,
+				287AC54425FDF6B50070837E /* akash_base_v1beta1_resourcevalue.pb.swift */,
+				287AC55825FDF6D90070837E /* akash_cert_v1beta1_cert.grpc.swift */,
+				287AC4F825FDF62B0070837E /* akash_cert_v1beta1_cert.pb.swift */,
+				287AC56925FDF6F80070837E /* akash_cert_v1beta1_genesis.pb.swift */,
+				287AC50B25FDF64E0070837E /* akash_cert_v1beta1_query.grpc.swift */,
+				287AC4DB25FDF5F60070837E /* akash_cert_v1beta1_query.pb.swift */,
+				287AC4E025FDF5FF0070837E /* akash_deployment_v1beta1_deployment.grpc.swift */,
+				287AC4EA25FDF6110070837E /* akash_deployment_v1beta1_deployment.pb.swift */,
+				287AC50D25FDF6520070837E /* akash_deployment_v1beta1_genesis.pb.swift */,
+				287AC54125FDF6AF0070837E /* akash_deployment_v1beta1_group.pb.swift */,
+				287AC4E325FDF6040070837E /* akash_deployment_v1beta1_params.pb.swift */,
+				287AC4B325FDF5AF0070837E /* akash_deployment_v1beta1_query.grpc.swift */,
+				287AC51225FDF65B0070837E /* akash_deployment_v1beta1_query.pb.swift */,
+				287AC57A25FDF7170070837E /* akash_escrow_v1beta1_genesis.pb.swift */,
+				287AC51C25FDF66D0070837E /* akash_escrow_v1beta1_query.grpc.swift */,
+				287AC4C225FDF5C90070837E /* akash_escrow_v1beta1_query.pb.swift */,
+				287AC56125FDF6E90070837E /* akash_escrow_v1beta1_types.pb.swift */,
+				287AC4BC25FDF5BE0070837E /* akash_market_v1beta1_bid.pb.swift */,
+				287AC57C25FDF71A0070837E /* akash_market_v1beta1_genesis.pb.swift */,
+				287AC50A25FDF64C0070837E /* akash_market_v1beta1_lease.pb.swift */,
+				287AC50225FDF63E0070837E /* akash_market_v1beta1_order.pb.swift */,
+				287AC4C825FDF5D40070837E /* akash_market_v1beta1_params.pb.swift */,
+				287AC53825FDF69F0070837E /* akash_market_v1beta1_query.grpc.swift */,
+				287AC56B25FDF6FC0070837E /* akash_market_v1beta1_query.pb.swift */,
+				287AC57B25FDF7190070837E /* akash_market_v1beta1_service.grpc.swift */,
+				287AC4F425FDF6240070837E /* akash_market_v1beta1_service.pb.swift */,
+				287AC4B025FDF5AB0070837E /* akash_provider_v1beta1_genesis.pb.swift */,
+				287AC57425FDF70C0070837E /* akash_provider_v1beta1_provider.grpc.swift */,
+				287AC4F325FDF6220070837E /* akash_provider_v1beta1_provider.pb.swift */,
+				287AC4DF25FDF5FD0070837E /* akash_provider_v1beta1_query.grpc.swift */,
+				287AC53A25FDF6A30070837E /* akash_provider_v1beta1_query.pb.swift */,
+				287AC4CF25FDF5E10070837E /* coinswap_coinswap.pb.swift */,
+				287AC52E25FDF68D0070837E /* coinswap_genesis.pb.swift */,
+				287AC4A625FDF59E0070837E /* coinswap_query.grpc.swift */,
+				287AC55F25FDF6E60070837E /* coinswap_query.pb.swift */,
+				287AC4BA25FDF5BB0070837E /* coinswap_tx.grpc.swift */,
+				287AC4E225FDF6030070837E /* coinswap_tx.pb.swift */,
+				287AC50525FDF6430070837E /* confio_proofs.pb.swift */,
+				287AC55025FDF6CA0070837E /* cosmos_auth_v1beta1_auth.pb.swift */,
+				287AC51F25FDF6720070837E /* cosmos_auth_v1beta1_genesis.pb.swift */,
+				287AC4C525FDF5CE0070837E /* cosmos_auth_v1beta1_query.grpc.swift */,
+				287AC57125FDF7060070837E /* cosmos_auth_v1beta1_query.pb.swift */,
+				287AC4B825FDF5B70070837E /* cosmos_bank_v1beta1_bank.pb.swift */,
+				287AC4CD25FDF5DD0070837E /* cosmos_bank_v1beta1_genesis.pb.swift */,
+				287AC55D25FDF6E20070837E /* cosmos_bank_v1beta1_query.grpc.swift */,
+				287AC51025FDF6570070837E /* cosmos_bank_v1beta1_query.pb.swift */,
+				287AC4E925FDF60F0070837E /* cosmos_bank_v1beta1_tx.grpc.swift */,
+				287AC4DC25FDF5F80070837E /* cosmos_bank_v1beta1_tx.pb.swift */,
+				287AC55725FDF6D70070837E /* cosmos_base_abci_v1beta1_abci.pb.swift */,
+				287AC4AF25FDF5AA0070837E /* cosmos_base_kv_v1beta1_kv.pb.swift */,
+				287AC53E25FDF6AA0070837E /* cosmos_base_query_v1beta1_pagination.pb.swift */,
+				287AC55325FDF6D00070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift */,
+				287AC53325FDF6960070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift */,
+				287AC4C625FDF5D00070837E /* cosmos_base_snapshots_v1beta1_snapshot.pb.swift */,
+				287AC52B25FDF6880070837E /* cosmos_base_store_v1beta1_commit_info.pb.swift */,
+				287AC52C25FDF6890070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift */,
+				287AC50C25FDF6500070837E /* cosmos_base_tendermint_v1beta1_query.grpc.swift */,
+				287AC4DA25FDF5F40070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift */,
+				287AC57F25FDF7200070837E /* cosmos_base_v1beta1_coin.pb.swift */,
+				287AC53625FDF69C0070837E /* cosmos_capability_v1beta1_capability.pb.swift */,
+				287AC4DE25FDF5FB0070837E /* cosmos_capability_v1beta1_genesis.pb.swift */,
+				287AC4F625FDF6280070837E /* cosmos_crisis_v1beta1_genesis.pb.swift */,
+				287AC4AD25FDF5A60070837E /* cosmos_crisis_v1beta1_tx.grpc.swift */,
+				287AC55C25FDF6E00070837E /* cosmos_crisis_v1beta1_tx.pb.swift */,
+				287AC4BD25FDF5C00070837E /* cosmos_crypto_ed25519_keys.pb.swift */,
+				287AC55B25FDF6DE0070837E /* cosmos_crypto_multisig_keys.pb.swift */,
+				287AC57625FDF7100070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift */,
+				287AC53C25FDF6A60070837E /* cosmos_crypto_secp256k1_keys.pb.swift */,
+				287AC53F25FDF6AC0070837E /* cosmos_distribution_v1beta1_distribution.pb.swift */,
+				287AC54C25FDF6C30070837E /* cosmos_distribution_v1beta1_genesis.pb.swift */,
+				287AC4F725FDF62A0070837E /* cosmos_distribution_v1beta1_query.grpc.swift */,
+				287AC4E425FDF6060070837E /* cosmos_distribution_v1beta1_query.pb.swift */,
+				287AC56F25FDF7030070837E /* cosmos_distribution_v1beta1_tx.grpc.swift */,
+				287AC58225FDF7250070837E /* cosmos_distribution_v1beta1_tx.pb.swift */,
+				287AC4D525FDF5EB0070837E /* cosmos_evidence_v1beta1_evidence.pb.swift */,
+				287AC4C125FDF5C70070837E /* cosmos_evidence_v1beta1_genesis.pb.swift */,
+				287AC4D125FDF5E40070837E /* cosmos_evidence_v1beta1_query.grpc.swift */,
+				287AC4FE25FDF6360070837E /* cosmos_evidence_v1beta1_query.pb.swift */,
+				287AC4B625FDF5B30070837E /* cosmos_evidence_v1beta1_tx.grpc.swift */,
+				287AC4C425FDF5CD0070837E /* cosmos_evidence_v1beta1_tx.pb.swift */,
+				287AC55625FDF6D50070837E /* cosmos_genutil_v1beta1_genesis.pb.swift */,
+				287AC55925FDF6DB0070837E /* cosmos_gov_v1beta1_genesis.pb.swift */,
+				287AC4B925FDF5B90070837E /* cosmos_gov_v1beta1_gov.pb.swift */,
+				287AC4F025FDF61D0070837E /* cosmos_gov_v1beta1_query.grpc.swift */,
+				287AC56C25FDF6FD0070837E /* cosmos_gov_v1beta1_query.pb.swift */,
+				287AC50F25FDF6550070837E /* cosmos_gov_v1beta1_tx.grpc.swift */,
+				287AC4CB25FDF5D90070837E /* cosmos_gov_v1beta1_tx.pb.swift */,
+				287AC4AA25FDF5A20070837E /* cosmos_mint_v1beta1_genesis.pb.swift */,
+				287AC52D25FDF68B0070837E /* cosmos_mint_v1beta1_mint.pb.swift */,
+				287AC4ED25FDF6170070837E /* cosmos_mint_v1beta1_query.grpc.swift */,
+				287AC4F925FDF62D0070837E /* cosmos_mint_v1beta1_query.pb.swift */,
+				287AC53925FDF6A10070837E /* cosmos_params_v1beta1_params.pb.swift */,
+				287AC4AE25FDF5A80070837E /* cosmos_params_v1beta1_query.grpc.swift */,
+				287AC4CE25FDF5DF0070837E /* cosmos_params_v1beta1_query.pb.swift */,
+				287AC54B25FDF6C10070837E /* cosmos_proto_cosmos.pb.swift */,
+				287AC56825FDF6F60070837E /* cosmos_slashing_v1beta1_genesis.pb.swift */,
+				287AC4FD25FDF6350070837E /* cosmos_slashing_v1beta1_query.grpc.swift */,
+				287AC4BB25FDF5BC0070837E /* cosmos_slashing_v1beta1_query.pb.swift */,
+				287AC54025FDF6AE0070837E /* cosmos_slashing_v1beta1_slashing.pb.swift */,
+				287AC50025FDF63A0070837E /* cosmos_slashing_v1beta1_tx.grpc.swift */,
+				287AC50125FDF63C0070837E /* cosmos_slashing_v1beta1_tx.pb.swift */,
+				287AC56D25FDF6FF0070837E /* cosmos_staking_v1beta1_genesis.pb.swift */,
+				287AC4CC25FDF5DB0070837E /* cosmos_staking_v1beta1_query.grpc.swift */,
+				287AC4EB25FDF6130070837E /* cosmos_staking_v1beta1_query.pb.swift */,
+				287AC51825FDF6650070837E /* cosmos_staking_v1beta1_staking.pb.swift */,
+				287AC51625FDF6620070837E /* cosmos_staking_v1beta1_tx.grpc.swift */,
+				287AC51425FDF65E0070837E /* cosmos_staking_v1beta1_tx.pb.swift */,
+				287AC55525FDF6D40070837E /* cosmos_tx_signing_v1beta1_signing.pb.swift */,
+				287AC54825FDF6BC0070837E /* cosmos_tx_v1beta1_service.grpc.swift */,
+				287AC53D25FDF6A80070837E /* cosmos_tx_v1beta1_service.pb.swift */,
+				287AC4AC25FDF5A50070837E /* cosmos_tx_v1beta1_tx.pb.swift */,
+				287AC55A25FDF6DD0070837E /* cosmos_upgrade_v1beta1_query.grpc.swift */,
+				287AC4EE25FDF6190070837E /* cosmos_upgrade_v1beta1_query.pb.swift */,
+				287AC4D625FDF5ED0070837E /* cosmos_upgrade_v1beta1_upgrade.pb.swift */,
+				287AC4A925FDF5A10070837E /* cosmos_vesting_v1beta1_tx.grpc.swift */,
+				287AC54225FDF6B10070837E /* cosmos_vesting_v1beta1_tx.pb.swift */,
+				287AC51125FDF6590070837E /* cosmos_vesting_v1beta1_vesting.pb.swift */,
+				287AC54325FDF6B30070837E /* gogoproto_gogo.pb.swift */,
+				287AC52025FDF6740070837E /* google_api_annotations.pb.swift */,
+				287AC4B725FDF5B50070837E /* google_api_http.pb.swift */,
+				287AC51525FDF6600070837E /* google_api_httpbody.pb.swift */,
+				287AC4D925FDF5F20070837E /* google_protobuf2_any.pb.swift */,
+				287AC4E725FDF60C0070837E /* guardian_genesis.pb.swift */,
+				287AC57325FDF70A0070837E /* guardian_guardian.pb.swift */,
+				287AC52125FDF6760070837E /* guardian_query.grpc.swift */,
+				287AC52525FDF67D0070837E /* guardian_query.pb.swift */,
+				287AC51A25FDF6690070837E /* guardian_tx.grpc.swift */,
+				287AC51B25FDF66B0070837E /* guardian_tx.pb.swift */,
+				287AC4E625FDF60A0070837E /* htlc_genesis.pb.swift */,
+				287AC54F25FDF6C90070837E /* htlc_htlc.pb.swift */,
+				287AC4CA25FDF5D80070837E /* htlc_query.grpc.swift */,
+				287AC4D325FDF5E80070837E /* htlc_query.pb.swift */,
+				287AC52225FDF6770070837E /* htlc_tx.grpc.swift */,
+				287AC4FF25FDF6380070837E /* htlc_tx.pb.swift */,
+				287AC4B125FDF5AC0070837E /* ibc_applications_transfer_v1_genesis.pb.swift */,
+				287AC53B25FDF6A50070837E /* ibc_applications_transfer_v1_query.grpc.swift */,
+				287AC4F225FDF6210070837E /* ibc_applications_transfer_v1_query.pb.swift */,
+				287AC51325FDF65D0070837E /* ibc_applications_transfer_v1_transfer.pb.swift */,
+				287AC4C725FDF5D20070837E /* ibc_applications_transfer_v1_tx.grpc.swift */,
+				287AC4D225FDF5E60070837E /* ibc_applications_transfer_v1_tx.pb.swift */,
+				287AC55425FDF6D20070837E /* ibc_core_channel_v1_channel.pb.swift */,
+				287AC56A25FDF6FA0070837E /* ibc_core_channel_v1_genesis.pb.swift */,
+				287AC50925FDF64A0070837E /* ibc_core_channel_v1_query.grpc.swift */,
+				287AC57E25FDF71E0070837E /* ibc_core_channel_v1_query.pb.swift */,
+				287AC52625FDF67F0070837E /* ibc_core_channel_v1_tx.grpc.swift */,
+				287AC52725FDF6800070837E /* ibc_core_channel_v1_tx.pb.swift */,
+				287AC57025FDF7050070837E /* ibc_core_client_v1_client.pb.swift */,
+				287AC4E525FDF6080070837E /* ibc_core_client_v1_genesis.pb.swift */,
+				287AC50825FDF6490070837E /* ibc_core_client_v1_query.grpc.swift */,
+				287AC53525FDF69A0070837E /* ibc_core_client_v1_query.pb.swift */,
+				287AC56425FDF6EF0070837E /* ibc_core_client_v1_tx.grpc.swift */,
+				287AC57825FDF7130070837E /* ibc_core_client_v1_tx.pb.swift */,
+				287AC4EC25FDF6150070837E /* ibc_core_commitment_v1_commitment.pb.swift */,
+				287AC57925FDF7150070837E /* ibc_core_connection_v1_connection.pb.swift */,
+				287AC4D425FDF5EA0070837E /* ibc_core_connection_v1_genesis.pb.swift */,
+				287AC4C325FDF5CB0070837E /* ibc_core_connection_v1_query.grpc.swift */,
+				287AC51725FDF6640070837E /* ibc_core_connection_v1_query.pb.swift */,
+				287AC56225FDF6EB0070837E /* ibc_core_connection_v1_tx.grpc.swift */,
+				287AC4B525FDF5B20070837E /* ibc_core_connection_v1_tx.pb.swift */,
+				287AC56725FDF6F40070837E /* ibc_core_types_v1_genesis.pb.swift */,
+				287AC57725FDF7120070837E /* ibc_lightclients_localhost_v1_localhost.pb.swift */,
+				287AC52A25FDF6860070837E /* ibc_lightclients_solomachine_v1_solomachine.pb.swift */,
+				287AC51E25FDF6700070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift */,
+				287AC4FB25FDF6310070837E /* mint_genesis.pb.swift */,
+				287AC50325FDF6400070837E /* mint_mint.pb.swift */,
+				287AC52425FDF67B0070837E /* mint_query.grpc.swift */,
+				287AC4AB25FDF5A40070837E /* mint_query.pb.swift */,
+				287AC53125FDF6930070837E /* nft_genesis.pb.swift */,
+				287AC4A825FDF5A00070837E /* nft_nft.pb.swift */,
+				287AC4A425FDF59C0070837E /* nft_query.grpc.swift */,
+				287AC52925FDF6840070837E /* nft_query.pb.swift */,
+				287AC57225FDF7080070837E /* nft_tx.grpc.swift */,
+				287AC4A725FDF59F0070837E /* nft_tx.pb.swift */,
+				287AC54725FDF6BA0070837E /* oracle_genesis.pb.swift */,
+				287AC4FA25FDF62F0070837E /* oracle_oracle.pb.swift */,
+				287AC4D825FDF5F10070837E /* oracle_query.grpc.swift */,
+				287AC50425FDF6410070837E /* oracle_query.pb.swift */,
+				287AC55225FDF6CE0070837E /* oracle_tx.grpc.swift */,
+				287AC4BF25FDF5C40070837E /* oracle_tx.pb.swift */,
+				287AC54925FDF6BE0070837E /* random_genesis.pb.swift */,
+				287AC4F525FDF6260070837E /* random_query.grpc.swift */,
+				287AC4FC25FDF6330070837E /* random_query.pb.swift */,
+				287AC4A525FDF59D0070837E /* random_random.pb.swift */,
+				287AC4F125FDF61F0070837E /* random_tx.grpc.swift */,
+				287AC54A25FDF6BF0070837E /* random_tx.pb.swift */,
+				287AC50625FDF6450070837E /* record_genesis.pb.swift */,
+				287AC4B425FDF5B00070837E /* record_query.grpc.swift */,
+				287AC57525FDF70E0070837E /* record_query.pb.swift */,
+				287AC55E25FDF6E40070837E /* record_record.pb.swift */,
+				287AC58125FDF7230070837E /* record_tx.grpc.swift */,
+				287AC56E25FDF7010070837E /* record_tx.pb.swift */,
+				287AC56025FDF6E80070837E /* service_genesis.pb.swift */,
+				287AC50725FDF6470070837E /* service_query.grpc.swift */,
+				287AC52325FDF6790070837E /* service_query.pb.swift */,
+				287AC53725FDF69D0070837E /* service_service.pb.swift */,
+				287AC54D25FDF6C50070837E /* service_tx.grpc.swift */,
+				287AC54525FDF6B70070837E /* service_tx.pb.swift */,
+				287AC57D25FDF71C0070837E /* tendermint_abci_types.grpc.swift */,
+				287AC56625FDF6F20070837E /* tendermint_abci_types.pb.swift */,
+				287AC55125FDF6CC0070837E /* tendermint_crypto_keys.pb.swift */,
+				287AC4DD25FDF5FA0070837E /* tendermint_crypto_proof.pb.swift */,
+				287AC56325FDF6ED0070837E /* tendermint_libs_bits_types.pb.swift */,
+				287AC52F25FDF68F0070837E /* tendermint_p2p_types.pb.swift */,
+				287AC4B225FDF5AD0070837E /* tendermint_types_block.pb.swift */,
+				287AC50E25FDF6530070837E /* tendermint_types_evidence.pb.swift */,
+				287AC53025FDF6910070837E /* tendermint_types_params.pb.swift */,
+				287AC54E25FDF6C70070837E /* tendermint_types_types.pb.swift */,
+				287AC4C925FDF5D60070837E /* tendermint_types_validator.pb.swift */,
+				287AC53225FDF6940070837E /* tendermint_version_types.pb.swift */,
+				287AC4EF25FDF61B0070837E /* token_genesis.pb.swift */,
+				287AC58025FDF7220070837E /* token_query.grpc.swift */,
+				287AC4E125FDF6010070837E /* token_query.pb.swift */,
+				287AC4D725FDF5EF0070837E /* token_token.pb.swift */,
+				287AC54625FDF6B80070837E /* token_tx.grpc.swift */,
+				287AC51925FDF6670070837E /* token_tx.pb.swift */,
+			);
+			path = ProtoBuff;
+			sourceTree = "<group>";
+		};
 		283439992531D0E100CCFADE /* starname */ = {
 			isa = PBXGroup;
 			children = (
@@ -1215,6 +1897,7 @@
 		284D17F32535D69000C364F9 /* txs */ = {
 			isa = PBXGroup;
 			children = (
+				28641F2F2601AD59000AAEB8 /* TxCell.swift */,
 				2827E11323F3DC9B007CDB6E /* TxCommonCell.swift */,
 				2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */,
 				282FF33F23F4FFD20028CC66 /* TxCommissionCell.swift */,
@@ -1501,6 +2184,7 @@
 		E1945E26222E7C0600A1436F /* Cosmostation */ = {
 			isa = PBXGroup;
 			children = (
+				282121BA25FDE71C0016ABFE /* ProtoBuff */,
 				28B6AFE023D9863800063D9C /* GoogleService-Info.plist */,
 				E136D8A223039493001BEBB8 /* Cosmostation.entitlements */,
 				E1A82DF12244EC1C0097CAEE /* Cell */,
@@ -1582,6 +2266,8 @@
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
 				2827E10F23F3896C007CDB6E /* TxDetailViewController.swift */,
 				2877B8FA240E2A0200EFE369 /* TxDetailViewController.xib */,
+				28641F2A2601959E000AAEB8 /* TxDetailgRPCViewController.swift */,
+				28641F2B2601959E000AAEB8 /* TxDetailgRPCViewController.xib */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -1975,6 +2661,7 @@
 				E17748F02284229B003D8CD1 /* GuideListTableViewCell.xib in Resources */,
 				28474ECF241E06AF00AF5A81 /* TxRepayCdpCell.xib in Resources */,
 				283E946E254902E5007A9291 /* TxDeleteDomainCell.xib in Resources */,
+				28641F2D2601959E000AAEB8 /* TxDetailgRPCViewController.xib in Resources */,
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
 				28156E8F25369622006FF06C /* HarvestListStakeCell.xib in Resources */,
@@ -2139,15 +2826,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				287AC5B025FDF7250070837E /* cosmos_evidence_v1beta1_query.grpc.swift in Sources */,
 				282FF34523F5062A0028CC66 /* TxDelegateCell.swift in Sources */,
 				E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */,
 				E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */,
+				287AC5D725FDF7260070837E /* akash_cert_v1beta1_cert.pb.swift in Sources */,
+				287AC5F325FDF7260070837E /* cosmos_staking_v1beta1_tx.pb.swift in Sources */,
 				E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */,
 				28BB2AA825341A4C00CFF097 /* IovStarNameAccount.swift in Sources */,
 				E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */,
 				280E1F2A254AD3A80007BA7D /* ResourceChainCell.swift in Sources */,
 				28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */,
+				287AC5D525FDF7250070837E /* cosmos_crisis_v1beta1_genesis.pb.swift in Sources */,
+				287AC5CC25FDF7250070837E /* cosmos_mint_v1beta1_query.grpc.swift in Sources */,
 				E17B214023470941001743D6 /* TokenDetailHeaderIrisCell.swift in Sources */,
+				287AC62E25FDF7260070837E /* htlc_htlc.pb.swift in Sources */,
+				287AC60225FDF7260070837E /* service_query.pb.swift in Sources */,
 				289DF17C242DDF4F00433CF4 /* CdpDetailMyTopCell.swift in Sources */,
 				E1945E48222E81A300A1436F /* ValidatorListViewController.swift in Sources */,
 				E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */,
@@ -2156,76 +2850,126 @@
 				E1069B12229698BA007517DC /* StepChangeAddressViewController.swift in Sources */,
 				E1406FC02260643200D9440C /* BlockInfo.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
+				287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */,
 				286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */,
+				287AC5B925FDF7250070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,
+				287AC65525FDF7260070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift in Sources */,
+				287AC64325FDF7260070837E /* ibc_core_client_v1_tx.grpc.swift in Sources */,
 				2842AB65242C396700248EEB /* KavaPriceFeedPrice.swift in Sources */,
+				287AC5A425FDF7250070837E /* cosmos_auth_v1beta1_query.grpc.swift in Sources */,
 				2852D7732477E83400D11DC4 /* CdpIncentiveCell.swift in Sources */,
 				2876AD5A240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift in Sources */,
 				28D3551725386A9300B804CF /* StepHarvestReward0ViewController.swift in Sources */,
+				287AC63325FDF7260070837E /* ibc_core_channel_v1_channel.pb.swift in Sources */,
 				E1945E42222E7FC800A1436F /* MainTabViewController.swift in Sources */,
+				287AC62725FDF7260070837E /* cosmos_tx_v1beta1_service.grpc.swift in Sources */,
 				28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */,
 				283D2EAC24F56AFF00247424 /* OkUnbonding.swift in Sources */,
+				287AC58F25FDF7250070837E /* akash_provider_v1beta1_genesis.pb.swift in Sources */,
 				2888B7FC246BC17300B2EB4A /* BnbNodeInfo.swift in Sources */,
 				E1A82DEC2244A87D0097CAEE /* UnbondigInfo.swift in Sources */,
 				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
 				2866CBA32580DB4B00A91172 /* Inflation_V1.swift in Sources */,
+				287AC61225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift in Sources */,
+				287AC62F25FDF7260070837E /* cosmos_auth_v1beta1_auth.pb.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
+				287AC59E25FDF7250070837E /* oracle_tx.pb.swift in Sources */,
 				280E1F11254AB5C70007BA7D /* ReplaceResource3ViewController.swift in Sources */,
+				287AC60C25FDF7260070837E /* cosmos_mint_v1beta1_mint.pb.swift in Sources */,
 				282FF34923F50C540028CC66 /* TxUndelegateCell.swift in Sources */,
 				E1BA208E22F8117000EAB87F /* IrisStdSignMsg.swift in Sources */,
 				289BE017252DF58C00E5E4B4 /* KavaHavestParam.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
+				287AC63525FDF7260070837E /* cosmos_genutil_v1beta1_genesis.pb.swift in Sources */,
 				28A7BD702535DAFF00969295 /* TxDepositHavestCell.swift in Sources */,
+				287AC5A825FDF7250070837E /* tendermint_types_validator.pb.swift in Sources */,
+				287AC5FC25FDF7260070837E /* akash_base_v1beta1_resource.pb.swift in Sources */,
 				28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
 				2842AB5F242C2F1800248EEB /* CdpOwen.swift in Sources */,
+				287AC63725FDF7260070837E /* akash_cert_v1beta1_cert.grpc.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				280E1F25254AC6460007BA7D /* ReplaceEditAddressViewController.swift in Sources */,
+				287AC63625FDF7260070837E /* cosmos_base_abci_v1beta1_abci.pb.swift in Sources */,
+				287AC65325FDF7260070837E /* akash_provider_v1beta1_provider.grpc.swift in Sources */,
 				28156E842536910B006FF06C /* HarvestListMyCell.swift in Sources */,
 				E1945E52223124F000A1436F /* BaseData.swift in Sources */,
 				28617A8524333BA1006D66EA /* StepWithdrawCdpCheckViewController.swift in Sources */,
 				E1A82DD3224222E00097CAEE /* Password.swift in Sources */,
 				285A33DA244763290052BD3D /* SelectChainCell.swift in Sources */,
+				287AC5D625FDF7250070837E /* cosmos_distribution_v1beta1_query.grpc.swift in Sources */,
 				E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */,
 				2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */,
 				280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */,
+				287AC5A625FDF7250070837E /* ibc_applications_transfer_v1_tx.grpc.swift in Sources */,
 				E151B636224533F90026B8C0 /* PromotionCell.swift in Sources */,
 				283D2EAA24F56AEE00247424 /* OkStaking.swift in Sources */,
 				E1827E2A2256298300BC0350 /* ValidatorDetailHistoryHeader.swift in Sources */,
 				28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */,
 				28617A7D243198E2006D66EA /* StepCreateCpdCheckViewController.swift in Sources */,
+				287AC64725FDF7260070837E /* cosmos_slashing_v1beta1_genesis.pb.swift in Sources */,
+				287AC5AA25FDF7250070837E /* cosmos_gov_v1beta1_tx.pb.swift in Sources */,
 				2858CCEA2538103000E0A44D /* StepDepositHarvestAmountViewController.swift in Sources */,
+				287AC61A25FDF7260070837E /* ibc_applications_transfer_v1_query.grpc.swift in Sources */,
 				283D2EA424F52FE700247424 /* OkToken.swift in Sources */,
 				28474ED5241E06AF00AF5A81 /* TxRepayCdpCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
+				287AC5A925FDF7250070837E /* htlc_query.grpc.swift in Sources */,
+				287AC61025FDF7260070837E /* nft_genesis.pb.swift in Sources */,
 				28A7BD7A2535DB2600969295 /* TxClaimRewardHavestCell.swift in Sources */,
+				287AC5BB25FDF7250070837E /* cosmos_bank_v1beta1_tx.pb.swift in Sources */,
+				287AC64B25FDF7260070837E /* cosmos_gov_v1beta1_query.pb.swift in Sources */,
+				287AC5A025FDF7250070837E /* cosmos_evidence_v1beta1_genesis.pb.swift in Sources */,
 				E1A82DE32244821D0097CAEE /* PublicKey.swift in Sources */,
 				E1945E50222E842B00A1436F /* BaseViewController.swift in Sources */,
 				E16D9B1B2248D1370019B7BB /* BoarderLabel.swift in Sources */,
+				287AC59125FDF7250070837E /* tendermint_types_block.pb.swift in Sources */,
+				287AC5EF25FDF7260070837E /* cosmos_bank_v1beta1_query.pb.swift in Sources */,
 				E151B64F22485B3B0026B8C0 /* Result.swift in Sources */,
 				28B4303C24F7EE0C00BD7BB2 /* StepOkDepositAmountViewController.swift in Sources */,
+				287AC5FE25FDF7260070837E /* cosmos_auth_v1beta1_genesis.pb.swift in Sources */,
+				287AC59225FDF7250070837E /* akash_deployment_v1beta1_query.grpc.swift in Sources */,
+				287AC59F25FDF7250070837E /* akash_audit_v1beta1_query.pb.swift in Sources */,
+				287AC66125FDF7260070837E /* cosmos_distribution_v1beta1_tx.pb.swift in Sources */,
 				E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */,
 				284D17DC2535573100C364F9 /* CdpViewController.swift in Sources */,
+				287AC62025FDF7260070837E /* akash_deployment_v1beta1_group.pb.swift in Sources */,
+				287AC5DA25FDF7260070837E /* mint_genesis.pb.swift in Sources */,
 				2866CBA92580DB6C00A91172 /* StakingPool_V1.swift in Sources */,
+				287AC62925FDF7260070837E /* random_tx.pb.swift in Sources */,
+				287AC63825FDF7260070837E /* cosmos_gov_v1beta1_genesis.pb.swift in Sources */,
 				283E9458254901D9007A9291 /* RegisterDomain0ViewController.swift in Sources */,
 				2858CCED2538103F00E0A44D /* StepDepositHarvestCheckViewController.swift in Sources */,
 				2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */,
 				E183EF1F22A75DFC003B3580 /* ReInvestAmountViewController.swift in Sources */,
+				287AC5D125FDF7250070837E /* ibc_applications_transfer_v1_query.pb.swift in Sources */,
+				287AC5AC25FDF7250070837E /* cosmos_bank_v1beta1_genesis.pb.swift in Sources */,
+				287AC59625FDF7250070837E /* google_api_http.pb.swift in Sources */,
+				287AC5BD25FDF7250070837E /* cosmos_capability_v1beta1_genesis.pb.swift in Sources */,
 				28129567250F5072007B217E /* KavaSwapParam2.swift in Sources */,
+				287AC5C325FDF7250070837E /* cosmos_distribution_v1beta1_query.pb.swift in Sources */,
 				E151B63F22484A710026B8C0 /* InOutPut.swift in Sources */,
+				287AC5E925FDF7260070837E /* akash_market_v1beta1_lease.pb.swift in Sources */,
 				E1FD2320233E1B8E009327FE /* WalletAddressCell.swift in Sources */,
 				28D372A0254BFCCA0071B136 /* RegisterAccount0ViewController.swift in Sources */,
 				E1945E4A222E81B300A1436F /* MainTabHistoryViewController.swift in Sources */,
 				28F4CF6F25429BBF0050985D /* EventStakeDropViewController.swift in Sources */,
 				28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */,
+				287AC5D325FDF7250070837E /* akash_market_v1beta1_service.pb.swift in Sources */,
 				2815AA7424349DE2008B23AA /* StepRepayCdpAmountViewController.swift in Sources */,
 				28592E7A25807F2E00C31460 /* DelegationInfo_V1.swift in Sources */,
 				28A7BD752535DB1200969295 /* TxWithdrawHavestCell.swift in Sources */,
+				287AC5F625FDF7260070837E /* ibc_core_connection_v1_query.pb.swift in Sources */,
 				E1F1CF0C239F7D8D004EF8A2 /* VoteCheckViewController.swift in Sources */,
 				28ED4A59255112BA0073E164 /* MintParam.swift in Sources */,
+				287AC5B625FDF7250070837E /* token_token.pb.swift in Sources */,
+				28641F2C2601959E000AAEB8 /* TxDetailgRPCViewController.swift in Sources */,
+				287AC64625FDF7260070837E /* ibc_core_types_v1_genesis.pb.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
+				287AC5BC25FDF7250070837E /* tendermint_crypto_proof.pb.swift in Sources */,
 				283E9468254902D4007A9291 /* TxRegisterAccountCell.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
@@ -2237,76 +2981,128 @@
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				28156E8E25369622006FF06C /* HarvestListStakeCell.swift in Sources */,
 				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
+				287AC58925FDF7250070837E /* cosmos_mint_v1beta1_genesis.pb.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
+				287AC5E025FDF7260070837E /* cosmos_slashing_v1beta1_tx.pb.swift in Sources */,
 				285F8C8E25CFB27D00317B30 /* OkTickerList.swift in Sources */,
+				287AC65B25FDF7260070837E /* akash_market_v1beta1_genesis.pb.swift in Sources */,
 				2842AB72242C7C8A00248EEB /* CdpListAllCell.swift in Sources */,
 				283D2EA824F5388C00247424 /* OkAccountToken.swift in Sources */,
+				287AC59725FDF7250070837E /* cosmos_bank_v1beta1_bank.pb.swift in Sources */,
+				287AC58B25FDF7250070837E /* cosmos_tx_v1beta1_tx.pb.swift in Sources */,
+				287AC65225FDF7260070837E /* guardian_guardian.pb.swift in Sources */,
+				287AC60F25FDF7260070837E /* tendermint_types_params.pb.swift in Sources */,
 				E1A82DE822448E940097CAEE /* WUtils.swift in Sources */,
+				287AC60B25FDF7260070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift in Sources */,
 				28156E922536982A006FF06C /* HarvestListHeader.swift in Sources */,
 				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
 				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
+				28641F302601AD59000AAEB8 /* TxCell.swift in Sources */,
+				287AC5AF25FDF7250070837E /* akash_audit_v1beta1_audit.pb.swift in Sources */,
 				2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */,
+				287AC5F025FDF7260070837E /* cosmos_vesting_v1beta1_vesting.pb.swift in Sources */,
 				2827E11123F3896C007CDB6E /* TxDetailViewController.swift in Sources */,
+				287AC64F25FDF7260070837E /* ibc_core_client_v1_client.pb.swift in Sources */,
+				287AC5CE25FDF7250070837E /* token_genesis.pb.swift in Sources */,
+				287AC63C25FDF7260070837E /* cosmos_bank_v1beta1_query.grpc.swift in Sources */,
+				287AC5B325FDF7250070837E /* ibc_core_connection_v1_genesis.pb.swift in Sources */,
 				283E947C25490322007A9291 /* TxRenewStarnameCell.swift in Sources */,
+				287AC5EB25FDF7260070837E /* cosmos_base_tendermint_v1beta1_query.grpc.swift in Sources */,
 				28156E892536912C006FF06C /* HarvestListRewardCell.swift in Sources */,
+				287AC5A125FDF7250070837E /* akash_escrow_v1beta1_query.pb.swift in Sources */,
 				E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */,
 				E16D9B1522489B030019B7BB /* IntroViewController.swift in Sources */,
+				287AC5C825FDF7250070837E /* cosmos_bank_v1beta1_tx.grpc.swift in Sources */,
 				E1827E2F225629BF00BC0350 /* ValidatorDetailHistoryEmpty.swift in Sources */,
 				285A33E624486DA20052BD3D /* HtlcResultSentCell.swift in Sources */,
 				28BB2A912533DA2D00CFF097 /* AccountCell.swift in Sources */,
+				287AC59925FDF7250070837E /* coinswap_tx.grpc.swift in Sources */,
+				287AC5CF25FDF7250070837E /* cosmos_gov_v1beta1_query.grpc.swift in Sources */,
+				287AC60D25FDF7260070837E /* coinswap_genesis.pb.swift in Sources */,
 				28B4304224F7EE4B00BD7BB2 /* StepOkWithdrawCheckViewController.swift in Sources */,
 				E1A82DDC224378D40097CAEE /* CardView.swift in Sources */,
 				284D17DF2535573D00C364F9 /* HarvestViewController.swift in Sources */,
+				287AC60125FDF7260070837E /* htlc_tx.grpc.swift in Sources */,
 				E151B64B224859E10026B8C0 /* StdSignMsg.swift in Sources */,
 				2845D880246FAED7007CD497 /* VoteInfoTableViewCell.swift in Sources */,
 				E191A57D237902C5002577BC /* WalletKavaCell.swift in Sources */,
 				28617A812432944F006D66EA /* StepDepositCdpCheckViewController.swift in Sources */,
 				E19A32262254AE7A00A05E41 /* ManageHeader.swift in Sources */,
 				2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */,
+				287AC5C725FDF7250070837E /* akash_audit_v1beta1_query.grpc.swift in Sources */,
 				E151B639224626990026B8C0 /* BorderButton.swift in Sources */,
 				2866CB9D2580C59A00A91172 /* UnbondingInfo_V1.swift in Sources */,
+				287AC60825FDF7260070837E /* nft_query.pb.swift in Sources */,
 				E1945E542231256800A1436F /* BaseConstant.swift in Sources */,
 				28A209DF248897F400C2C078 /* TokenDetailVestingDetailCell.swift in Sources */,
 				2852D76D2477DEB800D11DC4 /* TxIncentiveTableViewCell.swift in Sources */,
 				283E948A2549434F007A9291 /* IovStarNameDomainInfo.swift in Sources */,
 				28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */,
 				282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */,
+				287AC62A25FDF7260070837E /* cosmos_proto_cosmos.pb.swift in Sources */,
 				285A33D32446CDB80052BD3D /* StepHtlcSend3ViewController.swift in Sources */,
+				287AC61625FDF7260070837E /* service_service.pb.swift in Sources */,
 				E1F7F63623436B71000E597F /* BnbHistory.swift in Sources */,
+				287AC5DC25FDF7260070837E /* cosmos_slashing_v1beta1_query.grpc.swift in Sources */,
 				28248A9425DD3DD4004F3FB0 /* ApiHistoryCustom.swift in Sources */,
+				287AC58A25FDF7250070837E /* mint_query.pb.swift in Sources */,
+				287AC5CB25FDF7250070837E /* ibc_core_commitment_v1_commitment.pb.swift in Sources */,
 				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
+				287AC58625FDF7250070837E /* nft_tx.pb.swift in Sources */,
 				282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */,
+				287AC61125FDF7260070837E /* tendermint_version_types.pb.swift in Sources */,
+				287AC65D25FDF7260070837E /* ibc_core_channel_v1_query.pb.swift in Sources */,
 				28474ECE241E06AF00AF5A81 /* TxdrawDebtCdpCell.swift in Sources */,
+				287AC5DE25FDF7260070837E /* htlc_tx.pb.swift in Sources */,
+				287AC5C125FDF7250070837E /* coinswap_tx.pb.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
 				2868558F24989A8F0099D18F /* Bep3SupplyPopup.swift in Sources */,
+				287AC63225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift in Sources */,
 				28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */,
 				28D372B0254C07470071B136 /* RegistAccountCheckCell.swift in Sources */,
 				28DB28B82437ADC8002B01A0 /* RiskCheckPopupViewController.swift in Sources */,
 				E19A321922544EB500A05E41 /* DashedView.swift in Sources */,
 				2888B800246BCA3200B2EB4A /* KavaSwapInfo.swift in Sources */,
 				285A33D624475DC00052BD3D /* SelectPopupViewController.swift in Sources */,
+				287AC61425FDF7260070837E /* ibc_core_client_v1_query.pb.swift in Sources */,
+				287AC58325FDF7250070837E /* nft_query.grpc.swift in Sources */,
+				287AC5B725FDF7250070837E /* oracle_query.grpc.swift in Sources */,
 				28B4303924F7996C00BD7BB2 /* TxOkStakeCell.swift in Sources */,
 				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */,
 				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
+				287AC61C25FDF7260070837E /* cosmos_tx_v1beta1_service.pb.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
 				28CE973325870E29006DEBEE /* Auth_V1.swift in Sources */,
+				287AC64525FDF7260070837E /* tendermint_abci_types.pb.swift in Sources */,
 				2866CBA62580DB5E00A91172 /* Provision_V1.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
+				287AC58E25FDF7250070837E /* cosmos_base_kv_v1beta1_kv.pb.swift in Sources */,
+				287AC66025FDF7260070837E /* record_tx.grpc.swift in Sources */,
 				E1A82DF42244EC440097CAEE /* AllValidatorCell.swift in Sources */,
 				28EF22B525F4AEDA008C78E7 /* Tally_V1.swift in Sources */,
+				287AC5EC25FDF7260070837E /* akash_deployment_v1beta1_genesis.pb.swift in Sources */,
 				282FF35123F5172E0028CC66 /* TxTransferCell.swift in Sources */,
+				287AC62225FDF7260070837E /* gogoproto_gogo.pb.swift in Sources */,
+				287AC62D25FDF7260070837E /* tendermint_types_types.pb.swift in Sources */,
 				E1069B1022968E05007517DC /* StepRedelegateCheckViewController.swift in Sources */,
+				287AC61325FDF7260070837E /* akash_base_v1beta1_endpoint.pb.swift in Sources */,
 				2866CBA02580DB3200A91172 /* MintParam_V1.swift in Sources */,
+				287AC58825FDF7250070837E /* cosmos_vesting_v1beta1_tx.grpc.swift in Sources */,
 				E1FD2328233E1BC4009327FE /* WalletIrisCell.swift in Sources */,
+				287AC5E425FDF7260070837E /* confio_proofs.pb.swift in Sources */,
 				289DF184242DDF8300433CF4 /* CdpDetailAssetsCell.swift in Sources */,
 				2824CB6B25B91B4F002225CC /* IrisToken_V1.swift in Sources */,
+				287AC64C25FDF7260070837E /* cosmos_staking_v1beta1_genesis.pb.swift in Sources */,
+				287AC58D25FDF7250070837E /* cosmos_params_v1beta1_query.grpc.swift in Sources */,
 				E151B647224850040026B8C0 /* Msg.swift in Sources */,
 				E151B62E2245248C0026B8C0 /* MyValidatorCell.swift in Sources */,
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,
+				287AC64225FDF7260070837E /* tendermint_libs_bits_types.pb.swift in Sources */,
+				287AC61525FDF7260070837E /* cosmos_capability_v1beta1_capability.pb.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
 				289DF180242DDF6A00433CF4 /* CdpDetailMyActionCell.swift in Sources */,
 				E1406FCA2260A0FD00D9440C /* StepRewardViewController.swift in Sources */,
@@ -2314,26 +3110,42 @@
 				282FF35923F52FD40028CC66 /* TxRewardCell.swift in Sources */,
 				28592E772580616D00C31460 /* BaseNetWork.swift in Sources */,
 				2868559724989AB80099D18F /* CdpWarnPopup.swift in Sources */,
+				287AC63E25FDF7260070837E /* coinswap_query.pb.swift in Sources */,
 				288A14DD25199A9800E17808 /* WalletCertikCell.swift in Sources */,
 				2842AB63242C37F300248EEB /* CdpDeposits.swift in Sources */,
 				E1945E4E222E81D000A1436F /* MainTabSettingViewController.swift in Sources */,
+				287AC65425FDF7260070837E /* record_query.pb.swift in Sources */,
 				2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */,
+				287AC63B25FDF7260070837E /* cosmos_crisis_v1beta1_tx.pb.swift in Sources */,
 				E1271B0A224C943C0083AF17 /* RestoreViewController.swift in Sources */,
 				28B4303E24F7EE1F00BD7BB2 /* StepOkDepositCheckViewController.swift in Sources */,
 				28156E9A2536DE14006FF06C /* HarvestDetailTopCell.swift in Sources */,
+				287AC59B25FDF7250070837E /* akash_market_v1beta1_bid.pb.swift in Sources */,
 				28B4304624F8B36600BD7BB2 /* OkMyValidatorViewController.swift in Sources */,
 				E17B214423470950001743D6 /* TokenDetailHeaderBnbCell.swift in Sources */,
+				287AC5EE25FDF7260070837E /* cosmos_gov_v1beta1_tx.grpc.swift in Sources */,
+				287AC61D25FDF7260070837E /* cosmos_base_query_v1beta1_pagination.pb.swift in Sources */,
+				287AC65025FDF7260070837E /* cosmos_auth_v1beta1_query.pb.swift in Sources */,
+				287AC5D925FDF7260070837E /* oracle_oracle.pb.swift in Sources */,
 				E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */,
 				283D2EA624F5308900247424 /* OkTokenList.swift in Sources */,
+				287AC60425FDF7260070837E /* guardian_query.pb.swift in Sources */,
+				287AC60725FDF7260070837E /* akash_audit_v1beta1_genesis.pb.swift in Sources */,
+				287AC5E125FDF7260070837E /* akash_market_v1beta1_order.pb.swift in Sources */,
 				E1FEE459225B17970040FAFD /* AmountInputTextField.swift in Sources */,
 				E151B64122484AE60026B8C0 /* Signature.swift in Sources */,
 				28B4304A24F8B38500BD7BB2 /* OkOtherValidatorViewController.swift in Sources */,
 				28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */,
+				287AC59C25FDF7250070837E /* cosmos_crypto_ed25519_keys.pb.swift in Sources */,
 				E1A82DE5224482800097CAEE /* Coin.swift in Sources */,
 				E14BDFFE224CF0250007DD7D /* RestorePathViewController.swift in Sources */,
+				287AC5C625FDF7250070837E /* guardian_genesis.pb.swift in Sources */,
 				E1FD2338233E1C30009327FE /* WalletInflationCell.swift in Sources */,
 				28156EA82536E89A006FF06C /* KavaHarvestAccount.swift in Sources */,
 				E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */,
+				287AC5A225FDF7250070837E /* ibc_core_connection_v1_query.grpc.swift in Sources */,
+				287AC5F425FDF7260070837E /* google_api_httpbody.pb.swift in Sources */,
+				287AC5A725FDF7250070837E /* akash_market_v1beta1_params.pb.swift in Sources */,
 				280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */,
 				283E94772549030C007A9291 /* TxReplaceResourceCell.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
@@ -2341,8 +3153,14 @@
 				283E945E254901E7007A9291 /* RegisterDomain3ViewController.swift in Sources */,
 				28089AA424FF8FC4007E9C40 /* IovStarNameResolve.swift in Sources */,
 				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
+				287AC5B125FDF7250070837E /* ibc_applications_transfer_v1_tx.pb.swift in Sources */,
+				287AC5F725FDF7260070837E /* cosmos_staking_v1beta1_staking.pb.swift in Sources */,
 				282FF34D23F50E010028CC66 /* TxRedelegateCell.swift in Sources */,
 				E1FD233C233E1C44009327FE /* WalletGuideCell.swift in Sources */,
+				287AC62825FDF7260070837E /* random_genesis.pb.swift in Sources */,
+				287AC5D025FDF7250070837E /* random_tx.grpc.swift in Sources */,
+				287AC63925FDF7260070837E /* cosmos_upgrade_v1beta1_query.grpc.swift in Sources */,
+				287AC5BF25FDF7250070837E /* akash_deployment_v1beta1_deployment.grpc.swift in Sources */,
 				E1A82DF72244FA750097CAEE /* UIColor.swift in Sources */,
 				E1406FC822608ABA00D9440C /* StepUndelegateCheckViewController.swift in Sources */,
 				282FF35D23F530ED0028CC66 /* TxEditRewardAddressCell.swift in Sources */,
@@ -2352,9 +3170,14 @@
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				28D372AA254BFCE70071B136 /* RegisterAccount4ViewController.swift in Sources */,
+				287AC65825FDF7260070837E /* ibc_core_connection_v1_connection.pb.swift in Sources */,
 				2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */,
 				283D2EB324F6250F00247424 /* TokenDetailHeaderOkCell.swift in Sources */,
+				287AC5B525FDF7250070837E /* cosmos_upgrade_v1beta1_upgrade.pb.swift in Sources */,
+				287AC63125FDF7260070837E /* oracle_tx.grpc.swift in Sources */,
+				287AC65625FDF7260070837E /* ibc_lightclients_localhost_v1_localhost.pb.swift in Sources */,
 				284D17D92535572300C364F9 /* DAppsListViewController.swift in Sources */,
+				287AC5FF25FDF7260070837E /* google_api_annotations.pb.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				28B4304024F7EE3B00BD7BB2 /* StepOkWithdrawAmountViewController.swift in Sources */,
 				280E1F02254A9B6B0007BA7D /* RenewStarname0ViewController.swift in Sources */,
@@ -2362,29 +3185,47 @@
 				280E1F16254ABB080007BA7D /* ResourceAddCell.swift in Sources */,
 				E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */,
 				28BB2A8C2533DA1C00CFF097 /* DomainCell.swift in Sources */,
+				287AC62425FDF7260070837E /* service_tx.pb.swift in Sources */,
+				287AC5E325FDF7260070837E /* oracle_query.pb.swift in Sources */,
 				2842AB6A242C5AF100248EEB /* CdpListPromotionCell.swift in Sources */,
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
+				287AC62525FDF7260070837E /* token_tx.grpc.swift in Sources */,
 				283E946D254902E5007A9291 /* TxDeleteDomainCell.swift in Sources */,
+				287AC63425FDF7260070837E /* cosmos_tx_signing_v1beta1_signing.pb.swift in Sources */,
 				289BE01A252E1E4000E5E4B4 /* KavaHavestDeposit.swift in Sources */,
+				287AC59525FDF7250070837E /* cosmos_evidence_v1beta1_tx.grpc.swift in Sources */,
 				E1A82DF02244E0BD0097CAEE /* AllValidatorViewController.swift in Sources */,
 				E12D6B89226DF36D00D07CE4 /* StepSendAddressViewController.swift in Sources */,
+				287AC5A525FDF7250070837E /* cosmos_base_snapshots_v1beta1_snapshot.pb.swift in Sources */,
 				E151B65422486C300026B8C0 /* ProposalCell.swift in Sources */,
+				287AC61B25FDF7260070837E /* cosmos_crypto_secp256k1_keys.pb.swift in Sources */,
 				28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */,
 				28D23DCE252EC16500BD9E7C /* KavaIncentiveParam2.swift in Sources */,
 				282FF36123F532360028CC66 /* TxVoteCell.swift in Sources */,
+				287AC62625FDF7260070837E /* oracle_genesis.pb.swift in Sources */,
 				28156E9F2536DE29006FF06C /* HarvestDetailMyActionCell.swift in Sources */,
+				287AC5E625FDF7260070837E /* service_query.grpc.swift in Sources */,
+				287AC5C225FDF7250070837E /* akash_deployment_v1beta1_params.pb.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
+				287AC62325FDF7260070837E /* akash_base_v1beta1_resourcevalue.pb.swift in Sources */,
+				287AC58425FDF7250070837E /* random_random.pb.swift in Sources */,
 				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,
+				287AC65725FDF7260070837E /* ibc_core_client_v1_tx.pb.swift in Sources */,
 				284B0F04247D5FE800B5A2D0 /* StepIncentive3ViewController.swift in Sources */,
+				287AC63F25FDF7260070837E /* service_genesis.pb.swift in Sources */,
 				E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */,
 				E151B632224533DC0026B8C0 /* ClaimRewardAllCell.swift in Sources */,
+				287AC5C025FDF7250070837E /* token_query.pb.swift in Sources */,
 				E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				280E1F20254AC6340007BA7D /* ReplaceSelectChainViewController.swift in Sources */,
 				280E1F07254A9B780007BA7D /* RenewStarname3ViewController.swift in Sources */,
+				287AC5FB25FDF7260070837E /* akash_escrow_v1beta1_query.grpc.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,
 				283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */,
+				287AC61825FDF7260070837E /* cosmos_params_v1beta1_params.pb.swift in Sources */,
+				287AC59D25FDF7250070837E /* akash_base_v1beta1_attribute.pb.swift in Sources */,
 				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
@@ -2395,27 +3236,41 @@
 				E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */,
 				28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */,
 				28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */,
+				287AC64A25FDF7260070837E /* akash_market_v1beta1_query.pb.swift in Sources */,
 				28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */,
 				28BB2AA02534173200CFF097 /* StarNameAccount.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
+				287AC5CA25FDF7250070837E /* cosmos_staking_v1beta1_query.pb.swift in Sources */,
+				287AC65F25FDF7260070837E /* token_query.grpc.swift in Sources */,
 				285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */,
+				287AC61F25FDF7260070837E /* cosmos_slashing_v1beta1_slashing.pb.swift in Sources */,
 				2827F4CA255B93240029AE1C /* WalletAkashCell.swift in Sources */,
+				287AC5AE25FDF7250070837E /* coinswap_coinswap.pb.swift in Sources */,
 				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
+				287AC60625FDF7260070837E /* ibc_core_channel_v1_tx.pb.swift in Sources */,
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,
+				287AC5FD25FDF7260070837E /* ibc_lightclients_tendermint_v1_tendermint.pb.swift in Sources */,
 				2888B804246CE37200B2EB4A /* StepHtlcRefund3ViewController.swift in Sources */,
 				2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */,
+				287AC59A25FDF7250070837E /* cosmos_slashing_v1beta1_query.pb.swift in Sources */,
 				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,
 				284D17E62535732200C364F9 /* KavaIncentiveReward2.swift in Sources */,
 				E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */,
+				287AC64E25FDF7260070837E /* cosmos_distribution_v1beta1_tx.grpc.swift in Sources */,
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
+				287AC5F925FDF7260070837E /* guardian_tx.grpc.swift in Sources */,
+				287AC5B225FDF7250070837E /* htlc_query.pb.swift in Sources */,
 				E1945E28222E7C0600A1436F /* AppDelegate.swift in Sources */,
 				2892C46B2581D724009A96A6 /* Reward_V1.swift in Sources */,
 				280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */,
 				E1406FC22260654F00D9440C /* TxInfo.swift in Sources */,
+				287AC58725FDF7250070837E /* nft_nft.pb.swift in Sources */,
 				28CE973625872B7C006DEBEE /* Signer.swift in Sources */,
 				E1133900235D95FD0011B61D /* AccountSelectViewController.swift in Sources */,
+				287AC64825FDF7260070837E /* akash_cert_v1beta1_genesis.pb.swift in Sources */,
 				E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */,
 				E11338FD235D70D20011B61D /* ManageAccountAddCell.swift in Sources */,
+				287AC5E725FDF7260070837E /* ibc_core_client_v1_query.grpc.swift in Sources */,
 				283E94812549331D007A9291 /* DomainDetailViewController.swift in Sources */,
 				2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */,
 				283E94862549333B007A9291 /* AccountDetailViewController.swift in Sources */,
@@ -2424,51 +3279,88 @@
 				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,
+				287AC59825FDF7250070837E /* cosmos_gov_v1beta1_gov.pb.swift in Sources */,
+				287AC59325FDF7250070837E /* record_query.grpc.swift in Sources */,
+				287AC5EA25FDF7260070837E /* akash_cert_v1beta1_query.grpc.swift in Sources */,
+				287AC64925FDF7260070837E /* ibc_core_channel_v1_genesis.pb.swift in Sources */,
+				287AC5D425FDF7250070837E /* random_query.grpc.swift in Sources */,
+				287AC5C925FDF7250070837E /* akash_deployment_v1beta1_deployment.pb.swift in Sources */,
 				E17B213C23470932001743D6 /* TokenDetailHeaderCosmosCell.swift in Sources */,
+				287AC59425FDF7250070837E /* ibc_core_connection_v1_tx.pb.swift in Sources */,
+				287AC65A25FDF7260070837E /* akash_market_v1beta1_service.grpc.swift in Sources */,
 				E1827E152255E6AE00BC0350 /* WalletCheckViewController.swift in Sources */,
+				287AC64125FDF7260070837E /* ibc_core_connection_v1_tx.grpc.swift in Sources */,
 				28663BEF248A4FB000080311 /* WalletBandCell.swift in Sources */,
 				E191A5812379091A002577BC /* TokenDetailHeaderKavaCell.swift in Sources */,
+				287AC5C525FDF7250070837E /* htlc_genesis.pb.swift in Sources */,
+				287AC59025FDF7250070837E /* ibc_applications_transfer_v1_genesis.pb.swift in Sources */,
 				28BB2A9D2534171700CFF097 /* StarNameDomain.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */,
+				287AC5F825FDF7260070837E /* token_tx.pb.swift in Sources */,
+				287AC65125FDF7260070837E /* nft_tx.grpc.swift in Sources */,
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,
 				E12D6B8D226DF3BB00D07CE4 /* StepSendCheckViewController.swift in Sources */,
 				283E9472254902F4007A9291 /* TxDeleteAccountCell.swift in Sources */,
+				287AC61E25FDF7260070837E /* cosmos_distribution_v1beta1_distribution.pb.swift in Sources */,
+				287AC5BE25FDF7250070837E /* akash_provider_v1beta1_query.grpc.swift in Sources */,
+				287AC5ED25FDF7260070837E /* tendermint_types_evidence.pb.swift in Sources */,
 				E1C3C89B23B1E3E400A693C0 /* NotificationView.swift in Sources */,
 				285F8C8B25CFB21000317B30 /* OkTicker.swift in Sources */,
 				E1945E3F222E7E2900A1436F /* Bech32.swift in Sources */,
+				287AC5E525FDF7260070837E /* record_genesis.pb.swift in Sources */,
 				28474ED4241E06AF00AF5A81 /* TxCreateCdpCell.swift in Sources */,
 				289BE01D252E2A0E00E5E4B4 /* KavaHavestReward.swift in Sources */,
 				285A33DE2447633D0052BD3D /* SelectAccountCell.swift in Sources */,
 				E148A38F22F01DEF00A56A3F /* IrisRewards.swift in Sources */,
 				280E1F1B254ABB1D0007BA7D /* ResourceEditCell.swift in Sources */,
+				287AC5B425FDF7250070837E /* cosmos_evidence_v1beta1_evidence.pb.swift in Sources */,
 				E19A322022547EA100A05E41 /* AddViewController.swift in Sources */,
 				E151B63C22467E520026B8C0 /* HistoryCell.swift in Sources */,
 				283D2EAF24F5742000247424 /* WalletOkCell.swift in Sources */,
 				E10492152347C5D900A2980F /* WalletConnectImageView.swift in Sources */,
+				287AC63D25FDF7260070837E /* record_record.pb.swift in Sources */,
 				E17748E82283D0F4003D8CD1 /* GuideCategory.swift in Sources */,
 				2845D887246FB96E007CD497 /* CosmosVote.swift in Sources */,
+				287AC61925FDF7260070837E /* akash_provider_v1beta1_query.pb.swift in Sources */,
+				287AC5B825FDF7250070837E /* google_protobuf2_any.pb.swift in Sources */,
+				287AC65C25FDF7260070837E /* tendermint_abci_types.grpc.swift in Sources */,
+				287AC60325FDF7260070837E /* mint_query.grpc.swift in Sources */,
 				283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */,
+				287AC62C25FDF7260070837E /* service_tx.grpc.swift in Sources */,
+				287AC5AB25FDF7250070837E /* cosmos_staking_v1beta1_query.grpc.swift in Sources */,
+				287AC60525FDF7260070837E /* ibc_core_channel_v1_tx.grpc.swift in Sources */,
+				287AC5FA25FDF7260070837E /* guardian_tx.pb.swift in Sources */,
+				287AC5AD25FDF7250070837E /* cosmos_params_v1beta1_query.pb.swift in Sources */,
 				283E9463254902BA007A9291 /* TxRegisterDomainCell.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				28BB2A962533FA0B00CFF097 /* IovStarNameFees.swift in Sources */,
+				287AC62125FDF7260070837E /* cosmos_vesting_v1beta1_tx.pb.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
 				285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */,
+				287AC5CD25FDF7250070837E /* cosmos_upgrade_v1beta1_query.pb.swift in Sources */,
+				287AC5DB25FDF7260070837E /* random_query.pb.swift in Sources */,
 				28D372A5254BFCD70071B136 /* RegisterAccount1ViewController.swift in Sources */,
 				28B4304824F8B37600BD7BB2 /* OkTopValidatorViewController.swift in Sources */,
 				2858CCF02538105400E0A44D /* StepWithdrawHarvestAmountViewController.swift in Sources */,
+				287AC5DF25FDF7260070837E /* cosmos_slashing_v1beta1_tx.grpc.swift in Sources */,
 				28592E7425805F7300C31460 /* Validator_V1.swift in Sources */,
 				2842AB67242C3ED900248EEB /* KavaPriceFeedParam.swift in Sources */,
 				E1CF42F023598AFE00907F45 /* ManageChainCell.swift in Sources */,
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
+				287AC62B25FDF7260070837E /* cosmos_distribution_v1beta1_genesis.pb.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
+				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				28BB2AA3253417CE00CFF097 /* StarNameResource.swift in Sources */,
+				287AC5F125FDF7260070837E /* akash_deployment_v1beta1_query.pb.swift in Sources */,
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,
 				2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */,
+				287AC5DD25FDF7260070837E /* cosmos_evidence_v1beta1_query.pb.swift in Sources */,
+				287AC5E825FDF7260070837E /* ibc_core_channel_v1_query.grpc.swift in Sources */,
 				2858CCF32538106300E0A44D /* StepWithdrawHarvestCheckViewController.swift in Sources */,
 				E17B214823470960001743D6 /* TokenDetailHeaderCustomCell.swift in Sources */,
 				2872B0F2252EF79900E8CACF /* WalletSecretCell.swift in Sources */,
@@ -2476,26 +3368,46 @@
 				2827E11523F3DC9B007CDB6E /* TxCommonCell.swift in Sources */,
 				E17748EF2284229B003D8CD1 /* GuideListTableViewCell.swift in Sources */,
 				2845D87D246FAE16007CD497 /* VoteDetailsViewController.swift in Sources */,
+				287AC60E25FDF7260070837E /* tendermint_p2p_types.pb.swift in Sources */,
+				287AC58C25FDF7250070837E /* cosmos_crisis_v1beta1_tx.grpc.swift in Sources */,
 				E1A6995B2366E8CC004CA274 /* WalletIovCell.swift in Sources */,
 				289DF178242DDF3800433CF4 /* CdpDetailTopCell.swift in Sources */,
+				287AC63025FDF7260070837E /* tendermint_crypto_keys.pb.swift in Sources */,
+				287AC5A325FDF7250070837E /* cosmos_evidence_v1beta1_tx.pb.swift in Sources */,
 				E1F7F63223421394000E597F /* IrisToken.swift in Sources */,
 				28D23DD1252EC2A400BD9E7C /* KavaClaimMultiplier.swift in Sources */,
+				287AC58525FDF7250070837E /* coinswap_query.grpc.swift in Sources */,
 				E1069B0E22968DF4007517DC /* StepRedelegateToViewController.swift in Sources */,
 				28248A9725DE5FA3004F3FB0 /* Proposal_V1.swift in Sources */,
+				287AC5E225FDF7260070837E /* mint_mint.pb.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
+				287AC64D25FDF7260070837E /* record_tx.pb.swift in Sources */,
 				28474ECD241E06AF00AF5A81 /* TxDepositCdpCell.swift in Sources */,
+				287AC5BA25FDF7250070837E /* akash_cert_v1beta1_query.pb.swift in Sources */,
+				287AC60025FDF7260070837E /* guardian_query.grpc.swift in Sources */,
+				287AC65925FDF7260070837E /* akash_escrow_v1beta1_genesis.pb.swift in Sources */,
+				287AC60A25FDF7260070837E /* cosmos_base_store_v1beta1_commit_info.pb.swift in Sources */,
+				287AC63A25FDF7260070837E /* cosmos_crypto_multisig_keys.pb.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
 				282BDFEA24A5BCE000D3A5D4 /* WcTransferPopup.swift in Sources */,
+				287AC60925FDF7260070837E /* ibc_lightclients_solomachine_v1_solomachine.pb.swift in Sources */,
+				287AC5F525FDF7260070837E /* cosmos_staking_v1beta1_tx.grpc.swift in Sources */,
 				289DF170242DD90300433CF4 /* CdpDetailViewController.swift in Sources */,
+				287AC64025FDF7260070837E /* akash_escrow_v1beta1_types.pb.swift in Sources */,
 				E1A82DD5224223250097CAEE /* Balance.swift in Sources */,
 				282FF35523F518E00028CC66 /* TxMultiTransferCell.swift in Sources */,
+				287AC5C425FDF7250070837E /* ibc_core_client_v1_genesis.pb.swift in Sources */,
 				E1317142225F352A00EE5AD0 /* PostTx.swift in Sources */,
 				E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */,
 				2842AB61242C30AA00248EEB /* KavaCdpParam.swift in Sources */,
 				E1A82DD1224220910097CAEE /* Account.swift in Sources */,
 				E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */,
+				287AC64425FDF7260070837E /* akash_audit_v1beta1_audit.grpc.swift in Sources */,
 				E1271B06224B874A0083AF17 /* AddAddressViewController.swift in Sources */,
+				287AC5F225FDF7260070837E /* ibc_applications_transfer_v1_transfer.pb.swift in Sources */,
+				287AC65E25FDF7260070837E /* cosmos_base_v1beta1_coin.pb.swift in Sources */,
 				2845D889246FBA39007CD497 /* CosmosTally.swift in Sources */,
+				287AC61725FDF7260070837E /* akash_market_v1beta1_query.grpc.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

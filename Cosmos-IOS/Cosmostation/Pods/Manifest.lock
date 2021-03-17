@@ -19,6 +19,15 @@ PODS:
   - BinanceChain/Protobuf (1.0.0-beta)
   - BinanceChain/Util (1.0.0-beta)
   - BitcoinKit (1.0.2)
+  - CGRPCZlib (1.0.0)
+  - CNIOAtomics (2.26.0)
+  - CNIOBoringSSL (2.10.4)
+  - CNIOBoringSSLShims (2.10.4):
+    - CNIOBoringSSL (= 2.10.4)
+  - CNIODarwin (2.26.0)
+  - CNIOHTTPParser (2.26.0)
+  - CNIOLinux (2.26.0)
+  - CNIOWindows (2.26.0)
   - CryptoSwift (0.15.0)
   - DropDown (2.3.13)
   - Firebase/Core (6.22.0):
@@ -98,9 +107,21 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (6.5.2):
     - GoogleUtilities/Logger
+  - gRPC-Swift (1.0.0):
+    - CGRPCZlib (= 1.0.0)
+    - Logging (< 2.0.0, >= 1.4.0)
+    - SwiftNIO (< 3.0.0, >= 2.22.0)
+    - SwiftNIOExtras (< 2.0.0, >= 1.4.0)
+    - SwiftNIOHTTP2 (< 2.0.0, >= 1.16.1)
+    - SwiftNIOSSL (< 3.0.0, >= 2.8.0)
+    - SwiftNIOTransportServices (< 2.0.0, >= 1.6.0)
+    - SwiftProtobuf (< 2.0.0, >= 1.9.0)
+  - gRPC-Swift-Plugins (1.0.0):
+    - gRPC-Swift (= 1.0.0)
   - HDWalletKit (0.2.8):
     - CryptoSwift (~> 0.12)
     - secp256k1.swift (~> 0.1.4)
+  - Logging (1.4.0)
   - MarqueeLabel/Swift (3.2.1)
   - nanopb (0.3.9011):
     - nanopb/decode (= 0.3.9011)
@@ -133,7 +154,45 @@ PODS:
   - Starscream (3.1.1)
   - SwiftDate (6.0.3)
   - SwiftKeychainWrapper (3.4.0)
-  - SwiftProtobuf (1.8.0)
+  - SwiftNIO (2.26.0):
+    - CNIODarwin (= 2.26.0)
+    - CNIOLinux (= 2.26.0)
+    - CNIOWindows (= 2.26.0)
+    - SwiftNIOConcurrencyHelpers (= 2.26.0)
+  - SwiftNIOConcurrencyHelpers (2.26.0):
+    - CNIOAtomics (= 2.26.0)
+  - SwiftNIOExtras (1.8.0):
+    - SwiftNIO (< 3, >= 2.9.0)
+  - SwiftNIOFoundationCompat (2.26.0):
+    - SwiftNIO (= 2.26.0)
+  - SwiftNIOHPACK (1.16.3):
+    - SwiftNIO (< 3, >= 2.18.0)
+    - SwiftNIOConcurrencyHelpers (< 3, >= 2.18.0)
+    - SwiftNIOHTTP1 (< 3, >= 2.18.0)
+  - SwiftNIOHTTP1 (2.26.0):
+    - CNIOHTTPParser (= 2.26.0)
+    - SwiftNIO (= 2.26.0)
+    - SwiftNIOConcurrencyHelpers (= 2.26.0)
+  - SwiftNIOHTTP2 (1.16.3):
+    - SwiftNIO (< 3, >= 2.18.0)
+    - SwiftNIOConcurrencyHelpers (< 3, >= 2.18.0)
+    - SwiftNIOHPACK (= 1.16.3)
+    - SwiftNIOHTTP1 (< 3, >= 2.18.0)
+    - SwiftNIOTLS (< 3, >= 2.18.0)
+  - SwiftNIOSSL (2.10.4):
+    - CNIOBoringSSL (= 2.10.4)
+    - CNIOBoringSSLShims (= 2.10.4)
+    - SwiftNIO (< 3, >= 2.15.0)
+    - SwiftNIOConcurrencyHelpers (< 3, >= 2.15.0)
+    - SwiftNIOTLS (< 3, >= 2.15.0)
+  - SwiftNIOTLS (2.26.0):
+    - SwiftNIO (= 2.26.0)
+  - SwiftNIOTransportServices (1.9.2):
+    - SwiftNIO (< 3, >= 2.19.0)
+    - SwiftNIOConcurrencyHelpers (< 3, >= 2.19.0)
+    - SwiftNIOFoundationCompat (< 3, >= 2.19.0)
+    - SwiftNIOTLS (< 3, >= 2.19.0)
+  - SwiftProtobuf (1.15.0)
   - SwiftyJSON (4.3.0)
   - Toast-Swift (4.0.1)
   - WalletConnect (0.1.0):
@@ -153,6 +212,8 @@ DEPENDENCIES:
   - Firebase/Core
   - Firebase/Messaging
   - Floaty (~> 4.1.0)
+  - gRPC-Swift (~> 1.0.0-alpha.23)
+  - gRPC-Swift-Plugins
   - NotificationBannerSwift (= 2.0.1)
   - QRCode
   - SQLite.swift (~> 0.11.5)
@@ -165,6 +226,14 @@ SPEC REPOS:
     - Alamofire
     - AlamofireImage
     - BitcoinKit
+    - CGRPCZlib
+    - CNIOAtomics
+    - CNIOBoringSSL
+    - CNIOBoringSSLShims
+    - CNIODarwin
+    - CNIOHTTPParser
+    - CNIOLinux
+    - CNIOWindows
     - CryptoSwift
     - DropDown
     - Firebase
@@ -181,7 +250,10 @@ SPEC REPOS:
     - GoogleDataTransport
     - GoogleDataTransportCCTSupport
     - GoogleUtilities
+    - gRPC-Swift
+    - gRPC-Swift-Plugins
     - HDWalletKit
+    - Logging
     - MarqueeLabel
     - nanopb
     - NotificationBannerSwift
@@ -196,6 +268,16 @@ SPEC REPOS:
     - Starscream
     - SwiftDate
     - SwiftKeychainWrapper
+    - SwiftNIO
+    - SwiftNIOConcurrencyHelpers
+    - SwiftNIOExtras
+    - SwiftNIOFoundationCompat
+    - SwiftNIOHPACK
+    - SwiftNIOHTTP1
+    - SwiftNIOHTTP2
+    - SwiftNIOSSL
+    - SwiftNIOTLS
+    - SwiftNIOTransportServices
     - SwiftProtobuf
     - SwiftyJSON
     - Toast-Swift
@@ -210,7 +292,7 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   BinanceChain:
-    :commit: 8f448775a6b233679e97853291953d700097464c
+    :commit: 7853496dc6ba6536c5bc4bf54220b28cace6fb9e
     :git: https://github.com/cosmostation/swift-sdk.git
   WalletConnect:
     :commit: 9528644741da07737d05cdabda042c3f99be74ba
@@ -221,6 +303,14 @@ SPEC CHECKSUMS:
   AlamofireImage: be9963c6582d68b39e89191f64c82a7d7bf40fdd
   BinanceChain: a80213ab0252f2152c2068b279697935497cb053
   BitcoinKit: 5502c14d72ab665fbe00dc72abd74439a38ef9bc
+  CGRPCZlib: b0c9d704a12fa667f1824ffff20688f191945989
+  CNIOAtomics: 7599e2500f637f1e043047da52efd710d6020dd3
+  CNIOBoringSSL: c639a7139a3b8fffb4dcda1e4a2d2eff66ec9090
+  CNIOBoringSSLShims: defe5c479941717c1ad1e3bdc4329686b4bb6b46
+  CNIODarwin: 68f6ff440e989ef43ca6eb3335f3e5484066fab7
+  CNIOHTTPParser: 26678afdbc27f24d1a3498bf87413bfc3391fbc5
+  CNIOLinux: 5fd92122d58b04508074371d95a1f874310fe8e3
+  CNIOWindows: 0af55cf84c3811318aee91888737e0b124552029
   CryptoSwift: 769f58a9e89f64e8796c2e59ce5f002dc81a2438
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   Firebase: 32f9520684e87c7af3f0704f7f88042626d6b536
@@ -237,7 +327,10 @@ SPEC CHECKSUMS:
   GoogleDataTransport: 6ffa4dd0b6d547f8d27b91bd92fa9e197a3f5f1f
   GoogleDataTransportCCTSupport: 2d7e609f8c5af1a33d7d59053e6f8cba59365df5
   GoogleUtilities: ad0f3b691c67909d03a3327cc205222ab8f42e0e
+  gRPC-Swift: 77154009a019e97f8c4bd8f2bb75fe9726801157
+  gRPC-Swift-Plugins: 22f2e8578f332e72ee59671c63264e219c982755
   HDWalletKit: f0268857289221d4d6c2041d43ee78f1e84fc8e5
+  Logging: beeb016c9c80cf77042d62e83495816847ef108b
   MarqueeLabel: 2daf039bf916937c8a4c9adfc13577cc5e51b4ce
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   NotificationBannerSwift: 007774aa590cc9680647b92b2f217bef5c00c32c
@@ -252,12 +345,22 @@ SPEC CHECKSUMS:
   Starscream: 4bb2f9942274833f7b4d296a55504dcfc7edb7b0
   SwiftDate: 8d4f14bf1ef68e95094511504856547bf9e3e1a6
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
-  SwiftProtobuf: 2cbd9409689b7df170d82a92a33443c8e3e14a70
+  SwiftNIO: 1f309539cfe7ed42648f505a48c546e83a2f66c3
+  SwiftNIOConcurrencyHelpers: ebbceb814afcd8b4fab86935855f6c8c77ae4285
+  SwiftNIOExtras: aa561b71020cd6844f722cf4513fb176c577414d
+  SwiftNIOFoundationCompat: 6869943bce8c6b777114d840f7d795178a7391ae
+  SwiftNIOHPACK: 38e855a72ae0c5176485ddd039b3933b99daa2b7
+  SwiftNIOHTTP1: 7f7aa111d51d09a97ef1fddb50855074e5e42778
+  SwiftNIOHTTP2: de7eff9d32fd347338f85b86c6fd0e13c3fbd1a0
+  SwiftNIOSSL: ca33b5cfd872ef8261bab9c68e8634c54c14b9fb
+  SwiftNIOTLS: 0faded6aff802c423ddee27828850a8ea4a818d0
+  SwiftNIOTransportServices: 896c9a4ac98698d32aa2feea7657ade219ae80bb
+  SwiftProtobuf: 3320217e9d8fb75f36b40282e78c482640fd75dd
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: e42a638589a2f95036b4bb7626cfbdde7daf0393
   WalletConnect: 0b21907c54b4bb324bf402dd14954c60a290ad36
   XCGLogger: 1943831ef907df55108b0b18657953f868de973b
 
-PODFILE CHECKSUM: 6cdd93084fd46898ca9e2b8696b91785a4e77058
+PODFILE CHECKSUM: 17356be1f869f0d7ce176606f50273438005c133
 
 COCOAPODS: 1.8.4

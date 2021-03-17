@@ -9,6 +9,8 @@
 import UIKit
 import Alamofire
 import SafariServices
+import GRPC
+import NIO
 
 class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -26,9 +28,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mMyValidator = false
     var mIsTop100 = false
     
-    //after v0.40
-    var mValidator_V1: Validator_V1?
-    var mSelfDelegationInfo_V1: DelegationInfo_V1?
+    //grpc
+    var mValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
+    var mSelfDelegationInfo_gRPC: Cosmos_Staking_V1beta1_DelegationResponse?
     var mApiCustomHistories = Array<ApiHistoryCustom>()
     
     var mInflation: String?
@@ -152,30 +154,26 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         }
         
-        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        else if (WUtils.isGRPC(chainType!)) {
             self.mFetchCnt = 6
-            BaseData.instance.mMyDelegations_V1.removeAll()
-            BaseData.instance.mMyUnbondings_V1.removeAll()
-            BaseData.instance.mMyReward_V1.removeAll()
+            BaseData.instance.mMyDelegations_gRPC.removeAll()
+            BaseData.instance.mMyUnbondings_gRPC.removeAll()
+            BaseData.instance.mMyReward_gRPC.removeAll()
             
-            onFetchSingleValidator(mValidator_V1!.operator_address!)
-            onFetchValidatorSelfBond(WKey.getAddressFromOpAddress(mValidator_V1!.operator_address!, chainType!), mValidator_V1!.operator_address)
-            onFetchDelegations(account!.account_address, 0)
-            onFetchUndelegations(account!.account_address, 0)
-            onFetchRewards(account!.account_address)
-            onFetchApiHistoryCustom(account!.account_address, mValidator_V1!.operator_address!)
-            
+            onFetchSingleValidator_gRPC(mValidator_gRPC!.operatorAddress)
+            onFetchValidatorSelfBond_gRPC(WKey.getAddressFromOpAddress(mValidator_gRPC!.operatorAddress, chainType!), mValidator_gRPC!.operatorAddress)
+            onFetchDelegations_gRPC(account!.account_address, 0)
+            onFetchUndelegations_gRPC(account!.account_address, 0)
+            onFetchRewards_gRPC(account!.account_address)
+            onFetchApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
         }
-        
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
 //        print("onFetchFinished ", self.mFetchCnt)
         if (mFetchCnt <= 0) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                        chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+            if (WUtils.isGRPC(chainType!)) {
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
@@ -203,10 +201,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             if (section == 0) {
-                if (BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) { return 2 }
+                if (BaseData.instance.mMyValidators_gRPC.contains{ $0.operatorAddress == mValidator_gRPC?.operatorAddress }) { return 2 }
                 else { return 1 }
             } else {
                 if (mApiCustomHistories.count > 0) { return mApiCustomHistories.count }
@@ -229,12 +226,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             if (indexPath.section == 0) {
-                if (indexPath.row == 0 && BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
+                if (indexPath.row == 0 && BaseData.instance.mMyValidators_gRPC.contains{ $0.operatorAddress == mValidator_gRPC?.operatorAddress }) {
                     return onSetMyValidatorItemsV1(tableView, indexPath)
-                } else if (indexPath.row == 0 && !BaseData.instance.mMyValidators_V1.contains{ $0.operator_address == mValidator_V1?.operator_address }) {
+                } else if (indexPath.row == 0 && !BaseData.instance.mMyValidators_gRPC.contains{ $0.operatorAddress == mValidator_gRPC?.operatorAddress }) {
                     return onSetValidatorItemsV1(tableView, indexPath)
                 } else {
                     return onSetActionItemsV1(tableView, indexPath)
@@ -663,12 +659,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    //after v0.40
+    //grpc
     func onSetMyValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
-        cell?.updateView(self.mValidator_V1, self.mSelfDelegationInfo_V1, self.chainType)
+        cell?.updateView(self.mValidator_gRPC, self.mSelfDelegationInfo_gRPC, self.chainType)
         cell?.actionTapUrl = {
-            guard let url = URL(string: self.mValidator_V1?.description?.website ?? "") else { return }
+            guard let url = URL(string: self.mValidator_gRPC?.description_p.website ?? "") else { return }
             if (UIApplication.shared.canOpenURL(url)) {
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
@@ -680,9 +676,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetValidatorItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
-        cell?.updateView(self.mValidator_V1, self.mSelfDelegationInfo_V1, self.chainType)
+        cell?.updateView(self.mValidator_gRPC, self.mSelfDelegationInfo_gRPC, self.chainType)
         cell?.actionTapUrl = {
-            guard let url = URL(string: self.mValidator_V1?.description?.website ?? "") else { return }
+            guard let url = URL(string: self.mValidator_gRPC?.description_p.website ?? "") else { return }
             if (UIApplication.shared.canOpenURL(url)) {
                 let safariViewController = SFSafariViewController(url: url)
                 safariViewController.modalPresentationStyle = .popover
@@ -690,7 +686,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         cell?.actionDelegate = {
-            if (self.mValidator_V1?.jailed == true) {
+            if (self.mValidator_gRPC?.jailed == true) {
                 self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
                 return
             } else {
@@ -702,9 +698,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetActionItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
-        cell?.updateView(self.mValidator_V1, self.chainType)
+        cell?.updateView(self.mValidator_gRPC, self.chainType)
         cell?.actionDelegate = {
-            if (self.mValidator_V1?.jailed == true) {
+            if (self.mValidator_gRPC?.jailed == true) {
                 self.onShowToast(NSLocalizedString("error_jailded_delegate", comment: ""))
             } else {
                 self.onStartDelegate()
@@ -1114,169 +1110,194 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    //after v0.40
-    func onFetchSingleValidator(_ opAddress: String?) {
-        let url = BaseNetWork.singleValidatorUrl(chainType!, opAddress!)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-//        print("request ", request.request?.url)
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let validator = responseData.object(forKey: "validator") as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mValidator_V1 = Validator_V1.init(validator)
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("singleValidatorUrl ", error) }
-                self.onFetchFinished()
+    
+    //gRPC
+    func onFetchSingleValidator_gRPC(_ opAddress: String) {
+//        print("onFetchSingleValidator_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryValidatorRequest.with {
+                $0.validatorAddr = opAddress
             }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validator(req).response.wait()
+//                print("onFetchSingleValidator_gRPC: \(response.validator)")
+                self.mValidator_gRPC = response.validator
+            } catch {
+                print("onFetchgRPCBondedValidators failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchValidatorSelfBond(_ address: String?, _ opAddress: String?) {
-        let url = BaseNetWork.singleDelegationUrl(chainType!, address!, opAddress!)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let delegation_response = responseData.object(forKey: "delegation_response") as? NSDictionary else {
-                    self.onFetchFinished()
-                    return
-                }
-                self.mSelfDelegationInfo_V1 = DelegationInfo_V1.init(delegation_response)
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("singleValidatorUrl ", error) }
-                self.onFetchFinished()
+    func onFetchValidatorSelfBond_gRPC(_ address: String, _ opAddress: String) {
+//        print("onFetchValidatorSelfBond_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryDelegationRequest.with {
+                $0.delegatorAddr = address
+                $0.validatorAddr = opAddress
             }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegation(req).response.wait()
+//                print("onFetchValidatorSelfBond_gRPC: \(response.delegationResponse)")
+                self.mSelfDelegationInfo_gRPC = response.delegationResponse
+            } catch {
+                print("onFetchValidatorSelfBond_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
         
     }
     
-    func onFetchDelegations(_ address: String, _ offset: Int) {
-        let url = BaseNetWork.delegationUrl(chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let delegations = responseData.object(forKey: "delegation_responses") as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for delegation in delegations {
-                    BaseData.instance.mMyDelegations_V1.append(DelegationInfo_V1(delegation))
-                }
-                self.onFetchFinished()
-//                if (delegations.count >= 100) {
-//                    self.onFetchDelegations(address, offset + 100)
-//                } else {
-//                    self.onFetchFinished()
-//                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchDelegations ", error) }
-                self.onFetchFinished()
+    func onFetchDelegations_gRPC(_ address: String, _ offset: Int) {
+//        print("onFetchDelegations_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryDelegatorDelegationsRequest.with {
+                $0.delegatorAddr = address
             }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorDelegations(req).response.wait()
+                response.delegationResponses.forEach { delegationResponse in
+                    BaseData.instance.mMyDelegations_gRPC.append(delegationResponse)
+                }
+            } catch {
+                print("onFetchDelegations_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchUndelegations(_ address: String, _ offset: Int) {
-        let url = BaseNetWork.undelegationUrl(chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: ["pagination.limit": 100, "pagination.offset":offset], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let undelegations = responseData.object(forKey: "unbonding_responses") as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for undelegation in undelegations {
-                    BaseData.instance.mMyUnbondings_V1.append(UnbondingInfo_V1(undelegation))
-                }
-                self.onFetchFinished()
-//                if (undelegations.count >= 100) {
-//                    self.onFetchUndelegations(address, offset + 100)
-//                } else {
-//                    self.onFetchFinished()
-//                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchUndelegations ", error) }
-                self.onFetchFinished()
+    func onFetchUndelegations_gRPC(_ address: String, _ offset: Int) {
+//        print("onFetchUndelegations_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryDelegatorUnbondingDelegationsRequest.with {
+                $0.delegatorAddr = address
             }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorUnbondingDelegations(req).response.wait()
+                response.unbondingResponses.forEach { unbondingResponse in
+                    BaseData.instance.mMyUnbondings_gRPC.append(unbondingResponse)
+                }
+            } catch {
+                print("onFetchUndelegations_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchRewards(_ address: String) {
-        let url = BaseNetWork.rewardsUrl(chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for reward in rewards {
-                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
-                }
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchRewards ", error) }
-                self.onFetchFinished()
+    func onFetchRewards_gRPC(_ address: String) {
+//        print("onFetchRewards_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegationTotalRewardsRequest.with {
+                $0.delegatorAddress = address
             }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req).response.wait()
+                response.rewards.forEach { reward in
+                    BaseData.instance.mMyReward_gRPC.append(reward)
+                }
+            } catch {
+                print("onFetchgRPCRewards failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchRedelegation(_ address: String, _ toValAddress: String) {
-        let url = BaseNetWork.redelegation(chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: ["dst_validator_addr":toValAddress], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                if let responseData = res as? NSDictionary, let redelegation_responses = responseData.object(forKey: "redelegation_responses") as? Array<NSDictionary> {
-                    for redelegation in redelegation_responses {
-                        if let validator_dst_address = redelegation.value(forKeyPath: "redelegation.validator_dst_address") as? String, self.mValidator_V1?.operator_address == validator_dst_address {
-                            self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: ""))
-                            return
-                        }
+    func onFetchRedelegation_gRPC(_ address: String, _ toValAddress: String) {
+//        print("onFetchRedelegation_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryRedelegationsRequest.with {
+                $0.delegatorAddr = address
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).redelegations(req).response.wait()
+                let redelegation_responses = response.redelegationResponses
+                for redelegation in redelegation_responses {
+                    if (redelegation.redelegation.validatorDstAddress == self.mValidator_gRPC?.operatorAddress) {
+                        DispatchQueue.main.async(execute: { self.onShowToast(NSLocalizedString("error_redelegation_limitted", comment: "")) });
+                        return
                     }
-                    self.onStartRedelegate()
-                } else {
-                    self.onStartRedelegate()
                 }
+                DispatchQueue.main.async(execute: { self.onStartRedelegate() });
                 
-            case .failure(let error):
-                print("onFetchRedelegation ", error)
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            } catch {
+                print("onFetchRedelegation_gRPC failed: \(error)")
             }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchRewardsAddress(_ address: String) {
-        let url = BaseNetWork.rewardAddressUrl(chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
-                    self.onShowReInvsetFailDialog()
-                    return;
-                }
-                if (withdraw_address.replacingOccurrences(of: "\"", with: "") == address) {
-                    self.onStartReInvest()
-                } else {
-                    self.onShowReInvsetFailDialog()
-                }
-                
-            case .failure(let error):
-                if(SHOW_LOG) { print("onFetchRewardsAddress ", error) }
+    func onFetchRewardsAddress_gRPC(_ address: String) {
+//        print("onFetchRewardsAddress_gRPC")
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegatorWithdrawAddressRequest.with {
+                $0.delegatorAddress = address
             }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegatorWithdrawAddress(req).response.wait()
+                if (response.withdrawAddress.replacingOccurrences(of: "\"", with: "") != address) {
+                    DispatchQueue.main.async(execute: { self.onShowReInvsetFailDialog() });
+                    return;
+                } else {
+                    DispatchQueue.main.async(execute: { self.onStartReInvest() });
+                }
+            } catch {
+                print("onFetchRedelegation_gRPC failed: \(error)")
+            }
+            
         }
     }
     
@@ -1351,8 +1372,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         }
         
-        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        else if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
             if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
@@ -1372,10 +1392,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator = mValidator
             
-        } else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(chainType!)) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
-            txVC.mTargetValidator_V1 = mValidator_V1
+            txVC.mTargetValidator_gRPC = mValidator_gRPC
             
         }
         self.navigationItem.title = ""
@@ -1467,14 +1486,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         }
         
-        else if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            if (BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first == nil) {
+        else if (WUtils.isGRPC(chainType!)) {
+            if (BaseData.instance.mMyDelegations_gRPC.filter { $0.delegation.validatorAddress == mValidator_gRPC?.operatorAddress}.first == nil) {
                 self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
                 return
             }
-            if let unbonding = BaseData.instance.mMyUnbondings_V1.filter({ $0.validator_address == mValidator_V1?.operator_address}).first {
-                if (unbonding.entries?.count ?? 0 >= 7) {
+            if let unbonding = BaseData.instance.mMyUnbondings_gRPC.filter({ $0.validatorAddress == mValidator_gRPC?.operatorAddress}).first {
+                if (unbonding.entries.count >= 7) {
                     self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
                     return
                 }
@@ -1498,9 +1516,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
             
-        } else if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            txVC.mTargetValidator_V1 = mValidator_V1
+        } else if (WUtils.isGRPC(chainType!)) {
+            txVC.mTargetValidator_gRPC = mValidator_gRPC
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         }
         self.navigationItem.title = ""
@@ -1513,9 +1530,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            if (BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == mValidator_V1?.operator_address}.first == nil) {
+        if (WUtils.isGRPC(chainType!)) {
+            if (BaseData.instance.mMyDelegations_gRPC.filter { $0.delegation.validatorAddress == mValidator_gRPC?.operatorAddress}.first == nil) {
                 self.onShowToast(NSLocalizedString("error_not_redelegate", comment: ""))
                 return
             }
@@ -1524,7 +1540,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
-            self.onFetchRedelegation(account!.account_address, mValidator_V1!.operator_address!)
+            self.onFetchRedelegation_gRPC(account!.account_address, mValidator_gRPC!.operatorAddress)
             
         } else {
             if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
@@ -1579,9 +1595,9 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
-        } else if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            txVC.mTargetValidator_V1 = mValidator_V1
+            
+        } else if (WUtils.isGRPC(chainType!)) {
+            txVC.mTargetValidator_gRPC = mValidator_gRPC
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         }
         self.navigationItem.title = ""
@@ -1716,10 +1732,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         
-        
-        else if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
+        else if (WUtils.isGRPC(chainType!)) {
+            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_gRPC?.operatorAddress)
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
             if (reward.compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
@@ -1744,11 +1758,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             txVC.mRewardTargetValidators = validators
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
             
-        } else if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            var validators = Array<Validator_V1>()
-            validators.append(mValidator_V1!)
-            txVC.mRewardTargetValidators_V1 = validators
+        } else if (WUtils.isGRPC(chainType!)) {
+            var validators = Array<Cosmos_Staking_V1beta1_Validator>()
+            validators.append(mValidator_gRPC!)
+            txVC.mRewardTargetValidators_gRPC = validators
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
             
         }
@@ -1762,9 +1775,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onShowAddMenomicDialog()
             return
         }
-        if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_V1?.operator_address)
+        if (WUtils.isGRPC(chainType!)) {
+            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_gRPC?.operatorAddress)
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
             if (reward.compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
@@ -1774,7 +1786,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
-            self.onFetchRewardsAddress(account!.account_address)
+            self.onFetchRewardsAddress_gRPC(account!.account_address)
             
         } else {
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
@@ -1906,9 +1918,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onStartReInvest() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.COSMOS_MAIN  || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            txVC.mTargetValidator_V1 = mValidator_V1
+        if (WUtils.isGRPC(chainType!)) {
+            txVC.mTargetValidator_gRPC = self.mValidator_gRPC
         } else {
             txVC.mTargetValidator = self.mValidator
         }

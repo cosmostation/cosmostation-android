@@ -51,9 +51,6 @@ public class DelegateActivity extends BaseActivity {
     public String                       mToDelegateMemo;
     public Fee                          mToDelegateFee;
 
-    //V1 .40 version
-    public String                       mValOpAddress_V1;
-
     //gRPC
     public String                       mValOpAddress;
 
@@ -80,7 +77,6 @@ public class DelegateActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mValidator = getIntent().getParcelableExtra("validator");
-        mValOpAddress_V1 = getIntent().getStringExtra("valOpAddress");
         mValOpAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
@@ -176,9 +172,7 @@ public class DelegateActivity extends BaseActivity {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE);
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN)) {
-            intent.putExtra("toAddress", mValOpAddress_V1);
-        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
             intent.putExtra("toAddress", mValOpAddress);
         } else {
             intent.putExtra("toAddress", mValidator.operator_address);

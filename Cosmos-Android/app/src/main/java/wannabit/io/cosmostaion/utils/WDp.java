@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.utils;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.RelativeSizeSpan;
@@ -23,7 +24,14 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import cosmos.base.abci.v1beta1.Abci;
+import cosmos.distribution.v1beta1.Distribution;
+import cosmos.gov.v1beta1.Gov;
+import cosmos.params.v1beta1.Params;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.tx.v1beta1.ServiceOuterClass;
+import cosmos.upgrade.v1beta1.Upgrade;
+import ibc.core.client.v1.Client;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
@@ -35,7 +43,6 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.Delegation_V1;
-import wannabit.io.cosmostaion.model.IrisToken_V1;
 import wannabit.io.cosmostaion.model.KavaCDP;
 import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.Undelegation_V1;
@@ -381,29 +388,14 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN)) {
-            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mProvision_V1 == null || baseData.mParamMint_V1 == null) { return result; }
-            BigDecimal provisions = baseData.mProvision_V1;
-            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
-            BigDecimal blocksPerYear = new BigDecimal(baseData.mParamMint_V1.blocks_per_year);
-            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
-
-        } else if (chain.equals(COSMOS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
             BigDecimal blocksPerYear = new BigDecimal(baseData.mGrpcParamMint.getBlocksPerYear());
             return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
 
-        } else if (chain.equals(IRIS_MAIN)) {
-            if (baseData == null || baseData.mStakingPool_V1 == null || baseData.mParamMint_V1 == null) { return result; }
-            BigDecimal bonded = baseData.mStakingPool_V1.getBondedTokens();
-            BigDecimal unbonded = baseData.mStakingPool_V1.getUnbondedTokens();
-            BigDecimal inflation_base = new BigDecimal("2000000000000000");
-            BigDecimal provisions = inflation_base.multiply(baseData.mParamMint_V1.getInflation());
-            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
-
-        } else if (chain.equals(IRIS_TEST)) {
+        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcIrisParamMint == null) { return result; }
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
             BigDecimal unbonded = new BigDecimal(baseData.mGrpcStakingPool.getNotBondedTokens());
@@ -674,113 +666,6 @@ public class WDp {
         return BigDecimal.ZERO;
     }
 
-    //V1 .40 version
-    public static BigDecimal getAvailable(BaseData basedata, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Coin coin : basedata.mBalance_V1) {
-            if (coin.denom.equalsIgnoreCase(denom)) {
-                result = new BigDecimal(coin.amount);
-            }
-        }
-        return result;
-    }
-
-    public static BigDecimal getDelegationSum(BaseData basedata) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Delegation_V1 delegation: basedata.mDelegations_V1) {
-            sum = sum.add(new BigDecimal(delegation.balance.amount));
-        }
-        return sum;
-    }
-
-    public static BigDecimal getDelegation(BaseData basedata, String valOpAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Delegation_V1 delegation: basedata.mDelegations_V1) {
-            if (delegation.delegation.validator_address.equals(valOpAddress)) {
-                result =  new BigDecimal(delegation.balance.amount);
-            }
-        }
-        return result;
-    }
-
-    public static Delegation_V1 getDelegationInfo(BaseData basedata, String valOpAddress) {
-        for (Delegation_V1 delegation: basedata.mDelegations_V1) {
-            if (delegation.delegation.validator_address.equals(valOpAddress)) {
-                return delegation;
-            }
-        }
-        return null;
-    }
-
-
-    public static BigDecimal getUndelegationSum(BaseData basedata) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Undelegation_V1 undelegation: basedata.mUndelegations_V1) {
-            sum = sum.add(undelegation.getAllUnbondingBalance());
-        }
-        return sum;
-    }
-
-    public static BigDecimal getUndelegation(BaseData basedata, String valOpAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Undelegation_V1 undelegation: basedata.mUndelegations_V1) {
-            if (undelegation.validator_address.equals(valOpAddress)) {
-                result = undelegation.getAllUnbondingBalance();
-            }
-        }
-        return result;
-    }
-
-    public static Undelegation_V1 getUndelegationInfo(BaseData basedata, String valOpAddress) {
-        for (Undelegation_V1 undelegation: basedata.mUndelegations_V1) {
-            if (undelegation.validator_address.equals(valOpAddress)) {
-                return undelegation;
-            }
-        }
-        return null;
-    }
-
-    public static BigDecimal getRewardSum(BaseData basedata, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Reward_V1 reward: basedata.mRewards_V1) {
-            sum = sum.add(reward.getRewardByDenom(denom));
-        }
-        return sum;
-    }
-
-    public static BigDecimal getReward(BaseData basedata, String denom, String valOpAddress) {
-        BigDecimal result = BigDecimal.ZERO;
-        for (Reward_V1 reward: basedata.mRewards_V1) {
-            if (reward.validator_address.equals(valOpAddress)) {
-                result = reward.getRewardByDenom(denom);
-            }
-        }
-        return result;
-    }
-
-    public static Reward_V1 getRewardInfo(BaseData basedata, String valOpAddress) {
-        for (Reward_V1 reward: basedata.mRewards_V1) {
-            if (reward.validator_address.equals(valOpAddress)) {
-                return reward;
-            }
-        }
-        return null;
-    }
-
-    public static IrisToken_V1 getIrisToken(BaseData basedata, String denom) {
-        for (IrisToken_V1 token: basedata.mIrisTokens_V1) {
-            if (token.min_unit.equals(denom)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-    public static BigDecimal getAllMainAsset(BaseData basedata, String denom) {
-        return getAvailable(basedata, denom).add(getDelegationSum(basedata)).add(getUndelegationSum(basedata)).add(getRewardSum(basedata, denom));
-    }
-
-
     public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
         return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
     }
@@ -838,15 +723,6 @@ public class WDp {
         SpannableString result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, dpDecimal).format(getMainAssetValue(c, dao, amount, chain)));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - dpDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
-    }
-
-    public static Validator_V1 getValidatorInfo(BaseData basedata, String valOpAddress) {
-        for (Validator_V1 val: basedata.mAllValidators_V1) {
-            if (val.operator_address.equals(valOpAddress)) {
-                return val;
-            }
-        }
-        return null;
     }
 
     public static Validator selectValidator(ArrayList<Validator> validators, String opAddress) {
@@ -2683,4 +2559,235 @@ public class WDp {
         return option;
     }
 
+
+    public static String getProposalTitle(Gov.Proposal proposal) {
+        try {
+            if (proposal.getContent().getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposal.getContent().getValue());
+                return textProposal.getTitle();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposal.getContent().getValue());
+                return parameterChangeProposal.getTitle();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposal.getContent().getValue());
+                return clientUpdateProposal.getTitle();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposal.getContent().getValue());
+                return communityPoolSpendProposal.getTitle();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                return softwareUpgradeProposal.getTitle();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                return cancelSoftwareUpgradeProposal.getTitle();
+            }
+
+        } catch (Exception e) { }
+        return "";
+    }
+
+    public static String getProposalDescription(Gov.Proposal proposal) {
+        try {
+            if (proposal.getContent().getTypeUrl().equals("/cosmos.gov.v1beta1.TextProposal")) {
+                Gov.TextProposal textProposal = Gov.TextProposal.parseFrom(proposal.getContent().getValue());
+                return textProposal.getDescription();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.params.v1beta1.ParameterChangeProposal")) {
+                Params.ParameterChangeProposal parameterChangeProposal = Params.ParameterChangeProposal.parseFrom(proposal.getContent().getValue());
+                return parameterChangeProposal.getDescription();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/ibc.core.client.v1.ClientUpdateProposal")) {
+                Client.ClientUpdateProposal clientUpdateProposal = Client.ClientUpdateProposal.parseFrom(proposal.getContent().getValue());
+                return clientUpdateProposal.getDescription();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.distribution.v1beta1.CommunityPoolSpendProposal")) {
+                Distribution.CommunityPoolSpendProposal communityPoolSpendProposal = Distribution.CommunityPoolSpendProposal.parseFrom(proposal.getContent().getValue());
+                return communityPoolSpendProposal.getDescription();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal")) {
+                Upgrade.SoftwareUpgradeProposal softwareUpgradeProposal = Upgrade.SoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                return softwareUpgradeProposal.getDescription();
+
+            } else if (proposal.getContent().getTypeUrl().equals("/cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal")) {
+                Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
+                return cancelSoftwareUpgradeProposal.getDescription();
+            }
+
+        } catch (Exception e) { }
+        return "";
+    }
+
+    public static Drawable getProposalStatusImg(Context c, Gov.Proposal proposal) {
+        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+            return c.getResources().getDrawable(R.drawable.ic_deposit_img);
+
+        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+            return c.getResources().getDrawable(R.drawable.ic_voting_img);
+
+        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+            return c.getResources().getDrawable(R.drawable.ic_rejected_img);
+
+        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+            return c.getResources().getDrawable(R.drawable.ic_passed_img);
+        }
+        return null;
+    }
+
+    public static String getProposalStatusTxt(Context c, Gov.Proposal proposal) {
+        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+            return "DepositPeriod";
+
+        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
+            return "VotingPeriod";
+
+        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_REJECTED)) {
+            return "Rejected";
+
+        } else if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_PASSED)) {
+            return "Passed";
+        }
+        return "unKnown";
+    }
+
+    public static String getProposalType(Gov.Proposal proposal) {
+        String[] split = proposal.getContent().getTypeUrl().split("\\.");
+        return split[split.length - 1];
+    }
+
+
+    public static String getProposalStartTime(Context c, Gov.Proposal proposal) {
+        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+            return c.getString(R.string.str_vote_wait_deposit);
+        } else {
+            return WDp.getDpTime(c, proposal.getVotingStartTime().getSeconds() * 1000);
+        }
+    }
+
+    public static String geProposalEndTime(Context c, Gov.Proposal proposal) {
+        if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD)) {
+            return c.getString(R.string.str_vote_wait_deposit);
+        } else {
+            return WDp.getDpTime(c, proposal.getVotingEndTime().getSeconds() * 1000);
+        }
+    }
+
+
+    public static BigDecimal geTallySum(Gov.TallyResult tally) {
+        return new BigDecimal(tally.getYes()).add(new BigDecimal(tally.getNo())).add(new BigDecimal(tally.getAbstain())).add(new BigDecimal(tally.getNoWithVeto()));
+    }
+
+    public static BigDecimal getYesPer(Gov.TallyResult tally) {
+        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getYes()).longValue() == 0)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
+        return new BigDecimal(tally.getYes()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getNoPer(Gov.TallyResult tally) {
+        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getNo()).longValue() == 0)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
+        return new BigDecimal(tally.getNo()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getAbstainPer(Gov.TallyResult tally) {
+        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getAbstain()).longValue() == 0)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
+        return new BigDecimal(tally.getAbstain()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getVetoPer(Gov.TallyResult tally) {
+        if (geTallySum(tally).equals(BigDecimal.ZERO) || (new BigDecimal(tally.getNoWithVeto()).longValue() == 0)) {
+            return BigDecimal.ZERO.setScale(2);
+        }
+        return new BigDecimal(tally.getNoWithVeto()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
+    }
+
+    public static BigDecimal getTurnout(BaseData baseData, Gov.TallyResult tally) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (baseData != null && baseData.mGrpcStakingPool != null) {
+            if (geTallySum(tally).equals(BigDecimal.ZERO)) {
+                return BigDecimal.ZERO.setScale(2);
+
+            } else {
+                BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+                return geTallySum(tally).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseFee(ServiceOuterClass.GetTxResponse response) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTx().getAuthInfo().getFee().getAmountCount() > 0) {
+            return new BigDecimal(response.getTx().getAuthInfo().getFee().getAmount(0).getAmount());
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseAutoReward(ServiceOuterClass.GetTxResponse response, String Addr, int position) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("transfer")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i ++) {
+                        if (event.getAttributes(i).getKey().equals("recipient") && event.getAttributes(i).getValue().equals(Addr)) {
+                            for (int j = i; j < event.getAttributesList().size(); j ++) {
+                                if (event.getAttributes(j).getKey().equals("amount") && event.getAttributes(j).getValue() != null) {
+                                    String temp = event.getAttributes(j).getValue().replaceAll("[^0-9]", "");
+                                    result = result.add(new BigDecimal(temp));
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseStakeReward(ServiceOuterClass.GetTxResponse response, String valAddr, int position) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("withdraw_rewards")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i ++) {
+                        if (event.getAttributes(i).getKey().equals("validator") && event.getAttributes(i).getValue().equals(valAddr)) {
+                            String temp = event.getAttributes(i - 1).getValue().replaceAll("[^0-9]", "");
+                            result = result.add(new BigDecimal(temp));
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public static BigDecimal onParseCommission(ServiceOuterClass.GetTxResponse response, int position) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (response.getTxResponse().getLogsCount() > 0 && response.getTxResponse().getLogs(position) != null) {
+            for (Abci.StringEvent event: response.getTxResponse().getLogs(position).getEventsList()) {
+                if (event.getType().equals("withdraw_commission")) {
+                    for (int i = 0; i < event.getAttributesList().size(); i ++) {
+                        if (event.getAttributes(i).getKey().equals("amount")) {
+                            if (event.getAttributes(i).getValue() != null) {
+                                String temp = event.getAttributes(i).getValue().replaceAll("[^0-9]", "");
+                                result = result.add(new BigDecimal(temp));
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return result;
+    }
 }

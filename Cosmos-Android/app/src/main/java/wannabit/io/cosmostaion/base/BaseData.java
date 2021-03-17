@@ -112,7 +112,6 @@ public class BaseData {
     public ArrayList<Reward>            mRewards = new ArrayList<>();
 
     public ResStakingPool               mStakingPool;
-    public ResLcdIrisPool               mIrisStakingPool;
     public BigDecimal                   mInflation = BigDecimal.ZERO;
     public BigDecimal                   mProvisions = BigDecimal.ZERO;
     public ResMintParam.MintParam       mMintParam;
@@ -147,24 +146,6 @@ public class BaseData {
 
     //COMMON DATA FOR BAND
     public ResBandOracleStatus      mBandOracles;
-
-    // rollback
-    public ArrayList<Validator_V1>      mTopValidators_V1 = new ArrayList<>();
-    public ArrayList<Validator_V1>      mOtherValidators_V1 = new ArrayList<>();
-    public ArrayList<Validator_V1>      mAllValidators_V1 = new ArrayList<>();
-    public ArrayList<Validator_V1>      mMyValidators_V1 = new ArrayList<>();
-
-    public ArrayList<Coin>              mBalance_V1 = new ArrayList<>();
-    public ArrayList<Delegation_V1>     mDelegations_V1 = new ArrayList<>();
-    public ArrayList<Undelegation_V1>   mUndelegations_V1 = new ArrayList<>();
-    public ArrayList<Reward_V1>         mRewards_V1 = new ArrayList<>();
-
-    public StakingPool_V1               mStakingPool_V1;
-    public ParamMint_V1                 mParamMint_V1;
-    public BigDecimal                   mInflation_V1;
-    public BigDecimal                   mProvision_V1;
-
-    public ArrayList<IrisToken_V1>      mIrisTokens_V1 = new ArrayList<>();
 
     //gRPC
     public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();
@@ -312,7 +293,14 @@ public class BaseData {
     }
 
 
-
+    public TokenOuterClass.Token getIrisToken(String denom) {
+        for (TokenOuterClass.Token token: mGrpcIrisTokens) {
+            if (token.getMinUnit().equals(denom)) {
+                return token;
+            }
+        }
+        return null;
+    }
 
 
 

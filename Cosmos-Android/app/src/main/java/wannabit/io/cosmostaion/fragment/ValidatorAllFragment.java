@@ -109,9 +109,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mValidatorSize.setText(""+getBaseDao().mTopValidators_V1.size());
-        } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             mValidatorSize.setText(""+getBaseDao().mGRpcTopValidators.size());
         } else {
             mValidatorSize.setText(""+getBaseDao().mTopValidators.size());
@@ -150,35 +149,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                final Validator_V1 validator  = getBaseDao().mTopValidators_V1.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                try {
-                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
-                } catch (Exception e){}
-
-                holder.itemTvMoniker.setText(validator.description.moniker);
-                if (validator.jailed) {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
-                    holder.itemRevoked.setVisibility(View.VISIBLE);
-                } else {
-                    holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
-                    holder.itemRevoked.setVisibility(View.GONE);
-                }
-                if (getBaseDao().mMyValidators_V1.contains(validator)) {
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
-                } else {
-                    holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-                }
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        getMainActivity().onStartValidatorDetailV1(validator.operator_address);
-                    }
-                });
-
-            } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                    getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 final Staking.Validator validator  = getBaseDao().mGRpcTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), 6, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
@@ -298,9 +270,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                return getBaseDao().mTopValidators_V1.size();
-            } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
                 return getBaseDao().mGRpcTopValidators.size();
             } else {
                 return getBaseDao().mTopValidators.size();
@@ -332,19 +302,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
 
     public void onSortValidator() {
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-            if (getBaseDao().getValSorting() == 2){
-                WUtil.onSortingByCommissionV2(getBaseDao().mTopValidators_V1);
-                mSortType.setText(getString(R.string.str_sorting_by_yield));
-            } else if (getBaseDao().getValSorting() == 0){
-                WUtil.onSortByValidatorNameV2(getBaseDao().mTopValidators_V1);
-                mSortType.setText(getString(R.string.str_sorting_by_name));
-            } else {
-                WUtil.onSortByValidatorPowerV2(getBaseDao().mTopValidators_V1);
-                mSortType.setText(getString(R.string.str_sorting_by_power));
-            }
-
-        } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
+                getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
             if (getBaseDao().getValSorting() == 2){
                 WUtil.onSortingByCommissionV1(getBaseDao().mGRpcTopValidators);
                 mSortType.setText(getString(R.string.str_sorting_by_yield));

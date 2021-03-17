@@ -20,10 +20,10 @@ class TransactionViewController: UIViewController {
     var mAccount: Account?
     var mUserChain: ChainType?
     var mTargetValidator: Validator?
-    var mTargetValidator_V1: Validator_V1?
+    var mTargetValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
-    var mRewardTargetValidators_V1 = Array<Validator_V1>()
+    var mRewardTargetValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mIrisRedelegate: Array<NSDictionary>?
     
     var mBnbToken: BnbToken?
@@ -241,9 +241,9 @@ class TransactionViewController: UIViewController {
             StepVc.topVC = self
             StepVc.mType = self.mType
             StepVc.mTargetValidator = self.mTargetValidator
-            StepVc.mTargetValidator_V1 = self.mTargetValidator_V1
+            StepVc.mTargetValidator_gRPC = self.mTargetValidator_gRPC
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
-            StepVc.mRewardTargetValidators_V1 = self.mRewardTargetValidators_V1
+            StepVc.mRewardTargetValidators_gRPC = self.mRewardTargetValidators_gRPC
             StepVc.mIrisRedelegate = self.mIrisRedelegate
             StepVc.mBnbToken = self.mBnbToken
             StepVc.mBnbTics = self.mBnbTics

@@ -32,7 +32,7 @@ public class ProposalsGrpcTask extends CommonTask {
             this.mResult.resultData = response.getProposalsList();
 //            WLog.w("ProposalsGrpcTask " + response.getProposalsList());
 
-        } catch (Exception e) { WLog.e( "BalanceGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) { WLog.e( "ProposalsGrpcTask "+ e.getMessage()); }
         return mResult;
     }
 }

@@ -59,16 +59,18 @@ class ValidatorDetailMyActionCell: UITableViewCell {
         actionReinvest?()
     }
     
-    func updateView(_ validator: Validator_V1?, _ chainType: ChainType?) {
+    func updateView(_ validator: Cosmos_Staking_V1beta1_Validator?, _ chainType: ChainType?) {
         cardView.backgroundColor = WUtils.getChainBg(chainType)
-        let delegation = BaseData.instance.mMyDelegations_V1.filter { $0.delegation?.validator_address == validator?.operator_address}.first
-        let unbonding = BaseData.instance.mMyUnbondings_V1.filter { $0.validator_address == validator?.operator_address}.first
-        let reward = BaseData.instance.mMyReward_V1.filter { $0.validator_address == validator?.operator_address}.first
-        myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation?.getDelegation().stringValue, myDelegateAmount.font, 6, 6)
-        myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding?.getAllUnbondingBalance().stringValue, myUndelegateAmount.font, 6, 6)
-        myRewardAmount.attributedText = WUtils.displayAmount2(reward?.getRewardByDenom(WUtils.getMainDenom(chainType)).stringValue, myRewardAmount.font, 6, 6)
-        myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
-        myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, validator!.getCommission(), delegation?.getDelegation(), chainType!)
+        let delegation = BaseData.instance.getDelegated(validator!.operatorAddress)
+        let unbonding = BaseData.instance.getUnbonding(validator!.operatorAddress)
+        let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType!), validator!.operatorAddress)
+        myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation.stringValue, myDelegateAmount.font, 6, 6)
+        myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding.stringValue, myUndelegateAmount.font, 6, 6)
+        myRewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, myRewardAmount.font, 6, 6)
+        myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18),
+                                                               delegation, chainType!)
+        myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18),
+                                                                   delegation, chainType!)
     }
     
     
