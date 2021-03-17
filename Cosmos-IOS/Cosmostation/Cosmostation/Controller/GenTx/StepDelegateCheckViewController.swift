@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
+import GRPC
+import NIO
 
 class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate, SBCardPopupDelegate {
     
@@ -65,12 +67,13 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
-            targetValidatorLabel.text = pageHolderVC.mTargetValidator_V1?.description?.moniker
+            targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
         }
+        
+        
         memoLabel.text = pageHolderVC.mMemo
     }
     
@@ -88,9 +91,8 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-                self.onFetchAuth(pageHolderVC.mAccount!)
+            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+                self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             }
@@ -154,28 +156,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
-    }
-    
-    func onFetchAuth(_ account: Account) {
-        self.showWaittingAlert()
-        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                    return
-                }
-                let auth = Auth_V1.init(account)
-                self.onBroadcastTxV1(auth)
-                
-            case .failure(let error):
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAuth ", error) }
-            }
-        }
-        
     }
     
     func onGenDelegateTx() {
@@ -286,41 +266,58 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
         }
     }
     
-    func onBroadcastTxV1(_ auth: Auth_V1) {
+    
+    
+    
+    func onFetchgRPCAuth(_ account: Account) {
+        self.showWaittingAlert()
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
+                $0.address = account.account_address
+            }
+            do {
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                self.onBroadcastGrpcTx(response)
+            } catch {
+                print("onFetchgRPCAuth failed: \(error)")
+            }
+        }
+    }
+    
+    func onBroadcastGrpcTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse?) {
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            let stdTx = Signer.genSignedDelegateTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(), self.pageHolderVC.mTargetValidator_V1!.operator_address!,
-                                                     self.pageHolderVC.mToDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                     WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            let reqTx = Signer.genSignedDelegateTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToDelegateAmount!,
+                                                       self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!),
+                                                       self.pageHolderVC.chainType!)
             
-            DispatchQueue.main.async(execute: {
-                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
-                let params = Signer.getBroadCastParam(stdTx)
-                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-                request.responseJSON { response in
-                    var txResult = [String:Any]()
-                    switch response.result {
-                    case .success(let res):
-                        if(SHOW_LOG) { print("Delegate ", res) }
-                        if let result = res as? [String : Any]  {
-                            txResult = result
-                        }
-                    case .failure(let error):
-                        if(SHOW_LOG) { print("Delegate error ", error) }
-                        if (response.response?.statusCode == 500) {
-                            txResult["net_error"] = 500
-                        }
-                    }
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).broadcastTx(reqTx).response.wait()
+//                print("response ", response.txResponse.txhash)
+                DispatchQueue.main.async(execute: {
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
-                            self.onStartTxDetail(txResult)
+                            self.onStartTxDetailgRPC(response)
                         })
                     }
-                }
-            });
+                });
+            } catch {
+                print("onBroadcastGrpcTx failed: \(error)")
+            }
         }
-        
     }
 }

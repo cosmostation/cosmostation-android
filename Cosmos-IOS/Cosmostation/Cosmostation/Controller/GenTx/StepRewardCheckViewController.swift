@@ -10,6 +10,8 @@ import UIKit
 import Alamofire
 import BitcoinKit
 import SwiftKeychainWrapper
+import GRPC
+import NIO
 
 class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
@@ -114,13 +116,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             
         }
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var selectedRewardSum = NSDecimalNumber.zero
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(WUtils.getMainDenom(pageHolderVC.chainType)))
-                }
+            for validator in pageHolderVC.mRewardTargetValidators_gRPC {
+                let amount = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
+                selectedRewardSum = selectedRewardSum.adding(amount)
             }
             if (NSDecimalNumber.init(string: pageHolderVC.mFee?.amount[0].amount).compare(selectedRewardSum).rawValue > 0 ) {
                 return true
@@ -131,14 +131,13 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var monikers = ""
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+            for validator in pageHolderVC.mRewardTargetValidators_gRPC {
                 if(monikers.count > 0) {
-                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                    monikers = monikers + ",   " + validator.description_p.moniker
                 } else {
-                    monikers = (validator.description?.moniker)!
+                    monikers = validator.description_p.moniker
                 }
             }
             fromValidatorLabel.text = monikers
@@ -147,10 +146,9 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             recipientLabel.adjustsFontSizeToFitWidth = true
             
             var selectedRewardSum = NSDecimalNumber.zero
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(WUtils.getMainDenom(pageHolderVC.chainType)))
-                }
+            for validator in pageHolderVC.mRewardTargetValidators_gRPC {
+                let amount = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
+                selectedRewardSum = selectedRewardSum.adding(amount)
             }
             
             rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
@@ -311,9 +309,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
-            if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-                self.onFetchAuth(pageHolderVC.mAccount!)
+            if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+                self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             } else {
                 self.onFetchAccountInfo(pageHolderVC.mAccount!)
             }
@@ -376,29 +373,6 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
         }
-    }
-    
-    func onFetchAuth(_ account: Account) {
-        self.showWaittingAlert()
-        let url = BaseNetWork.authUrl(self.pageHolderVC.chainType!, account.account_address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-//                print("res ", res)
-                guard let responseData = res as? NSDictionary, let account = responseData.object(forKey: "account") as? NSDictionary else {
-                    self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                    return
-                }
-                let auth = Auth_V1.init(account)
-                self.onBroadcastTxV1(auth)
-                
-            case .failure(let error):
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                if (SHOW_LOG) { print("onFetchAuth ", error) }
-            }
-        }
-        
     }
     
     func onGenGetRewardTx() {
@@ -507,41 +481,55 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         }
     }
     
-    func onBroadcastTxV1(_ auth: Auth_V1) {
+    
+    func onFetchgRPCAuth(_ account: Account) {
+        self.showWaittingAlert()
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
+                $0.address = account.account_address
+            }
+            do {
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                self.onBroadcastGrpcTx(response)
+            } catch {
+                print("onFetchgRPCAuth failed: \(error)")
+            }
+        }
+    }
+    
+    func onBroadcastGrpcTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse?) {
         DispatchQueue.global().async {
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            let stdTx = Signer.genSignedRewardTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(),
-                                                   self.pageHolderVC.mRewardTargetValidators_V1, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                     WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+            let reqTx = Signer.genSignedClaimRewardsTxgRPC(auth!, self.pageHolderVC.mRewardTargetValidators_gRPC, self.pageHolderVC.mFee!,
+                                                           self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
             
-            DispatchQueue.main.async(execute: {
-                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
-                let params = Signer.getBroadCastParam(stdTx)
-                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-                request.responseJSON { response in
-                    var txResult = [String:Any]()
-                    switch response.result {
-                    case .success(let res):
-                        if(SHOW_LOG) { print("Claim Reward ", res) }
-                        if let result = res as? [String : Any]  {
-                            txResult = result
-                        }
-                    case .failure(let error):
-                        if(SHOW_LOG) { print("Claim Reward error ", error) }
-                        if (response.response?.statusCode == 500) {
-                            txResult["net_error"] = 500
-                        }
-                    }
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).broadcastTx(reqTx).response.wait()
+//                print("response ", response.txResponse.txhash)
+                DispatchQueue.main.async(execute: {
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
-                            self.onStartTxDetail(txResult)
+                            self.onStartTxDetailgRPC(response)
                         })
                     }
-                }
-            });
+                });
+            } catch {
+                print("onBroadcastGrpcTx failed: \(error)")
+            }
         }
-        
     }
 }

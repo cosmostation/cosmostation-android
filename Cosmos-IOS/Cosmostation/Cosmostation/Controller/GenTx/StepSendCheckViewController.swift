@@ -272,7 +272,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
+            mDpDecimal = 6
             currentAva = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
@@ -287,21 +287,21 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 
             } else {
                 //TODO need real test
-                mTotalSpendTitle.isHidden = true
-                mTotalSpendLabel.isHidden = true
-                mTotalSpendDenomTitle.isHidden = true
-                mTotalSpendPrice.isHidden = true
-                mReminaingPrice.isHidden = true
-                
-                mToSendDenomLabel.textColor = UIColor.white
-                mCurrentBalanceDenomTitle.textColor = UIColor.white
-                mRemainBalanceTitle.textColor = UIColor.white
-                mToSendDenomLabel.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
-                mCurrentBalanceDenomTitle.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
-                mRemainBalanceTitle.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
+//                mTotalSpendTitle.isHidden = true
+//                mTotalSpendLabel.isHidden = true
+//                mTotalSpendDenomTitle.isHidden = true
+//                mTotalSpendPrice.isHidden = true
+//                mReminaingPrice.isHidden = true
+//                
+//                mToSendDenomLabel.textColor = UIColor.white
+//                mCurrentBalanceDenomTitle.textColor = UIColor.white
+//                mRemainBalanceTitle.textColor = UIColor.white
+//                mToSendDenomLabel.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
+//                mCurrentBalanceDenomTitle.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
+//                mRemainBalanceTitle.text = pageHolderVC.mIrisTokenV1!.symbol?.uppercased()
+//                
+//                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
+//                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
             }
         }
         
@@ -700,6 +700,5 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 print("onBroadcastGrpcTx failed: \(error)")
             }
         }
-        
     }
 }

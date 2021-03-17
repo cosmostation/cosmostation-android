@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import GRPC
+import NIO
 
 class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -22,7 +24,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     var pageHolderVC: StepGenTxViewController!
     
     var checkedValidator: Validator?
-    var checkedValidator_V1: Validator_V1?
+//    var checkedValidator_V1: Validator_V1?
+    var checkedValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var checkedPosition:IndexPath?
     
     override func viewDidLoad() {
@@ -39,9 +42,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            return self.pageHolderVC.mToReDelegateValidators_V1.count
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            return self.pageHolderVC.mToReDelegateValidators_gRPC.count
         } else {
             return self.pageHolderVC.mToReDelegateValidators.count
         }
@@ -49,10 +51,9 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:RedelegateCell? = tableView.dequeueReusableCell(withIdentifier:"RedelegateCell") as? RedelegateCell
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            if let validator = self.pageHolderVC.mToReDelegateValidators_V1[indexPath.row] as? Validator_V1 {
-                cell?.valMonikerLabel.text = validator.description?.moniker
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if let validator = self.pageHolderVC.mToReDelegateValidators_gRPC[indexPath.row] as? Cosmos_Staking_V1beta1_Validator {
+                cell?.valMonikerLabel.text = validator.description_p.moniker
                 cell?.valMonikerLabel.adjustsFontSizeToFitWidth = true
                 if (validator.jailed == true) {
                     cell?.valjailedImg.isHidden = false
@@ -63,10 +64,10 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                 }
                 
                 cell?.valPowerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
-                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
-                cell!.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(pageHolderVC.chainType!, validator.operator_address!))!)
+                cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, NSDecimalNumber.init(string: validator.commission.commissionRates.rate).multiplying(byPowerOf10: -18), pageHolderVC.chainType!)
+                cell!.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(pageHolderVC.chainType!, validator.operatorAddress))!)
                 cell?.rootCard.needBorderUpdate = false
-                if (validator.operator_address == checkedValidator_V1?.operator_address) {
+                if (validator.operatorAddress == checkedValidator_gRPC?.operatorAddress) {
                     cell?.valCheckedImg.image = cell?.valCheckedImg.image?.withRenderingMode(.alwaysTemplate)
                     cell?.valCheckedImg.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
                     cell?.rootCard.backgroundColor = UIColor.clear
@@ -182,10 +183,9 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            if let validator = self.pageHolderVC.mToReDelegateValidators_V1[indexPath.row] as? Validator_V1 {
-                self.checkedValidator_V1 = validator
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if let validator = self.pageHolderVC.mToReDelegateValidators_gRPC[indexPath.row] as? Cosmos_Staking_V1beta1_Validator {
+                self.checkedValidator_gRPC = validator
                 self.checkedPosition = indexPath
                 
                 let cell:RedelegateCell? = tableView.cellForRow(at: indexPath) as? RedelegateCell
@@ -258,23 +258,20 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             }
             self.onFetchRedelegateState(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator!.operator_address, self.checkedValidator!.operator_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            if (self.checkedValidator_V1 == nil && self.checkedValidator_V1?.operator_address == nil) {
+        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            if (self.checkedValidator_gRPC == nil && self.checkedValidator_gRPC?.operatorAddress == nil) {
                 self.onShowToast(NSLocalizedString("error_redelegate_no_to_address", comment: ""))
                 return;
             }
-            self.onFetchRedelegation(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator_V1!.operator_address!, self.checkedValidator_V1!.operator_address!)
-            
+            self.onFetchRedelegation_gRPC(pageHolderVC.mAccount!.account_address, pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.checkedValidator_gRPC!.operatorAddress)
         }
     }
     
     func goNextPage() {
         self.btnBefore.isUserInteractionEnabled = false
         self.btnNext.isUserInteractionEnabled = false
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            pageHolderVC.mToReDelegateValidator_V1 = self.checkedValidator_V1
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            pageHolderVC.mToReDelegateValidator_gRPC = self.checkedValidator_gRPC
         } else {
             pageHolderVC.mToReDelegateValidator = self.checkedValidator
         }
@@ -334,29 +331,35 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
         }
     }
     
-    func onFetchRedelegation(_ address: String, _ fromValAddress: String, _ toValAddress: String) {
-        let url = BaseNetWork.redelegation(pageHolderVC.chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: ["validator_src_address":fromValAddress, "dst_validator_addr":toValAddress,], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                if let responseData = res as? NSDictionary,
-                   let redelegation_responses = responseData.object(forKey: "redelegation_responses") as? Array<NSDictionary>,
-                   redelegation_responses.count > 0,
-                   let entries = redelegation_responses[0].object(forKey: "entries") as? Array<NSDictionary> {
-                    if (entries.count >= 7) {
-                        self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: ""))
-                        return
-                    } else {
-                        self.goNextPage()
+    func onFetchRedelegation_gRPC(_ address: String, _ fromValAddress: String, _ toValAddress: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Staking_V1beta1_QueryRedelegationsRequest.with {
+                $0.delegatorAddr = address
+//                $0.srcValidatorAddr = fromValAddress
+//                $0.dstValidatorAddr = toValAddress
+            }
+            do {
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).redelegations(req).response.wait()
+//                print("response ", response)
+                for redelegation in response.redelegationResponses {
+                    if (redelegation.redelegation.validatorSrcAddress == self.pageHolderVC.mTargetValidator_gRPC?.operatorAddress &&
+                            redelegation.redelegation.validatorDstAddress == self.checkedValidator_gRPC?.operatorAddress) {
+                        if (redelegation.entries.count > 7) {
+                            DispatchQueue.main.async(execute: { self.onShowToast(NSLocalizedString("error_redelegate_cnt_over", comment: "")) });
+                            return
+                        }
                     }
-                } else {
-                    self.goNextPage()
                 }
+                DispatchQueue.main.async(execute: { self.goNextPage() });
                 
-            case .failure(let error):
-                print("onFetchRedelegation ", error)
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+            } catch {
+                print("onFetchRedelegation_gRPC failed: \(error)")
             }
         }
     }

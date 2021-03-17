@@ -92,7 +92,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST ) {
-            mDpDecimal = pageHolderVC.mIrisTokenV1!.scale!
+            mDpDecimal = 6
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
                 maxAvailable = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!).subtracting(feeAmount)

@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import GRPC
+import NIO
 
 class StepRewardViewController: BaseViewController {
 
@@ -55,11 +57,10 @@ class StepRewardViewController: BaseViewController {
             }
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
             
-        } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             mFetchCnt = 2
-            self.onFetchRewards(pageHolderVC.mAccount!.account_address)
-            self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
+            self.onFetchRewards_gRPC(pageHolderVC.mAccount!.account_address)
+            self.onFetchRewardAddress_gRPC(pageHolderVC.mAccount!.account_address)
             
         }
         
@@ -73,22 +74,20 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var selectedRewardSum = NSDecimalNumber.zero
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
-                if let reward = BaseData.instance.mMyReward_V1.filter({ $0.validator_address == validator.operator_address}).first {
-                    selectedRewardSum = selectedRewardSum.adding(reward.getRewardByDenom(WUtils.getMainDenom(pageHolderVC.chainType)))
-                }
+            for validator in pageHolderVC.mRewardTargetValidators_gRPC {
+                let amount = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
+                selectedRewardSum = selectedRewardSum.adding(amount)
             }
             rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
             
             var monikers = ""
-            for validator in pageHolderVC.mRewardTargetValidators_V1 {
+            for validator in pageHolderVC.mRewardTargetValidators_gRPC {
                 if (monikers.count > 0) {
-                    monikers = monikers + ",   " + (validator.description?.moniker)!
+                    monikers = monikers + ",   " + validator.description_p.moniker
                 } else {
-                    monikers = (validator.description?.moniker)!
+                    monikers = validator.description_p.moniker
                 }
             }
             rewardFromLabel.text = monikers
@@ -243,46 +242,54 @@ class StepRewardViewController: BaseViewController {
     
     
     
-    func onFetchRewards(_ address: String) {
-        let url = BaseNetWork.rewardsUrl(pageHolderVC.chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let rewards = responseData.object(forKey: "rewards") as? Array<NSDictionary> else {
-                    self.onFetchFinished()
-                    return
-                }
-                for reward in rewards {
-                    BaseData.instance.mMyReward_V1.append(Reward_V1(reward))
-                }
-                self.onFetchFinished()
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchRewards ", error) }
-                self.onFetchFinished()
+    func onFetchRewards_gRPC(_ address: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegationTotalRewardsRequest.with {
+                $0.delegatorAddress = address
             }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req).response.wait()
+//            print("onFetchgRPCRewards: \(response.rewards.count)")
+                response.rewards.forEach { reward in
+                    BaseData.instance.mMyReward_gRPC.append(reward)
+                }
+            } catch {
+                print("onFetchgRPCRewards failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchRewardAddressV1(_ address: String) {
-        let url = BaseNetWork.rewardAddressUrl(pageHolderVC.chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
-                    self.onFetchFinished()
-                    return;
-                }
-                self.pageHolderVC.mRewardAddress = withdraw_address.replacingOccurrences(of: "\"", with: "")
-                
-            case .failure(let error):
-                if(SHOW_LOG) {
-                    print("onFetchRewardAddressV1 ", error)
-                }
+    func onFetchRewardAddress_gRPC(_ address: String) {
+        DispatchQueue.global().async {
+            var responseAddress = ""
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegatorWithdrawAddressRequest.with {
+                $0.delegatorAddress = address
             }
-            self.onFetchFinished()
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegatorWithdrawAddress(req).response.wait()
+                responseAddress = response.withdrawAddress.replacingOccurrences(of: "\"", with: "")
+            } catch {
+                print("onFetchRedelegation_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.pageHolderVC.mRewardAddress = responseAddress
+                self.onFetchFinished()
+            });
         }
     }
     

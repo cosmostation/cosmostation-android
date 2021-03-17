@@ -280,13 +280,11 @@ class Signer {
     static func genSignedSendTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                   _ toAddress: String, _ amount: Array<Coin>, _ fee: Fee, _ memo: String,
                                   _ pKey: HDPrivateKey, _ chain: ChainType)  -> Cosmos_Tx_V1beta1_BroadcastTxRequest{
-        
         let sendCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount[0].denom
             $0.amount = amount[0].amount
         }
         let sendMsg = Cosmos_Bank_V1beta1_MsgSend.with {
-//            $0.fromAddress = authAccount.address
             $0.fromAddress = WUtils.onParseAuthGrpc(auth).0!
             $0.toAddress = toAddress
             $0.amount = [sendCoin]
@@ -307,9 +305,192 @@ class Signer {
         }
     }
     
+    static func genSignedDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                        _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                        _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let toCoin = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = amount.denom
+            $0.amount = amount.amount
+        }
+        let deleMsg = Cosmos_Staking_V1beta1_MsgDelegate.with {
+            $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+            $0.validatorAddress = toValAddress
+            $0.amount = toCoin
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.staking.v1beta1.MsgDelegate"
+            $0.value = try! deleMsg.serializedData()
+        }
+        
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSignedUnDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                          _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                          _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let toCoin = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = amount.denom
+            $0.amount = amount.amount
+        }
+        let undeleMsg = Cosmos_Staking_V1beta1_MsgUndelegate.with {
+            $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+            $0.validatorAddress = toValAddress
+            $0.amount = toCoin
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.staking.v1beta1.MsgUndelegate"
+            $0.value = try! undeleMsg.serializedData()
+        }
+        
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
     
     
+    static func genSignedReDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                          _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                          _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let toCoin = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = amount.denom
+            $0.amount = amount.amount
+        }
+        let redeleMsg = Cosmos_Staking_V1beta1_MsgBeginRedelegate.with {
+            $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+            $0.validatorSrcAddress = fromValAddress
+            $0.validatorDstAddress = toValAddress
+            $0.amount = toCoin
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.staking.v1beta1.MsgBeginRedelegate"
+            $0.value = try! redeleMsg.serializedData()
+        }
+        
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
     
+    
+    static func genSignedClaimRewardsTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                            _ validators: Array<Cosmos_Staking_V1beta1_Validator>, _ fee: Fee, _ memo: String,
+                                            _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        var anyMsgs = Array<Google_Protobuf2_Any>()
+        for validator in validators{
+            let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
+                $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+                $0.validatorAddress = validator.operatorAddress
+            }
+            let anyMsg = Google_Protobuf2_Any.with {
+                $0.typeURL = "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward"
+                $0.value = try! claimMsg.serializedData()
+            }
+            anyMsgs.append(anyMsg)
+        }
+        
+        let txBody = getGrpcTxBody(anyMsgs, memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSignedReInvestTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                        _ valAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
+                                        _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        var anyMsgs = Array<Google_Protobuf2_Any>()
+        
+        let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
+            $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+            $0.validatorAddress = valAddress
+        }
+        let claimAnyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.distribution.v1beta1.MsgWithdrawDelegatorReward"
+            $0.value = try! claimMsg.serializedData()
+        }
+        anyMsgs.append(claimAnyMsg)
+        
+        let deleCoin = Cosmos_Base_V1beta1_Coin.with {
+            $0.denom = amount.denom
+            $0.amount = amount.amount
+        }
+        let deleMsg = Cosmos_Staking_V1beta1_MsgDelegate.with {
+            $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+            $0.validatorAddress = valAddress
+            $0.amount = deleCoin
+        }
+        let deleAnyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.staking.v1beta1.MsgDelegate"
+            $0.value = try! deleMsg.serializedData()
+        }
+        anyMsgs.append(deleAnyMsg)
+        
+        let txBody = getGrpcTxBody(anyMsgs, memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSignedVoteTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                    _ proposalId: String, _ opinion: String, _ fee: Fee, _ memo: String,
+                                    _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let voteMsg = Cosmos_Gov_V1beta1_MsgVote.with {
+            $0.voter = WUtils.onParseAuthGrpc(auth).0!
+            $0.proposalID = UInt64(proposalId)!
+            if (opinion == "Yes") {
+                $0.option = Cosmos_Gov_V1beta1_VoteOption.yes
+            } else if (opinion == "No") {
+                $0.option = Cosmos_Gov_V1beta1_VoteOption.no
+            } else if (opinion == "NoWithVeto") {
+                $0.option = Cosmos_Gov_V1beta1_VoteOption.noWithVeto
+            } else if (opinion == "Abstain") {
+                $0.option = Cosmos_Gov_V1beta1_VoteOption.abstain
+            }
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.gov.v1beta1.MsgVote"
+            $0.value = try! voteMsg.serializedData()
+        }
+        
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+      }
     
     
     

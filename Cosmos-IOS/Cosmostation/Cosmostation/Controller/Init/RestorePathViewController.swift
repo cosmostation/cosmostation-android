@@ -92,8 +92,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                         cell?.stateLabel.textColor = UIColor.white
                     }
                 }
-                if (self.userChain == ChainType.COSMOS_MAIN || self.userChain == ChainType.IRIS_MAIN || self.userChain == ChainType.AKASH_MAIN ||
-                        self.userChain == ChainType.COSMOS_TEST || self.userChain == ChainType.IRIS_TEST) {
+                if (WUtils.isGRPC(self.userChain!)) {
                     DispatchQueue.global().async {
                         var amount = "0"
                         let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)

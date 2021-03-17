@@ -295,6 +295,9 @@ class WUtils {
     }
     
     static func txTimetoString(input: String?) -> String {
+        if (input == nil || input!.count == 0) {
+            return "??"
+        }
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss'Z'"
         nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
@@ -409,7 +412,7 @@ class WUtils {
     }
     
     static func txTimeGap(input: String?) -> String {
-        if (input == nil) { return "??" }
+        if (input == nil || input!.count == 0) { return "??" }
         let secondsAgo = Int(Date().timeIntervalSince(txTimeToInt64(input: input!)))
         
         let minute = 60
@@ -1764,46 +1767,6 @@ class WUtils {
         return NSDecimalNumber.zero
     }
     
-    
-    static func getIrisToken(_ irisTokens:Array<IrisToken>, _ balance:Balance) -> IrisToken? {
-        let split = balance.balance_denom.components(separatedBy: "-")
-        for irisToken in irisTokens {
-            if (split[0] == irisToken.base_token?.id) {
-                return irisToken
-            }
-        }
-        return nil
-    }
-    
-    static func getIrisMainToken(_ irisTokens:Array<IrisToken>) -> IrisToken? {
-        for irisToken in irisTokens {
-            if (irisToken.base_token?.id == "iris") {
-                return irisToken
-            }
-        }
-        return nil
-    }
-    
-    static func getIrisMainTokenV1() -> IrisToken_V1? {
-        let tokens = BaseData.instance.mIrisTokens_V1
-        for token in tokens {
-            if (token.min_unit == IRIS_TEST_DENOM) {
-                return token
-            }
-        }
-        return nil
-    }
-    
-    static func getIrisTokenV1(_ denom: String?) -> IrisToken_V1? {
-        let tokens = BaseData.instance.mIrisTokens_V1
-        for token in tokens {
-            if (token.min_unit == denom) {
-                return token
-            }
-        }
-        return nil
-    }
-    
     static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ balance:Balance) -> BnbToken? {
         for bnbToken in bnbTokens {
             if (bnbToken.symbol == balance.balance_denom) {
@@ -2940,19 +2903,6 @@ class WUtils {
         return String(result)
     }
     
-    static func getVoterTypeCnt_V1(_ votes: Array<Vote_V1>?, _ type: String) -> String {
-        var result = 0
-        if (votes == nil) {
-            return String(result)
-        }
-        for vote in votes! {
-            if (vote.option == type) {
-                result = result + 1
-            }
-        }
-        return String(result)
-    }
-    
     static func getDPRawDollor(_ price:String, _ scale:Int, _ font:UIFont) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = scale
@@ -3355,6 +3305,28 @@ class WUtils {
         return ""
     }
     
+    static func getProposalExplorer(_ chain: ChainType, _ proposalId: String) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return EXPLORER_COSMOS_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return EXPLORER_IRIS_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return EXPLORER_AKASH_MAIN + "proposals/" + proposalId
+            
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
+            return EXPLORER_COSMOS_TEST + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.IRIS_TEST) {
+            return EXPLORER_IRIS_TEST + "#/gov/proposals/" + proposalId
+            
+        }
+        return ""
+    }
+    
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return NSDecimalNumber.init(string: "0.4")
@@ -3366,6 +3338,7 @@ class WUtils {
         return NSDecimalNumber.init(string: "0.5")
     }
     
+    //address, pubkey, accountnumber, sequencenumber
     static func onParseAuthGrpc(_ response :Cosmos_Auth_V1beta1_QueryAccountResponse) -> (String?, Google_Protobuf2_Any?, UInt64?, UInt64?) {
         if (response.account.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName)) {
             let auth = try! Cosmos_Auth_V1beta1_BaseAccount.init(serializedData: response.account.value)
@@ -3431,6 +3404,179 @@ class WUtils {
             }
         }
         return result
+    }
+    
+    static func onParseProposalTitle(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
+        if (proposal.content.typeURL.contains(Cosmos_Gov_V1beta1_TextProposal.protoMessageName)) {
+            let textProposal = try! Cosmos_Gov_V1beta1_TextProposal.init(serializedData: proposal.content.value)
+            return textProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Params_V1beta1_ParameterChangeProposal.protoMessageName)) {
+            let paramProposal = try! Cosmos_Params_V1beta1_ParameterChangeProposal.init(serializedData: proposal.content.value)
+            return paramProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Ibc_Core_Client_V1_ClientUpdateProposal.protoMessageName)) {
+            let clientProposal = try! Ibc_Core_Client_V1_ClientUpdateProposal.init(serializedData: proposal.content.value)
+            return clientProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
+            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposal.content.value)
+            return poolProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.protoMessageName)) {
+            let upgradeProposal = try! Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+            return upgradeProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
+            let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+            return cancelProposal.title
+        }
+        return ""
+    }
+    
+    static func onParseProposalDescription(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
+        if (proposal.content.typeURL.contains(Cosmos_Gov_V1beta1_TextProposal.protoMessageName)) {
+            let textProposal = try! Cosmos_Gov_V1beta1_TextProposal.init(serializedData: proposal.content.value)
+            return textProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Params_V1beta1_ParameterChangeProposal.protoMessageName)) {
+            let paramProposal = try! Cosmos_Params_V1beta1_ParameterChangeProposal.init(serializedData: proposal.content.value)
+            return paramProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Ibc_Core_Client_V1_ClientUpdateProposal.protoMessageName)) {
+            let clientProposal = try! Ibc_Core_Client_V1_ClientUpdateProposal.init(serializedData: proposal.content.value)
+            return clientProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
+            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposal.content.value)
+            return poolProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.protoMessageName)) {
+            let upgradeProposal = try! Cosmos_Upgrade_V1beta1_SoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+            return upgradeProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
+            let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
+            return cancelProposal.description_p
+        }
+        return ""
+    }
+    
+    static func onParseProposalRequestAmount(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> Coin? {
+        if (proposal.content.typeURL.contains(Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.protoMessageName)) {
+            let poolProposal = try! Cosmos_Distribution_V1beta1_CommunityPoolSpendProposal.init(serializedData: proposal.content.value)
+            return Coin.init(poolProposal.amount[0].denom, poolProposal.amount[0].amount)
+        } else {
+            return nil;
+        }
+    }
+    
+    static func onParseProposalStatusTxt(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
+        if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
+            return "DepositPeriod"
+        } else if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.votingPeriod) {
+            return "VotingPeriod"
+        } else if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.passed) {
+            return "Passed"
+        } else if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.rejected) {
+            return "Rejected"
+        }
+        return "unKnown"
+    }
+    
+    static func onParseProposalStatusImg(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> UIImage? {
+        if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
+            return UIImage.init(named: "depositImg")
+        } else if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.votingPeriod) {
+            return UIImage.init(named: "votingImg")
+        } else if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.passed) {
+            return UIImage.init(named: "passedImg")
+        } else if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.rejected) {
+            return UIImage.init(named: "rejectedImg")
+        }
+        return nil
+    }
+    
+    static func onParseProposalStartTime(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
+        if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
+            return "Waiting Deposit"
+        } else {
+            return longTimetoString(input: proposal.votingStartTime.seconds * 1000)
+        }
+    }
+    
+    static func onParseProposalEndTime(_ proposal: Cosmos_Gov_V1beta1_Proposal) -> String {
+        if (proposal.status == Cosmos_Gov_V1beta1_ProposalStatus.depositPeriod) {
+            return "Waiting Deposit"
+        } else {
+            return longTimetoString(input: proposal.votingEndTime.seconds * 1000)
+        }
+    }
+    
+    
+    static func getSum(_ tally:Cosmos_Gov_V1beta1_TallyResult) ->NSDecimalNumber {
+        var sum = NSDecimalNumber.zero
+        sum = sum.adding(NSDecimalNumber.init(string: tally.yes))
+        sum = sum.adding(NSDecimalNumber.init(string: tally.no))
+        sum = sum.adding(NSDecimalNumber.init(string: tally.noWithVeto))
+        sum = sum.adding(NSDecimalNumber.init(string: tally.abstain))
+        return sum
+    }
+    
+    static func getYes(_ tally:Cosmos_Gov_V1beta1_TallyResult) -> NSDecimalNumber {
+        if (getSum(tally) == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
+        return NSDecimalNumber.init(string: tally.yes).multiplying(byPowerOf10: 2).dividing(by: getSum(tally), withBehavior: WUtils.handler2)
+    }
+    
+    static func getNo(_ tally:Cosmos_Gov_V1beta1_TallyResult) -> NSDecimalNumber {
+        if (getSum(tally) == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
+        return NSDecimalNumber.init(string: tally.no).multiplying(byPowerOf10: 2).dividing(by: getSum(tally), withBehavior: WUtils.handler2)
+    }
+    
+    static func getVeto(_ tally:Cosmos_Gov_V1beta1_TallyResult) -> NSDecimalNumber {
+        if (getSum(tally) == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
+        return NSDecimalNumber.init(string: tally.noWithVeto).multiplying(byPowerOf10: 2).dividing(by: getSum(tally), withBehavior: WUtils.handler2)
+    }
+    
+    static func getAbstain(_ tally:Cosmos_Gov_V1beta1_TallyResult) -> NSDecimalNumber {
+        if (getSum(tally) == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
+        return NSDecimalNumber.init(string: tally.abstain).multiplying(byPowerOf10: 2).dividing(by: getSum(tally), withBehavior: WUtils.handler2)
+    }
+    
+    static func getTurnout(_ tally:Cosmos_Gov_V1beta1_TallyResult) -> NSDecimalNumber {
+        if let bonded = BaseData.instance.mStakingPool_gRPC?.bondedTokens {
+            return getSum(tally).multiplying(byPowerOf10: 2).dividing(by: NSDecimalNumber.init(string: bonded), withBehavior: WUtils.handler2)
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    static func getVoterTypeCnt_gRPC(_ votes: Array<Cosmos_Gov_V1beta1_Vote>?, _ option: Cosmos_Gov_V1beta1_VoteOption) -> String {
+        var result = 0
+        if (votes == nil) {
+            return String(result)
+        }
+        for vote in votes! {
+            if (vote.option == option) {
+                result = result + 1
+            }
+        }
+        return String(result)
+    }
+    
+    static func isGRPC(_ chain: ChainType) -> Bool {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+            return true
+        }
+        return false
     }
     
 }
