@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 
 public class ResCdpDepositStatus {
 
@@ -13,23 +13,10 @@ public class ResCdpDepositStatus {
     public String height;
 
     @SerializedName("result")
-    public ArrayList<Result> result;
-
-    public class Result {
-
-        @SerializedName("cdp_id")
-        public String cdp_id;
-
-        @SerializedName("depositor")
-        public String depositor;
-
-        @SerializedName("amount")
-        public Coin amount;
-
-    }
+    public ArrayList<CdpDeposit> result;
 
     public BigDecimal getSelfDeposit(String address) {
-        for (Result deposit:result) {
+        for (CdpDeposit deposit:result) {
             if (deposit.depositor.equals(address)) {
                 return new BigDecimal(deposit.amount.amount);
             }

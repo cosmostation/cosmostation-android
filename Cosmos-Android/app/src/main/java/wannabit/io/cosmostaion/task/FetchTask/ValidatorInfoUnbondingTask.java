@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.FetchTask;
 
 import java.util.ArrayList;
 
+import retrofit2.Call;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -39,21 +40,7 @@ public class ValidatorInfoUnbondingTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(COSMOS_MAIN)) {
-//                Response<ResLcdValidators> response = ApiClient.getCosmosChain(mApp).getUnBondingValidatorDetailList().execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(KAVA_MAIN)) {
+            if (mChain.equals(KAVA_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getKavaChain(mApp).getUnBondingValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -67,6 +54,7 @@ public class ValidatorInfoUnbondingTask extends CommonTask {
                 }
 
             } else if (mChain.equals(KAVA_TEST)) {
+                Call a = ApiClient.getKavaTestChain(mApp).getUnBondingValidatorDetailList();
                 Response<ResLcdValidators> response = ApiClient.getKavaTestChain(mApp).getUnBondingValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

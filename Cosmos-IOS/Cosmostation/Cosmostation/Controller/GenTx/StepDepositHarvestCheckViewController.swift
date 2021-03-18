@@ -42,8 +42,8 @@ class StepDepositHarvestCheckViewController: BaseViewController, PasswordViewDel
     }
     
     func onUpdateView() {
-        mHarvestDepositDenom = pageHolderVC.mHarvestDepositDenom!
-        mToDepositCoin = pageHolderVC.mHarvestCoin
+//        mHarvestDepositDenom = pageHolderVC.mHarvestDepositDenom!
+        mToDepositCoin = pageHolderVC.mHardPoolCoin
         dpDecimal = WUtils.getKavaCoinDecimal(mHarvestDepositDenom)
         
 //        if (mHarvestDepositDenom == KAVA_MAIN_DENOM) {
@@ -127,7 +127,7 @@ class StepDepositHarvestCheckViewController: BaseViewController, PasswordViewDel
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genGetDepositHarvestMsg(self.pageHolderVC.chainType!,
                                                          self.pageHolderVC.mAccount!.account_address,
-                                                         self.pageHolderVC.mHarvestCoin,
+                                                         self.pageHolderVC.mHardPoolCoin,
                                                          "lp")
                 
                 var msgList = Array<Msg>()

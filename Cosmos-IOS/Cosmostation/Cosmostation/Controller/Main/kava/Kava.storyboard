@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Cdp View Controller-->
+        <!--Cdp List View Controller-->
         <scene sceneID="mjh-xB-hpE">
             <objects>
-                <viewController storyboardIdentifier="CdpViewController" id="bFS-cR-bqB" customClass="CdpViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CdpViewController" id="bFS-cR-bqB" customClass="CdpListViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="a7j-G5-Bet">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -38,10 +38,10 @@
             </objects>
             <point key="canvasLocation" x="434.78260869565219" y="5216.8526785714284"/>
         </scene>
-        <!--Harvest View Controller-->
+        <!--Hard List View Controller-->
         <scene sceneID="h2v-ZZ-obZ">
             <objects>
-                <viewController storyboardIdentifier="HarvestViewController" id="G5m-T3-xOI" customClass="HarvestViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="HarvestViewController" id="G5m-T3-xOI" customClass="HardListViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qwA-ug-T0E">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -61,12 +61,39 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="harvestTableView" destination="Bid-aa-IiQ" id="3HW-i8-0u1"/>
+                        <outlet property="hardTableView" destination="Bid-aa-IiQ" id="3HW-i8-0u1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xlc-Fg-nk6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1631.8840579710147" y="5216.8526785714284"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="VXs-Ju-CM3">
+            <objects>
+                <viewController id="YTz-Kt-HZY" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="YfO-nU-zqm">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="805"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Support Soon!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SUj-aT-4HR">
+                                <rect key="frame" x="152" y="414" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="PMx-yi-F8Y"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="SUj-aT-4HR" firstAttribute="centerX" secondItem="PMx-yi-F8Y" secondAttribute="centerX" id="0QA-BI-oJA"/>
+                            <constraint firstItem="SUj-aT-4HR" firstAttribute="centerY" secondItem="PMx-yi-F8Y" secondAttribute="centerY" id="qKx-9H-djW"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Ds-u2-5vI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2622" y="5217"/>
         </scene>
         <!--Apps List View Controller-->
         <scene sceneID="Roa-fS-S0U">
@@ -80,10 +107,11 @@
                                 <rect key="frame" x="0.0" y="5" width="414" height="896"/>
                             </imageView>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dsW-2h-aBR">
-                                <rect key="frame" x="139.5" y="52" width="135" height="32"/>
+                                <rect key="frame" x="87.5" y="52" width="239" height="32"/>
                                 <segments>
                                     <segment title="CDP"/>
-                                    <segment title="Harvest"/>
+                                    <segment title="Hard Pool"/>
+                                    <segment title="Auction"/>
                                 </segments>
                                 <color key="tintColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="1" colorSpace="deviceRGB"/>
                                 <connections>
@@ -102,12 +130,20 @@
                                     <segue destination="G5m-T3-xOI" kind="embed" id="bin-og-V7p"/>
                                 </connections>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WYD-a5-QMG">
+                                <rect key="frame" x="0.0" y="91" width="414" height="805"/>
+                                <connections>
+                                    <segue destination="YTz-Kt-HZY" kind="embed" id="snD-Jc-sUY"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6fv-wW-2fz"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="bottom" secondItem="nCX-dd-vve" secondAttribute="bottom" id="1MJ-A8-GPM"/>
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="centerX" secondItem="6fv-wW-2fz" secondAttribute="centerX" id="340-sG-ejT"/>
+                            <constraint firstItem="WYD-a5-QMG" firstAttribute="width" secondItem="G5g-pJ-7ho" secondAttribute="width" id="Bym-L6-NUq"/>
+                            <constraint firstItem="WYD-a5-QMG" firstAttribute="centerX" secondItem="G5g-pJ-7ho" secondAttribute="centerX" id="IgV-lg-kUQ"/>
                             <constraint firstItem="dsW-2h-aBR" firstAttribute="centerX" secondItem="6fv-wW-2fz" secondAttribute="centerX" id="JUR-sw-Ubu"/>
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="top" secondItem="G5g-pJ-7ho" secondAttribute="top" id="PXN-UV-Ceh"/>
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="top" secondItem="dsW-2h-aBR" secondAttribute="bottom" constant="8" id="TMt-kP-iak"/>
@@ -115,14 +151,17 @@
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="height" secondItem="G5g-pJ-7ho" secondAttribute="height" id="bT7-Fu-6jk"/>
                             <constraint firstItem="dc0-V5-C80" firstAttribute="width" secondItem="nCX-dd-vve" secondAttribute="width" id="cKG-iU-Q23"/>
                             <constraint firstItem="dc0-V5-C80" firstAttribute="centerY" secondItem="6fv-wW-2fz" secondAttribute="centerY" id="cWM-Fo-9NP"/>
+                            <constraint firstItem="WYD-a5-QMG" firstAttribute="height" secondItem="G5g-pJ-7ho" secondAttribute="height" id="h2a-NY-yQv"/>
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="leading" secondItem="G5g-pJ-7ho" secondAttribute="leading" id="iYf-Gr-zOM"/>
                             <constraint firstItem="G5g-pJ-7ho" firstAttribute="width" secondItem="nCX-dd-vve" secondAttribute="width" id="kOG-wG-kqN"/>
+                            <constraint firstItem="WYD-a5-QMG" firstAttribute="centerY" secondItem="G5g-pJ-7ho" secondAttribute="centerY" id="qUd-gh-rTT"/>
                             <constraint firstItem="dc0-V5-C80" firstAttribute="height" secondItem="nCX-dd-vve" secondAttribute="height" id="t3i-XJ-Hkj"/>
                             <constraint firstItem="7L0-eL-ewh" firstAttribute="width" secondItem="G5g-pJ-7ho" secondAttribute="width" id="tGw-R4-Ejp"/>
                             <constraint firstItem="dsW-2h-aBR" firstAttribute="top" secondItem="6fv-wW-2fz" secondAttribute="top" constant="8" id="zw6-zF-WND"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="auctionView" destination="WYD-a5-QMG" id="Hfh-wY-y0N"/>
                         <outlet property="cdpView" destination="G5g-pJ-7ho" id="YYF-pS-CRj"/>
                         <outlet property="dAppsSegment" destination="dsW-2h-aBR" id="OOn-AS-pNx"/>
                         <outlet property="havestView" destination="7L0-eL-ewh" id="Ydw-jl-Ea0"/>

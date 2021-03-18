@@ -47,7 +47,8 @@ public enum BaseChain {
     KAVA_TEST_LEGACY8("kava-testnet-8000"),
     KAVA_TEST_LEGACY9("kava-testnet-9000"),
     KAVA_TEST_3("kava-3-test"),
-    KAVA_TEST("kava-4-test"),
+    KAVA_TEST_4("kava-4-test"),
+    KAVA_TEST("kava-testnet-11000"),
     IOV_TEST("iovns-galaxynet"),
     OK_TEST_LEGACY("okchain"),
     OK_TEST_LEGACY1("okchain-testnet1"),
@@ -123,6 +124,7 @@ public enum BaseChain {
                 chainName.equals(KAVA_TEST_LEGACY8.chainName) ||
                 chainName.equals(KAVA_TEST_LEGACY9.chainName) ||
                 chainName.equals(KAVA_TEST_3.chainName) ||
+                chainName.equals(KAVA_TEST_4.chainName) ||
                 chainName.equals(KAVA_TEST.chainName)) {
             return KAVA_TEST;
         }
@@ -201,6 +203,7 @@ public enum BaseChain {
                 chain.equals(KAVA_TEST_LEGACY8.chainName) ||
                 chain.equals(KAVA_TEST_LEGACY9.chainName) ||
                 chain.equals(KAVA_TEST_3.chainName) ||
+                chain.equals(KAVA_TEST_4.chainName) ||
                 chain.equals(KAVA_TEST.chainName)) {
             return KAVA_TEST.chainName;
         }

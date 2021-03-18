@@ -28,7 +28,7 @@ public class KavaTotalSupplyTask extends CommonTask {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ResKavaSupply> response = ApiClient.getKavaChain(mApp).getSupply().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {
@@ -38,7 +38,7 @@ public class KavaTotalSupplyTask extends CommonTask {
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
                 Response<ResKavaSupply> response = ApiClient.getKavaTestChain(mApp).getSupply().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body();
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
 
                 } else {

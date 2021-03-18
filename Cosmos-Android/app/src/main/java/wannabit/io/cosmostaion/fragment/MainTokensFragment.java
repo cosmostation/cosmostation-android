@@ -33,6 +33,8 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
+import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -134,6 +136,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onRefresh() {
                 getMainActivity().onFetchAllData();
+                mTokensAdapter.notifyDataSetChanged();
             }
         });
 
@@ -210,7 +213,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
         } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST))) {
             mTokenSortType.setText(R.string.str_value);
-            WUtil.onSortingKavaTokenByValue(getBaseDao(), mBalances);
+            WUtil.onSortingKavaTokenByValue(getMainActivity().mBaseChain, getBaseDao(), mBalances);
         }
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
@@ -231,7 +234,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
             onUpdateTotalCard();
-            onFetchKavaTokenPrice();
 
         } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
@@ -349,7 +351,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     totalKavaAmount = totalKavaAmount.add(WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
                 } else {
                     BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
-                    BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
+                    BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getMainActivity().mBaseChain, getBaseDao(), balance.symbol, tokenTotalAmount);
                     BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA));
                     totalKavaAmount = totalKavaAmount.add(convertedKavaAmount);
                 }
@@ -617,6 +619,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
@@ -632,27 +642,26 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             try {
-                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png")
-                        .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
-                        .into(holder.itemImg);
+                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
 
             } catch (Exception e) { }
 
             BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
+            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getMainActivity().mBaseChain, getBaseDao(), balance.symbol, tokenTotalAmount);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+
+                }
+            });
         }
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-                intent.putExtra("balance", balance);
-                startActivity(intent);
-            }
-        });
     }
 
     private void onBindKavaTestItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -668,6 +677,15 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
             holder.itemBalance.setText(WDp.getDpAmount(getContext(), totalAmount, 6, getMainActivity().mBaseChain));
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
@@ -683,27 +701,28 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             try {
-                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png")
-                        .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic)
-                        .into(holder.itemImg);
+                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
 
             } catch (Exception e) { }
 
             BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
+            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getMainActivity().mBaseChain, getBaseDao(), balance.symbol, tokenTotalAmount);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+
+                }
+            });
+
         }
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-                intent.putExtra("balance", balance);
-                startActivity(intent);
-            }
-        });
+
 
     }
 
@@ -956,26 +975,26 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-    private void onFetchKavaTokenPrice() {
-        for (int i = 0; i < mBalances.size(); i ++) {
-            final int position = i;
-            if (mBalances.get(position).symbol.equals(TOKEN_HARD)) {
-                ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("hard-protocol", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
-                    @Override
-                    public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-                        getBaseDao().mHardPrice = new BigDecimal(response.body().market_data.current_price.usd);
-                        mTokensAdapter.notifyItemChanged(position);
-                        onUpdateTotalCard();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResCgcTic> call, Throwable t) {
-                        WLog.w("onFetchKavaTokenPrice onFailure");
-                    }
-                });
-            }
-        }
-    }
+//    private void onFetchKavaTokenPrice() {
+//        for (int i = 0; i < mBalances.size(); i ++) {
+//            final int position = i;
+//            if (mBalances.get(position).symbol.equals(TOKEN_HARD)) {
+//                ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("hard-protocol", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
+//                    @Override
+//                    public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
+//                        getBaseDao().mHardPrice = new BigDecimal(response.body().market_data.current_price.usd);
+//                        mTokensAdapter.notifyItemChanged(position);
+//                        onUpdateTotalCard();
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<ResCgcTic> call, Throwable t) {
+//                        WLog.w("onFetchKavaTokenPrice onFailure");
+//                    }
+//                });
+//            }
+//        }
+//    }
 
     private void onFetchIovTokenPrice() {
         onUpdateTotalCard();

@@ -62,6 +62,14 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().mKavaAccount = response.body().result;
                 }
 
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_TEST)) {
+                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mAccount.address).execute();
+                if (response.isSuccessful()) {
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().mKavaAccount = response.body().result;
+                }
+
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getBandChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(response.isSuccessful()) {
@@ -76,14 +84,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
                 } else {
                     mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromKavaLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromKavaLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().mKavaAccount = response.body().result;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_MAIN)) {

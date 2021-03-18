@@ -191,7 +191,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                 voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (Integer.parseInt(proposal.id) >= 3) {
+                        if (Integer.parseInt(proposal.id) >= 38) {
                             Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
                             voteIntent.putExtra("proposalId", proposal.id);
                             startActivity(voteIntent);

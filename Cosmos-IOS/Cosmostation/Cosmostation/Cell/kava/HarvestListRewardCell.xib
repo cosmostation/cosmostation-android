@@ -1,70 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="182" id="KGk-i7-Jjw" customClass="HarvestListRewardCell" customModule="Cosmostation" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="460" height="182"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="222" id="KGk-i7-Jjw" customClass="HarvestListRewardCell" customModule="Cosmostation" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="539" height="222"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="460" height="182"/>
+                <rect key="frame" x="0.0" y="0.0" width="539" height="222"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iMJ-Gx-BRe" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                        <rect key="frame" x="12" y="4" width="436" height="174"/>
+                        <rect key="frame" x="12" y="4" width="515" height="214"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Harvest LP Reward" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tT-eV-gpW">
-                                <rect key="frame" x="16" y="16" width="115" height="16"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Hard Incentive" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0tT-eV-gpW">
+                                <rect key="frame" x="16" y="16" width="88" height="16"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" ambiguous="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vi9-Xm-IA2">
-                                <rect key="frame" x="16" y="38" width="404" height="62.5"/>
-                                <string key="text">HARD reward for Harvest Liquidity Providers, accumulated every block!
-The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
+                                <rect key="frame" x="16" y="38" width="483" height="46.5"/>
+                                <string key="text">Hard pool incentive for users who provide liquidity to the hard pool or use loan.
+Depending on the type of coins you provide, you will receive either Hard or KAVA rewards.</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total LP Reward" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElC-8R-LqA">
-                                <rect key="frame" x="16" y="112.5" width="91" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Total Incentive" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ElC-8R-LqA">
+                                <rect key="frame" x="16" y="100.5" width="82.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nTL-7o-c3w">
-                                <rect key="frame" x="372.5" y="112.5" width="11.5" height="14.5"/>
+                                <rect key="frame" x="454.5" y="100.5" width="11.5" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="HARD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pw4-EC-RhL">
-                                <rect key="frame" x="386" y="112.5" width="34" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="KAVA" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pw4-EC-RhL">
+                                <rect key="frame" x="468" y="100.5" width="31" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" red="1" green="0.33725490196078434" blue="0.30980392156862746" alpha="1" colorSpace="deviceRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tkf-eH-gjD">
+                                <rect key="frame" x="451.5" y="123" width="11.5" height="14.5"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="HARD" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tVj-dc-rVv">
+                                <rect key="frame" x="465" y="123" width="34" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" red="0.52549019610000003" green="0.14901960780000001" blue="0.88235294119999996" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ScJ-tQ-BSa">
+                                <rect key="frame" x="16" y="154" width="483" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="dSW-0K-7Hc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                                <state key="normal" title="  Claim Incentive" image="incentiveIcs">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="0.69999999999999996"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="onClickReward:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="Mv5-99-fsX"/>
+                                </connections>
+                            </button>
                         </subviews>
-                        <color key="backgroundColor" red="0.1803921568627451" green="0.1803921568627451" blue="0.1803921568627451" alpha="0.39794234154929575" colorSpace="deviceRGB"/>
+                        <color key="backgroundColor" red="1" green="0.33725490196078434" blue="0.30980392156862746" alpha="0.15179357394366197" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0tT-eV-gpW" firstAttribute="top" secondItem="iMJ-Gx-BRe" secondAttribute="top" constant="16" id="02S-TB-4NG"/>
                             <constraint firstItem="nTL-7o-c3w" firstAttribute="centerY" secondItem="ElC-8R-LqA" secondAttribute="centerY" id="4HV-BL-Q1M"/>
+                            <constraint firstItem="ScJ-tQ-BSa" firstAttribute="leading" secondItem="iMJ-Gx-BRe" secondAttribute="leading" constant="16" id="4Sg-bb-cTM"/>
                             <constraint firstItem="ElC-8R-LqA" firstAttribute="top" secondItem="vi9-Xm-IA2" secondAttribute="bottom" constant="16" id="8di-ri-X4g"/>
                             <constraint firstAttribute="trailing" secondItem="vi9-Xm-IA2" secondAttribute="trailing" constant="16" id="93H-il-nth"/>
                             <constraint firstItem="pw4-EC-RhL" firstAttribute="centerY" secondItem="ElC-8R-LqA" secondAttribute="centerY" id="Fs6-LM-Rnr"/>
+                            <constraint firstItem="ScJ-tQ-BSa" firstAttribute="top" secondItem="tVj-dc-rVv" secondAttribute="bottom" constant="16" id="af2-GH-oqb"/>
+                            <constraint firstItem="tVj-dc-rVv" firstAttribute="top" secondItem="pw4-EC-RhL" secondAttribute="bottom" constant="8" symbolic="YES" id="bwH-Pm-8mF"/>
                             <constraint firstItem="vi9-Xm-IA2" firstAttribute="top" secondItem="0tT-eV-gpW" secondAttribute="bottom" constant="6" id="coB-3m-DAB"/>
-                            <constraint firstAttribute="bottom" secondItem="ElC-8R-LqA" secondAttribute="bottom" constant="20" id="dYW-sV-MIq"/>
                             <constraint firstAttribute="trailing" secondItem="pw4-EC-RhL" secondAttribute="trailing" constant="16" id="dqI-ld-Ncz"/>
+                            <constraint firstAttribute="trailing" secondItem="ScJ-tQ-BSa" secondAttribute="trailing" constant="16" id="fJ9-hp-eu9"/>
+                            <constraint firstItem="Tkf-eH-gjD" firstAttribute="centerY" secondItem="tVj-dc-rVv" secondAttribute="centerY" id="fRd-2T-ses"/>
+                            <constraint firstItem="tVj-dc-rVv" firstAttribute="leading" secondItem="Tkf-eH-gjD" secondAttribute="trailing" constant="2" id="i0v-jn-5uV"/>
                             <constraint firstItem="vi9-Xm-IA2" firstAttribute="leading" secondItem="0tT-eV-gpW" secondAttribute="leading" id="njq-Gl-KrF"/>
+                            <constraint firstAttribute="bottom" secondItem="ScJ-tQ-BSa" secondAttribute="bottom" constant="20" id="tPt-YY-Ene"/>
                             <constraint firstItem="pw4-EC-RhL" firstAttribute="leading" secondItem="nTL-7o-c3w" secondAttribute="trailing" constant="2" id="vWS-h1-eQG"/>
+                            <constraint firstItem="tVj-dc-rVv" firstAttribute="trailing" secondItem="pw4-EC-RhL" secondAttribute="trailing" id="ykB-p2-Bj9"/>
                             <constraint firstItem="0tT-eV-gpW" firstAttribute="leading" secondItem="iMJ-Gx-BRe" secondAttribute="leading" constant="16" id="z0Z-ay-Osb"/>
                             <constraint firstItem="ElC-8R-LqA" firstAttribute="leading" secondItem="iMJ-Gx-BRe" secondAttribute="leading" constant="16" id="zC3-xg-vsR"/>
                         </constraints>
@@ -98,9 +142,13 @@ The more assets you supply to Harvest Money Market, the more HARD rewards you ge
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
-                <outlet property="rewardSumAmount" destination="nTL-7o-c3w" id="uQ1-iU-K80"/>
+                <outlet property="hardIncentiveAmount" destination="Tkf-eH-gjD" id="0TS-cw-aYv"/>
+                <outlet property="kavaIncentiveAmount" destination="nTL-7o-c3w" id="r9V-Tj-tQQ"/>
             </connections>
-            <point key="canvasLocation" x="220.28985507246378" y="120.53571428571428"/>
+            <point key="canvasLocation" x="276.08695652173913" y="133.92857142857142"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="incentiveIcs" width="24" height="24"/>
+    </resources>
 </document>

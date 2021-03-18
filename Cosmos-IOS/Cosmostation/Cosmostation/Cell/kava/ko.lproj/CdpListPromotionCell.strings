@@ -1,6 +1,0 @@
-
-/* Class = "UILabel"; text = "Borrow USDX by depositing XRP, BTC, BNB as collateral.\n100% on-chain decentralized finance."; ObjectID = "HHy-PA-L99"; */
-"HHy-PA-L99.text" = "XRP, BTC, BNB를 담보로 \n스테이블코인 USDX를 발행할 수 있습니다.\n100% 온체인 분산화 금융 상품을 경험하세요.";
-
-/* Class = "UILabel"; text = "Create a Collateralized Debt Position"; ObjectID = "WtR-op-ptr"; */
-"WtR-op-ptr.text" = "CDP 계좌 생성";

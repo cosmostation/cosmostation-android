@@ -212,6 +212,10 @@ public class Msg {
         @SerializedName("multiplier_name")
         public String multiplier_name;
 
+        @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("borrower")
+        public String borrower;
+
 
 
         @JsonInclude(JsonInclude.Include.NON_NULL)

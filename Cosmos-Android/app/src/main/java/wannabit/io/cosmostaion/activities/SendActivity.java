@@ -56,7 +56,6 @@ public class SendActivity extends BaseActivity {
 
     public BnbToken                     mBnbToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
-    public String                       mKavaDenom;
     public String                       mIovDenom;
     public String                       mOkDenom;
     public String                       mCertikDenom;
@@ -84,7 +83,6 @@ public class SendActivity extends BaseActivity {
 
         mBnbToken = getIntent().getParcelableExtra("bnbToken");
         mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
-        mKavaDenom = getIntent().getStringExtra("kavaDenom");
         mIovDenom = getIntent().getStringExtra("iovDenom");
         mOkDenom = getIntent().getStringExtra("okDenom");
         mCertikDenom = getIntent().getStringExtra("certikDenom");
@@ -102,8 +100,6 @@ public class SendActivity extends BaseActivity {
             if (mBnbToken == null) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
             if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (TextUtils.isEmpty(mKavaDenom)) onBackPressed();
         } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {

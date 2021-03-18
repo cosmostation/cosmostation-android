@@ -31,7 +31,7 @@ final class BaseData : NSObject{
     
     
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
-    var mCdpParam: KavaCdpParam?
+//    var mCdpParam: KavaCdpParam?
     var mKavaPrice = [String:KavaPriceFeedPrice]()
     var mMyCdps = Array<CdpOwen>()
     var mIncentiveParam2: KavaIncentiveParam2?
@@ -39,7 +39,19 @@ final class BaseData : NSObject{
     var mHavestParam: KavaHavestParam?
     var mHavestDeposits = Array<KavaHavestDeposit.HavestDeposit>()
     var mHavestRewards = Array<KavaHavestReward.HavestReward>()
-    var mHardPrice: NSDecimalNumber = NSDecimalNumber.zero
+//    var mHardPrice: NSDecimalNumber = NSDecimalNumber.zero
+    
+    //kava-5
+    var mCdpParam: CdpParam?
+    var mHardParam: HardParam?
+    var mIncentiveParam: IncentiveParam?
+    var mIncentiveRewards: IncentiveReward?
+    var mMyHardDeposit: Array<HardMyDeposit>?
+    var mMyHardBorrow: Array<HardMyBorrow>?
+    var mModuleCoins: Array<Coin>?
+    var mReserveCoins: Array<Coin>?
+    
+    
     
     var mBnbTokenList = Array<BnbToken>()
     

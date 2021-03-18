@@ -161,13 +161,24 @@ public class BaseConstant {
     public final static int TASK_FETCH_KAVA_HARVEST_DEPOSIT             = 2104;
     public final static int TASK_FETCH_KAVA_HARVEST_REWARD              = 2105;
     public final static int TASK_FETCH_KAVA_HARVEST_ACCOUNT             = 2106;
-    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARVEST            = 2107;
-    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARVEST           = 2108;
+    public final static int TASK_GEN_TX_KAVA_DEPOSIT_HARD               = 2107;
+    public final static int TASK_GEN_TX_KAVA_WITHDRAW_HARD              = 2108;
     public final static int TASK_GEN_TX_KAVA_CLAIM_HARVEST              = 2109;
     public final static int TASK_FETCH_BAND_ORACLE_STATUS               = 2111;
     public final static int TASK_FETCH_MINT_PARAM                       = 2112;
     public final static int TASK_FETCH_OK_HISTORY                       = 2113;
     public final static int TASK_FETCH_OK_DEX_TICKERS                   = 2114;
+    public final static int TASK_FETCH_KAVA_AUCTION_PARAM               = 2115;
+    public final static int TASK_FETCH_KAVA_HARD_PARAM                  = 2116;
+    public final static int TASK_FETCH_KAVA_HARD_TOTAL_DEPOIST          = 2117;
+    public final static int TASK_FETCH_KAVA_HARD_TOTAL_BORROW           = 2118;
+    public final static int TASK_FETCH_KAVA_HARD_MY_DEPOSIT             = 2119;
+    public final static int TASK_FETCH_KAVA_HARD_MY_BORROW              = 2120;
+    public final static int TASK_FETCH_KAVA_HARD_INTEREST_RATE          = 2121;
+    public final static int TASK_FETCH_KAVA_HARD_RESERVES               = 2122;
+    public final static int TASK_FETCH_KAVA_HARD_MODULE_ACCOUNT         = 2123;
+    public final static int TASK_GEN_TX_KAVA_BORROW_HARD                = 2124;
+    public final static int TASK_GEN_TX_KAVA_REPAY_HARD                 = 2125;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;
@@ -305,9 +316,15 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
     public final static String KAVA_MSG_TYPE_INCENTIVE_REWARD               = "incentive/MsgClaimReward";
+    public final static String KAVA_MSG_TYPE_USDX_MINT_INCENTIVE            = "incentive/MsgClaimUSDXMintingReward";
+    public final static String KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE           = "incentive/MsgClaimHardReward";
     public final static String KAVA_MSG_TYPE_DEPOSIT_HAVEST                 = "harvest/MsgDeposit";
     public final static String KAVA_MSG_TYPE_WITHDRAW_HAVEST                = "harvest/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_CLAIM_HAVEST                   = "harvest/MsgClaimReward";
+    public final static String KAVA_MSG_TYPE_DEPOSIT_HARD                   = "hard/MsgDeposit";
+    public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "hard/MsgWithdraw";
+    public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
+    public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -378,9 +395,11 @@ public class BaseConstant {
     public final static int CONST_PW_TX_RENEW_DOMAIN                        = 5028;
     public final static int CONST_PW_TX_RENEW_ACCOUNT                       = 5029;
     public final static int CONST_PW_TX_REPLACE_STARNAME                    = 5030;
-    public final static int CONST_PW_TX_DEPOSIT_HARVEST                     = 5031;
-    public final static int CONST_PW_TX_WITHDRAW_HARVEST                    = 5032;
+    public final static int CONST_PW_TX_DEPOSIT_HARD                        = 5031;
+    public final static int CONST_PW_TX_WITHDRAW_HARD                       = 5032;
     public final static int CONST_PW_TX_CLAIM_HARVEST_REWARD                = 5033;
+    public final static int CONST_PW_TX_BORROW_HARD                         = 5034;
+    public final static int CONST_PW_TX_REPAY_HARD                          = 5035;
 
 
     public final static int TX_TYPE_UNKNOWN                     = 3000;
@@ -418,9 +437,11 @@ public class BaseConstant {
     public final static int TX_TYPE_STARNAME_REPLACE_RESOURCE   = 3032;
     public final static int TX_TYPE_STARNAME_RENEW_DOMAIN       = 3033;
     public final static int TX_TYPE_STARNAME_RENEW_ACCOUNT      = 3034;
-    public final static int TX_TYPE_KAVA_DEPOSIT_HARVEST        = 3035;
-    public final static int TX_TYPE_KAVA_WITHDRAW_HARVEST       = 3036;
+    public final static int TX_TYPE_KAVA_DEPOSIT_HARD           = 3035;
+    public final static int TX_TYPE_KAVA_WITHDRAW_HARD          = 3036;
     public final static int TX_TYPE_KAVA_CLAIM_HARVEST          = 3037;
+    public final static int TX_TYPE_KAVA_BORROW_HARD            = 3038;
+    public final static int TX_TYPE_KAVA_REPAY_HARD             = 3039;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
@@ -628,7 +649,7 @@ public class BaseConstant {
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
     public final static String EXPLORER_BINANCE_TEST    = "https://testnet-explorer.binance.org/";
-    public final static String EXPLORER_KAVA_TEST       = "https://kava-testnet-9000.mintscan.io/";
+    public final static String EXPLORER_KAVA_TEST       = "https://dev.mintscan.io/kava-testnet/";
     public final static String EXPLORER_OKEX_TEST       = "https://www.oklink.com/okexchain-test/";
     public final static String EXPLORER_CERTIK          = "https://explorer.certik.foundation/";
 

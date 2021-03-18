@@ -5,7 +5,7 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -24,7 +24,7 @@ public class KavaCdpParamTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResCdpParam> response = ApiClient.getKavaChain(mApp).getCdpParams().execute();
+                Response<ResKavaCdpParam> response = ApiClient.getKavaChain(mApp).getCdpParams().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
@@ -34,7 +34,7 @@ public class KavaCdpParamTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResCdpParam> response = ApiClient.getKavaTestChain(mApp).getCdpParams().execute();
+                Response<ResKavaCdpParam> response = ApiClient.getKavaTestChain(mApp).getCdpParams().execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

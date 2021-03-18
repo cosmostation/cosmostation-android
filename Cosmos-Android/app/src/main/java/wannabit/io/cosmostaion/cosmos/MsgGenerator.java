@@ -394,7 +394,9 @@ public class MsgGenerator {
             value.random_number_hash = WUtil.ByteArrayToHexString(Sha256.getSha256Digest().digest(originData)).toUpperCase();
             value.timestamp = String.valueOf(timestamp);
             value.amount = sendCoins;
-            value.height_span = "250";
+            //Check SPAN
+//            value.height_span = "250";
+            value.height_span = "24686";
 
             result.type = BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP;
             result.value = value;
@@ -491,7 +493,9 @@ public class MsgGenerator {
                 token.setAmount(sendAmount.longValue());
                 htltReq.setOutAmount(Collections.singletonList(token));
                 htltReq.setExpectedIncome(sendAmount.toPlainString() + ":" + toSendCoin.denom);
-                htltReq.setHeightSpan(10001);
+//                htltReq.setHeightSpan(10001);
+                //Check SPAN
+                htltReq.setHeightSpan(407547);
                 htltReq.setCrossChain(true);
             }
 
@@ -508,6 +512,19 @@ public class MsgGenerator {
             value.collateral_type = collateralType;
             value.multiplier_name = multiplierName;
             result.type = BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD;
+            result.value = value;
+
+        }
+        return result;
+    }
+
+    public static Msg genClaimUSDXMintingReward(String from, String multiplierName, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            value.sender = from;
+            value.multiplier_name = multiplierName;
+            result.type = BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE;
             result.value = value;
 
         }
@@ -545,6 +562,57 @@ public class MsgGenerator {
         value.multiplier_name = multiplierName;
         value.deposit_type = depositType;
         result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genClaimHardLiquidityProviderMsg(String sender, String multiplierName) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.sender = sender;
+        value.multiplier_name = multiplierName;
+        result.type = BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genDepositHardMsg(String depositor, ArrayList<Coin> coins, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.depositor = depositor;
+        value.amount = coins;
+        result.type = BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genWithdrawHardMsg(String depositor, ArrayList<Coin> coins, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.depositor = depositor;
+        value.amount = coins;
+        result.type = BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genBorrowHardMsg(String borrower, ArrayList<Coin> coins, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.borrower = borrower;
+        value.amount = coins;
+        result.type = BaseConstant.KAVA_MSG_TYPE_BORROW_HARD;
+        result.value = value;
+        return result;
+    }
+
+    public static Msg genRepayHardMsg(String sender, String owner, ArrayList<Coin> coins, BaseChain chain) {
+        Msg result  = new Msg();
+        Msg.Value value = new Msg.Value();
+        value.sender = sender;
+        value.owner = owner;
+        value.amount = coins;
+        result.type = BaseConstant.KAVA_MSG_TYPE_REPAY_HARD;
         result.value = value;
         return result;
     }
@@ -810,13 +878,13 @@ public class MsgGenerator {
         signatures.add(signature);
 
         StdTx signedTx = MsgGenerator.genStakeSignedTransferTx(msgs, fee, memo, signatures);
-//        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
+        WLog.w("signedTx : " +  WUtil.prettyPrinter(signedTx));
 
         ReqBroadCast reqBroadCast = new ReqBroadCast();
         reqBroadCast.returns = "sync";
         reqBroadCast.tx = signedTx.value;
 
-//        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
+        WLog.w("ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
 
 
         return reqBroadCast;

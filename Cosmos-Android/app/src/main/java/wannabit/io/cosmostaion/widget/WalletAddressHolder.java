@@ -21,7 +21,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 
-public class WalletAddressHolder extends WalletHolder {
+public class WalletAddressHolder extends BaseHolder {
     public CardView     itemRoot;
     public ImageView    itemKeyStatus;
     public ImageView    itemBtnWebLink;

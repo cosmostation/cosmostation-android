@@ -515,7 +515,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
                     hasbalance  = true;
                 }
-                intent.putExtra("kavaDenom", TOKEN_KAVA);
+                intent.putExtra("sendTokenDenom", TOKEN_KAVA);
 
             } else if (mBaseChain.equals(BAND_MAIN)) {
                 if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {

@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -98,8 +98,8 @@ public class DrawDebtCdpStep1Fragment extends BaseFragment implements View.OnCli
 
     }
 
-    private DrawDebtActivity getSActivity() {
-        return (DrawDebtActivity)getBaseActivity();
+    private BorrowCdpActivity getSActivity() {
+        return (BorrowCdpActivity)getBaseActivity();
     }
 
 }

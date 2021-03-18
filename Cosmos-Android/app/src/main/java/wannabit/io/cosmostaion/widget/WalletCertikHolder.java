@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 
-public class WalletCertikHolder extends WalletHolder {
+public class WalletCertikHolder extends BaseHolder {
     private TextView        mTvCertikTotal, mTvCertikValue, mTvCertikAvailable, mTvCertikDelegated, mTvCertikUnBonding, mTvCertikRewards;
     private RelativeLayout  mBtnCertikStake, mBtnCertikVote;
 

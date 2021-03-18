@@ -25,13 +25,14 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.DrawDebtActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.BorrowCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Confirm;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -350,23 +351,23 @@ public class DrawDebtCdpStep0Fragment extends BaseFragment implements View.OnCli
     }
 
 
-    private DrawDebtActivity getSActivity() {
-        return (DrawDebtActivity)getBaseActivity();
+    private BorrowCdpActivity getSActivity() {
+        return (BorrowCdpActivity)getBaseActivity();
     }
 
-    public ResCdpParam.Result getCDPParam() {
+    public CdpParam getCDPParam() {
         return getSActivity().mCdpParam;
     }
 
-    private ResCdpParam.KavaCollateralParam getCParam() {
+    private CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 
-    private ResCdpOwnerStatus.MyCDP getOwenCdp() {
-        return getSActivity().mMyOwenCdp;
+    private MyCdp getOwenCdp() {
+        return getSActivity().mMyCdp;
     }
 
-    private ResKavaMarketPrice.Result getPrice() {
+    private MarketPrice getPrice() {
         return getSActivity().mKavaTokenPrice;
     }
 

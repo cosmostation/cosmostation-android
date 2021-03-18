@@ -15,13 +15,13 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.ValidatorListActivity;
 import wannabit.io.cosmostaion.activities.VoteListActivity;
-import wannabit.io.cosmostaion.activities.chains.kava.DAppsListActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
-public class WalletKavaHolder extends WalletHolder {
+public class WalletKavaHolder extends BaseHolder {
     public TextView         mTvKavaTotal, mTvKavaValue, mTvKavaAvailable, mTvKavaDelegated, mTvKavaUnBonding, mTvKavaRewards;
     public RelativeLayout   mKavaVestingLayer, mKavaDepositLayer, mKavaIncentiveLayer;
     public TextView         mTvKavaVesting, mTvKavaDeposit, mTvKavaIncentive;
@@ -82,7 +82,6 @@ public class WalletKavaHolder extends WalletHolder {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("rewards", baseData.mRewards);
                 mainActivity.startActivity(validators);
             }
         });
@@ -96,7 +95,7 @@ public class WalletKavaHolder extends WalletHolder {
         mBtnKavaDapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivity.startActivity(new Intent(mainActivity, DAppsListActivity.class));
+                mainActivity.startActivity(new Intent(mainActivity, DAppsList5Activity.class));
             }
         });
     }

@@ -20,7 +20,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
-public class WalletSecretHolder extends WalletHolder {
+public class WalletSecretHolder extends BaseHolder {
     public TextView mTvSecretTotal, mTvSecretValue, mTvSecretAvailable, mTvSecretDelegated, mTvSecretUnBonding, mTvSecretRewards;
     public RelativeLayout mBtnStake, mBtnVote;
 

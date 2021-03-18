@@ -34,21 +34,7 @@ public class SingleStakingPoolTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(COSMOS_MAIN)) {
-//                Response<ResStakingPool> response = ApiClient.getCosmosChain(mApp).getStakingPool().execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if(response.body() != null) {
-//                    mResult.resultData = response.body();
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(KAVA_MAIN)) {
+            if (mChain.equals(KAVA_MAIN)) {
                 Response<ResStakingPool> response = ApiClient.getKavaChain(mApp).getStakingPool().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;

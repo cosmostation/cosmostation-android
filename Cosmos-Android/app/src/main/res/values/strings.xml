@@ -29,10 +29,9 @@
 
     <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
     <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
-    <string name="url_kava_faucet" translatable="false"></string>
 
-    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-4-test/</string>
-    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-4-test/</string>
+    <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-11000/</string>
+    <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-11000/</string>
     <string name="url_test_kava_faucet" translatable="false"></string>
 
 
@@ -60,8 +59,7 @@
     <string name="url_lcd_certik_test" translatable="false">https://lcd-certik-testnet3.cosmostation.io/</string>
     <string name="url_api_certik_test" translatable="false">https://api-certik-testnet3.cosmostation.io/</string>
 
-    <!--    <string name="url_lcd_secret" translatable="false">https://lcd-secret.cosmostation.io/</string>-->
-    <!--    <string name="url_lcd_secret" translatable="false">https://secret-2.node.enigma.co/</string>-->
+
     <string name="url_lcd_secret" translatable="false">https://api.secretnodes.org/</string>
     <string name="url_api_secret" translatable="false"></string>
 
@@ -170,7 +168,7 @@
     <string name="str_send_c">SEND</string>
     <string name="str_htlc_send_c"><![CDATA[Interchain Send & Claim]]></string>
     <string name="str_htlc_refund_c">Interchain Refund</string>
-    <string name="str_participate_incentive">Crypto Payday Participate</string>
+    <string name="str_participate_incentive">USDX Minting Incentive Claim</string>
     <string name="str_receive_c">RECEIVE</string>
     <string name="str_send">Send</string>
     <string name="str_receive">Receive</string>
@@ -573,7 +571,7 @@
     <string name="str_buy_kava">Buy KAVA</string>
     <string name="str_buy_band">Buy BAND</string>
     <string name="str_kava_testnet_msg"><![CDATA[This wallet is for KAVA testnet\n(KAVA tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use KAVA\'s Collateralized Debt Position (CDP) feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
-    <string name="str_kava_dapp"><![CDATA[CDP & Harvest]]> </string>
+    <string name="str_kava_dapp"><![CDATA[KAVA DeFi]]> </string>
     <string name="str_buy_without_key_msg">After purchase, your coins will be sent to this wallet. You do not currently have authority for the wallet, but would you like to continue purchasing?</string>
     <string name="str_buy_select_fiat_title">Select Fiat</string>
     <string name="str_buy_select_fiat_msg">Please select a currency to make a purchase.</string>
@@ -601,10 +599,12 @@
     <string name="str_okex_newpath_msg">OKex Chain support 2 types keys.\n\nSelect [Tendermint Type] if you want to use the type you used from Test Net, or [Ethermint Type] if you created it later.\n\nIf you mistakenly selected the wrong type, it will not affect your original Secret wallet. Simply press [Import Mnemonics] to re-select your type.</string>
     <string name="str_okex_old_type"><![CDATA[Tendermint Type Key]]></string>
     <string name="str_okex_new_type"><![CDATA[Ethermint(Default) Type Key]]></string>
-    <string name="str_kava_cdp_list">CDP Market</string>
+    <string name="str_kava_cdp_list">CDP</string>
     <string name="str_kava_cdp_details">CDP Status</string>
-    <string name="str_kava_harvest_list">Harvest Market</string>
-    <string name="str_kava_harvest_details">Harvest Status</string>
+    <string name="str_kava_auction_list">Auction</string>
+    <string name="str_kava_auction_details">Auction Status</string>
+    <string name="str_kava_harvest_list">Hard Pool</string>
+    <string name="str_kava_harvest_details">Hard Pool Status</string>
     <string name="str_my_cdps">My CDP</string>
     <string name="str_all_cdps">All Products</string>
     <string name="str_press_select_recipient_account">Select Recipient Account</string>
@@ -624,6 +624,7 @@
     <string name="str_warn_testnet_title">Testnet Warning</string>
     <string name="str_warn_testnet_msg"><![CDATA[This wallet is for testnet\n(Tokens in this wallet have NO value).\n\nCosmostation supports this testnet to give users the opportunity to use new feature before being released on Mainnet. Please note that support for this testnet can be discontinued at any time.]]></string>
     <string name="str_interchain">Interchain Transfer</string>
+    <string name="str_bep3_send">BEP3 Send</string>
     <string name="str_to_swap_coin">Send Coin</string>
     <string name="str_source_chain">Source Chain</string>
     <string name="str_destination_chain">Destination Chain</string>
@@ -639,7 +640,7 @@
     <string name="str_swapId">SwapId</string>
     <string name="str_refund_amount">Refund Amount</string>
     <string name="str_refund_to">Refund To</string>
-    <string name="str_incentive_amount">Participate Reward</string>
+    <string name="str_incentive_amount">Incentive Reward</string>
     <string name="str_participator">Participator</string>
     <string name="str_this_total_reward">This Round Total Reward</string>
     <string name="str_lock_time">Lock Time</string>
@@ -704,8 +705,10 @@
     <string name="str_btn_text_deposit">Deposit %1$s</string>
     <string name="str_btn_text_withdraw">Withdraw %1$s</string>
     <string name="str_my_available_assets">My Available Assets</string>
-    <string name="str_kava_incentive_title">Crypto Payday</string>
+    <string name="str_kava_incentive_title">USDX Minting Incentive</string>
     <string name="str_kava_incentive_msg">KAVA incentive for users who deposit assets to create CDPs and mint USDX, distributed weekly!\nThe more USDX you mint, the more KAVA rewards you get.</string>
+    <string name="str_kava_hard_incentive_title">Hard Incentive</string>
+    <string name="str_kava_hard_incentive_msg">Hard pool incentive for users who provide liquidity to the hard pool or use loan.\nDepending on the type of coins you provide, you will receive either Hard or KAVA rewards.</string>
     <string name="str_kava_participate">Participate</string>
     <string name="str_kava_participate_done">Participation Complete!!</string>
 
@@ -820,11 +823,12 @@
     <string name="str_incentive_participate_step_1">Insert memo (optional)</string>
     <string name="str_incentive_participate_step_2">Select transaction fee</string>
     <string name="str_incentive_participate_step_3">Check transaction detail</string>
-    <string name="str_claim_harvest_reward">Claim Harvest Reward</string>
-    <string name="str_harvest_reward_step_0">Select harvest reward option</string>
+    <string name="str_claim_harvest_reward">Claim Hard Incentive</string>
+    <string name="str_harvest_reward_step_0">Select hard pool incentive option</string>
     <string name="str_harvest_reward_step_1">Insert memo (optional)</string>
     <string name="str_harvest_reward_step_2">Select transaction fee</string>
     <string name="str_harvest_reward_step_3">Check transaction detail</string>
+    <string name="str_borrower">Borrower</string>
 
 
     <string name="str_main_wallet">WALLET</string>
@@ -997,7 +1001,7 @@
     <string name="str_vesting_title">Vesting Account</string>
     <string name="str_vesting_msg">Your account looks vesting account, We suggest using cli commnad delegate and undelegate tx for correct amount.</string>
     <string name="str_ready_to_quite">Press again to cancel.</string>
-    <string name="str_vesting_amount">Vesting (Delegable)</string>
+    <string name="str_vesting_amount">Vesting (Only Delegable)</string>
     <string name="str_htlc_warn_title">BEP3 Swap Notice</string>
     <string name="str_htlc_warn_msg">BEP3 transactions are handled by two networks on both ends of the interchain transfer<![CDATA[ & ]]>a relayer in between. \nCosmostation supports BEP3 transactions, but does not guarantee the stability of the network and success of the transaction. If your transaction fails, please make an inquiry on the network community channel.\n\nShould the BEP3 transaction fail, your tokens can be returned in full through the [Refund] function activated in your transaction history.</string>
     <string name="str_cdp_warn_title">CDP Notice</string>
@@ -1100,6 +1104,8 @@
     <string name="str_deposit_type">Deposit Type</string>
     <string name="str_deposit_amount2">Deposit Amount</string>
     <string name="str_withdraw_amount2">Withdraw Amount</string>
+    <string name="str_borrow_amount">Borrow Amount</string>
+    <string name="str_repay_amount">Repay Amount</string>
     <string name="str_coin_type">Coin Type</string>
     <string name="str_multiplier_name">Multiplier Name</string>
     <string name="str_total_incentive">Total Incentive</string>
@@ -1110,24 +1116,38 @@
     <string name="str_hard_for_delegator_title">HARD reward for KAVA delegator</string>
     <string name="str_harvest_markets">Harvest Markets</string>
     <string name="str_deposited_amount">Deposited Amount</string>
-    <string name="str_my_deposited_amount">My Deposited Amount</string>
+    <string name="str_my_deposited_amount">My Supplied Amount</string>
+    <string name="str_my_borrowed_amount">My Borrowed Amount</string>
+    <string name="str_my_borrowable_amount">My Borrowable Amount</string>
     <string name="str_lp_reward_title">Harvest LP Reward</string>
     <string name="str_lp_reward_msg">HARD reward for Harvest Liquidity Providers, accumulated every block! The more assets you supply to Harvest Money Market, the more HARD rewards you get.</string>
     <string name="str_total_lp_reward">Total LP Reward</string>
     <string name="str_my_total_lp_reward">My Total LP Reward</string>
     <string name="str_start_deposit">Start Deposit</string>
-    <string name="str_total_deposited_supplies">Total Pool Supply</string>
-    <string name="str_my_harvest_information">My Harvest Information</string>
-    <string name="str_deposit_harvest">Harvest Deposit</string>
-    <string name="str_withdraw_harvest">Harvest Withdraw</string>
-    <string name="str_deposit_harvest_step_1">Enter harvest deposit amount</string>
+    <string name="str_total_deposited_supplies">System Total Supplied</string>
+    <string name="str_total_borrowed_supplies">System Total Borrowed</string>
+    <string name="str_total_remain_supplies">System Remaining Borrowable</string>
+    <string name="str_my_harvest_information">My Hard Pool</string>
+    <string name="str_deposit_harvest">Deposit Hard Pool Supply</string>
+    <string name="str_withdraw_harvest">Withdraw Hard Pool</string>
+    <string name="str_borrow_hard">Borrow from Hard Pool</string>
+    <string name="str_repay_hard">Repay to Hard Pool</string>
+    <string name="str_deposit_harvest_step_1">Enter deposit amount to supply</string>
     <string name="str_deposit_harvest_step_2">Insert memo (optional)</string>
     <string name="str_deposit_harvest_step_3">Select transaction fee</string>
     <string name="str_deposit_harvest_step_4">Check transaction detail</string>
-    <string name="str_withdraw_harvest_step_1">Enter harvest withdrawal amount</string>
+    <string name="str_withdraw_harvest_step_1">Enter hard pool withdrawal amount</string>
     <string name="str_withdraw_harvest_step_2">Insert memo (optional)</string>
     <string name="str_withdraw_harvest_step_3">Select transaction fee</string>
     <string name="str_withdraw_harvest_step_4">Check transaction detail</string>
+    <string name="str_borrow_hard_step_1">Enter borrow amount</string>
+    <string name="str_borrow_hard_step_2">Insert memo (optional)</string>
+    <string name="str_borrow_hard_step_3">Select transaction fee</string>
+    <string name="str_borrow_hard_step_4">Check transaction detail</string>
+    <string name="str_reapy_hard_step_1">Enter repay amount</string>
+    <string name="str_reapy_hard_step_2">Insert memo (optional)</string>
+    <string name="str_reapy_hard_step_3">Select transaction fee</string>
+    <string name="str_reapy_hard_step_4">Check transaction detail</string>
     <string name="str_claim_incentive">Claim Incentive</string>
     <string name="str_lock_up">Lock up</string>
     <string name="str_receivable">Receivable</string>
@@ -1148,6 +1168,19 @@
     <string name="str_starname_walletconnect_complete">Export Complete</string>
     <string name="str_ok_promotion_title">START VOTING FOR VALIDATORS</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
+    <string name="str_total_deposit_value">Total Deposit Value</string>
+    <string name="str_ltv_value">Max Borrowable Value(LTV)</string>
+    <string name="str_total_borrowed_value">Total Borrowed Value</string>
+    <string name="str_borrow_limit_value">Remaining Borrowable Value</string>
+    <string name="str_supply_apy">Supply APY</string>
+    <string name="str_borrow_apy">Borrow APY</string>
+    <string name="str_supply_incentive_apy">Incentive Supply APY</string>
+    <string name="str_borrow_incentive_apy">Incentive Borrow APY</string>
+    <string name="str_add_supply">Supply</string>
+    <string name="str_get_borrow">Borrow</string>
+    <string name="str_get_repay">Repay</string>
+    <string name="str_hard_withdraw_warn_title">Confirm Hard Pool Liquidation Risk</string>
+    <string name="str_hard_withdraw_warn_msg">Please note that there may be risk of liquidation if your LTV(loan-to-value) exceeds maximum value. Confirm your Remaining Borrowable Value to check your LTV before sending this transaction.\nIf your Remaining Borrowable Value goes below 0, your position may be liquidated.</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1237,8 +1270,11 @@
     <string name="error_no_wallet_this_chain">Not wallet for this chain.</string>
     <string name="error_no_address_added">Please enter at least 1 address.</string>
     <string name="error_cannot_delete_open_domain">Can not delete open domain.</string>
-    <string name="error_no_available_to_deposit">No assets to deposit.</string>
-    <string name="error_no_deposited_asset">No deposited asset.</string>
+    <string name="error_no_available_to_deposit">No assets to supply.</string>
+    <string name="error_no_deposited_asset">No supplied asset.</string>
+    <string name="error_no_borrowable_asset">Can not borrowable now.</string>
+    <string name="error_no_repay_asset">Can not repay now.</string>
+    <string name="error_noting_repay_asset">Noting to be repaid</string>
     <string name="error_no_incentive_to_claim">No incentive to claim.</string>
     <string name="error_no_harvest_reward_to_claim">No harvest reward to claim.</string>
     <string name="error_no_incentive_claim_option">Select incentive claim option.</string>
@@ -1248,6 +1284,7 @@
     <string name="error_no_delegated_amount">No Delegated Amount.</string>
     <string name="error_no_more_today">No More Today.</string>
     <string name="error_no_address_export">No Address for Export.</string>
+    <string name="error_remain_borrow_small">Remain borrow amount less than $10</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>
@@ -1289,7 +1326,7 @@
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
     <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>
     <string name="tx_kava_withdraw_cdp">CDP\nWithdraw</string>
-    <string name="tx_kava_drawdebt_cdp">CDP\nDraw Debt</string>
+    <string name="tx_kava_drawdebt_cdp">CDP\nBorrow</string>
     <string name="tx_kava_repaydebt_cdp">CDP\nRepay</string>
     <string name="tx_send_htlc">Interchain\nSend</string>
     <string name="tx_receive_htlc">Interchain\nReceive</string>
@@ -1299,15 +1336,17 @@
     <string name="tx_kava_bep3_create">Interchain\nSend</string>
     <string name="tx_kava_bep3_claim">Interchain\nClaim</string>
     <string name="tx_kava_bep3_refund">Interchain\nRefund</string>
-    <string name="tx_kava_incentive_reward">Crypto Payday\nIncentive</string>
-    <string name="tx_kava_harvest_deposit">Harvest\nDeposit</string>
-    <string name="tx_kava_harvest_withdraw">Harvest\nWithdraw</string>
-    <string name="tx_kava_harvest_claim">Harvest\nGet Reward</string>
+    <string name="tx_kava_incentive_reward">USDX Minting\nIncentive</string>
+    <string name="tx_kava_hard_deposit">Hard Pool\nDeposit</string>
+    <string name="tx_kava_hard_withdraw">Hard Pool\nWithdraw</string>
+    <string name="tx_kava_hard_borrow">Hard Pool\nBorrow</string>
+    <string name="tx_kava_hard_repay">Hard Pool\nRepay</string>
+    <string name="tx_kava_harvest_claim">Hard Pool\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
     <string name="tx_kava_withdraw_cdp2">CDP Withdraw</string>
-    <string name="tx_kava_drawdebt_cdp2">CDP Draw Debt</string>
+    <string name="tx_kava_drawdebt_cdp2">CDP Borrow</string>
     <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
     <string name="tx_send_htlc2">Interchain Send</string>
     <string name="tx_receive_htlc2">Interchain Receive</string>
@@ -1317,10 +1356,12 @@
     <string name="tx_kava_bep3_create2">Interchain Send</string>
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
-    <string name="tx_kava_incentive_reward2">Crypto Payday Incentive</string>
-    <string name="tx_kava_harvest_deposit2">Deposit Harvest</string>
-    <string name="tx_kava_harvest_withdraw2">Withdraw Harvest</string>
-    <string name="tx_kava_harvest_claim2">Claim Harvest Reward</string>
+    <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
+    <string name="tx_kava_hard_deposit2">Hard Pool Deposit</string>
+    <string name="tx_kava_hard_withdraw2">Hard Pool Withdraw</string>
+    <string name="tx_kava_hard_borrow2">Hard Pool Borrow</string>
+    <string name="tx_kava_hard_repay2">Hard Pool Repay</string>
+    <string name="tx_kava_harvest_claim2">Hard Pool Incentive</string>
 
 
     <string name="tx_starname_registe_domain">Register Domain</string>

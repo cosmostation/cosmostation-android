@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.widget.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.WalletCertikHolder;
 import wannabit.io.cosmostaion.widget.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.WalletGuideHolder;
-import wannabit.io.cosmostaion.widget.WalletHolder;
+import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.WalletKavaHolder;
 import wannabit.io.cosmostaion.widget.WalletMintHolder;
@@ -44,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -164,7 +165,7 @@ public class MainSendFragment extends BaseFragment {
         return (MainActivity)getBaseActivity();
     }
 
-    private class MainWalletAdapter extends RecyclerView.Adapter<WalletHolder> {
+    private class MainWalletAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_ADDRESS           = 0;
         private static final int TYPE_COSMOS            = 1;
         private static final int TYPE_IRIS              = 2;
@@ -184,7 +185,7 @@ public class MainSendFragment extends BaseFragment {
 
         @NonNull
         @Override
-        public WalletHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+        public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
             if (viewType == TYPE_ADDRESS) {
                 return new WalletAddressHolder(getLayoutInflater().inflate(R.layout.item_wallet_address, viewGroup, false));
 
@@ -235,7 +236,7 @@ public class MainSendFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull WalletHolder viewHolder, int position) {
+        public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
             viewHolder.onBindHolder(getMainActivity());
         }
 
@@ -275,7 +276,7 @@ public class MainSendFragment extends BaseFragment {
                 } else if (position == 1) {
                     if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
                     else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
-                    else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) { return TYPE_KAVA; }
+                    else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) { return TYPE_KAVA; }
                     else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }

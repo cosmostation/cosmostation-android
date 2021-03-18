@@ -21,7 +21,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 
-public class WalletStarnameHolder extends WalletHolder {
+public class WalletStarnameHolder extends BaseHolder {
     public TextView mTvIovTotal, mTvIovValue, mTvIovAvailable, mTvIovDelegated, mTvIovUnBonding, mTvIovRewards;
     public RelativeLayout mBtnStake, mBtnVote, mBtnStarname;
 

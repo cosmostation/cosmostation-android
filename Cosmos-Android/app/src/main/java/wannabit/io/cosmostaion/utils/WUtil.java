@@ -61,17 +61,20 @@ import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.Vote_V1;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
+import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
+import wannabit.io.cosmostaion.model.kava.HardParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.IrisProposal;
 import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -138,6 +141,18 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
@@ -226,7 +241,7 @@ public class WUtil {
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if (lcd.result != null && lcd.height != null) {
+        if (lcd != null && lcd.result != null && lcd.height != null) {
             if(lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                     lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
@@ -307,7 +322,7 @@ public class WUtil {
     public static ArrayList<Balance> getBalancesFromKavaLcd(long accountId, ResLcdKavaAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
-        if (lcd.result != null && lcd.height != null) {
+        if (lcd != null && lcd.result != null && lcd.height != null) {
             if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
@@ -331,6 +346,11 @@ public class WUtil {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
                         if (coin.denom.equals(TOKEN_KAVA)) {
+                            dpBalance = BigDecimal.ZERO;
+                            dpVesting = BigDecimal.ZERO;
+                            originalVesting = BigDecimal.ZERO;
+                            remainVesting = BigDecimal.ZERO;
+                            delegatedVesting = BigDecimal.ZERO;
                             dpBalance = new BigDecimal(coin.amount);
 
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
@@ -379,6 +399,11 @@ public class WUtil {
 
 
                         } else if (coin.denom.equals(TOKEN_HARD)) {
+                            dpBalance = BigDecimal.ZERO;
+                            dpVesting = BigDecimal.ZERO;
+                            originalVesting = BigDecimal.ZERO;
+                            remainVesting = BigDecimal.ZERO;
+                            delegatedVesting = BigDecimal.ZERO;
                             dpBalance = new BigDecimal(coin.amount);
 
                             if (lcd.result.value.original_vesting != null && lcd.result.value.original_vesting.size() > 0) {
@@ -390,9 +415,7 @@ public class WUtil {
                             }
                             WLog.w("hard dpBalance " +  dpBalance);
                             WLog.w("hard originalVesting " +  originalVesting);
-
                             remainVesting = lcd.result.value.getCalcurateVestingAmountSumByDenom(TOKEN_HARD);
-                            WLog.w("hard remainVesting " +  remainVesting);
 
                             dpBalance = dpBalance.subtract(remainVesting);
                             WLog.w("hard dpBalancee " +  dpBalance);
@@ -1136,18 +1159,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingIrisProposal(ArrayList<IrisProposal> proposals) {
-        Collections.sort(proposals, new Comparator<IrisProposal>() {
-            @Override
-            public int compare(IrisProposal o1, IrisProposal o2) {
-                if (Integer.parseInt(o1.value.basicProposal.proposal_id) < Integer.parseInt(o2.value.basicProposal.proposal_id)) return 1;
-                else if (Integer.parseInt(o1.value.basicProposal.proposal_id) > Integer.parseInt(o2.value.basicProposal.proposal_id)) return -1;
-                else return 0;
-
-            }
-        });
-    }
-
     public static void onSortingGrpcProposals(ArrayList<Gov.Proposal> proposals) {
         Collections.sort(proposals, new Comparator<Gov.Proposal>() {
             @Override
@@ -1166,41 +1177,6 @@ public class WUtil {
                 if (Integer.parseInt(o1.proposal_id) < Integer.parseInt(o2.proposal_id)) return 1;
                 else if (Integer.parseInt(o1.proposal_id) > Integer.parseInt(o2.proposal_id)) return -1;
                 else return 0;
-            }
-        });
-    }
-
-
-    public static void onSortIrisByReward(ArrayList<Validator> validators, final ResLcdIrisReward reward) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal rewardO1 = reward.getPerValReward(o1.operator_address);
-                BigDecimal rewardO2 = reward.getPerValReward(o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
-    public static void onSortIrisOnlyByReward(ArrayList<Validator> validators, final ResLcdIrisReward reward) {
-        Collections.sort(validators, new Comparator<Validator>() {
-            @Override
-            public int compare(Validator o1, Validator o2) {
-
-                BigDecimal rewardO1 = reward.getPerValReward(o1.operator_address);
-                BigDecimal rewardO2 = reward.getPerValReward(o2.operator_address);
-                return rewardO2.compareTo(rewardO1);
             }
         });
     }
@@ -1326,7 +1302,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortingKavaTokenByValue(BaseData baseData, ArrayList<Balance> balances) {
+    public static void onSortingKavaTokenByValue(BaseChain chain, BaseData baseData, ArrayList<Balance> balances) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
@@ -1335,8 +1311,8 @@ public class WUtil {
 
                 BigDecimal amount1 = WDp.getKavaTokenAll(baseData, balances, o1.symbol);
                 BigDecimal amount2 = WDp.getKavaTokenAll(baseData, balances, o2.symbol);
-                BigDecimal value1 = WDp.kavaTokenDollorValue(baseData, o1.symbol, amount1);
-                BigDecimal value2 = WDp.kavaTokenDollorValue(baseData, o2.symbol, amount2);
+                BigDecimal value1 = WDp.kavaTokenDollorValue(chain, baseData, o1.symbol, amount1);
+                BigDecimal value2 = WDp.kavaTokenDollorValue(chain, baseData, o2.symbol, amount2);
 
                 return value2.compareTo(value1);
             }
@@ -1495,9 +1471,9 @@ public class WUtil {
         return result;
     }
 
-    public static ResCdpParam.KavaCollateralParam getCdpCoinParm(ResCdpParam.Result params, Balance balance) {
+    public static CollateralParam getCdpCoinParm(CdpParam params, Balance balance) {
         if (params != null) {
-            for (ResCdpParam.KavaCollateralParam param:params.collateral_params) {
+            for (CollateralParam param:params.collateral_params) {
                 if (param.denom.equals(balance.symbol)) {
                     return param;
                 }
@@ -1509,7 +1485,7 @@ public class WUtil {
         }
     }
 
-    public static int getKavaCoinDecimal(ResCdpParam.Result params, Balance balance) {
+    public static int getKavaCoinDecimal(CdpParam params, Balance balance) {
         int result = 0;
         if (params != null) {
             if (params.debt_param != null) {
@@ -1517,7 +1493,7 @@ public class WUtil {
             }
 
             if (params.collateral_params != null) {
-                for (ResCdpParam.KavaCollateralParam collateralParams: params.collateral_params) {
+                for (CollateralParam collateralParams: params.collateral_params) {
                     if (collateralParams.denom.equals(balance.symbol)) {
                         return Integer.parseInt(collateralParams.conversion_factor);
                     }
@@ -1533,7 +1509,7 @@ public class WUtil {
             return 6;
         } else if (coin.denom.equalsIgnoreCase(TOKEN_HARD)) {
             return 6;
-        } else if (coin.denom.equalsIgnoreCase("xrpb")) {
+        } else if (coin.denom.equalsIgnoreCase("xrpb") || coin.denom.equalsIgnoreCase("xrbp")) {
             return 8;
         } else if (coin.denom.equalsIgnoreCase("btc")) {
             return 8;
@@ -1555,7 +1531,7 @@ public class WUtil {
             return 6;
         } else if (denom.equalsIgnoreCase(TOKEN_HARD)) {
             return 6;
-        } else if (denom.equalsIgnoreCase("xrpb")) {
+        } else if (denom.equalsIgnoreCase("xrpb") || denom.equalsIgnoreCase("xrbp")) {
             return 8;
         } else if (denom.equalsIgnoreCase("btc")) {
             return 8;
@@ -2210,6 +2186,277 @@ public class WUtil {
 
         }
         return BigDecimal.ZERO;
+    }
+
+
+    public static BigDecimal getHardSuppliedAmountByDenom(Context context, BaseData baseData, String denom, ArrayList<HardMyDeposit> myDeposit) {
+        BigDecimal myDepositAmount = BigDecimal.ZERO;
+        if (myDeposit != null && myDeposit.size() > 0) {
+            for (Coin coin: myDeposit.get(0).amount) {
+                if (coin.denom.equals(denom)) {
+                    myDepositAmount = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        return myDepositAmount;
+    }
+
+    public static BigDecimal getHardSuppliedValueByDenom(Context context, BaseData baseData, String denom, ArrayList<HardMyDeposit> myDeposit) {
+        final BigDecimal denomPrice = getKavaPrice(baseData, denom);
+        final int decimal           = WUtil.getKavaCoinDecimal(denom);
+        return (getHardSuppliedAmountByDenom(context, baseData, denom, myDeposit)).movePointLeft(decimal).multiply(denomPrice);
+    }
+
+    public static BigDecimal getHardBorrowedAmountByDenom(Context context, BaseData baseData, String denom, ArrayList<HardMyBorrow> myBorrow) {
+        BigDecimal myBorrowedAmount = BigDecimal.ZERO;
+        if (myBorrow != null && myBorrow.size() > 0) {
+            for (Coin coin: myBorrow.get(0).amount) {
+                if (coin.denom.equals(denom)) {
+                    myBorrowedAmount = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        return myBorrowedAmount;
+    }
+
+    public static BigDecimal getHardBorrowedValueByDenom(Context context, BaseData baseData, String denom, ArrayList<HardMyBorrow> myBorrow) {
+        final BigDecimal denomPrice = getKavaPrice(baseData, denom);
+        final int decimal           = WUtil.getKavaCoinDecimal(denom);
+        return (getHardBorrowedAmountByDenom(context, baseData, denom, myBorrow)).movePointLeft(decimal).multiply(denomPrice);
+
+    }
+
+    public static BigDecimal getHardBorrowableAmountByDenom (Context context, BaseData baseData, String denom, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
+        BigDecimal totalLTVValue            = BigDecimal.ZERO;
+        BigDecimal totalBorrowedValue       = BigDecimal.ZERO;
+        BigDecimal totalBorrowAbleValue     = BigDecimal.ZERO;
+        BigDecimal totalBorrowAbleAmount    = BigDecimal.ZERO;
+
+        BigDecimal SystemBorrowableAmount   = BigDecimal.ZERO;
+        BigDecimal SystemBorrowableValue    = BigDecimal.ZERO;
+        BigDecimal moduleAmount             = BigDecimal.ZERO;
+        BigDecimal reserveAmount            = BigDecimal.ZERO;
+
+
+        final HardParam hardParam                       = baseData.mHardParam;
+        final HardParam.HardMoneyMarket hardMoneyMarket = hardParam.getHardMoneyMarket(denom);
+        final BigDecimal denomPrice                     = getKavaPrice(baseData, denom);
+        final int decimal                               =  WUtil.getKavaCoinDecimal(denom);
+
+        if (myDeposit != null && myDeposit.size() > 0) {
+            for (Coin coin: myDeposit.get(0).amount) {
+                int innnerDecimal       = WUtil.getKavaCoinDecimal(coin.denom);
+                BigDecimal LTV          = hardParam.getLTV(coin.denom);
+                BigDecimal depositValue = BigDecimal.ZERO;
+                BigDecimal ltvValue     = BigDecimal.ZERO;
+//                if (coin.denom.equals("usdx") || coin.denom.equals("busd")) {
+                if (coin.denom.equals("usdx")) {
+                    depositValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal);
+
+                } else {
+                    BigDecimal innerPrice = getKavaPrice(baseData, coin.denom);
+                    depositValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal).multiply(innerPrice);
+
+                }
+                ltvValue = depositValue.multiply(LTV);
+                totalLTVValue = totalLTVValue.add(ltvValue);
+
+            }
+        }
+
+        if (myBorrow != null && myBorrow.size() > 0) {
+            for (Coin coin: myBorrow.get(0).amount) {
+                int innnerDecimal   = WUtil.getKavaCoinDecimal(coin.denom);
+                BigDecimal borrowedValue    = BigDecimal.ZERO;
+//                if (coin.denom.equals("usdx") || coin.denom.equals("busd")) {
+                if (coin.denom.equals("usdx")) {
+                    borrowedValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal);
+
+                } else {
+                    BigDecimal innerPrice = getKavaPrice(baseData, coin.denom);
+                    borrowedValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal).multiply(innerPrice);
+
+                }
+                totalBorrowedValue = totalBorrowedValue.add(borrowedValue);
+            }
+        }
+        totalBorrowAbleValue = (totalLTVValue.subtract(totalBorrowedValue)).max(BigDecimal.ZERO);
+        totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal).divide(denomPrice, decimal, RoundingMode.DOWN);
+//        WLog.w("totalBorrowAbleAmount " +  totalBorrowAbleAmount);
+
+        if (moduleCoins != null) {
+            for (Coin coin: moduleCoins) {
+                if (coin.denom.equals(denom)) {
+                    moduleAmount = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        if (reserveCoin != null) {
+            for (Coin coin: reserveCoin) {
+                if (coin.denom.equals(denom)) {
+                    reserveAmount = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        BigDecimal moduleBorrowable = moduleAmount.subtract(reserveAmount);
+        if (hardMoneyMarket.borrow_limit.has_max_limit) {
+            SystemBorrowableAmount = new BigDecimal(hardMoneyMarket.borrow_limit.maximum_limit).min(moduleBorrowable);
+        } else {
+            SystemBorrowableAmount = moduleBorrowable;
+        }
+        SystemBorrowableValue = SystemBorrowableAmount.movePointLeft(decimal).multiply(denomPrice);
+//        WLog.w("SystemBorrowableAmount " +  SystemBorrowableAmount);
+
+//        BigDecimal finalBorrowableValue = totalBorrowAbleValue.min(SystemBorrowableValue);
+        BigDecimal finalBorrowableAmount = totalBorrowAbleAmount.min(SystemBorrowableAmount);
+
+        return finalBorrowableAmount;
+    }
+
+    public static BigDecimal getHardBorrowableValueByDenom (Context context, BaseData baseData, String denom, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow, ArrayList<Coin> moduleCoins, ArrayList<Coin> reserveCoin) {
+        BigDecimal totalLTVValue            = BigDecimal.ZERO;
+        BigDecimal totalBorrowedValue       = BigDecimal.ZERO;
+        BigDecimal totalBorrowAbleValue     = BigDecimal.ZERO;
+        BigDecimal totalBorrowAbleAmount    = BigDecimal.ZERO;
+
+        BigDecimal SystemBorrowableAmount   = BigDecimal.ZERO;
+        BigDecimal SystemBorrowableValue    = BigDecimal.ZERO;
+        BigDecimal moduleAmount             = BigDecimal.ZERO;
+        BigDecimal reserveAmount            = BigDecimal.ZERO;
+
+
+        final HardParam hardParam                       = baseData.mHardParam;
+        final HardParam.HardMoneyMarket hardMoneyMarket = hardParam.getHardMoneyMarket(denom);
+        final BigDecimal denomPrice                     = getKavaPrice(baseData, denom);
+        final int decimal                               =  WUtil.getKavaCoinDecimal(denom);
+
+        if (myDeposit != null && myDeposit.size() > 0) {
+            for (Coin coin: myDeposit.get(0).amount) {
+                int innnerDecimal       = WUtil.getKavaCoinDecimal(coin.denom);
+                BigDecimal LTV          = hardParam.getLTV(coin.denom);
+                BigDecimal depositValue = BigDecimal.ZERO;
+                BigDecimal ltvValue     = BigDecimal.ZERO;
+//                if (coin.denom.equals("usdx") || coin.denom.equals("busd")) {
+                if (coin.denom.equals("usdx")) {
+                    depositValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal);
+
+                } else {
+                    BigDecimal innerPrice = getKavaPrice(baseData, coin.denom);
+                    depositValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal).multiply(innerPrice);
+
+                }
+                ltvValue = depositValue.multiply(LTV);
+                totalLTVValue = totalLTVValue.add(ltvValue);
+
+            }
+        }
+//        WLog.w("totalLTVValue " + totalLTVValue);
+
+        if (myBorrow != null && myBorrow.size() > 0) {
+            for (Coin coin: myBorrow.get(0).amount) {
+                int innnerDecimal           = WUtil.getKavaCoinDecimal(coin.denom);
+                BigDecimal borrowedValue    = BigDecimal.ZERO;
+//                if (coin.denom.equals("usdx") || coin.denom.equals("busd")) {
+                if (coin.denom.equals("usdx")) {
+                    borrowedValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal);
+
+                } else {
+                    BigDecimal innerPrice = getKavaPrice(baseData, coin.denom);
+                    borrowedValue = (new BigDecimal(coin.amount)).movePointLeft(innnerDecimal).multiply(innerPrice);
+
+                }
+                totalBorrowedValue = totalBorrowedValue.add(borrowedValue);
+            }
+        }
+        totalBorrowAbleValue = (totalLTVValue.subtract(totalBorrowedValue)).max(BigDecimal.ZERO);
+        totalBorrowAbleAmount = totalBorrowAbleValue.movePointRight(decimal).divide(denomPrice, decimal, RoundingMode.DOWN);
+//        WLog.w("totalBorrowAbleValue " + totalBorrowAbleValue);
+
+        if (moduleCoins != null) {
+            for (Coin coin: moduleCoins) {
+                if (coin.denom.equals(denom)) {
+                    moduleAmount = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        if (reserveCoin != null) {
+            for (Coin coin: reserveCoin) {
+                if (coin.denom.equals(denom)) {
+                    reserveAmount = new BigDecimal(coin.amount);
+                }
+            }
+        }
+        BigDecimal moduleBorrowable = moduleAmount.subtract(reserveAmount);
+        if (hardMoneyMarket.borrow_limit.has_max_limit) {
+            SystemBorrowableAmount = new BigDecimal(hardMoneyMarket.borrow_limit.maximum_limit).min(moduleBorrowable);
+        } else {
+            SystemBorrowableAmount = moduleBorrowable;
+        }
+//        WLog.w("moduleBorrowable " + moduleBorrowable);
+        SystemBorrowableValue = SystemBorrowableAmount.movePointLeft(decimal).multiply(denomPrice);
+//        WLog.w("SystemBorrowableValue " + SystemBorrowableValue);
+
+        BigDecimal finalBorrowableValue = totalBorrowAbleValue.min(SystemBorrowableValue);
+//        BigDecimal finalBorrowableAmount = totalBorrowAbleAmount.min(SystemBorrowableAmount);
+        return finalBorrowableValue;
+    }
+
+
+    public static BigDecimal getKavaPrice(BaseData baseData, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (denom.equals("usdx")) {
+            result = BigDecimal.ONE;
+        } else {
+            HardParam hardParam = baseData.mHardParam;
+            MarketPrice price   = baseData.mKavaTokenPrices.get(hardParam.getSpotMarketId(denom));
+            if (price != null) {
+                result = new BigDecimal(price.price);
+            }
+        }
+        return result;
+    }
+
+    public static boolean isBep3Coin(String denom) {
+        if (denom.equals(TOKEN_HTLC_BINANCE_BNB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_BINANCE_BTCB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_BINANCE_XRPB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_BINANCE_BUSD)) {
+            return true;
+        }
+
+        if (denom.equals(TOKEN_HTLC_KAVA_BNB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_KAVA_BTCB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_KAVA_XRPB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_KAVA_BUSD)) {
+            return true;
+        }
+
+        if (denom.equals(TOKEN_HTLC_BINANCE_TEST_BNB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
+            return true;
+        }
+
+        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BNB)) {
+            return true;
+        }
+        if (denom.equals(TOKEN_HTLC_KAVA_TEST_BTC)) {
+            return true;
+        }
+        return false;
     }
 
     public static String getTxExplorer(BaseChain basechain, String hash) {

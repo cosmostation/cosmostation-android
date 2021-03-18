@@ -21,7 +21,7 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.chains.kava.ClaimIncentiveActivity;
+import wannabit.io.cosmostaion.activities.chains.kava.ClaimMintIncentiveActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -149,7 +149,7 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH;
+                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE;
                 getSActivity().mFee = fee;
 
             }
@@ -181,10 +181,10 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH);
+                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE);
                 mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -201,8 +201,8 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE);
+                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE, 3));
 
                 mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
@@ -229,7 +229,7 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
         }
     }
 
-    private ClaimIncentiveActivity getSActivity() {
-        return (ClaimIncentiveActivity)getBaseActivity();
+    private ClaimMintIncentiveActivity getSActivity() {
+        return (ClaimMintIncentiveActivity)getBaseActivity();
     }
 }

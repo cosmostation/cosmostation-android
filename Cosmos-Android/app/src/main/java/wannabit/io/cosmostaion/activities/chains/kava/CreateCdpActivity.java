@@ -29,18 +29,17 @@ import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
-import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
 public class CreateCdpActivity extends BaseActivity implements TaskListener {
@@ -53,19 +52,18 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     private ViewPager                   mViewPager;
     private CreateCdpPageAdapter        mPageAdapter;
 
-    private String                          mCollateralParamType;
-    private String                          mMaketId;
+    private String                      mCollateralParamType;
+    private String                      mMaketId;
+    public CdpParam                     mCdpParam;
+    public MarketPrice                  mKavaTokenPrice;
+    public CollateralParam              mCollateralParam;
 
-    public ResCdpParam.Result               mCdpParam;
-    public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResCdpParam.KavaCollateralParam  mCollateralParam;
-
-    public BigDecimal                       toCollateralAmount = BigDecimal.ZERO;
-    public BigDecimal                       toPrincipalAmount = BigDecimal.ZERO;
-    public BigDecimal                       mLiquidationPrice = BigDecimal.ZERO;
-    public BigDecimal                       mRiskRate = BigDecimal.ZERO;
-    public String                           mMemo;
-    public Fee                              mFee;
+    public BigDecimal                   toCollateralAmount = BigDecimal.ZERO;
+    public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
+    public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
+    public BigDecimal                   mRiskRate = BigDecimal.ZERO;
+    public String                       mMemo;
+    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,7 +89,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
 
         mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
-        mCdpParam = getBaseDao().mKavaCdpParams;
+        mCdpParam = getBaseDao().mCdpParam;
         mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
@@ -247,9 +245,8 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     public void onFetchCdpInfo() {
         onShowWaitDialog();
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 2;
+            mTaskCount = 1;
             new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
     }
@@ -260,13 +257,9 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mKavaTokenPrice = (MarketPrice)result.resultData;
             }
 
-        } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
-            if (result.isSuccess && result.resultData != null) {
-                WLog.w("Already have this CDP!!!");
-            }
         }
 
         if (mTaskCount == 0) {

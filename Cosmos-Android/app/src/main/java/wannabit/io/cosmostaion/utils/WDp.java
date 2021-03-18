@@ -12,6 +12,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -21,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -42,11 +46,9 @@ import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
-import wannabit.io.cosmostaion.model.Delegation_V1;
-import wannabit.io.cosmostaion.model.KavaCDP;
-import wannabit.io.cosmostaion.model.Reward_V1;
-import wannabit.io.cosmostaion.model.Undelegation_V1;
-import wannabit.io.cosmostaion.model.Validator_V1;
+import wannabit.io.cosmostaion.model.kava.Cdp;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Input;
@@ -55,11 +57,6 @@ import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestDeposit;
-import wannabit.io.cosmostaion.network.res.ResKavaHarvestReward;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
@@ -180,8 +177,8 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
             } else {
                 denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
-            //TODO need check decimal with denom's type
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), WUtil.getKavaCoinDecimal(coin), WUtil.getKavaCoinDecimal(coin)));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
@@ -266,8 +263,9 @@ public class WDp {
                 denomTv.setTextColor(c.getResources().getColor(R.color.colorHard));
             } else {
                 denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
+            if (amountTv != null) amountTv.setText(getDpAmount2(c, new BigDecimal(amount), WUtil.getKavaCoinDecimal(symbol), WUtil.getKavaCoinDecimal(symbol)));
 
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             if (symbol.equals(TOKEN_IOV) || symbol.equals(TOKEN_IOV_TEST)) {
@@ -583,31 +581,31 @@ public class WDp {
 
     public static BigDecimal getHavestDepositAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
-            if (deposit.amount.denom.equals(denom)) {
-                sum = sum.add(new BigDecimal(deposit.amount.amount));
-            }
-        }
+//        for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
+//            if (deposit.amount.denom.equals(denom)) {
+//                sum = sum.add(new BigDecimal(deposit.amount.amount));
+//            }
+//        }
         return sum;
     }
 
     public static BigDecimal getHavestRewardAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (ResKavaHarvestReward.HarvestReward hReward:baseData.mHavestRewards) {
-            if (hReward.amount.denom.equals(denom)) {
-                sum = sum.add(new BigDecimal(hReward.amount.amount));
-            }
-        }
+//        for (ResKavaHarvestReward.HarvestReward hReward:baseData.mHavestRewards) {
+//            if (hReward.amount.denom.equals(denom)) {
+//                sum = sum.add(new BigDecimal(hReward.amount.amount));
+//            }
+//        }
         return sum;
     }
 
     public static BigDecimal getUnclaimedIncentiveAmount(BaseData baseData, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
-        for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:baseData.mKavaUnClaimedIncentiveRewards) {
-            if (incentive.claim.reward.denom.equals(denom) && incentive.claimable) {
-                sum = sum.add(new BigDecimal(incentive.claim.reward.amount));
-            }
-        }
+//        for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:baseData.mKavaUnClaimedIncentiveRewards) {
+//            if (incentive.claim.reward.denom.equals(denom) && incentive.claimable) {
+//                sum = sum.add(new BigDecimal(incentive.claim.reward.amount));
+//            }
+//        }
         return sum;
     }
 
@@ -624,30 +622,33 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
+    public static BigDecimal kavaTokenDollorValue(BaseChain chain, BaseData baseData, String denom, BigDecimal amount) {
         int dpDecimal = WUtil.getKavaCoinDecimal(denom);
         if (denom.equals("usdx") || denom.equals("busd")) {
             return amount.movePointLeft(dpDecimal);
-        } else if (denom.equals("hard")) {
-            return amount.movePointLeft(dpDecimal).multiply(baseData.mHardPrice);
+
         } else {
-            HashMap<String, ResKavaMarketPrice.Result> prices = baseData.mKavaTokenPrices;
-            ResCdpParam.Result params = baseData.mKavaCdpParams;
-            if (prices == null || prices.size() <= 0 || params == null) {
-                return BigDecimal.ZERO;
-            }
-            //don't care collateral type
-            ResCdpParam.KavaCollateralParam collateralParam = params.getCollateralParamByDenom(denom);
-            if (collateralParam == null || collateralParam.liquidation_market_id == null) {
-                return BigDecimal.ZERO;
-            }
-            ResKavaMarketPrice.Result mMarketPrice  = prices.get(collateralParam.liquidation_market_id);
-            if (mMarketPrice == null) {
-                return BigDecimal.ZERO;
-            } else {
-                return amount.movePointLeft(dpDecimal).multiply(new BigDecimal(mMarketPrice.price)).setScale(6, RoundingMode.DOWN);
+            HashMap<String, MarketPrice> prices = baseData.mKavaTokenPrices;
+            if (denom.equals("hard") && prices.get("hard:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("hard:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
+
+            } else if (denom.contains("btc") && prices.get("btc:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("btc:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
+
+            } else if (denom.contains("bnb") && prices.get("bnb:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
+
+//            } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
+            } else if (denom.contains("xrp") && prices.get("xrp:usd:30") != null) {
+                BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
+                return amount.movePointLeft(dpDecimal).multiply(price);
             }
         }
+        return BigDecimal.ZERO;
+
     }
 
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
@@ -709,7 +710,7 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
@@ -1403,17 +1404,23 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
             result = BaseConstant.TX_TYPE_KAVA_BEP3_REFUND;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD)) {
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
             result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST)) {
-            result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARVEST;
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST)) {
-            result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARVEST;
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST)) {
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
             result = BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_BORROW_HARD;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAY_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_REPAY_HARD;
 
         } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN)) {
             result = BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN;
@@ -1555,17 +1562,24 @@ public class WDp {
                 result = c.getString(R.string.tx_kava_incentive_reward);
                 break;
 
-            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARVEST:
-                result = c.getString(R.string.tx_kava_harvest_deposit);
+            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD:
+                result = c.getString(R.string.tx_kava_hard_deposit);
                 break;
 
-
-            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARVEST:
-                result = c.getString(R.string.tx_kava_harvest_withdraw);
+            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD:
+                result = c.getString(R.string.tx_kava_hard_withdraw);
                 break;
 
             case BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST:
                 result = c.getString(R.string.tx_kava_harvest_claim);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BORROW_HARD:
+                result = c.getString(R.string.tx_kava_hard_borrow);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_REPAY_HARD:
+                result = c.getString(R.string.tx_kava_hard_repay);
                 break;
 
             case BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN:
@@ -2342,7 +2356,7 @@ public class WDp {
         }
     }
 
-    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt,  ResCdpParam.KavaCollateralParam paramCdp, KavaCDP myCdp) {
+    public static BigDecimal getCdpHiddenFee(Context c, BigDecimal outstandingDebt, CollateralParam paramCdp, Cdp myCdp) {
         BigDecimal result = BigDecimal.ZERO;
         try {
             long now   = Calendar.getInstance().getTimeInMillis();
@@ -2532,6 +2546,23 @@ public class WDp {
             return AKASH_VAL_URL + opAddress + ".png";
         }
         return "";
+    }
+
+    public static ArrayList<Coin> getCoins(Object amount) {
+        ArrayList<Coin> result = new ArrayList<>();
+        try {
+            Coin temp = new Gson().fromJson(new Gson().toJson(amount), Coin.class);
+            result.add(temp);
+
+        } catch (Exception e) {
+        }
+
+        try {
+            result = new Gson().fromJson(new Gson().toJson(amount), new TypeToken<List<Coin>>() {
+            }.getType());
+        } catch (Exception e) {
+        }
+        return result;
     }
 
     public static BigDecimal systemQuorum(BaseChain basechain) {

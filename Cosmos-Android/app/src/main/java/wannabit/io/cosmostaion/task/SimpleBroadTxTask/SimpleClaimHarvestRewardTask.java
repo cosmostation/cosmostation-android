@@ -83,11 +83,11 @@ public class SimpleClaimHarvestRewardTask extends CommonTask {
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
             DeterministicKey deterministicKey = WKey.getKeyWithPathfromEntropy(BaseChain.getChain(mAccount.baseChain), entropy, Integer.parseInt(mAccount.path), mAccount.newBip44);
 
-            Msg claimHarvestMsg = MsgGenerator.genClaimHarvestMsg(mAccount.address, mAccount.address, mDepositDenom, mMultiplierName, mDepositType, BaseChain.getChain(mAccount.baseChain));
-            ArrayList<Msg> msgs = new ArrayList<>();
-            msgs.add(claimHarvestMsg);
 
-            WLog.w("claimHarvestMsg : " + WUtil.prettyPrinter(claimHarvestMsg));
+            ArrayList<Msg> msgs = new ArrayList<>();
+            Msg claimHardIncentiveMsg = MsgGenerator.genClaimHardLiquidityProviderMsg(mAccount.address, mMultiplierName);
+            msgs.add(claimHardIncentiveMsg);
+
 
             ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {

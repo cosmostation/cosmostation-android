@@ -53,8 +53,10 @@ let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/
 let KAVA_API                            = "https://api-kava.cosmostation.io/";
 let KAVA_FAUCET                         = "";
 
-let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
-let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
+//let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
+//let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
+let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
+let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_TEST_FAUCET                    = "";
 
 
@@ -261,7 +263,7 @@ let KAVA_REWARD_ADDRESS_TAIL            = "/withdraw_address";
 let KAVA_PROPOSALS                      = KAVA_URL + "gov/proposals";
 let KAVA_PROPOSALS_TALLY_TAIL           = "/tally";
 let KAVA_CDP_PARAM                      = KAVA_URL + "cdp/parameters";
-let KAVA_CDP_OWEN                       = KAVA_URL + "cdp/cdps/cdp/";
+let KAVA_CDP_OWEN                       = KAVA_URL + "cdp/cdps";
 let KAVA_CDP_DEPOSIT                    = KAVA_URL + "cdp/cdps/cdp/deposits/";
 let KAVA_PRICE_FEED_PARAM               = KAVA_URL + "pricefeed/parameters";
 let KAVA_PRICE_FEED_PRICE               = KAVA_URL + "pricefeed/price/";
@@ -275,6 +277,15 @@ let KAVA_HAVEST_PARAM                   = KAVA_URL + "harvest/parameters";
 let KAVA_HAVEST_DEPOSIT                 = KAVA_URL + "harvest/deposits";
 let KAVA_HAVEST_REWARD                  = KAVA_URL + "harvest/claims";
 let KAVA_HAVEST_ACCOUNT                 = KAVA_URL + "harvest/accounts";
+let KAVA_INCENTIVE_REWARD               = KAVA_URL + "incentive/rewards";
+let KAVA_HARD_PARAM                     = KAVA_URL + "hard/parameters";
+let KAVA_HARD_TOTAL_DEPOIST             = KAVA_URL + "hard/total-deposited";
+let KAVA_HARD_TOTAL_BORROW              = KAVA_URL + "hard/total-borrowed";
+let KAVA_HARD_MY_DEPOSIT                = KAVA_URL + "hard/deposits";
+let KAVA_HARD_MY_BORROW                 = KAVA_URL + "hard/borrows";
+let KAVA_HARD_INTERESTRATE              = KAVA_URL + "hard/interest-rate";
+let KAVA_HARD_RESERVE                   = KAVA_URL + "hard/reserves";
+let KAVA_HARD_ACCOUNT                   = KAVA_URL + "hard/accounts";
 
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
@@ -300,7 +311,7 @@ let KAVA_TEST_REWARD_ADDRESS            = KAVA_TEST_URL + "distribution/delegato
 let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
 let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
 let KAVA_TEST_CDP_PARAM                 = KAVA_TEST_URL + "cdp/parameters";
-let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps/cdp/";
+let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps";
 let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
 let KAVA_TEST_PRICE_FEED_PARAM          = KAVA_TEST_URL + "pricefeed/parameters";
 let KAVA_TEST_PRICE_FEED_PRICE          = KAVA_TEST_URL + "pricefeed/price/";
@@ -314,6 +325,15 @@ let KAVA_TEST_HAVEST_PARAM              = KAVA_TEST_URL + "harvest/parameters";
 let KAVA_TEST_HAVEST_DEPOSIT            = KAVA_TEST_URL + "harvest/deposits";
 let KAVA_TEST_HAVEST_REWARD             = KAVA_TEST_URL + "harvest/claims";
 let KAVA_TEST_HAVEST_ACCOUNT            = KAVA_TEST_URL + "harvest/accounts";
+let KAVA_TEST_INCENTIVE_REWARD          = KAVA_TEST_URL + "incentive/rewards";
+let KAVA_TEST_HARD_PARAM                = KAVA_TEST_URL + "hard/parameters";
+let KAVA_TEST_HARD_TOTAL_DEPOIST        = KAVA_TEST_URL + "hard/total-deposited";
+let KAVA_TEST_HARD_TOTAL_BORROW         = KAVA_TEST_URL + "hard/total-borrowed";
+let KAVA_TEST_HARD_MY_DEPOSIT           = KAVA_TEST_URL + "hard/deposits";
+let KAVA_TEST_HARD_MY_BORROW            = KAVA_TEST_URL + "hard/borrows";
+let KAVA_TEST_HARD_INTERESTRATE         = KAVA_TEST_URL + "hard/interest-rate";
+let KAVA_TEST_HARD_RESERVE              = KAVA_TEST_URL + "hard/reserves";
+let KAVA_TEST_HARD_ACCOUNT              = KAVA_TEST_URL + "hard/accounts";
 
 let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
@@ -704,12 +724,19 @@ let KAVA_MSG_TYPE_INCENTIVE_REWARD          = "incentive/MsgClaimReward";
 let KAVA_MSG_TYPE_DEPOSIT_HAVEST            = "harvest/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_HAVEST           = "harvest/MsgWithdraw";
 let KAVA_MSG_TYPE_CLAIM_HAVEST              = "harvest/MsgClaimReward";
+let KAVA_MSG_TYPE_USDX_MINT_INCENTIVE       = "incentive/MsgClaimUSDXMintingReward";
+let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE      = "incentive/MsgClaimHardReward";
+let KAVA_MSG_TYPE_DEPOSIT_HARD              = "hard/MsgDeposit";
+let KAVA_MSG_TYPE_WITHDRAW_HARD             = "hard/MsgWithdraw";
+let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
+let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
+
+
 
 let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
 let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
 let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
-let AKASH_MSG_TYPE_TRANSFER                 = "akash_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";
@@ -1003,19 +1030,19 @@ enum ChainType: String {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
         result.append(IRIS_MAIN)
-        result.append(BINANCE_MAIN)
-        result.append(OKEX_MAIN)
-        result.append(KAVA_MAIN)
-        result.append(BAND_MAIN)
-        result.append(IOV_MAIN)
-        result.append(CERTIK_MAIN)
-        result.append(AKASH_MAIN)
-        result.append(SECRET_MAIN)
+//        result.append(BINANCE_MAIN)
+//        result.append(OKEX_MAIN)
+//        result.append(KAVA_MAIN)
+//        result.append(BAND_MAIN)
+//        result.append(IOV_MAIN)
+//        result.append(CERTIK_MAIN)
+//        result.append(AKASH_MAIN)
+//        result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
 //        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
-//        result.append(KAVA_TEST)
+        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
@@ -1153,7 +1180,7 @@ let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
 let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
-let EXPLORER_KAVA_TEST      = "https://kava-testnet-9000.mintscan.io/";
+let EXPLORER_KAVA_TEST      = "https://dev.mintscan.io/kava-testnet/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
 let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
 

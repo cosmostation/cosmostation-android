@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
-import wannabit.io.cosmostaion.model.KavaCDP;
+import wannabit.io.cosmostaion.model.kava.Cdp;
 import wannabit.io.cosmostaion.model.type.Coin;
 
 public class ResCdpList {
@@ -18,7 +18,7 @@ public class ResCdpList {
     public class Result {
 
         @SerializedName("cdp")
-        public KavaCDP cdp;
+        public Cdp cdp;
 
         @SerializedName("collateral_value")
         public Coin collateral_value;

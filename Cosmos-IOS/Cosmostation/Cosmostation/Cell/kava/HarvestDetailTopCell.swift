@@ -12,11 +12,17 @@ class HarvestDetailTopCell: UITableViewCell {
     
     @IBOutlet weak var harvestImg: UIImageView!
     @IBOutlet weak var harvestTitle: UILabel!
-    @IBOutlet weak var rewardForSecond: UILabel!
-    @IBOutlet weak var eventTime: UILabel!
-    @IBOutlet weak var totolDepositedAmount: UILabel!
-    @IBOutlet weak var totolDepositedDenom: UILabel!
-    @IBOutlet weak var totalDepositedValue: UILabel!
+    @IBOutlet weak var supplyAPILabel: UILabel!
+    @IBOutlet weak var borrowAPILabel: UILabel!
+    @IBOutlet weak var systemSuppliedAmount: UILabel!
+    @IBOutlet weak var systemSuppliedDenom: UILabel!
+    @IBOutlet weak var systemSuppliedValue: UILabel!
+    @IBOutlet weak var systemBorrowedAmount: UILabel!
+    @IBOutlet weak var systemBorrowedDenom: UILabel!
+    @IBOutlet weak var systemBorrowedValue: UILabel!
+    @IBOutlet weak var systemRemainBorrowableAmount: UILabel!
+    @IBOutlet weak var systemRemainBorrowableDenom: UILabel!
+    @IBOutlet weak var systemRemainBorrowableValue: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

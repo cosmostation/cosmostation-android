@@ -29,7 +29,9 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.CreateCdpActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Create;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -555,15 +557,15 @@ public class CreateCdpStep0Fragment extends BaseFragment implements View.OnClick
         return (CreateCdpActivity)getBaseActivity();
     }
 
-    private ResCdpParam.Result getCdpParam() {
+    private CdpParam getCdpParam() {
         return getSActivity().mCdpParam;
     }
 
-    private ResCdpParam.KavaCollateralParam getCParam() {
+    private CollateralParam getCParam() {
         return getSActivity().mCollateralParam;
     }
 
-    private ResKavaMarketPrice.Result getPrice() {
+    private MarketPrice getPrice() {
         return getSActivity().mKavaTokenPrice;
     }
 

@@ -7,10 +7,10 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-import wannabit.io.cosmostaion.model.KavaCDP;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.Cdp;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class ResCdpOwnerStatus {
@@ -25,7 +25,7 @@ public class ResCdpOwnerStatus {
     public class MyCDP {
 
         @SerializedName("cdp")
-        public KavaCDP cdp;
+        public Cdp cdp;
 
         @SerializedName("collateral_value")
         public Coin collateral_value;
@@ -78,17 +78,17 @@ public class ResCdpOwnerStatus {
             return getPrincipalAmount().add(getAccumulatedFees());
         }
 
-        public BigDecimal getEstimatedTotalFee(Context c, ResCdpParam.KavaCollateralParam cParam) {
+        public BigDecimal getEstimatedTotalFee(Context c, CollateralParam cParam) {
             BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(c, getRawDebtAmount(), cParam, cdp);
             return  getAccumulatedFees().add(hiddenFeeValue);
         }
 
-        public BigDecimal getEstimatedTotalDebt(Context c, ResCdpParam.KavaCollateralParam cParam) {
+        public BigDecimal getEstimatedTotalDebt(Context c, CollateralParam cParam) {
             BigDecimal hiddenFeeValue = WDp.getCdpHiddenFee(c, getRawDebtAmount(), cParam, cdp);
             return  getRawDebtAmount().add(hiddenFeeValue);
         }
 
-        public BigDecimal getLiquidationPrice(Context c, ResCdpParam.KavaCollateralParam cParam) {
+        public BigDecimal getLiquidationPrice(Context c, CollateralParam cParam) {
             int denomCDecimal = WUtil.getKavaCoinDecimal(getDenom());
             int denomPDecimal = WUtil.getKavaCoinDecimal(getPDenom());
             BigDecimal collateralAmount = getCollateralAmount().movePointLeft(denomCDecimal);
@@ -96,7 +96,7 @@ public class ResCdpOwnerStatus {
             return estimatedDebtAmount.divide(collateralAmount, denomPDecimal, BigDecimal.ROUND_DOWN);
         }
 
-        public BigDecimal getWithdrawableAmount(Context c, ResCdpParam.KavaCollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
+        public BigDecimal getWithdrawableAmount(Context c, CollateralParam cParam, BigDecimal price, BigDecimal selfDeposit) {
             int denomCDecimal = WUtil.getKavaCoinDecimal(getDenom());
             int denomPDecimal = WUtil.getKavaCoinDecimal(getPDenom());
             BigDecimal cValue = new BigDecimal(collateral_value.amount);
@@ -116,7 +116,7 @@ public class ResCdpOwnerStatus {
 
         }
 
-        public BigDecimal getMoreLoanableAmount(Context c, ResCdpParam.KavaCollateralParam cParam) {
+        public BigDecimal getMoreLoanableAmount(Context c, CollateralParam cParam) {
             BigDecimal maxDebtValue = new BigDecimal(collateral_value.amount).divide(new BigDecimal(cParam.liquidation_ratio), 0, RoundingMode.DOWN);
 //            WLog.w("maxDebtValue " + maxDebtValue);
             maxDebtValue = maxDebtValue.multiply(new BigDecimal("0.95")).setScale(0, RoundingMode.DOWN);

@@ -29,12 +29,13 @@ import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep3Fragment;
+import wannabit.io.cosmostaion.model.kava.CdpDeposit;
+import wannabit.io.cosmostaion.model.kava.CdpParam;
+import wannabit.io.cosmostaion.model.kava.CollateralParam;
+import wannabit.io.cosmostaion.model.kava.MarketPrice;
+import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpOwnerStatus;
-import wannabit.io.cosmostaion.network.res.ResCdpParam;
-import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -55,20 +56,18 @@ public class WithdrawCdpActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private WithdrawCdpPageAdapter      mPageAdapter;
 
-    private String                      mCollateralParamType;
+    private String                      mCollateralType;
     private String                      mMaketId;
-
+    public CdpParam                     mCdpParam;
+    public MarketPrice                  mKavaTokenPrice;
+    public CollateralParam              mCollateralParam;
+    public MyCdp                        mMyCdp;
+    public BigDecimal                   mSelfDepositAmount = BigDecimal.ZERO;
     public Coin                         mCollateral = new Coin();
     public String                       mMemo;
-    public Fee mFee;
+    public Fee                          mFee;
 
-    public ResCdpParam.Result               mCdpParam;
-    public ResKavaMarketPrice.Result        mKavaTokenPrice;
-    public ResCdpParam.KavaCollateralParam  mCollateralParam;
-    public ResCdpOwnerStatus.MyCDP          mMyOwenCdp;
-    public ResCdpDepositStatus              mMyDeposits;
-
-    public BigDecimal                       mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
+    public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +91,10 @@ public class WithdrawCdpActivity extends BaseActivity {
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
-        mCollateralParamType = getIntent().getStringExtra("collateralParamType");
+        mCollateralType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
-        mCdpParam = getBaseDao().mKavaCdpParams;
-        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralParamType);
+        mCdpParam = getBaseDao().mCdpParam;
+        mCollateralParam = mCdpParam.getCollateralParamByType(mCollateralType);
         if (mCdpParam == null || mCollateralParam == null) {
             WLog.e("ERROR No cdp param data");
             onBackPressed();
@@ -242,11 +241,10 @@ public class WithdrawCdpActivity extends BaseActivity {
     private int mTaskCount = 0;
     public void onFetchCdpInfo() {
         onShowWaitDialog();
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mTaskCount = 2;
-            new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-        }
+        mTaskCount = 3;
+        new KavaCdpByOwnerTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        new KavaMarketPriceTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mMaketId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     @Override
@@ -255,25 +253,34 @@ public class WithdrawCdpActivity extends BaseActivity {
         mTaskCount--;
         if (result.taskType == TASK_FETCH_KAVA_TOKEN_PRICE) {
             if (result.isSuccess && result.resultData != null) {
-                mKavaTokenPrice = (ResKavaMarketPrice.Result)result.resultData;
+                mKavaTokenPrice = (MarketPrice)result.resultData;
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_OWENER) {
             if (result.isSuccess && result.resultData != null) {
-                mMyOwenCdp = (ResCdpOwnerStatus.MyCDP)result.resultData;
-                mTaskCount = mTaskCount + 1;
-                new KavaCdpByDepositorTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain), mAccount.address, mCollateralParam).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+                ArrayList<MyCdp> myCdps = (ArrayList<MyCdp>)result.resultData;
+                for (MyCdp myCdp: myCdps) {
+                    if (myCdp.cdp.type.equals(mCollateralType)) {
+                        mMyCdp = myCdp;
+                        break;
+                    }
+                }
             }
 
         } else if (result.taskType == TASK_FETCH_KAVA_CDP_DEPOSIT) {
             if (result.isSuccess && result.resultData != null) {
-                mMyDeposits = (ResCdpDepositStatus)result.resultData;
+                ArrayList<CdpDeposit> deposits = (ArrayList<CdpDeposit>)result.resultData;
+                for (CdpDeposit deposit: deposits) {
+                    if (deposit.depositor.equals(mAccount.address)) {
+                        mSelfDepositAmount =  new BigDecimal(deposit.amount.amount);
+                    }
+                }
             }
         }
 
         if (mTaskCount == 0) {
             onHideWaitDialog();
-            if (mCdpParam == null || mKavaTokenPrice == null || mMyOwenCdp == null) {
+            if (mCdpParam == null || mKavaTokenPrice == null || mMyCdp == null) {
                 WLog.w("ERROR");
                 Toast.makeText(getBaseContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
                 onBackPressed();

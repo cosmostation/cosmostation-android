@@ -48,7 +48,7 @@
     <string name="str_send_c">보내기</string>
     <string name="str_htlc_send_c"><![CDATA[인터체인 보내기 & 받기]]></string>
     <string name="str_htlc_refund_c">인터체인 환불</string>
-    <string name="str_participate_incentive">Crypto Payday 참여</string>
+    <string name="str_participate_incentive">USDX 발행 인센티브 받기</string>
     <string name="str_receive_c">받기</string>
     <string name="str_send">보내기</string>
     <string name="str_receive">받기</string>
@@ -366,7 +366,7 @@
     <string name="str_update_msg">새로운 버전이 나왔습니다. 플레이스토어에서 업데이트 해주세요.</string>
     <string name="str_go_store">플레이스토어 이동</string>
     <string name="str_alarm_enabled">푸시 알람이 활성화 되어있습니다. 이 주소와 관련된 전송을 감시합니다.</string>
-    <string name="str_alarm_disabled">푸사 알림이 꺼져있습니다.</string>
+    <string name="str_alarm_disabled">푸시 알림이 꺼져있습니다.</string>
     <string name="str_push_alarm">푸시 알람</string>
     <string name="str_push_permission_title">권한 요청</string>
     <string name="str_push_permission_msg">푸시를 보내기 위해 권한이 필요합니다. 설정 화면으로 이동할까요?</string>
@@ -401,7 +401,7 @@
     <string name="str_buy_kava">KAVA 구입</string>
     <string name="str_buy_band">BAND 구입</string>
     <string name="str_kava_testnet_msg"><![CDATA[KAVA 테스트넷을 위한 지갑입니다\n(해당 지갑의 KAVA 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 KAVA 고유의 CDP(코인담보대출)기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.]]></string>
-    <string name="str_kava_dapp"><![CDATA[CDP & 하베스트]]> </string>g>
+    <string name="str_kava_dapp"><![CDATA[카바 디파이]]> </string>g>
     <string name="str_buy_without_key_msg">구매 후 코인은 현재 지갑 주소로 송금받게 됩니다. 현재 지갑에 대한 권한이 없지만 계속 구매하시겠습니까?</string>
     <string name="str_buy_select_fiat_title">통화 선택</string>
     <string name="str_buy_select_fiat_msg">구매를 하기위한 통화를 선택하세요.</string>
@@ -429,10 +429,12 @@
     <string name="str_okex_newpath_msg">OKex체인은 두가지 타입의 키 타입을 지원합니다.\n\n테스트 넷부터 사용하시던 타입을 사용하시려면 [Tendermint Type]를, 이후에 생성하신 경우 [Ethermint Type] 선택해주세요.\n\n잘못 선택한 경우에도 기존 OKex 지갑에는 문제가 없으며, [Mnemonic 복원하기]를 통해 타입을 다시 지정하면 됩니다.</string>
     <string name="str_okex_old_type"><![CDATA[Tendermint 타입 키 생성]]></string>
     <string name="str_okex_new_type"><![CDATA[Ethermint(기본) 타입 키 생성]]></string>
-    <string name="str_kava_cdp_list">CDP 목록</string>
+    <string name="str_kava_cdp_list">CDP</string>
     <string name="str_kava_cdp_details">CDP 상세</string>
-    <string name="str_kava_harvest_list">하베스트 목록</string>
-    <string name="str_kava_harvest_details">하베스트 상세</string>
+    <string name="str_kava_auction_list">옥션</string>
+    <string name="str_kava_auction_details">옥션 상세</string>
+    <string name="str_kava_harvest_list">하드 풀</string>
+    <string name="str_kava_harvest_details">하드 풀 상세</string>
     <string name="str_my_cdps">내 CDP</string>
     <string name="str_all_cdps">모든 상품</string>
     <string name="str_press_select_recipient_account">수신 계정 선택</string>
@@ -452,6 +454,7 @@
     <string name="str_warn_testnet_title">테스트넷 경고</string>
     <string name="str_warn_testnet_msg"><![CDATA[선택하신 지갑은 테스트넷을 위한 지갑입니다\n(해당 지갑의 토큰은 실제 가치가 없습니다).\n\n코스모스테이션은 사용자들이 각 체인의 고유한 기능들을 메인넷에 반영되기 이전에 확인하고 사용해 볼 수 있는 기회를 제공하기 위해 테스트넷을 지원합니다. 해당 테스트넷에 대한 지원은 언제든 중단될 수 있습니다.]]></string>
     <string name="str_interchain">인터체인 전송</string>
+    <string name="str_bep3_send">BEP3 전송</string>
     <string name="str_to_swap_coin">전송 코인</string>
     <string name="str_source_chain">출발 체인</string>
     <string name="str_destination_chain">도착 체인</string>
@@ -534,8 +537,10 @@
     <string name="str_btn_text_deposit">%1$s 입금</string>
     <string name="str_btn_text_withdraw">%1$s 출금</string>
     <string name="str_my_available_assets">내 잔고</string>
-    <string name="str_kava_incentive_title">Crypto Payday</string>
+    <string name="str_kava_incentive_title">USDX 발행 인센티브</string>
     <string name="str_kava_incentive_msg">자산을 예치하여 CDP를 생성하고 USDX를 발행하는 사용자를 위한 KAVA 인센티브는 매주 배포됩니다! 더 많은 USDX를 발행할수록 더 많은 KAVA 보상을 받게됩니다.</string>
+    <string name="str_kava_hard_incentive_title">하드 풀 인센티브</string>
+    <string name="str_kava_hard_incentive_msg">하드 풀에 유동성을 제공하거나 대출을 이용하는 사용자를 대상으로 인센티브가 지급 됩니다. 제공하는 코인의 타입에 따라 Hard 또는 KAVA 보상을 받게됩니다.</string>
     <string name="str_kava_participate">참여</string>
     <string name="str_kava_participate_done">참여 완료!!</string>
 
@@ -648,11 +653,12 @@
     <string name="str_incentive_participate_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_incentive_participate_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_incentive_participate_step_3">입력하신 정보를 확인하세요</string>
-    <string name="str_claim_harvest_reward">하베스트 이자 받기</string>
-    <string name="str_harvest_reward_step_0">하베스트 이자 옵션을 고르세요</string>
+    <string name="str_claim_harvest_reward">하드 인센티브 받기</string>
+    <string name="str_harvest_reward_step_0">하드 인센티브 옵션을 고르세요</string>
     <string name="str_harvest_reward_step_1">메모를 입력하세요 (선택사항)</string>
     <string name="str_harvest_reward_step_2">Tx 수수료를 선택하세요</string>
     <string name="str_harvest_reward_step_3">입력하신 정보를 확인하세요</string>
+    <string name="str_borrower">대출자</string>
 
     <string name="str_main_wallet">WALLET</string>
     <string name="str_main_send">SEND</string>
@@ -822,7 +828,7 @@
     <string name="str_vesting_title">베스팅 계정</string>
     <string name="str_vesting_msg">베스팅 계정으로 보입니다. 정확한 수량으로 위임 및 위임해재를 하시기 위해서 cli를 이용하시는것을 권장합니다.</string>
     <string name="str_ready_to_quite">한번 더 누르시면 취소됩니다.</string>
-    <string name="str_vesting_amount">잠긴수량 (위임가능)</string>
+    <string name="str_vesting_amount">잠긴수량 (위임만 가능)</string>
     <string name="str_htlc_warn_title">BEP3 스왑에 관해서</string>
     <string name="str_htlc_warn_msg">BEP3 전송은 전환을 원하는 각 체인의 네트워크와 릴레이어가 처리합니다. 코스모스테이션은 BEP3 전송을 중계하지만 해당 네트워크의 안정성과 전송에 대한 성공을 보장하지 않습니다. 전송 실패 시 해당 네트워크 커뮤니티 채널에 문의하세요. BEP3 전송 실패 시 해당 트랜잭션 내역에 활성화된 [Refund] 기능을 통해 토큰을 전액 반환할 수 있습니다.</string>
     <string name="str_cdp_warn_title">CDP에 관해서</string>
@@ -925,6 +931,8 @@
     <string name="str_deposit_type">예치 종류</string>
     <string name="str_deposit_amount2">예치 금액</string>
     <string name="str_withdraw_amount2">출금 금액</string>
+    <string name="str_borrow_amount">대출 금액</string>
+    <string name="str_repay_amount">상환 금액</string>
     <string name="str_coin_type">코인 타입</string>
     <string name="str_multiplier_name">수신 방식</string>
     <string name="str_total_incentive">인센티브 총합</string>
@@ -935,24 +943,38 @@
     <string name="str_hard_for_delegator_title">KAVA 위임자를 위한 HRAD</string>
     <string name="str_harvest_markets">하베스트 Markets</string>
     <string name="str_deposited_amount">디파짓 수량</string>
-    <string name="str_my_deposited_amount">나의 디파짓 수량</string>
+    <string name="str_my_deposited_amount">나의 유동성 공급 수량</string>
+    <string name="str_my_borrowed_amount">나의 대출 수량</string>
+    <string name="str_my_borrowable_amount">나의 대출 가능 수량</string>
     <string name="str_lp_reward_title">하베스트 LP 이자</string>
     <string name="str_lp_reward_msg">Harvest 유동성 공급자는 HARD토큰을 매 블럭마다 보상받습니다! 하베스트 Money Market에 더 많은 자산을 공급할수록 더 많은 보상을 받게됩니다.</string>
     <string name="str_total_lp_reward">총 LP 보상</string>
     <string name="str_my_total_lp_reward">나의 모든 LP 이자량</string>
     <string name="str_start_deposit">예치 시작 하기</string>
-    <string name="str_total_deposited_supplies">총 풀 예치량</string>
-    <string name="str_my_harvest_information">내 하베스트 상세</string>
-    <string name="str_deposit_harvest">하베스트 예치금 입금</string>
-    <string name="str_withdraw_harvest">하베스트 예치금 출금</string>
-    <string name="str_deposit_harvest_step_1">입금하실 하베스트 디파짓 수량을 선택하세요</string>
+    <string name="str_total_deposited_supplies">시스템 총 예치량</string>
+    <string name="str_total_borrowed_supplies">시스템 총 대출량</string>
+    <string name="str_total_remain_supplies">시스템 대출 가능량</string>
+    <string name="str_my_harvest_information">내 하드 풀</string>
+    <string name="str_deposit_harvest">하드 풀 서플라이 입금</string>
+    <string name="str_withdraw_harvest">하드 풀 서플라이 출금</string>
+    <string name="str_borrow_hard">하드 풀 대출</string>
+    <string name="str_repay_hard">하드 풀 상환</string>
+    <string name="str_deposit_harvest_step_1">예치하실 수량을 입력하세요</string>
     <string name="str_deposit_harvest_step_2">메모를 입력하세요 (선택사항)</string>
     <string name="str_deposit_harvest_step_3">Tx 수수료를 선택하세요</string>
     <string name="str_deposit_harvest_step_4">입력하신 정보를 확인하세요</string>
-    <string name="str_withdraw_harvest_step_1">출금하실 하베스트 디파짓 수량을 설정하세요</string>
+    <string name="str_withdraw_harvest_step_1">출금하실 하드 풀 디파짓 수량을 설정하세요</string>
     <string name="str_withdraw_harvest_step_2">메모를 입력하세요 (선택사항)</string>
     <string name="str_withdraw_harvest_step_3">Tx 수수료를 선택하세요</string>
     <string name="str_withdraw_harvest_step_4">입력하신 정보를 확인하세요</string>
+    <string name="str_borrow_hard_step_1">대출하실 수량을 입력하세요</string>
+    <string name="str_borrow_hard_step_2">메모를 입력하세요 (선택사항)</string>
+    <string name="str_borrow_hard_step_3">Tx 수수료를 선택하세요</string>
+    <string name="str_borrow_hard_step_4">입력하신 정보를 확인하세요</string>
+    <string name="str_reapy_hard_step_1">상환하실 수량을 입력하세요</string>
+    <string name="str_reapy_hard_step_2">메모를 입력하세요 (선택사항)</string>
+    <string name="str_reapy_hard_step_3">Tx 수수료를 선택하세요</string>
+    <string name="str_reapy_hard_step_4">입력하신 정보를 확인하세요</string>
     <string name="str_claim_incentive">인센티브 받기</string>
     <string name="str_lock_up">락업 기간</string>
     <string name="str_receivable">실제 수령 수량</string>
@@ -972,6 +994,20 @@
     <string name="str_starname_walletconnect_complete">연결 완료.</string>
     <string name="str_ok_promotion_title">검증인을 위해 투표하세요</string>
     <string name="str_ok_promotion_msg">Vote for Cosmostation to secure OK Chain as a validator.\nSelect multiple validators to spread out your vote.</string>
+    <string name="str_total_deposit_value">총 공금 금액</string>
+    <string name="str_ltv_value">최대 대출 가능 금액(LTV)</string>
+    <string name="str_total_borrowed_value">총 대출 금액</string>
+    <string name="str_borrow_limit_value">추가 대출 가능 금액</string>
+    <string name="str_supply_apy">Supply APY</string>
+    <string name="str_borrow_apy">Borrow APY</string>
+    <string name="str_supply_incentive_apy">Incentive Supply APY</string>
+    <string name="str_borrow_incentive_apy">Incentive Borrow APY</string>
+    <string name="str_add_supply">유동성 공급</string>
+    <string name="str_get_borrow">대출 받기</string>
+    <string name="str_get_repay">상환 하기</string>
+    <string name="str_hard_withdraw_warn_title">하드 풀 청산 위험 확인</string>
+    <string name="str_hard_withdraw_warn_msg">추가 대출 가능 금액이 0 이하가 될 시, 포지션 청산의 위험이 있습니다.\n대출 진행시 추가 대출 금액을 반드시 확인하세요. </string>
+
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1062,8 +1098,11 @@
     <string name="error_no_wallet_this_chain">해당 체인용 지갑이 없습니다.</string>
     <string name="error_no_address_added">최소 1개 이상의 주소를 입력하세요.</string>
     <string name="error_cannot_delete_open_domain">오픈 타입 도메인은 삭제할 수 없습니다.</string>
-    <string name="error_no_available_to_deposit">디파짓할 자산이 없습니다.</string>
-    <string name="error_no_deposited_asset">디파짓중인 자산이 없습니다.</string>
+    <string name="error_no_available_to_deposit">공급할 자산이 없습니다.</string>
+    <string name="error_no_deposited_asset">공급한 자산이 없습니다.</string>
+    <string name="error_no_borrowable_asset">대출이 불가능 합니다.</string>
+    <string name="error_no_repay_asset">상환이 불가능합니다.</string>
+    <string name="error_noting_repay_asset">상환할 내역이 없습니다.</string>
     <string name="error_no_incentive_to_claim">받을 인센티브가 없습니다.</string>
     <string name="error_no_harvest_reward_to_claim">받을 하베스트 리워드가 없습니다.</string>
     <string name="error_no_incentive_claim_option">이자 받기 옵션을 선택해 주세요.</string>
@@ -1074,6 +1113,7 @@
     <string name="error_no_delegated_amount">위임중인 수량이 없습니다.</string>
     <string name="error_no_more_today">오늘은 보이지 않습니다.</string>
     <string name="error_no_address_export">연결할 주소가 없습니다.</string>
+    <string name="error_remain_borrow_small">상환 후 남는 대출 금액이 $10 이하입니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
@@ -1109,10 +1149,12 @@
     <string name="tx_kava_bep3_create">인터체인\n보내기</string>
     <string name="tx_kava_bep3_claim">인터체인\n청구하기</string>
     <string name="tx_kava_bep3_refund">인터체인\n환불하기</string>
-    <string name="tx_kava_incentive_reward">Crypto Payday\n인센티브</string>
-    <string name="tx_kava_harvest_deposit">하베스트\n예치</string>
-    <string name="tx_kava_harvest_withdraw">하베스트\n출금</string>
-    <string name="tx_kava_harvest_claim">하베스트\n이자 청구</string>
+    <string name="tx_kava_incentive_reward">USDX 발행\n인센티브</string>
+    <string name="tx_kava_hard_deposit">하드 풀\n예치</string>
+    <string name="tx_kava_hard_withdraw">하드 풀\n출금</string>
+    <string name="tx_kava_hard_borrow">하드 풀\n대출</string>
+    <string name="tx_kava_hard_repay">하드 풀\n상환</string>
+    <string name="tx_kava_harvest_claim">하드 풀\n인센티브</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
     <string name="tx_kava_deposit_cdp2">CDP 예치</string>
@@ -1127,10 +1169,12 @@
     <string name="tx_kava_bep3_create2">인터체인 보내기</string>
     <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
     <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
-    <string name="tx_kava_incentive_reward2">Crypto Payday 인센티브</string>
-    <string name="tx_kava_harvest_deposit2">하베스트 예치</string>
-    <string name="tx_kava_harvest_withdraw2">하베스트 출금</string>
-    <string name="tx_kava_harvest_claim2">하베스트 이자 청구</string>
+    <string name="tx_kava_incentive_reward2">USDX 발행 인센티브</string>
+    <string name="tx_kava_hard_deposit2">하드 풀 예치</string>
+    <string name="tx_kava_hard_withdraw2">하드 풀 출금</string>
+    <string name="tx_kava_hard_borrow2">하드 풀 대출</string>
+    <string name="tx_kava_hard_repay2">하드 풀 상환</string>
+    <string name="tx_kava_harvest_claim2">하드 풀 인센티브</string>
 
 
     <string name="tx_starname_registe_domain">Domain 등록</string>

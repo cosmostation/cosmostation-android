@@ -18,5 +18,9 @@ class CdpIncentiveCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
+    var actionClaim: (() -> Void)? = nil
+    @IBAction func onClickClaim(_ sender: UIButton) {
+        actionClaim?()
+    }
     
 }

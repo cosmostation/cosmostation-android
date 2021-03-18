@@ -32,7 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
-public class WalletGuideHolder extends WalletHolder {
+public class WalletGuideHolder extends BaseHolder {
     public CardView     itemRoot;
     public ImageView    itemGuideImg;
     public TextView     itemGuideTitle;

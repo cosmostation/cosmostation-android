@@ -146,7 +146,13 @@ class WUtils {
             
             accountInfo.result.value.coins.forEach({ (coin) in
                 if (coin.denom == KAVA_MAIN_DENOM) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = NSDecimalNumber.zero
+                    originalVesting = NSDecimalNumber.zero
+                    remainVesting = NSDecimalNumber.zero
+                    delegatedVesting = NSDecimalNumber.zero
                     dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    
                     accountInfo.result.value.original_vesting.forEach({ (coin) in
                         if (coin.denom == KAVA_MAIN_DENOM) {
                             originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
@@ -166,7 +172,7 @@ class WUtils {
 //                    }
                     
                     remainVesting = accountInfo.result.getCalcurateVestingAmountSumByDenom(KAVA_MAIN_DENOM)
-//                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
+                    if (SHOW_LOG) { print("Kava remainVesting            ", remainVesting)}
                     
                     dpVesting = remainVesting.subtracting(delegatedVesting);
 //                    if (SHOW_LOG) { print("Kava dpVesting      ", dpVesting) }
@@ -184,7 +190,13 @@ class WUtils {
                     result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
                     
                 } else if (coin.denom == KAVA_HARD_DENOM) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = NSDecimalNumber.zero
+                    originalVesting = NSDecimalNumber.zero
+                    remainVesting = NSDecimalNumber.zero
+                    delegatedVesting = NSDecimalNumber.zero
                     dpBalance = NSDecimalNumber.init(string: coin.amount)
+                    
                     accountInfo.result.value.original_vesting.forEach({ (coin) in
                         if (coin.denom == KAVA_HARD_DENOM) {
                             originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
@@ -1734,20 +1746,21 @@ class WUtils {
         if (denom == "usdx" || denom == "busd") {
             return amount.multiplying(byPowerOf10: -dpDeciaml)
             
-        } else if (denom == "hard") {
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: BaseData.instance.mHardPrice)
-            
         } else {
             let prices = BaseData.instance.mKavaPrice
-            let cdpParam = BaseData.instance.mCdpParam
-            if (prices.count <= 0) {
-                return NSDecimalNumber.zero
+            if let price = prices["hard:usd:30"], denom == "hard" {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
             }
-            guard let collateralParam = cdpParam?.result.getcParam(denom), let kavaPrice = prices[collateralParam.liquidation_market_id] else {
-                return NSDecimalNumber.zero
+            if let price = prices["btc:usd:30"], denom.contains("btc") {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
             }
-            
-            return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: kavaPrice.result.price), withBehavior: WUtils.handler6)
+            if let price = prices["bnb:usd:30"], denom.contains("bnb") {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            }
+            if let price = prices["xrp:usd:30"], denom.contains("xrp") {
+                return amount.multiplying(byPowerOf10: -dpDeciaml).multiplying(by: NSDecimalNumber.init(string: price.result.price))
+            }
+            return NSDecimalNumber.zero
         }
     }
     
@@ -2504,7 +2517,7 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_TEST_S) {
             return "Binance-Chain-Nile"
         } else if (chainS == CHAIN_KAVA_TEST_S) {
-            return "kava-4-test"
+            return "kava-testnet-12000"
         } else if (chainS == CHAIN_IOV_TEST_S) {
             return "iovns-galaxynet"
         } else if (chainS == CHAIN_OKEX_TEST_S) {
@@ -2545,7 +2558,7 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_TEST) {
             return "Binance-Chain-Nile"
         } else if (chain == ChainType.KAVA_TEST) {
-            return "kava-4-test"
+            return "kava-testnet-12000"
         } else if (chain == ChainType.IOV_TEST) {
             return "iovns-galaxynet"
         } else if (chain == ChainType.OKEX_TEST) {
@@ -2660,6 +2673,8 @@ class WUtils {
             } else if (type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || type == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             } else if (type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
+                result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
+            } else if (type == KAVA_MSG_TYPE_DEPOSIT_HARD || type == KAVA_MSG_TYPE_WITHDRAW_HARD || type == KAVA_MSG_TYPE_BORROW_HARD || type == KAVA_MSG_TYPE_REPAY_HARD) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_HIGH))
             }
             
@@ -2873,7 +2888,7 @@ class WUtils {
             return 8;
         } else if (denom.caseInsensitiveCompare("busd") == .orderedSame) {
             return 8;
-        } else if (denom.caseInsensitiveCompare("xrpb") == .orderedSame) {
+        } else if (denom.caseInsensitiveCompare("xrpb") == .orderedSame || denom.caseInsensitiveCompare("xrbp") == .orderedSame) {
             return 8;
         } else if (denom.caseInsensitiveCompare("hard") == .orderedSame) {
             return 6;
@@ -3338,6 +3353,135 @@ class WUtils {
         return NSDecimalNumber.init(string: "0.5")
     }
     
+    static func getHardSuppliedAmountByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if let deposit = mydeposit?[0], let coins = deposit.amount {
+            for coin in coins {
+                if (coin.denom == denom) {
+                    result = NSDecimalNumber.init(string: coin.amount)
+                }
+            }
+        }
+        return result
+    }
+    
+    static func getHardBorrowedValueByDenom(_ denom: String, _ mydeposit: Array<HardMyBorrow>?) -> NSDecimalNumber {
+        let denomPrice = getKavaPrice(denom)
+        let decimal = getKavaCoinDecimal(denom)
+        let amount = getHardBorrowedAmountByDenom(denom, mydeposit)
+        return amount.multiplying(byPowerOf10: -decimal).multiplying(by: denomPrice, withBehavior: WUtils.handler2Down)
+    }
+    
+    static func getHardBorrowableAmountByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?, _ myBorrow: Array<HardMyBorrow>?,
+                                               _ moduleCoins: Array<Coin>?, _ reserveCoins: Array<Coin>?) -> NSDecimalNumber {
+        var totalLTVValue = NSDecimalNumber.zero
+        var totalBorrowedValue = NSDecimalNumber.zero
+        var totalBorrowAbleAmount = NSDecimalNumber.zero
+        
+        var SystemBorrowableAmount = NSDecimalNumber.zero
+        var moduleAmount = NSDecimalNumber.zero
+        var reserveAmount = NSDecimalNumber.zero
+        
+        let hardParam = BaseData.instance.mHardParam
+        let hardMoneyMarket = hardParam?.getHardMoneyMarket(denom)
+        let denomPrice = getKavaPrice(denom)
+        let decimal = getKavaCoinDecimal(denom)
+        
+        mydeposit?[0].amount?.forEach({ coin in
+            let innnerDecimal   = getKavaCoinDecimal(coin.denom)
+            let LTV             = hardParam!.getLTV(coin.denom)
+            var depositValue    = NSDecimalNumber.zero
+            var LTVValue        = NSDecimalNumber.zero
+            if (coin.denom == "usdx") {
+                depositValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -innnerDecimal)
+                
+            } else {
+                let innerPrice = getKavaPrice(coin.denom)
+                depositValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -innnerDecimal).multiplying(by: innerPrice, withBehavior: WUtils.handler2Down)
+                
+            }
+            LTVValue = depositValue.multiplying(by: LTV)
+            totalLTVValue = totalLTVValue.adding(LTVValue)
+        })
+        
+        myBorrow?[0].amount?.forEach({ coin in
+            let innnerDecimal   = getKavaCoinDecimal(coin.denom)
+            var borrowedValue   = NSDecimalNumber.zero
+            if (coin.denom == "usdx") {
+                borrowedValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -innnerDecimal)
+                
+            } else {
+                let innerPrice = getKavaPrice(coin.denom)
+                borrowedValue = NSDecimalNumber.init(string: coin.amount).multiplying(byPowerOf10: -innnerDecimal).multiplying(by: innerPrice, withBehavior: WUtils.handler2Down)
+                
+            }
+            totalBorrowedValue = totalBorrowedValue.adding(borrowedValue)
+        })
+        let tempBorrowAbleValue  = totalLTVValue.subtracting(totalBorrowedValue)
+        let totalBorrowAbleValue = tempBorrowAbleValue.compare(NSDecimalNumber.zero).rawValue > 0 ? tempBorrowAbleValue : NSDecimalNumber.zero
+        totalBorrowAbleAmount = totalBorrowAbleValue.multiplying(byPowerOf10: decimal).dividing(by: denomPrice, withBehavior: getDivideHandler(decimal))
+        print("totalBorrowAbleAmount ", totalBorrowAbleAmount)
+        
+        
+        if let moduleCoin = moduleCoins?.filter({ $0.denom == denom}).first {
+            moduleAmount = NSDecimalNumber.init(string: moduleCoin.amount)
+        }
+        if let reserveCoin = reserveCoins?.filter({ $0.denom == denom}).first {
+            reserveAmount = NSDecimalNumber.init(string: reserveCoin.amount)
+        }
+        let moduleBorrowable = moduleAmount.subtracting(reserveAmount)
+        if (hardMoneyMarket?.borrow_limit?.has_max_limit == true) {
+            let maximum_limit = NSDecimalNumber.init(string: hardParam?.getHardMoneyMarket(denom)?.borrow_limit?.maximum_limit)
+            SystemBorrowableAmount = maximum_limit.compare(moduleBorrowable).rawValue > 0 ? moduleBorrowable : maximum_limit
+        } else {
+            SystemBorrowableAmount = moduleBorrowable
+        }
+        print("SystemBorrowableAmount ", SystemBorrowableAmount)
+        
+        return totalBorrowAbleAmount.compare(SystemBorrowableAmount).rawValue > 0 ? SystemBorrowableAmount : totalBorrowAbleAmount
+    }
+    
+    static func getHardBorrowableValueByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?, _ myBorrow: Array<HardMyBorrow>?,
+                                              _ moduleCoins: Array<Coin>?, _ reserveCoins: Array<Coin>?) -> NSDecimalNumber {
+        let denomPrice = getKavaPrice(denom)
+        let decimal = getKavaCoinDecimal(denom)
+        let amount = getHardBorrowableAmountByDenom(denom, mydeposit, myBorrow, moduleCoins, reserveCoins)
+        return amount.multiplying(byPowerOf10: -decimal).multiplying(by: denomPrice, withBehavior: WUtils.handler2Down)
+    }
+    
+    static func getKavaPrice(_ denom: String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if (denom == "usdx") {
+            result = NSDecimalNumber.one
+        } else {
+            let hardParam = BaseData.instance.mHardParam
+            if let price = BaseData.instance.mKavaPrice[hardParam!.getSpotMarketId(denom)!] {
+                result = NSDecimalNumber.init(string: price.result.price)
+            }
+        }
+        return result
+    }
+    
+    static func getHardSuppliedValueByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?) -> NSDecimalNumber {
+        let denomPrice = getKavaPrice(denom)
+        let decimal = getKavaCoinDecimal(denom)
+        let amount = getHardSuppliedAmountByDenom(denom, mydeposit)
+        return amount.multiplying(byPowerOf10: -decimal).multiplying(by: denomPrice, withBehavior: WUtils.handler2Down)
+    }
+    
+    static func getHardBorrowedAmountByDenom(_ denom: String, _ myBorrow: Array<HardMyBorrow>?) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        if let borrow = myBorrow?[0], let coins = borrow.amount {
+            for coin in coins {
+                if (coin.denom == denom) {
+                    result = NSDecimalNumber.init(string: coin.amount)
+                }
+            }
+        }
+        return result
+    }
+    
+    
     //address, pubkey, accountnumber, sequencenumber
     static func onParseAuthGrpc(_ response :Cosmos_Auth_V1beta1_QueryAccountResponse) -> (String?, Google_Protobuf2_Any?, UInt64?, UInt64?) {
         if (response.account.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName)) {
@@ -3377,6 +3521,8 @@ class WUtils {
         }
         return result
     }
+    
+    
     
     static func onParseStakeRewardGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ opAddress: String, _ position: Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
