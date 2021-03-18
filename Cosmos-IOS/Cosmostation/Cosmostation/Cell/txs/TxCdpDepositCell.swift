@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TxDepositCdpCell: UITableViewCell {
+class TxCdpDepositCell: UITableViewCell {
     
     @IBOutlet weak var txIcon: UIImageView!
     @IBOutlet weak var owerLabel: UILabel!

@@ -57,11 +57,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxVoteCell", bundle: nil), forCellReuseIdentifier: "TxVoteCell")
         
         self.txTableView.register(UINib(nibName: "TxPostPriceCell", bundle: nil), forCellReuseIdentifier: "TxPostPriceCell")
-        self.txTableView.register(UINib(nibName: "TxCreateCdpCell", bundle: nil), forCellReuseIdentifier: "TxCreateCdpCell")
-        self.txTableView.register(UINib(nibName: "TxDepositCdpCell", bundle: nil), forCellReuseIdentifier: "TxDepositCdpCell")
-        self.txTableView.register(UINib(nibName: "TxWithDrawCdpCell", bundle: nil), forCellReuseIdentifier: "TxWithDrawCdpCell")
-        self.txTableView.register(UINib(nibName: "TxdrawDebtCdpCell", bundle: nil), forCellReuseIdentifier: "TxdrawDebtCdpCell")
-        self.txTableView.register(UINib(nibName: "TxRepayCdpCell", bundle: nil), forCellReuseIdentifier: "TxRepayCdpCell")
+        self.txTableView.register(UINib(nibName: "TxCdpCreateCell", bundle: nil), forCellReuseIdentifier: "TxCdpCreateCell")
+        self.txTableView.register(UINib(nibName: "TxCdpDepositCell", bundle: nil), forCellReuseIdentifier: "TxCdpDepositCell")
+        self.txTableView.register(UINib(nibName: "TxCdpWithdrawCell", bundle: nil), forCellReuseIdentifier: "TxCdpWithdrawCell")
+        self.txTableView.register(UINib(nibName: "TxCdpBorrowCell", bundle: nil), forCellReuseIdentifier: "TxCdpBorrowCell")
+        self.txTableView.register(UINib(nibName: "TxCdpRepayCell", bundle: nil), forCellReuseIdentifier: "TxCdpRepayCell")
         self.txTableView.register(UINib(nibName: "TxHardDepositCell", bundle: nil), forCellReuseIdentifier: "TxHardDepositCell")
         self.txTableView.register(UINib(nibName: "TxHardWithdrawCell", bundle: nil), forCellReuseIdentifier: "TxHardWithdrawCell")
         self.txTableView.register(UINib(nibName: "TxHardBorrowCell", bundle: nil), forCellReuseIdentifier: "TxHardBorrowCell")
@@ -599,7 +599,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onBindCreateCdp(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
-        let cell:TxCreateCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxCreateCdpCell") as? TxCreateCdpCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpCreateCell") as? TxCdpCreateCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
@@ -616,7 +616,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onBindDepositCdp(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
-        let cell:TxDepositCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxDepositCdpCell") as? TxDepositCdpCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpDepositCell") as? TxCdpDepositCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
@@ -631,7 +631,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onBindWithdrawCdp(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
-        let cell:TxWithDrawCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxWithDrawCdpCell") as? TxWithDrawCdpCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpWithdrawCell") as? TxCdpWithdrawCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
@@ -646,7 +646,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onBindDrawDebtCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:TxdrawDebtCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxdrawDebtCdpCell") as? TxdrawDebtCdpCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpBorrowCell") as? TxCdpBorrowCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
@@ -663,7 +663,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onBindRepayDebtCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:TxRepayCdpCell? = tableView.dequeueReusableCell(withIdentifier:"TxRepayCdpCell") as? TxRepayCdpCell
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpRepayCell") as? TxCdpRepayCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
