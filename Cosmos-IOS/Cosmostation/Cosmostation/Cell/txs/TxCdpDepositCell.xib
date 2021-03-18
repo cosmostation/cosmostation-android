@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ws1-Df-TdP" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="366" height="204"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txDepositCdp" translatesAutoresizingMaskIntoConstraints="NO" id="2L2-1o-oJF">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="txCreateCdp" translatesAutoresizingMaskIntoConstraints="NO" id="2L2-1o-oJF">
                                 <rect key="frame" x="16" y="16" width="28" height="28"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="28" id="e54-VO-tuY"/>
@@ -138,6 +138,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="txDepositCdp" width="28" height="28"/>
+        <image name="txCreateCdp" width="28" height="28"/>
     </resources>
 </document>

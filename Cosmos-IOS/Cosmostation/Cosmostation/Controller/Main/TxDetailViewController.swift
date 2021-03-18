@@ -62,6 +62,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxCdpWithdrawCell", bundle: nil), forCellReuseIdentifier: "TxCdpWithdrawCell")
         self.txTableView.register(UINib(nibName: "TxCdpBorrowCell", bundle: nil), forCellReuseIdentifier: "TxCdpBorrowCell")
         self.txTableView.register(UINib(nibName: "TxCdpRepayCell", bundle: nil), forCellReuseIdentifier: "TxCdpRepayCell")
+        self.txTableView.register(UINib(nibName: "TxCdpLiquidateCell", bundle: nil), forCellReuseIdentifier: "TxCdpLiquidateCell")
         self.txTableView.register(UINib(nibName: "TxHardDepositCell", bundle: nil), forCellReuseIdentifier: "TxHardDepositCell")
         self.txTableView.register(UINib(nibName: "TxHardWithdrawCell", bundle: nil), forCellReuseIdentifier: "TxHardWithdrawCell")
         self.txTableView.register(UINib(nibName: "TxHardBorrowCell", bundle: nil), forCellReuseIdentifier: "TxHardBorrowCell")
@@ -72,7 +73,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxHtlcCreateCell", bundle: nil), forCellReuseIdentifier: "TxHtlcCreateCell")
         self.txTableView.register(UINib(nibName: "TxHtlcClaimCell", bundle: nil), forCellReuseIdentifier: "TxHtlcClaimCell")
         self.txTableView.register(UINib(nibName: "TxHtlcRefundCell", bundle: nil), forCellReuseIdentifier: "TxHtlcRefundCell")
-        
         
         self.txTableView.register(UINib(nibName: "TxOkStakeCell", bundle: nil), forCellReuseIdentifier: "TxOkStakeCell")
         self.txTableView.register(UINib(nibName: "TxOkDirectVoteCell", bundle: nil), forCellReuseIdentifier: "TxOkDirectVoteCell")
@@ -194,19 +194,22 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 return onBindPostPrice(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_CREATE_CDP) {
-                return onBindCreateCdp(tableView, indexPath.row)
+                return onBindCdpCreate(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_DEPOSIT_CDP) {
-                return onBindDepositCdp(tableView, indexPath.row)
+                return onBindCdpDeposit(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_WITHDRAW_CDP) {
-                return onBindWithdrawCdp(tableView, indexPath.row)
+                return onBindCdpWithdraw(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
-                return onBindDrawDebtCdp(tableView, indexPath.row)
+                return onBindCdpBorrow(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
-                return onBindRepayDebtCdp(tableView, indexPath.row)
+                return onBindCdpRepay(tableView, indexPath.row)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_LIQUIDATE_CDP) {
+                return onBindCdpLiquidate(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_CREATE_SWAP || msg?.type == BNB_MSG_TYPE_HTLC) {
                 return onBindHtlcCreate(tableView, indexPath.row)
@@ -234,11 +237,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == KAVA_MSG_TYPE_INCENTIVE_REWARD || msg?.type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
                 return onBindIncentiveMinting(tableView, indexPath.row)
-//                return onBindIncentive(tableView, indexPath.row)
                 
             }  else if (msg?.type == KAVA_MSG_TYPE_CLAIM_HAVEST || msg?.type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
                 return onBindIncentiveHard(tableView, indexPath.row)
-//                return onBindHavestReward(tableView, indexPath.row)
                 
             } else if (msg?.type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                 return onBindGetRewardAll(tableView, indexPath.row)
@@ -598,7 +599,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindCreateCdp(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
+    func onBindCdpCreate(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpCreateCell") as? TxCdpCreateCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -615,7 +616,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindDepositCdp(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
+    func onBindCdpDeposit(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpDepositCell") as? TxCdpDepositCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -630,7 +631,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindWithdrawCdp(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
+    func onBindCdpWithdraw(_ tableView: UITableView,  _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpWithdrawCell") as? TxCdpWithdrawCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -645,7 +646,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindDrawDebtCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+    func onBindCdpBorrow(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpBorrowCell") as? TxCdpBorrowCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -662,7 +663,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindRepayDebtCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+    func onBindCdpRepay(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpRepayCell") as? TxCdpRepayCell
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
@@ -676,6 +677,14 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.senderLabel.text = msg?.value.sender
         cell?.paymentAmount.attributedText = WUtils.displayAmount2(msg?.value.payment!.amount, cell!.paymentAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
         cell?.paymentDenom.text = pDenom!.uppercased()
+        return cell!
+    }
+    
+    func onBindCdpLiquidate(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxCdpLiquidateCell") as? TxCdpLiquidateCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg)
+        }
         return cell!
     }
     
