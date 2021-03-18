@@ -112,6 +112,7 @@ public struct Msg: Codable {
         var depositor: String?
         var borrower: String?
         var owner: String?
+        var keeper: String?
         var collateral: Coin?
         var principal: Coin?
         var payment: Coin?
@@ -181,6 +182,7 @@ public struct Msg: Codable {
             case depositor
             case borrower
             case owner
+            case keeper
             case collateral
             case principal
             case payment
@@ -418,6 +420,9 @@ public struct Msg: Codable {
             }
             if let owner =  dictionary["owner"] as? String {
                 self.owner = owner
+            }
+            if let keeper =  dictionary["keeper"] as? String {
+                self.keeper = keeper
             }
             if let rawCollateral = dictionary["collateral"] as? [String : Any] {
                 self.collateral = Coin(rawCollateral)

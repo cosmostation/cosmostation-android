@@ -605,6 +605,7 @@
 "tx_kava_withdraw_cdp" = "CDP\nWithdraw";
 "tx_kava_drawdebt_cdp" = "CDP\nDraw Debt";
 "tx_kava_repaydebt_cdp" = "CDP\nRepay";
+"tx_kava_liquidate_cdp" = "CDP\nLiquidate";
 "tx_create_htlc" = "Interchain\nCreate";
 "tx_send_htlc" = "Interchain\nSend";
 "tx_receive_htlc" = "Interchain\nReceive";
@@ -627,6 +628,13 @@
 "tx_starname_renew_domain" = "Renew Domain";
 "tx_starname_renew_account" = "Renew Account";
 "tx_starname_update_resource" = "Replace Address";
+"tx_kava_hard_deposit" = "Hard\nDeposit";
+"tx_kava_hard_withdraw" = "Hard\nWithdraw";
+"tx_kava_hard_borrow" = "Hard\nBorrow";
+"tx_kava_hard_repay" = "Hard\nRepay";
+"tx_kava_hard_liquidate" = "Hard\nLiquidate";
+"tx_kava_hard_hard_incentive" = "Incentive\nHard pool";
+"tx_kava_hard_mint_incentive" = "Incentive\nUSDX minting";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

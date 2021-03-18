@@ -55,21 +55,28 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxRewardAllCell", bundle: nil), forCellReuseIdentifier: "TxRewardAllCell")
         self.txTableView.register(UINib(nibName: "TxEditRewardAddressCell", bundle: nil), forCellReuseIdentifier: "TxEditRewardAddressCell")
         self.txTableView.register(UINib(nibName: "TxVoteCell", bundle: nil), forCellReuseIdentifier: "TxVoteCell")
+        
         self.txTableView.register(UINib(nibName: "TxPostPriceCell", bundle: nil), forCellReuseIdentifier: "TxPostPriceCell")
         self.txTableView.register(UINib(nibName: "TxCreateCdpCell", bundle: nil), forCellReuseIdentifier: "TxCreateCdpCell")
         self.txTableView.register(UINib(nibName: "TxDepositCdpCell", bundle: nil), forCellReuseIdentifier: "TxDepositCdpCell")
         self.txTableView.register(UINib(nibName: "TxWithDrawCdpCell", bundle: nil), forCellReuseIdentifier: "TxWithDrawCdpCell")
         self.txTableView.register(UINib(nibName: "TxdrawDebtCdpCell", bundle: nil), forCellReuseIdentifier: "TxdrawDebtCdpCell")
         self.txTableView.register(UINib(nibName: "TxRepayCdpCell", bundle: nil), forCellReuseIdentifier: "TxRepayCdpCell")
+        self.txTableView.register(UINib(nibName: "TxHardDepositCell", bundle: nil), forCellReuseIdentifier: "TxHardDepositCell")
+        self.txTableView.register(UINib(nibName: "TxHardWithdrawCell", bundle: nil), forCellReuseIdentifier: "TxHardWithdrawCell")
+        self.txTableView.register(UINib(nibName: "TxHardBorrowCell", bundle: nil), forCellReuseIdentifier: "TxHardBorrowCell")
+        self.txTableView.register(UINib(nibName: "TxHardRepayCell", bundle: nil), forCellReuseIdentifier: "TxHardRepayCell")
+        self.txTableView.register(UINib(nibName: "TxHardLiquidateCell", bundle: nil), forCellReuseIdentifier: "TxHardLiquidateCell")
+        self.txTableView.register(UINib(nibName: "TxIncentiveTableViewCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveTableViewCell")
+        self.txTableView.register(UINib(nibName: "TxClaimRewardHavestCell", bundle: nil), forCellReuseIdentifier: "TxClaimRewardHavestCell")
         self.txTableView.register(UINib(nibName: "TxHtlcCreateCell", bundle: nil), forCellReuseIdentifier: "TxHtlcCreateCell")
         self.txTableView.register(UINib(nibName: "TxHtlcClaimCell", bundle: nil), forCellReuseIdentifier: "TxHtlcClaimCell")
         self.txTableView.register(UINib(nibName: "TxHtlcRefundCell", bundle: nil), forCellReuseIdentifier: "TxHtlcRefundCell")
-        self.txTableView.register(UINib(nibName: "TxIncentiveTableViewCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveTableViewCell")
-        self.txTableView.register(UINib(nibName: "TxDepositHavestCell", bundle: nil), forCellReuseIdentifier: "TxDepositHavestCell")
-        self.txTableView.register(UINib(nibName: "TxWithdrawHavestCell", bundle: nil), forCellReuseIdentifier: "TxWithdrawHavestCell")
-        self.txTableView.register(UINib(nibName: "TxClaimRewardHavestCell", bundle: nil), forCellReuseIdentifier: "TxClaimRewardHavestCell")
+        
+        
         self.txTableView.register(UINib(nibName: "TxOkStakeCell", bundle: nil), forCellReuseIdentifier: "TxOkStakeCell")
         self.txTableView.register(UINib(nibName: "TxOkDirectVoteCell", bundle: nil), forCellReuseIdentifier: "TxOkDirectVoteCell")
+        
         self.txTableView.register(UINib(nibName: "TxRegisterDomainCell", bundle: nil), forCellReuseIdentifier: "TxRegisterDomainCell")
         self.txTableView.register(UINib(nibName: "TxRegisterAccountCell", bundle: nil), forCellReuseIdentifier: "TxRegisterAccountCell")
         self.txTableView.register(UINib(nibName: "TxDeleteDomainCell", bundle: nil), forCellReuseIdentifier: "TxDeleteDomainCell")
@@ -213,12 +220,20 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
                 return onBindIncentive(tableView, indexPath.row)
                 
-            } else if (msg?.type == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
-                return onBindHavestDepsit(tableView, indexPath.row)
+            } else if (msg?.type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || msg?.type == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+                return onBindHardDeposit(tableView, indexPath.row)
                 
-            } else if (msg?.type == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
-                return onBindHavestWithdraw(tableView, indexPath.row)
+            } else if (msg?.type == KAVA_MSG_TYPE_WITHDRAW_HAVEST || msg?.type == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+                return onBindHardWithdraw(tableView, indexPath.row)
                 
+            } else if (msg?.type == KAVA_MSG_TYPE_BORROW_HARD) {
+                return onBindHardBorrow(tableView, indexPath.row)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_REPAY_HARD) {
+                return onBindHardRepay(tableView, indexPath.row)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_LIQUIDATE_HARD) {
+                return onBindHardLiquidate(tableView, indexPath.row)
             } else if (msg?.type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
                 return onBindHavestReward(tableView, indexPath.row)
                 
@@ -778,31 +793,46 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindHavestDepsit(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:TxDepositHavestCell? = tableView.dequeueReusableCell(withIdentifier:"TxDepositHavestCell") as? TxDepositHavestCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        cell?.depositor.text = msg?.value.depositor
-        cell?.depositType.text = msg?.value.deposit_type
-        if let depostAmount = msg?.value.getAmount() {
-            WUtils.showCoinDp(depostAmount, cell!.depositDenom, cell!.depositAmount, chainType!)
+    func onBindHardDeposit(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxHardDepositCell") as? TxHardDepositCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg)
         }
         return cell!
     }
     
-    func onBindHavestWithdraw(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:TxWithdrawHavestCell? = tableView.dequeueReusableCell(withIdentifier:"TxWithdrawHavestCell") as? TxWithdrawHavestCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        cell?.depositor.text = msg?.value.depositor
-        cell?.depositType.text = msg?.value.deposit_type
-        if let depositAmount = msg?.value.getAmount() {
-            WUtils.showCoinDp(depositAmount, cell!.withdrawDenom, cell!.withdrawAmount, chainType!)
+    func onBindHardWithdraw(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxHardWithdrawCell") as? TxHardWithdrawCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg)
         }
         return cell!
     }
+    
+    func onBindHardBorrow(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxHardBorrowCell") as? TxHardBorrowCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg)
+        }
+        return cell!
+    }
+    
+    func onBindHardRepay(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxHardRepayCell") as? TxHardRepayCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg)
+        }
+        return cell!
+    }
+    
+    func onBindHardLiquidate(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxHardLiquidateCell") as? TxHardLiquidateCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg)
+        }
+        return cell!
+    }
+    
     
     func onBindHavestReward(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:TxClaimRewardHavestCell? = tableView.dequeueReusableCell(withIdentifier:"TxClaimRewardHavestCell") as? TxClaimRewardHavestCell
@@ -1262,7 +1292,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }
-//        print("url ", url)
+        print("url ", url)
         request!.responseJSON { (response) in
             switch response.result {
             case .success(let res):

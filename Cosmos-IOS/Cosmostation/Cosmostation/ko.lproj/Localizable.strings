@@ -608,6 +608,7 @@
 "tx_kava_withdraw_cdp" = "CDP\n출금";
 "tx_kava_drawdebt_cdp" = "CDP\n대출";
 "tx_kava_repaydebt_cdp" = "CDP\n상환";
+"tx_kava_liquidate_cdp" = "CDP\n청산";
 "tx_create_htlc" = "인터체인\n생성";
 "tx_send_htlc" = "인터체인\n보내기";
 "tx_receive_htlc" = "인터체인\n받기";
@@ -630,7 +631,13 @@
 "tx_starname_renew_domain" = "Domain 갱신";
 "tx_starname_renew_account" = "Account 갱신";
 "tx_starname_update_resource" = "주소 등록";
-
+"tx_kava_hard_deposit" = "하드풀\n예치";
+"tx_kava_hard_withdraw" = "하드풀\n출금";
+"tx_kava_hard_borrow" = "하드풀\n대출";
+"tx_kava_hard_repay" = "하드풀\n상환";
+"tx_kava_hard_liquidate" = "하드풀\n청산";
+"tx_kava_hard_hard_incentive" = "인센티브\n하드풀";
+"tx_kava_hard_mint_incentive" = "인센티브\nUSDX 발행";
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

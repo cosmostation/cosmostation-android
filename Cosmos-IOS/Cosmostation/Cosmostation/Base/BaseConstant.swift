@@ -717,6 +717,7 @@ let KAVA_MSG_TYPE_DEPOSIT_CDP               = "cdp/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_CDP              = "cdp/MsgWithdraw";
 let KAVA_MSG_TYPE_DRAWDEBT_CDP              = "cdp/MsgDrawDebt";
 let KAVA_MSG_TYPE_REPAYDEBT_CDP             = "cdp/MsgRepayDebt";
+let KAVA_MSG_TYPE_LIQUIDATE_CDP             = "cdp/MsgLiquidate";
 let KAVA_MSG_TYPE_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
 let KAVA_MSG_TYPE_CLAIM_SWAP                = "bep3/MsgClaimAtomicSwap";
 let KAVA_MSG_TYPE_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
@@ -730,6 +731,7 @@ let KAVA_MSG_TYPE_DEPOSIT_HARD              = "hard/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_HARD             = "hard/MsgWithdraw";
 let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
 let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
+let KAVA_MSG_TYPE_LIQUIDATE_HARD            = "hard/MsgLiquidate";
 
 
 

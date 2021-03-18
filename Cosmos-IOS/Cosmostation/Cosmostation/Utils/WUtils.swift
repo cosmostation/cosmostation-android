@@ -565,6 +565,9 @@ class WUtils {
         } else if (msgs[0].type == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
             resultMsg = NSLocalizedString("tx_kava_repaydebt_cdp", comment: "")
             
+        } else if (msgs[0].type == KAVA_MSG_TYPE_LIQUIDATE_CDP) {
+            resultMsg = NSLocalizedString("tx_kava_liquidate_cdp", comment: "")
+            
         } else if (msgs[0].type == KAVA_MSG_TYPE_CREATE_SWAP) {
             resultMsg = NSLocalizedString("tx_kava_bep3_create", comment: "")
             
@@ -574,19 +577,30 @@ class WUtils {
         } else if (msgs[0].type == KAVA_MSG_TYPE_REFUND_SWAP) {
             resultMsg = NSLocalizedString("tx_kava_bep3_refund", comment: "")
             
-        } else if (msgs[0].type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
-            resultMsg = NSLocalizedString("tx_kava_incentive_reward", comment: "")
+        } else if (msgs[0].type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || msgs[0].type == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+            resultMsg = NSLocalizedString("tx_kava_hard_deposit", comment: "")
             
-        } else if (msgs[0].type == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
-            resultMsg = NSLocalizedString("tx_kava_havest_deposit", comment: "")
+        } else if (msgs[0].type == KAVA_MSG_TYPE_WITHDRAW_HAVEST || msgs[0].type == KAVA_MSG_TYPE_WITHDRAW_HARD) {
+            resultMsg = NSLocalizedString("tx_kava_hard_withdraw", comment: "")
             
-        } else if (msgs[0].type == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
-            resultMsg = NSLocalizedString("tx_kava_havest_withdraw", comment: "")
+        }else if (msgs[0].type == KAVA_MSG_TYPE_BORROW_HARD) {
+            resultMsg = NSLocalizedString("tx_kava_hard_borrow", comment: "")
             
-        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
-            resultMsg = NSLocalizedString("tx_kava_havest_claim", comment: "")
+        } else if (msgs[0].type == KAVA_MSG_TYPE_REPAY_HARD) {
+            resultMsg = NSLocalizedString("tx_kava_hard_repay", comment: "")
             
-        } else if (msgs[0].type == IOV_MSG_TYPE_REGISTER_DOMAIN) {
+        } else if (msgs[0].type == KAVA_MSG_TYPE_LIQUIDATE_HARD) {
+            resultMsg = NSLocalizedString("tx_kava_hard_liquidate", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_CLAIM_HAVEST || msgs[0].type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+            resultMsg = NSLocalizedString("tx_kava_hard_hard_incentive", comment: "")
+            
+        } else if (msgs[0].type == KAVA_MSG_TYPE_INCENTIVE_REWARD || msgs[0].type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
+            resultMsg = NSLocalizedString("tx_kava_hard_mint_incentive", comment: "")
+            
+        }
+        
+        else if (msgs[0].type == IOV_MSG_TYPE_REGISTER_DOMAIN) {
             resultMsg = NSLocalizedString("tx_starname_registe_domain", comment: "")
             
         } else if (msgs[0].type == IOV_MSG_TYPE_REGISTER_ACCOUNT) {
