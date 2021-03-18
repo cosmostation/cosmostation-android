@@ -628,13 +628,13 @@
 "tx_starname_renew_domain" = "Renew Domain";
 "tx_starname_renew_account" = "Renew Account";
 "tx_starname_update_resource" = "Replace Address";
-"tx_kava_hard_deposit" = "Hard\nDeposit";
-"tx_kava_hard_withdraw" = "Hard\nWithdraw";
-"tx_kava_hard_borrow" = "Hard\nBorrow";
-"tx_kava_hard_repay" = "Hard\nRepay";
-"tx_kava_hard_liquidate" = "Hard\nLiquidate";
-"tx_kava_hard_hard_incentive" = "Incentive\nHard pool";
-"tx_kava_hard_mint_incentive" = "Incentive\nUSDX minting";
+"tx_kava_hard_deposit" = "Hard Pool\nDeposit";
+"tx_kava_hard_withdraw" = "Hard Pool\nWithdraw";
+"tx_kava_hard_borrow" = "Hard Pool\nBorrow";
+"tx_kava_hard_repay" = "Hard Pool\nRepay";
+"tx_kava_hard_liquidate" = "Hard Pool\nLiquidate";
+"tx_kava_hard_hard_incentive" = "Incentive\nHard Pool";
+"tx_kava_hard_mint_incentive" = "Incentive\nUSDX Minting";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

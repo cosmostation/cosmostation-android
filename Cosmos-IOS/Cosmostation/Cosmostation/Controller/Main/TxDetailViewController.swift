@@ -67,8 +67,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.txTableView.register(UINib(nibName: "TxHardBorrowCell", bundle: nil), forCellReuseIdentifier: "TxHardBorrowCell")
         self.txTableView.register(UINib(nibName: "TxHardRepayCell", bundle: nil), forCellReuseIdentifier: "TxHardRepayCell")
         self.txTableView.register(UINib(nibName: "TxHardLiquidateCell", bundle: nil), forCellReuseIdentifier: "TxHardLiquidateCell")
-        self.txTableView.register(UINib(nibName: "TxIncentiveTableViewCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveTableViewCell")
-        self.txTableView.register(UINib(nibName: "TxClaimRewardHavestCell", bundle: nil), forCellReuseIdentifier: "TxClaimRewardHavestCell")
+        self.txTableView.register(UINib(nibName: "TxIncentiveMintingCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveMintingCell")
+        self.txTableView.register(UINib(nibName: "TxIncentiveHardCell", bundle: nil), forCellReuseIdentifier: "TxIncentiveHardCell")
         self.txTableView.register(UINib(nibName: "TxHtlcCreateCell", bundle: nil), forCellReuseIdentifier: "TxHtlcCreateCell")
         self.txTableView.register(UINib(nibName: "TxHtlcClaimCell", bundle: nil), forCellReuseIdentifier: "TxHtlcClaimCell")
         self.txTableView.register(UINib(nibName: "TxHtlcRefundCell", bundle: nil), forCellReuseIdentifier: "TxHtlcRefundCell")
@@ -217,10 +217,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == KAVA_MSG_TYPE_REFUND_SWAP || msg?.type == BNB_MSG_TYPE_HTLC_REFUND) {
                 return onBindHtlcRefund(tableView, indexPath.row)
                 
-            } else if (msg?.type == KAVA_MSG_TYPE_INCENTIVE_REWARD) {
-                return onBindIncentive(tableView, indexPath.row)
-                
-            } else if (msg?.type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || msg?.type == KAVA_MSG_TYPE_DEPOSIT_HARD) {
+            }else if (msg?.type == KAVA_MSG_TYPE_DEPOSIT_HAVEST || msg?.type == KAVA_MSG_TYPE_DEPOSIT_HARD) {
                 return onBindHardDeposit(tableView, indexPath.row)
                 
             } else if (msg?.type == KAVA_MSG_TYPE_WITHDRAW_HAVEST || msg?.type == KAVA_MSG_TYPE_WITHDRAW_HARD) {
@@ -234,8 +231,14 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 
             } else if (msg?.type == KAVA_MSG_TYPE_LIQUIDATE_HARD) {
                 return onBindHardLiquidate(tableView, indexPath.row)
-            } else if (msg?.type == KAVA_MSG_TYPE_CLAIM_HAVEST) {
-                return onBindHavestReward(tableView, indexPath.row)
+                
+            } else if (msg?.type == KAVA_MSG_TYPE_INCENTIVE_REWARD || msg?.type == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
+                return onBindIncentiveMinting(tableView, indexPath.row)
+//                return onBindIncentive(tableView, indexPath.row)
+                
+            }  else if (msg?.type == KAVA_MSG_TYPE_CLAIM_HAVEST || msg?.type == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+                return onBindIncentiveHard(tableView, indexPath.row)
+//                return onBindHavestReward(tableView, indexPath.row)
                 
             } else if (msg?.type == IRIS_MSG_TYPE_WITHDRAW_ALL) {
                 return onBindGetRewardAll(tableView, indexPath.row)
@@ -772,27 +775,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    func onBindIncentive(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:TxIncentiveTableViewCell? = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveTableViewCell") as? TxIncentiveTableViewCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell?.senderLabel.text = msg?.value.sender
-            cell?.coinTypeLabel.text = msg?.value.collateral_type
-            cell?.multiplierLabel.text = msg?.value.multiplier_name
-            
-            let incentiveCoin = mTxInfo!.simpleIncentive()
-            if (incentiveCoin != nil && !incentiveCoin!.denom.isEmpty) {
-                WUtils.showCoinDp(incentiveCoin!, cell!.rewardAmountDenom, cell!.rewardAmount, chainType!)
-            } else {
-                cell!.rewardAmountDenom.text = ""
-                cell!.rewardAmount.text = ""
-            }
-        }
-        return cell!
-    }
-    
     func onBindHardDeposit(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:"TxHardDepositCell") as? TxHardDepositCell
         if let msg = mTxInfo?.getMsg(position - 1) {
@@ -833,27 +815,22 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         return cell!
     }
     
-    
-    func onBindHavestReward(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-        let cell:TxClaimRewardHavestCell? = tableView.dequeueReusableCell(withIdentifier:"TxClaimRewardHavestCell") as? TxClaimRewardHavestCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        cell?.sender.text = msg?.value.sender
-        cell?.receiver.text = msg?.value.receiver
-        cell?.coinType.text = msg?.value.deposit_denom
-        cell?.multiplier.text = msg?.value.multiplier_name
-        cell?.depositType.text = msg?.value.deposit_type
-        
-        let hReward = mTxInfo!.simpleHavestReward()
-        if (hReward != nil && !hReward!.denom.isEmpty) {
-            WUtils.showCoinDp(hReward!, cell!.rewardDenom, cell!.rewardAmount, chainType!)
-        } else {
-            cell!.rewardDenom.text = ""
-            cell!.rewardAmount.text = ""
+    func onBindIncentiveMinting(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveMintingCell") as? TxIncentiveMintingCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg, mTxInfo!)
         }
         return cell!
     }
+    
+    func onBindIncentiveHard(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"TxIncentiveHardCell") as? TxIncentiveHardCell
+        if let msg = mTxInfo?.getMsg(position - 1) {
+            cell?.onBind(chainType!, msg, mTxInfo!)
+        }
+        return cell!
+    }
+    
     
     func onBindOkStake(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:TxOkStakeCell? = tableView.dequeueReusableCell(withIdentifier:"TxOkStakeCell") as? TxOkStakeCell
