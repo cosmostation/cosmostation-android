@@ -485,8 +485,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
             let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM, chainType!)
             let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let havestDepositAmount = WUtils.havestDepositAmount(KAVA_MAIN_DENOM)
-            let unclaimedIncentiveAmount = WUtils.unclaimedIncentiveAmount(KAVA_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
@@ -495,16 +493,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
             cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-            cell?.havestDepositedAmount.attributedText = WUtils.displayAmount2(havestDepositAmount.stringValue, cell!.havestDepositedAmount.font, 6, 6)
-            cell?.unclaimedIncentiveAmount.attributedText = WUtils.displayAmount2(unclaimedIncentiveAmount.stringValue, cell!.unclaimedIncentiveAmount.font, 6, 6)
-            if (vestingAmount != NSDecimalNumber.zero) { cell?.vestingLayer.isHidden = false
-            } else { cell?.vestingLayer.isHidden = true }
-            if (havestDepositAmount != NSDecimalNumber.zero) {
-                cell?.havestDepositLayer.isHidden = false
-            } else { cell?.havestDepositLayer.isHidden = true }
-            if (unclaimedIncentiveAmount != NSDecimalNumber.zero) {
-                cell?.unClaimedIncentiveLayer.isHidden = false
-            } else { cell?.unClaimedIncentiveLayer.isHidden = true }
+            
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
@@ -597,8 +586,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
             let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM, chainType!)
             let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let havestDepositAmount = WUtils.havestDepositAmount(KAVA_MAIN_DENOM)
-            let unclaimedIncentiveAmount = WUtils.unclaimedIncentiveAmount(KAVA_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
@@ -607,17 +594,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
             cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-            cell?.havestDepositedAmount.attributedText = WUtils.displayAmount2(havestDepositAmount.stringValue, cell!.havestDepositedAmount.font, 6, 6)
-            cell?.unclaimedIncentiveAmount.attributedText = WUtils.displayAmount2(unclaimedIncentiveAmount.stringValue, cell!.unclaimedIncentiveAmount.font, 6, 6)
-            if (vestingAmount != NSDecimalNumber.zero) {
-                cell?.vestingLayer.isHidden = false
-            }
-            if (havestDepositAmount != NSDecimalNumber.zero) {
-                cell?.havestDepositLayer.isHidden = false
-            }
-            if (unclaimedIncentiveAmount != NSDecimalNumber.zero) {
-                cell?.unClaimedIncentiveLayer.isHidden = false
-            }
+            
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
