@@ -55,8 +55,8 @@ let KAVA_FAUCET                         = "";
 
 //let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
 //let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
-let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-11000/";
-let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-11000/";
+let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
+let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_TEST_FAUCET                    = "";
 
 
@@ -725,7 +725,7 @@ let KAVA_MSG_TYPE_DEPOSIT_HAVEST            = "harvest/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_HAVEST           = "harvest/MsgWithdraw";
 let KAVA_MSG_TYPE_CLAIM_HAVEST              = "harvest/MsgClaimReward";
 let KAVA_MSG_TYPE_USDX_MINT_INCENTIVE       = "incentive/MsgClaimUSDXMintingReward";
-let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE      = "incentive/MsgClaimHardLiquidityProviderReward";
+let KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE      = "incentive/MsgClaimHardReward";
 let KAVA_MSG_TYPE_DEPOSIT_HARD              = "hard/MsgDeposit";
 let KAVA_MSG_TYPE_WITHDRAW_HARD             = "hard/MsgWithdraw";
 let KAVA_MSG_TYPE_BORROW_HARD               = "hard/MsgBorrow";
