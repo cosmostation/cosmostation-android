@@ -223,19 +223,23 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     self.newVc(viewController: "StepFeeViewController"),
                     self.newVc(viewController: "StepIncentive3ViewController")]
             
-        } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
-            return [self.newVc(viewController: "StepDepositHarvestAmountViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
-                    self.newVc(viewController: "StepDepositHarvestCheckViewController")]
-            
-        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
-            return [self.newVc(viewController: "StepWithdrawHarvestAmountViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
-                    self.newVc(viewController: "StepWithdrawHarvestCheckViewController")]
-            
-        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+        }
+        
+//        else if (mType == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
+//            return [self.newVc(viewController: "StepDepositHarvestAmountViewController"),
+//                    self.newVc(viewController: "StepMemoViewController"),
+//                    self.newVc(viewController: "StepFeeViewController"),
+//                    self.newVc(viewController: "StepDepositHarvestCheckViewController")]
+//            
+//        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
+//            return [self.newVc(viewController: "StepWithdrawHarvestAmountViewController"),
+//                    self.newVc(viewController: "StepMemoViewController"),
+//                    self.newVc(viewController: "StepFeeViewController"),
+//                    self.newVc(viewController: "StepWithdrawHarvestCheckViewController")]
+//            
+//        }
+        
+        else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
             return [self.newVc(viewController: "StepHarvestReward0ViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
                     self.newVc(viewController: "StepFeeViewController"),

@@ -839,26 +839,6 @@ class WUtils {
         return amount;
     }
     
-    static func havestDepositAmount(_ symbol:String) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for deposits in BaseData.instance.mHavestDeposits {
-            if (deposits.amount.denom == symbol) {
-                amount = amount.adding(plainStringToDecimal(deposits.amount.amount))
-            }
-        }
-        return amount;
-    }
-    
-    static func unclaimedIncentiveAmount(_ symbol:String) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for incentive in BaseData.instance.mIncentiveClaimables {
-            if (incentive.claimable == true && incentive.claim.reward.denom == symbol) {
-                amount = amount.adding(plainStringToDecimal(incentive.claim.reward.amount))
-            }
-        }
-        return amount;
-    }
-    
     static func okDepositAmount(_ deposit: OkStaking?) -> NSDecimalNumber {
         return plainStringToDecimal(deposit?.tokens)
     }
@@ -1671,8 +1651,6 @@ class WUtils {
                 }
             }
         }
-        amount = amount.adding(havestDepositAmount(KAVA_MAIN_DENOM))
-        amount = amount.adding(unclaimedIncentiveAmount(KAVA_MAIN_DENOM))
         return amount
     }
     
@@ -1696,46 +1674,12 @@ class WUtils {
         return amount
     }
     
-    static func getKavaTokenHavestDeposited(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        let mHavestDeposits = BaseData.instance.mHavestDeposits
-        for havestDeposit in mHavestDeposits {
-            if (havestDeposit.amount.denom == denom) {
-                amount = amount.adding(localeStringToDecimal(havestDeposit.amount.amount))
-            }
-        }
-        return amount
-    }
-    
-    static func getKavaTokenHavestReward(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        let mHavestRewards = BaseData.instance.mHavestRewards
-        for havestReward in mHavestRewards {
-            if (havestReward.amount.denom == denom) {
-                amount = amount.adding(localeStringToDecimal(havestReward.amount.amount))
-            }
-        }
-        return amount
-    }
-    
     static func getKavaTokenAll(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == denom) {
                 amount = localeStringToDecimal(balance.balance_amount)
                 amount = amount.adding(localeStringToDecimal(balance.balance_frozen))
-            }
-        }
-        let mHavestDeposits = BaseData.instance.mHavestDeposits
-        for havestDeposit in mHavestDeposits {
-            if (havestDeposit.amount.denom == denom) {
-                amount = amount.adding(localeStringToDecimal(havestDeposit.amount.amount))
-            }
-        }
-        let mHavestRewards = BaseData.instance.mHavestRewards
-        for havestReward in mHavestRewards {
-            if (havestReward.amount.denom == denom) {
-                amount = amount.adding(localeStringToDecimal(havestReward.amount.amount))
             }
         }
         return amount
@@ -2495,7 +2439,8 @@ class WUtils {
         } else if (chainS == CHAIN_BINANCE_S) {
             return "Binance-Chain-Tigris"
         } else if (chainS == CHAIN_KAVA_S) {
-            return "kava-6"
+//            return "kava-6"
+            return "kava-testnet-12000"
         } else if (chainS == CHAIN_IOV_S) {
             return "iov-mainnet-2"
         } else if (chainS == CHAIN_BAND_S) {
@@ -2536,7 +2481,8 @@ class WUtils {
         } else if (chain == ChainType.BINANCE_MAIN) {
             return "Binance-Chain-Tigris"
         } else if (chain == ChainType.KAVA_MAIN) {
-            return "kava-6"
+//            return "kava-6"
+            return "kava-testnet-12000"
         } else if (chain == ChainType.IOV_MAIN) {
             return "iov-mainnet-2"
         } else if (chain == ChainType.BAND_MAIN) {

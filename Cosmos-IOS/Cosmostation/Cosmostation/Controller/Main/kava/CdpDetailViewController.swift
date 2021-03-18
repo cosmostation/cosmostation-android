@@ -34,11 +34,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     
     var mCollateralParamType: String?
     var mCollateralParam: CollateralParam?
-//    var mMyCdpStatus: CdpOwen?
-//    var mMyCdpDeposit: CdpDeposits?
-//    var mKavaTotalSupply: KavaSupply?
-//    var mPrice: KavaPriceFeedPrice = KavaPriceFeedPrice.init()
-//    var mIncentiveClaimables = Array<KavaIncentiveReward2.IncentiveRewardClaimable>()
     
     var cdpParam: CdpParam?
     var myCdp: MyCdp?
@@ -70,11 +65,6 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         if (SHOW_LOG) {
             print("mCollateralParamType ", mCollateralParamType)
         }
-        
-//        mCdpParam = BaseData.instance.mCdpParam
-//        mCollateralParam = mCdpParam?.getCollateralParamByType(mCollateralParamType!)
-//        mIncentiveClaimables = BaseData.instance.mIncentiveClaimables
-        
         cdpParam = BaseData.instance.mCdpParam
         
         self.loadingImg.onStartAnimation()

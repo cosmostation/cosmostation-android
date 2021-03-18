@@ -49,12 +49,12 @@ let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 
-let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/";
-let KAVA_API                            = "https://api-kava.cosmostation.io/";
+//let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/";
+//let KAVA_API                            = "https://api-kava.cosmostation.io/";
+let KAVA_URL                            = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
+let KAVA_API                            = "https://api-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_FAUCET                         = "";
 
-//let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-4-test/";
-//let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-4-test/";
 let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_TEST_FAUCET                    = "";
@@ -1030,19 +1030,19 @@ enum ChainType: String {
         var result = [ChainType]()
         result.append(COSMOS_MAIN)
         result.append(IRIS_MAIN)
-//        result.append(BINANCE_MAIN)
-//        result.append(OKEX_MAIN)
-//        result.append(KAVA_MAIN)
-//        result.append(BAND_MAIN)
-//        result.append(IOV_MAIN)
-//        result.append(CERTIK_MAIN)
-//        result.append(AKASH_MAIN)
-//        result.append(SECRET_MAIN)
+        result.append(BINANCE_MAIN)
+        result.append(OKEX_MAIN)
+        result.append(KAVA_MAIN)
+        result.append(BAND_MAIN)
+        result.append(IOV_MAIN)
+        result.append(CERTIK_MAIN)
+        result.append(AKASH_MAIN)
+        result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
 //        result.append(IRIS_TEST)
 //        result.append(BINANCE_TEST)
-        result.append(KAVA_TEST)
+//        result.append(KAVA_TEST)
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
