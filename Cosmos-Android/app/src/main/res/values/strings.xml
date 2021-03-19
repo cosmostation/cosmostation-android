@@ -27,8 +27,10 @@
     <string name="url_test_bnb_faucet" translatable="false">https://faucet-binance.cosmostation.io</string>
 
 
-    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>
-    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>
+<!--    <string name="url_lcd_kava_main" translatable="false">https://lcd-kava-app.cosmostation.io/</string>-->
+<!--    <string name="url_api_kava_main" translatable="false">https://api-kava.cosmostation.io/</string>-->
+    <string name="url_lcd_kava_main" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-12000/</string>
+    <string name="url_api_kava_main" translatable="false">https://api-office.cosmostation.io/kava-testnet-12000/</string>
 
     <string name="url_lcd_kava_test" translatable="false">https://lcd-office.cosmostation.io/kava-testnet-11000/</string>
     <string name="url_api_kava_test" translatable="false">https://api-office.cosmostation.io/kava-testnet-11000/</string>
@@ -1181,6 +1183,8 @@
     <string name="str_get_repay">Repay</string>
     <string name="str_hard_withdraw_warn_title">Confirm Hard Pool Liquidation Risk</string>
     <string name="str_hard_withdraw_warn_msg">Please note that there may be risk of liquidation if your LTV(loan-to-value) exceeds maximum value. Confirm your Remaining Borrowable Value to check your LTV before sending this transaction.\nIf your Remaining Borrowable Value goes below 0, your position may be liquidated.</string>
+    <string name="str_keeper">Keeper</string>
+    <string name="str_type">Type</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
@@ -1328,6 +1332,7 @@
     <string name="tx_kava_withdraw_cdp">CDP\nWithdraw</string>
     <string name="tx_kava_drawdebt_cdp">CDP\nBorrow</string>
     <string name="tx_kava_repaydebt_cdp">CDP\nRepay</string>
+    <string name="tx_kava_liquidate_cdp">CDP\nLiquidate</string>
     <string name="tx_send_htlc">Interchain\nSend</string>
     <string name="tx_receive_htlc">Interchain\nReceive</string>
     <string name="tx_create_htlc">Interchain\nCreate</string>
@@ -1341,13 +1346,15 @@
     <string name="tx_kava_hard_withdraw">Hard Pool\nWithdraw</string>
     <string name="tx_kava_hard_borrow">Hard Pool\nBorrow</string>
     <string name="tx_kava_hard_repay">Hard Pool\nRepay</string>
-    <string name="tx_kava_harvest_claim">Hard Pool\nIncentive</string>
+    <string name="tx_kava_hard_liquidate">Hard Pool\nLiquidate</string>
+    <string name="tx_kava_incentive_hard">Hard Pool\nIncentive</string>
 
     <string name="tx_kava_create_cdp2">CDP Open</string>
     <string name="tx_kava_deposit_cdp2">CDP Deposit</string>
     <string name="tx_kava_withdraw_cdp2">CDP Withdraw</string>
     <string name="tx_kava_drawdebt_cdp2">CDP Borrow</string>
     <string name="tx_kava_repaydebt_cdp2">CDP Repay</string>
+    <string name="tx_kava_liquidate_cdp2">CDP Liquidate</string>
     <string name="tx_send_htlc2">Interchain Send</string>
     <string name="tx_receive_htlc2">Interchain Receive</string>
     <string name="tx_create_htlc2">Interchain Create</string>
@@ -1357,10 +1364,12 @@
     <string name="tx_kava_bep3_claim2">Interchain Claim</string>
     <string name="tx_kava_bep3_refund2">Interchain Refund</string>
     <string name="tx_kava_incentive_reward2">USDX Minting Incentive</string>
+    <string name="tx_kava_incentive_hard2">Hard Pool Incentive</string>
     <string name="tx_kava_hard_deposit2">Hard Pool Deposit</string>
     <string name="tx_kava_hard_withdraw2">Hard Pool Withdraw</string>
     <string name="tx_kava_hard_borrow2">Hard Pool Borrow</string>
     <string name="tx_kava_hard_repay2">Hard Pool Repay</string>
+    <string name="tx_kava_hard_liquidate2">Hard Pool Liquidate</string>
     <string name="tx_kava_harvest_claim2">Hard Pool Incentive</string>
 
 

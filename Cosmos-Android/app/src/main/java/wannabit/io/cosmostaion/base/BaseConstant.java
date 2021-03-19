@@ -312,6 +312,7 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_WITHDRAW_CDP                   = "cdp/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_DRAWDEBT_CDP                   = "cdp/MsgDrawDebt";
     public final static String KAVA_MSG_TYPE_REPAYDEBT_CDP                  = "cdp/MsgRepayDebt";
+    public final static String KAVA_MSG_TYPE_LIQUIDATE_CDP                  = "cdp/MsgLiquidate";
     public final static String KAVA_MSG_TYPE_BEP3_CREATE_SWAP               = "bep3/MsgCreateAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_CLAM_SWAP                 = "bep3/MsgClaimAtomicSwap";
     public final static String KAVA_MSG_TYPE_BEP3_REFUND_SWAP               = "bep3/MsgRefundAtomicSwap";
@@ -325,6 +326,7 @@ public class BaseConstant {
     public final static String KAVA_MSG_TYPE_WITHDRAW_HARD                  = "hard/MsgWithdraw";
     public final static String KAVA_MSG_TYPE_BORROW_HARD                    = "hard/MsgBorrow";
     public final static String KAVA_MSG_TYPE_REPAY_HARD                     = "hard/MsgRepay";
+    public final static String KAVA_MSG_TYPE_LIQUIDATE_HARD                 = "hard/MsgLiquidate";
 
 
     public final static String BNB_MSG_TYPE_HTLC                            = "tokens/HTLTMsg";
@@ -442,6 +444,8 @@ public class BaseConstant {
     public final static int TX_TYPE_KAVA_CLAIM_HARVEST          = 3037;
     public final static int TX_TYPE_KAVA_BORROW_HARD            = 3038;
     public final static int TX_TYPE_KAVA_REPAY_HARD             = 3039;
+    public final static int TX_TYPE_KAVA_LIQUIDATE_CDP          = 3040;
+    public final static int TX_TYPE_KAVA_LIQUIDATE_HARD         = 3041;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;

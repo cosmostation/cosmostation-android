@@ -1395,6 +1395,9 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAYDEBT_CDP)) {
             result = BaseConstant.TX_TYPE_KAVA_REPAYDEBT_CDP;
 
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_CDP)) {
+            result = BaseConstant.TX_TYPE_KAVA_LIQUIDATE_CDP;
+
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_CREATE_SWAP)) {
             result = BaseConstant.TX_TYPE_KAVA_BEP3_CREATE;
 
@@ -1404,17 +1407,11 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BEP3_REFUND_SWAP)) {
             result = BaseConstant.TX_TYPE_KAVA_BEP3_REFUND;
 
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
-            result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
-
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
+        }else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_DEPOSIT_HARD)) {
             result = BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD;
 
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_WITHDRAW_HARD)) {
             result = BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD;
-
-        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
-            result = BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST;
 
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_BORROW_HARD)) {
             result = BaseConstant.TX_TYPE_KAVA_BORROW_HARD;
@@ -1422,7 +1419,19 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_REPAY_HARD)) {
             result = BaseConstant.TX_TYPE_KAVA_REPAY_HARD;
 
-        } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN)) {
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_LIQUIDATE_HARD)) {
+            result = BaseConstant.TX_TYPE_KAVA_LIQUIDATE_HARD;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_INCENTIVE_REWARD) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_USDX_MINT_INCENTIVE)) {
+            result = BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD;
+
+        } else if (msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HAVEST) || msg.type.equals(BaseConstant.KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE)) {
+            result = BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST;
+
+        }
+
+
+        else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_DOMAIN)) {
             result = BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN;
 
         } else if (msg.type.equals(BaseConstant.IOV_MSG_TYPE_REGISTER_ACCOUNT)) {
@@ -1546,6 +1555,38 @@ public class WDp {
                 result = c.getString(R.string.tx_kava_repaydebt_cdp);
                 break;
 
+            case BaseConstant.TX_TYPE_KAVA_LIQUIDATE_CDP:
+                result = c.getString(R.string.tx_kava_liquidate_cdp);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD:
+                result = c.getString(R.string.tx_kava_hard_deposit);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD:
+                result = c.getString(R.string.tx_kava_hard_withdraw);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_BORROW_HARD:
+                result = c.getString(R.string.tx_kava_hard_borrow);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_REPAY_HARD:
+                result = c.getString(R.string.tx_kava_hard_repay);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_LIQUIDATE_HARD:
+                result = c.getString(R.string.tx_kava_hard_liquidate);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD:
+                result = c.getString(R.string.tx_kava_incentive_reward);
+                break;
+
+            case BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST:
+                result = c.getString(R.string.tx_kava_incentive_hard);
+                break;
+
             case BaseConstant.TX_TYPE_KAVA_BEP3_CREATE:
                 result = c.getString(R.string.tx_kava_bep3_create);
                 break;
@@ -1558,29 +1599,7 @@ public class WDp {
                 result = c.getString(R.string.tx_kava_bep3_refund);
                 break;
 
-            case BaseConstant.TX_TYPE_KAVA_INCENTIVE_REWARD:
-                result = c.getString(R.string.tx_kava_incentive_reward);
-                break;
 
-            case BaseConstant.TX_TYPE_KAVA_DEPOSIT_HARD:
-                result = c.getString(R.string.tx_kava_hard_deposit);
-                break;
-
-            case BaseConstant.TX_TYPE_KAVA_WITHDRAW_HARD:
-                result = c.getString(R.string.tx_kava_hard_withdraw);
-                break;
-
-            case BaseConstant.TX_TYPE_KAVA_CLAIM_HARVEST:
-                result = c.getString(R.string.tx_kava_harvest_claim);
-                break;
-
-            case BaseConstant.TX_TYPE_KAVA_BORROW_HARD:
-                result = c.getString(R.string.tx_kava_hard_borrow);
-                break;
-
-            case BaseConstant.TX_TYPE_KAVA_REPAY_HARD:
-                result = c.getString(R.string.tx_kava_hard_repay);
-                break;
 
             case BaseConstant.TX_TYPE_STARNAME_REGISTER_DOMAIN:
                 result = c.getString(R.string.tx_starname_registe_domain);

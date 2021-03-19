@@ -29,13 +29,13 @@
                     android:id="@+id/tx_msg_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_harvest_28"/>
+                    android:src="@drawable/cdp_ic"/>
                 <TextView
                     android:id="@+id/tx_msg_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_kava_hard_withdraw2"
+                    android:text="@string/tx_kava_liquidate_cdp2"
                     style="@style/font_ss_17_white"/>
             </LinearLayout>
 
@@ -47,10 +47,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_depositor_cdp"
+                    android:text="@string/str_keeper"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_depositor"
+                    android:id="@+id/cdp_keeper"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -63,15 +63,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginTop="@dimen/space_16"
-                android:visibility="gone">
+                android:layout_marginTop="@dimen/space_16">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_deposit_type"
+                    android:text="@string/str_borrower"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_deposit_type"
+                    android:id="@+id/cdp_borrower"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -80,39 +79,25 @@
                     style="@style/font_ss_12_white"/>
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/space_16">
                 <TextView
-                    android:id="@+id/withdraw_amount2_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_withdraw_amount2"
+                    android:text="@string/str_type"
                     style="@style/font_ss_12_gray1"/>
-                <RelativeLayout
+                <TextView
+                    android:id="@+id/cdp_type"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/withdraw_amount2_title">
-                    <TextView
-                        android:id="@+id/tx_withdraw_symbol"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:text="Coin"
-                        style="@style/font_ss_12_white"/>
-                    <TextView
-                        android:id="@+id/tx_withdraw_amount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_withdraw_symbol"
-                        android:layout_toLeftOf="@+id/tx_withdraw_symbol"
-                        android:layout_marginRight="@dimen/space_2"
-                        android:text="-"
-                        style="@style/font_ssl_12_white"/>
-                </RelativeLayout>
-            </RelativeLayout>
+                    android:layout_marginTop="@dimen/space_4"
+                    android:singleLine="true"
+                    android:text="-"
+                    style="@style/font_ss_12_white"/>
+            </LinearLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

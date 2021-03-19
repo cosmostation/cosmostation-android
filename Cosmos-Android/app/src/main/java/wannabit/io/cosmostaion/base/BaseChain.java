@@ -235,8 +235,8 @@ public enum BaseChain {
         result.add(AKASH_MAIN);
         result.add(SECRET_MAIN);
 
-        result.add(COSMOS_TEST);
-        result.add(IRIS_TEST);
+//        result.add(COSMOS_TEST);
+//        result.add(IRIS_TEST);
 //        result.add(BNB_TEST);
 //        result.add(KAVA_TEST);
 //        result.add(IOV_TEST);
@@ -290,5 +290,22 @@ public enum BaseChain {
             result.add(TOKEN_HTLC_KAVA_TEST_BTC);
         }
         return result;
+    }
+
+    public static boolean isGRPC(BaseChain baseChain) {
+        if (baseChain.equals(COSMOS_MAIN)) {
+            return true;
+        } else if (baseChain.equals(IRIS_MAIN)) {
+            return true;
+        } else if (baseChain.equals(AKASH_MAIN)) {
+            return true;
+        }
+
+        else if (baseChain.equals(COSMOS_TEST)) {
+            return true;
+        } else if (baseChain.equals(IRIS_TEST)) {
+            return true;
+        }
+        return false;
     }
 }

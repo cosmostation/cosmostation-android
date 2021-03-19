@@ -25,6 +25,7 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
+import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
@@ -56,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_END;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
@@ -200,8 +202,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         }
 
-        else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (isGRPC(getMainActivity().mBaseChain)) {
             new ApiAccountTxsHistoryTask(getBaseApplication(), this, getMainActivity().mAccount.address, getMainActivity().mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -240,8 +241,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 ArrayList<ResApiTxListCustom> hits = (ArrayList<ResApiTxListCustom>)result.resultData;
                 if (hits != null && hits.size() > 0) {
 //                    WLog.w("Custom hit size " + hits.size());
@@ -284,8 +284,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull HistoryHolder viewHolder, int position) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 final ResApiTxListCustom history = mApiTxCustomHistory.get(position);
                 viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
                 viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.timestamp));
@@ -409,8 +408,7 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 return mBnbHistory.size();
             } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 return mOkHistory.size();
-            } else if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getMainActivity().mBaseChain.equals(COSMOS_TEST) ||getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            } else if (isGRPC(getMainActivity().mBaseChain)) {
                 return mApiTxCustomHistory.size();
             } else {
                 return mApiTxHistory.size();

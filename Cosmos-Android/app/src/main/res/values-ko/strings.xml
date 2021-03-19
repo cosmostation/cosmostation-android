@@ -1007,7 +1007,8 @@
     <string name="str_get_repay">상환 하기</string>
     <string name="str_hard_withdraw_warn_title">하드 풀 청산 위험 확인</string>
     <string name="str_hard_withdraw_warn_msg">추가 대출 가능 금액이 0 이하가 될 시, 포지션 청산의 위험이 있습니다.\n대출 진행시 추가 대출 금액을 반드시 확인하세요. </string>
-
+    <string name="str_keeper">키퍼</string>
+    <string name="str_type">타입</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1141,6 +1142,7 @@
     <string name="tx_kava_withdraw_cdp">CDP\n출금</string>
     <string name="tx_kava_drawdebt_cdp">CDP\n대출</string>
     <string name="tx_kava_repaydebt_cdp">CDP\n상환</string>
+    <string name="tx_kava_liquidate_cdp">CDP\n청산</string>
     <string name="tx_send_htlc">인터체인\n보내기</string>
     <string name="tx_receive_htlc">인터체인\n받기</string>
     <string name="tx_create_htlc">인터체인\n생성</string>
@@ -1154,13 +1156,15 @@
     <string name="tx_kava_hard_withdraw">하드 풀\n출금</string>
     <string name="tx_kava_hard_borrow">하드 풀\n대출</string>
     <string name="tx_kava_hard_repay">하드 풀\n상환</string>
-    <string name="tx_kava_harvest_claim">하드 풀\n인센티브</string>
+    <string name="tx_kava_hard_liquidate">하드 풀\n청산</string>
+    <string name="tx_kava_incentive_hard">하드 풀\n인센티브</string>
 
     <string name="tx_kava_create_cdp2">CDP 개설</string>
     <string name="tx_kava_deposit_cdp2">CDP 예치</string>
     <string name="tx_kava_withdraw_cdp2">CDP 출금</string>
     <string name="tx_kava_drawdebt_cdp2">CDP 대출</string>
     <string name="tx_kava_repaydebt_cdp2">CDP 상환</string>
+    <string name="tx_kava_liquidate_cdp2">CDP 청산</string>
     <string name="tx_send_htlc2">인터체인 보내기</string>
     <string name="tx_receive_htlc2">인터체인 받기</string>
     <string name="tx_create_htlc2">인터체인 생성</string>
@@ -1170,10 +1174,12 @@
     <string name="tx_kava_bep3_claim2">인터체인 청구하기</string>
     <string name="tx_kava_bep3_refund2">인터체인 환불하기</string>
     <string name="tx_kava_incentive_reward2">USDX 발행 인센티브</string>
+    <string name="tx_kava_incentive_hard2">하드 풀 인센티브</string>
     <string name="tx_kava_hard_deposit2">하드 풀 예치</string>
     <string name="tx_kava_hard_withdraw2">하드 풀 출금</string>
     <string name="tx_kava_hard_borrow2">하드 풀 대출</string>
     <string name="tx_kava_hard_repay2">하드 풀 상환</string>
+    <string name="tx_kava_hard_liquidate2">하드 풀 청산</string>
     <string name="tx_kava_harvest_claim2">하드 풀 인센티브</string>
 
 

@@ -173,6 +173,10 @@ public class Msg {
         public String owner;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("keeper")
+        public String keeper;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("collateral")
         public Coin collateral;
 
