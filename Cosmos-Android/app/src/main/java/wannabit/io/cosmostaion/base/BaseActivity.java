@@ -49,6 +49,7 @@ import irismod.token.TokenOuterClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
 import wannabit.io.cosmostaion.activities.HtlcSendActivity;
@@ -144,6 +145,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.InflationGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.IrisParamMintGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.IrisTokenListGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.ParamMintGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.ProvisionGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.StakingPoolGrpcTask;
@@ -196,6 +198,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATI
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_INFLATION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_IRIS_PARAM_MINT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_IRIS_TOKEN_LIST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PARAM_MINT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROVISION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STAKING_POOL;
@@ -525,6 +528,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mProvisions = BigDecimal.ZERO;
 
         //gRPC
+        getBaseDao().mGRpcNodeInfo = null;
         getBaseDao().mGRpcTopValidators.clear();
         getBaseDao().mGRpcOtherValidators.clear();
         getBaseDao().mGRpcAllValidators.clear();
@@ -687,7 +691,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         else if (mBaseChain.equals(COSMOS_MAIN)) {
-            mTaskCount = 11;
+            mTaskCount = 12;
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -704,7 +709,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         }  else if (mBaseChain.equals(IRIS_MAIN)) {
-            mTaskCount = 10;
+            mTaskCount = 11;
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -720,7 +726,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         }  else if (mBaseChain.equals(AKASH_MAIN)) {
-            mTaskCount = 11;
+            mTaskCount = 12;
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -739,7 +746,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         else if (mBaseChain.equals(COSMOS_TEST)) {
-            mTaskCount = 11;
+            mTaskCount = 12;
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -756,7 +764,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(IRIS_TEST)) {
-            mTaskCount = 10;
+            mTaskCount = 11;
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -941,7 +950,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         //gRPC callback
-        else if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
+        else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
+            Types.DefaultNodeInfo tempNodeInfo = (Types.DefaultNodeInfo) result.resultData;
+            if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo; }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_BONDED_VALIDATORS) {
             ArrayList<Staking.Validator> bonded = (ArrayList<Staking.Validator>)result.resultData;
             if (bonded != null) { getBaseDao().mGRpcTopValidators.addAll(bonded); }
 
@@ -1013,10 +1026,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
                 WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());
                 WLog.w("mGRpcMyValidators " + getBaseDao().mGRpcMyValidators.size());
-                if (getBaseDao().mGRpcTopValidators.size() <= 0) {
+                if (getBaseDao().mGRpcNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
+                } else {
+                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
-
 
             } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
                     mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {

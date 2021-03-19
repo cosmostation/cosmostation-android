@@ -21,6 +21,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import irismod.token.TokenOuterClass;
+import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
@@ -142,6 +143,7 @@ public class BaseData {
     public ResBandOracleStatus      mBandOracles;
 
     //gRPC
+    public Types.DefaultNodeInfo                                mGRpcNodeInfo;
     public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();
     public ArrayList<Staking.Validator>                         mGRpcOtherValidators = new ArrayList<>();
     public ArrayList<Staking.Validator>                         mGRpcAllValidators = new ArrayList<>();

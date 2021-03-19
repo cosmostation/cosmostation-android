@@ -242,6 +242,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_PROPOSAL_TALLY              = 4021;
     public final static int TASK_GRPC_FETCH_PROPOSAL_VOTER_LIST         = 4022;
     public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
+    public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;
