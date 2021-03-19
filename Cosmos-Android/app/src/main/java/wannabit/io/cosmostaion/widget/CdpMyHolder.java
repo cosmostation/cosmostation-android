@@ -23,7 +23,7 @@ import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 public class CdpMyHolder extends BaseHolder {
     CardView itemRoot;
@@ -97,7 +97,7 @@ public class CdpMyHolder extends BaseHolder {
         WDp.DpRiskRate(c, riskRate, itemRiskScore,  itemImgRisk);
 
         try {
-            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  collateralParam.getImagePath()).fit().into(itemImgMarket);
+            Picasso.get().load(KAVA_CDP_IMG_URL +  collateralParam.getImagePath()).fit().into(itemImgMarket);
         } catch (Exception e) { }
 
         itemRoot.setOnClickListener(new View.OnClickListener() {

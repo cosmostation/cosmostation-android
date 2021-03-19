@@ -2276,13 +2276,13 @@ public class WDp {
 
     public static void DpRiskRate(Context c, BigDecimal riskRate, TextView textView, ImageView imageview) {
         textView.setText(WDp.getDpAmount2(c, riskRate, 0, 2));
-        if (riskRate.longValue() <= 50) {
+        if (riskRate.floatValue() <= 50) {
             textView.setTextColor(c.getResources().getColor(R.color.colorCdpSafe));
             if (imageview != null) {
                 imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_safe));
             }
 
-        } else if (riskRate.longValue() < 80) {
+        } else if (riskRate.floatValue() < 80) {
             textView.setTextColor(c.getResources().getColor(R.color.colorCdpStable));
             if (imageview != null) {
                 imageview.setImageDrawable(c.getResources().getDrawable(R.drawable.img_stable));

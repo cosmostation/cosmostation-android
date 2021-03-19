@@ -22,9 +22,8 @@ import wannabit.io.cosmostaion.dialog.Dialog_Safe_Score_Staus;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 public class CdpDetailInfoHolder extends BaseHolder {
     private ImageView       mInfoMarketImg;
@@ -73,7 +72,7 @@ public class CdpDetailInfoHolder extends BaseHolder {
         final BigDecimal currentPrice           = new BigDecimal(baseData.mKavaTokenPrices.get(collateralParam.liquidation_market_id).price);
 
         try {
-            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  collateralParam.getImagePath()).fit().into(mInfoMarketImg);
+            Picasso.get().load(KAVA_CDP_IMG_URL +  collateralParam.getImagePath()).fit().into(mInfoMarketImg);
         } catch (Exception e) { }
 
         mInfoMarketType.setText(collateralParam.type.toUpperCase());

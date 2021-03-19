@@ -16,7 +16,7 @@ import wannabit.io.cosmostaion.activities.chains.kava.CdpDetail5Activity;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_MARKET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_CDP_IMG_URL;
 
 public class CdpOtherHolder extends BaseHolder {
     CardView itemRoot;
@@ -45,7 +45,7 @@ public class CdpOtherHolder extends BaseHolder {
         itemLiquidationPenalty.setText(WDp.getPercentDp(otherCdp.getDpLiquidationPenalty(), 2));
 
         try {
-            Picasso.get().load(KAVA_CDP_MARKET_IMG_URL+  otherCdp.getImagePath()) .fit().into(itemImgMarket);
+            Picasso.get().load(KAVA_CDP_IMG_URL +  otherCdp.getImagePath()) .fit().into(itemImgMarket);
         } catch (Exception e) { }
 
         itemRoot.setOnClickListener(new View.OnClickListener() {

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,17 +16,14 @@ import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.model.kava.HardInterestRate;
-import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
-import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARVEST_MARKET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class HardDetailInfoHolder extends BaseHolder {
@@ -66,7 +62,7 @@ public class HardDetailInfoHolder extends BaseHolder {
 //        WLog.w("hardMoneyMarket.denom " + hardMoneyMarket.denom);
 
         try {
-            Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(mPoolImg);
+            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(mPoolImg);
         } catch (Exception e) { }
         String marketTitle = hardMoneyMarket.denom.equals(TOKEN_KAVA) ? "kava" : hardMoneyMarket.denom;
         mPoolTitle.setText(marketTitle.toUpperCase() + " POOL");

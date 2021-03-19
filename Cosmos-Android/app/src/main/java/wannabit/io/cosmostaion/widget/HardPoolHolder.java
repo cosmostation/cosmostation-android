@@ -28,7 +28,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARVEST_MARKET_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_HARD_POOL_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class HardPoolHolder extends BaseHolder {
@@ -62,7 +62,7 @@ public class HardPoolHolder extends BaseHolder {
                                  ArrayList<HardInterestRate> HardInterestRates, ArrayList<HardMyDeposit> myDeposit, ArrayList<HardMyBorrow> myBorrow) {
 //        WLog.w("hardMoneyMarket " + hardMoneyMarket.spot_market_id);
         try {
-            Picasso.get().load(KAVA_HARVEST_MARKET_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(hardPoolImg);
+            Picasso.get().load(KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.denom + ".png").fit().into(hardPoolImg);
         } catch (Exception e) { }
 
         String marketTitle = hardMoneyMarket.denom.equals(TOKEN_KAVA) ? "kava" : hardMoneyMarket.denom;
