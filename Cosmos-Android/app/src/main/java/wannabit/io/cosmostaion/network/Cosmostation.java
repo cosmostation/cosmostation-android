@@ -12,12 +12,12 @@ import wannabit.io.cosmostaion.network.res.ResVersionCheck;
 
 public interface Cosmostation {
 
-    @GET("/v1/app/version/android")
+    @GET("v1/app/version/android")
     Call<ResVersionCheck> getVersion();
 
-    @POST("/v1/account/update")
+    @POST("v1/account/update")
     Call<ResPushAlarm> updateAlarm(@Body ReqPushAlarm data);
 
-    @POST("/v1/sign/moonpay")
+    @POST("v1/sign/moonpay")
     Call<ResMoonPaySignature> getMoonPay(@Body ReqMoonPayKey data);
 }

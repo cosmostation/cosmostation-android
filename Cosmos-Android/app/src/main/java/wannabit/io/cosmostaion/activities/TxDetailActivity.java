@@ -37,10 +37,10 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTxInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
@@ -169,7 +169,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
     private ResKavaSwapInfo mResKavaSwapInfo;
     private ResBnbTxInfo    mResBnbTxInfo;
     private ResBnbSwapInfo  mResBnbSwapInfo;
-    private ResBnbNodeInfo  mResBnbNodeInfo;
+    private ResNodeInfo  mResBnbNodeInfo;
     private String mBnbTime;
     private String mSwapId = "";
 
@@ -2862,9 +2862,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
     private void onFetchBnbNodeInfo() {
         if (mBaseChain.equals(BNB_MAIN)) {
-            ApiClient.getBnbChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResBnbNodeInfo>() {
+            ApiClient.getBnbChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResNodeInfo>() {
                 @Override
-                public void onResponse(Call<ResBnbNodeInfo> call, Response<ResBnbNodeInfo> response) {
+                public void onResponse(Call<ResNodeInfo> call, Response<ResNodeInfo> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         mResBnbNodeInfo = response.body();
                     }
@@ -2872,16 +2872,16 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
                 @Override
-                public void onFailure(Call<ResBnbNodeInfo> call, Throwable t) {
+                public void onFailure(Call<ResNodeInfo> call, Throwable t) {
                     WLog.w("onFetchBnbNodeInfo " + t.getMessage());
                     onUpdateView();
                 }
             });
 
         } else if (mBaseChain.equals(BNB_TEST)) {
-            ApiClient.getBnbTestChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResBnbNodeInfo>() {
+            ApiClient.getBnbTestChain(getBaseContext()).getNodeInfo().enqueue(new Callback<ResNodeInfo>() {
                 @Override
-                public void onResponse(Call<ResBnbNodeInfo> call, Response<ResBnbNodeInfo> response) {
+                public void onResponse(Call<ResNodeInfo> call, Response<ResNodeInfo> response) {
                     if (response.isSuccessful() && response.body() != null) {
                         mResBnbNodeInfo = response.body();
                     }
@@ -2889,7 +2889,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 }
 
                 @Override
-                public void onFailure(Call<ResBnbNodeInfo> call, Throwable t) {
+                public void onFailure(Call<ResNodeInfo> call, Throwable t) {
                     WLog.w("onFetchBnbNodeInfo " + t.getMessage());
                     onUpdateView();
                 }

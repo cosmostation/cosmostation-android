@@ -55,12 +55,12 @@ import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResBnbNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
@@ -2538,8 +2538,8 @@ public class WDp {
         }
     }
 
-    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResBnbNodeInfo resBnbNodeInfo) {
-        if (resBnbSwapInfo == null || resBnbNodeInfo == null) {
+    public static String getBnbHtlcStatus(Context c, ResBnbSwapInfo resBnbSwapInfo, ResNodeInfo resNodeInfo) {
+        if (resBnbSwapInfo == null || resNodeInfo == null) {
             return "-";
         }
         if (resBnbSwapInfo.status == BNB_STATUS_REFUNDED) {
@@ -2548,7 +2548,7 @@ public class WDp {
         } else if (resBnbSwapInfo.status == BNB_STATUS_COMPLETED) {
             return c.getString(R.string.str_bep3_status_completed);
 
-        } else if (resBnbSwapInfo.status == BNB_STATUS_OPEN && resBnbSwapInfo.expireHeight < resBnbNodeInfo.getCHeight()) {
+        } else if (resBnbSwapInfo.status == BNB_STATUS_OPEN && resBnbSwapInfo.expireHeight < resNodeInfo.getCHeight()) {
             return c.getString(R.string.str_bep3_status_expired);
 
         }

@@ -11,6 +11,7 @@ import retrofit2.http.Query;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
@@ -21,6 +22,10 @@ import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface OkChain {
+
+    @GET("node_info")
+    Call<ResNodeInfo> getNodeInfo();
+
     @GET("auth/accounts/{address}")
     Call<ResOkAccountInfo> getAccountInfo(@Path("address") String address);
 

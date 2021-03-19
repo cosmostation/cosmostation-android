@@ -48,11 +48,15 @@ import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResMyVote;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface KavaChain {
+
+    @GET("node_info")
+    Call<ResNodeInfo> getNodeInfo();
 
     @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);

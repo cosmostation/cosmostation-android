@@ -39,115 +39,118 @@ import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResMyVote;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface IovChain {
-        //new version for IOV
-        @GET("/auth/accounts/{address}")
-        Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
+    @GET("node_info")
+    Call<ResNodeInfo> getNodeInfo();
 
-        @GET("/txs/{hash}")
-        Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
+    @GET("auth/accounts/{address}")
+    Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
-        @GET("/staking/validators?status=bonded")
-        Call<ResLcdValidators> getBondedValidatorDetailList();
+    @GET("txs/{hash}")
+    Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
-        @GET("/staking/validators?status=unbonding")
-        Call<ResLcdValidators> getUnBondingValidatorDetailList();
+    @GET("staking/validators?status=bonded")
+    Call<ResLcdValidators> getBondedValidatorDetailList();
 
-        @GET("/staking/validators?status=unbonded")
-        Call<ResLcdValidators> getUnBondedValidatorDetailList();
+    @GET("staking/validators?status=unbonding")
+    Call<ResLcdValidators> getUnBondingValidatorDetailList();
 
-        @GET("/staking/delegators/{address}/delegations")
-        Call<ResLcdBondings> getBondingList(@Path("address") String address);
+    @GET("staking/validators?status=unbonded")
+    Call<ResLcdValidators> getUnBondedValidatorDetailList();
 
-        @GET("/staking/delegators/{address}/unbonding_delegations")
-        Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
+    @GET("staking/delegators/{address}/delegations")
+    Call<ResLcdBondings> getBondingList(@Path("address") String address);
 
-        @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
-        Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
+    @GET("staking/delegators/{address}/unbonding_delegations")
+    Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
 
-        @GET("/minting/parameters")
-        Call<ResMintParam> getMintParam();
+    @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
+    Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
-        @GET("/minting/inflation")
-        Call<ResLcdInflation> getInflation();
+    @GET("minting/parameters")
+    Call<ResMintParam> getMintParam();
 
-        @GET("/minting/annual-provisions")
-        Call<ResProvisions> getProvisions();
+    @GET("minting/inflation")
+    Call<ResLcdInflation> getInflation();
 
-        @GET("/staking/pool")
-        Call<ResStakingPool> getStakingPool();
+    @GET("minting/annual-provisions")
+    Call<ResProvisions> getProvisions();
 
-        @GET("/distribution/delegators/{address}/withdraw_address")
-        Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
+    @GET("staking/pool")
+    Call<ResStakingPool> getStakingPool();
 
-
-        @GET("/staking/validators/{validatorAddr}")
-        Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
-
-        @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
-        Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
-
-        @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
-        Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
-
-        @GET("/staking/redelegations")
-        Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
-
-        @GET("/staking/redelegations")
-        Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
+    @GET("distribution/delegators/{address}/withdraw_address")
+    Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
 
 
-        //Broadcast Tx
-        @POST("/txs")
-        Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
+    @GET("staking/validators/{validatorAddr}")
+    Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
 
-        //Proposals
-        @GET("/gov/proposals")
-        Call<ResLcdProposals> getProposalList();
+    @GET("staking/delegators/{address}/delegations/{validatorAddr}")
+    Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
-        @GET("/gov/proposals/{proposalId}/proposer")
-        Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
+    @GET("staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
-        @GET("/gov/proposals/{proposalId}")
-        Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
+    @GET("staking/redelegations")
+    Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
-        @GET("/gov/proposals/{proposalId}/votes")
-        Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
-
-        @GET("/gov/proposals/{proposalId}/tally")
-        Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
-
-        @GET("/gov/proposals/{proposalId}/votes/{address}")
-        Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
+    @GET("staking/redelegations")
+    Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
 
 
-        //Check Starname
-        @POST("/starname/query/domainInfo")
-        Call<ResIovStarNameDomainInfo> getStarnameDomainInfo(@Body ReqStarNameDomainInfo data);
+    //Broadcast Tx
+    @POST("txs")
+    Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
-        @POST("/starname/query/accountsInDomain")
-        Call<ResIovStarNameAccountInDomain> getAccountInDomain(@Body ReqStarNameAccountInDomain data);
+    //Proposals
+    @GET("gov/proposals")
+    Call<ResLcdProposals> getProposalList();
 
-        @POST("/starname/query/accountsWithOwner")
-        Call<ResIovStarNameAccount> getStarnameAccount(@Body ReqStarNameByOwner data);
+    @GET("gov/proposals/{proposalId}/proposer")
+    Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
 
-        @POST("/starname/query/domainsWithOwner")
-        Call<ResIovStarNameDomain> getStarnameDomain(@Body ReqStarNameByOwner data);
+    @GET("gov/proposals/{proposalId}")
+    Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
 
-        @POST("/starname/query/resolve")
-        Call<ResIovStarNameResolve> getStarnameAddress(@Body ReqStarNameResolve data);
+    @GET("gov/proposals/{proposalId}/votes")
+    Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
 
-        @POST("/configuration/query/configuration")
-        Call<ResIovConfig> getConfiguration();
+    @GET("gov/proposals/{proposalId}/tally")
+    Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
 
-        @POST("/configuration/query/fees")
-        Call<ResIovFee> getFee();
+    @GET("gov/proposals/{proposalId}/votes/{address}")
+    Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
 
 
-        @GET("/credit")
-        Call<JSONObject> getFaucet(@Query("address") String address);
+    //Check Starname
+    @POST("starname/query/domainInfo")
+    Call<ResIovStarNameDomainInfo> getStarnameDomainInfo(@Body ReqStarNameDomainInfo data);
+
+    @POST("starname/query/accountsInDomain")
+    Call<ResIovStarNameAccountInDomain> getAccountInDomain(@Body ReqStarNameAccountInDomain data);
+
+    @POST("starname/query/accountsWithOwner")
+    Call<ResIovStarNameAccount> getStarnameAccount(@Body ReqStarNameByOwner data);
+
+    @POST("starname/query/domainsWithOwner")
+    Call<ResIovStarNameDomain> getStarnameDomain(@Body ReqStarNameByOwner data);
+
+    @POST("starname/query/resolve")
+    Call<ResIovStarNameResolve> getStarnameAddress(@Body ReqStarNameResolve data);
+
+    @POST("configuration/query/configuration")
+    Call<ResIovConfig> getConfiguration();
+
+    @POST("configuration/query/fees")
+    Call<ResIovFee> getFee();
+
+
+    @GET("credit")
+    Call<JSONObject> getFaucet(@Query("address") String address);
 }

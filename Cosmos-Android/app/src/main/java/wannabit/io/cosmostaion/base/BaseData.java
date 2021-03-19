@@ -30,19 +30,13 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.Node_Info;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
-import wannabit.io.cosmostaion.model.Delegation_V1;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
-import wannabit.io.cosmostaion.model.IrisToken_V1;
-import wannabit.io.cosmostaion.model.ParamMint_V1;
-import wannabit.io.cosmostaion.model.Reward_V1;
-import wannabit.io.cosmostaion.model.StakingPool_V1;
-import wannabit.io.cosmostaion.model.Undelegation_V1;
-import wannabit.io.cosmostaion.model.Validator_V1;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
@@ -52,7 +46,6 @@ import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
@@ -99,6 +92,7 @@ public class BaseData {
     public EncResult                mCopyEncResult;
 
     //COMMON DATA
+    public Node_Info                    mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();
     public ArrayList<Validator>         mMyValidators = new ArrayList<>();
     public ArrayList<Validator>         mTopValidators = new ArrayList<>();
@@ -114,27 +108,18 @@ public class BaseData {
     public BigDecimal                   mProvisions = BigDecimal.ZERO;
     public ResMintParam.MintParam       mMintParam;
 
-    //COMMON DATA FOR KAVA
-//    public ArrayList<ResCdpOwnerStatus.MyCDP>                               mMyOwenCdp = new ArrayList<>();
-    public HashMap<String, MarketPrice>                                     mKavaTokenPrices = new HashMap<>();
-//    public ResKavaIncentiveParam.IncentiveParam                             mKavaIncentiveParam;
-//    public ArrayList<ResKavaIncentiveReward.IncentiveRewardClaimable>       mKavaUnClaimedIncentiveRewards = new ArrayList<>();
-//    public ResKavaHarvestParam                                              mHarvestParam;
-//    public ArrayList<ResKavaHarvestDeposit.HarvestDeposit>                  mHavestDeposits = new ArrayList<>();
-//    public ArrayList<ResKavaHarvestReward.HarvestReward>                    mHavestRewards = new ArrayList<>();
-//    public BigDecimal                                                       mHardPrice = BigDecimal.ZERO;
-
     //COMMON DATA FOR KAVA-5
-    public ResLcdKavaAccountInfo.Result                                     mKavaAccount;
-    public CdpParam                                                         mCdpParam;
-    public IncentiveParam                                                   mIncentiveParam5;
-    public HardParam                                                        mHardParam;
-    public AuctionParam                                                     mAuctionParam;
-    public IncentiveReward                                                  mIncentiveRewards;
-    public ArrayList<HardMyDeposit>                                         mMyHardDeposit = new ArrayList<>();
-    public ArrayList<HardMyBorrow>                                          mMyHardBorrow = new ArrayList<>();
-    public ArrayList<Coin>                                                  mModuleCoins = new ArrayList<>();
-    public ArrayList<Coin>                                                  mReserveCoins = new ArrayList<>();
+    public ResLcdKavaAccountInfo.Result     mKavaAccount;
+    public CdpParam                         mCdpParam;
+    public IncentiveParam                   mIncentiveParam5;
+    public HardParam                        mHardParam;
+    public AuctionParam                     mAuctionParam;
+    public IncentiveReward                  mIncentiveRewards;
+    public ArrayList<HardMyDeposit>         mMyHardDeposit = new ArrayList<>();
+    public ArrayList<HardMyBorrow>          mMyHardBorrow = new ArrayList<>();
+    public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
+    public ArrayList<Coin>                  mReserveCoins = new ArrayList<>();
+    public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
 
 
     //COMMON DATA FOR BINANCE

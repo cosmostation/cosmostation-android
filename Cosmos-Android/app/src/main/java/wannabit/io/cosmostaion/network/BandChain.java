@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.network;
 
+import org.json.JSONObject;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -27,96 +29,100 @@ import wannabit.io.cosmostaion.network.res.ResLcdValidators;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResMyVote;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResProvisions;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 public interface BandChain {
 
-    @GET("/auth/accounts/{address}")
+    @GET("node_info")
+    Call<ResNodeInfo> getNodeInfo();
+
+    @GET("auth/accounts/{address}")
     Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
 
-    @GET("/txs/{hash}")
+    @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 
-    @GET("/staking/validators?status=bonded")
+    @GET("staking/validators?status=bonded")
     Call<ResLcdValidators> getBondedValidatorDetailList();
 
-    @GET("/staking/validators?status=unbonding")
+    @GET("staking/validators?status=unbonding")
     Call<ResLcdValidators> getUnBondingValidatorDetailList();
 
-    @GET("/staking/validators?status=unbonded")
+    @GET("staking/validators?status=unbonded")
     Call<ResLcdValidators> getUnBondedValidatorDetailList();
 
-    @GET("/staking/delegators/{address}/delegations")
+    @GET("staking/delegators/{address}/delegations")
     Call<ResLcdBondings> getBondingList(@Path("address") String address);
 
-    @GET("/staking/delegators/{address}/unbonding_delegations")
+    @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
 
-    @GET("/distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
+    @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/minting/parameters")
+    @GET("minting/parameters")
     Call<ResMintParam> getMintParam();
 
-    @GET("/minting/inflation")
+    @GET("minting/inflation")
     Call<ResLcdInflation> getInflation();
 
-    @GET("/minting/annual-provisions")
+    @GET("minting/annual-provisions")
     Call<ResProvisions> getProvisions();
 
-    @GET("/staking/pool")
+    @GET("staking/pool")
     Call<ResStakingPool> getStakingPool();
 
-    @GET("/distribution/delegators/{address}/withdraw_address")
+    @GET("distribution/delegators/{address}/withdraw_address")
     Call<ResLcdWithDrawAddress> getWithdrawAddress(@Path("address") String address);
 
 
-    @GET("/staking/validators/{validatorAddr}")
+    @GET("staking/validators/{validatorAddr}")
     Call<ResLcdSingleValidator> getValidatorDetail(@Path("validatorAddr") String validatorAddr);
 
-    @GET("/staking/delegators/{address}/delegations/{validatorAddr}")
+    @GET("staking/delegators/{address}/delegations/{validatorAddr}")
     Call<ResLcdSingleBonding> getBonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
+    @GET("staking/delegators/{address}/unbonding_delegations/{validatorAddr}")
     Call<ResLcdSingleUnBonding> getUnbonding(@Path("address") String address, @Path("validatorAddr") String validatorAddr);
 
-    @GET("/staking/redelegations")
+    @GET("staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateHistory(@Query("delegator") String delegator, @Query("validator_to") String validator_to);
 
-    @GET("/staking/redelegations")
+    @GET("staking/redelegations")
     Call<ResLcdRedelegate> getRedelegateAllHistory(@Query("delegator") String delegator, @Query("validator_from") String validator_from, @Query("validator_to") String validator_to);
 
 
     //Broadcast Tx
-    @POST("/txs")
+    @POST("txs")
     Call<ResBroadTx> broadTx(@Body ReqBroadCast data);
 
     //Proposals
-    @GET("/gov/proposals")
+    @GET("gov/proposals")
     Call<ResLcdProposals> getProposalList();
 
-    @GET("/gov/proposals/{proposalId}/proposer")
+    @GET("gov/proposals/{proposalId}/proposer")
     Call<ResLcdProposer> getProposer(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}")
+    @GET("gov/proposals/{proposalId}")
     Call<ResLcdProposal> getProposalDetail(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}/votes")
+    @GET("gov/proposals/{proposalId}/votes")
     Call<ResLcdProposalVoted> getVotedList(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}/tally")
+    @GET("gov/proposals/{proposalId}/tally")
     Call<ResLcdProposalTally> getTally(@Path("proposalId") String proposalId);
 
-    @GET("/gov/proposals/{proposalId}/votes/{address}")
+    @GET("gov/proposals/{proposalId}/votes/{address}")
     Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
 
 
 
 
 
-    @GET("/oracle/active_validators")
+    @GET("oracle/active_validators")
     Call<ResBandOracleStatus> getOracleStatus();
 
 }
