@@ -42,6 +42,7 @@ import static wannabit.io.cosmostaion.utils.WUtil.integerToBytes;
 
 public class Signer {
 
+    /*
     public static ReqBroadCast genSignedSendTxV1(String fromAddress, String accountNum, String sequenceNum,
                                                      String toAddress, ArrayList<Coin> amounts, Fee fee, String memo,
                                                      DeterministicKey pKey, BaseChain chain) {
@@ -326,6 +327,7 @@ public class Signer {
 
         return result;
     }
+    */
 
 
 
