@@ -34,11 +34,12 @@ public class VoteGrpcTask extends CommonTask {
     private String          mOpinion;
     private String          mMemo;
     private Fee             mFees;
+    private String          mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey deterministicKey;
 
-    public VoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String proposalId, String opinion, String memo, Fee fee) {
+    public VoteGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String proposalId, String opinion, String memo, Fee fee, String chainId) {
         super(app, listener);
         this.mBaseChain         = basechain;
         this.mAccount           = account;
@@ -46,6 +47,7 @@ public class VoteGrpcTask extends CommonTask {
         this.mOpinion           = opinion;
         this.mMemo              = memo;
         this.mFees              = fee;
+        this.mChainId       = chainId;
         this.mResult.taskType   = TASK_GRPC_BROAD_VOTE;
     }
 
@@ -83,7 +85,7 @@ public class VoteGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcVoteReq(mAuthResponse, mProposalId, mOpinion, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcVoteReq(mAuthResponse, mProposalId, mOpinion, mFees, mMemo, deterministicKey, mChainId);
 
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override

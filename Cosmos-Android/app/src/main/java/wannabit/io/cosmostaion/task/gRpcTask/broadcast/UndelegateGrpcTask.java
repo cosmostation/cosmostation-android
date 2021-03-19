@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
-import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
@@ -35,11 +34,12 @@ public class UndelegateGrpcTask extends CommonTask {
     private Coin                mAmount;
     private String              mMemo;
     private Fee                 mFees;
+    private String              mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public UndelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees) {
+    public UndelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
@@ -47,6 +47,7 @@ public class UndelegateGrpcTask extends CommonTask {
         this.mAmount = toDelegateAmount;
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
+        this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_BROAD_UNDELEGATE;
     }
 
@@ -84,7 +85,7 @@ public class UndelegateGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcUnDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcUnDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, mChainId);
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {

@@ -38,11 +38,12 @@ public class ReInvestGrpcTask extends CommonTask {
     private Coin            mReInvestAmount;
     private String          mReInvestMemo;
     private Fee             mReInvestFees;
+    private String          mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public ReInvestGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mValidatorAddress, Coin mReInvestAmount, String mReInvestMemo, Fee mReInvestFees) {
+    public ReInvestGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mValidatorAddress, Coin mReInvestAmount, String mReInvestMemo, Fee mReInvestFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = mAccount;
@@ -50,6 +51,7 @@ public class ReInvestGrpcTask extends CommonTask {
         this.mReInvestAmount = mReInvestAmount;
         this.mReInvestMemo = mReInvestMemo;
         this.mReInvestFees = mReInvestFees;
+        this.mChainId = chainId;
         this.mResult.taskType   = TASK_GRPC_BROAD_REINVEST;
     }
 
@@ -87,7 +89,7 @@ public class ReInvestGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReInvestReq(mAuthResponse, mValidatorAddress, mReInvestAmount, mReInvestFees, mReInvestMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcReInvestReq(mAuthResponse, mValidatorAddress, mReInvestAmount, mReInvestFees, mReInvestMemo, deterministicKey, mChainId);
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {

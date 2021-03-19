@@ -33,17 +33,19 @@ public class ChangeRewardAddressGrpcTask extends CommonTask {
     private String      mToRewardAddress;
     private String      mMemo;
     private Fee         mFees;
+    private String      mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public ChangeRewardAddressGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mToRewardAddress, String mMemo, Fee mFees) {
+    public ChangeRewardAddressGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account mAccount, String mToRewardAddress, String mMemo, Fee mFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = mAccount;
         this.mToRewardAddress = mToRewardAddress;
         this.mMemo = mMemo;
         this.mFees = mFees;
+        this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE;
     }
 
@@ -81,7 +83,7 @@ public class ChangeRewardAddressGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRewardAddressChangeReq(mAuthResponse, mToRewardAddress, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRewardAddressChangeReq(mAuthResponse, mToRewardAddress, mFees, mMemo, deterministicKey, mChainId);
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {

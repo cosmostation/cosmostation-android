@@ -78,16 +78,12 @@ import wannabit.io.cosmostaion.utils.KeyboardListener;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.StopViewPager;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_CHECK_MNEMONIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -346,9 +342,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_SEND) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new SendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new SendGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 new SimpleBnbSendTask(getBaseApplication(), this, mAccount,  mTargetAddress,  mTargetCoins,  mTargetMemo, mTargetFee)
@@ -361,9 +357,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_DELEGATE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new DelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else {
                 new SimpleDelegateTask(getBaseApplication(), this, mAccount, mTargetAddress, mDAmount, mTargetMemo, mTargetFee)
@@ -372,9 +368,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_UNDELEGATE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new UndelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new UndelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else {
                 new SimpleUndelegateTask(getBaseApplication(), this, mAccount, mTargetAddress, mUAmount, mTargetMemo, mTargetFee)
@@ -383,9 +379,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REWARD) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee)
-                        .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
 
             } else {
                 new SimpleRewardTask(getBaseApplication(), this, mAccount, mValidators,  mTargetMemo, mTargetFee)
@@ -402,9 +399,10 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_REDELEGATE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new RedelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mFromReDelegateAddr,
-                        mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new RedelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mFromReDelegateAddr, mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+
 
             } else {
                 new SimpleRedelegateTask(getBaseApplication(), this, mAccount, mFromReDelegate,
@@ -413,9 +411,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
             onShowWaitDialog();
-           if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new ChangeRewardAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,
-                        mNewRewardAddress, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+           if (isGRPC(mBaseChain)) {
+                new ChangeRewardAddressGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mNewRewardAddress, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else {
                 new SimpleChangeRewardAddressTask(getBaseApplication(), this, mAccount,
@@ -425,9 +423,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_REINVEST) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new ReInvestGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,
-                        mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new ReInvestGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mReInvestValAddr, mReInvestAmount, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else {
                 new ReInvestTask(getBaseApplication(), this, mAccount,
@@ -437,9 +435,9 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
         } else if (mPurpose == CONST_PW_TX_VOTE) {
             onShowWaitDialog();
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-                new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount,
-                        mProposalId, mOpinion, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            if (isGRPC(mBaseChain)) {
+                new VoteGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mProposalId, mOpinion, mTargetMemo, mTargetFee,
+                        getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else {
                 new SimpleVoteTask(getBaseApplication(), this, mAccount,
@@ -730,6 +728,17 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
 
             if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) && result.taskType == TASK_GEN_TX_BNB_HTLC_REFUND) {
                 Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailActivity.class);
+                txIntent.putExtra("isGen", true);
+                txIntent.putExtra("isSuccess", result.isSuccess);
+                txIntent.putExtra("errorCode", result.errorCode);
+                txIntent.putExtra("errorMsg", result.errorMsg);
+                String hash = String.valueOf(result.resultData);
+                if(!TextUtils.isEmpty(hash))
+                    txIntent.putExtra("txHash", hash);
+                startActivity(txIntent);
+
+            } else if (isGRPC(mBaseChain)) {
+                Intent txIntent = new Intent(PasswordCheckActivity.this, TxDetailgRPCActivity.class);
                 txIntent.putExtra("isGen", true);
                 txIntent.putExtra("isSuccess", result.isSuccess);
                 txIntent.putExtra("errorCode", result.errorCode);

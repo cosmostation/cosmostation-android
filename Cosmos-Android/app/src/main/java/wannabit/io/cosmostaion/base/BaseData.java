@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
-import wannabit.io.cosmostaion.model.Node_Info;
+import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -93,7 +93,7 @@ public class BaseData {
     public EncResult                mCopyEncResult;
 
     //COMMON DATA
-    public Node_Info                    mNodeInfo;
+    public NodeInfo                     mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();
     public ArrayList<Validator>         mMyValidators = new ArrayList<>();
     public ArrayList<Validator>         mTopValidators = new ArrayList<>();
@@ -164,6 +164,14 @@ public class BaseData {
 
 
     //gRPC funcs
+    public String getChainIdGrpc() {
+        if (mGRpcNodeInfo != null) {
+            return mGRpcNodeInfo.getNetwork();
+        }
+        return "";
+    }
+
+
     public BigDecimal getAvailable(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for (CoinOuterClass.Coin coin: mGrpcBalance) {

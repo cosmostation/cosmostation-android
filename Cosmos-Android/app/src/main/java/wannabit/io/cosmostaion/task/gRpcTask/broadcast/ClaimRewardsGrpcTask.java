@@ -4,7 +4,6 @@ import org.bitcoinj.crypto.DeterministicKey;
 
 import java.util.ArrayList;
 
-import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
@@ -35,17 +34,19 @@ public class ClaimRewardsGrpcTask extends CommonTask {
     private ArrayList<String>   mValAddresses;
     private String              mMemo;
     private Fee                 mFees;
+    private String              mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public ClaimRewardsGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, ArrayList<String> valAddresses, String toDelegateMemo, Fee toFees) {
+    public ClaimRewardsGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, ArrayList<String> valAddresses, String toDelegateMemo, Fee toFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
         this.mValAddresses = valAddresses;
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
+        this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_BROAD_CLAIM_REWARDS;
     }
 
@@ -83,7 +84,7 @@ public class ClaimRewardsGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcClaimRewardsReq(mAuthResponse, mValAddresses, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcClaimRewardsReq(mAuthResponse, mValAddresses, mFees, mMemo, deterministicKey, mChainId);
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {

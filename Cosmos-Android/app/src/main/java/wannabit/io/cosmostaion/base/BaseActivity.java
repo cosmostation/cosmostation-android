@@ -14,6 +14,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.view.View;
@@ -70,7 +72,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_Push_Enable;
 import wannabit.io.cosmostaion.dialog.Dialog_ShareType;
 import wannabit.io.cosmostaion.dialog.Dialog_Wait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
-import wannabit.io.cosmostaion.model.Node_Info;
+import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Validator;
@@ -707,7 +709,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new ParamMintGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProvisionGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new InflationGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         }
 
 
@@ -769,7 +770,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
-            getBaseDao().mNodeInfo = (Node_Info)result.resultData;
+            getBaseDao().mNodeInfo = (NodeInfo)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
 //            if (!result.isSuccess) {
@@ -1080,9 +1081,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
             }
 
-            if (mFetchCallback != null) {
-                mFetchCallback.fetchFinished();
-            }
+            //callback with delay fix gRPC  timming issue
+            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    if (mFetchCallback != null) {
+                        mFetchCallback.fetchFinished();
+                    }
+                }
+            },300);
         }
     }
 

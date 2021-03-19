@@ -121,7 +121,6 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         mShareBtn.setOnClickListener(this);
         mDismissBtn.setOnClickListener(this);
-        mControlLayer.setVisibility(View.VISIBLE);
 
         mTxRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mTxRecyclerView.setHasFixedSize(true);

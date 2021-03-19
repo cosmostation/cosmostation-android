@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Node_Info {
+public class NodeInfo {
     @SerializedName("network")
     public String network;
 

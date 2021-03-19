@@ -2,7 +2,7 @@ package wannabit.io.cosmostaion.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Sync_Info {
+public class SyncInfo {
     @SerializedName("latest_block_height")
     public long latest_block_height;
 

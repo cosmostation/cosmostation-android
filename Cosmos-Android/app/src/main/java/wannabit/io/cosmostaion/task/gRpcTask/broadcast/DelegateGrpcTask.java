@@ -35,11 +35,12 @@ public class DelegateGrpcTask extends CommonTask {
     private Coin                mAmount;
     private String              mMemo;
     private Fee                 mFees;
+    private String              mChainId;
 
     private QueryOuterClass.QueryAccountResponse mAuthResponse;
     private DeterministicKey    deterministicKey;
 
-    public DelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees) {
+    public DelegateGrpcTask(BaseApplication app, TaskListener listener, BaseChain basechain, Account account, String toValidatorAddress, Coin toDelegateAmount, String toDelegateMemo, Fee toFees, String chainId) {
         super(app, listener);
         this.mBaseChain = basechain;
         this.mAccount = account;
@@ -47,6 +48,7 @@ public class DelegateGrpcTask extends CommonTask {
         this.mAmount = toDelegateAmount;
         this.mMemo = toDelegateMemo;
         this.mFees = toFees;
+        this.mChainId = chainId;
         this.mResult.taskType = TASK_GRPC_BROAD_DELEGATE;
     }
 
@@ -84,7 +86,7 @@ public class DelegateGrpcTask extends CommonTask {
 
         //broadCast
         ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, getChain(mAccount.baseChain));
+        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, mChainId);
         txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
             @Override
             public void onNext(ServiceOuterClass.BroadcastTxResponse value) {
