@@ -276,44 +276,4 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
             }
         }
     }
-    
-    
-    func onBroadcastTxV1(_ auth: Auth_V1) {
-        DispatchQueue.global().async {
-            guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
-                return
-            }
-            let stdTx = Signer.genSignedVoteTxV1(auth.getAddress(), auth.getAccountNumber(), auth.getSequenceNumber(), self.pageHolderVC.mProposeId!,
-                                                 self.pageHolderVC.mVoteOpinion!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                 WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
-//            print("stdTx ", stdTx)
-            
-            DispatchQueue.main.async(execute: {
-                let url = BaseNetWork.postTxUrl(self.pageHolderVC.chainType!)
-                let params = Signer.getBroadCastParam(stdTx)
-                let request = Alamofire.request(url, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
-                request.responseJSON { response in
-                    var txResult = [String:Any]()
-                    switch response.result {
-                    case .success(let res):
-                        if(SHOW_LOG) { print("Vote V1 ", res) }
-                        if let result = res as? [String : Any]  {
-                            txResult = result
-                        }
-                    case .failure(let error):
-                        if(SHOW_LOG) { print("Vote V1 error ", error) }
-                        if (response.response?.statusCode == 500) {
-                            txResult["net_error"] = 500
-                        }
-                    }
-                    if (self.waitAlert != nil) {
-                        self.waitAlert?.dismiss(animated: true, completion: {
-                            self.onStartTxDetail(txResult)
-                        })
-                    }
-                }
-            });
-        }
-        
-    }
 }

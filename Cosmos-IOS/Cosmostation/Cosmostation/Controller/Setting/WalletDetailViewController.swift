@@ -53,8 +53,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         account = BaseData.instance.selectAccountById(id: accountId!)
         chainType = WUtils.getChainType(account!.account_base_chain)
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             self.onFetchRewardAddress_gRPC(account!.account_address)
         } else {
             self.onFetchRewardAddress(account!.account_address)
@@ -348,8 +347,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
             if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))

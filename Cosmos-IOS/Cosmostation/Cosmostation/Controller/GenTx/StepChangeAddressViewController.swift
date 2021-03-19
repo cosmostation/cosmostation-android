@@ -9,6 +9,8 @@
 import UIKit
 import QRCode
 import Alamofire
+import GRPC
+import NIO
 
 class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     
@@ -22,9 +24,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
-            self.onFetchRewardAddressV1(pageHolderVC.mAccount!.account_address)
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            self.onFetchRewardAddress_gRPC(pageHolderVC.mAccount!.account_address)
         } else {
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
         }
@@ -166,31 +167,35 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
         }
     }
     
-    
-    
-    func onFetchRewardAddressV1(_ address: String) {
-        let url = BaseNetWork.rewardAddressUrl(pageHolderVC.chainType!, address)
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                print("res ", res)
-                guard let responseData = res as? NSDictionary, let withdraw_address = responseData.object(forKey: "withdraw_address") as? String else {
-                    return;
-                }
-                let trimAddress = withdraw_address.replacingOccurrences(of: "\"", with: "")
-                self.currentRewardAddressLabel.text = trimAddress
-                if (trimAddress != address) {
+    func onFetchRewardAddress_gRPC(_ address: String) {
+        DispatchQueue.global().async {
+            var responseAddress = ""
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Distribution_V1beta1_QueryDelegatorWithdrawAddressRequest.with {
+                $0.delegatorAddress = address
+            }
+            do {
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegatorWithdrawAddress(req).response.wait()
+                responseAddress = response.withdrawAddress.replacingOccurrences(of: "\"", with: "")
+            } catch {
+                print("onFetchRedelegation_gRPC failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.currentRewardAddressLabel.text = responseAddress
+                if (responseAddress != address) {
                     self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
                 }
                 self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true
-                self.pageHolderVC.mCurrentRewardAddress = trimAddress
-                
-            case .failure(let error):
-                if(SHOW_LOG) { print("onFetchRewardAddressV1 ", error) }
-            }
+                self.pageHolderVC.mCurrentRewardAddress = responseAddress
+            });
         }
     }
+    
     
     
     func scannedAddress(result: String) {

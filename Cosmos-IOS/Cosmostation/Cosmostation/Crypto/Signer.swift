@@ -490,7 +490,30 @@ class Signer {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
             $0.txBytes = try! rawTx.serializedData()
         }
-      }
+    }
+    
+    static func genSignedSetRewardAddressTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                _ newRewardAddress: String, _ fee: Fee, _ memo: String,
+                                                _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let rewardAddressMsg = Cosmos_Distribution_V1beta1_MsgSetWithdrawAddress.with {
+            $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
+            $0.withdrawAddress = newRewardAddress
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.distribution.v1beta1.MsgSetWithdrawAddress"
+            $0.value = try! rewardAddressMsg.serializedData()
+        }
+        
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
     
     
     
