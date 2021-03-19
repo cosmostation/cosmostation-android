@@ -79,7 +79,7 @@ class HardDetailViewController: BaseViewController, UITableViewDelegate, UITable
     
     func onBindTop(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
         let cell:HarvestDetailTopCell? = tableView.dequeueReusableCell(withIdentifier:"HarvestDetailTopCell") as? HarvestDetailTopCell
-        cell?.harvestImg.af_setImage(withURL: URL(string: KAVA_HARVEST_MARKET_IMG_URL + "lp" + mHardMoneyMarketDenom! + ".png")!)
+        cell?.harvestImg.af_setImage(withURL: URL(string: KAVA_HARD_POOL_IMG_URL + "lp" + mHardMoneyMarketDenom! + ".png")!)
         
         let marketTitle = mHardMoneyMarketDenom == KAVA_MAIN_DENOM ? "kava" : mHardMoneyMarketDenom
         cell?.harvestTitle.text = marketTitle!.uppercased() + " POOL"

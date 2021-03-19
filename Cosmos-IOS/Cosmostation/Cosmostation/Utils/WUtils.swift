@@ -2915,11 +2915,11 @@ class WUtils {
     
     static func showRiskRate(_ riskRate: NSDecimalNumber, _ scoreLabel: UILabel, _rateIamg:UIImageView?) {
         scoreLabel.attributedText = displayAmount2(riskRate.stringValue, scoreLabel.font, 0, 2)
-        if (riskRate.doubleValue <= 50) {
+        if (riskRate.floatValue <= 50) {
             scoreLabel.textColor = COLOR_CDP_SAFE
             _rateIamg?.image = UIImage(named: "safe")
             
-        } else if (riskRate.doubleValue < 80) {
+        } else if (riskRate.floatValue < 80) {
             scoreLabel.textColor = COLOR_CDP_STABLE
             _rateIamg?.image = UIImage(named: "stable")
             

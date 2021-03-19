@@ -24,7 +24,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     var pageHolderVC: StepGenTxViewController!
     
     var checkedValidator: Validator?
-//    var checkedValidator_V1: Validator_V1?
     var checkedValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var checkedPosition:IndexPath?
     

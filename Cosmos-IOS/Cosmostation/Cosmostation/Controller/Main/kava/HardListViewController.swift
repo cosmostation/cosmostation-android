@@ -191,7 +191,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
             return cell!
         }
         let decimal = WUtils.getKavaCoinDecimal(hardMoneyMarket.denom!);
-        let url = KAVA_HARVEST_MARKET_IMG_URL + "lp" + hardMoneyMarket.denom! + ".png"
+        let url = KAVA_HARD_POOL_IMG_URL + "lp" + hardMoneyMarket.denom! + ".png"
         let title = (hardMoneyMarket.denom! == KAVA_MAIN_DENOM) ? "kava" : hardMoneyMarket.denom!
         cell?.harvestImg.af_setImage(withURL: URL(string: url)!)
         cell?.harvestTitle.text = title.uppercased() + " POOL"

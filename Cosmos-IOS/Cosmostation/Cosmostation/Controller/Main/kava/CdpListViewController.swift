@@ -168,7 +168,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
         cell?.liquidationPrice.attributedText = WUtils.getDPRawDollor(liquidationPrice.stringValue, 4, cell!.liquidationPrice.font)
         cell?.liquidationPrice.textColor = WUtils.getRiskColor(riskRate)
 
-        let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
+        let url = KAVA_CDP_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
         cell?.marketImg.af_setImage(withURL: URL(string: url)!)
         
         return cell!
@@ -182,7 +182,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
             cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), cell!.minCollateralRate.font)
             cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), cell!.stabilityFee.font)
             cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
-            let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam.getMarketImgPath()! + ".png"
+            let url = KAVA_CDP_IMG_URL + mCollateralParam.getMarketImgPath()! + ".png"
             cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             return cell!
     }

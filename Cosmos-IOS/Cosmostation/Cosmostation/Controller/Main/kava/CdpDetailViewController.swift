@@ -123,7 +123,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             cell?.systemMax.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
             cell?.remainCap.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().subtracting(mDebtAmount).stringValue, cell!.remainCap.font, 6, 6)
 
-            let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
+            let url = KAVA_CDP_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
             cell?.marketImg.af_setImage(withURL: URL(string: url)!)
             cell?.helpCollateralRate = {
                 self.onShowSimpleHelp(NSLocalizedString("help_collateral_rate_title", comment: ""), NSLocalizedString("help_collateral_rate_msg", comment: ""))
@@ -169,7 +169,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.systemMax.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().stringValue, cell!.systemMax.font, 6, 6)
         cell?.remainCap.attributedText = WUtils.displayAmount2(cdpParam!.getGlobalDebtAmount().subtracting(mDebtAmount).stringValue, cell!.remainCap.font, 6, 6)
 
-        let url = KAVA_CDP_MARKET_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
+        let url = KAVA_CDP_IMG_URL + mCollateralParam!.getMarketImgPath()! + ".png"
         cell?.marketImg.af_setImage(withURL: URL(string: url)!)
         cell?.helpCollateralRate = {
             self.onShowSimpleHelp(NSLocalizedString("help_collateral_rate_title", comment: ""), NSLocalizedString("help_collateral_rate_msg", comment: ""))
