@@ -16,6 +16,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.widget.TxCommonHolder;
 import wannabit.io.cosmostaion.widget.WalletAddressHolder;
 import wannabit.io.cosmostaion.widget.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.WalletBandHolder;
@@ -48,6 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainSendFragment extends BaseFragment {
 
@@ -79,6 +82,7 @@ public class MainSendFragment extends BaseFragment {
             @Override
             public void onRefresh() {
                 getMainActivity().onFetchAllData();
+                mMainWalletAdapter.notifyDataSetChanged();
             }
         });
         mRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -107,7 +111,7 @@ public class MainSendFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        onUpdateView();
+//        onUpdateView();
     }
 
     @Override
@@ -156,9 +160,13 @@ public class MainSendFragment extends BaseFragment {
 
     private void onUpdateView() {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
-        mMainWalletAdapter.notifyDataSetChanged();
+        if (isGRPC(getMainActivity().mBaseChain)) {
+            mMainWalletAdapter.notifyItemRangeChanged(0, mMainWalletAdapter.getItemCount());
+        } else {
+            mMainWalletAdapter.notifyDataSetChanged();
+        }
         mSwipeRefreshLayout.setRefreshing(false);
-        getMainActivity().onUpdateAccountListAdapter();
+//        getMainActivity().onUpdateAccountListAdapter();
     }
 
     public MainActivity getMainActivity() {
@@ -236,8 +244,8 @@ public class MainSendFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
-            viewHolder.onBindHolder(getMainActivity());
+        public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
+            holder.onBindHolder(getMainActivity());
         }
 
         @Override

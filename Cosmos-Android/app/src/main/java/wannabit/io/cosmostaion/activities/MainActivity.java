@@ -421,7 +421,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         invalidateOptionsMenu();
         mSelectChainPosition = position;
         getBaseDao().setLastChain(mSelectChainPosition);
-        mChainListAdapter.notifyDataSetChanged();
+//        mChainListAdapter.notifyDataSetChanged();
+        mChainListAdapter.notifyItemRangeChanged(0, mChainListAdapter.getItemCount());
         if (mSelectChainPosition == 0) {
             mAccounts = getBaseDao().onSelectAccounts();
 
@@ -431,6 +432,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
+//        mAccountListAdapter.notifyItemRangeChanged(0, mAccountListAdapter.getItemCount() - 1);
     }
 
     public void onUpdateAccountListAdapter() {
@@ -443,6 +445,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
+//        mAccountListAdapter.notifyItemRangeChanged(0, mAccountListAdapter.getItemCount() - 1);
     }
 
     private void onUpdateTitle() {

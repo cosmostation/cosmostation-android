@@ -65,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
@@ -136,7 +137,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onRefresh() {
                 getMainActivity().onFetchAllData();
-                mTokensAdapter.notifyDataSetChanged();
+//                mTokensAdapter.notifyDataSetChanged();
             }
         });
 
@@ -151,7 +152,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        onUpdateView();
+//        onUpdateView();
     }
 
     @Override
@@ -294,11 +295,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         }
 
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(getMainActivity().mBaseChain)) {
             mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
-                mTokensAdapter.notifyDataSetChanged();
+//                mTokensAdapter.notifyDataSetChanged();
+                mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
 
@@ -323,8 +324,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateTotalCard() {
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(getMainActivity().mBaseChain)) {
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(WDp.mainDenom(getMainActivity().mBaseChain));
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
@@ -480,8 +480,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 return getBaseDao().mGrpcBalance.size();
             } else {
                 return mBalances.size();
