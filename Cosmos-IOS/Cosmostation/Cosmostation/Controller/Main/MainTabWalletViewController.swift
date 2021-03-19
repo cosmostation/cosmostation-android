@@ -1755,43 +1755,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
-    func onStartStakeDropEvent() {
-        if (!mainTabVC.mAccount.account_has_private) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, COSMOS_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            if (availableAmount.compare(NSDecimalNumber.init(string: "3500")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
-                return
-            }
-            if (delegatedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_delegated_amount", comment: ""))
-                return
-            }
-            
-        } else if (chainType! == ChainType.KAVA_MAIN) {
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            if (availableAmount.compare(NSDecimalNumber.init(string: "6000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_to_balance", comment: ""))
-                return
-            }
-            if (delegatedAmount.compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_delegated_amount", comment: ""))
-                return
-            }
-            
-        }
-        
-        let eventVC = EventStakeDropViewController(nibName: "EventStakeDropViewController", bundle: nil)
-        eventVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(eventVC, animated: true)
-    }
-    
     func onShowBuyWarnNoKey() {
         let noKeyAlert = UIAlertController(title: NSLocalizedString("buy_without_key_title", comment: ""), message: NSLocalizedString("buy_without_key_msg", comment: ""), preferredStyle: .alert)
         noKeyAlert.addAction(UIAlertAction(title: NSLocalizedString("cancel", comment: ""), style: .default, handler: {_ in

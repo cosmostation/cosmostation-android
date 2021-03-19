@@ -104,117 +104,19 @@ let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
 
 //COSMOS_MAIN_URL
-let COSMOS_MAIN_TX                      = COSMOS_URL + "txs/";
-let COSMOS_MAIN_BALANCE                 = COSMOS_URL + "cosmos/bank/v1beta1/balances/";
-let COSMOS_MAIN_AUTH                    = COSMOS_URL + "cosmos/auth/v1beta1/accounts/";
-let COSMOS_MAIN_VALIDATORS              = COSMOS_URL + "cosmos/staking/v1beta1/validators";
-let COSMOS_MAIN_DELEGATIONS             = COSMOS_URL + "cosmos/staking/v1beta1/delegations/";
-let COSMOS_MAIN_UNDELEGATIONS           = COSMOS_URL + "cosmos/staking/v1beta1/delegators/";
-let COSMOS_MAIN_UNDELEGATIONS_T         = "/unbonding_delegations";
-let COSMOS_MAIN_REWARDS                 = COSMOS_URL + "cosmos/distribution/v1beta1/delegators/";
-let COSMOS_MAIN_REWARDS_T               = "/rewards";
-let COSMOS_MAIN_SINGLE_VALIDATOR        = COSMOS_URL + "cosmos/staking/v1beta1/validators/";
-let COSMOS_MAIN_SINGLE_DELEGATION       = COSMOS_URL + "cosmos/staking/v1beta1/validators/";
-let COSMOS_MAIN_SINGLE_DELEGATION_M     = "/delegations/";
-let COSMOS_MAIN_REDELEGATION            = COSMOS_URL + "cosmos/staking/v1beta1/delegators/";
-let COSMOS_MAIN_REDELEGATION_T          = "/redelegations";
-let COSMOS_MAIN_REWARD_ADDRESS          = COSMOS_URL + "cosmos/distribution/v1beta1/delegators/";
-let COSMOS_MAIN_REWARD_ADDRESS_T        = "/withdraw_address";
-let COSMOS_MAIN_INFLATION               = COSMOS_URL + "cosmos/mint/v1beta1/inflation";
-let COSMOS_MAIN_PROVISIONS              = COSMOS_URL + "cosmos/mint/v1beta1/annual_provisions";
-let COSMOS_MAIN_MINT_PARAM              = COSMOS_URL + "cosmos/mint/v1beta1/params";
-let COSMOS_MAIN_STAKING_POOL            = COSMOS_URL + "cosmos/staking/v1beta1/pool";
-let COSMOS_MAIN_PROPOSALS               = COSMOS_URL + "cosmos/gov/v1beta1/proposals";
-let COSMOS_MAIN_PROPOSAL                = COSMOS_URL + "cosmos/gov/v1beta1/proposals/";
-let COSMOS_MAIN_BORAD_TX                = COSMOS_URL + "txs";
-
 let COSMOS_MAIN_HISTORY                 = COSMOS_API + "v1/account/txs/";
 let COSMOS_MAIN_TRANS_HISTORY           = COSMOS_API + "v1/account/transfer_txs/";
 
-
 //COSMOS_TEST_URL
-let COSMOS_TEST_TX                      = COSMOS_TEST_URL + "txs/";
-let COSMOS_TEST_BALANCE                 = COSMOS_TEST_URL + "cosmos/bank/v1beta1/balances/";
-let COSMOS_TEST_AUTH                    = COSMOS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
-let COSMOS_TEST_VALIDATORS              = COSMOS_TEST_URL + "cosmos/staking/v1beta1/validators";
-let COSMOS_TEST_DELEGATIONS             = COSMOS_TEST_URL + "cosmos/staking/v1beta1/delegations/";
-let COSMOS_TEST_UNDELEGATIONS           = COSMOS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
-let COSMOS_TEST_UNDELEGATIONS_T         = "/unbonding_delegations";
-let COSMOS_TEST_REWARDS                 = COSMOS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
-let COSMOS_TEST_REWARDS_T               = "/rewards";
-let COSMOS_TEST_SINGLE_VALIDATOR        = COSMOS_TEST_URL + "cosmos/staking/v1beta1/validators/";
-let COSMOS_TEST_SINGLE_DELEGATION       = COSMOS_TEST_URL + "cosmos/staking/v1beta1/validators/";
-let COSMOS_TEST_SINGLE_DELEGATION_M     = "/delegations/";
-let COSMOS_TEST_REDELEGATION            = COSMOS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
-let COSMOS_TEST_REDELEGATION_T          = "/redelegations";
-let COSMOS_TEST_REWARD_ADDRESS          = COSMOS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
-let COSMOS_TEST_REWARD_ADDRESS_T        = "/withdraw_address";
-let COSMOS_TEST_INFLATION               = COSMOS_TEST_URL + "cosmos/mint/v1beta1/inflation";
-let COSMOS_TEST_PROVISIONS              = COSMOS_TEST_URL + "cosmos/mint/v1beta1/annual_provisions";
-let COSMOS_TEST_MINT_PARAM              = COSMOS_TEST_URL + "cosmos/mint/v1beta1/params";
-let COSMOS_TEST_STAKING_POOL            = COSMOS_TEST_URL + "cosmos/staking/v1beta1/pool";
-let COSMOS_TEST_PROPOSALS               = COSMOS_TEST_URL + "cosmos/gov/v1beta1/proposals";
-let COSMOS_TEST_PROPOSAL                = COSMOS_TEST_URL + "cosmos/gov/v1beta1/proposals/";
-let COSMOS_TEST_BORAD_TX                = COSMOS_TEST_URL + "txs";
-
 let COSMOS_TEST_HISTORY                 = COSMOS_TEST_API + "v1/account/txs/";
 let COSMOS_TEST_TRANS_HISTORY           = COSMOS_TEST_API + "v1/account/transfer_txs/";
 
 
 //IRIS_MAIN_URL
-let IRIS_MAIN_TX                        = IRIS_LCD_URL + "txs/";
-let IRIS_MAIN_BALANCE                   = IRIS_LCD_URL + "cosmos/bank/v1beta1/balances/";
-let IRIS_MAIN_AUTH                      = IRIS_LCD_URL + "cosmos/auth/v1beta1/accounts/";
-let IRIS_MAIN_VALIDATORS                = IRIS_LCD_URL + "cosmos/staking/v1beta1/validators";
-let IRIS_MAIN_DELEGATIONS               = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegations/";
-let IRIS_MAIN_UNDELEGATIONS             = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegators/";
-let IRIS_MAIN_UNDELEGATIONS_T           = "/unbonding_delegations";
-let IRIS_MAIN_REWARDS                   = IRIS_LCD_URL + "cosmos/distribution/v1beta1/delegators/";
-let IRIS_MAIN_REWARDS_T                 = "/rewards";
-let IRIS_MAIN_SINGLE_VALIDATOR          = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegators/";
-let IRIS_MAIN_SINGLE_VALIDATOR_M        = "/validators/";
-let IRIS_MAIN_SINGLE_DELEGATION         = IRIS_LCD_URL + "cosmos/staking/v1beta1/validators/";
-let IRIS_MAIN_SINGLE_DELEGATION_M       = "/delegations/";
-let IRIS_MAIN_REDELEGATION              = IRIS_LCD_URL + "cosmos/staking/v1beta1/delegators/";
-let IRIS_MAIN_REDELEGATION_T            = "/redelegations";
-let IRIS_MAIN_REWARD_ADDRESS            = IRIS_LCD_URL + "cosmos/distribution/v1beta1/delegators/";
-let IRIS_MAIN_REWARD_ADDRESS_T          = "/withdraw_address";
-let IRIS_MAIN_MINT_PARAM                = IRIS_LCD_URL + "irishub/mint/params";
-let IRIS_MAIN_STAKING_POOL              = IRIS_LCD_URL + "cosmos/staking/v1beta1/pool";
-let IRIS_MAIN_TOKENS                    = IRIS_LCD_URL + "irismod/token/tokens";
-let IRIS_MAIN_PROPOSALS                 = IRIS_LCD_URL + "cosmos/gov/v1beta1/proposals";
-let IRIS_MAIN_PROPOSAL                  = IRIS_LCD_URL + "cosmos/gov/v1beta1/proposals/";
-let IRIS_MAIN_BORAD_TX                  = IRIS_LCD_URL + "txs";
-
 let IRIS_MAIN_HISTORY                   = IRIS_API + "v1/account/txs/";
 let IRIS_MAIN_TRANS_HISTORY             = IRIS_API + "v1/account/transfer_txs/";
 
-
 //IRIS_TEST_URL
-let IRIS_TEST_TX                        = IRIS_TEST_URL + "txs/";
-let IRIS_TEST_BALANCE                   = IRIS_TEST_URL + "cosmos/bank/v1beta1/balances/";
-let IRIS_TEST_AUTH                      = IRIS_TEST_URL + "cosmos/auth/v1beta1/accounts/";
-let IRIS_TEST_VALIDATORS                = IRIS_TEST_URL + "cosmos/staking/v1beta1/validators";
-let IRIS_TEST_DELEGATIONS               = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegations/";
-let IRIS_TEST_UNDELEGATIONS             = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
-let IRIS_TEST_UNDELEGATIONS_T           = "/unbonding_delegations";
-let IRIS_TEST_REWARDS                   = IRIS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
-let IRIS_TEST_REWARDS_T                 = "/rewards";
-let IRIS_TEST_SINGLE_VALIDATOR          = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
-let IRIS_TEST_SINGLE_VALIDATOR_M        = "/validators/";
-let IRIS_TEST_SINGLE_DELEGATION         = IRIS_TEST_URL + "cosmos/staking/v1beta1/validators/";
-let IRIS_TEST_SINGLE_DELEGATION_M       = "/delegations/";
-let IRIS_TEST_REDELEGATION              = IRIS_TEST_URL + "cosmos/staking/v1beta1/delegators/";
-let IRIS_TEST_REDELEGATION_T            = "/redelegations";
-let IRIS_TEST_REWARD_ADDRESS            = IRIS_TEST_URL + "cosmos/distribution/v1beta1/delegators/";
-let IRIS_TEST_REWARD_ADDRESS_T          = "/withdraw_address";
-let IRIS_TEST_MINT_PARAM                = IRIS_TEST_URL + "irishub/mint/params";
-let IRIS_TEST_STAKING_POOL              = IRIS_TEST_URL + "cosmos/staking/v1beta1/pool";
-let IRIS_TEST_TOKENS                    = IRIS_TEST_URL + "irismod/token/tokens";
-let IRIS_TEST_PROPOSALS                 = IRIS_TEST_URL + "cosmos/gov/v1beta1/proposals";
-let IRIS_TEST_PROPOSAL                  = IRIS_TEST_URL + "cosmos/gov/v1beta1/proposals/";
-let IRIS_TEST_BORAD_TX                  = IRIS_TEST_URL + "txs";
-
 let IRIS_TEST_HISTORY                   = IRIS_TEST_API + "v1/account/txs/";
 let IRIS_TEST_TRANS_HISTORY             = IRIS_TEST_API + "v1/account/transfer_txs/";
 
@@ -395,7 +297,6 @@ let IOV_PROPOSALS_TALLY_TAIL            = "/tally";
 let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
 let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
 
-
 //IOV_TEST_URL
 let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
 let IOV_TEST_VALIDATORS                 = IOV_TEST_URL + "staking/validators";
@@ -420,6 +321,7 @@ let IOV_TEST_CHECK_WITH_STARNAME        = IOV_TEST_URL + "starname/query/resolve
 let IOV_TEST_CHECK_MY_DOMAIN            = IOV_TEST_URL + "starname/query/domainsWithOwner";
 let IOV_TEST_CHECK_MY_ACCOUNT           = IOV_TEST_URL + "starname/query/accountsWithOwner";
 let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainInfo";
+
 
 
 //OKEX_URL
@@ -526,30 +428,6 @@ let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_
 
 
 //AKASH Mainnet
-let AKASH_MAIN_TX                           = AKASH_URL + "txs/";
-let AKASH_MAIN_BALANCE                      = AKASH_URL + "cosmos/bank/v1beta1/balances/";
-let AKASH_MAIN_AUTH                         = AKASH_URL + "cosmos/auth/v1beta1/accounts/";
-let AKASH_MAIN_VALIDATORS                   = AKASH_URL + "cosmos/staking/v1beta1/validators";
-let AKASH_MAIN_DELEGATIONS                  = AKASH_URL + "cosmos/staking/v1beta1/delegations/";
-let AKASH_MAIN_UNDELEGATIONS                = AKASH_URL + "cosmos/staking/v1beta1/delegators/";
-let AKASH_MAIN_UNDELEGATIONS_T              = "/unbonding_delegations";
-let AKASH_MAIN_REWARDS                      = AKASH_URL + "cosmos/distribution/v1beta1/delegators/";
-let AKASH_MAIN_REWARDS_T                    = "/rewards";
-let AKASH_MAIN_SINGLE_VALIDATOR             = AKASH_URL + "cosmos/staking/v1beta1/validators/";
-let AKASH_MAIN_SINGLE_DELEGATION            = AKASH_URL + "cosmos/staking/v1beta1/validators/";
-let AKASH_MAIN_SINGLE_DELEGATION_M          = "/delegations/";
-let AKASH_MAIN_REDELEGATION                 = AKASH_URL + "cosmos/staking/v1beta1/delegators/";
-let AKASH_MAIN_REDELEGATION_T               = "/redelegations";
-let AKASH_MAIN_REWARD_ADDRESS               = AKASH_URL + "cosmos/distribution/v1beta1/delegators/";
-let AKASH_MAIN_REWARD_ADDRESS_T             = "/withdraw_address";
-let AKASH_MAIN_INFLATION                    = AKASH_URL + "cosmos/mint/v1beta1/inflation";
-let AKASH_MAIN_PROVISIONS                   = AKASH_URL + "cosmos/mint/v1beta1/annual_provisions";
-let AKASH_MAIN_MINT_PARAM                   = AKASH_URL + "cosmos/mint/v1beta1/params";
-let AKASH_MAIN_STAKING_POOL                 = AKASH_URL + "cosmos/staking/v1beta1/pool";
-let AKASH_MAIN_PROPOSALS                    = AKASH_URL + "cosmos/gov/v1beta1/proposals";
-let AKASH_MAIN_PROPOSAL                     = AKASH_URL + "cosmos/gov/v1beta1/proposals/";
-let AKASH_MAIN_BORAD_TX                     = AKASH_URL + "txs";
-
 let AKASH_MAIN_HISTORY                      = AKASH_API + "v1/account/txs/";
 let AKASH_MAIN_TRANS_HISTORY                = AKASH_API + "v1/account/transfer_txs/";
 

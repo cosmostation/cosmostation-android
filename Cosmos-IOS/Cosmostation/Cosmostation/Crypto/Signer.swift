@@ -12,6 +12,7 @@ import HDWalletKit
 
 class Signer {
     
+    /*
     static func genSignedSendTxV1(_ fromAddress: String, _ accountNum: String, _ sequenceNum: String,
                                   _ toAddress: String, _ amount: Array<Coin>, _ fee: Fee, _ memo: String,
                                   _ pKey: HDPrivateKey, _ chain: ChainType) -> StdTx {
@@ -273,7 +274,7 @@ class Signer {
         let data = try? encoder.encode(postTx)
         return try! JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
     }
-    
+    */
     
     
     

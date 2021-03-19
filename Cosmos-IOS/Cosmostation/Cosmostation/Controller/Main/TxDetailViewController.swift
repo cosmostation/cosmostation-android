@@ -1209,15 +1209,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onFetchTx(_ txHash: String) {
         var url = ""
         var request:DataRequest?
-        if (self.chainType! == ChainType.COSMOS_MAIN) {
-            url = COSMOS_MAIN_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.IRIS_MAIN) {
-            url = IRIS_MAIN_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.BINANCE_MAIN) {
+        if (self.chainType! == ChainType.BINANCE_MAIN) {
             url = BNB_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
             
@@ -1263,18 +1255,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             
         } else if (self.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.AKASH_MAIN) {
-            url = AKASH_MAIN_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.COSMOS_TEST) {
-            url = COSMOS_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.IRIS_TEST) {
-            url = IRIS_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         }

@@ -13,6 +13,7 @@ import NIO
 
 class BaseNetWork {
     
+    /*
     static func validatorUrl(_ chain: ChainType) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
@@ -377,6 +378,7 @@ class BaseNetWork {
         }
         return result
     }
+     */
     
     
     static func accountHistory(_ chain: ChainType, _ address: String) -> String {

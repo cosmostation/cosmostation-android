@@ -27,13 +27,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mBondingList = Array<Bonding>()
     var mUnbondingList = Array<Unbonding>()
     var mRewardList = Array<Reward>()
-    var mIrisRewards: IrisRewards?
     var mAtomTic: NSDictionary?
     var mPriceTic: NSDictionary?
     var mFetchCnt = 0
-    
-    var mIrisTokenList = Array<IrisToken>()
-    
+        
     var waitAlert: UIAlertController?
     var banner: NotificationBanner?
     var notiView: NotificationView?
@@ -47,12 +44,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
-        
-//        if ((mChainType == ChainType.KAVA_TEST || mChainType == ChainType.BINANCE_TEST) && BaseData.instance.getKavaWarn()) {
-//             DispatchQueue.main.async(execute: {
-//                self.showKavaTestWarn()
-//             });
-//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

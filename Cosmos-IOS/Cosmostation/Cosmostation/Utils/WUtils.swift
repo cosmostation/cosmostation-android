@@ -235,40 +235,19 @@ class WUtils {
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
         var result = Array<Bonding>()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-                chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
-            for raw in rawbondinginfos{
-                let bondinginfo = BondingInfo(raw as! [String : Any])
-                result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
-            }
-        } else if (chain == ChainType.IRIS_MAIN) {
-            for raw in rawbondinginfos{
-                let bondinginfo = BondingInfo(raw as! [String : Any])
-                let shareAmount = plainStringToDecimal(bondinginfo.shares).multiplying(byPowerOf10: 18)
-                result.append(Bonding(account.account_id, bondinginfo.validator_addr, shareAmount.stringValue, Date().millisecondsSince1970))
-            }
+        for raw in rawbondinginfos{
+            let bondinginfo = BondingInfo(raw as! [String : Any])
+            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
         }
         return result
     }
     
     static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
         var result = Array<Unbonding>()
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-                chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST || chain == ChainType.AKASH_MAIN) {
-            for raw in rawunbondinginfos {
-                let unbondinginfo = UnbondingInfo(raw as! [String : Any])
-                for entry in unbondinginfo.entries {
-                    result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
-                }
-            }
-        } else if (chain == ChainType.IRIS_MAIN) {
-            for raw in rawunbondinginfos {
-                let unbondinginfo = UnbondingInfo(raw as! [String : Any])
-                let unbondingBalance = plainStringToDecimal(unbondinginfo.balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
-                let initialBalance = plainStringToDecimal(unbondinginfo.initial_balance.replacingOccurrences(of: "iris", with: "")).multiplying(byPowerOf10: 18, withBehavior: handler0)
-                result.append(Unbonding(account.account_id, unbondinginfo.validator_addr, unbondinginfo.creation_height, nodeTimeToInt64(input: unbondinginfo.min_time).millisecondsSince1970, initialBalance.stringValue, unbondingBalance.stringValue, Date().millisecondsSince1970))
+        for raw in rawunbondinginfos {
+            let unbondinginfo = UnbondingInfo(raw as! [String : Any])
+            for entry in unbondinginfo.entries {
+                result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
             }
         }
         return result
@@ -928,22 +907,8 @@ class WUtils {
         return amount
     }
     
-    static func dpIrisRewards(_ rewards:IrisRewards?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType ) ->  NSMutableAttributedString {
-        if (rewards != nil && (rewards?.delegations.count)! > 0) {
-            return displayAmount((rewards?.getSimpleIrisReward().stringValue)!, font, deciaml, chain)
-        } else {
-            return displayAmount(NSDecimalNumber.zero.stringValue, font, deciaml, chain)
-        }
-    }
-    
-    
-    
     static func dpAllAtom(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) ->  NSMutableAttributedString {
         return displayAmount(getAllAtom(balances, bondings, unbondings, rewards, validators).stringValue, font, deciaml, chain)
-    }
-    
-    static func dpAllIris(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
-        return displayAmount(getAllIris(balances, bondings, unbondings, rewards, validators).stringValue, font, deciaml, chain)
     }
     
     static func dpAllAtomValue(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
@@ -968,32 +933,6 @@ class WUtils {
             result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
         } else {
             result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
-        }
-        return dpValue(result, font)
-    }
-    
-    static func dpAllIrisValue(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>, _ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        var amount = getAllIris(balances, bondings, unbondings, rewards, validators)
-        if (BaseData.instance.getCurrency() == 5) {
-            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
-        } else {
-            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
-        }
-        return dpValue(amount, font)
-    }
-    
-    static func dpIrisValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        var result = NSDecimalNumber.zero
-        if (BaseData.instance.getCurrency() == 5) {
-            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
-        } else {
-            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000000000000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
         }
         return dpValue(result, font)
     }
@@ -1578,29 +1517,6 @@ class WUtils {
         return amount
     }
     
-    static func getAllAkash(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == AKASH_MAIN_DENOM) {
-                amount = NSDecimalNumber.init(string: balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == AKASH_MAIN_DENOM) {
-                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
     static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking?, _ withdraw: OkUnbonding?) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
@@ -1611,25 +1527,6 @@ class WUtils {
         }
         sum = sum.adding(plainStringToDecimal(deposit?.tokens))
         sum = sum.adding(plainStringToDecimal(withdraw?.quantity))
-        return sum
-    }
-    
-    static func getAllIris(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:IrisRewards?, _ validators:Array<Validator>) ->  NSDecimalNumber {
-        var sum = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == IRIS_MAIN_DENOM) {
-                sum = localeStringToDecimal(balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            sum = sum.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            sum = sum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-        }
-        if (rewards != nil) {
-            sum = sum.adding(rewards!.getSimpleIrisReward())
-        }
         return sum
     }
     

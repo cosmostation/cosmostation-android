@@ -19,8 +19,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     var balance:Balance?
     var allValidator = Array<Validator>()
     var allRewards = Array<Reward>()
-    var irisToken:IrisToken?
-    var irisRewards:IrisRewards?
     var bnbToken:BnbToken?
     var bnbTic:NSMutableDictionary?
     var okDenom:String?
@@ -315,19 +313,19 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderIrisCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderIrisCell") as? TokenDetailHeaderIrisCell
-        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
-        
-        cell?.totalAmount.attributedText = WUtils.dpAllIris(balances, bondingList, unbondingList, irisRewards, allValidator, cell!.totalAmount.font, 18, chainType!)
-        cell?.totalValue.attributedText = WUtils.dpAllIrisValue(balances, bondingList, unbondingList, irisRewards, allValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
-        cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.availableAmount.font, 18, IRIS_MAIN_DENOM, chainType!)
-        cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 18, chainType!)
-        cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 18, chainType!)
-        cell?.rewardAmount.attributedText = WUtils.dpIrisRewards(irisRewards, cell!.rewardAmount.font, 18, chainType!)
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
+//        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+//        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+//        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
+//        
+//        cell?.totalAmount.attributedText = WUtils.dpAllIris(balances, bondingList, unbondingList, irisRewards, allValidator, cell!.totalAmount.font, 18, chainType!)
+//        cell?.totalValue.attributedText = WUtils.dpAllIrisValue(balances, bondingList, unbondingList, irisRewards, allValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
+//        cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.availableAmount.font, 18, IRIS_MAIN_DENOM, chainType!)
+//        cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 18, chainType!)
+//        cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 18, chainType!)
+//        cell?.rewardAmount.attributedText = WUtils.dpIrisRewards(irisRewards, cell!.rewardAmount.font, 18, chainType!)
+//        cell?.actionSend  = {
+//            self.onSendToken()
+//        }
         return cell!
     }
     
@@ -464,15 +462,8 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         if (chainType == ChainType.COSMOS_MAIN) {
             //TODO not this case yet!
 
-        } else if (chainType == ChainType.IRIS_MAIN && irisToken != nil) {
-            cell?.tokenInfoBtn.isHidden = true
-            cell?.tokenSymbol.text = irisToken?.base_token?.symbol.uppercased()
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.totalAmount.font, irisToken!.base_token!.decimal, irisToken!.base_token!.decimal)
-            cell?.totalAmount.adjustsFontSizeToFitWidth = true
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, irisToken!.base_token!.decimal, irisToken!.base_token!.decimal)
-            cell?.actionSend  = {
-                self.onShowToast(NSLocalizedString("error_iris_token_yet", comment: ""))
-            }
+        } else if (chainType == ChainType.IRIS_MAIN) {
+            //TODO
 
         } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) && bnbToken != nil) {
             cell?.tokenInfoBtn.isHidden = false
