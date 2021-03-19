@@ -23,20 +23,6 @@ public class ApiClient {
         return cosmostation;
     }
 
-    //Services for Cosmos main net
-    private static NetworkCosmos_V1 service_cosmos = null;
-    public static NetworkCosmos_V1 getCosmosChain(Context c) {
-        if (service_cosmos == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_cosmos_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_cosmos = retrofit.create(NetworkCosmos_V1.class);
-            }
-        }
-        return service_cosmos;
-    }
 
     //Services for Cosmos api
     private static HistoryApi api_cosmos = null;
@@ -53,20 +39,6 @@ public class ApiClient {
         return api_cosmos;
     }
 
-    //Services for Iris main net
-    private static NetworkIris_V1 service_iris = null;
-    public static NetworkIris_V1 getIrisChain(Context c) {
-        if (service_iris == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_iris_main))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_iris = retrofit.create(NetworkIris_V1.class);
-            }
-        }
-        return service_iris;
-    }
 
     //Services for Iris history api mainnet
     private static HistoryApi api_iris = null;
@@ -392,20 +364,6 @@ public class ApiClient {
         return service_secret;
     }
 
-    //Services for Akash main net
-    private static NetworkAkash_V1 service_akash = null;
-    public static NetworkAkash_V1 getAkashChain(Context c) {
-        if (service_akash == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_akash))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_akash = retrofit.create(NetworkAkash_V1.class);
-            }
-        }
-        return service_akash;
-    }
 
     //Services for Akash mainnet api
     private static HistoryApi api_akash = null;
@@ -424,23 +382,6 @@ public class ApiClient {
 
 
 
-
-
-    //Services for Cosmos test net
-    private static NetworkCosmos_V1 service_cosmos_test = null;
-    public static NetworkCosmos_V1 getCosmosTestChain(Context c) {
-        if (service_cosmos_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_cosmos_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_cosmos_test = retrofit.create(NetworkCosmos_V1.class);
-            }
-        }
-        return service_cosmos_test;
-    }
-
     //Services for Cosmos Test api
     private static HistoryApi api_cosmos_test = null;
     public static HistoryApi getCosmosTestApi(Context c) {
@@ -456,21 +397,6 @@ public class ApiClient {
         return api_cosmos_test;
     }
 
-
-    //Services for Iris test net
-    private static NetworkIris_V1 service_iris_test = null;
-    public static NetworkIris_V1 getIrisTestChain(Context c) {
-        if (service_iris_test == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_lcd_iris_test))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_iris_test = retrofit.create(NetworkIris_V1.class);
-            }
-        }
-        return service_iris_test;
-    }
 
     //Services for Iris Test api
     private static HistoryApi api_iris_test = null;

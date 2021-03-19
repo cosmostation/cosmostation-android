@@ -63,7 +63,7 @@ public class BaseConstant {
     public final static int TASK_FETCH_BONDEB_VALIDATOR                 = 2005;
     public final static int TASK_FETCH_BONDING_STATE                    = 2006;
     public final static int TASK_FETCH_UNBONDING_STATE                  = 2007;
-    public final static int TASK_FETCH_TOTAL_REWARDS                    = 2008;
+//    public final static int TASK_FETCH_TOTAL_REWARDS                    = 2008;
     public final static int TASK_FETCH_SINGLE_VALIDATOR                 = 2009;
     public final static int TASK_FETCH_SINGLE_BONDING                   = 2010;
     public final static int TASK_FETCH_SINGLE_UNBONDING                 = 2011;

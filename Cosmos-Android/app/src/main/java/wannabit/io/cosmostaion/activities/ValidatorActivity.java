@@ -861,42 +861,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         }
 
-//        //roll back
-//        else if (result.taskType == TASK_V1_FETCH_DELEGATIONS) {
-//            if (result.isSuccess) {
-//                ArrayList<Delegation_V1> delegations = (ArrayList<Delegation_V1>)result.resultData;
-//                getBaseDao().mDelegations_V1 = delegations;
-//            }
-//
-//        } else if (result.taskType == TASK_V1_FETCH_UNDELEGATIONS) {
-//            if (result.isSuccess) {
-//                ArrayList<Undelegation_V1> undelegations = (ArrayList<Undelegation_V1>)result.resultData;
-//                getBaseDao().mUndelegations_V1 = undelegations;
-//            }
-//
-//        } else if (result.taskType == TASK_V1_FETCH_ALL_REWARDS) {
-//            if (result.isSuccess) {
-//                ArrayList<Reward_V1> rewards = (ArrayList<Reward_V1>)result.resultData;
-//                getBaseDao().mRewards_V1 = rewards;
-//            }
-//
-//        } else if (result.taskType == TASK_V1_FETCH_VALIDATOR_INFO) {
-//            if (result.isSuccess) {
-//                mValidator_V1 = (Validator_V1)result.resultData;
-//            }
-//
-//        } else if (result.taskType == TASK_V1_FETCH_SELF_BONDING) {
-//            if (result.isSuccess) {
-//                mSelfDelegation = (Delegation_V1)result.resultData;
-//            }
-//        } else if (result.taskType == TASK_V1_FETCH_REDELEGATION_TO) {
-//            if (result.isSuccess) {
-//                mRedelegations_V1 = (ArrayList<ResRedelegations_V1.RedelegationResponses_V1>)result.resultData;
-//            }
-//        }
-
-
-
         //gRpc call back
         else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;

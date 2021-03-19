@@ -23,17 +23,14 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
-import wannabit.io.cosmostaion.model.IrisToken_V1;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;

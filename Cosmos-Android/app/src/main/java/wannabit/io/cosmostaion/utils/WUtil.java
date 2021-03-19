@@ -51,16 +51,11 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.IovToken;
-import wannabit.io.cosmostaion.dao.IrisToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.ExportStarName;
-import wannabit.io.cosmostaion.model.Proposal_V1;
-import wannabit.io.cosmostaion.model.Reward_V1;
 import wannabit.io.cosmostaion.model.StarNameResource;
-import wannabit.io.cosmostaion.model.Validator_V1;
-import wannabit.io.cosmostaion.model.Vote_V1;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -822,25 +817,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortByValidatorNameV2(ArrayList<Validator_V1> validators) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                return o1.description.moniker.compareTo(o2.description.moniker);
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
     public static void onSortByValidatorPower(ArrayList<Validator> validators) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
@@ -880,28 +856,6 @@ public class WUtil {
             public int compare(Staking.Validator o1, Staking.Validator o2) {
                 if (o1.getJailed() && !o2.getJailed()) return 1;
                 else if (!o1.getJailed() && o2.getJailed()) return -1;
-                else return 0;
-            }
-        });
-    }
-
-    public static void onSortByValidatorPowerV2(ArrayList<Validator_V1> validators) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                if (Double.parseDouble(o1.tokens) > Double.parseDouble(o2.tokens)) return -1;
-                else if (Double.parseDouble(o1.tokens) < Double.parseDouble(o2.tokens)) return 1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
                 else return 0;
             }
         });
@@ -1037,19 +991,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortRewardAmount_V1(ArrayList<Reward_V1> rewards, String denom) {
-        Collections.sort(rewards, new Comparator<Reward_V1>() {
-            @Override
-            public int compare(Reward_V1 o1, Reward_V1 o2) {
-                BigDecimal rewardO1 = o1.getRewardByDenom(denom);
-                BigDecimal rewardO2 = o2.getRewardByDenom(denom);
-                return rewardO2.compareTo(rewardO1);
-            }
-        });
-    }
-
-
-
     public static void onSortRewardAmount(ArrayList<Distribution.DelegationDelegatorReward> rewards, String denom) {
         Collections.sort(rewards, new Comparator<Distribution.DelegationDelegatorReward>() {
             @Override
@@ -1127,27 +1068,6 @@ public class WUtil {
         });
     }
 
-    public static void onSortingByCommissionV2(ArrayList<Validator_V1> validators) {
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
-                if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
-                else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
-                else return 0;
-            }
-        });
-        Collections.sort(validators, new Comparator<Validator_V1>() {
-            @Override
-            public int compare(Validator_V1 o1, Validator_V1 o2) {
-                if (o1.jailed && !o2.jailed) return 1;
-                else if (!o1.jailed && o2.jailed) return -1;
-                else return 0;
-            }
-        });
-    }
-
     public static void onSortingProposal(ArrayList<Proposal> proposals, BaseChain chain) {
         Collections.sort(proposals, new Comparator<Proposal>() {
             @Override
@@ -1166,17 +1086,6 @@ public class WUtil {
                 if (o1.getProposalId() < o2.getProposalId()) return 1;
                 else if (o1.getProposalId() > o2.getProposalId()) return -1;
                 return 0;
-            }
-        });
-    }
-
-    public static void onSortingProposalsV1(ArrayList<Proposal_V1> proposals) {
-        Collections.sort(proposals, new Comparator<Proposal_V1>() {
-            @Override
-            public int compare(Proposal_V1 o1, Proposal_V1 o2) {
-                if (Integer.parseInt(o1.proposal_id) < Integer.parseInt(o2.proposal_id)) return 1;
-                else if (Integer.parseInt(o1.proposal_id) > Integer.parseInt(o2.proposal_id)) return -1;
-                else return 0;
             }
         });
     }
@@ -1582,16 +1491,6 @@ public class WUtil {
         if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
         for (OkToken token:okTokenList.data) {
             if (token.symbol.equals(denom)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-    public static IrisToken getIrisMainToken(ArrayList<IrisToken> all) {
-        if (all == null) return null;
-        for (IrisToken token:all) {
-            if (token.base_token.id.equals(TOKEN_IRIS)) {
                 return token;
             }
         }
