@@ -3,6 +3,8 @@ package wannabit.io.cosmostaion.activities;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,7 @@ import androidx.cardview.widget.CardView;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -30,10 +33,13 @@ import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
 import wannabit.io.cosmostaion.dialog.Dialog_RewardAddressChangeInfo;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
+import wannabit.io.cosmostaion.model.NodeInfo;
+import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -57,8 +63,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_V1_FETCH_WITHDRAW_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -164,7 +171,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             return;
         }
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(mBaseChain)) {
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
             if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
@@ -386,10 +393,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         if (isGRPC(mBaseChain)) {
             new WithdrawAddressGrpcTask(getBaseApplication(), this, mBaseChain,  mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
             new CheckWithdrawAddressTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
         if (TextUtils.isEmpty(mAccount.nickName)) {
@@ -400,7 +408,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         mAccountAddress.setText(mAccount.address);
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
-        mAccountChain.setText(mBaseChain.getChain());
 
         if (mAccount.hasPrivateKey) {
             mAccountState.setText(getString(R.string.str_with_mnemonic));
@@ -536,18 +543,25 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                 }
             }
 
-        } else if (result.taskType == TASK_V1_FETCH_WITHDRAW_ADDRESS) {
-            String rewardAddress = (String)result.resultData;
-            if (!TextUtils.isEmpty(rewardAddress)) {
-                mRewardAddress.setText(rewardAddress.trim());
-                if (rewardAddress.equals(mAccount.address)) {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorWhite));
-                } else {
-                    mRewardAddress.setTextColor(getResources().getColor(R.color.colorRed));
-                }
+        } else if (result.taskType == TASK_FETCH_NODE_INFO) {
+            NodeInfo nodeinfo = (NodeInfo)result.resultData;
+            if (nodeinfo != null) {
+                mAccountChain.setText(nodeinfo.network);
             }
 
-        } else if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
+        } else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
+            Types.DefaultNodeInfo nodeinfo = (Types.DefaultNodeInfo)result.resultData;
+            if (nodeinfo != null) {
+                new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mAccountChain.setText(nodeinfo.getNetwork());
+                    }
+                },100);
+
+            }
+
+        }  else if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
             if (result.isSuccess) {
                 mAccount = getBaseDao().onUpdatePushEnabled(mAccount, (boolean)result.resultData);
             }

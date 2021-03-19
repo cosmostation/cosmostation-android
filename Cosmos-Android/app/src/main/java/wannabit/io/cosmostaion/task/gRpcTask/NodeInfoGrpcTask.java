@@ -41,10 +41,10 @@ public class NodeInfoGrpcTask extends CommonTask {
             }
 
             @Override
-            public void onError(Throwable t) { }
+            public void onError(Throwable t) {}
 
             @Override
-            public void onCompleted() { }
+            public void onCompleted() {}
         });
     }
 }

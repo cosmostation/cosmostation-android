@@ -213,7 +213,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:gravity="right"
-                                android:text="Gaia12K"
+                                android:text=""
                                 style="@style/font_ss_12_white"/>
                         </RelativeLayout>
                         <RelativeLayout
