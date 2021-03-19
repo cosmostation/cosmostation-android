@@ -92,7 +92,7 @@ public class SimpleReplaceStarNameTask extends CommonTask {
             msgs.add(replaceStarNameMsg);
 
             if (mBaseChain.equals(IOV_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getIovChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -110,7 +110,7 @@ public class SimpleReplaceStarNameTask extends CommonTask {
                 }
 
             } else if (mBaseChain.equals(IOV_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getIovTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {

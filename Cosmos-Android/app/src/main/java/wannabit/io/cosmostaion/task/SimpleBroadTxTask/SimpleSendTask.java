@@ -27,14 +27,11 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -188,7 +185,7 @@ public class SimpleSendTask extends CommonTask {
             msgs.add(singleSendMsg);
 
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -206,7 +203,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -224,7 +221,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getBandChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -242,7 +239,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getIovChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -260,7 +257,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getIovTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -278,7 +275,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -296,7 +293,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -314,7 +311,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getCertikChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -332,7 +329,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getCertikTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -350,7 +347,7 @@ public class SimpleSendTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getSecretChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {

@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GEN_TX_KAVA_CLAIM_HARVEST;
@@ -89,7 +88,7 @@ public class SimpleClaimHarvestRewardTask extends CommonTask {
             msgs.add(claimHardIncentiveMsg);
 
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if (response.isSuccessful() && response.body() != null) {

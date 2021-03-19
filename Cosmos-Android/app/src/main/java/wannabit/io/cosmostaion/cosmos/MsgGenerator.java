@@ -30,9 +30,7 @@ import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Pub_key;
 import wannabit.io.cosmostaion.model.type.Signature;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
@@ -86,27 +84,13 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
+        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN) ||
+                chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(SECRET_MAIN)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
 
             result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            ArrayList<Input> inputs     = new ArrayList<>();
-            ArrayList<Output> outputs   = new ArrayList<>();
-            Input input = new Input(fromAddr, coins);
-            Output output = new Output(toAddr, coins);
-            inputs.add(input);
-            outputs.add(output);
-
-            value.inputs = inputs;
-            value.outputs = outputs;
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_TRANSFER;
             result.value = value;
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
@@ -851,9 +835,10 @@ public class MsgGenerator {
         return base64;
     }
 
-    public static ReqBroadCast getBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+    public static ReqBroadCast getBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key, String chainId) {
         StdSignMsg tosign = genToSignMsg(
-                BaseChain.getDpChain(account.baseChain),
+//                BaseChain.getDpChain(account.baseChain),
+                chainId,
                 ""+account.accountNumber,
                 ""+account.sequenceNumber,
                 msgs,
@@ -890,7 +875,7 @@ public class MsgGenerator {
         return reqBroadCast;
     }
 
-
+    /*
     public static ReqBroadCast getIrisBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
         IrisStdSignMsg tosign = genIrisToSignMsg(
                 BaseChain.getDpChain(account.baseChain),
@@ -969,15 +954,16 @@ public class MsgGenerator {
 //        WLog.w("Iris Send ReqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
         return reqBroadCast;
     }
+    */
 
 
-    public static ReqBroadCast getOKexBraodcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key) {
+    public static ReqBroadCast getOKexBroadcaseReq(Account account, ArrayList<Msg> msgs, Fee fee, String memo, DeterministicKey key, String chainId) {
         if (!account.newBip44) {
             //using Tendermint type sig
-            return getBraodcaseReq(account, msgs, fee, memo, key);
+            return getBroadcaseReq(account, msgs, fee, memo, key, chainId);
         } else {
             //using Ethermint type sig
-            StdSignMsg tosign = genToSignMsg( BaseChain.getDpChain(account.baseChain), ""+account.accountNumber, ""+account.sequenceNumber, msgs, fee, memo);
+            StdSignMsg tosign = genToSignMsg(chainId, ""+account.accountNumber, ""+account.sequenceNumber, msgs, fee, memo);
             String sig = MsgGenerator.getEthermintSignature(key, tosign.getToSignByte());
 
             Signature signature = new Signature();

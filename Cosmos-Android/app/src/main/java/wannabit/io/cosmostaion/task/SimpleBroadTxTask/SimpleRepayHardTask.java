@@ -92,7 +92,7 @@ public class SimpleRepayHardTask extends CommonTask {
             msgs.add(repayHardMsg);
 //            WLog.w("repayHardMsg : " +  WUtil.prettyPrinter(repayHardMsg));
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {

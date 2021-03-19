@@ -20,7 +20,6 @@ import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
@@ -242,7 +241,7 @@ public class HtlcCreateTask extends CommonTask {
 
                 }
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey, mApp.getBaseDao().getChainId());
                 WLog.w("KAVA_MAIN mRandomNumber " + mRandomNumber);
                 WLog.w("KAVA_MAIN Send mExpectedSwapId " + mExpectedSwapId);
                 WLog.w("KAVA_MAIN reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
@@ -300,7 +299,7 @@ public class HtlcCreateTask extends CommonTask {
                     mExpectedSwapId = WKey.getSwapId(mRandomNumberHash, BINANCE_TEST_BTC_DEPUTY, mSendAccount.address).toUpperCase();
                 }
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mSendAccount, msgs, mSendFee, mApp.getString(R.string.str_create_swap_memo_c), deterministicKey, mApp.getBaseDao().getChainId());
                 WLog.w("KAVA_TEST mRandomNumber " + mRandomNumber);
                 WLog.w("KAVA_TEST Send mExpectedSwapId " + mExpectedSwapId);
                 WLog.w("KAVA_TEST reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));

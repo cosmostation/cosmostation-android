@@ -383,7 +383,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                 new ClaimRewardsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mValOpAddresses_V1,  mTargetMemo, mTargetFee,
                         getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
-
             } else {
                 new SimpleRewardTask(getBaseApplication(), this, mAccount, mValidators,  mTargetMemo, mTargetFee)
                         .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
@@ -402,7 +401,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
             if (isGRPC(mBaseChain)) {
                 new RedelegateGrpcTask(getBaseApplication(), this, mBaseChain, mAccount, mFromReDelegateAddr, mToReDelegateAddr, mRAmount, mTargetMemo, mTargetFee,
                         getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
-
 
             } else {
                 new SimpleRedelegateTask(getBaseApplication(), this, mAccount, mFromReDelegate,
@@ -444,83 +442,40 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                         mProposalId, mOpinion, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
             }
 
-
         } else if (mPurpose == CONST_PW_TX_CREATE_CDP) {
             onShowWaitDialog();
-            new SimpleCreateCdpTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mSender,
-                    mCollateralCoin,
-                    mPrincipalCoin,
-                    mTargetMemo,
-                    mTargetFee,
-                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleCreateCdpTask(getBaseApplication(), this, mAccount, mSender,
+                    mCollateralCoin, mPrincipalCoin, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPAY_CDP) {
             onShowWaitDialog();
-            new SimpleRepayCdpTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mSender,
-                    mPaymentCoin,
-                    mCdpDenom,
-                    mTargetMemo,
-                    mTargetFee,
-                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleRepayCdpTask(getBaseApplication(), this, mAccount, mSender, mPaymentCoin,
+                    mCdpDenom, mTargetMemo,  mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DRAW_DEBT_CDP) {
             onShowWaitDialog();
-            new SimpleDrawBetCdpTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mSender,
-                    mPrincipalCoin,
-                    mCdpDenom,
-                    mTargetMemo,
-                    mTargetFee,
-                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleDrawBetCdpTask(getBaseApplication(), this, mAccount, mSender,
+                    mPrincipalCoin, mCdpDenom, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_CDP) {
             onShowWaitDialog();
-            new SimpleDepositCdpTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mOwner,
-                    mDepositor,
-                    mCollateralCoin,
-                    mTargetMemo,
-                    mTargetFee,
-                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleDepositCdpTask(getBaseApplication(), this, mAccount, mOwner, mDepositor,
+                    mCollateralCoin, mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_WITHDRAW_CDP) {
             onShowWaitDialog();
-            new SimpleWithdrawCdpTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mOwner,
-                    mDepositor,
-                    mCollateralCoin,
-                    mTargetMemo,
-                    mTargetFee,
-                    mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleWithdrawCdpTask(getBaseApplication(), this, mAccount, mOwner, mDepositor, mCollateralCoin,
+                    mTargetMemo, mTargetFee, mCollateralType).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_HTLS_REFUND) {
             onShowWaitDialog();
             if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                new SimpleBnbHtlcRefundTask(getBaseApplication(),
-                        this,
-                        mAccount,
-                        mSwapId,
-                        mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                new SimpleBnbHtlcRefundTask(getBaseApplication(), this, mAccount,
+                        mSwapId, mTargetMemo).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
             } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                new SimpleHtlcRefundTask(getBaseApplication(),
-                        this,
-                        mAccount,
-                        mSwapId,
-                        mTargetMemo,
-                        mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+                new SimpleHtlcRefundTask(getBaseApplication(), this, mAccount, mSwapId,
+                        mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
             }
 
         } else if (mPurpose == CONST_PW_TX_CLAIM_INCENTIVE) {
@@ -528,101 +483,44 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mCollateralType, mMultiplierName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DEPOSIT) {
-            new SimpleOkDepositTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mOkStakeCoin,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkDepositTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_WITHDRAW) {
-            new SimpleOkWithdrawTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mOkStakeCoin,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkWithdrawTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mOkStakeCoin, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_OK_DIRECT_VOTE) {
-            new SimpleOkDirectVoteTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mOKVoteValidator,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleOkDirectVoteTask(getBaseApplication(), this, mAccount,
+                    mBaseChain, mOKVoteValidator, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_DOMAIN) {
-            new SimpleRegisterDomainTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mDomainType,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleRegisterDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain, mDomainType, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REGISTER_ACCOUNT) {
-            new SimpleRegisterAccountTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mName,
-                    mResources,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleRegisterAccountTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
+                    mName, mResources,  mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_DOMAIN) {
-            new SimpleDeleteDomainTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleDeleteDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DELETE_ACCOUNT) {
-            new SimpleDeleteAccountTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mName,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleDeleteAccountTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain,  mName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_DOMAIN) {
-            new SimpleRenewDomainTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleRenewDomainTask(getBaseApplication(), this, mAccount, mBaseChain,
+                    mDomain,  mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_RENEW_ACCOUNT) {
-            new SimpleRenewAccountTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mName,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleRenewAccountTask(getBaseApplication(), this, mAccount, mBaseChain, mDomain,
+                    mName, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_REPLACE_STARNAME) {
-            new SimpleReplaceStarNameTask(getBaseApplication(),
-                    this,
-                    mAccount,
-                    mBaseChain,
-                    mDomain,
-                    mName,
-                    mResources,
-                    mTargetMemo,
-                    mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
+            new SimpleReplaceStarNameTask(getBaseApplication(),this, mAccount, mBaseChain,  mDomain,
+                    mName, mResources, mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         } else if (mPurpose == CONST_PW_TX_DEPOSIT_HARD) {
             new SimpleDepositHardTask(getBaseApplication(), this, mAccount, mHardPoolCoins, mDepositor,
@@ -645,7 +543,6 @@ public class PasswordCheckActivity extends BaseActivity implements KeyboardListe
                     mTargetMemo, mTargetFee).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, mUserInput);
 
         }
-
 
     }
 

@@ -19,13 +19,11 @@ import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
-import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -90,7 +88,7 @@ public class SimpleOkDepositTask extends CommonTask {
             msgs.add(depositMsg);
 
             if (getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getOkexChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
@@ -108,7 +106,7 @@ public class SimpleOkDepositTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(OK_TEST)) {
-                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getOKexBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getOkTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {

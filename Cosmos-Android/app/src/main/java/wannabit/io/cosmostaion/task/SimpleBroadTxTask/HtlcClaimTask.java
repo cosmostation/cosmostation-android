@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.task.SimpleBroadTxTask;
 
+import android.os.AsyncTask;
+
 import com.binance.dex.api.client.BinanceDexApiClientFactory;
 import com.binance.dex.api.client.BinanceDexApiRestClient;
 import com.binance.dex.api.client.BinanceDexEnvironment;
@@ -20,6 +22,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.cosmos.MsgGenerator;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Msg;
 import wannabit.io.cosmostaion.network.ApiClient;
@@ -27,7 +30,9 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
+import wannabit.io.cosmostaion.task.FetchTask.NodeInfoTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WKey;
@@ -45,6 +50,8 @@ public class HtlcClaimTask extends CommonTask {
     private String          mExpectedSwapId;
     private String          mRandomNumber;
 
+    private String          mReceiveChainId;
+
     public HtlcClaimTask(BaseApplication app, TaskListener listener, Account recipient, BaseChain receiveChain, Fee claimFee, String expectedSwapId, String randomNumber) {
         super(app, listener);
         this.mReceiveAccount = recipient;
@@ -58,6 +65,7 @@ public class HtlcClaimTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+
         try {
             if (mReceiveChain.equals(BaseChain.BNB_MAIN)) {
                 Response<ResBnbAccountInfo> response = ApiClient.getBnbChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
@@ -129,6 +137,15 @@ public class HtlcClaimTask extends CommonTask {
 
 
             } else if (mReceiveChain.equals(BaseChain.KAVA_MAIN)) {
+                NodeInfo receiveNodeInfo = null;
+                Response<ResNodeInfo> nodeCheck = ApiClient.getKavaChain(mApp).getNodeInfo().execute();
+                if (nodeCheck.isSuccessful() && nodeCheck.body() != null&& nodeCheck.body().node_info != null) {
+                    receiveNodeInfo = nodeCheck.body().node_info;
+                } else {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+
                 Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -144,7 +161,7 @@ public class HtlcClaimTask extends CommonTask {
                 ArrayList<Msg> msgs= new ArrayList<>();
                 msgs.add(claimSwapMsg);
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey, receiveNodeInfo.network);
 //            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
                 Response<ResBroadTx> claimRes = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(claimRes.isSuccessful() && claimRes.body() != null) {
@@ -166,6 +183,15 @@ public class HtlcClaimTask extends CommonTask {
                 }
 
             } else if (mReceiveChain.equals(BaseChain.KAVA_TEST)) {
+                NodeInfo receiveNodeInfo = null;
+                Response<ResNodeInfo> nodeCheck = ApiClient.getKavaTestChain(mApp).getNodeInfo().execute();
+                if (nodeCheck.isSuccessful() && nodeCheck.body() != null&& nodeCheck.body().node_info != null) {
+                    receiveNodeInfo = nodeCheck.body().node_info;
+                } else {
+                    mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+
                 Response<ResLcdKavaAccountInfo> response = ApiClient.getKavaTestChain(mApp).getAccountInfo(mReceiveAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.errorCode = BaseConstant.ERROR_CODE_BROADCAST;
@@ -181,7 +207,7 @@ public class HtlcClaimTask extends CommonTask {
                 ArrayList<Msg> msgs= new ArrayList<>();
                 msgs.add(claimSwapMsg);
 
-                ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey);
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mReceiveAccount, msgs, mClaimFee, mApp.getString(R.string.str_claim_swap_memo_c), deterministicKey, receiveNodeInfo.network);
 //            WLog.w("reqBroadCast : " +  WUtil.prettyPrinter(reqBroadCast));
                 Response<ResBroadTx> claimRes = ApiClient.getKavaTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(claimRes.isSuccessful() && claimRes.body() != null) {

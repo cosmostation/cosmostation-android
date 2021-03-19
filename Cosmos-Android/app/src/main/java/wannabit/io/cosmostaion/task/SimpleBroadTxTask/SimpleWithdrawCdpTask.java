@@ -50,7 +50,7 @@ public class SimpleWithdrawCdpTask extends CommonTask {
         this.mMemo = memo;
         this.mFees = fees;
         this.mCollateralType = collateralType;
-        this.mResult.taskType   = TASK_GEN_TX_WITHDRAW_CDP;
+        this.mResult.taskType = TASK_GEN_TX_WITHDRAW_CDP;
     }
 
     @Override
@@ -99,7 +99,7 @@ public class SimpleWithdrawCdpTask extends CommonTask {
 
             WLog.w("withdrawCdpMsg : " +  WUtil.prettyPrinter(withdrawCdpMsg));
 
-            ReqBroadCast reqBroadCast = MsgGenerator.getBraodcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey);
+            ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
             if (BaseChain.getChain(mAccount.baseChain).equals(BaseChain.KAVA_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getKavaChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {

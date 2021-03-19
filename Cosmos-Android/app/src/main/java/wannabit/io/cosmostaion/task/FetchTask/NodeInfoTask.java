@@ -37,7 +37,7 @@ public class NodeInfoTask extends CommonTask {
         try {
             if (mChain.equals(KAVA_MAIN)) {
                 Response<ResNodeInfo> response = ApiClient.getKavaChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
+                if (response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;
                     mResult.isSuccess = true;
 

@@ -16,46 +16,64 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
 
 public enum BaseChain {
+    // chain_id is checked on-chain. no need update chain version  21.03.20
     COSMOS_LEGACY1("cosmoshub-1"),
     COSMOS_LEGACY2("cosmoshub-2"),
     COSMOS_LEGACY3("cosmoshub-3"),
-    COSMOS_MAIN("cosmoshub-4"),
+    COSMOS_LEGACY4("cosmoshub-4"),
+    COSMOS_MAIN("cosmoshub-mainnet"),
     IRIS_LEGACY1("irishub"),
-    IRIS_MAIN("irishub-1"),
-    IOV_MAIN("iov-mainnet-2"),
-    BNB_MAIN("Binance-Chain-Tigris"),
+    IRIS_LEGACY2("irishub-1"),
+    IRIS_MAIN("irishub-mainnet"),
+    IOV_LEGACY1("iov-mainnet-2"),
+    IOV_MAIN("iov-mainnet"),
+    BNB_LEGACY1("Binance-Chain-Tigris"),
+    BNB_MAIN("binance-mainnet"),
     KAVA_LEGACY1("kava-1"),
     KAVA_LEGACY2("kava-2"),
     KAVA_LEGACY3("kava-3"),
     KAVA_LEGACY4("kava-4"),
     KAVA_LEGACY5("kava-5"),
-    KAVA_MAIN("kava-6"),
+    KAVA_LEGACY6("kava-6"),
+    KAVA_MAIN("kava-mainnet"),
     BAND_MAIN_LEGACY1("band-wenchang-mainnet"),
-    BAND_MAIN("band-guanyu-mainnet"),
-    CERTIK_MAIN("shentu-1"),
-    SECRET_MAIN("secret-2"),
+    BAND_MAIN_LEGACY2("band-guanyu-mainnet"),
+    BAND_MAIN("band-mainnet"),
+    CERTIK_LEGACY1("shentu-1"),
+    CERTIK_MAIN("certic-mainnet"),
+    SECRET_LEGACY1("secret-2"),
+    SECRET_MAIN("secret-mainnet"),
     AKASH_LEGACY1("akashnet-1"),
-    AKASH_MAIN("akashnet-2"),
-    OKEX_MAIN("okexchain-66"),
+    AKASH_LEGACY2("akashnet-2"),
+    AKASH_MAIN("akashnet-mainnet"),
+    OKEX_LEGACY1("okexchain-66"),
+    OKEX_MAIN("okexchain-mainnet"),
 
-    COSMOS_TEST("stargate-final"),
-    IRIS_TEST("bifrost-2"),
-    BNB_TEST("Binance-Chain-Nile"),
+    COSMOS_TEST_LEGACY1("stargate-final"),
+    COSMOS_TEST("cosmos-testnet"),
+    IRIS_TEST_LEGACY1("bifrost-2"),
+    IRIS_TEST("iris-testnet"),
+    BNB_TEST_LEGACY1("Binance-Chain-Nile"),
+    BNB_TEST("binance-testnet"),
     KAVA_TEST_LEGACY4("kava-testnet-4000"),
     KAVA_TEST_LEGACY5("kava-testnet-5000"),
     KAVA_TEST_LEGACY6("kava-testnet-6000"),
     KAVA_TEST_LEGACY8("kava-testnet-8000"),
     KAVA_TEST_LEGACY9("kava-testnet-9000"),
     KAVA_TEST_LEGACY11("kava-testnet-11000"),
+    KAVA_TEST_LEGACY12("kava-testnet-12000"),
     KAVA_TEST_3("kava-3-test"),
     KAVA_TEST_4("kava-4-test"),
-    KAVA_TEST("kava-testnet-12000"),
-    IOV_TEST("iovns-galaxynet"),
+    KAVA_TEST("kava-testnet"),
+    IOV_TEST_LEGACY1("iovns-galaxynet"),
+    IOV_TEST("iov-testnet"),
     OK_TEST_LEGACY("okchain"),
     OK_TEST_LEGACY1("okchain-testnet1"),
     OK_TEST_LEGACY2("okexchain-testnet1"),
-    OK_TEST("okexchain-65"),
-    CERTIK_TEST("shentu-incentivized-3");
+    OK_TEST_LEGACY3("okexchain-65"),
+    OK_TEST("okexchain-testnet"),
+    CERTIK_TEST_LEGACY1("shentu-incentivized-3"),
+    CERTIK_TEST("certik-testnet");
 
     private final String chainName;
 
@@ -71,17 +89,21 @@ public enum BaseChain {
         if (chainName.equals(COSMOS_LEGACY1.chainName) ||
                 chainName.equals(COSMOS_LEGACY2.chainName) ||
                 chainName.equals(COSMOS_LEGACY3.chainName) ||
+                chainName.equals(COSMOS_LEGACY4.chainName) ||
                 chainName.equals(COSMOS_MAIN.chainName)) {
             return COSMOS_MAIN;
         }
         if (chainName.equals(IRIS_LEGACY1.chainName) ||
+                chainName.equals(IRIS_LEGACY2.chainName) ||
                 chainName.equals(IRIS_MAIN.chainName)) {
             return IRIS_MAIN;
         }
-        if (chainName.equals(BNB_MAIN.chainName)) {
+        if (chainName.equals(BNB_LEGACY1.chainName) ||
+                chainName.equals(BNB_MAIN.chainName)) {
             return BNB_MAIN;
         }
-        if (chainName.equals(IOV_MAIN.chainName)) {
+        if (chainName.equals(IOV_LEGACY1.chainName) ||
+                chainName.equals(IOV_MAIN.chainName)) {
             return IOV_MAIN;
         }
         if (chainName.equals(KAVA_LEGACY1.chainName) ||
@@ -89,34 +111,44 @@ public enum BaseChain {
                 chainName.equals(KAVA_LEGACY3.chainName) ||
                 chainName.equals(KAVA_LEGACY4.chainName) ||
                 chainName.equals(KAVA_LEGACY5.chainName) ||
+                chainName.equals(KAVA_LEGACY6.chainName) ||
                 chainName.equals(KAVA_MAIN.chainName)) {
             return KAVA_MAIN;
         }
         if (chainName.equals(BAND_MAIN_LEGACY1.chainName) ||
+                chainName.equals(BAND_MAIN_LEGACY2.chainName) ||
                 chainName.equals(BAND_MAIN.chainName)) {
             return BAND_MAIN;
         }
-        if (chainName.equals(CERTIK_MAIN.chainName)) {
+        if (chainName.equals(CERTIK_LEGACY1.chainName) ||
+                chainName.equals(CERTIK_MAIN.chainName)) {
             return CERTIK_MAIN;
         }
-        if (chainName.equals(SECRET_MAIN.chainName)) {
+        if (chainName.equals(SECRET_LEGACY1.chainName) ||
+                chainName.equals(SECRET_MAIN.chainName)) {
             return SECRET_MAIN;
         }
         if (chainName.equals(AKASH_LEGACY1.chainName) ||
+                chainName.equals(AKASH_LEGACY2.chainName) ||
                 chainName.equals(AKASH_MAIN.chainName)) {
             return AKASH_MAIN;
         }
-        if (chainName.equals(OKEX_MAIN.chainName)) {
+        if (chainName.equals(OKEX_LEGACY1.chainName) ||
+                chainName.equals(OKEX_MAIN.chainName)) {
             return OKEX_MAIN;
         }
 
-        if (chainName.equals(COSMOS_TEST.chainName)) {
+
+        if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
+                chainName.equals(COSMOS_TEST.chainName)) {
             return COSMOS_TEST;
         }
-        if (chainName.equals(IRIS_TEST.chainName)) {
+        if (chainName.equals(IRIS_TEST_LEGACY1.chainName) ||
+                chainName.equals(IRIS_TEST.chainName)) {
             return IRIS_TEST;
         }
-        if (chainName.equals(BNB_TEST.chainName)) {
+        if (chainName.equals(BNB_TEST_LEGACY1.chainName) ||
+                chainName.equals(BNB_TEST.chainName)) {
             return BNB_TEST;
         }
         if (chainName.equals(KAVA_TEST_LEGACY4.chainName) ||
@@ -125,102 +157,26 @@ public enum BaseChain {
                 chainName.equals(KAVA_TEST_LEGACY8.chainName) ||
                 chainName.equals(KAVA_TEST_LEGACY9.chainName) ||
                 chainName.equals(KAVA_TEST_LEGACY11.chainName) ||
+                chainName.equals(KAVA_TEST_LEGACY12.chainName) ||
                 chainName.equals(KAVA_TEST_3.chainName) ||
                 chainName.equals(KAVA_TEST_4.chainName) ||
                 chainName.equals(KAVA_TEST.chainName)) {
             return KAVA_TEST;
         }
-        if (chainName.equals(IOV_TEST.chainName)) {
+        if (chainName.equals(IOV_TEST_LEGACY1.chainName) ||
+                chainName.equals(IOV_TEST.chainName)) {
             return IOV_TEST;
         }
         if (chainName.equals(OK_TEST_LEGACY.chainName) ||
                 chainName.equals(OK_TEST_LEGACY1.chainName) ||
                 chainName.equals(OK_TEST_LEGACY2.chainName) ||
+                chainName.equals(OK_TEST_LEGACY3.chainName) ||
                 chainName.equals(OK_TEST.chainName)) {
             return OK_TEST;
         }
-        if (chainName.equals(CERTIK_TEST.chainName)) {
+        if (chainName.equals(CERTIK_TEST_LEGACY1.chainName) ||
+                chainName.equals(CERTIK_TEST.chainName)) {
             return CERTIK_TEST;
-        }
-        return null;
-    }
-
-    public static String getDpChain(String chain) {
-        if (chain.equals(COSMOS_MAIN.chainName) ||
-                chain.equals(COSMOS_LEGACY1.chainName) ||
-                chain.equals(COSMOS_LEGACY2.chainName) ||
-                chain.equals(COSMOS_LEGACY3.chainName)) {
-            return COSMOS_MAIN.getChain();
-
-        }
-        if (chain.equals(IRIS_LEGACY1.chainName) ||
-                chain.equals(IRIS_MAIN.chainName)) {
-            return IRIS_MAIN.chainName;
-        }
-        if (chain.equals(BNB_MAIN.chainName)) {
-            return BNB_MAIN.chainName;
-        }
-        if (chain.equals(IOV_MAIN.chainName)) {
-            return IOV_MAIN.chainName;
-        }
-        if (chain.equals(KAVA_LEGACY1.chainName) ||
-                chain.equals(KAVA_LEGACY2.chainName) ||
-                chain.equals(KAVA_LEGACY3.chainName) ||
-                chain.equals(KAVA_LEGACY4.chainName) ||
-                chain.equals(KAVA_LEGACY5.chainName) ||
-                chain.equals(KAVA_MAIN.chainName)) {
-            return KAVA_MAIN.chainName;
-        }
-        if (chain.equals(BAND_MAIN_LEGACY1.chainName) ||
-                chain.equals(BAND_MAIN.chainName)) {
-            return BAND_MAIN.chainName;
-        }
-        if (chain.equals(CERTIK_MAIN.chainName)) {
-            return CERTIK_MAIN.chainName;
-        }
-        if (chain.equals(SECRET_MAIN.chainName)) {
-            return SECRET_MAIN.chainName;
-        }
-        if (chain.equals(AKASH_LEGACY1.chainName) ||
-                chain.equals(AKASH_MAIN.chainName)) {
-            return AKASH_MAIN.chainName;
-        }
-        if (chain.equals(OKEX_MAIN.chainName)) {
-            return OKEX_MAIN.chainName;
-        }
-
-
-        if (chain.equals(COSMOS_TEST.chainName)) {
-            return COSMOS_TEST.chainName;
-        }
-        if (chain.equals(IRIS_TEST.chainName)) {
-            return IRIS_TEST.chainName;
-        }
-        if (chain.equals(BNB_TEST.chainName)) {
-            return BNB_TEST.chainName;
-        }
-        if (chain.equals(KAVA_TEST_LEGACY4.chainName) ||
-                chain.equals(KAVA_TEST_LEGACY5.chainName) ||
-                chain.equals(KAVA_TEST_LEGACY6.chainName) ||
-                chain.equals(KAVA_TEST_LEGACY8.chainName) ||
-                chain.equals(KAVA_TEST_LEGACY9.chainName) ||
-                chain.equals(KAVA_TEST_LEGACY11.chainName) ||
-                chain.equals(KAVA_TEST_3.chainName) ||
-                chain.equals(KAVA_TEST_4.chainName) ||
-                chain.equals(KAVA_TEST.chainName)) {
-            return KAVA_TEST.chainName;
-        }
-        if (chain.equals(IOV_TEST.chainName)) {
-            return IOV_TEST.chainName;
-        }
-        if (chain.equals(OK_TEST_LEGACY.chainName) ||
-                chain.equals(OK_TEST_LEGACY1.chainName) ||
-                chain.equals(OK_TEST_LEGACY2.chainName) ||
-                chain.equals(OK_TEST.chainName)) {
-            return OK_TEST.chainName;
-        }
-        if (chain.equals(CERTIK_TEST.chainName)) {
-            return CERTIK_TEST.chainName;
         }
         return null;
     }

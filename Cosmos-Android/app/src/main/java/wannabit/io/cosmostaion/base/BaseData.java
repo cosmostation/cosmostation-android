@@ -162,6 +162,12 @@ public class BaseData {
     public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
     public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();
 
+    public String getChainId() {
+        if (mNodeInfo != null) {
+            return mNodeInfo.network;
+        }
+        return "";
+    }
 
     //gRPC funcs
     public String getChainIdGrpc() {
