@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -19,6 +20,8 @@ import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class WalletKavaHolder extends BaseHolder {
@@ -95,6 +98,10 @@ public class WalletKavaHolder extends BaseHolder {
         mBtnKavaDapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+                    Toast.makeText(mainActivity, "Preparing..\nPlease test DeFi with testnet before launch KAVA 5.1", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 mainActivity.startActivity(new Intent(mainActivity, DAppsList5Activity.class));
             }
         });

@@ -501,7 +501,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onClickVoteList()
             }
             cell?.actionCdp = {
-                self.onClickCdp()
+//                self.onClickCdp()
+                //TODO temp guard
+                self.onShowToast("Preparing..\nPlease test DeFi with testnet before launch KAVA 5.1")
             }
             BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
