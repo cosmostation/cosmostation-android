@@ -152,7 +152,7 @@ class StepCreateCpdCheckViewController: BaseViewController, PasswordViewDelegate
                 var msgList = Array<Msg>()
                 msgList.append(msg)
                 
-                let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
+                let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
                                                        String(self.pageHolderVC.mAccount!.account_account_numner),
                                                        String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                        msgList,

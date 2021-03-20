@@ -1443,11 +1443,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + BaseData.instance.getChainId()) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.AKASH_MAIN) {
-            guard let url = URL(string: EXPLORER_AKASH_MAIN + "account/" + mainTabVC.mAccount.account_address + "?net=" + WUtils.getChainId(chainType!)) else { return }
+            guard let url = URL(string: EXPLORER_AKASH_MAIN + "account/" + mainTabVC.mAccount.account_address + "?net=" + BaseData.instance.getChainId()) else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.COSMOS_TEST) {

@@ -83,7 +83,7 @@ final class BaseData : NSObject{
     
     
     func getChainId() -> String {
-        if (mNodeInfo != nil) { return mNodeInfo!.network }
+        if (mNodeInfo != nil) { return mNodeInfo!.network! }
         return ""
     }
     

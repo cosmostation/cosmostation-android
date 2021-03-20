@@ -357,7 +357,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let msg = MsgGenerator.genCreateSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!)
                     var msgList = Array<Msg>()
                     msgList.append(msg)
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.account!.account_base_chain),
+                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
                                                            String(self.account!.account_account_numner),
                                                            String(self.account!.account_sequence_number),
                                                            msgList,
@@ -611,6 +611,32 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 }
                 
             } else if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
+                let group = DispatchGroup() 
+                var mHtlcToChainId = ""
+                var url: String?
+                if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
+                    url = KAVA_NODE_INFO
+                } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
+                    url = KAVA_TEST_NODE_INFO
+                }
+                let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                group.enter()
+                request.responseJSON { (response) in
+                    switch response.result {
+                    case .success(let res):
+                        guard let responseData = res as? NSDictionary, let nodeInfo = responseData.object(forKey: "node_info") as? NSDictionary else {
+                            return
+                        }
+                        mHtlcToChainId = NodeInfo.init(nodeInfo).network!
+                        
+                    case .failure(let error):
+                        if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+                    }
+                    group.leave()
+                }
+                group.wait()
+                print("mHtlcToChainId ", mHtlcToChainId)
+                
                 do {
                     let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
                     let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
@@ -621,7 +647,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     var msgList = Array<Msg>()
                     msgList.append(msg)
                     
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.mHtlcToAccount!.account_base_chain),
+                    let stdMsg = MsgGenerator.getToSignMsg(mHtlcToChainId,
                                                            String(self.mHtlcToAccount!.account_account_numner),
                                                            String(self.mHtlcToAccount!.account_sequence_number),
                                                            msgList,

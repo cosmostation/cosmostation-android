@@ -1064,7 +1064,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.present(activityViewController, animated: true, completion: nil)
             
         } else if (self.chainType! == ChainType.CERTIK_MAIN || self.chainType! == ChainType.CERTIK_TEST) {
-            let text = EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + WUtils.getChainId(self.chainType!)
+            let text = EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + BaseData.instance.getChainId()
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
@@ -1140,7 +1140,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.CERTIK_MAIN || self.chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + WUtils.getChainId(self.chainType!)) else { return }
+            guard let url = URL(string: EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + BaseData.instance.getChainId()) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.AKASH_MAIN) {

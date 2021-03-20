@@ -450,9 +450,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             if (BaseData.instance.mNodeInfo_gRPC == nil) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
-//            else {
-//                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
-//            }
+            else {
+                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
+            }
             
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
@@ -515,11 +515,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         if (BaseData.instance.mNodeInfo == nil || mAllValidator.count <= 0) {
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
+        } else {
+            BaseData.instance.setAllValidators(mAllValidator)
+            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
         }
-//        else {
-//            BaseData.instance.setAllValidators(mAllValidator)
-//            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
-//        }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         self.hideWaittingAlert()
 

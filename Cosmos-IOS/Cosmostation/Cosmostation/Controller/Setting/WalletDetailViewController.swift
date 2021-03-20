@@ -55,8 +55,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         
         if (WUtils.isGRPC(chainType!)) {
             self.onFetchRewardAddress_gRPC(account!.account_address)
+            self.onFetchgRPCNodeInfo()
         } else {
             self.onFetchRewardAddress(account!.account_address)
+            onFetchNodeInfo()
         }
         
         
@@ -73,7 +75,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         pushSwitch.onTintColor = WUtils.getChainColor(chainType!)
         cardInfo.backgroundColor = WUtils.getChainBg(chainType!)
         cardReward.backgroundColor = WUtils.getChainBg(chainType!)
-        chainName.text = WUtils.getChainId(account!.account_base_chain)
         if (chainType == ChainType.COSMOS_MAIN) {
             chainImg.image = UIImage(named: "cosmosWhMain")
             keyPath.text = BASE_PATH.appending(account!.account_path)
@@ -539,6 +540,73 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 }
                 self.rewardAddress.adjustsFontSizeToFitWidth = true
                 self.rewardCard.isHidden = false
+            });
+        }
+    }
+    
+    
+    func onFetchNodeInfo() {
+        var url: String?
+        if (self.chainType == ChainType.BINANCE_MAIN ) {
+            url = BNB_URL_NODE_INFO
+        } else if (self.chainType == ChainType.OKEX_MAIN) {
+            url = OKEX_NODE_INFO
+        } else if (self.chainType == ChainType.KAVA_MAIN) {
+            url = KAVA_NODE_INFO
+        } else if (self.chainType == ChainType.BAND_MAIN) {
+            url = BAND_NODE_INFO
+        } else if (self.chainType == ChainType.IOV_MAIN) {
+            url = IOV_NODE_INFO
+        } else if (self.chainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_NODE_INFO
+        } else if (self.chainType == ChainType.SECRET_MAIN) {
+            url = SECRET_NODE_INFO
+        }
+        else if (self.chainType == ChainType.BINANCE_TEST) {
+            url = BNB_TEST_URL_NODE_INFO
+        } else if (self.chainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_NODE_INFO
+        } else if (self.chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_NODE_INFO
+        } else if (self.chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_NODE_INFO
+        } else if (self.chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_NODE_INFO
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let nodeInfo = responseData.object(forKey: "node_info") as? NSDictionary else {
+                    return
+                }
+                self.chainName.text = NodeInfo.init(nodeInfo).network
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+            }
+        }
+    }
+    
+    func onFetchgRPCNodeInfo() {
+        DispatchQueue.global().async {
+            var chainId = ""
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Base_Tendermint_V1beta1_GetNodeInfoRequest()
+            
+            do {
+                let response = try Cosmos_Base_Tendermint_V1beta1_ServiceClient(channel: channel).getNodeInfo(req).response.wait()
+                chainId = response.defaultNodeInfo.network
+                
+            } catch {
+                print("onFetchgRPCNodeInfo failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.chainName.text = chainId
             });
         }
     }

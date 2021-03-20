@@ -49,10 +49,10 @@ let BNB_URL                             = "https://dex.binance.org/";
 let BNB_TEST_URL                        = "https://testnet-dex.binance.org/";
 
 
-//let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/";
-//let KAVA_API                            = "https://api-kava.cosmostation.io/";
-let KAVA_URL                            = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
-let KAVA_API                            = "https://api-office.cosmostation.io/kava-testnet-12000/";
+let KAVA_URL                            = "https://lcd-kava-app.cosmostation.io/";
+let KAVA_API                            = "https://api-kava.cosmostation.io/";
+//let KAVA_URL                            = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
+//let KAVA_API                            = "https://api-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_FAUCET                         = "";
 
 let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
@@ -781,14 +781,6 @@ let SECRET_GAS_AMOUNT_REDELEGATE            = "300000"
 let SECRET_GAS_AMOUNT_REINVEST              = "350000"
 let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
 let SECRET_GAS_AMOUNT_VOTE                  = "100000"
-
-//let AKASH_GAS_FEE_RATE_AVERAGE              = "0.025"
-//let AKASH_GAS_AMOUNT_SEND                   = "100000"
-//let AKASH_GAS_AMOUNT_STAKE                  = "200000"
-//let AKASH_GAS_AMOUNT_REDELEGATE             = "300000"
-//let AKASH_GAS_AMOUNT_REINVEST               = "300000"
-//let AKASH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000"
-//let AKASH_GAS_AMOUNT_VOTE                   = "100000"
 
 
 // Constant for BEP3-Swap

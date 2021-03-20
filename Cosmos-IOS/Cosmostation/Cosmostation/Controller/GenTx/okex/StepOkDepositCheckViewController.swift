@@ -124,7 +124,7 @@ class StepOkDepositCheckViewController: BaseViewController, PasswordViewDelegate
                 msgList.append(msg)
                 
                 if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN || self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                    let stdMsg = MsgGenerator.getToSignMsg(WUtils.getChainId(self.pageHolderVC.mAccount!.account_base_chain),
+                    let stdMsg = MsgGenerator.getToSignMsg(BaseData.instance.getChainId(),
                                                            String(self.pageHolderVC.mAccount!.account_account_numner),
                                                            String(self.pageHolderVC.mAccount!.account_sequence_number),
                                                            msgList,
