@@ -54,6 +54,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_akash", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_akash", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            guideImg.image = UIImage(named: "persistenceImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_persis", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_persis", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_persis", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_persis", comment: ""), for: .normal)
+            
         }
     }
 }

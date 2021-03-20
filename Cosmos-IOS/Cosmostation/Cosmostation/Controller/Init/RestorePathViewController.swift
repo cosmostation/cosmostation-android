@@ -72,6 +72,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             } else {
                 cell?.pathLabel.text = "(Tendermint Type) " + OK_BASE_PATH.appending(String(indexPath.row))
             }
+        } else if (userChain == ChainType.PERSIS_MAIN) {
+            cell?.pathLabel.text = PERSIS_BASE_PATH.appending(String(indexPath.row))
         }
         
         DispatchQueue.global().async {

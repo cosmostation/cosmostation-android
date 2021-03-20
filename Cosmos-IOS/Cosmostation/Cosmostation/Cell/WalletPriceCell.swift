@@ -93,6 +93,12 @@ class WalletPriceCell: UITableViewCell {
             buyConstraint.priority = .defaultLow
             noBuyConstraint.priority = .defaultHigh
             
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            updownImg.image = nil
+            buySeparator.isHidden = true
+            buyBtn.isHidden = true
+            buyConstraint.priority = .defaultLow
+            noBuyConstraint.priority = .defaultHigh
         }
     }
 }

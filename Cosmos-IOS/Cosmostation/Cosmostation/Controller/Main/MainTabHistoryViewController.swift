@@ -146,7 +146,12 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "okexChainImg")
             titleChainName.text = "(OKex Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            titleChainImg.image = UIImage(named: "chainpersistence")
+            titleChainName.text = "(Perisistence Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
+        
         
         else if (chainType! == ChainType.COSMOS_TEST) {
             titleChainImg.image = UIImage(named: "cosmosTestChainImg")

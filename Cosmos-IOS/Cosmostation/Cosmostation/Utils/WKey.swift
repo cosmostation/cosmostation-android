@@ -75,6 +75,9 @@ class WKey {
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 996, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 750, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+            
         } else {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         }
@@ -106,6 +109,8 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "certik", program: ripemd160)
         } else if (chain == ChainType.AKASH_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "akash", program: ripemd160)
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "persistence", program: ripemd160)
         }
         return result
     }
@@ -141,6 +146,9 @@ class WKey {
                 
             } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 996, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
+            } else if (chain == ChainType.PERSIS_MAIN) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 750, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
@@ -209,6 +217,8 @@ class WKey {
             result = bech32.encode("certik", values: data)
         } else if (chain == ChainType.AKASH_MAIN) {
             result = bech32.encode("akash", values: data)
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            result = bech32.encode("persistence", values: data)
         }
         return result
     }

@@ -50,6 +50,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletOkCell", bundle: nil), forCellReuseIdentifier: "WalletOkCell")
         self.walletTableView.register(UINib(nibName: "WalletCertikCell", bundle: nil), forCellReuseIdentifier: "WalletCertikCell")
         self.walletTableView.register(UINib(nibName: "WalletAkashCell", bundle: nil), forCellReuseIdentifier: "WalletAkashCell")
+        self.walletTableView.register(UINib(nibName: "WalletPersisCell", bundle: nil), forCellReuseIdentifier: "WalletPersisCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -130,6 +131,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "okexChainImg")
             titleChainName.text = "(OKex Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            titleChainImg.image = UIImage(named: "chainpersistence")
+            titleChainName.text = "(Perisistence Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -181,8 +186,15 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func updateFloaty() {
         let floaty = Floaty()
-        floaty.buttonImage = UIImage.init(named: "sendImg")
-        floaty.buttonColor =  WUtils.getChainColor(chainType)
+        if (chainType! == ChainType.PERSIS_MAIN) {
+            floaty.buttonImage = UIImage.init(named: "sendImg")
+            floaty.buttonColor = .black
+//            floaty.buttonColor = UIColor.init(hexString: "ededed")
+//            floaty.backgroundColor = .black
+        } else {
+            floaty.buttonImage = UIImage.init(named: "sendImg")
+            floaty.buttonColor =  WUtils.getChainColor(chainType)
+        }
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
     }
@@ -230,6 +242,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.AKASH_MAIN) {
             return 5;
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            return 5;
         } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             return 5;
         } else {
@@ -262,6 +276,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetCertikItems(tableView, indexPath);
         } else if (chainType == ChainType.AKASH_MAIN) {
             return onSetAkashItems(tableView, indexPath);
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            return onSetPersisItems(tableView, indexPath);
         } else if (chainType == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath);
         } else if (chainType == ChainType.IRIS_TEST) {
@@ -1256,6 +1272,44 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPersisCell") as? WalletPersisCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+            
+        }
+    }
+    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
@@ -1637,6 +1691,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://akash.network/") else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            guard let url = URL(string: "https://persistence.one/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1687,6 +1744,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://akash.network/blog/") else { return }
             self.onShowSafariWeb(url)
             
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            guard let url = URL(string: "https://medium.com/persistence-blog") else { return }
+            self.onShowSafariWeb(url)
         }
     }
     
@@ -1747,6 +1807,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://www.coingecko.com/en/coins/akash-network") else { return }
             self.onShowSafariWeb(url)
         }
+        
+        
     }
     
     func onClickBuyCoin() {

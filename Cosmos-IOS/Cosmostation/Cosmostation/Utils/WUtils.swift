@@ -736,7 +736,7 @@ class WUtils {
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                     chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
                     chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST ||
-                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.PERSIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.IRIS_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
@@ -1147,7 +1147,7 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.COSMOS_TEST) {
             if (data.mStakingPool_gRPC == nil || data.mProvision_gRPC == nil || data.mMintParam_gRPC == nil) {
                 return NSDecimalNumber.zero
             }
@@ -2060,6 +2060,8 @@ class WUtils {
             return COLOR_OK
         } else if (chain == ChainType.AKASH_MAIN) {
             return COLOR_AKASH
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return COLOR_PERSIS
         }
         return COLOR_ATOM
     }
@@ -2085,6 +2087,8 @@ class WUtils {
             return COLOR_AKASH_DARK
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return COLOR_OK_DARK
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return COLOR_PERSIS_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2110,6 +2114,8 @@ class WUtils {
             return TRANS_BG_COLOR_AKASH
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return TRANS_BG_COLOR_OK
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return TRANS_BG_COLOR_PERSIS
         }
         return COLOR_BG_GRAY
     }
@@ -2135,6 +2141,8 @@ class WUtils {
             return "CTK"
         } else if (chain == ChainType.AKASH_MAIN) {
             return "AKT"
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return "XPRT"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2164,6 +2172,8 @@ class WUtils {
             return CERTIK_MAIN_DENOM
         } else if (chain == ChainType.AKASH_MAIN) {
             return AKASH_MAIN_DENOM
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return PERSIS_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2208,6 +2218,9 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             label.text = "AKT"
             label.textColor = COLOR_AKASH
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            label.text = "XPRT"
+            label.textColor = COLOR_PERSIS
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2238,6 +2251,8 @@ class WUtils {
             return ChainType.AKASH_MAIN
         } else if (chainS == CHAIN_OKEX_S) {
             return ChainType.OKEX_MAIN
+        } else if (chainS == CHAIN_PERSIS_S) {
+            return ChainType.PERSIS_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2279,6 +2294,8 @@ class WUtils {
             return CHAIN_AKASH_S
         } else if (chain == ChainType.OKEX_MAIN) {
             return CHAIN_OKEX_S
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return CHAIN_PERSIS_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2369,7 +2386,7 @@ class WUtils {
     
     static func getEstimateGasAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
@@ -2540,7 +2557,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_VOTE))
             }
             
-        } else if (chain == ChainType.AKASH_MAIN) {
+        } else if (chain == ChainType.PERSIS_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
@@ -2565,7 +2582,7 @@ class WUtils {
     }
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.COSMOS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
@@ -2575,10 +2592,6 @@ class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
-        } else if (chain == ChainType.AKASH_MAIN) {
-            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
-            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
-            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
         }
         return NSDecimalNumber.zero
     }
@@ -3491,7 +3504,7 @@ class WUtils {
     }
     
     static func isGRPC(_ chain: ChainType) -> Bool {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             return true
         }

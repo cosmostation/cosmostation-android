@@ -351,7 +351,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
-        } else if (mChainType == ChainType.AKASH_MAIN) {
+        } else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN ) {
             self.mFetchCnt = 12
             onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)
@@ -368,7 +368,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCProvision()
             onFetchgRPCStakingPool()
             
-        } else if (mChainType == ChainType.COSMOS_TEST) {
+        }
+        
+        else if (mChainType == ChainType.COSMOS_TEST) {
             self.mFetchCnt = 12
             onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)

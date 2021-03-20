@@ -389,6 +389,8 @@ class BaseNetWork {
             result = IRIS_MAIN_HISTORY + address
         } else if (chain == ChainType.AKASH_MAIN) {
             result = AKASH_MAIN_HISTORY + address
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            result = PERSIS_MAIN_HISTORY + address
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -406,6 +408,8 @@ class BaseNetWork {
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_MAIN_HISTORY + address + "/" + valAddress
         } else if (chain == ChainType.AKASH_MAIN) {
+            result = AKASH_MAIN_HISTORY + address + "/" + valAddress
+        } else if (chain == ChainType.PERSIS_MAIN) {
             result = AKASH_MAIN_HISTORY + address + "/" + valAddress
         }
         
@@ -425,15 +429,16 @@ class BaseNetWork {
     
     static func getConnection(_ chain: ChainType, _ group: MultiThreadedEventLoopGroup) -> ClientConnection? {
         if (chain == ChainType.COSMOS_MAIN) {
-//            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 41009)
             return ClientConnection.insecure(group: group).connect(host: "lcd-cosmos-app.cosmostation.io", port: 9090)
-//            return ClientConnection.insecure(group: group).connect(host: "54.180.225.240", port: 9090)
             
         } else if (chain == ChainType.IRIS_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-iris-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.AKASH_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-akash-app.cosmostation.io", port: 9090)
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 43090)
             
         }
         
