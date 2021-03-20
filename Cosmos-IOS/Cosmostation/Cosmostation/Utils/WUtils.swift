@@ -3076,6 +3076,8 @@ class WUtils {
             return IRIS_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.AKASH_MAIN) {
             return AKASH_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return PERSIS_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -3279,7 +3281,7 @@ class WUtils {
     }
     
     static func onParseFeeAmountGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse) -> NSDecimalNumber {
-        var result = NSDecimalNumber.zero
+        let result = NSDecimalNumber.zero
         if (tx.tx.authInfo.fee.amount.count > 0) {
             return NSDecimalNumber.init(string: tx.tx.authInfo.fee.amount[0].amount)
         }
@@ -3288,6 +3290,7 @@ class WUtils {
     
     static func onParseAutoRewardGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ address: String, _ position: Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
+        if (tx.txResponse.logs == nil || tx.txResponse.logs.count <= position || tx.txResponse.logs[position] == nil)  { return result }
         tx.txResponse.logs[position].events.forEach { (event) in
             for i in 0...event.attributes.count - 1 {
                 if (event.attributes[i].key == "recipient" && event.attributes[i].value == address) {
@@ -3308,6 +3311,7 @@ class WUtils {
     
     static func onParseStakeRewardGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ opAddress: String, _ position: Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
+        if (tx.txResponse.logs == nil || tx.txResponse.logs.count <= position || tx.txResponse.logs[position] == nil)  { return result }
         tx.txResponse.logs[position].events.forEach { (event) in
             if (event.type == "withdraw_rewards") {
                 for i in 0...event.attributes.count - 1 {
@@ -3324,6 +3328,7 @@ class WUtils {
     
     static func onParseCommisiondGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
+        if (tx.txResponse.logs == nil || tx.txResponse.logs.count <= position || tx.txResponse.logs[position] == nil)  { return result }
         tx.txResponse.logs[position].events.forEach { (event) in
             if (event.type == "withdraw_commission") {
                 for i in 0...event.attributes.count - 1 {

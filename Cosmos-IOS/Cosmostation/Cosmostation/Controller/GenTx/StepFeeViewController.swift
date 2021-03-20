@@ -145,7 +145,7 @@ class StepFeeViewController: BaseViewController {
         }
         
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.PERSIS_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             self.minFeeCardView.isHidden = true
             self.rateFeeCardView.isHidden = false
             

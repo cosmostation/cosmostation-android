@@ -410,7 +410,7 @@ class BaseNetWork {
         } else if (chain == ChainType.AKASH_MAIN) {
             result = AKASH_MAIN_HISTORY + address + "/" + valAddress
         } else if (chain == ChainType.PERSIS_MAIN) {
-            result = AKASH_MAIN_HISTORY + address + "/" + valAddress
+            result = PERSIS_MAIN_HISTORY + address + "/" + valAddress
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

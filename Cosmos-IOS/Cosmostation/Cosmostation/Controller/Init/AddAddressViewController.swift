@@ -201,7 +201,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "persistence")) {
+        } else if (userInput.starts(with: "persistence1")) {
             if (WKey.isValidateBech32(userInput)) {
                 self.onGenWatchAccount(ChainType.PERSIS_MAIN, userInput)
                 return;
