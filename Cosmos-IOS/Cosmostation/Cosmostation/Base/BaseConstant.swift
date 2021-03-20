@@ -145,6 +145,7 @@ let BNB_TEST_FAUCET                     = "https://faucet-binance.cosmostation.i
 
 
 //KAVA_URL
+let KAVA_NODE_INFO                      = KAVA_URL + "node_info";
 let KAVA_ACCOUNT_INFO                   = KAVA_URL + "auth/accounts/";
 let KAVA_VALIDATORS                     = KAVA_URL + "staking/validators";
 let KAVA_BONDING                        = KAVA_URL + "staking/delegators/";
@@ -194,6 +195,7 @@ let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
 
 
 //KAVA_TEST_URL
+let KAVA_TEST_NODE_INFO                 = KAVA_TEST_URL + "node_info";
 let KAVA_TEST_ACCOUNT_INFO              = KAVA_TEST_URL + "auth/accounts/";
 let KAVA_TEST_VALIDATORS                = KAVA_TEST_URL + "staking/validators";
 let KAVA_TEST_BONDING                   = KAVA_TEST_URL + "staking/delegators/";
@@ -242,6 +244,7 @@ let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_t
 
 
 //BAND_URL
+let BAND_NODE_INFO                      = BAND_URL + "node_info";
 let BAND_TX                             = BAND_URL + "txs/";
 let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
 let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
@@ -268,6 +271,7 @@ let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
 //IOV_URL
+let IOV_NODE_INFO                       = IOV_URL + "node_info";
 let IOV_TX                              = IOV_URL + "txs/";
 let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
 let IOV_ACCOUNT_INFO                    = IOV_URL + "auth/accounts/";
@@ -298,6 +302,7 @@ let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
 let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
 
 //IOV_TEST_URL
+let IOV_TEST_NODE_INFO                  = IOV_TEST_URL + "node_info";
 let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
 let IOV_TEST_VALIDATORS                 = IOV_TEST_URL + "staking/validators";
 let IOV_TEST_ACCOUNT_INFO               = IOV_TEST_URL + "auth/accounts/";
@@ -325,6 +330,7 @@ let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainI
 
 
 //OKEX_URL
+let OKEX_NODE_INFO                          = OKEX_URL + "node_info";
 let OKEX_TX                                 = OKEX_URL + "txs/";
 let OKEX_VALIDATORS                         = OKEX_URL + "staking/validators";
 let OKEX_ACCOUNT_INFO                       = OKEX_URL + "auth/accounts/";
@@ -338,6 +344,7 @@ let OKEX_HISTORY                            = OKEX_URL + "transactions";
 let OKEX_BORAD_TX                           = OKEX_URL + "txs";
 
 //OKEX_TEST_URL
+let OKEX_TEST_NODE_INFO                     = OKEX_TEST_URL + "node_info";
 let OKEX_TEST_TX                            = OKEX_TEST_URL + "txs/";
 let OKEX_TEST_VALIDATORS                    = OKEX_TEST_URL + "staking/validators";
 let OKEX_TEST_ACCOUNT_INFO                  = OKEX_TEST_URL + "auth/accounts/";
@@ -351,33 +358,8 @@ let OKEX_TEST_HISTORY                       = OKEX_TEST_URL + "transactions";
 let OKEX_TEST_BORAD_TX                      = OKEX_TEST_URL + "txs";
 
 
-//CERTIC_TEST_URL
-let CERTIK_TEST_TX                          = CERTIK_TEST_URL + "txs/";
-let CERTIK_TEST_VALIDATORS                  = CERTIK_TEST_URL + "staking/validators";
-let CERTIK_TEST_ACCOUNT_INFO                = CERTIK_TEST_URL + "auth/accounts/";
-let CERTIK_TEST_BONDING                     = CERTIK_TEST_URL + "staking/delegators/";
-let CERTIK_TEST_BONDING_TAIL                = "/delegations";
-let CERTIK_TEST_UNBONDING                   = CERTIK_TEST_URL + "staking/delegators/";
-let CERTIK_TEST_UNBONDING_TAIL              = "/unbonding_delegations";
-let CERTIK_TEST_REWARD_FROM_VAL             = CERTIK_TEST_URL + "distribution/delegators/";
-let CERTIK_TEST_REWARD_FROM_VAL_TAIL        = "/rewards/";
-let CERTIK_TEST_MINT_PARAM                  = CERTIK_TEST_URL + "minting/parameters";
-let CERTIK_TEST_INFLATION                   = CERTIK_TEST_URL + "minting/inflation";
-let CERTIK_TEST_PROVISIONS                  = CERTIK_TEST_URL + "minting/annual-provisions";
-let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
-let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
-let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
-let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
-let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
-let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
-let CERTIK_TEST_PROPOSALS_TALLY_TAIL        = "/tally";
-
-let CERTIK_TEST_API_HISTORY                 = CERTIK_TEST_API + "v1/account/txs/";
-let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/transfer_txs/";
-
-
-
 //SECRET_URL
+let SECRET_NODE_INFO                        = SECRET_URL + "node_info";
 let SECRET_TX                               = SECRET_URL + "txs/";
 let SECRET_VALIDATORS                       = SECRET_URL + "staking/validators";
 let SECRET_ACCOUNT_INFO                     = SECRET_URL + "auth/accounts/";
@@ -403,6 +385,7 @@ let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_
 
 
 //CERTIC_URL
+let CERTIK_NODE_INFO                        = CERTIK_URL + "node_info";
 let CERTIK_TX                               = CERTIK_URL + "txs/";
 let CERTIK_VALIDATORS                       = CERTIK_URL + "staking/validators";
 let CERTIK_ACCOUNT_INFO                     = CERTIK_URL + "auth/accounts/";
@@ -425,6 +408,33 @@ let CERTIK_PROPOSALS_TALLY_TAIL             = "/tally";
 
 let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
 let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
+
+
+//CERTIC_TEST_URL
+let CERTIK_TEST_NODE_INFO                   = CERTIK_TEST_URL + "node_info";
+let CERTIK_TEST_TX                          = CERTIK_TEST_URL + "txs/";
+let CERTIK_TEST_VALIDATORS                  = CERTIK_TEST_URL + "staking/validators";
+let CERTIK_TEST_ACCOUNT_INFO                = CERTIK_TEST_URL + "auth/accounts/";
+let CERTIK_TEST_BONDING                     = CERTIK_TEST_URL + "staking/delegators/";
+let CERTIK_TEST_BONDING_TAIL                = "/delegations";
+let CERTIK_TEST_UNBONDING                   = CERTIK_TEST_URL + "staking/delegators/";
+let CERTIK_TEST_UNBONDING_TAIL              = "/unbonding_delegations";
+let CERTIK_TEST_REWARD_FROM_VAL             = CERTIK_TEST_URL + "distribution/delegators/";
+let CERTIK_TEST_REWARD_FROM_VAL_TAIL        = "/rewards/";
+let CERTIK_TEST_MINT_PARAM                  = CERTIK_TEST_URL + "minting/parameters";
+let CERTIK_TEST_INFLATION                   = CERTIK_TEST_URL + "minting/inflation";
+let CERTIK_TEST_PROVISIONS                  = CERTIK_TEST_URL + "minting/annual-provisions";
+let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
+let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
+let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
+let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
+let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
+let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
+let CERTIK_TEST_PROPOSALS_TALLY_TAIL        = "/tally";
+
+let CERTIK_TEST_API_HISTORY                 = CERTIK_TEST_API + "v1/account/txs/";
+let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/transfer_txs/";
+
 
 
 //AKASH Mainnet

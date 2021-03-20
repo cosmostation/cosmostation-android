@@ -17,6 +17,8 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var copySalt: String?
+    
+    var mNodeInfo: NodeInfo?
     var mAllValidator = Array<Validator>()
     var mTopValidator = Array<Validator>()
     var mOtherValidator = Array<Validator>()
@@ -60,6 +62,7 @@ final class BaseData : NSObject{
     
     
     //For ProtoBuf and gRPC
+    var mNodeInfo_gRPC: Tendermint_P2p_DefaultNodeInfo?
     var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mBondedValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mUnbondValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
@@ -77,6 +80,17 @@ final class BaseData : NSObject{
     
     var mIrisMintParam_gRPC: Irishub_Mint_Params?
     var mIrisTokens_gRPC = Array<Irismod_Token_Token>()
+    
+    
+    func getChainId() -> String {
+        if (mNodeInfo != nil) { return mNodeInfo!.network }
+        return ""
+    }
+    
+    func getChainId_gRPC() -> String {
+        if (mNodeInfo_gRPC != nil) { return mNodeInfo_gRPC!.network }
+        return ""
+    }
     
     func getAvailable(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero.stringValue

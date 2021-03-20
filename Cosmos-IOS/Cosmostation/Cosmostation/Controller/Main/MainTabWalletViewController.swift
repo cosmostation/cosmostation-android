@@ -36,9 +36,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
         
-//        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_address)
-//        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_new_bip44)
-        
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
         self.walletTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -493,6 +490,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
             cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
+            if (vestingAmount != NSDecimalNumber.zero) {
+                cell?.vestingLayer.isHidden = false
+            }
             
             cell?.actionDelegate = {
                 self.onClickValidatorList()
@@ -594,6 +594,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
             cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
+            if (vestingAmount != NSDecimalNumber.zero) {
+                cell?.vestingLayer.isHidden = false
+            }
             
             cell?.actionDelegate = {
                 self.onClickValidatorList()
@@ -1150,20 +1153,27 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             } else {
                 cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
             }
-            let totalCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalCtk.stringValue, cell!.totalAmount.font!, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalCtk, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(mainTabVC.mBalances, cell!.availableAmount.font, 6, CERTIK_MAIN_DENOM, chainType!)
-            cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(mainTabVC.mBondingList, mainTabVC.mAllValidator, cell!.delegatedAmount.font, 6, chainType!)
-            cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(mainTabVC.mUnbondingList, cell!.unbondingAmount.font, 6, chainType!)
-            cell?.rewardAmount.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell!.rewardAmount.font, 6, CERTIK_MAIN_DENOM, chainType!)
+            
+            let totalAmount = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, CERTIK_MAIN_DENOM)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, CERTIK_MAIN_DENOM, chainType!)
+            
+            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
+            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
+            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
+            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
+            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
+            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            
             cell?.actionDelegate = {
                 self.onClickValidatorList()
             }
             cell?.actionVote = {
                 self.onClickVoteList()
             }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalCtk.multiplying(byPowerOf10: -6).stringValue)
+            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
             return cell!
             
         } else if (indexPath.row == 2) {

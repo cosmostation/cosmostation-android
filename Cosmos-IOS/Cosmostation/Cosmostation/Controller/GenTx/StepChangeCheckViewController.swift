@@ -280,7 +280,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             }
             
             let reqTx = Signer.genSignedSetRewardAddressTxgRPC(auth!, self.pageHolderVC.mToChangeRewardAddress!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                               WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+                                                               WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }

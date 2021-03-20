@@ -176,12 +176,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         self.mMyValidators.removeAll()
         self.mRewardList.removeAll()
         
+        BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()
         BaseData.instance.mTopValidator.removeAll()
         BaseData.instance.mOtherValidator.removeAll()
         BaseData.instance.mMyValidator.removeAll()
         
         //gRPC
+        BaseData.instance.mNodeInfo_gRPC = nil
         BaseData.instance.mAllValidators_gRPC.removeAll()
         BaseData.instance.mBondedValidators_gRPC.removeAll()
         BaseData.instance.mUnbondValidators_gRPC.removeAll()
@@ -201,7 +203,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mIrisTokens_gRPC.removeAll()
         
         if (mChainType == ChainType.COSMOS_MAIN) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
+            onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -219,7 +222,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //            onFetchgRPCAuth(mAccount)
             
         } else if (mChainType == ChainType.IRIS_MAIN) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 11
+            onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -234,16 +238,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCIrisTokens()
             
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
-            self.mFetchCnt = 3
+            self.mFetchCnt = 4
             BaseData.instance.mBnbTokenList.removeAll()
+            onFetchNodeInfo()
             onFetchAccountInfo(mAccount)
             onFetchBnbTokens()
             onFetchBnbMiniTokens()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 12
+            self.mFetchCnt = 13
             BaseData.instance.mCdpParam = nil
-            
+            onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -261,7 +266,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchIncentiveParam()
             
         } else if (mChainType == ChainType.BAND_MAIN) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
+            onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -277,7 +283,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBandOracleStatus()
             
         } else if (mChainType == ChainType.SECRET_MAIN) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 11
+            onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -292,7 +299,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
-            self.mFetchCnt = 12
+            self.mFetchCnt = 13
+            onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -310,11 +318,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStarNameConfig()
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
-            self.mFetchCnt = 9
+            self.mFetchCnt = 10
             BaseData.instance.mOkStaking = nil
             BaseData.instance.mOkUnbonding = nil
             BaseData.instance.mOkTokenList = nil
-            
+            onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -329,7 +337,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 11
+            onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
@@ -343,7 +352,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
         } else if (mChainType == ChainType.AKASH_MAIN) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
+            onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -359,7 +369,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCStakingPool()
             
         } else if (mChainType == ChainType.COSMOS_TEST) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
+            onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -375,7 +386,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCStakingPool()
             
         } else if (mChainType == ChainType.IRIS_TEST) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 11
+            onFetchgRPCNodeInfo()
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -435,9 +447,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("BaseData.instance.mMyBalances_gRPC ", BaseData.instance.mMyBalances_gRPC.count)
             }
             
-            if (BaseData.instance.mAllValidators_gRPC.count <= 0) {
+            if (BaseData.instance.mNodeInfo_gRPC == nil) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             }
+//            else {
+//                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
+//            }
+            
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return
@@ -497,11 +513,60 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //        print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
 //        print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
         
-        if (mAllValidator.count <= 0) { self.onShowToast(NSLocalizedString("error_network", comment: "")) }
-        else { BaseData.instance.setAllValidators(mAllValidator) }
+        if (BaseData.instance.mNodeInfo == nil || mAllValidator.count <= 0) {
+            self.onShowToast(NSLocalizedString("error_network", comment: ""))
+        }
+//        else {
+//            BaseData.instance.setAllValidators(mAllValidator)
+//            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
+//        }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         self.hideWaittingAlert()
 
+    }
+    
+    func onFetchNodeInfo() {
+        var url: String?
+        if (mChainType == ChainType.BINANCE_MAIN ) {
+            url = BNB_URL_NODE_INFO
+        } else if (mChainType == ChainType.OKEX_MAIN) {
+            url = OKEX_NODE_INFO
+        } else if (mChainType == ChainType.KAVA_MAIN) {
+            url = KAVA_NODE_INFO
+        } else if (mChainType == ChainType.BAND_MAIN) {
+            url = BAND_NODE_INFO
+        } else if (mChainType == ChainType.IOV_MAIN) {
+            url = IOV_NODE_INFO
+        } else if (mChainType == ChainType.CERTIK_MAIN) {
+            url = CERTIK_NODE_INFO
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            url = SECRET_NODE_INFO
+        }
+        else if (mChainType == ChainType.BINANCE_TEST) {
+            url = BNB_TEST_URL_NODE_INFO
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_NODE_INFO
+        } else if (mChainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_NODE_INFO
+        } else if (mChainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_NODE_INFO
+        } else if (mChainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_NODE_INFO
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary, let nodeInfo = responseData.object(forKey: "node_info") as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mNodeInfo = NodeInfo.init(nodeInfo)
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+            }
+            self.onFetchFinished()
+        }
     }
     
     func onFetchTopValidatorsInfo() {
@@ -1458,6 +1523,29 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     //gRPC
+    func onFetchgRPCNodeInfo() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            let req = Cosmos_Base_Tendermint_V1beta1_GetNodeInfoRequest()
+            
+            do {
+                let response = try Cosmos_Base_Tendermint_V1beta1_ServiceClient(channel: channel).getNodeInfo(req).response.wait()
+                BaseData.instance.mNodeInfo_gRPC = response.defaultNodeInfo
+            } catch {
+                print("onFetchgRPCNodeInfo failed: \(error)")
+            }
+            
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
     func onFetchgRPCBondedValidators(_ offset: Int) {
 //        print("onFetchgRPCBondedValidators")
         DispatchQueue.global().async {

@@ -287,7 +287,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
             }
             let reqTx = Signer.genSignedReDelegateTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToReDelegateValidator_gRPC!.operatorAddress,
                                                          self.pageHolderVC.mToReDelegateAmount!, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!,
-                                                         WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+                                                         WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }

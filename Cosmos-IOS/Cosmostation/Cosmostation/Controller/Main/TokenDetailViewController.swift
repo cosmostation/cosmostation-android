@@ -361,8 +361,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let unbondingAmount = WUtils.unbondingAmount(unbondingList, chainType!)
         let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM, chainType!)
         let vestingAmount = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
-//        let havestDepositAmount = WUtils.havestDepositAmount(KAVA_MAIN_DENOM)
-//        let unclaimedIncentiveAmount = WUtils.unclaimedIncentiveAmount(KAVA_MAIN_DENOM)
         
         cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
         cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
@@ -371,17 +369,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
         cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
         cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-//        cell?.havestDepositedAmount.attributedText = WUtils.displayAmount2(havestDepositAmount.stringValue, cell!.havestDepositedAmount.font, 6, 6)
-//        cell?.unClaimedIncentiveAmount.attributedText = WUtils.displayAmount2(unclaimedIncentiveAmount.stringValue, cell!.unClaimedIncentiveAmount.font, 6, 6)
-//        if (vestingAmount != NSDecimalNumber.zero) {
-//            cell?.vestingLayer.isHidden = false
-//        }
-//        if (havestDepositAmount != NSDecimalNumber.zero) {
-//            cell?.havestDepositLayer.isHidden = false
-//        }
-//        if (unclaimedIncentiveAmount != NSDecimalNumber.zero) {
-//            cell?.unClaimedIncentiveLayer.isHidden = false
-//        }
+        if (vestingAmount != NSDecimalNumber.zero) {
+            cell?.vestingLayer.isHidden = false
+        }
         cell?.actionSend  = {
             self.onSendToken()
         }
@@ -404,8 +394,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         let unbondingAmount = WUtils.unbondingAmount(unbondingList, chainType!)
         let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM, chainType!)
         let vestingAmount = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
-//        let havestDepositAmount = WUtils.havestDepositAmount(KAVA_MAIN_DENOM)
-//        let unclaimedIncentiveAmount = WUtils.unclaimedIncentiveAmount(KAVA_MAIN_DENOM)
         
         cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
         cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
@@ -414,17 +402,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
         cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
         cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-//        cell?.havestDepositedAmount.attributedText = WUtils.displayAmount2(havestDepositAmount.stringValue, cell!.havestDepositedAmount.font, 6, 6)
-//        cell?.unClaimedIncentiveAmount.attributedText = WUtils.displayAmount2(unclaimedIncentiveAmount.stringValue, cell!.unClaimedIncentiveAmount.font, 6, 6)
-//        if (vestingAmount != NSDecimalNumber.zero) {
-//            cell?.vestingLayer.isHidden = false
-//        }
-//        if (havestDepositAmount != NSDecimalNumber.zero) {
-//            cell?.havestDepositLayer.isHidden = false
-//        }
-//        if (unclaimedIncentiveAmount != NSDecimalNumber.zero) {
-//            cell?.unClaimedIncentiveLayer.isHidden = false
-//        }
+        if (vestingAmount != NSDecimalNumber.zero) {
+            cell?.vestingLayer.isHidden = false
+        }
         cell?.actionSend  = {
             self.onSendToken()
         }
@@ -503,8 +483,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             let totalTokenAmount = WUtils.getKavaTokenAll(balance!.balance_denom, balances)
             let availableTokenAmount = WUtils.getKavaTokenAvailable(balance!.balance_denom, balances)
             let vestingTokenAmount = WUtils.getKavaTokenVesting(balance!.balance_denom, balances)
-//            let havestDepositTokenAmount = WUtils.getKavaTokenHavestDeposited(balance!.balance_denom, balances)
-//            let havestRewardTokenAmount = WUtils.getKavaTokenHavestReward(balance!.balance_denom, balances)
             let totalTokenValue = WUtils.getKavaTokenDollorValue(balance!.balance_denom, totalTokenAmount)
             let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
                         
@@ -514,18 +492,11 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.totalValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.totalValue.font)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableTokenAmount.stringValue, cell!.availableAmount.font, dpDecimal, dpDecimal)
             cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingTokenAmount.stringValue, cell!.vestingAmount.font, dpDecimal, dpDecimal)
-//            cell?.havestDepositAmount.attributedText = WUtils.displayAmount2(havestDepositTokenAmount.stringValue, cell!.havestDepositAmount.font, dpDecimal, dpDecimal)
-//            cell?.havestRewardAmount.attributedText = WUtils.displayAmount2(havestRewardTokenAmount.stringValue, cell!.havestRewardAmount.font, dpDecimal, dpDecimal)
             
             if (vestingTokenAmount != NSDecimalNumber.zero) {
                 cell?.vestingLayer.isHidden = false
             }
-//            if (havestDepositTokenAmount != NSDecimalNumber.zero) {
-//                cell?.havestDepsoitLayer.isHidden = false
-//            }
-//            if (havestRewardTokenAmount != NSDecimalNumber.zero) {
-//                cell?.havsetRewardLayer.isHidden = false
-//            }
+            
             let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             cell?.actionSend  = {

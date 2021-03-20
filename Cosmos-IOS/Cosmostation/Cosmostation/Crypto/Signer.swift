@@ -280,7 +280,7 @@ class Signer {
     
     static func genSignedSendTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                   _ toAddress: String, _ amount: Array<Coin>, _ fee: Fee, _ memo: String,
-                                  _ pKey: HDPrivateKey, _ chain: ChainType)  -> Cosmos_Tx_V1beta1_BroadcastTxRequest{
+                                  _ pKey: HDPrivateKey, _ chainId: String)  -> Cosmos_Tx_V1beta1_BroadcastTxRequest{
         let sendCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount[0].denom
             $0.amount = amount[0].amount
@@ -298,7 +298,7 @@ class Signer {
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -308,7 +308,7 @@ class Signer {
     
     static func genSignedDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                         _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                        _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                        _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -326,7 +326,7 @@ class Signer {
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -336,7 +336,7 @@ class Signer {
     
     static func genSignedUnDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                           _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                          _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                          _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -354,7 +354,7 @@ class Signer {
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -365,7 +365,7 @@ class Signer {
     
     static func genSignedReDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                           _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                          _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                          _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -384,7 +384,7 @@ class Signer {
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -395,7 +395,7 @@ class Signer {
     
     static func genSignedClaimRewardsTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                             _ validators: Array<Cosmos_Staking_V1beta1_Validator>, _ fee: Fee, _ memo: String,
-                                            _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                            _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         var anyMsgs = Array<Google_Protobuf2_Any>()
         for validator in validators{
             let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
@@ -412,7 +412,7 @@ class Signer {
         let txBody = getGrpcTxBody(anyMsgs, memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -422,7 +422,7 @@ class Signer {
     
     static func genSignedReInvestTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                         _ valAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                        _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                        _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         var anyMsgs = Array<Google_Protobuf2_Any>()
         
         let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
@@ -453,7 +453,7 @@ class Signer {
         let txBody = getGrpcTxBody(anyMsgs, memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -463,7 +463,7 @@ class Signer {
     
     static func genSignedVoteTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                     _ proposalId: String, _ opinion: String, _ fee: Fee, _ memo: String,
-                                    _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                    _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let voteMsg = Cosmos_Gov_V1beta1_MsgVote.with {
             $0.voter = WUtils.onParseAuthGrpc(auth).0!
             $0.proposalID = UInt64(proposalId)!
@@ -485,7 +485,7 @@ class Signer {
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -495,7 +495,7 @@ class Signer {
     
     static func genSignedSetRewardAddressTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                                 _ newRewardAddress: String, _ fee: Fee, _ memo: String,
-                                                _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                                _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let rewardAddressMsg = Cosmos_Distribution_V1beta1_MsgSetWithdrawAddress.with {
             $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
             $0.withdrawAddress = newRewardAddress
@@ -508,7 +508,7 @@ class Signer {
         let txBody = getGrpcTxBody([anyMsg], memo);
         let signerInfo = getGrpcSignerInfo(auth, pKey);
         let authInfo = getGrpcAuthInfo(signerInfo, fee);
-        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chain);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
         
         return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
@@ -557,12 +557,12 @@ class Signer {
         }
     }
     
-    static func getGrpcRawTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: HDPrivateKey, _ chain: ChainType) -> Cosmos_Tx_V1beta1_TxRaw{
+    static func getGrpcRawTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_TxRaw{
         let signDoc = Cosmos_Tx_V1beta1_SignDoc.with {
 //            $0.accountNumber = account.accountNumber
             $0.bodyBytes = try! txBody.serializedData()
             $0.authInfoBytes = try! authInfo.serializedData()
-            $0.chainID = WUtils.getChainId(chain)
+            $0.chainID = chainId
             $0.accountNumber = WUtils.onParseAuthGrpc(auth).2!
         }
         let sigbyte = getGrpcByteSingleSignature(pKey, try! signDoc.serializedData())

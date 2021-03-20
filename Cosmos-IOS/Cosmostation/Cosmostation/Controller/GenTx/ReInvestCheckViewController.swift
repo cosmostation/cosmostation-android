@@ -331,7 +331,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             }
             let reqTx = Signer.genSignedReInvestTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mReinvestReward!,
                                                        self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!),
-                                                       self.pageHolderVC.chainType!)
+                                                       BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }

@@ -509,7 +509,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 return
             }
             let reqTx = Signer.genSignedClaimRewardsTxgRPC(auth!, self.pageHolderVC.mRewardTargetValidators_gRPC, self.pageHolderVC.mFee!,
-                                                           self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), self.pageHolderVC.chainType!)
+                                                           self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!), BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }

@@ -297,7 +297,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             }
             let reqTx = Signer.genSignedUnDelegateTxgRPC(auth!, self.pageHolderVC.mTargetValidator_gRPC!.operatorAddress, self.pageHolderVC.mToUndelegateAmount!,
                                                        self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!),
-                                                       self.pageHolderVC.chainType!)
+                                                       BaseData.instance.getChainId_gRPC())
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
