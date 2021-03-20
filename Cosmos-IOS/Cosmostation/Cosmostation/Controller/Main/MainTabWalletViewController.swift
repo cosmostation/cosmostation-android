@@ -273,16 +273,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if (chainType == ChainType.KAVA_MAIN) {
-            if (indexPath.row == 2) {
-                if (WUtils.isDisplayEventCard(chainType)) {
-                    return UITableView.automaticDimension;
-                } else {
-                    return 0;
-                }
-            }
-            
-        }
         return UITableView.automaticDimension;
     }
     
