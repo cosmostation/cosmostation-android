@@ -91,6 +91,7 @@ let AKASH_API                           = "https://api-akash.cosmostation.io/";
 
 let PERSIS_API                          = "https://api-office.cosmostation.io/persistence/";
 
+
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";

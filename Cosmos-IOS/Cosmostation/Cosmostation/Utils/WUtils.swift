@@ -1404,12 +1404,12 @@ class WUtils {
         let data = BaseData.instance
         for balance in data.mMyBalances_gRPC {
             if (balance.denom == denom) {
-                amount = plainStringToDecimal(balance.amount)
+                amount = amount.adding(plainStringToDecimal(balance.amount))
             }
         }
         for balance in data.mMyVestings_gRPC {
             if (balance.denom == denom) {
-                amount = plainStringToDecimal(balance.amount)
+                amount = amount.adding(plainStringToDecimal(balance.amount))
             }
         }
         for delegation in data.mMyDelegations_gRPC {
@@ -3308,7 +3308,7 @@ class WUtils {
     }
     
     static func onParseVestingAccount() {
-        print("onParseVestingAccount")
+//        print("onParseVestingAccount")
         guard let account = BaseData.instance.mAccount_gRPC else { return }
         var sBalace = Array<Coin>()
         BaseData.instance.mMyBalances_gRPC.forEach { coin in
@@ -3317,14 +3317,14 @@ class WUtils {
         print("sBalace ", sBalace)
         if (account.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName)) {
             let vestingAccount = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: account.value)
-            var dpBalance = NSDecimalNumber.zero
-            var dpVesting = NSDecimalNumber.zero
-            var originalVesting = NSDecimalNumber.zero
-            var remainVesting = NSDecimalNumber.zero
-            var delegatedVesting = NSDecimalNumber.zero
-            
             sBalace.forEach({ (coin) in
                 let denom = coin.denom
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                
                 dpBalance = NSDecimalNumber.init(string: coin.amount)
                 print("dpBalance ", denom, "  ", dpBalance)
                 
@@ -3373,14 +3373,14 @@ class WUtils {
             
         } else if (account.typeURL.contains(Cosmos_Vesting_V1beta1_ContinuousVestingAccount.protoMessageName)) {
             let vestingAccount = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: account.value)
-            var dpBalance = NSDecimalNumber.zero
-            var dpVesting = NSDecimalNumber.zero
-            var originalVesting = NSDecimalNumber.zero
-            var remainVesting = NSDecimalNumber.zero
-            var delegatedVesting = NSDecimalNumber.zero
-            
             sBalace.forEach({ (coin) in
                 let denom = coin.denom
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                
                 dpBalance = NSDecimalNumber.init(string: coin.amount)
                 print("dpBalance ", denom, "  ", dpBalance)
                 
