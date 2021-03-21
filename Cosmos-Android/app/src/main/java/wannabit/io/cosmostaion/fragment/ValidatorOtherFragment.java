@@ -44,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
@@ -97,8 +98,7 @@ public class ValidatorOtherFragment extends BaseFragment {
     @Override
     public void onRefreshTab() {
         if (!isAdded()) return;
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(getMainActivity().mBaseChain)) {
             mValidatorSize.setText(""+getBaseDao().mGRpcOtherValidators.size());
             WUtil.onSortByValidatorPowerV1(getBaseDao().mGRpcOtherValidators);
         } else {
@@ -131,8 +131,7 @@ public class ValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 final Staking.Validator validator  = getBaseDao().mGRpcOtherValidators.get(position);
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
@@ -236,8 +235,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getMainActivity().mBaseChain.equals(COSMOS_TEST) || getMainActivity().mBaseChain.equals(IRIS_TEST)) {
+            if (isGRPC(getMainActivity().mBaseChain)) {
                 return getBaseDao().mGRpcOtherValidators.size();
             } else {
                 return getBaseDao().mOtherValidators.size();

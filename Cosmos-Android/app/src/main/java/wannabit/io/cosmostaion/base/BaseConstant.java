@@ -596,18 +596,21 @@ public class BaseConstant {
     public final static String KAVA_TEST_BTC_DEPUTY     = "kava1kla4wl0ccv7u85cemvs3y987hqk0afcv7vue84";
 
 
-    public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
+
     public final static String COSMOS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
     public final static String IRIS_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/irishub/";
     public final static String KAVA_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/kava/kava-2/";
-    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
-    public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
-    public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
     public final static String BAND_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/bandprotocol/";
     public final static String IOV_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
     public final static String CERTIK_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
     public final static String SECRET_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/secret/";
     public final static String AKASH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/akash/";
+    public final static String PERSIS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/persistence/";
+
+    public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
+    public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
+    public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
+    public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
 
 

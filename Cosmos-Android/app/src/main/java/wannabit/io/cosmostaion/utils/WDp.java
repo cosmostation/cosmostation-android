@@ -91,6 +91,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -2584,6 +2585,8 @@ public class WDp {
             return IRIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(AKASH_MAIN)) {
             return AKASH_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(PERSIS_MAIN)) {
+            return PERSIS_VAL_URL + opAddress + ".png";
         }
         return "";
     }

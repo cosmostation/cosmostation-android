@@ -2,6 +2,9 @@ package wannabit.io.cosmostaion.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -286,6 +289,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //        WLog.w("accountNumber " + mAccount.accountNumber);
 //        WLog.w("mBaseChain " + mBaseChain);
 
+        mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
         if (mBaseChain.equals(COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
@@ -350,7 +354,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainpersistence));
             mToolbarChainName.setText(getString(R.string.str_persis_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorPersis));
-            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorPersis));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBlack));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorPersis));
 
         }
 

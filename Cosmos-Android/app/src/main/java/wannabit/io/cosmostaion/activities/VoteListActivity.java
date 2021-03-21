@@ -41,6 +41,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
 
 public class VoteListActivity extends BaseActivity implements TaskListener {
@@ -114,7 +115,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             mRecyclerView.setAdapter(mVoteAdapter);
             new ProposalTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(BaseChain.AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) ) {
+        } else if (isGRPC(mBaseChain)) {
             mGrpcProposalsAdapter = new GrpcProposalsAdapter();
             mRecyclerView.setAdapter(mGrpcProposalsAdapter);
             new ProposalsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -349,14 +350,16 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
             voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-//                    webintent.putExtra("voteId", "" + proposal.getProposalId());
-//                    webintent.putExtra("chain", mAccount.baseChain);
-//                    startActivity(webintent);
-                    //TODO check & id number
-                    Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                    voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
-                    startActivity(voteIntent);
+                    if (proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_DEPOSIT_PERIOD) || proposal.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD) ) {
+                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                        voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
+                        startActivity(voteIntent);
+                    } else {
+                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                        webintent.putExtra("voteId", "" + proposal.getProposalId());
+                        webintent.putExtra("chain", mAccount.baseChain);
+                        startActivity(webintent);
+                    }
 
                 }
             });
