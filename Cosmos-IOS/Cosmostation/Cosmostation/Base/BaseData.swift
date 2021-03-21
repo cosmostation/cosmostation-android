@@ -122,6 +122,10 @@ final class BaseData : NSObject{
         return WUtils.plainStringToDecimal(getVesting(symbol))
     }
     
+    func getDelegatable(_ symbol:String) -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(getAvailable(symbol)).adding(WUtils.plainStringToDecimal(getVestingAmount(symbol)))
+    }
+    
     
     func getDelegatedSum() -> String {
         var amount = NSDecimalNumber.zero
