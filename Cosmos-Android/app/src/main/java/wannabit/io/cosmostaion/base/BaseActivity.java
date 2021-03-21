@@ -154,6 +154,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -693,7 +694,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisTokenListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
-        }  else if (mBaseChain.equals(AKASH_MAIN)) {
+        }  else if (mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(PERSIS_MAIN)) {
             mTaskCount = 12;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

@@ -84,6 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
@@ -105,6 +106,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_COMPLETED;
 import static wannabit.io.cosmostaion.network.res.ResBnbSwapInfo.BNB_STATUS_OPEN;
@@ -119,9 +121,9 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IRIS_MAIN) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IRIS_MAIN) || chain.equals(BAND_MAIN) ||
+                chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CERTIK_TEST) ||
+                chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
             amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
@@ -223,6 +225,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -311,6 +317,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -386,7 +396,7 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(COSMOS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
@@ -693,15 +703,8 @@ public class WDp {
     public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
         if (bondings == null || bondings.size() == 0) return sum;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) ||
-                chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        } else if (chain.equals(IRIS_MAIN)) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
         }
         return sum;
     }
@@ -710,7 +713,8 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) ||
+                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
@@ -1733,6 +1737,9 @@ public class WDp {
                 return BaseConstant.KEY_PATH + String.valueOf(position);
             }
 
+        }  else if (chain.equals(PERSIS_MAIN)) {
+            return BaseConstant.KEY_PERSIS_PATH + String.valueOf(position);
+
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
@@ -2105,7 +2112,9 @@ public class WDp {
             return c.getResources().getColor(R.color.colorSecret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColor(R.color.colorAkash);
-        }  else {
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorPersis);
+        } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
     }
@@ -2131,6 +2140,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgSecret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgAkash);
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgPersis);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -2156,6 +2167,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_secret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_akash);
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_persis);
         }
         return null;
     }
@@ -2179,6 +2192,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorSecret);
         } else if (chain.equals(AKASH_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorAkash);
+        } else if (chain.equals(AKASH_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorPersis);
         }
         return null;
     }
@@ -2224,6 +2239,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorAkash));
             textview.setText(c.getString(R.string.s_akt));
 
+        } else if (BaseChain.getChain(chain).equals(PERSIS_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorPersis));
+            textview.setText(c.getString(R.string.s_xprt));
+
         } else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textview.setText(c.getString(R.string.s_muon));
@@ -2254,6 +2273,8 @@ public class WDp {
             return TOKEN_SECRET;
         } else if (chain.equals(AKASH_MAIN)) {
             return TOKEN_AKASH;
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return TOKEN_XPRT;
         } else if (chain.equals(COSMOS_TEST)) {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {
@@ -2586,7 +2607,7 @@ public class WDp {
 
     public static BigDecimal systemQuorum(BaseChain basechain) {
         BigDecimal result = new BigDecimal("0.5");
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(COSMOS_TEST)) {
             result = new BigDecimal("0.4");
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");

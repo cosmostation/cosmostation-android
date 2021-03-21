@@ -437,6 +437,7 @@ public class BaseConstant {
     public final static String TOKEN_SECRET         = "uscrt";
     public final static String TOKEN_OK             = "okt";
     public final static String TOKEN_OK_OKB         = "okb";
+    public final static String TOKEN_XPRT           = "uxprt";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -471,6 +472,7 @@ public class BaseConstant {
     public final static String KEY_BAND_PATH        = "44'/494'/0'/0/";
     public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
     public final static String KEY_NEW_SECRET_PATH  = "44'/529'/0'/0/";
+    public final static String KEY_PERSIS_PATH      = "44'/750'/0'/0/";
     public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 

@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SUPPORT_CHAINS;
 
@@ -256,6 +257,13 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
 
+            } else if (mUserInput.startsWith("persistence1")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(PERSIS_MAIN, mUserInput);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
@@ -299,7 +307,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
+        if (isFinishing()) return;
         onHideWaitDialog();
         if (result.taskType == BaseConstant.TASK_INIT_EMPTY_ACCOUNT) {
             if(result.isSuccess) {

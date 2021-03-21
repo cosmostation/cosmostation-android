@@ -30,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class WalletGuideHolder extends BaseHolder {
@@ -120,6 +121,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_secret);
             itemBtnGuide1.setText(R.string.str_faq_secret);
             itemBtnGuide2.setText(R.string.str_guide_secret);
+
+        } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.persistence_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_persis);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_persis);
+            itemBtnGuide1.setText(R.string.str_faq_persis);
+            itemBtnGuide2.setText(R.string.str_guide_persis);
 
         }
 

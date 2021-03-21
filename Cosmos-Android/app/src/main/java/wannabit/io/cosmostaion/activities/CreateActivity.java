@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_ChoiceNet;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.UserTask.GenerateAccountTask;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -43,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
@@ -134,29 +136,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     private void onUpdateView() {
         onHideWaitDialog();
-        if (mChain.equals(COSMOS_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-        } else if (mChain.equals(IRIS_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
-        } else if (mChain.equals(BNB_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
-        } else if (mChain.equals(KAVA_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
-        } else if (mChain.equals(IOV_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
-        } else if (mChain.equals(BAND_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
-        } else if (mChain.equals(CERTIK_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
-        } else if (mChain.equals(BNB_TEST) || mChain.equals(KAVA_TEST) || mChain.equals(IOV_TEST) || mChain.equals(OK_TEST) || mChain.equals(CERTIK_TEST) || mChain.equals(COSMOS_TEST) || mChain.equals(IRIS_TEST)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-        } else if (mChain.equals(AKASH_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
-        } else if (mChain.equals(SECRET_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
-        } else if (mChain.equals(OKEX_MAIN)) {
-            mCardMnemonics.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
-        }
+        mCardMnemonics.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
+
         for(int i = 0; i < mWordsLayer.length; i++) {
             if (mChain.equals(COSMOS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
@@ -180,6 +161,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
             } else if (mChain.equals(OKEX_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
+            } else if (mChain.equals(PERSIS_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_persis));
             }
         }
 
@@ -248,6 +231,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == BaseConstant.CONST_PW_INIT && resultCode == Activity.RESULT_OK) {
             mCheckPassword = true;
         } else if (requestCode == BaseConstant.CONST_PW_SIMPLE_CHECK && resultCode == Activity.RESULT_OK) {

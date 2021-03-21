@@ -23,6 +23,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 
 public class WalletAkashHolder extends BaseHolder {
     private TextView        mTvAkashTotal, mTvAkashValue, mTvAkashAvailable, mTvAkashDelegated, mTvAkashUnBonding, mTvAkashRewards;
+    public RelativeLayout   mAkashVestingLayer;
+    public TextView         mTvAkashVesting;
     private RelativeLayout  mBtnAkashStake, mBtnAkashVote;
 
     public WalletAkashHolder(@NonNull View itemView) {
@@ -33,6 +35,10 @@ public class WalletAkashHolder extends BaseHolder {
         mTvAkashDelegated   = itemView.findViewById(R.id.akash_delegate);
         mTvAkashUnBonding   = itemView.findViewById(R.id.akash_unbonding);
         mTvAkashRewards     = itemView.findViewById(R.id.akash_reward);
+
+        mAkashVestingLayer  = itemView.findViewById(R.id.akash_vesting_layer);
+        mTvAkashVesting     = itemView.findViewById(R.id.akash_vesting);
+
         mBtnAkashStake      = itemView.findViewById(R.id.btn_akash_reward);
         mBtnAkashVote       = itemView.findViewById(R.id.btn_akash_vote);
     }
@@ -40,6 +46,7 @@ public class WalletAkashHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         final BigDecimal availableAmount = baseData.getAvailable(WDp.mainDenom(mainActivity.mBaseChain));
+        final BigDecimal vestingAmount = BigDecimal.ZERO;
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(WDp.mainDenom(mainActivity.mBaseChain));
@@ -47,10 +54,14 @@ public class WalletAkashHolder extends BaseHolder {
 
         mTvAkashTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvAkashAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvAkashVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
         mTvAkashDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvAkashUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvAkashRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvAkashValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        if (!vestingAmount.equals(BigDecimal.ZERO)) { mAkashVestingLayer.setVisibility(View.VISIBLE);
+        } else { mAkashVestingLayer.setVisibility(View.GONE); }
+
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnAkashStake.setOnClickListener(new View.OnClickListener() {

@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.widget.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.WalletKavaHolder;
 import wannabit.io.cosmostaion.widget.WalletMintHolder;
 import wannabit.io.cosmostaion.widget.WalletOkexHolder;
+import wannabit.io.cosmostaion.widget.WalletPersisHolder;
 import wannabit.io.cosmostaion.widget.WalletPriceHolder;
 import wannabit.io.cosmostaion.widget.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.WalletStarnameHolder;
@@ -47,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -178,6 +180,8 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_CERTIK            = 8;
         private static final int TYPE_SECRET            = 9;
         private static final int TYPE_AKASH             = 10;
+        private static final int TYPE_PERSIS            = 11;
+
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
         private static final int TYPE_PRICE             = 80;
@@ -220,7 +224,12 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_AKASH) {
                 return new WalletAkashHolder(getLayoutInflater().inflate(R.layout.item_wallet_akash, viewGroup, false));
 
-            } else if (viewType == TYPE_PRICE) {
+            } else if (viewType == TYPE_PERSIS) {
+                return new WalletPersisHolder(getLayoutInflater().inflate(R.layout.item_wallet_persis, viewGroup, false));
+
+            }
+
+            else if (viewType == TYPE_PRICE) {
                 return new WalletPriceHolder(getLayoutInflater().inflate(R.layout.item_wallet_price, viewGroup, false));
 
             } else if (viewType == TYPE_MINT) {
@@ -270,6 +279,7 @@ public class MainSendFragment extends BaseFragment {
                     if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
                     else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
                     else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
+                    else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) { return TYPE_PERSIS; }
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {

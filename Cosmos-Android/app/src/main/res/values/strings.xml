@@ -125,6 +125,7 @@
     <string name="str_iov_main_net">Starname Mainnet</string>
     <string name="str_kava_main_net">Kava Mainnet</string>
     <string name="str_band_main_net">Band Mainnet</string>
+    <string name="str_persis_main_net">Persistence Mainnet</string>
     <string name="str_secret_main_net">Secret Mainnet</string>
     <string name="str_certik_main_net">Certik Mainnet</string>
     <string name="str_akash_main_net">Akash Mainnet</string>
@@ -278,6 +279,8 @@
     <string name="str_guide_akash">Blog</string>
     <string name="str_faq_secret">Home</string>
     <string name="str_guide_secret">Blog</string>
+    <string name="str_faq_persis">Home</string>
+    <string name="str_guide_persis">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -347,6 +350,8 @@
     <string name="str_secret_chain_2" translatable="false">Secret Mainnet</string>
     <string name="str_akash_chain" translatable="false">(Akash Mainnet)</string>
     <string name="str_akash_chain_2" translatable="false">Akash Mainnet</string>
+    <string name="str_persis_net" translatable="false">(Persistence Mainnet)</string>
+    <string name="str_persis_net2" translatable="false">Persistence Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -364,6 +369,7 @@
     <string name="str_secret_main" translatable="false">SECRET</string>
     <string name="str_akash_main" translatable="false">AKASH</string>
     <string name="str_okex_main" translatable="false">OKEX</string>
+    <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -440,6 +446,7 @@
     <string name="str_front_guide_title_certik"><![CDATA[CERTIK CHAIN]]></string>
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
+    <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -450,6 +457,7 @@
     <string name="str_front_guide_msg_certik"><![CDATA[A public platform based on the Certik Foundation\'s unique Formal Verification security system.]]></string>
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.]]></string>
+    <string name="str_front_guide_msg_persis"><![CDATA[An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1302,6 +1310,7 @@
     <string name="s_akt" translatable="false">AKT</string>
     <string name="s_scrt" translatable="false">SCRT</string>
     <string name="s_bif" translatable="false">BIF</string>
+    <string name="s_xprt" translatable="false">XPRT</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

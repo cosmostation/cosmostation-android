@@ -92,6 +92,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
@@ -506,60 +507,27 @@ public class WUtil {
         if(!TextUtils.isEmpty(lcd.validator_address))
             valAddress = lcd.validator_address;
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
-
-        }
-        return null;
+        return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
     }
 
     public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBonding> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
-            for(ResLcdUnBonding val : list) {
-                String valAddress = "";
-                if(!TextUtils.isEmpty(val.validator_addr))
-                    valAddress = val.validator_addr;
-                if(!TextUtils.isEmpty(val.validator_address))
-                    valAddress = val.validator_address;
+        for(ResLcdUnBonding val : list) {
+            String valAddress = "";
+            if(!TextUtils.isEmpty(val.validator_addr))
+                valAddress = val.validator_addr;
+            if(!TextUtils.isEmpty(val.validator_address))
+                valAddress = val.validator_address;
 
-                for(ResLcdUnBonding.Entry entry:val.entries) {
-                    UnBondingState temp = new UnBondingState(
-                            accountId,
-                            valAddress,
-                            entry.creation_height,
-                            WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-                            new BigDecimal(entry.getinitial_balance()),
-                            new BigDecimal(entry.getbalance()),
-                            time
-                    );
-                    result.add(temp);
-                }
-            }
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            for(ResLcdUnBonding val : list) {
-                String valAddress = "";
-                if(!TextUtils.isEmpty(val.validator_addr))
-                    valAddress = val.validator_addr;
-                if(!TextUtils.isEmpty(val.validator_address))
-                    valAddress = val.validator_address;
-
+            for(ResLcdUnBonding.Entry entry:val.entries) {
                 UnBondingState temp = new UnBondingState(
                         accountId,
                         valAddress,
-                        val.creation_height,
-                        WUtil.cosmosTimetoLocalLong(c, val.min_time),
-                        new BigDecimal(val.initial_balance.replace("iris","")).movePointRight(18),
-                        new BigDecimal(val.balance.replace("iris","")).movePointRight(18),
+                        entry.creation_height,
+                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
+                        new BigDecimal(entry.getinitial_balance()),
+                        new BigDecimal(entry.getbalance()),
                         time
                 );
                 result.add(temp);
@@ -1962,6 +1930,9 @@ public class WUtil {
         } else if (chain.equals(SECRET_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://scrt.network"));
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://persistence.one/"));
+
         }
         return null;
     }
@@ -2000,6 +1971,9 @@ public class WUtil {
 
         } else if (chain.equals(SECRET_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.scrt.network"));
+
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/persistence-blog"));
 
         }
         return null;

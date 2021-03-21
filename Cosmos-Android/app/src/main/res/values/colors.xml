@@ -23,6 +23,7 @@
     <color name="colorTransBgAkash">#24C71E10</color>
     <color name="colorTransBgSecret">#32C4C4C4</color>
     <color name="colorTransBghard">#328626E1</color>
+    <color name="colorTransBgPersis">#24EDEDED</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -73,6 +74,8 @@
     <color name="colorAkash">#c71e10</color>
     <color name="colorAkash2">#631008</color>
 
+    <color name="colorPersis">#e50a13</color>
+    <color name="colorPersis2">#670000</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

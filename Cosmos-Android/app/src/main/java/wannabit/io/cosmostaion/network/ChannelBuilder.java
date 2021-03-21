@@ -10,6 +10,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app.cosmostation.io";
@@ -20,6 +21,10 @@ public class ChannelBuilder {
 
     private final static String GRPC_AKASH_MAIN = "lcd-akash-app.cosmostation.io";
     private final static int PORT_AKASH_MAIN = 9090;
+
+    private final static String GRPC_PERSIS_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_PERSIS_MAIN = 43090;
+
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_COSMOS_TEST = 9090;
@@ -33,8 +38,10 @@ public class ChannelBuilder {
             return getCosmosMain();
         } else if (chain.equals(IRIS_MAIN)) {
             return getIrisMain();
-        }else if (chain.equals(AKASH_MAIN)) {
+        } else if (chain.equals(AKASH_MAIN)) {
             return getAkashMain();
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return getPersisMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -86,6 +93,18 @@ public class ChannelBuilder {
         return channel_akash_main;
     }
 
+    //Channel for persistence main
+    private static ManagedChannel channel_persis_main = null;
+    public static ManagedChannel getPersisMain() {
+        if (channel_persis_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_persis_main = ManagedChannelBuilder.forAddress(GRPC_PERSIS_MAIN, PORT_PERSIS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_persis_main;
+    }
 
 
 
