@@ -184,6 +184,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            chainImg.image = UIImage(named: "chainpersistence")
+            keyPath.text = PERSIS_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.CERTIK_TEST) {
             chainImg.image = UIImage(named: "certikTestnetImg")
             keyPath.text = BASE_PATH.appending(account!.account_path)
