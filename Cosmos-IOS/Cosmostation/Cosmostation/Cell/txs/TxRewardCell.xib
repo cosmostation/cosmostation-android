@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,8 +39,8 @@
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R2-FE-k3b">
-                                <rect key="frame" x="16" y="81" width="6" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9R2-FE-k3b">
+                                <rect key="frame" x="16" y="81" width="264" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -103,6 +103,7 @@
                             <constraint firstItem="AAd-Gd-xYC" firstAttribute="leading" secondItem="Boq-68-8Km" secondAttribute="trailing" constant="6" id="e4w-vm-2HM"/>
                             <constraint firstAttribute="bottom" secondItem="fxe-VK-7nb" secondAttribute="bottom" constant="16" id="eAn-SW-m9c"/>
                             <constraint firstItem="bAV-53-wqN" firstAttribute="centerY" secondItem="fxe-VK-7nb" secondAttribute="centerY" id="efx-tm-bvP"/>
+                            <constraint firstAttribute="trailing" secondItem="9R2-FE-k3b" secondAttribute="trailing" constant="16" id="f4E-JJ-ShL"/>
                             <constraint firstItem="ojC-59-kRz" firstAttribute="leading" secondItem="Boq-68-8Km" secondAttribute="leading" id="jyj-QW-rWt"/>
                             <constraint firstItem="SU9-Y2-3mM" firstAttribute="top" secondItem="cYJ-Gj-FGA" secondAttribute="bottom" constant="6" id="kkG-Lm-DF1"/>
                             <constraint firstItem="cYJ-Gj-FGA" firstAttribute="leading" secondItem="Boq-68-8Km" secondAttribute="leading" id="pLO-dx-0C8"/>
@@ -134,8 +135,8 @@
                     <constraint firstItem="bMp-Wa-ISq" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="sDJ-FS-vng"/>
                 </constraints>
             </tableViewCellContentView>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <connections>
                 <outlet property="amountDenomLabel" destination="dRi-VT-giY" id="Fed-vB-hsA"/>
                 <outlet property="amountLabel" destination="bAV-53-wqN" id="lwj-hC-nAE"/>

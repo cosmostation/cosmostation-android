@@ -81,7 +81,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         }
         
         //after 40.0
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN  || pageHolderVC.chainType! == ChainType.PERSIS_MAIN ||
+                    pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
@@ -309,8 +310,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             }
             
             
-            else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                        pageHolderVC.chainType! == ChainType.IRIS_TEST || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+            else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
                 toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
             }
