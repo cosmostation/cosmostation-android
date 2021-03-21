@@ -286,7 +286,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
     private int FetchCnt = 0;
     private void onFetchTx(String hash) {
-        WLog.w("onFetchTx " + hash);
+//        WLog.w("onFetchTx " + hash);
         ServiceGrpc.ServiceStub mStub = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
         ServiceOuterClass.GetTxRequest request = ServiceOuterClass.GetTxRequest.newBuilder().setHash(mTxHash).build();
         mStub.getTx(request, new StreamObserver<ServiceOuterClass.GetTxResponse>() {
@@ -331,7 +331,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             }
 
             @Override
-            public void onCompleted() { WLog.w("onCompleted "); }
+            public void onCompleted() { }
         });
 
     }

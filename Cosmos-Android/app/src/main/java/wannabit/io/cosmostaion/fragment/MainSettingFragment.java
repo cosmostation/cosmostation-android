@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
@@ -61,6 +62,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
@@ -253,6 +255,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
                 startActivity(intent);
             } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_SECRET_MAIN));
+                startActivity(intent);
+            } else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) {
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_PERSIS_MAIN));
                 startActivity(intent);
             }
 
