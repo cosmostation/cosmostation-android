@@ -989,14 +989,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
                     if (already) getBaseDao().mGRpcMyValidators.add(validator);
                 }
-                WLog.w("mGRpcTopValidators " + getBaseDao().mGRpcTopValidators.size());
-                WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
-                WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());
-                WLog.w("mGRpcMyValidators " + getBaseDao().mGRpcMyValidators.size());
+//                WLog.w("mGRpcTopValidators " + getBaseDao().mGRpcTopValidators.size());
+//                WLog.w("mGRpcOtherValidators " + getBaseDao().mGRpcOtherValidators.size());
+//                WLog.w("mGRpcAllValidators " + getBaseDao().mGRpcAllValidators.size());
+//                WLog.w("mGRpcMyValidators " + getBaseDao().mGRpcMyValidators.size());
                 if (getBaseDao().mGRpcNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
-                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
+//                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
 
             } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
@@ -1037,20 +1037,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
                 getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
-
-                WLog.w("mBalances " + getBaseDao().mBalances.size());
-                WLog.w("mBondings " + getBaseDao().mBondings.size());
-                WLog.w("mUnbondings " + getBaseDao().mUnbondings.size());
-                WLog.w("mRewards " + getBaseDao().mRewards.size());
+//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+//
+//                WLog.w("mBalances " + getBaseDao().mBalances.size());
+//                WLog.w("mBondings " + getBaseDao().mBondings.size());
+//                WLog.w("mUnbondings " + getBaseDao().mUnbondings.size());
+//                WLog.w("mRewards " + getBaseDao().mRewards.size());
 
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
-                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
+//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 
             } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
@@ -1070,19 +1070,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
-                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
+//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
 
             } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
-                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
+//                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
             }
 
             //callback with delay fix gRPC  timming issue
-            new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
+            mHandler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     if (mFetchCallback != null) {
@@ -1092,6 +1092,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             },300);
         }
     }
+
+    private Handler mHandler = new Handler(Looper.getMainLooper());
 
     private void onUpdateReward(Reward reward) {
         if (getBaseDao().mRewards == null) getBaseDao().mRewards = new ArrayList<>();

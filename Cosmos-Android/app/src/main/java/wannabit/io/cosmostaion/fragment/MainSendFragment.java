@@ -16,8 +16,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.widget.TxCommonHolder;
+import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.WalletAddressHolder;
 import wannabit.io.cosmostaion.widget.WalletAkashHolder;
 import wannabit.io.cosmostaion.widget.WalletBandHolder;
@@ -25,7 +24,6 @@ import wannabit.io.cosmostaion.widget.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.WalletCertikHolder;
 import wannabit.io.cosmostaion.widget.WalletCosmosHolder;
 import wannabit.io.cosmostaion.widget.WalletGuideHolder;
-import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.WalletKavaHolder;
 import wannabit.io.cosmostaion.widget.WalletMintHolder;
@@ -57,7 +55,6 @@ public class MainSendFragment extends BaseFragment {
     private SwipeRefreshLayout              mSwipeRefreshLayout;
     private RecyclerView                    mRecyclerView;
     private MainWalletAdapter               mMainWalletAdapter;
-
 
     public static MainSendFragment newInstance(Bundle bundle) {
         MainSendFragment fragment = new MainSendFragment();
@@ -160,14 +157,10 @@ public class MainSendFragment extends BaseFragment {
 
     private void onUpdateView() {
         if (getMainActivity() == null || getMainActivity().mAccount == null) return;
-        if (isGRPC(getMainActivity().mBaseChain)) {
-            mMainWalletAdapter.notifyItemRangeChanged(0, mMainWalletAdapter.getItemCount());
-        } else {
-            mMainWalletAdapter.notifyDataSetChanged();
-        }
-        mSwipeRefreshLayout.setRefreshing(false);
+        mMainWalletAdapter.notifyDataSetChanged();
 //        getMainActivity().onUpdateAccountListAdapter();
     }
+
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();
@@ -244,28 +237,49 @@ public class MainSendFragment extends BaseFragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull BaseHolder holder, int position) {
-            holder.onBindHolder(getMainActivity());
+        public void onBindViewHolder(@NonNull BaseHolder viewHolder, int position) {
+            final MainActivity mainActivity = getMainActivity();
+            viewHolder.onBindHolder(mainActivity);
         }
 
         @Override
         public int getItemCount() {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
-                    getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
-                return 4;
+            if (getMainActivity().mBaseChain == null) { return 0; }
+            if (isGRPC(getMainActivity().mBaseChain )) {
+                return 5;
             } else {
-                if (getBaseDao().mUnbondings.size() > 0) {
-                    return 6;
+                if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain .equals(BNB_TEST) ||
+                        getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
+                    return 4;
                 } else {
-                    return 5;
+                    if (getBaseDao().mUnbondings.size() > 0) {
+                        return 6;
+                    } else {
+                        return 5;
+                    }
                 }
             }
         }
 
-
         @Override
         public int getItemViewType(int position) {
-            if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
+            if (isGRPC(getMainActivity().mBaseChain)) {
+                if (position == 0) {
+                    return TYPE_ADDRESS;
+                } else if (position == 1) {
+                    if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
+                    else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
+                    else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
+                } else if (position == 2) {
+                    return TYPE_PRICE;
+                } else if (position == 3) {
+                    return TYPE_MINT;
+                } else if (position == 4) {
+                    return TYPE_GIUDE;
+                }
+
+
+            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST) ||
                     getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
                 if (position == 0) {
                     return TYPE_ADDRESS;
@@ -282,13 +296,10 @@ public class MainSendFragment extends BaseFragment {
                 if (position == 0) {
                     return TYPE_ADDRESS;
                 } else if (position == 1) {
-                    if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
-                    else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
-                    else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) { return TYPE_KAVA; }
+                    if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) { return TYPE_KAVA; }
                     else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) { return TYPE_STARNAME; }
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
-                    else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                 } else if (position == 2) {
                     if (getBaseDao().mUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
