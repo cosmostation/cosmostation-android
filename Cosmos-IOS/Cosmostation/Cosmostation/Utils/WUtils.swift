@@ -3150,7 +3150,7 @@ class WUtils {
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.COSMOS_TEST) {
             return NSDecimalNumber.init(string: "0.4")
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
