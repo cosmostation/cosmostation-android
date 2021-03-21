@@ -23,19 +23,15 @@ import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
@@ -94,7 +90,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
         BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(getSActivity().mBaseChain)) {
             for (String opAddress: getSActivity().mValAddresses) {
                 rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
@@ -292,25 +288,22 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
-                getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-            BigDecimal rewardSum    = BigDecimal.ZERO;
-            BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
-            }
-            return feeAmount.compareTo(rewardSum) < 0;
-
-        } else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(getSActivity().mBaseChain)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
             for (String opAddress: getSActivity().mValAddresses) {
                 rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
             return feeAmount.compareTo(rewardSum) < 0;
+
+        } else {
+            BigDecimal rewardSum    = BigDecimal.ZERO;
+            BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            for (Reward reward:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            }
+            return feeAmount.compareTo(rewardSum) < 0;
         }
-        return false;
     }
 
 

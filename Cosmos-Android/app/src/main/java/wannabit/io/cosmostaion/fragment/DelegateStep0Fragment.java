@@ -39,10 +39,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -178,8 +176,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
-                getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        else if (isGRPC(getSActivity().mBaseChain)) {
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             mMaxAvailable = getSActivity().getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
@@ -237,9 +234,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAddMax)) {
             if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) || getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(IOV_MAIN) ||
-                    getSActivity().mBaseChain.equals(IOV_TEST) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN) ||
-                    getSActivity().mBaseChain.equals(COSMOS_MAIN) ||  getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST) || getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+            } else {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 onShowEmptyBlanaceWarnDialog();
             }
@@ -303,8 +298,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
             }
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (isGRPC(getSActivity().mBaseChain)) {
                 BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;

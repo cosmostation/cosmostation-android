@@ -54,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class SendStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -223,6 +224,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
                 if (userInput.startsWith("akash1") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(PERSIS_MAIN)) {
+                if (userInput.startsWith("persistence1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mTagetAddress = userInput;
                     getSActivity().onNextStep();
                 } else {

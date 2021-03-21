@@ -20,7 +20,8 @@
         android:theme="@style/AppTheme"
         android:name=".base.BaseApplication"
         android:hardwareAccelerated="true"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:largeHeap="true">
 
         <activity
             android:name=".activities.IntroActivity"

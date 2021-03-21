@@ -23,6 +23,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -65,7 +66,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
-        if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(getSActivity().mBaseChain)) {
             if (getSActivity().mReinvestCoin != null) {
                 BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));

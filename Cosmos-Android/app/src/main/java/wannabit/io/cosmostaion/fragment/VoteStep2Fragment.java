@@ -39,7 +39,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
@@ -232,7 +234,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
 
         }
 
-        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN)) {
+        else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(PERSIS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -246,22 +248,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
-        } else if (getSActivity().mBaseChain.equals(COSMOS_TEST)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fixed_fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
-
-            mGasAmount.setText(V1_GAS_AMOUNT_LOW);
-            mGasRate.setText(WDp.getDpString(COSMOS_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_VOTE, 0);
-            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
-
-
-        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN)) {
+        } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
             mFeeLayer3.setVisibility(View.GONE);
@@ -275,19 +262,6 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
 
-        } else if (getSActivity().mBaseChain.equals(IRIS_TEST)) {
-            mFeeLayer1.setVisibility(View.GONE);
-            mFeeLayer2.setVisibility(View.VISIBLE);
-            mFeeLayer3.setVisibility(View.GONE);
-
-            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fixed_fee_img));
-            mSpeedMsg.setText(getString(R.string.str_fee_speed_fixed));
-
-            mGasAmount.setText(V1_GAS_AMOUNT_LOW);
-            mGasRate.setText(WDp.getDpString(IRIS_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_VOTE, 0);
-            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
         }
         return rootView;
     }
@@ -371,8 +345,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             }
 
 
-            else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) ||
-                    getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
+            else if (isGRPC(getSActivity().mBaseChain)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
