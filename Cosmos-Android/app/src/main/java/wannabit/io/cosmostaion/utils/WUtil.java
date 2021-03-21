@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
 
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -38,10 +41,12 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 import javax.xml.xpath.XPath;
 
+import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.vesting.v1beta1.Vesting;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -2376,5 +2381,143 @@ public class WUtil {
 
         }
         return "";
+    }
+
+    //parse & check vesting account
+    public static void onParseVestingAccount(BaseData baseData) {
+        WLog.w("onParseVestingAccount");
+        Any account = baseData.mGRpcAccount;
+        if (account == null ) return;
+        ArrayList<Coin> sBalace = new ArrayList<>();
+        for (Coin coin:baseData.mGrpcBalance) {
+            sBalace.add(coin);
+        }
+        if (account.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+            Vesting.PeriodicVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(account.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                WLog.e("onParseVestingAccount " + e.getMessage());
+                return;
+            }
+            for (Coin coin: sBalace) {
+                String denom = coin.denom;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                dpBalance = new BigDecimal(coin.amount);
+                WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                remainVesting = WDp.onParsePeriodicRemainVestingsAmountByDenom(vestingAccount, denom);
+                WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                if (remainVesting.compareTo(delegatedVesting)> 0) {
+                    dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                }
+                WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i ++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
+            }
+
+        } else if (account.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+            Vesting.ContinuousVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(account.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                WLog.e("onParseVestingAccount " + e.getMessage());
+                return;
+            }
+            for (Coin coin: sBalace) {
+                String denom = coin.denom;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+                dpBalance = new BigDecimal(coin.amount);
+                WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                long cTime = Calendar.getInstance().getTime().getTime();
+                long vestingEnd = (vestingAccount.getStartTime() + vestingAccount.getBaseVestingAccount().getEndTime()) * 1000;
+                if (cTime < vestingEnd) {
+                    remainVesting = originalVesting;
+                }
+                WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                if (remainVesting.compareTo(delegatedVesting)> 0) {
+                    dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                }
+                WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i ++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
+            }
+        }
     }
 }

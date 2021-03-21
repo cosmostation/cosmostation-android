@@ -46,7 +46,7 @@ public class WalletAkashHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         final BigDecimal availableAmount = baseData.getAvailable(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal vestingAmount = BigDecimal.ZERO;
+        final BigDecimal vestingAmount = baseData.getVesting(WDp.mainDenom(mainActivity.mBaseChain));
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
         final BigDecimal rewardAmount = baseData.getRewardSum(WDp.mainDenom(mainActivity.mBaseChain));

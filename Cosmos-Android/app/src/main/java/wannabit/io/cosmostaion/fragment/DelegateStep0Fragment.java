@@ -178,7 +178,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
 
         else if (isGRPC(getSActivity().mBaseChain)) {
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            mMaxAvailable = getSActivity().getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
+            mMaxAvailable = getSActivity().getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }
