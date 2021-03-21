@@ -104,7 +104,7 @@ final class BaseData : NSObject{
         return amount;
     }
     
-    func getAvailable(_ symbol:String) -> NSDecimalNumber {
+    func getAvailableAmount(_ symbol:String) -> NSDecimalNumber {
         return WUtils.plainStringToDecimal(getAvailable(symbol))
     }
     
@@ -123,7 +123,7 @@ final class BaseData : NSObject{
     }
     
     func getDelegatable(_ symbol:String) -> NSDecimalNumber {
-        return WUtils.plainStringToDecimal(getAvailable(symbol)).adding(WUtils.plainStringToDecimal(getVestingAmount(symbol)))
+        return getAvailableAmount(symbol).adding(getVestingAmount(symbol))
     }
     
     

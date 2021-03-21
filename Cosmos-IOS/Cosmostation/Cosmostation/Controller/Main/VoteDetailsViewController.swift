@@ -124,7 +124,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (BaseData.instance.getAvailable(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
+            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
