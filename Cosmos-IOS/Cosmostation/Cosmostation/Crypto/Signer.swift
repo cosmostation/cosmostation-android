@@ -533,12 +533,17 @@ class Signer {
         let mode = Cosmos_Tx_V1beta1_ModeInfo.with {
             $0.single = single
         }
+        let pub = Cosmos_Crypto_Secp256k1_PubKey.with {
+            $0.key = pKey.extendedPublicKey().raw
+        }
+        let pubKey = Google_Protobuf2_Any.with {
+            $0.typeURL = "/cosmos.crypto.secp256k1.PubKey"
+            $0.value = try! pub.serializedData()
+        }
         return Cosmos_Tx_V1beta1_SignerInfo.with {
-//            $0.publicKey = account.pubKey
-//            $0.sequence = account.sequence
-            $0.publicKey = WUtils.onParseAuthGrpc(auth).1!
+            $0.publicKey = pubKey
             $0.modeInfo = mode
-            $0.sequence = WUtils.onParseAuthGrpc(auth).3!
+            $0.sequence = WUtils.onParseAuthGrpc(auth).2!
         }
     }
     
@@ -559,11 +564,10 @@ class Signer {
     
     static func getGrpcRawTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_TxRaw{
         let signDoc = Cosmos_Tx_V1beta1_SignDoc.with {
-//            $0.accountNumber = account.accountNumber
             $0.bodyBytes = try! txBody.serializedData()
             $0.authInfoBytes = try! authInfo.serializedData()
             $0.chainID = chainId
-            $0.accountNumber = WUtils.onParseAuthGrpc(auth).2!
+            $0.accountNumber = WUtils.onParseAuthGrpc(auth).1!
         }
         let sigbyte = getGrpcByteSingleSignature(pKey, try! signDoc.serializedData())
         return Cosmos_Tx_V1beta1_TxRaw.with {

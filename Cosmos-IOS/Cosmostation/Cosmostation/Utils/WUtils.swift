@@ -1852,6 +1852,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            if (coin.denom == PERSIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1969,6 +1978,15 @@ class WUtils {
             
         } else if (chainType == ChainType.AKASH_MAIN) {
             if (denom == AKASH_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.PERSIS_MAIN) {
+            if (denom == PERSIS_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -3266,19 +3284,24 @@ class WUtils {
     }
     
     
-    //address, pubkey, accountnumber, sequencenumber
-    static func onParseAuthGrpc(_ response :Cosmos_Auth_V1beta1_QueryAccountResponse) -> (String?, Google_Protobuf2_Any?, UInt64?, UInt64?) {
+    //address, accountnumber, sequencenumber
+    static func onParseAuthGrpc(_ response :Cosmos_Auth_V1beta1_QueryAccountResponse) -> (String?, UInt64?, UInt64?) {
         if (response.account.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName)) {
             let auth = try! Cosmos_Auth_V1beta1_BaseAccount.init(serializedData: response.account.value)
-            return (auth.address, auth.pubKey, auth.accountNumber, auth.sequence)
+            return (auth.address, auth.accountNumber, auth.sequence)
             
         } else if (response.account.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName)) {
             let auth = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: response.account.value).baseVestingAccount.baseAccount
-            return (auth.address , auth.pubKey, auth.accountNumber, auth.sequence)
+            return (auth.address, auth.accountNumber, auth.sequence)
+            
+        } else if (response.account.typeURL.contains(Cosmos_Vesting_V1beta1_ContinuousVestingAccount.protoMessageName)) {
+            let auth = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: response.account.value).baseVestingAccount.baseAccount
+            return (auth.address, auth.accountNumber, auth.sequence)
             
         }
-        return (nil, nil, nil, nil)
+        return (nil, nil, nil)
     }
+    
     
     static func onParseFeeAmountGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse) -> NSDecimalNumber {
         let result = NSDecimalNumber.zero
