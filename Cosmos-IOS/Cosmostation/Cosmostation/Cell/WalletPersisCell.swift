@@ -44,14 +44,20 @@ class WalletPersisCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        let totalAtom = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
-        totalAmount.attributedText = WUtils.displayAmount2(totalAtom.stringValue, totalAmount.font!, 6, 6)
-        totalValue.attributedText = WUtils.dpTokenValue(totalAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        let totalToken = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
+        totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
+        totalValue.attributedText = WUtils.dpTokenValue(totalToken, BaseData.instance.getLastPrice(), 6, totalValue.font)
         availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
         delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(PERSIS_MAIN_DENOM), rewardAmount.font, 6, 6)
-        BaseData.instance.updateLastTotal(account, totalAtom.multiplying(byPowerOf10: -6).stringValue)
+        
+        let vesting = BaseData.instance.getVestingAmount(PERSIS_MAIN_DENOM)
+        if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
+            vestingLayer.isHidden = false
+            vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
+        }
+        BaseData.instance.updateLastTotal(account, totalToken.multiplying(byPowerOf10: -6).stringValue)
     }
     
 }

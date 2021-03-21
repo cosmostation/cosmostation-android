@@ -17,11 +17,14 @@ class WalletAkashCell: UITableViewCell {
     @IBOutlet weak var delegatedAmount: UILabel!
     @IBOutlet weak var unbondingAmount: UILabel!
     @IBOutlet weak var rewardAmount: UILabel!
+    @IBOutlet weak var vestingAmount: UILabel!
+    @IBOutlet weak var vestingLayer: UIView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         self.selectionStyle = .none
         availableAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        vestingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         delegatedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         unbondingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
@@ -37,15 +40,25 @@ class WalletAkashCell: UITableViewCell {
         actionVote?()
     }
     
+    override func prepareForReuse() {
+        vestingLayer.isHidden = true
+    }
+    
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        let totalAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
-        totalAmount.attributedText = WUtils.displayAmount2(totalAkt.stringValue, totalAmount.font!, 6, 6)
-        totalValue.attributedText = WUtils.dpTokenValue(totalAkt, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        let totalToken = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
+        totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
+        totalValue.attributedText = WUtils.dpTokenValue(totalToken, BaseData.instance.getLastPrice(), 6, totalValue.font)
         availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(AKASH_MAIN_DENOM), availableAmount.font!, 6, 6)
         delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(AKASH_MAIN_DENOM), rewardAmount.font, 6, 6)
-        BaseData.instance.updateLastTotal(account, totalAkt.multiplying(byPowerOf10: -6).stringValue)
+        
+        let vesting = BaseData.instance.getVestingAmount(AKASH_MAIN_DENOM)
+        if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
+            vestingLayer.isHidden = false
+            vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting(AKASH_MAIN_DENOM), availableAmount.font!, 6, 6)
+        }
+        BaseData.instance.updateLastTotal(account, totalToken.multiplying(byPowerOf10: -6).stringValue)
     }
 }

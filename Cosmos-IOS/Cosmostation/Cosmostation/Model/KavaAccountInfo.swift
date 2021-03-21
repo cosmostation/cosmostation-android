@@ -53,9 +53,6 @@ public class KavaAccountInfo {
         func getCalcurateVestingCntByDenom(_ denom: String) -> Int {
             var results = 0
             for vp in getCalcurateVesting() {
-//                if (vp.amount[0].denom == denom) {
-//                    results = results + 1
-//                }
                 for coin in vp.amount {
                     if (coin.denom ==  denom) {
                         results = results + 1
@@ -68,9 +65,6 @@ public class KavaAccountInfo {
         func getCalcurateVestingByDenom(_ denom: String) -> Array<VestingPeriod> {
             var results: Array<VestingPeriod> = Array<VestingPeriod>()
             for vp in getCalcurateVesting() {
-//                if (vp.amount[0].denom == denom) {
-//                    results.append(vp)
-//                }
                 for coin in vp.amount {
                     if (coin.denom ==  denom) {
                         results.append(vp)
@@ -85,7 +79,6 @@ public class KavaAccountInfo {
         }
         
         func getCalcurateAmount(_ denom: String, _ position: Int) -> NSDecimalNumber {
-//            return NSDecimalNumber.init(string: getCalcurateVestingByDenom(denom)[position].amount[0].amount)
             var result = NSDecimalNumber.zero
             let period = getCalcurateVestingByDenom(denom)[position]
             for coin in period.amount {
@@ -99,7 +92,6 @@ public class KavaAccountInfo {
         func getCalcurateVestingAmountSumByDenom(_ denom: String) -> NSDecimalNumber {
             var results = NSDecimalNumber.zero
             for vp in getCalcurateVestingByDenom(denom) {
-//                results = results.adding(NSDecimalNumber.init(string: vp.amount[0].amount))
                 for coin in vp.amount {
                     if (coin.denom ==  denom) {
                         results = results.adding(NSDecimalNumber.init(string: coin.amount))
