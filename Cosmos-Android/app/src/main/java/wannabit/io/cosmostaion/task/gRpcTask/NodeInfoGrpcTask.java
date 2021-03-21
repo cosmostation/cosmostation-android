@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 
@@ -23,28 +24,15 @@ public class NodeInfoGrpcTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
+        try {
+            Query.GetNodeInfoRequest request = Query.GetNodeInfoRequest.newBuilder().build();
+            ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+            Query.GetNodeInfoResponse response = txService.getNodeInfo(request);
+
+            this.mResult.isSuccess = true;
+            mResult.resultData = response.getDefaultNodeInfo();
+
+        } catch (Exception e) { WLog.e( "NodeInfoGrpcTask "+ e.getMessage()); }
         return mResult;
-    }
-
-    @Override
-    protected void onPostExecute(TaskResult taskResult) {
-        Query.GetNodeInfoRequest request = Query.GetNodeInfoRequest.newBuilder().build();
-        ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mChain));
-        txService.getNodeInfo(request, new StreamObserver<Query.GetNodeInfoResponse>() {
-            @Override
-            public void onNext(Query.GetNodeInfoResponse value) {
-                mResult.isSuccess = true;
-                mResult.resultData = value.getDefaultNodeInfo();
-                if (mListener != null) {
-                    mListener.onTaskResponse(mResult);
-                }
-            }
-
-            @Override
-            public void onError(Throwable t) {}
-
-            @Override
-            public void onCompleted() {}
-        });
     }
 }
