@@ -26,7 +26,6 @@ import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cosmos.base.v1beta1.CoinOuterClass;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -64,6 +63,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -83,6 +83,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 
 public class MainTokensFragment extends BaseFragment implements View.OnClickListener {
 
@@ -261,6 +262,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
             onUpdateTotalCard();
             onFetchOKexTokenPrice();
+
+        } else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgPersis));
+            onUpdateTotalCard();
 
         }
 
@@ -471,6 +476,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindSecretItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
                 onBindAkashItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) {
+                onBindPersisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -507,11 +514,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
-        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
-        if (coin.getDenom().equals(TOKEN_ATOM)) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_ATOM)) {
             holder.itemSymbol.setText(getString(R.string.str_atom_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Cosmos Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
@@ -535,11 +542,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindIrisItem(TokensAdapter.AssetHolder holder, final int position) {
-        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
-        if (coin.getDenom().equals(TOKEN_IRIS)) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_IRIS)) {
             holder.itemSymbol.setText(getString(R.string.str_iris_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Iris Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
@@ -868,11 +875,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindAkashItem(TokensAdapter.AssetHolder holder, final int position) {
-        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
-        if (coin.getDenom().equals(TOKEN_AKASH)) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_AKASH)) {
             holder.itemSymbol.setText(getString(R.string.str_akt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), AKASH_MAIN));
-            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Akash Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.akash_token_img));
@@ -894,12 +901,39 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         });
     }
 
+    private void onBindPersisItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_XPRT)) {
+            holder.itemSymbol.setText(getString(R.string.str_xprt_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), PERSIS_MAIN));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Persistence Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenpersistence));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_XPRT);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+        } else {
+
+        }
+
+        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
+//                startActivity(intent);
+            }
+        });
+    }
+
     private void onBindCosmosTestItem(TokensAdapter.AssetHolder holder, final int position) {
-        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
-        if (coin.getDenom().equals(TOKEN_COSMOS_TEST)) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_muon_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), COSMOS_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Stargate Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.atom_ic));
@@ -914,11 +948,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindIrisTestItem(TokensAdapter.AssetHolder holder, final int position) {
-        final CoinOuterClass.Coin coin = getBaseDao().mGrpcBalance.get(position);
-        if (coin.getDenom().equals(TOKEN_IRIS_TEST)) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_IRIS_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_bif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IRIS_TEST));
-            holder.itemInnerSymbol.setText("(" + coin.getDenom() + ")");
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText("Bifrost Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iris_toket_img));
@@ -974,31 +1008,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
-//    private void onFetchKavaTokenPrice() {
-//        for (int i = 0; i < mBalances.size(); i ++) {
-//            final int position = i;
-//            if (mBalances.get(position).symbol.equals(TOKEN_HARD)) {
-//                ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("hard-protocol", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
-//                    @Override
-//                    public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-//                        getBaseDao().mHardPrice = new BigDecimal(response.body().market_data.current_price.usd);
-//                        mTokensAdapter.notifyItemChanged(position);
-//                        onUpdateTotalCard();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<ResCgcTic> call, Throwable t) {
-//                        WLog.w("onFetchKavaTokenPrice onFailure");
-//                    }
-//                });
-//            }
-//        }
-//    }
-
     private void onFetchIovTokenPrice() {
         onUpdateTotalCard();
     }
-
 
     private void onFetchOKexTokenPrice() {
         for (int i = 0; i < mBalances.size(); i ++) {

@@ -39,8 +39,8 @@
                                 <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BS0-qH-4Xm">
-                                <rect key="frame" x="16" y="80.5" width="6" height="14.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BS0-qH-4Xm">
+                                <rect key="frame" x="16" y="80.5" width="262" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -52,7 +52,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GfB-uC-ZaN">
-                                <rect key="frame" x="16" y="131.5" width="6" height="14.5"/>
+                                <rect key="frame" x="16" y="131.5" width="262" height="14.5"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -211,6 +211,7 @@
                             <constraint firstAttribute="trailing" secondItem="axA-H3-CyW" secondAttribute="trailing" constant="16" id="0Tb-k6-bqz"/>
                             <constraint firstItem="axA-H3-CyW" firstAttribute="top" secondItem="roL-Kq-CMB" secondAttribute="bottom" constant="8" id="1rj-8z-zNr"/>
                             <constraint firstItem="yuP-Pv-da0" firstAttribute="leading" secondItem="Pru-Uj-esN" secondAttribute="leading" id="EEQ-tL-gMJ"/>
+                            <constraint firstAttribute="trailing" secondItem="BS0-qH-4Xm" secondAttribute="trailing" constant="16" id="T3g-Td-6vs"/>
                             <constraint firstItem="BS0-qH-4Xm" firstAttribute="leading" secondItem="Pru-Uj-esN" secondAttribute="leading" id="VU0-gx-MqI"/>
                             <constraint firstItem="2sy-rV-Y6F" firstAttribute="leading" secondItem="Pru-Uj-esN" secondAttribute="trailing" constant="6" id="Veo-ND-te6"/>
                             <constraint firstItem="IPL-Aw-4wB" firstAttribute="top" secondItem="BS0-qH-4Xm" secondAttribute="bottom" constant="16" id="YV0-Zn-vk0"/>
@@ -223,6 +224,7 @@
                             <constraint firstItem="GfB-uC-ZaN" firstAttribute="leading" secondItem="Pru-Uj-esN" secondAttribute="leading" id="gCU-Uo-Ifr"/>
                             <constraint firstItem="roL-Kq-CMB" firstAttribute="top" secondItem="GfB-uC-ZaN" secondAttribute="bottom" constant="20" id="gZj-RY-ImT"/>
                             <constraint firstItem="axA-H3-CyW" firstAttribute="leading" secondItem="7gE-zu-nKt" secondAttribute="leading" constant="16" id="jZy-lw-7Q2"/>
+                            <constraint firstItem="GfB-uC-ZaN" firstAttribute="trailing" secondItem="BS0-qH-4Xm" secondAttribute="trailing" id="ofF-P7-s03"/>
                             <constraint firstItem="2sy-rV-Y6F" firstAttribute="centerY" secondItem="Pru-Uj-esN" secondAttribute="centerY" id="tE5-x2-9TH"/>
                             <constraint firstItem="Pru-Uj-esN" firstAttribute="leading" secondItem="7gE-zu-nKt" secondAttribute="leading" constant="16" id="zor-dK-FgK"/>
                         </constraints>

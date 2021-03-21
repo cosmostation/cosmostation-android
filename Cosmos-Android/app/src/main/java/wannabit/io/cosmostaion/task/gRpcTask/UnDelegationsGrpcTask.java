@@ -37,7 +37,7 @@ public class UnDelegationsGrpcTask extends CommonTask {
             QueryOuterClass.QueryDelegatorUnbondingDelegationsRequest request = QueryOuterClass.QueryDelegatorUnbondingDelegationsRequest.newBuilder().setDelegatorAddr(mAccount.address).build();
             QueryOuterClass.QueryDelegatorUnbondingDelegationsResponse response = mStub.delegatorUnbondingDelegations(request);
             mResultData.addAll(response.getUnbondingResponsesList());
-//            WLog.w("UnDelegations " + response.getUnbondingResponsesList());
+//            WLog.w("UnDelegations " + response);
 
 //            if (response.hasPagination() && response.getPagination().getNextKey().size() > 0) {
 //                pageJob(response.getPagination().getNextKey());
@@ -46,7 +46,7 @@ public class UnDelegationsGrpcTask extends CommonTask {
             this.mResult.resultData = mResultData;
 //            WLog.w("UnDelegations " + mResultData.size());
 
-        } catch (Exception e) { WLog.w( "UnDelegationsGrpcTask "+ e.getMessage()); }
+        } catch (Exception e) { WLog.e( "UnDelegationsGrpcTask "+ e.getMessage()); }
         return mResult;
     }
 

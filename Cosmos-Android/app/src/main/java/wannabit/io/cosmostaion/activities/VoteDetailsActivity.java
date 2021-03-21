@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_DETAIL;
@@ -157,7 +158,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                 return;
             }
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+            if (isGRPC(mBaseChain)) {
                 if (!mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
@@ -246,7 +247,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposalTitle() {
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(mBaseChain)) {
             return  "# " + mProposalDetail_gRPC.getProposalId() + ". " + WDp.getProposalTitle(mProposalDetail_gRPC);
         } else {
             return mProposal.getTitle();
@@ -254,7 +255,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     private String getProposer() {
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(mBaseChain)) {
             return "";
         } else {
             return mProposer;
@@ -262,7 +263,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onFetch() {
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(mBaseChain)) {
             this.mTaskCount = 4;
             new ProposalDetailGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalTallyGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -368,7 +369,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteInfo(RecyclerView.ViewHolder viewHolder) {
             final VoteInfoHolder holder = (VoteInfoHolder)viewHolder;
-            if ((mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) && mProposalDetail_gRPC != null) {
+            if (isGRPC(mBaseChain) && mProposalDetail_gRPC != null) {
                 holder.itemStatusImg.setImageDrawable(WDp.getProposalStatusImg(getBaseContext(), mProposalDetail_gRPC));
                 holder.itemStatusTxt.setText(WDp.getProposalStatusTxt(getBaseContext(), mProposalDetail_gRPC));
                 holder.itemTitle.setText(WDp.getProposalTitle(mProposalDetail_gRPC));
@@ -420,7 +421,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindVoteTally(RecyclerView.ViewHolder viewHolder) {
             final VoteTallyHolder holder = (VoteTallyHolder)viewHolder;
-            if ((mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) && mTally_gRPC != null) {
+            if (isGRPC(mBaseChain) && mTally_gRPC != null) {
                 holder.itemYesProgress.setProgress(WDp.getYesPer(mTally_gRPC).intValue());
                 holder.itemNoProgress.setProgress(WDp.getNoPer(mTally_gRPC).intValue());
                 holder.itemVetoProgress.setProgress(WDp.getVetoPer(mTally_gRPC).intValue());

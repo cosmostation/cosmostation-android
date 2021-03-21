@@ -64,6 +64,9 @@ class TxTransferCell: UITableViewCell {
         let msg = try! Cosmos_Bank_V1beta1_MsgSend.init(serializedData: response.tx.body.messages[position].value)
         fromLabel.text = msg.fromAddress
         toLabel.text = msg.toAddress
+        fromLabel.adjustsFontSizeToFitWidth = true
+        toLabel.adjustsFontSizeToFitWidth = true
+        
         if (myAddress == msg.fromAddress) {
             txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
         }

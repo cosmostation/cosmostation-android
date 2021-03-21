@@ -173,6 +173,13 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainImg.image = UIImage(named: "okexChainImg")
                     cell?.chainName.text = "OKEX"
     
+                } else if (selectedChain == ChainType.PERSIS_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "chainpersistence")
+                    cell?.chainName.text = "PERSISTENCE"
+                    
                 }
                 
                 else if (selectedChain == ChainType.COSMOS_TEST) {

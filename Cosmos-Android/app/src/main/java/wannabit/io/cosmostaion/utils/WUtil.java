@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.protobuf.InvalidProtocolBufferException;
+import com.google.protobuf2.Any;
 import com.google.zxing.common.BitMatrix;
 
 import java.math.BigDecimal;
@@ -21,6 +23,7 @@ import java.security.cert.CertificateException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -36,11 +39,14 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
+import javax.xml.xpath.XPath;
 
+import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.vesting.v1beta1.Vesting;
 import okhttp3.OkHttpClient;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -92,6 +98,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
@@ -131,6 +138,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_END;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_START;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -154,6 +162,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_OKB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
 import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_HIGH;
 import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_MID;
@@ -506,60 +515,27 @@ public class WUtil {
         if(!TextUtils.isEmpty(lcd.validator_address))
             valAddress = lcd.validator_address;
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares).movePointRight(18), System.currentTimeMillis());
-
-        }
-        return null;
+        return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
     }
 
     public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBonding> list) {
         long time = System.currentTimeMillis();
         ArrayList<UnBondingState> result = new ArrayList<>();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
-            for(ResLcdUnBonding val : list) {
-                String valAddress = "";
-                if(!TextUtils.isEmpty(val.validator_addr))
-                    valAddress = val.validator_addr;
-                if(!TextUtils.isEmpty(val.validator_address))
-                    valAddress = val.validator_address;
+        for(ResLcdUnBonding val : list) {
+            String valAddress = "";
+            if(!TextUtils.isEmpty(val.validator_addr))
+                valAddress = val.validator_addr;
+            if(!TextUtils.isEmpty(val.validator_address))
+                valAddress = val.validator_address;
 
-                for(ResLcdUnBonding.Entry entry:val.entries) {
-                    UnBondingState temp = new UnBondingState(
-                            accountId,
-                            valAddress,
-                            entry.creation_height,
-                            WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-                            new BigDecimal(entry.getinitial_balance()),
-                            new BigDecimal(entry.getbalance()),
-                            time
-                    );
-                    result.add(temp);
-                }
-            }
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            for(ResLcdUnBonding val : list) {
-                String valAddress = "";
-                if(!TextUtils.isEmpty(val.validator_addr))
-                    valAddress = val.validator_addr;
-                if(!TextUtils.isEmpty(val.validator_address))
-                    valAddress = val.validator_address;
-
+            for(ResLcdUnBonding.Entry entry:val.entries) {
                 UnBondingState temp = new UnBondingState(
                         accountId,
                         valAddress,
-                        val.creation_height,
-                        WUtil.cosmosTimetoLocalLong(c, val.min_time),
-                        new BigDecimal(val.initial_balance.replace("iris","")).movePointRight(18),
-                        new BigDecimal(val.balance.replace("iris","")).movePointRight(18),
+                        entry.creation_height,
+                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
+                        new BigDecimal(entry.getinitial_balance()),
+                        new BigDecimal(entry.getbalance()),
                         time
                 );
                 result.add(temp);
@@ -1135,6 +1111,14 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
                     if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
 
+                } else if (chain.equals(AKASH_MAIN)) {
+                    if(o1.symbol.equals(TOKEN_AKASH)) return -1;
+                    if(o2.symbol.equals(TOKEN_AKASH)) return 1;
+
+                } else if (chain.equals(PERSIS_MAIN)) {
+                    if(o1.symbol.equals(TOKEN_XPRT)) return -1;
+                    if(o2.symbol.equals(TOKEN_XPRT)) return 1;
+
                 }
                 return o2.balance.compareTo(o1.balance);
             }
@@ -1184,6 +1168,14 @@ public class WUtil {
                 } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                     if(o1.symbol.equals(TOKEN_CERTIK)) return -1;
                     if(o2.symbol.equals(TOKEN_CERTIK)) return 1;
+
+                } else if (chain.equals(AKASH_MAIN)) {
+                    if(o1.symbol.equals(TOKEN_AKASH)) return -1;
+                    if(o2.symbol.equals(TOKEN_AKASH)) return 1;
+
+                } else if (chain.equals(PERSIS_MAIN)) {
+                    if(o1.symbol.equals(TOKEN_XPRT)) return -1;
+                    if(o2.symbol.equals(TOKEN_XPRT)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);
@@ -1962,6 +1954,9 @@ public class WUtil {
         } else if (chain.equals(SECRET_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://scrt.network"));
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://persistence.one/"));
+
         }
         return null;
     }
@@ -2001,13 +1996,16 @@ public class WUtil {
         } else if (chain.equals(SECRET_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://blog.scrt.network"));
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/persistence-blog"));
+
         }
         return null;
     }
 
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(COSMOS_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
 
@@ -2079,6 +2077,11 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(AKASH_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(PERSIS_MAIN)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -2378,5 +2381,143 @@ public class WUtil {
 
         }
         return "";
+    }
+
+    //parse & check vesting account
+    public static void onParseVestingAccount(BaseData baseData) {
+        WLog.w("onParseVestingAccount");
+        Any account = baseData.mGRpcAccount;
+        if (account == null ) return;
+        ArrayList<Coin> sBalace = new ArrayList<>();
+        for (Coin coin:baseData.mGrpcBalance) {
+            sBalace.add(coin);
+        }
+        if (account.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+            Vesting.PeriodicVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(account.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                WLog.e("onParseVestingAccount " + e.getMessage());
+                return;
+            }
+            for (Coin coin: sBalace) {
+                String denom = coin.denom;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                dpBalance = new BigDecimal(coin.amount);
+                WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                remainVesting = WDp.onParsePeriodicRemainVestingsAmountByDenom(vestingAccount, denom);
+                WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                if (remainVesting.compareTo(delegatedVesting)> 0) {
+                    dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                }
+                WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i ++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
+            }
+
+        } else if (account.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+            Vesting.ContinuousVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(account.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                WLog.e("onParseVestingAccount " + e.getMessage());
+                return;
+            }
+            for (Coin coin: sBalace) {
+                String denom = coin.denom;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+                dpBalance = new BigDecimal(coin.amount);
+                WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                long cTime = Calendar.getInstance().getTime().getTime();
+                long vestingEnd = (vestingAccount.getStartTime() + vestingAccount.getBaseVestingAccount().getEndTime()) * 1000;
+                if (cTime < vestingEnd) {
+                    remainVesting = originalVesting;
+                }
+                WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                if (remainVesting.compareTo(delegatedVesting)> 0) {
+                    dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                }
+                WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i ++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
+            }
+        }
     }
 }

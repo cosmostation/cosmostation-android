@@ -15,6 +15,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+
 public class ApiStakeTxsHistoryTask extends CommonTask {
 
     private String mAddress;
@@ -107,6 +109,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAkashApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(PERSIS_MAIN)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getPersisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

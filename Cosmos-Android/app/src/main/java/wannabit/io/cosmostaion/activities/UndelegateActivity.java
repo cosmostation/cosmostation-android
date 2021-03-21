@@ -45,6 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class UndelegateActivity extends BaseActivity {
@@ -90,7 +91,7 @@ public class UndelegateActivity extends BaseActivity {
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
 
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(mBaseChain)) {
             mValOpAddress = getIntent().getStringExtra("valOpAddress");
         } else {
             mValidator = getIntent().getParcelableExtra("validator");
@@ -189,7 +190,7 @@ public class UndelegateActivity extends BaseActivity {
             intent.putExtra("toAddress", mValidator.operator_address);
             intent.putExtra("uAmount", mUnDelegateAmount);
 
-        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        } else if (isGRPC(mBaseChain)) {
             intent.putExtra("toAddress", mValOpAddress);
             intent.putExtra("uAmount", mUnDelegateAmount);
         }

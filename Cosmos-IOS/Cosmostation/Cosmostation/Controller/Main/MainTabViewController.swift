@@ -184,6 +184,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         //gRPC
         BaseData.instance.mNodeInfo_gRPC = nil
+        BaseData.instance.mAccount_gRPC = nil
         BaseData.instance.mAllValidators_gRPC.removeAll()
         BaseData.instance.mBondedValidators_gRPC.removeAll()
         BaseData.instance.mUnbondValidators_gRPC.removeAll()
@@ -192,6 +193,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyDelegations_gRPC.removeAll()
         BaseData.instance.mMyUnbondings_gRPC.removeAll()
         BaseData.instance.mMyBalances_gRPC.removeAll()
+        BaseData.instance.mMyVestings_gRPC.removeAll()
         BaseData.instance.mMyReward_gRPC.removeAll()
         
         BaseData.instance.mMintParam_gRPC = nil
@@ -203,8 +205,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mIrisTokens_gRPC.removeAll()
         
         if (mChainType == ChainType.COSMOS_MAIN) {
-            self.mFetchCnt = 12
+            self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -222,8 +225,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //            onFetchgRPCAuth(mAccount)
             
         } else if (mChainType == ChainType.IRIS_MAIN) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
             onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -351,9 +355,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            self.mFetchCnt = 12
+        } else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN ) {
+            self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -368,9 +373,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCProvision()
             onFetchgRPCStakingPool()
             
-        } else if (mChainType == ChainType.COSMOS_TEST) {
-            self.mFetchCnt = 12
+        }
+        
+        else if (mChainType == ChainType.COSMOS_TEST) {
+            self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -386,8 +394,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCStakingPool()
             
         } else if (mChainType == ChainType.IRIS_TEST) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
             onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
             onFetchgRPCUnbondedValidators(0)
             onFetchgRPCUnbondingValidators(0)
@@ -447,13 +456,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("BaseData.instance.mMyBalances_gRPC ", BaseData.instance.mMyBalances_gRPC.count)
             }
             
+            
+            
             if (BaseData.instance.mNodeInfo_gRPC == nil) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
-            }
-            else {
+            } else {
                 print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
+                print("authInfo ", BaseData.instance.mAccount_gRPC?.typeURL)
+                if (BaseData.instance.mAccount_gRPC != nil && BaseData.instance.mAccount_gRPC!.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName) == false) {
+                    WUtils.onParseVestingAccount()
+                }
             }
-            
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return
@@ -1545,6 +1558,31 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    func onFetchgRPCAuth(_ address: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+
+            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
+                $0.address = address
+            }
+            do {
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                BaseData.instance.mAccount_gRPC = response.account
+
+            } catch {
+                print("onFetchgRPCAuth failed: \(error)")
+            }
+
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
     func onFetchgRPCBondedValidators(_ offset: Int) {
 //        print("onFetchgRPCBondedValidators")
         DispatchQueue.global().async {
@@ -1904,33 +1942,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 self.onFetchFinished()
             });
         }
-    }
-    
-    func onFetchgRPCAuth(_ account: Account) {
-//        print("onFetchgRPCAuth")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-
-            let req = Cosmos_Auth_V1beta1_QueryAccountRequest.with {
-                $0.address = account.account_address
-            }
-            do {
-                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
-                print("check ", WUtils.onParseAuthGrpc(response))
-
-            } catch {
-                print("onFetchgRPCAuth failed: \(error)")
-            }
-
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-
     }
     
     

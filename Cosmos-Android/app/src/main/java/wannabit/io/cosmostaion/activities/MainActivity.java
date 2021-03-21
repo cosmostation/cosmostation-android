@@ -2,6 +2,9 @@ package wannabit.io.cosmostaion.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -79,7 +82,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
@@ -284,6 +289,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 //        WLog.w("accountNumber " + mAccount.accountNumber);
 //        WLog.w("mBaseChain " + mBaseChain);
 
+        mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorWhite));
         if (mBaseChain.equals(COSMOS_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.cosmos_wh_main));
             mToolbarChainName.setText(getString(R.string.str_cosmos_hub));
@@ -343,6 +349,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_ok_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOK));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOK));
+
+        } else if (mBaseChain.equals(PERSIS_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainpersistence));
+            mToolbarChainName.setText(getString(R.string.str_persis_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorPersis));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBlack));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorPersis));
 
         }
 
@@ -487,8 +500,7 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             return;
         }
 
-        // roll back
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
+        if (isGRPC(mBaseChain)) {
             Intent intent = new Intent(MainActivity.this, SendActivity.class);
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
             if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
@@ -560,199 +572,8 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     }
 
-    public void onGetFaucet() {
-//        if (mBaseChain.equals(BNB_TEST)) {
-//            if (mAccount.getBnbBalance().compareTo(new BigDecimal("2")) > 0) {
-//                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            onShowWaitDialog();
-//            ApiClient.getBnbTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-//                @Override
-//                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-//                    if (response.isSuccessful()) {
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                onHideWaitDialog();
-//                                onFetchAllData();
-//                            }
-//                        },2000);
-//
-//                    } else {
-//                        onHideWaitDialog();
-//                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<JSONObject> call, Throwable t) {
-//                    onHideWaitDialog();
-//                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//
-//        } else if (mBaseChain.equals(KAVA_TEST)) {
-//            if (mAccount.getKavaBalance().compareTo(new BigDecimal("5000000")) > 0) {
-//                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
-//
-//            onShowWaitDialog();
-//            ApiClient.getKavaTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-//                @Override
-//                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-//                    if (response.isSuccessful()) {
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                onHideWaitDialog();
-//                                onFetchAllData();
-//                            }
-//                        },6000);
-//
-//                    } else {
-//                        onHideWaitDialog();
-//                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//
-//                @Override
-//                public void onFailure(Call<JSONObject> call, Throwable t) {
-//                    onHideWaitDialog();
-//                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                }
-//            });
-//
-//        } else
-        if (mBaseChain.equals(IOV_TEST)) {
-            if (mAccount.getIovBalance().compareTo(new BigDecimal("1000000000")) > 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            onShowWaitDialog();
-            ApiClient.getIovTestFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-                @Override
-                public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-                    if (response.isSuccessful()) {
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                onHideWaitDialog();
-                                onFetchAllData();
-                            }
-                        },6000);
-
-                    } else {
-                        onHideWaitDialog();
-                        Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JSONObject> call, Throwable t) {
-                    onHideWaitDialog();
-                    Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } else if (mBaseChain.equals(OK_TEST)) {
-            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.okex.com/drawdex"));
-            startActivity(guideIntent);
-        }
-
-    }
-
-    public void onGetAirDrop() {
-//        if (mAccount.accountNumber > 0) {
-//            Toast.makeText(getBaseContext(), R.string.error_no_more_faucet, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        onShowWaitDialog();
-//        ApiClient.getKavaFaucet(getBaseContext()).getFaucet(mAccount.address).enqueue(new Callback<JSONObject>() {
-//            @Override
-//            public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
-//                if (response.isSuccessful()) {
-//                    new Handler().postDelayed(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            onHideWaitDialog();
-//                            onFetchAllData();
-//                        }
-//                    },6000);
-//
-//                } else {
-//                    onHideWaitDialog();
-//                    Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<JSONObject> call, Throwable t) {
-//                onHideWaitDialog();
-//                Toast.makeText(getBaseContext(), t.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    }
-
-    public void onShowTestNetWarnIfNeed() {
-        if (mBaseChain.equals(BNB_TEST) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST) || mBaseChain.equals(CERTIK_TEST)) {
-            if (mToShowTestWarn) {
-                mToShowTestWarn = false;
-                if(getBaseDao().getKavaWarn()) {
-                    Dialog_Kava_Testnet dialog = Dialog_Kava_Testnet.newInstance(null);
-                    dialog.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();
-                }
-            }
-        }
-    }
-
     public void onSetKavaWarn() {
         getBaseDao().setKavaWarn();
-    }
-
-    public void onStartStakeDropEvent() {
-        if (mAccount == null) return;
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-        if (mBaseChain.equals(COSMOS_MAIN)) {
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain);
-            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_ATOM);
-            if (availableAmount.compareTo(new BigDecimal("3500")) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (delegateAmount.compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_delegated_amount, Toast.LENGTH_SHORT).show();
-                return;
-
-            }
-
-        } else if (mBaseChain.equals(KAVA_MAIN)) {
-            BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain);
-            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_KAVA);
-            if (availableAmount.compareTo(new BigDecimal("6000")) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            if (delegateAmount.compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_no_delegated_amount, Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-
-        Intent intent = new Intent(getBaseContext(), EventStakeDropActivity.class);
-        startActivity(intent);
-
     }
 
     public void onStartBinanceWalletConnect(String wcUrl) {
@@ -940,6 +761,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_chain_img));
                     holder.chainName.setText(getString(R.string.str_okex_main));
+
+                } else if (chain.equals(PERSIS_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainpersistence));
+                    holder.chainName.setText(getString(R.string.str_persis_main));
 
                 }
 

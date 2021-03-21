@@ -37,6 +37,8 @@
 		280E1F26254AC6460007BA7D /* ReplaceEditAddressViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1F24254AC6460007BA7D /* ReplaceEditAddressViewController.xib */; };
 		280E1F2A254AD3A80007BA7D /* ResourceChainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1F28254AD3A80007BA7D /* ResourceChainCell.swift */; };
 		280E1F2B254AD3A80007BA7D /* ResourceChainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1F29254AD3A80007BA7D /* ResourceChainCell.xib */; };
+		280E6CDD2605D78900B3BCBB /* WalletPersisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */; };
+		280E6CDE2605D78900B3BCBB /* WalletPersisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */; };
 		28129567250F5072007B217E /* KavaSwapParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28129566250F5072007B217E /* KavaSwapParam2.swift */; };
 		2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956A250F52C8007B217E /* KavaSwapSupply2.swift */; };
 		2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956C250F81C3007B217E /* SelectCoinCell.swift */; };
@@ -801,6 +803,8 @@
 		280E1F24254AC6460007BA7D /* ReplaceEditAddressViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReplaceEditAddressViewController.xib; sourceTree = "<group>"; };
 		280E1F28254AD3A80007BA7D /* ResourceChainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceChainCell.swift; sourceTree = "<group>"; };
 		280E1F29254AD3A80007BA7D /* ResourceChainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResourceChainCell.xib; sourceTree = "<group>"; };
+		280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPersisCell.swift; sourceTree = "<group>"; };
+		280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPersisCell.xib; sourceTree = "<group>"; };
 		28129566250F5072007B217E /* KavaSwapParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam2.swift; sourceTree = "<group>"; };
 		2812956A250F52C8007B217E /* KavaSwapSupply2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapSupply2.swift; sourceTree = "<group>"; };
 		2812956C250F81C3007B217E /* SelectCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinCell.swift; sourceTree = "<group>"; };
@@ -2565,6 +2569,8 @@
 				2872B0F1252EF79900E8CACF /* WalletSecretCell.xib */,
 				2827F4C8255B93240029AE1C /* WalletAkashCell.swift */,
 				2827F4C9255B93240029AE1C /* WalletAkashCell.xib */,
+				280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */,
+				280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -2743,6 +2749,7 @@
 				28DB570225FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib in Resources */,
 				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
+				280E6CDE2605D78900B3BCBB /* WalletPersisCell.xib in Resources */,
 				283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */,
 				28156E8025360B70006FF06C /* HarvestListAllCell.xib in Resources */,
 				2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */,
@@ -3274,6 +3281,7 @@
 				E1827E18225620D000BC0350 /* VaildatorDetailViewController.swift in Sources */,
 				E1069B0C22968DCA007517DC /* StepRedelegateAmountViewController.swift in Sources */,
 				28D372AA254BFCE70071B136 /* RegisterAccount4ViewController.swift in Sources */,
+				280E6CDD2605D78900B3BCBB /* WalletPersisCell.swift in Sources */,
 				287AC65825FDF7260070837E /* ibc_core_connection_v1_connection.pb.swift in Sources */,
 				2842AB6E242C5C7200248EEB /* CdpLisyMyCell.swift in Sources */,
 				283D2EB324F6250F00247424 /* TokenDetailHeaderOkCell.swift in Sources */,

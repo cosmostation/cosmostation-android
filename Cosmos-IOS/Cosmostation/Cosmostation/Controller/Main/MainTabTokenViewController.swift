@@ -146,6 +146,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_OK
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            titleChainImg.image = UIImage(named: "chainpersistence")
+            titleChainName.text = "(Perisistence Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_PERSIS
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -263,6 +269,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.AKASH_MAIN) {
             onFetchAkashTokenPrice()
+            
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            onFetchPersisTokenPrice()
             
         }
         
@@ -382,33 +391,39 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         
         else if (chainType! == ChainType.COSMOS_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
             let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
         } else if (chainType! == ChainType.IRIS_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
             let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
         } else if (chainType! == ChainType.AKASH_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
             let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
+            let allXprt = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allXprt.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allXprt, BaseData.instance.getLastPrice(), 6, totalValue.font)
         }
         
         
         else if (chainType! == ChainType.COSMOS_TEST) {
-            self.tokenCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
             let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
         } else if (chainType! == ChainType.IRIS_TEST) {
-            self.tokenCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
             let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, totalValue.font)
@@ -446,6 +461,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetCertikItems(tableView, indexPath)
         } else if (chainType! == ChainType.AKASH_MAIN) {
             return onSetAkashItems(tableView, indexPath)
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            return onSetPersisItems(tableView, indexPath)
         } else if (chainType! == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.IRIS_TEST) {
@@ -492,6 +509,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.CERTIK_TEST || chainType! == ChainType.CERTIK_MAIN) {
             //TODO Certik tokens details
+            
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
         }
         
     }
@@ -818,6 +837,29 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == PERSIS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenpersistence")
+            cell?.tokenSymbol.text = "XPRT"
+            cell?.tokenSymbol.textColor = COLOR_PERSIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Persistence Staking Token"
+            let allAkt = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    
+    
     func onFetchCosmosTokenPrice() {
         self.onUpdateTotalCard()
     }
@@ -912,6 +954,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchAkashTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchPersisTokenPrice() {
         self.onUpdateTotalCard()
     }
     

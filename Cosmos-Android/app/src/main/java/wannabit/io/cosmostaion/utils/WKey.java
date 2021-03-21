@@ -3,8 +3,8 @@ package wannabit.io.cosmostaion.utils;
 import android.util.Base64;
 
 import com.google.common.collect.ImmutableList;
-import com.google.protobuf2.Any;
 import com.google.protobuf.ByteString;
+import com.google.protobuf2.Any;
 
 import org.bitcoinj.core.Bech32;
 import org.bitcoinj.core.ECKey;
@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 
 public class WKey {
@@ -135,6 +136,9 @@ public class WKey {
             } else {
                 return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
             }
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
         }
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     }
@@ -267,8 +271,10 @@ public class WKey {
                 result = bech32Encode("certik".getBytes(), converted);
             } else if (chain.equals(SECRET_MAIN)){
                 result = bech32Encode("secret".getBytes(), converted);
-            }  else if (chain.equals(AKASH_MAIN)){
+            } else if (chain.equals(AKASH_MAIN)){
                 result = bech32Encode("akash".getBytes(), converted);
+            } else if (chain.equals(PERSIS_MAIN)){
+                result = bech32Encode("persistence".getBytes(), converted);
 
             }
 
@@ -297,7 +303,9 @@ public class WKey {
             return bech32Encode("secret".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AKASH_MAIN)) {
             return bech32Encode("akash".getBytes(), bech32Decode(dpOpAddress).data);
-        } else {
+        }  else if (chain.equals(PERSIS_MAIN)) {
+            return bech32Encode("persistence".getBytes(), bech32Decode(dpOpAddress).data);
+        }else {
             return "";
         }
     }
@@ -321,6 +329,8 @@ public class WKey {
             return bech32Encode("secretvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(AKASH_MAIN)) {
             return bech32Encode("akashvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return bech32Encode("persistencevaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

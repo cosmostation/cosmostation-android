@@ -88,6 +88,10 @@ let SECRET_API                          = "";
 let AKASH_URL                           = "https://lcd-akash-app.cosmostation.io/";
 let AKASH_API                           = "https://api-akash.cosmostation.io/";
 
+
+let PERSIS_API                          = "https://api-office.cosmostation.io/persistence/";
+
+
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
@@ -437,6 +441,10 @@ let AKASH_MAIN_HISTORY                      = AKASH_API + "v1/account/txs/";
 let AKASH_MAIN_TRANS_HISTORY                = AKASH_API + "v1/account/transfer_txs/";
 
 
+//PERSISTENCE Mainnet
+let PERSIS_MAIN_HISTORY                     = PERSIS_API + "v1/account/txs/";
+let PERSIS_MAIN_TRANS_HISTORY               = PERSIS_API + "v1/account/transfer_txs/";
+
 
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
@@ -449,7 +457,8 @@ let BAND_VAL_URL                        = "https://raw.githubusercontent.com/cos
 let IOV_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/iov/";
 let CERTIK_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/certik/";
 let SECRET_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/secret/";
-let AKASH_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/akash/";
+let AKASH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/akash/";
+let PERSIS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/persistence/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -661,6 +670,7 @@ let IOV_BASE_PATH                           = "m/44'/234'/0'/0/"
 let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
+let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -872,6 +882,11 @@ let TRANS_BG_COLOR_AKASH2                   = UIColor.init(hexString: "c71e10", 
 let COLOR_AKASH                             = UIColor.init(hexString: "c71e10")
 let COLOR_AKASH_DARK                        = UIColor.init(hexString: "631008")
 
+let TRANS_BG_COLOR_PERSIS                   = UIColor.init(hexString: "ededed", alpha: 0.15)
+let TRANS_BG_COLOR_PERSIS2                  = UIColor.init(hexString: "ededed", alpha: 0.4)
+let COLOR_PERSIS                            = UIColor.init(hexString: "e50a13")
+let COLOR_PERSIS_DARK                       = UIColor.init(hexString: "670000")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -894,6 +909,7 @@ enum ChainType: String {
     case CERTIK_MAIN
     case AKASH_MAIN
     case OKEX_MAIN
+    case PERSIS_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -911,6 +927,7 @@ enum ChainType: String {
         result.append(OKEX_MAIN)
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
+        result.append(PERSIS_MAIN)
         result.append(IOV_MAIN)
         result.append(CERTIK_MAIN)
         result.append(AKASH_MAIN)
@@ -988,6 +1005,7 @@ let CHAIN_SECRET_S = "SUPPORT_CHAIN_SECRET_MAIN"
 let CHAIN_CERTIK_S = "SUPPORT_CHAIN_CERTIK_MAIN"
 let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
 let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
+let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1008,6 +1026,7 @@ let CERTIK_MAIN_DENOM = "uctk"
 let AKASH_MAIN_DENOM = "uakt"
 let OKEX_MAIN_DENOM = "okt"
 let OKEX_MAIN_OKB = "okb"
+let PERSIS_MAIN_DENOM = "uxprt"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -1053,6 +1072,7 @@ let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
 let EXPLORER_SECRET_MAIN    = "https://secretnodes.com/secret/chains/secret-2/";
 let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
+let EXPLORER_PERSIS_MAIN    = "https://dev.mintscan.io/persistence/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";

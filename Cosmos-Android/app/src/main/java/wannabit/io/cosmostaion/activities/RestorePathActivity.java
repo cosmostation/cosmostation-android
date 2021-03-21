@@ -41,6 +41,7 @@ import wannabit.io.cosmostaion.task.UserTask.OverrideAccountTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -60,6 +61,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -159,27 +161,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));
                 holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                if (mChain.equals(COSMOS_MAIN) || mChain.equals(COSMOS_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-                } else if (mChain.equals(IRIS_MAIN) || mChain.equals(IRIS_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
-                } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
-                } else if (mChain.equals(KAVA_MAIN) || mChain.equals(KAVA_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
-                } else if (mChain.equals(IOV_MAIN) || mChain.equals(IOV_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
-                } else if (mChain.equals(BAND_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
-                } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
-                } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
-                } else if (mChain.equals(AKASH_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
-                } else if (mChain.equals(SECRET_MAIN)) {
-                    holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
-                }
+                holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
             } else  {
                 if(temp.hasPrivateKey) {
                     holder.newState.setText(getString(R.string.str_imported));
@@ -188,27 +170,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 } else {
                     holder.newState.setText(getString(R.string.str_override));
                     holder.newState.setTextColor(getResources().getColor(R.color.colorWhite));
-                    if (mChain.equals(COSMOS_MAIN) || mChain.equals(COSMOS_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-                    } else if (mChain.equals(IRIS_MAIN) || mChain.equals(IRIS_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
-                    } else if (mChain.equals(BNB_MAIN) || mChain.equals(BNB_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
-                    } else if (mChain.equals(KAVA_MAIN)|| mChain.equals(KAVA_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
-                    } else if (mChain.equals(IOV_MAIN) || mChain.equals(IOV_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
-                    } else if (mChain.equals(BAND_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
-                    } else if (mChain.equals(OKEX_MAIN) || mChain.equals(OK_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
-                    } else if (mChain.equals(CERTIK_MAIN) || mChain.equals(CERTIK_TEST)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
-                    } else if (mChain.equals(AKASH_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
-                    } else if (mChain.equals(SECRET_MAIN)) {
-                        holder.cardNewWallet.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
-                    }
+                    holder.cardNewWallet.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), mChain));
                 }
             }
             holder.cardNewWallet.setOnClickListener(new View.OnClickListener() {
@@ -225,12 +187,13 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 }
             });
 
-            if (mChain.equals(COSMOS_MAIN) || mChain.equals(IRIS_MAIN) || mChain.equals(AKASH_MAIN) || mChain.equals(COSMOS_TEST) || mChain.equals(IRIS_TEST)) {
+            if (isGRPC(mChain)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
                     @Override
                     public void onTaskResponse(TaskResult result) {
+                        WLog.w("result " + result.resultData);
                         ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>)result.resultData;
                         if (balances != null && balances.size() > 0) {
                             for (CoinOuterClass.Coin balance: balances) {

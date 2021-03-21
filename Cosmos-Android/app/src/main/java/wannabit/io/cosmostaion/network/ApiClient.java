@@ -380,6 +380,21 @@ public class ApiClient {
         return api_akash;
     }
 
+    //Services for Persistence mainnet api
+    private static HistoryApi api_persis = null;
+    public static HistoryApi getPersisApi(Context c) {
+        if (api_persis == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_persis))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_persis = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_persis;
+    }
+
 
 
     //Services for Cosmos Test api

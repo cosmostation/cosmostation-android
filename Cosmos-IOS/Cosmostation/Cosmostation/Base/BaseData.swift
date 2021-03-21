@@ -63,6 +63,7 @@ final class BaseData : NSObject{
     
     //For ProtoBuf and gRPC
     var mNodeInfo_gRPC: Tendermint_P2p_DefaultNodeInfo?
+    var mAccount_gRPC: Google_Protobuf2_Any?
     var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mBondedValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
     var mUnbondValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
@@ -71,6 +72,7 @@ final class BaseData : NSObject{
     var mMyDelegations_gRPC = Array<Cosmos_Staking_V1beta1_DelegationResponse>()
     var mMyUnbondings_gRPC = Array<Cosmos_Staking_V1beta1_UnbondingDelegation>()
     var mMyBalances_gRPC = Array<Coin>()
+    var mMyVestings_gRPC = Array<Coin>()
     var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
     
     var mMintParam_gRPC: Cosmos_Mint_V1beta1_Params?
@@ -102,9 +104,28 @@ final class BaseData : NSObject{
         return amount;
     }
     
-    func getAvailable(_ symbol:String) -> NSDecimalNumber {
+    func getAvailableAmount(_ symbol:String) -> NSDecimalNumber {
         return WUtils.plainStringToDecimal(getAvailable(symbol))
     }
+    
+    func getVesting(_ symbol:String) -> String {
+        var amount = NSDecimalNumber.zero.stringValue
+        for balance in mMyVestings_gRPC {
+            if (balance.denom == symbol) {
+                amount = balance.amount
+            }
+        }
+        return amount;
+    }
+    
+    func getVestingAmount(_ symbol:String) -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(getVesting(symbol))
+    }
+    
+    func getDelegatable(_ symbol:String) -> NSDecimalNumber {
+        return getAvailableAmount(symbol).adding(getVestingAmount(symbol))
+    }
+    
     
     func getDelegatedSum() -> String {
         var amount = NSDecimalNumber.zero

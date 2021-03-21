@@ -169,6 +169,13 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         bandAction.setValue(UIImage(named: "bandChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let persisAction = UIAlertAction(title: NSLocalizedString("chain_title_persis", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.PERSIS_MAIN
+            self.initViewUpdate()
+        })
+        persisAction.setValue(UIImage(named: "chainpersistence")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        
         let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SECRET_MAIN
             self.initViewUpdate()

@@ -6,6 +6,8 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.protobuf2.Any;
+
 import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
@@ -144,12 +146,14 @@ public class BaseData {
 
     //gRPC
     public Types.DefaultNodeInfo                                mGRpcNodeInfo;
+    public Any                                                  mGRpcAccount;
     public ArrayList<Staking.Validator>                         mGRpcTopValidators = new ArrayList<>();
     public ArrayList<Staking.Validator>                         mGRpcOtherValidators = new ArrayList<>();
     public ArrayList<Staking.Validator>                         mGRpcAllValidators = new ArrayList<>();
     public ArrayList<Staking.Validator>                         mGRpcMyValidators = new ArrayList<>();
 
-    public ArrayList<CoinOuterClass.Coin>                       mGrpcBalance = new ArrayList<>();
+    public ArrayList<Coin>                                      mGrpcBalance = new ArrayList<>();
+    public ArrayList<Coin>                                      mGrpcVesting = new ArrayList<>();
     public ArrayList<Staking.DelegationResponse>                mGrpcDelegations = new ArrayList<>();
     public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
     public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
@@ -180,12 +184,26 @@ public class BaseData {
 
     public BigDecimal getAvailable(String denom) {
         BigDecimal result = BigDecimal.ZERO;
-        for (CoinOuterClass.Coin coin: mGrpcBalance) {
-            if (coin.getDenom().equalsIgnoreCase(denom)) {
-                result = new BigDecimal(coin.getAmount());
+        for (Coin coin: mGrpcBalance) {
+            if (coin.denom.equalsIgnoreCase(denom)) {
+                result = new BigDecimal(coin.amount);
             }
         }
         return result;
+    }
+
+    public BigDecimal getVesting(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Coin coin: mGrpcVesting) {
+            if (coin.denom.equalsIgnoreCase(denom)) {
+                result = new BigDecimal(coin.amount);
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal getDelegatable(String denom) {
+        return getAvailable(denom).add(getVesting(denom));
     }
 
     public BigDecimal getDelegationSum() {
@@ -289,7 +307,7 @@ public class BaseData {
     }
 
     public BigDecimal getAllMainAsset(String denom) {
-        return getAvailable(denom).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
+        return getAvailable(denom).add(getVesting(denom)).add(getDelegationSum()).add(getUndelegationSum()).add(getRewardSum(denom));
     }
 
 

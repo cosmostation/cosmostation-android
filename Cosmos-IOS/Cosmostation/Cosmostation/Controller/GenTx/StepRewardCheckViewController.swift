@@ -154,7 +154,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
             
-            let userBalance: NSDecimalNumber = BaseData.instance.getAvailable(WUtils.getMainDenom(pageHolderVC.chainType))
+            let userBalance: NSDecimalNumber = BaseData.instance.getAvailableAmount(WUtils.getMainDenom(pageHolderVC.chainType))
             let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
             expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
             

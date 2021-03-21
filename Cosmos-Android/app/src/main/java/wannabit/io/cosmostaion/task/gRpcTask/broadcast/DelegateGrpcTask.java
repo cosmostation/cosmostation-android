@@ -2,12 +2,10 @@ package wannabit.io.cosmostaion.task.gRpcTask.broadcast;
 
 import org.bitcoinj.crypto.DeterministicKey;
 
-import cosmos.auth.v1beta1.Auth;
 import cosmos.auth.v1beta1.QueryGrpc;
 import cosmos.auth.v1beta1.QueryOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
-import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -68,47 +66,24 @@ public class DelegateGrpcTask extends CommonTask {
             QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
-            mResult.isSuccess = true;
+
+            //broadCast
+            ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
+            mResult.resultData = response.getTxResponse().getTxhash();
+            if (response.getTxResponse().getCode() > 0) {
+                mResult.errorCode = response.getTxResponse().getCode();
+                mResult.errorMsg = response.getTxResponse().getRawLog();
+                mResult.isSuccess = false;
+            } else {
+                mResult.isSuccess = true;
+            }
 
         } catch (Exception e) {
             WLog.e( "DelegateGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;
-    }
-
-    @Override
-    protected void onPostExecute(TaskResult taskResult) {
-        if (!taskResult.isSuccess) {
-            if (mListener != null) mListener.onTaskResponse(taskResult);
-            return;
-        }
-
-        //broadCast
-        ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcDelegateReq(mAuthResponse, mValidatorAddress, mAmount, mFees, mMemo, deterministicKey, mChainId);
-        txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
-            @Override
-            public void onNext(ServiceOuterClass.BroadcastTxResponse value) {
-//                WLog.w("onNext " +  value + "  " + value.getTxResponse());
-                mResult.resultData = value.getTxResponse().getTxhash();
-                if (value.getTxResponse().getCode() > 0) {
-                    mResult.errorCode = value.getTxResponse().getCode();
-                    mResult.errorMsg = value.getTxResponse().getRawLog();
-                    mResult.isSuccess = false;
-                } else {
-                    mResult.isSuccess = true;
-                }
-                if (mListener != null) {
-                    mListener.onTaskResponse(mResult);
-                }
-            }
-
-            @Override
-            public void onError(Throwable t) { }
-
-            @Override
-            public void onCompleted() { WLog.w("onCompleted "); }
-        });
     }
 }

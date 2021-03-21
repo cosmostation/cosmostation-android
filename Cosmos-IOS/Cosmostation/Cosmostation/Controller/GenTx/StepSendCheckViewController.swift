@@ -238,9 +238,10 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         }
         
         
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN || pageHolderVC.chainType! == ChainType.PERSIS_MAIN ||
+                    pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
             mDpDecimal = 6
-            currentAva = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
+            currentAva = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, mDpDecimal)
             
@@ -273,7 +274,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
             mDpDecimal = 6
-            currentAva = BaseData.instance.getAvailable(pageHolderVC.mToSendDenom!)
+            currentAva = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             
@@ -322,8 +323,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
                 self.onGenBnbSendTx()
                 
-            } else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                        pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+            } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
                 self.onFetchgRPCAuth(pageHolderVC.mAccount!)
             }
         }

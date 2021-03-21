@@ -23,13 +23,14 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mCertik, mAkash, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSecret, mCosmosTest, mIrisTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -75,6 +76,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCertik = view.findViewById(R.id.certik_chain);
         mAkash = view.findViewById(R.id.akash_chain);
         mSecret = view.findViewById(R.id.secret_chain);
+        mPersis = view.findViewById(R.id.persis_chain);
 
 
 
@@ -131,6 +133,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(BaseChain.BAND_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mPersis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(PERSIS_MAIN);
                 getDialog().dismiss();
             }
         });

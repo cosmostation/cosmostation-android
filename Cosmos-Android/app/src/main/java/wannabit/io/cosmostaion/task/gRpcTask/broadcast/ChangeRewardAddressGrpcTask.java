@@ -65,47 +65,24 @@ public class ChangeRewardAddressGrpcTask extends CommonTask {
             QueryGrpc.QueryBlockingStub authStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
             QueryOuterClass.QueryAccountRequest request = QueryOuterClass.QueryAccountRequest.newBuilder().setAddress(mAccount.address).build();
             mAuthResponse = authStub.account(request);
-            mResult.isSuccess = true;
+
+            //broadCast
+            ServiceGrpc.ServiceBlockingStub txService = ServiceGrpc.newBlockingStub(ChannelBuilder.getChain(mBaseChain));
+            ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRewardAddressChangeReq(mAuthResponse, mToRewardAddress, mFees, mMemo, deterministicKey, mChainId);
+            ServiceOuterClass.BroadcastTxResponse response = txService.broadcastTx(broadcastTxRequest);
+            mResult.resultData = response.getTxResponse().getTxhash();
+            if (response.getTxResponse().getCode() > 0) {
+                mResult.errorCode = response.getTxResponse().getCode();
+                mResult.errorMsg = response.getTxResponse().getRawLog();
+                mResult.isSuccess = false;
+            } else {
+                mResult.isSuccess = true;
+            }
 
         } catch (Exception e) {
             WLog.e( "ClaimRewardsGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;
-    }
-
-    @Override
-    protected void onPostExecute(TaskResult taskResult) {
-        if (!taskResult.isSuccess) {
-            if (mListener != null) mListener.onTaskResponse(taskResult);
-            return;
-        }
-
-        //broadCast
-        ServiceGrpc.ServiceStub txService = ServiceGrpc.newStub(ChannelBuilder.getChain(mBaseChain));
-        ServiceOuterClass.BroadcastTxRequest broadcastTxRequest = Signer.getGrpcRewardAddressChangeReq(mAuthResponse, mToRewardAddress, mFees, mMemo, deterministicKey, mChainId);
-        txService.broadcastTx(broadcastTxRequest, new StreamObserver<ServiceOuterClass.BroadcastTxResponse>() {
-            @Override
-            public void onNext(ServiceOuterClass.BroadcastTxResponse value) {
-//                WLog.w("onNext " +  value + "  " + value.getTxResponse());
-                mResult.resultData = value.getTxResponse().getTxhash();
-                if (value.getTxResponse().getCode() > 0) {
-                    mResult.errorCode = value.getTxResponse().getCode();
-                    mResult.errorMsg = value.getTxResponse().getRawLog();
-                    mResult.isSuccess = false;
-                } else {
-                    mResult.isSuccess = true;
-                }
-                if (mListener != null) {
-                    mListener.onTaskResponse(mResult);
-                }
-            }
-
-            @Override
-            public void onError(Throwable t) { }
-
-            @Override
-            public void onCompleted() { WLog.w("onCompleted "); }
-        });
     }
 }
