@@ -47,6 +47,9 @@ public interface OkChain {
     @GET("staking/validators?status=unbonded")
     Call<ArrayList<Validator>> getUnBondedValidatorDetailList();
 
+    @GET("staking/validators?status=all")
+    Call<ArrayList<Validator>> getAllValidatorDetailList();
+
     @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);
 

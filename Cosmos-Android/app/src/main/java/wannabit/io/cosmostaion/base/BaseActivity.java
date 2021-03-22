@@ -31,7 +31,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -112,6 +111,7 @@ import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameConfigTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameFeeTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
+import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoUnbondedTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoUnbondingTask;
@@ -170,6 +170,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_FE
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINT_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OKEX_ALL_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_ACCOUNT_BALANCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEX_TICKERS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_STAKING_INFO;
@@ -621,15 +622,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
-            mTaskCount = 10;
+            mTaskCount = 8;
             getBaseDao().mOkStaking = null;
             getBaseDao().mOkUnbonding = null;
             getBaseDao().mOkTokenList = null;
             getBaseDao().mOkTickersList = null;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoAllTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new OkAccountBalanceTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -735,10 +734,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             getBaseDao().mNodeInfo = (NodeInfo)result.resultData;
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
-//            if (!result.isSuccess) {
-//                Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
-//                return;
-//            }
             ArrayList<Validator> bondedValis = (ArrayList<Validator>)result.resultData;
             if (bondedValis != null) {
                 getBaseDao().mTopValidators = bondedValis;
@@ -748,6 +743,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             ArrayList<Validator> unbondValis = (ArrayList<Validator>)result.resultData;
             if (unbondValis != null) {
                 getBaseDao().mOtherValidators.addAll(unbondValis);
+            }
+
+        } else if (result.taskType == TASK_FETCH_OKEX_ALL_VALIDATORS) {
+            ArrayList<Validator> allValis = (ArrayList<Validator>)result.resultData;
+            if (allValis != null) {
+                getBaseDao().mAllValidators = allValis;
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
@@ -1031,8 +1032,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
 
             } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
-                getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
+                for (Validator all:getBaseDao().mAllValidators) {
+                    if (all.status == Validator.BONDED) {
+                        getBaseDao().mTopValidators.add(all);
+                    } else {
+                        getBaseDao().mOtherValidators.add(all);
+
+                    }
+
+                }
+                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
 
                 if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                     for (String valAddr : getBaseDao().mOkStaking.validator_address) {

@@ -180,6 +180,7 @@ public class BaseConstant {
     public final static int TASK_GEN_TX_KAVA_BORROW_HARD                = 2124;
     public final static int TASK_GEN_TX_KAVA_REPAY_HARD                 = 2125;
     public final static int TASK_FETCH_NODE_INFO                        = 2126;
+    public final static int TASK_FETCH_OKEX_ALL_VALIDATORS              = 2127;
 
     public final static int TASK_FETCH_API_ADDRESS_HISTORY              = 2300;
     public final static int TASK_FETCH_API_TOKEN_HISTORY                = 2301;

@@ -98,7 +98,6 @@ public class NodeInfoTask extends CommonTask {
 
             } else if (mChain.equals(OKEX_MAIN)) {
                 Response<ResNodeInfo> response = ApiClient.getOkexChain(mApp).getNodeInfo().execute();
-                WLog.w("url " + ApiClient.getOkexChain(mApp).getNodeInfo().request().url() );
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;
                     mResult.isSuccess = true;
