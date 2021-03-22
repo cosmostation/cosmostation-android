@@ -1533,6 +1533,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
             return
         }
+        
+        if (chainType! == ChainType.BINANCE_TEST || chainType! == ChainType.KAVA_TEST) {
+            self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
+            return
+        }
+        
         if (!mainTabVC.mAccount.account_has_private) {
             self.onShowAddMenomicDialog()
             return

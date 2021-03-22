@@ -794,6 +794,12 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
             return
         }
+        
+        if (chainType! == ChainType.BINANCE_TEST || chainType! == ChainType.KAVA_TEST) {
+            self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
+            return
+        }
+        
         if (!account!.account_has_private) {
             self.onShowAddMenomicDialog()
             return
