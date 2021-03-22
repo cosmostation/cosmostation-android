@@ -59,14 +59,10 @@ import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisPool;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisReward;
-import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
-import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -104,7 +100,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
@@ -124,20 +119,12 @@ public class WDp {
     public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
         SpannableString result;
         BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(IRIS_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CERTIK_TEST) ||
-                chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN) || chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
-            amount = amount.divide(new BigDecimal("1000000"), 6, BigDecimal.ROUND_DOWN);
-            result = new SpannableString(getDecimalFormat(c, point).format(amount));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             result = new SpannableString(getDecimalFormat(c, point).format(amount));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
         } else {
             result = new SpannableString(getDecimalFormat(c, 0).format(amount));
-
         }
         return result;
     }
@@ -358,14 +345,6 @@ public class WDp {
         return sum;
     }
 
-    public static SpannableString getDpAllIrisRewardAmount(Context c, ResLcdIrisReward rewards, BaseChain chain) {
-        if (rewards != null) {
-            return getDpAmount(c, rewards.getSimpleIrisReward(), 6, chain);
-        } else {
-            return getDpAmount(c, BigDecimal.ZERO, 6, chain);
-        }
-    }
-
     public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for(Reward reward : rewards) {
@@ -375,13 +354,6 @@ public class WDp {
             }
         }
         return getDpAmount(c, result, 6, chain);
-    }
-
-    public static SpannableString getIrisValidatorReward(Context c, ResLcdIrisReward reward, String valOpAddress, BaseChain chain) {
-        if(reward == null || TextUtils.isEmpty(valOpAddress)) {
-            return getDpAmount(c, BigDecimal.ZERO, 6, chain);
-        }
-        return getDpAmount(c, reward.getPerValReward(valOpAddress), 6, chain);
     }
 
     public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress, String denom) {
@@ -451,90 +423,6 @@ public class WDp {
         return getDpAmount2(c, estDpr, 6, 12);
     }
 
-    public static BigDecimal getYield(BigDecimal bonded, BigDecimal provision, BigDecimal commission) {
-        BigDecimal result = BigDecimal.ZERO;
-        try {
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.HALF_UP);
-
-        }catch (Exception e) {}
-        return result;
-    }
-
-    public static SpannableString getYieldString(ResStakingPool pool, BigDecimal provision, BigDecimal commission) {
-        BigDecimal result = BigDecimal.ZERO;
-        BigDecimal bonded = BigDecimal.ZERO;
-        try {
-            bonded = new BigDecimal(pool.result.bonded_tokens);
-            result = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(bonded, 2, RoundingMode.HALF_UP);
-
-        }catch (Exception e) {}
-        return getPercentDp(result);
-    }
-
-    public static SpannableString getIrisYieldString(ResLcdIrisPool pool, BigDecimal commission) {
-        BigDecimal result = BigDecimal.ZERO;
-        if(pool != null) {
-            try {
-                result = pool.geTotal().multiply(new BigDecimal(0.04)).multiply(BigDecimal.ONE.subtract(commission)).multiply(new BigDecimal("100")).divide(pool.getBonded(), 2, RoundingMode.HALF_UP);
-
-            }catch (Exception e) {}
-        }
-        return getPercentDp(result);
-    }
-
-    public static SpannableString getDailyReturn(Context c, ResStakingPool pool, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal value = BigDecimal.ZERO;
-        BigDecimal bonded = BigDecimal.ZERO;
-        try {
-            bonded = new BigDecimal(pool.result.bonded_tokens);
-            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("365000000")), 12, RoundingMode.DOWN);
-
-        }catch (Exception e) {}
-
-        SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, 12).format(value));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-    }
-
-    public static SpannableString getMonthlyReturn(Context c, ResStakingPool pool, BigDecimal provision, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal value = BigDecimal.ZERO;
-        BigDecimal bonded = BigDecimal.ZERO;
-        try {
-            bonded = new BigDecimal(pool.result.bonded_tokens);
-            value = provision.multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(bonded.multiply(new BigDecimal("12000000")), 12, RoundingMode.DOWN);
-
-        }catch (Exception e) {}
-        SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, 12).format(value));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 12, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-    }
-
-    public static SpannableString getIrisDailyReturn(Context c, ResLcdIrisPool pool, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal value = BigDecimal.ZERO;
-        try {
-            value = pool.geTotal().multiply(new BigDecimal(0.04)).setScale(0, RoundingMode.DOWN).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("365000000000000000000")), 18, RoundingMode.DOWN);
-
-        }catch (Exception e) {}
-
-        SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, 18).format(value));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 18, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-    }
-
-    public static SpannableString getIrisMonthlyReturn(Context c, ResLcdIrisPool pool, BigDecimal commission, BigDecimal delegated) {
-        BigDecimal value = BigDecimal.ZERO;
-        try {
-            value = pool.geTotal().multiply(new BigDecimal(0.04)).setScale(0, RoundingMode.DOWN).multiply(BigDecimal.ONE.subtract(commission)).multiply(delegated).divide(pool.getBonded().multiply(new BigDecimal("12000000000000000000")), 18, RoundingMode.DOWN);
-
-        }catch (Exception e) {}
-        SpannableString result;
-        result = new SpannableString(getDecimalFormat(c, 18).format(value));
-        result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 18, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-    }
 
     public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
@@ -592,36 +480,6 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal getHavestDepositAmount(BaseData baseData, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-//        for (ResKavaHarvestDeposit.HarvestDeposit deposit:baseData.mHavestDeposits) {
-//            if (deposit.amount.denom.equals(denom)) {
-//                sum = sum.add(new BigDecimal(deposit.amount.amount));
-//            }
-//        }
-        return sum;
-    }
-
-    public static BigDecimal getHavestRewardAmount(BaseData baseData, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-//        for (ResKavaHarvestReward.HarvestReward hReward:baseData.mHavestRewards) {
-//            if (hReward.amount.denom.equals(denom)) {
-//                sum = sum.add(new BigDecimal(hReward.amount.amount));
-//            }
-//        }
-        return sum;
-    }
-
-    public static BigDecimal getUnclaimedIncentiveAmount(BaseData baseData, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-//        for (ResKavaIncentiveReward.IncentiveRewardClaimable incentive:baseData.mKavaUnClaimedIncentiveRewards) {
-//            if (incentive.claim.reward.denom.equals(denom) && incentive.claimable) {
-//                sum = sum.add(new BigDecimal(incentive.claim.reward.amount));
-//            }
-//        }
-        return sum;
-    }
-
     public static BigDecimal getKavaTokenAll(BaseData baseData, ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
@@ -630,8 +488,6 @@ public class WDp {
                 sum = sum.add(balance.frozen);
             }
         }
-        sum = sum.add(getHavestDepositAmount(baseData, denom));
-        sum = sum.add(getHavestRewardAmount(baseData, denom));
         return sum;
     }
 
@@ -654,7 +510,6 @@ public class WDp {
                 BigDecimal price = new BigDecimal(prices.get("bnb:usd:30").price);
                 return amount.movePointLeft(dpDecimal).multiply(price);
 
-//            } else if ((denom.contains("xrp") || denom.contains("xrbp")) && prices.get("xrp:usd:30") != null) {
             } else if (denom.contains("xrp") && prices.get("xrp:usd:30") != null) {
                 BigDecimal price = new BigDecimal(prices.get("xrp:usd:30").price);
                 return amount.movePointLeft(dpDecimal).multiply(price);
@@ -679,39 +534,6 @@ public class WDp {
         }
         return BigDecimal.ZERO;
     }
-
-    public static SpannableString getDpAvailableCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
-        return getDpAmount(c, getAvailableCoin(balances, denom), 6, chain);
-    }
-
-
-    public static BigDecimal getVestedCoin(ArrayList<Balance> balances, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equals(denom)) {
-                sum = balance.locked;
-            }
-        }
-        return sum;
-    }
-
-    public static SpannableString getDpVestedCoin(Context c, ArrayList<Balance> balances, BaseChain chain, String denom) {
-        return getDpAmount(c, getVestedCoin(balances, denom), 6, chain);
-    }
-
-    public static SpannableString getDpAllDelegatedAmount(Context c, ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
-        return getDpAmount(c, getAllDelegatedAmount(bondings, validators, chain), 6, chain);
-    }
-
-    public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (bondings == null || bondings.size() == 0) return sum;
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-        }
-        return sum;
-    }
-
 
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
@@ -744,44 +566,20 @@ public class WDp {
         return result;
     }
 
-    public static SpannableString getDpAllUnbondingAmount(Context c, ArrayList<UnBondingState> unbondings, ArrayList<Validator> validators, BaseChain chain) {
-        return getDpAmount(c, getUnbondingAmount(unbondings), 6, chain);
-    }
-
-    public static BigDecimal getUnbondingAmount(ArrayList<UnBondingState> unbondings) {
+    public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
         BigDecimal sum = BigDecimal.ZERO;
-        if (unbondings == null || unbondings.size() == 0) return sum;
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
+        if (bondings == null || bondings.size() == 0) return sum;
+        for(BondingState bonding : bondings) {
+            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
         }
         return sum;
     }
 
-    public static SpannableString getDpAllAtom(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators, BaseChain chain) {
-        return getDpAmount(c, getAllAtom(balances, bondings,unbondings,rewards,validators), 6, chain);
-    }
-
-    public static BigDecimal getAllAtom(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+    public static BigDecimal getAllUnbondingAmount(ArrayList<UnBondingState> unbondings) {
         BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(BaseConstant.TOKEN_ATOM)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if(bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_ATOM));
-            }
+        if (unbondings == null || unbondings.size() == 0) return sum;
+        for(UnBondingState unbonding : unbondings) {
+            sum = sum.add(unbonding.balance);
         }
         return sum;
     }
@@ -808,34 +606,6 @@ public class WDp {
             for(Reward reward : rewards) {
                 sum = sum.add(reward.getRewardAmount(TOKEN_KAVA));
             }
-        }
-        sum = sum.add(getHavestDepositAmount(baseData, TOKEN_KAVA));
-        sum = sum.add(getUnclaimedIncentiveAmount(baseData, TOKEN_KAVA));
-
-        return sum;
-    }
-
-        public static SpannableString getDpAllIris(Context c, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators, BaseChain chain) {
-        return getDpAmount(c, getAllIris(balances, bondings, unbondings, reward, validators), 6, chain);
-    }
-
-    public static BigDecimal getAllIris(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ResLcdIrisReward reward, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_IRIS_ATTO)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        for (UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
-        }
-        if (reward != null) {
-            sum = sum.add(reward.getSimpleIrisReward());
         }
         return sum;
     }
@@ -953,31 +723,6 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal getAllAkt(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_AKASH)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_AKASH));
-            }
-        }
-        return sum;
-    }
-
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
@@ -1006,42 +751,6 @@ public class WDp {
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
-        }
-    }
-
-    public static SpannableString getValueOfAtom(Context c, BaseData dao, BigDecimal totalAmount) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-
-        } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAtomTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-        }
-    }
-
-    public static SpannableString getValueOfIris(Context c, BaseData dao, BigDecimal totalAmount) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(8, RoundingMode.DOWN);
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-
-        } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIrisTic())).movePointLeft(18).setScale(2, RoundingMode.DOWN);
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
         }
     }
 
@@ -1153,24 +862,6 @@ public class WDp {
         }
     }
 
-    public static SpannableString getValueOfAkash(Context c, BaseData dao, BigDecimal totalAmount) {
-        BigDecimal totalPrice = BigDecimal.ZERO;
-        if(dao.getCurrency() == 5) {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAkashTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-
-        } else {
-            totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastAkashTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-        }
-    }
-
     public static SpannableString getValueOfSecret(Context c, BaseData dao, BigDecimal totalAmount) {
         BigDecimal totalPrice = BigDecimal.ZERO;
         if(dao.getCurrency() == 5) {
@@ -1203,21 +894,6 @@ public class WDp {
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
-
-    public static SpannableString getZeroValue(Context c, BaseData dao) {
-        if(dao.getCurrency() == 5) {
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(BigDecimal.ZERO));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-        } else {
-            SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(BigDecimal.ZERO));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-            return result;
-        }
-    }
-
 
     public static SpannableString getPriceUpDown(BigDecimal input) {
         return getDpString(input.setScale(2, RoundingMode.DOWN).toPlainString() + "% (24h)", 9);
@@ -1261,16 +937,6 @@ public class WDp {
     public static BigDecimal uAtomToAtom(BigDecimal uatom) {
         return uatom.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN);
     }
-
-    public static BigDecimal atomToUatom(BigDecimal atom) {
-        return atom.multiply(new BigDecimal("1000000"));
-    }
-
-    public static BigDecimal attoToIris(BigDecimal atto) {
-        return atto.divide(new BigDecimal("1000000000000000000"), 18, RoundingMode.DOWN);
-    }
-
-
 
 
 
@@ -1701,14 +1367,6 @@ public class WDp {
         return result;
     }
 
-    public static String getHistoryDpCnt(ArrayList<Msg> msgs) {
-        String result = "";
-        if(msgs.size() > 2) {
-            result = result + " + " + (msgs.size() - 1);
-        }
-        return result;
-    }
-
     public static String getPath(BaseChain chain, int position, boolean newBip) {
         if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return BaseConstant.KEY_BNB_PATH + String.valueOf(position);
@@ -1833,11 +1491,6 @@ public class WDp {
         return result;
     }
 
-    public static String getVestingTime(Context c, long startTime, ResLcdKavaAccountInfo.VestingPeriod vestingPeriod) {
-        long unlockTime = (startTime + vestingPeriod.length) * 1000;
-        return getDpTime(c, unlockTime);
-    }
-
     public static String getUnbondTime(Context c, BaseChain chain) {
         String result = "??";
         try {
@@ -1867,13 +1520,6 @@ public class WDp {
 
         return result;
     }
-
-    public static String getVestingTimeGap(Context c, long startTime, ResLcdKavaAccountInfo.VestingPeriod vestingPeriod) {
-        long unlockTime = (startTime + vestingPeriod.length) * 1000;
-        return getUnbondingTimeleft(c, unlockTime);
-
-    }
-
     public static String getUnbondingTimeleft(Context c, long finishTime) {
         String result = "??";
         try {

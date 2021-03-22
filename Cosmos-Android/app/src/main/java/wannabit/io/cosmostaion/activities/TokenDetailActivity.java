@@ -485,14 +485,18 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
 
         private void onBindAtom(RecyclerView.ViewHolder viewHolder, int position) {
             final AtomHolder holder = (AtomHolder)viewHolder;
-            BigDecimal totalAmount = WDp.getAllAtom(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
-            holder.mTvAtomTotal.setText(WDp.getDpAmount(getBaseContext(), totalAmount, 6, mBaseChain));
-            holder.mTvAtomAvailable.setText(WDp.getDpAvailableCoin(getBaseContext(), getBaseDao().mBalances, mBaseChain, TOKEN_ATOM));
-            holder.mTvAtomDelegated.setText(WDp.getDpAllDelegatedAmount(getBaseContext(), getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain));
-            holder.mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), getBaseDao().mUnbondings, getBaseDao().mAllValidators, mBaseChain));
-            holder.mTvAtomUnBonding.setText(WDp.getDpAllUnbondingAmount(getBaseContext(), getBaseDao().mUnbondings, getBaseDao().mAllValidators, mBaseChain));
-            holder.mTvAtomRewards.setText(WDp.getDpAllRewardAmount(getBaseContext(), getBaseDao().mRewards, mBaseChain, TOKEN_ATOM));
-            holder.mTvAtomValue.setText(WDp.getValueOfAtom(getBaseContext(), getBaseDao(), totalAmount));
+            final BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+            final BigDecimal delegateAmount = getBaseDao().getDelegationSum();
+            final BigDecimal unbondingAmount = getBaseDao().getUndelegationSum();
+            final BigDecimal rewardAmount = getBaseDao().getRewardSum(WDp.mainDenom(mBaseChain));
+            final BigDecimal totalAmount = getBaseDao().getAllMainAsset(WDp.mainDenom(mBaseChain));
+
+            holder.mTvAtomTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 6, 6));
+            holder.mTvAtomAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 6, 6));
+            holder.mTvAtomDelegated.setText(WDp.getDpAmount2(getBaseContext(), delegateAmount, 6, 6));
+            holder.mTvAtomUnBonding.setText(WDp.getDpAmount2(getBaseContext(), unbondingAmount, 6, 6));
+            holder.mTvAtomRewards.setText(WDp.getDpAmount2(getBaseContext(), rewardAmount, 6, 6));
+            holder.mTvAtomValue.setText(WDp.getDpMainAssetValue(getBaseContext(), getBaseDao(), totalAmount, mBaseChain));
 
             holder.mBtnSendAtom.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -566,11 +570,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             final KavaHolder holder = (KavaHolder)viewHolder;
             BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_KAVA);
             BigDecimal delegateAmount = WDp.getAllDelegatedAmount(getBaseDao().mBondings, getBaseDao().mAllValidators, mBaseChain);
-            BigDecimal unbondingAmount = WDp.getUnbondingAmount(getBaseDao().mUnbondings);
+            BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(getBaseDao().mUnbondings);
             BigDecimal rewardAmount = WDp.getAllRewardAmount(getBaseDao().mRewards, TOKEN_KAVA);
             BigDecimal vestingAmount = WDp.getLockedCoin(getBaseDao().mBalances, TOKEN_KAVA);
-            BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(getBaseDao(), TOKEN_KAVA);
-            BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(getBaseDao(), TOKEN_KAVA);
+//            BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(getBaseDao(), TOKEN_KAVA);
+//            BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(getBaseDao(), TOKEN_KAVA);
             BigDecimal totalAmount = WDp.getAllKava(getBaseDao(), getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
 
             holder.mTvKavaTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 6, 6));
@@ -579,16 +583,16 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             holder.mTvKavaUnBonding.setText(WDp.getDpAmount2(getBaseContext(), unbondingAmount, 6, 6));
             holder.mTvKavaRewards.setText(WDp.getDpAmount2(getBaseContext(), rewardAmount, 6, 6));
             holder.mTvKavaVesting.setText(WDp.getDpAmount2(getBaseContext(), vestingAmount, 6, 6));
-            holder.mTvKavaDeposit.setText(WDp.getDpAmount2(getBaseContext(), harvestDepositAmount, 6, 6));
-            holder.mTvKavaIncentive.setText(WDp.getDpAmount2(getBaseContext(), unclaimedIncentiveAmount, 6, 6));
+//            holder.mTvKavaDeposit.setText(WDp.getDpAmount2(getBaseContext(), harvestDepositAmount, 6, 6));
+//            holder.mTvKavaIncentive.setText(WDp.getDpAmount2(getBaseContext(), unclaimedIncentiveAmount, 6, 6));
             holder.mTvKavaValue.setText(WDp.getValueOfKava(getBaseContext(), getBaseDao(), totalAmount));
 
             if (!vestingAmount.equals(BigDecimal.ZERO)) { holder.mKavaVestingLayer.setVisibility(View.VISIBLE);
             } else { holder.mKavaVestingLayer.setVisibility(View.GONE); }
-            if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { holder.mKavaDepositLayer.setVisibility(View.VISIBLE);
-            } else { holder.mKavaDepositLayer.setVisibility(View.GONE); }
-            if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { holder.mKavaIncentiveLayer.setVisibility(View.VISIBLE);
-            } else { holder.mKavaIncentiveLayer.setVisibility(View.GONE); }
+//            if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { holder.mKavaDepositLayer.setVisibility(View.VISIBLE);
+//            } else { holder.mKavaDepositLayer.setVisibility(View.GONE); }
+//            if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { holder.mKavaIncentiveLayer.setVisibility(View.VISIBLE);
+//            } else { holder.mKavaIncentiveLayer.setVisibility(View.GONE); }
 
             holder.mBtnSendKava.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -701,8 +705,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 final BigDecimal tokenTotalAmount           = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal availableTokenAmount       = WDp.getAvailableCoin(getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(getBaseDao().mBalances, mBalance.symbol);
-                final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
-                final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
+//                final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
+//                final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(mBaseChain, getBaseDao(), mBalance.symbol, tokenTotalAmount);
                 final BigDecimal convertedKavaAmount        = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
 
@@ -714,11 +718,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 holder.mTvTokenValue.setText(WDp.getValueOfKava(getBaseContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
                 holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableTokenAmount, dpDecimal, dpDecimal));
                 holder.mTvTokenVesting.setText(WDp.getDpAmount2(getBaseContext(), vestingTokenAmount, dpDecimal, dpDecimal));
-                holder.mTvTokenHarvestDeposit.setText(WDp.getDpAmount2(getBaseContext(), havestDepositTokenAmount, dpDecimal, dpDecimal));
-                holder.mTvTokenHarvestReward.setText(WDp.getDpAmount2(getBaseContext(), havestRewardTokenAmount, dpDecimal, dpDecimal));
+//                holder.mTvTokenHarvestDeposit.setText(WDp.getDpAmount2(getBaseContext(), havestDepositTokenAmount, dpDecimal, dpDecimal));
+//                holder.mTvTokenHarvestReward.setText(WDp.getDpAmount2(getBaseContext(), havestRewardTokenAmount, dpDecimal, dpDecimal));
                 if (!vestingTokenAmount.equals(BigDecimal.ZERO)) { holder.mVestingLayer.setVisibility(View.VISIBLE); }
                 holder.mHarvestDepositLayer.setVisibility(View.VISIBLE);
-                if (!havestRewardTokenAmount.equals(BigDecimal.ZERO)) { holder.mHarvestRewardLayer.setVisibility(View.VISIBLE); }
+//                if (!havestRewardTokenAmount.equals(BigDecimal.ZERO)) { holder.mHarvestRewardLayer.setVisibility(View.VISIBLE); }
 
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.mTokenImg);
@@ -735,8 +739,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 final BigDecimal tokenTotalAmount           = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal availableTokenAmount       = WDp.getAvailableCoin(getBaseDao().mBalances, mBalance.symbol);
                 final BigDecimal vestingTokenAmount         = WDp.getKavaVestingAmount(getBaseDao().mBalances, mBalance.symbol);
-                final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
-                final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
+//                final BigDecimal havestDepositTokenAmount   = WDp.getHavestDepositAmount(getBaseDao(), mBalance.symbol);
+//                final BigDecimal havestRewardTokenAmount    = WDp.getHavestRewardAmount(getBaseDao(), mBalance.symbol);
                 final BigDecimal tokenTotalValue            = WDp.kavaTokenDollorValue(mBaseChain, getBaseDao(), mBalance.symbol, tokenTotalAmount);
                 final BigDecimal convertedKavaAmount        = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
 
@@ -748,11 +752,11 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 holder.mTvTokenValue.setText(WDp.getValueOfKava(getBaseContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
                 holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableTokenAmount, dpDecimal, dpDecimal));
                 holder.mTvTokenVesting.setText(WDp.getDpAmount2(getBaseContext(), vestingTokenAmount, dpDecimal, dpDecimal));
-                holder.mTvTokenHarvestDeposit.setText(WDp.getDpAmount2(getBaseContext(), havestDepositTokenAmount, dpDecimal, dpDecimal));
-                holder.mTvTokenHarvestReward.setText(WDp.getDpAmount2(getBaseContext(), havestRewardTokenAmount, dpDecimal, dpDecimal));
+//                holder.mTvTokenHarvestDeposit.setText(WDp.getDpAmount2(getBaseContext(), havestDepositTokenAmount, dpDecimal, dpDecimal));
+//                holder.mTvTokenHarvestReward.setText(WDp.getDpAmount2(getBaseContext(), havestRewardTokenAmount, dpDecimal, dpDecimal));
                 if (!vestingTokenAmount.equals(BigDecimal.ZERO)) { holder.mVestingLayer.setVisibility(View.VISIBLE); }
                 holder.mHarvestDepositLayer.setVisibility(View.VISIBLE);
-                if (!havestRewardTokenAmount.equals(BigDecimal.ZERO)) { holder.mHarvestRewardLayer.setVisibility(View.VISIBLE); }
+//                if (!havestRewardTokenAmount.equals(BigDecimal.ZERO)) { holder.mHarvestRewardLayer.setVisibility(View.VISIBLE); }
 
                 try {
                     Picasso.get().load(KAVA_COIN_IMG_URL+mBalance.symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.mTokenImg);

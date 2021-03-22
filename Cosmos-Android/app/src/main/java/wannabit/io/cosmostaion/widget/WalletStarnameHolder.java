@@ -42,7 +42,7 @@ public class WalletStarnameHolder extends BaseHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_IOV);
         final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
+        final BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
         final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_IOV);
         final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
 

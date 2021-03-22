@@ -20,7 +20,6 @@ import wannabit.io.cosmostaion.activities.chains.kava.DAppsList5Activity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
@@ -55,11 +54,11 @@ public class WalletKavaHolder extends BaseHolder {
         final BaseData baseData = mainActivity.getBaseDao();
         BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_KAVA);
         BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        BigDecimal unbondingAmount = WDp.getUnbondingAmount(baseData.mUnbondings);
+        BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
         BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_KAVA);
         BigDecimal vestingAmount = WDp.getLockedCoin(baseData.mBalances, TOKEN_KAVA);
-        BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(mainActivity.getBaseDao(), TOKEN_KAVA);
-        BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(mainActivity.getBaseDao(), TOKEN_KAVA);
+//        BigDecimal harvestDepositAmount = WDp.getHavestDepositAmount(mainActivity.getBaseDao(), TOKEN_KAVA);
+//        BigDecimal unclaimedIncentiveAmount = WDp.getUnclaimedIncentiveAmount(mainActivity.getBaseDao(), TOKEN_KAVA);
         BigDecimal totalAmount = WDp.getAllKava(mainActivity.getBaseDao(), baseData.mBalances, baseData.mBondings, baseData.mUnbondings, baseData.mRewards, baseData.mAllValidators);
 
         mTvKavaTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
@@ -68,16 +67,16 @@ public class WalletKavaHolder extends BaseHolder {
         mTvKavaUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvKavaRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvKavaVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
-        mTvKavaDeposit.setText(WDp.getDpAmount2(mainActivity, harvestDepositAmount, 6, 6));
-        mTvKavaIncentive.setText(WDp.getDpAmount2(mainActivity, unclaimedIncentiveAmount, 6, 6));
+//        mTvKavaDeposit.setText(WDp.getDpAmount2(mainActivity, harvestDepositAmount, 6, 6));
+//        mTvKavaIncentive.setText(WDp.getDpAmount2(mainActivity, unclaimedIncentiveAmount, 6, 6));
         mTvKavaValue.setText(WDp.getValueOfKava(mainActivity, mainActivity.getBaseDao(), totalAmount));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mKavaVestingLayer.setVisibility(View.VISIBLE);
         } else { mKavaVestingLayer.setVisibility(View.GONE); }
-        if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { mKavaDepositLayer.setVisibility(View.VISIBLE);
-        } else { mKavaDepositLayer.setVisibility(View.GONE); }
-        if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { mKavaIncentiveLayer.setVisibility(View.VISIBLE);
-        } else { mKavaIncentiveLayer.setVisibility(View.GONE); }
+//        if (!harvestDepositAmount.equals(BigDecimal.ZERO)) { mKavaDepositLayer.setVisibility(View.VISIBLE);
+//        } else { mKavaDepositLayer.setVisibility(View.GONE); }
+//        if (!unclaimedIncentiveAmount.equals(BigDecimal.ZERO)) { mKavaIncentiveLayer.setVisibility(View.VISIBLE);
+//        } else { mKavaIncentiveLayer.setVisibility(View.GONE); }
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
