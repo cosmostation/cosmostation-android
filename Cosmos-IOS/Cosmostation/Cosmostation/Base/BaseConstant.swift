@@ -81,7 +81,7 @@ let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostat
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 
-let SECRET_URL                          = "https://secret-2.node.enigma.co/";
+let SECRET_URL                          = "https://api.secretnodes.org/";
 let SECRET_API                          = "";
 
 
