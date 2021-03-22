@@ -322,14 +322,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStarNameConfig()
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
-            self.mFetchCnt = 10
+            self.mFetchCnt = 8
             BaseData.instance.mOkStaking = nil
             BaseData.instance.mOkUnbonding = nil
             BaseData.instance.mOkTokenList = nil
             onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
+            onFetchAllValidatorsInfo();
             
             onFetchAccountInfo(mAccount)
             onFetchOkAccountBalance(mAccount)
@@ -457,12 +455,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             
             
-            
             if (BaseData.instance.mNodeInfo_gRPC == nil) {
                 self.onShowToast(NSLocalizedString("error_network", comment: ""))
             } else {
-                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
-                print("authInfo ", BaseData.instance.mAccount_gRPC?.typeURL)
+//                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
+//                print("authInfo ", BaseData.instance.mAccount_gRPC?.typeURL)
                 if (BaseData.instance.mAccount_gRPC != nil && BaseData.instance.mAccount_gRPC!.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName) == false) {
                     WUtils.onParseVestingAccount()
                 }
@@ -475,9 +472,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
             
-            mAllValidator.append(contentsOf: mTopValidators)
-            mAllValidator.append(contentsOf: mOtherValidators)
             for validator in mAllValidator {
+                if (validator.status == validator.BONDED) {
+                    mTopValidators.append(validator)
+                } else {
+                    mOtherValidators.append(validator)
+                }
                 if let validator_address = BaseData.instance.mOkStaking?.validator_address {
                     for myVal in validator_address {
                         if (validator.operator_address == myVal) {
@@ -530,7 +530,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
         } else {
             BaseData.instance.setAllValidators(mAllValidator)
-            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
+//            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
         }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         self.hideWaittingAlert()
@@ -599,10 +599,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -653,10 +649,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -706,10 +698,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = IOV_TEST_VALIDATORS
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_VALIDATORS
         }
         let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -740,6 +728,33 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
+    
+    func onFetchAllValidatorsInfo() {
+        var url: String?
+        if (mChainType == ChainType.OKEX_MAIN) {
+            url = OKEX_VALIDATORS
+        } else if (mChainType == ChainType.OKEX_TEST) {
+            url = OKEX_TEST_VALIDATORS
+        }
+        let request = Alamofire.request(url!, method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let validators = res as? Array<NSDictionary> else {
+                    self.onFetchFinished()
+                    return
+                }
+                for validator in validators {
+                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+                }
+                
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchUnbondingValidatorsInfo ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     
     func onFetchAccountInfo(_ account: Account) {
         var url: String?
