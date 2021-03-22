@@ -983,7 +983,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.onFetchFinished()
                     return;
                 }
-                BaseData.instance.mMintParam = MintParam(responseData as! [String : Any]).result
+                BaseData.instance.mMintParam = MintParam.init(responseData).result
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchMintParam ", error) }
