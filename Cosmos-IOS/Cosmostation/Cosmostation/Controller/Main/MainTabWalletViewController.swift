@@ -187,10 +187,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     func updateFloaty() {
         let floaty = Floaty()
         if (chainType! == ChainType.PERSIS_MAIN) {
-            floaty.buttonImage = UIImage.init(named: "sendImg")
+            floaty.buttonImage = UIImage.init(named: "btnSendPersistence")
             floaty.buttonColor = .black
-//            floaty.buttonColor = UIColor.init(hexString: "ededed")
-//            floaty.backgroundColor = .black
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor =  WUtils.getChainColor(chainType)
