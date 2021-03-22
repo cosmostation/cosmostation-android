@@ -24,7 +24,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.crypto.Sha256;
 import wannabit.io.cosmostaion.dao.Account;
-import wannabit.io.cosmostaion.model.IrisStdSignMsg;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.StdSignMsg;
 import wannabit.io.cosmostaion.model.StdTx;
@@ -808,21 +807,21 @@ public class MsgGenerator {
         return result;
     }
 
-    public static IrisStdSignMsg genIrisToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
-        IrisStdSignMsg result = new IrisStdSignMsg();
-        result.chain_id = chainId;
-        result.account_number = accountNumber;
-        result.sequence = SequenceNumber;
-        ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
-        for (Msg msg:msgs) {
-            tempMsgs.add(msg.value);
-        }
-        result.msgs = tempMsgs;
-        result.fee = fee;
-        result.memo = memo;
-
-        return result;
-    }
+//    public static IrisStdSignMsg genIrisToSignMsg(String chainId, String accountNumber, String SequenceNumber, ArrayList<Msg> msgs, Fee fee, String memo) {
+//        IrisStdSignMsg result = new IrisStdSignMsg();
+//        result.chain_id = chainId;
+//        result.account_number = accountNumber;
+//        result.sequence = SequenceNumber;
+//        ArrayList<Msg.Value> tempMsgs = new ArrayList<>();
+//        for (Msg msg:msgs) {
+//            tempMsgs.add(msg.value);
+//        }
+//        result.msgs = tempMsgs;
+//        result.fee = fee;
+//        result.memo = memo;
+//
+//        return result;
+//    }
 
     public static String getSignature(DeterministicKey key, byte[] toSignByte) {
         MessageDigest digest = Sha256.getSha256Digest();
