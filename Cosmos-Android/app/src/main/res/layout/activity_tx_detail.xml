@@ -84,7 +84,7 @@
                 android:drawablePadding="@dimen/space_4"
                 android:gravity="center"
                 style="@style/font_ss_14_white"
-                android:text="@string/str_interchain_refund" />
+                android:text="@string/str_bep3_refund" />
         </RelativeLayout>
 
     </LinearLayout>

@@ -168,7 +168,7 @@
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
                     style="@style/font_ss_12_white"
-                    android:text="@string/str_interchain" />
+                    android:text="@string/str_bep3_send" />
             </RelativeLayout>
 
         </LinearLayout>

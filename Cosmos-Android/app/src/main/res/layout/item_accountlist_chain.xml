@@ -35,6 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/font_ss_10_white"
+                    android:letterSpacing="-0.07"
                     android:layout_marginTop="-4dp"
                     android:gravity="center"
                     android:text="Cosmos"/>

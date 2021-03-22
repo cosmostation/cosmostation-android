@@ -645,7 +645,7 @@
     <string name="str_bep3_status_open">Wait Claim</string>
     <string name="str_bep3_status_refunded">Refunded</string>
     <string name="str_bep3_status_null">UnKnown</string>
-    <string name="str_interchain_refund">Interchain Refund</string>
+    <string name="str_bep3_refund">BEP3 Refund</string>
     <string name="str_swapId">SwapId</string>
     <string name="str_refund_amount">Refund Amount</string>
     <string name="str_refund_to">Refund To</string>
