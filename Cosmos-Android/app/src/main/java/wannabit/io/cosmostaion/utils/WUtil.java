@@ -39,9 +39,7 @@ import javax.net.ssl.SSLSession;
 import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
-import javax.xml.xpath.XPath;
 
-import cosmos.auth.v1beta1.Auth;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.gov.v1beta1.Gov;
@@ -56,7 +54,6 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dao.IovToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
@@ -1483,26 +1480,6 @@ public class WUtil {
         if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
         for (OkToken token:okTokenList.data) {
             if (token.symbol.equals(denom)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-    public static IovToken getIovToken(ArrayList<IovToken> all, Balance balance) {
-        if (all == null || balance == null) return null;
-        for (IovToken token:all) {
-            if(balance.symbol.equals(token.tokenTicker)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-    public static IovToken getIovMainToken(ArrayList<IovToken> all) {
-        if (all == null) return null;
-        for (IovToken token:all) {
-            if (token.tokenTicker.equals(TOKEN_IOV)) {
                 return token;
             }
         }
