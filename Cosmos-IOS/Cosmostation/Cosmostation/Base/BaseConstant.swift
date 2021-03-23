@@ -89,7 +89,8 @@ let AKASH_URL                           = "https://lcd-akash-app.cosmostation.io
 let AKASH_API                           = "https://api-akash.cosmostation.io/";
 
 
-let PERSIS_API                          = "https://api-office.cosmostation.io/persistence/";
+//let PERSIS_API                          = "https://api-office.cosmostation.io/persistence/";
+let PERSIS_API                          = "https://api-persistence.cosmostation.io/";
 
 
 let CGC_URL                             = "https://api.coingecko.com/";
