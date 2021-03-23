@@ -3,7 +3,6 @@ package wannabit.io.cosmostaion.network;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -22,8 +21,8 @@ public class ChannelBuilder {
     private final static String GRPC_AKASH_MAIN = "lcd-akash-app.cosmostation.io";
     private final static int PORT_AKASH_MAIN = 9090;
 
-    private final static String GRPC_PERSIS_MAIN = "lcd-office.cosmostation.io";
-    private final static int PORT_PERSIS_MAIN = 43090;
+    private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
+    private final static int PORT_PERSIS_MAIN = 9090;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -31,6 +30,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_IRIS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_IRIS_TEST = 9095;
+
+
+    public final static int TIME_OUT = 8;
 
 
     public static ManagedChannel getChain(BaseChain chain) {

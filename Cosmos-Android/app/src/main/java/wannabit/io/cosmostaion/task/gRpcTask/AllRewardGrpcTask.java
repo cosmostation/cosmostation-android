@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.distribution.v1beta1.QueryGrpc;
@@ -16,6 +17,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class AllRewardGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -28,7 +30,7 @@ public class AllRewardGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mResult.taskType = TASK_GRPC_FETCH_ALL_REWARDS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
     }
 
     @Override

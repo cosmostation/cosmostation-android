@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import cosmos.base.query.v1beta1.Pagination;
 import cosmos.staking.v1beta1.QueryGrpc;
@@ -16,6 +17,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class UnDelegationsGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -28,7 +30,7 @@ public class UnDelegationsGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mAccount = account;
         this.mResult.taskType = TASK_GRPC_FETCH_UNDELEGATIONS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
     }
 
     @Override

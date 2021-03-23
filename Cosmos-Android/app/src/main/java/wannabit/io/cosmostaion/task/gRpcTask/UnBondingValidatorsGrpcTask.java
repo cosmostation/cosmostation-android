@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 import cosmos.base.query.v1beta1.Pagination;
 import cosmos.staking.v1beta1.QueryGrpc;
@@ -16,6 +17,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_UNBONDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class UnBondingValidatorsGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -26,7 +28,7 @@ public class UnBondingValidatorsGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
     }
 
 

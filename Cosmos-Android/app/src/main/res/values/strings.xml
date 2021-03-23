@@ -66,11 +66,9 @@
 
     <string name="url_lcd_akash" translatable="false">https://lcd-akash-app.cosmostation.io/</string>
     <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
-<!--    <string name="url_lcd_akash" translatable="false">https://lcd-office.cosmostation.io/edgenet-6/</string>-->
-<!--    <string name="url_api_akash" translatable="false">https://api-office.cosmostation.io/edgenet-6/</string>-->
 
 
-    <string name="url_api_persis" translatable="false">https://api-office.cosmostation.io/persistence/</string>
+    <string name="url_api_persis" translatable="false">https://api-persistence.cosmostation.io/</string>
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>

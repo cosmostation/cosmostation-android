@@ -2,6 +2,7 @@ package wannabit.io.cosmostaion.task.gRpcTask;
 
 
 import java.math.BigDecimal;
+import java.util.concurrent.TimeUnit;
 
 import cosmos.mint.v1beta1.QueryGrpc;
 import cosmos.mint.v1beta1.QueryOuterClass;
@@ -14,6 +15,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_INFLATION;
+import static wannabit.io.cosmostaion.network.ChannelBuilder.TIME_OUT;
 
 public class InflationGrpcTask extends CommonTask {
     private BaseChain mChain;
@@ -24,7 +26,7 @@ public class InflationGrpcTask extends CommonTask {
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_INFLATION;
         this.mResult.resultData = BigDecimal.ZERO;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(TIME_OUT, TimeUnit.SECONDS);;
     }
 
     @Override

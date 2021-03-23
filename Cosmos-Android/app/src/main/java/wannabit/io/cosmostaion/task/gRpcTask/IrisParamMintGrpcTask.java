@@ -1,6 +1,8 @@
 package wannabit.io.cosmostaion.task.gRpcTask;
 
 
+import java.util.concurrent.TimeUnit;
+
 import irishub.mint.QueryGrpc;
 import irishub.mint.QueryOuterClass;
 import wannabit.io.cosmostaion.base.BaseApplication;
@@ -21,7 +23,7 @@ public class IrisParamMintGrpcTask extends CommonTask {
         super(app, listener);
         this.mChain = chain;
         this.mResult.taskType = TASK_GRPC_FETCH_IRIS_PARAM_MINT;
-        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain));
+        this.mStub = QueryGrpc.newBlockingStub(ChannelBuilder.getChain(mChain)).withDeadlineAfter(8, TimeUnit.SECONDS);;
     }
 
     @Override
