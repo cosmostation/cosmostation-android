@@ -450,7 +450,12 @@ class BaseNetWork {
             
         }
         return nil
-        
+    }
+    
+    static func getCallOptions() -> CallOptions {
+        var callOptions = CallOptions()
+        callOptions.timeLimit = TimeLimit.timeout(TimeAmount.milliseconds(8000))
+        return callOptions
     }
     
 }

@@ -1561,12 +1561,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             let req = Cosmos_Base_Tendermint_V1beta1_GetNodeInfoRequest()
             
             do {
-                let response = try Cosmos_Base_Tendermint_V1beta1_ServiceClient(channel: channel).getNodeInfo(req).response.wait()
+                let response = try Cosmos_Base_Tendermint_V1beta1_ServiceClient(channel: channel).getNodeInfo(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 BaseData.instance.mNodeInfo_gRPC = response.defaultNodeInfo
             } catch {
                 print("onFetchgRPCNodeInfo failed: \(error)")
             }
-            
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });
@@ -1585,7 +1584,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.address = address
             }
             do {
-                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req).response.wait()
+                let response = try Cosmos_Auth_V1beta1_QueryClient(channel: channel).account(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 BaseData.instance.mAccount_gRPC = response.account
 
             } catch {
@@ -1616,7 +1615,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.status = "BOND_STATUS_BONDED"
             }
             do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCBondedValidators: \(response.validators.count)")
                 response.validators.forEach { validator in
                     BaseData.instance.mBondedValidators_gRPC.append(validator)
@@ -1648,7 +1647,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.status = "BOND_STATUS_UNBONDED"
             }
             do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCUnbondedValidators: \(response.validators.count)")
                 response.validators.forEach { validator in
                     BaseData.instance.mUnbondValidators_gRPC.append(validator)
@@ -1680,7 +1679,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.status = "BOND_STATUS_UNBONDING"
             }
             do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req).response.wait()
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).validators(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCUnbondingValidators: \(response.validators.count)")
                 response.validators.forEach { validator in
                     BaseData.instance.mUnbondValidators_gRPC.append(validator)
@@ -1708,7 +1707,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.address = address
             }
             do {
-                let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req).response.wait()
+                let response = try Cosmos_Bank_V1beta1_QueryClient(channel: channel).allBalances(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCBalance: \(response.balances)")
                 response.balances.forEach { balance in
                     BaseData.instance.mMyBalances_gRPC.append(Coin.init(balance.denom, balance.amount))
@@ -1739,7 +1738,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.delegatorAddr = address
             }
             do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorDelegations(req).response.wait()
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorDelegations(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCDelegations: \(response.delegationResponses.count)")
                 response.delegationResponses.forEach { delegationResponse in
                     BaseData.instance.mMyDelegations_gRPC.append(delegationResponse)
@@ -1766,7 +1765,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.delegatorAddr = address
             }
             do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorUnbondingDelegations(req).response.wait()
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).delegatorUnbondingDelegations(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCUndelegations: \(response.unbondingResponses.count)")
                 response.unbondingResponses.forEach { unbondingResponse in
                     BaseData.instance.mMyUnbondings_gRPC.append(unbondingResponse)
@@ -1793,7 +1792,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.delegatorAddress = address
             }
             do {
-                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req).response.wait()
+                let response = try Cosmos_Distribution_V1beta1_QueryClient(channel: channel).delegationTotalRewards(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //            print("onFetchgRPCRewards: \(response.rewards.count)")
                 response.rewards.forEach { reward in
                     BaseData.instance.mMyReward_gRPC.append(reward)
@@ -1818,7 +1817,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             let req = Cosmos_Mint_V1beta1_QueryParamsRequest()
             do {
-                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).params(req).response.wait()
+                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCMintParam: \(response.params)")
                 BaseData.instance.mMintParam_gRPC = response.params
             } catch {
@@ -1842,7 +1841,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             let req = Cosmos_Mint_V1beta1_QueryInflationRequest()
             do {
-                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).inflation(req).response.wait()
+                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).inflation(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 BaseData.instance.mInflation_gRPC = NSDecimalNumber.init(string: String(data: response.inflation, encoding: .utf8)).multiplying(byPowerOf10: -18)
 //                print("onFetchgRPCInflation:  ", BaseData.instance.mInflation_gRPC)
             } catch {
@@ -1866,7 +1865,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             let req = Cosmos_Mint_V1beta1_QueryAnnualProvisionsRequest()
             do {
-                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).annualProvisions(req).response.wait()
+                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).annualProvisions(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 BaseData.instance.mProvision_gRPC = NSDecimalNumber.init(string: String(data: response.annualProvisions, encoding: .utf8)).multiplying(byPowerOf10: -18)
     //            print("onFetchgRPCProvision:  ", BaseData.instance.mProvision_gRPC)
             } catch {
@@ -1890,7 +1889,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             let req = Cosmos_Staking_V1beta1_QueryPoolRequest()
             do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).pool(req).response.wait()
+                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).pool(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCStakingPool: \(response.pool)")
                 BaseData.instance.mStakingPool_gRPC = response.pool
             } catch {
@@ -1914,7 +1913,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             let req = Irishub_Mint_QueryParamsRequest()
             do {
-                let response = try Irishub_Mint_QueryClient(channel: channel).params(req).response.wait()
+                let response = try Irishub_Mint_QueryClient(channel: channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCIrisMintParam: \(response.params)")
                 BaseData.instance.mIrisMintParam_gRPC = response.params
             } catch {
@@ -1944,7 +1943,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 $0.pagination = page
             }
             do {
-                let response = try Irismod_Token_QueryClient(channel: channel).tokens(req).response.wait()
+                let response = try Irismod_Token_QueryClient(channel: channel).tokens(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCIrisTokens: \(response.tokens.count)")
                 response.tokens.forEach { token in
                     BaseData.instance.mIrisTokens_gRPC.append(try! Irismod_Token_Token.init(serializedData: token.value))
