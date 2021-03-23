@@ -1190,6 +1190,7 @@
     <string name="str_hard_withdraw_warn_msg">Please note that there may be risk of liquidation if your LTV(loan-to-value) exceeds maximum value. Confirm your Remaining Borrowable Value to check your LTV before sending this transaction.\nIf your Remaining Borrowable Value goes below 0, your position may be liquidated.</string>
     <string name="str_keeper">Keeper</string>
     <string name="str_type">Type</string>
+    <string name="str_check_estimate_gas_amount">Check Estimate Gas Amount</string>
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>
