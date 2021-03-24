@@ -18,7 +18,7 @@ import java.util.HashMap;
 
 import irismod.token.TokenOuterClass;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -29,13 +29,12 @@ import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
-public class SendActivity extends BaseActivity {
+public class SendActivity extends BaseBroadCastActivity {
 
     private ImageView               mChainBg;
     private Toolbar                 mToolbar;
@@ -48,8 +47,6 @@ public class SendActivity extends BaseActivity {
     public String                   mStarName;
     public String                   mTagetAddress;
     public ArrayList<Coin>          mTargetCoins;
-    public String                   mTargetMemo;
-    public Fee                      mTargetFee;
 
     public BnbToken                     mBnbToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
@@ -203,8 +200,8 @@ public class SendActivity extends BaseActivity {
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_SEND);
         intent.putExtra("toAddress", mTagetAddress);
         intent.putParcelableArrayListExtra("amount", mTargetCoins);
-        intent.putExtra("memo", mTargetMemo);
-        intent.putExtra("fee", mTargetFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }

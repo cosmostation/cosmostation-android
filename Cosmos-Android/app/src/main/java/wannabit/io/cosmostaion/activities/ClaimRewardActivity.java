@@ -17,14 +17,13 @@ import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -33,11 +32,6 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
@@ -47,7 +41,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_WITHDRAW_ADDR
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
 
-public class ClaimRewardActivity extends BaseActivity implements TaskListener {
+public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskListener {
 
     private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
@@ -56,9 +50,6 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
     private TextView                    mTvStep;
     private ViewPager                   mViewPager;
     private RewardPageAdapter           mPageAdapter;
-
-    public String                       mRewardMemo;
-    public Fee                          mRewardFee;
 
     public ArrayList<Validator>         mValidators = new ArrayList<>();
     public ArrayList<Reward>            mRewards = new ArrayList<>();
@@ -206,8 +197,8 @@ public class ClaimRewardActivity extends BaseActivity implements TaskListener {
         } else {
             intent.putExtra("validators", mValidators);
         }
-        intent.putExtra("memo", mRewardMemo);
-        intent.putExtra("fee", mRewardFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }

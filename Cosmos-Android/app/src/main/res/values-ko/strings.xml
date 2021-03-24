@@ -293,7 +293,8 @@
     <string name="str_daily_return">예상 일 이자량</string>
     <string name="str_monthly_return">예상 월 이자량</string>
     <string name="str_gas_amount">가스량</string>
-    <string name="str_gas_rate">가스비</string>
+    <string name="str_gas_rate">가스 레이트</string>
+    <string name="str_fee_amount">Tx 수수료</string>
     <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.\n(블록체인에 반영시간이 좀 더 걸립니다.)</string>
     <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
@@ -1014,6 +1015,8 @@
     <string name="str_hard_withdraw_warn_msg">추가 대출 가능 금액이 0 이하가 될 시, 포지션 청산의 위험이 있습니다.\n대출 진행시 추가 대출 금액을 반드시 확인하세요. </string>
     <string name="str_keeper">키퍼</string>
     <string name="str_type">타입</string>
+    <string name="str_check_estimate_gas_amount">예상 가스량 확인</string>
+
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>

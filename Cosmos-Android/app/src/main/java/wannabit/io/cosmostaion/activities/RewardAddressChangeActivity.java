@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -25,9 +25,8 @@ import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
 
-public class RewardAddressChangeActivity extends BaseActivity {
+public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
     private ImageView               mChainBg;
     private RelativeLayout          mRootView;
@@ -39,8 +38,6 @@ public class RewardAddressChangeActivity extends BaseActivity {
 
     public String                   mCurrentRewardAddress;
     public String                   mNewRewardAddress;
-    public String                   mMemo;
-    public Fee                      mFee;
 
     private RewardAddressChangePageAdapter mPageAdapter;
 
@@ -155,8 +152,8 @@ public class RewardAddressChangeActivity extends BaseActivity {
         Intent intent = new Intent(RewardAddressChangeActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS);
         intent.putExtra("newRewardAddress", mNewRewardAddress);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }

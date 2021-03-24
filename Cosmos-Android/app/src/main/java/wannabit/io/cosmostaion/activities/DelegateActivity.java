@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -31,7 +31,7 @@ import wannabit.io.cosmostaion.model.type.Validator;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
-public class DelegateActivity extends BaseActivity {
+public class DelegateActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private ImageView                   mChainBg;
@@ -44,8 +44,6 @@ public class DelegateActivity extends BaseActivity {
 
     public Validator                    mValidator;
     public Coin                         mToDelegateAmount;
-    public String                       mToDelegateMemo;
-    public Fee                          mToDelegateFee;
 
     //gRPC
     public String                       mValOpAddress;
@@ -174,8 +172,8 @@ public class DelegateActivity extends BaseActivity {
             intent.putExtra("toAddress", mValidator.operator_address);
         }
         intent.putExtra("dAmount", mToDelegateAmount);
-        intent.putExtra("memo", mToDelegateMemo);
-        intent.putExtra("fee", mToDelegateFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }

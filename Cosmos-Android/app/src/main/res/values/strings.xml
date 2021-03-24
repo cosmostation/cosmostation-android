@@ -464,8 +464,9 @@
     <string name="str_est_apr">Est. Apr</string>
     <string name="str_daily_return">Est. Daily Reward</string>
     <string name="str_monthly_return">Est. Monthly Reward</string>
-    <string name="str_gas_amount">gas amount</string>
-    <string name="str_gas_rate">gas rate</string>
+    <string name="str_gas_amount">Gas Amount</string>
+    <string name="str_gas_rate">Gas Rate</string>
+    <string name="str_fee_amount">Tx Fee Amount</string>
     <string name="str_fee_speed_title_0">Only a handful of validators will process this Tx\n(Takes longer time to recorded on the block.)</string>
     <string name="str_fee_speed_title_1">A few validators include \"Cosmostation\" will process this Tx.</string>
     <string name="str_fee_speed_title_2">Most validators will process this Tx.</string>
@@ -930,9 +931,9 @@
     <string name="str_commission">Commission</string>
     <string name="str_voting_power">Voting Power</string>
     <string name="str_free">Free</string>
-    <string name="str_tiny">Min</string>
+    <string name="str_tiny">Tiny</string>
     <string name="str_low">Low</string>
-    <string name="str_average">Mid</string>
+    <string name="str_average">Average</string>
     <string name="str_high">High</string>
     <string name="str_available">Available</string>
     <string name="str_vesting">Vesting</string>
@@ -1190,6 +1191,8 @@
     <string name="str_hard_withdraw_warn_msg">Please note that there may be risk of liquidation if your LTV(loan-to-value) exceeds maximum value. Confirm your Remaining Borrowable Value to check your LTV before sending this transaction.\nIf your Remaining Borrowable Value goes below 0, your position may be liquidated.</string>
     <string name="str_keeper">Keeper</string>
     <string name="str_type">Type</string>
+    <string name="str_check_estimate_gas_amount">Check Estimate Gas Amount</string>
+
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>
     <string name="error_msg_password_not_same">Incorrect PIN. Please enter your PIN again.</string>

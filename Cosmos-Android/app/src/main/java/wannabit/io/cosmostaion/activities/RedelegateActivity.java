@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
@@ -38,17 +37,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BONDEB_VALIDATOR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 
-public class RedelegateActivity extends BaseActivity implements TaskListener {
+public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
 
     private ImageView                       mChainBg;
     private Toolbar                         mToolbar;
@@ -58,14 +52,11 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private ViewPager                       mViewPager;
     private RedelegatePageAdapter           mPageAdapter;
 
-
     public ArrayList<Validator>             mToValidators = new ArrayList<>();
     public BondingState                     mBondingState;
     public Validator                        mFromValidator;
     public Validator                        mToValidator;
     public Coin                             mReDelegateAmount;
-    public String                           mReDelegateMemo;
-    public Fee                              mReDelegateFee;
 
     public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
@@ -204,8 +195,8 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             intent.putExtra("toValidator", mToValidator);
         }
         intent.putExtra("rAmount", mReDelegateAmount);
-        intent.putExtra("memo", mReDelegateMemo);
-        intent.putExtra("fee", mReDelegateFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 

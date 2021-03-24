@@ -147,7 +147,7 @@ public class SendStep2Fragment extends BaseFragment implements View.OnClickListe
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
             if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                getSActivity().mTargetMemo = mMemo.getText().toString().trim();
+                getSActivity().mTxMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();

@@ -307,7 +307,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Fee fee = new Fee();
@@ -318,7 +318,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
                 Fee fee = new Fee();
@@ -329,7 +329,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_LOW;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
                 Fee fee = new Fee();
@@ -340,7 +340,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_LOW;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 Fee fee = new Fee();
@@ -351,7 +351,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_CERTIK_GAS_ADDRESS_CHANGE;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 Fee fee = new Fee();
@@ -362,7 +362,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
                 Fee fee = new Fee();
@@ -373,7 +373,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
 
@@ -386,7 +386,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = V1_GAS_AMOUNT_LOW;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
             getSActivity().onNextStep();
