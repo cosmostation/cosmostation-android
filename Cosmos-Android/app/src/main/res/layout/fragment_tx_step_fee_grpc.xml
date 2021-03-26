@@ -277,9 +277,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:drawableLeft="@drawable/icon_gas"
+                android:drawableTint="@color/colorPhoton"
                 android:drawablePadding="@dimen/space_4"
                 android:gravity="center"
-                style="@style/font_ss_14_white"
+                style="@style/font_ss_14_photon"
                 android:text="@string/str_check_estimate_gas_amount" />
         </RelativeLayout>
         <LinearLayout

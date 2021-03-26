@@ -849,7 +849,7 @@
     <string name="str_main_set">SETTING</string>
     <string name="str_password">Password</string>
     <string name="str_set_password">Set Password</string>
-    <string name="str_init_password">Please insert your password.</string>
+    <string name="str_init_password">Please insert your PIN number.</string>
     <string name="str_init_again">Please insert again for confirm.</string>
     <string name="str_using_fingerprint">Using Fingerprint</string>
     <string name="str_ask_using_fingerprint">Do you want to enable fingerprint authentication?</string>
