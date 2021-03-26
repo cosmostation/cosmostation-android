@@ -1017,6 +1017,7 @@
     <string name="str_keeper">키퍼</string>
     <string name="str_type">타입</string>
     <string name="str_check_estimate_gas_amount">예상 가스량 확인</string>
+    <string name="str_apply_estimate_gas_amount">예상 가스량을 사용합니다.</string>
 
 
 

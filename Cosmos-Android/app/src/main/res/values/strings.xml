@@ -1193,6 +1193,7 @@
     <string name="str_keeper">Keeper</string>
     <string name="str_type">Type</string>
     <string name="str_check_estimate_gas_amount">Check Estimate Gas Amount</string>
+    <string name="str_apply_estimate_gas_amount">Estimate Gas Amount Applied</string>
 
 
     <string name="error_invalid_mnemonic_count">Invalid mnemonic phrase, please paste correct 12, 16, or 24 words</string>

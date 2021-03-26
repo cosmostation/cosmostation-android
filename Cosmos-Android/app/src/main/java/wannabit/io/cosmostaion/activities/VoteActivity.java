@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -24,9 +24,8 @@ import wannabit.io.cosmostaion.fragment.VoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep1Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep2Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
 
-public class VoteActivity extends BaseActivity {
+public class VoteActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -36,13 +35,9 @@ public class VoteActivity extends BaseActivity {
     private ViewPager                   mViewPager;
     private VotePageAdapter             mPageAdapter;
 
-    public String                       mProposeId;
+
     public String                       mProposeTitle;
     public String                       mProposer;
-
-    public String                       mOpinion;
-    public String                       mMemo;
-    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +60,7 @@ public class VoteActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        mProposeId = getIntent().getStringExtra("proposalId");
+        mProposalId = getIntent().getStringExtra("proposalId");
         mProposeTitle = getIntent().getStringExtra("title");
         mProposer = getIntent().getStringExtra("proposer");
 
@@ -151,10 +146,10 @@ public class VoteActivity extends BaseActivity {
     public void onStartVote() {
         Intent intent = new Intent(VoteActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_VOTE);
-        intent.putExtra("proposal_id", mProposeId);
+        intent.putExtra("proposal_id", mProposalId);
         intent.putExtra("opinion", mOpinion);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }

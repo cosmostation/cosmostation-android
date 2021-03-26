@@ -1,5 +1,8 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -19,15 +23,38 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import cosmos.base.abci.v1beta1.Abci;
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.task.TaskListener;
+import wannabit.io.cosmostaion.task.TaskResult;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulChangeRewardAddressGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulClaimRewardsGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulDelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulReInvestGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulRedelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSendGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener {
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+
+public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener, TaskListener {
 
     private CardView                mFeeTotalCard;
     private TextView                mFeeDenom, mFeeAmount, mFeeValue;
@@ -88,6 +115,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
+        mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValAddresses.size()));
         onUpdateView();
 
         mButtonGroup.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
@@ -114,7 +142,6 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private void onCalculateFees() {
         mSelectedGasRate = WUtil.getGasRate(getSActivity().mBaseChain, mSelectedGasPosition);
-        mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValAddresses.size()));
         mFee = mSelectedGasRate.multiply(mEstimateGasAmount).setScale(0, RoundingMode.UP);
     }
 
@@ -143,25 +170,32 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
         if (v.equals(mBtnGasCheck)) {
+            onSetFee();
+            onSimulateTx();
 
         } else if (v.equals(mBtnBefore)) {
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mBtnNext)) {
             if (onCheckValidate()) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
-                gasCoin.amount = mFee.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = mEstimateGasAmount.toPlainString();
-                getSActivity().mTxFee = fee;
+                onSetFee();
+                getSActivity().onNextStep();
             }
         }
     }
 
+    private void onSetFee() {
+        Fee fee = new Fee();
+        Coin gasCoin = new Coin();
+        gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+        gasCoin.amount = mFee.toPlainString();
+        ArrayList<Coin> amount = new ArrayList<>();
+        amount.add(gasCoin);
+        fee.amount = amount;
+        fee.gas = mEstimateGasAmount.toPlainString();
+        getSActivity().mTxFee = fee;
+
+    }
 
     private boolean onCheckValidate() {
         return true;
@@ -169,5 +203,69 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
 
     private BaseBroadCastActivity getSActivity() {
         return (BaseBroadCastActivity)getBaseActivity();
+    }
+
+    private void onSimulateTx() {
+        Intent intent = new Intent(getSActivity(), PasswordCheckActivity.class);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        startActivityForResult(intent, BaseConstant.CONST_PW_SIMPLE_CHECK);
+        getSActivity().overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            getSActivity().onShowWaitDialog();
+            if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
+                new SimulSendGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount,  getSActivity().mToAddress,  getSActivity().mAmounts,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                new SimulDelegateGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mValAddress, getSActivity().mAmount,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                new SimulUndelegateGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mValAddress, getSActivity().mAmount,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                new SimulRedelegateGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mValAddress, getSActivity().mToValAddress, getSActivity().mAmount,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
+                new SimulClaimRewardsGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mValAddresses,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
+                new SimulReInvestGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mValAddress, getSActivity().mAmount,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                new SimulChangeRewardAddressGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mNewRewardAddress,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_VOTE) {
+                new SimulVoteGrpcTask(getBaseApplication(), this, getSActivity().mBaseChain, getSActivity().mAccount, getSActivity().mProposalId, getSActivity().mOpinion,
+                        getSActivity().mTxMemo, getSActivity().mTxFee, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
+        }
+    }
+
+    @Override
+    public void onTaskResponse(TaskResult result) {
+        if (result.isSuccess && result.resultData != null) {
+            Abci.GasInfo gasInfo = ((Abci.GasInfo)result.resultData);
+            long gasused = gasInfo.getGasUsed();
+//            WLog.w("gasused " +  gasused);
+            gasused = (long)((double)gasused * 1.2d);
+//            WLog.w("padding gasused " +  gasused);
+            mEstimateGasAmount = new BigDecimal(gasused);
+            onUpdateView();
+            Toast.makeText(getContext(), getString(R.string.str_apply_estimate_gas_amount), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), getString(R.string.str_network_error_title), Toast.LENGTH_SHORT).show();
+        }
+        getSActivity().onHideWaitDialog();
     }
 }

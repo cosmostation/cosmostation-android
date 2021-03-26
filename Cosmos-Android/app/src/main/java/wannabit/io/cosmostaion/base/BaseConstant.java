@@ -222,6 +222,15 @@ public class BaseConstant {
     public final static int TASK_GRPC_BROAD_REWARD_ADDRESS_CHANGE       = 4306;
     public final static int TASK_GRPC_BROAD_VOTE                        = 4307;
 
+    public final static int TASK_GRPC_SIMULATE_DELEGATE                 = 4500;
+    public final static int TASK_GRPC_SIMULATE_UNDELEGATE               = 4501;
+    public final static int TASK_GRPC_SIMULATE_CLAIM_REWARDS            = 4502;
+    public final static int TASK_GRPC_SIMULATE_SEND                     = 4503;
+    public final static int TASK_GRPC_SIMULATE_REDELEGATE               = 4504;
+    public final static int TASK_GRPC_SIMULATE_REINVEST                 = 4505;
+    public final static int TASK_GRPC_SIMULATE_REWARD_ADDRESS_CHANGE    = 4506;
+    public final static int TASK_GRPC_SIMULATE_VOTE                     = 4507;
+
 
 
 
