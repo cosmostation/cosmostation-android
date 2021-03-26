@@ -129,10 +129,18 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     lazy var orderedViewControllers: [UIViewController] = {
         if (mType == COSMOS_MSG_TYPE_DELEGATE || mType == IRIS_MSG_TYPE_DELEGATE) {
-            return [self.newVc(viewController: "StepDelegateAmountViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
-                    self.newVc(viewController: "StepDelegateCheckViewController")]
+            if (WUtils.isGRPC(chainType!)) {
+                return [self.newVc(viewController: "StepDelegateAmountViewController"),
+                        self.newVc(viewController: "StepMemoViewController"),
+                        StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                        self.newVc(viewController: "StepDelegateCheckViewController")]
+                
+            } else {
+                return [self.newVc(viewController: "StepDelegateAmountViewController"),
+                        self.newVc(viewController: "StepMemoViewController"),
+                        self.newVc(viewController: "StepFeeViewController"),
+                        self.newVc(viewController: "StepDelegateCheckViewController")]
+            }
             
         } else if (mType == COSMOS_MSG_TYPE_UNDELEGATE2 || mType == IRIS_MSG_TYPE_UNDELEGATE) {
             return [self.newVc(viewController: "StepUndelegateAmountViewController"),

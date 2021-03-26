@@ -679,8 +679,12 @@ let FEE_ATOM_HIGH                           = "4000";
 let FEE_MIN_RATE                            = "0.0025";
 
 
+let GAS_FEE_RATE_TINY                       = 0.00025
 let GAS_FEE_RATE_LOW                        = 0.0025
 let GAS_FEE_RATE_AVERAGE                    = 0.025
+
+let GAS_FEE_RATE_TINY_IRIS                  = 0.002
+let GAS_FEE_RATE_LOW_IRIS                   = 0.02
 let GAS_FEE_RATE_AVERAGE_IRIS               = 0.2
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
