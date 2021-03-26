@@ -26,16 +26,11 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -253,7 +248,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_KAVA, sendTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
@@ -261,7 +256,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_BAND, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
@@ -269,7 +264,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_IOV, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -277,7 +272,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_IOV_TEST, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
@@ -285,7 +280,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_CERTIK, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
@@ -293,7 +288,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_SECRET, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             }
@@ -303,14 +298,14 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mToDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             }
             return false;
 
         } catch (Exception e) {
-            getSActivity().mToDelegateAmount = null;
+            getSActivity().mAmount = null;
             return false;
         }
     }

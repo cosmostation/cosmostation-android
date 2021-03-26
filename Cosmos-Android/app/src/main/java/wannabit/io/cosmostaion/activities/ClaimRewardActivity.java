@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -56,12 +57,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
-//    //V1 .40 version
-//    public ArrayList<String>            mValOpAddresses_V1;
-
-    //gRPC
-    public ArrayList<String>            mValAddresses;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +78,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_SIMPLE_REWARD;
 
         if (isGRPC(mBaseChain)) {
             mValAddresses = getIntent().getStringArrayListExtra("valOpAddresses");
@@ -260,7 +256,8 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             mFragments.clear();
             mFragments.add(RewardStep0Fragment.newInstance(null));
             mFragments.add(RewardStep1Fragment.newInstance(null));
-            mFragments.add(RewardStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(RewardStep2Fragment.newInstance(null)); }
             mFragments.add(RewardStep3Fragment.newInstance(null));
         }
 

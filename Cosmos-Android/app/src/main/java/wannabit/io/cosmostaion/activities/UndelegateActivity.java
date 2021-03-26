@@ -15,18 +15,16 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -38,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 
 public class UndelegateActivity extends BaseBroadCastActivity {
 
@@ -51,10 +50,6 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
     public Validator                    mValidator;
     public BondingState                 mBondingState;
-    public Coin                         mUnDelegateAmount;
-
-    //gRPC
-    public String                       mValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +72,10 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
+        mTxType = CONST_PW_TX_SIMPLE_UNDELEGATE;
 
         if (isGRPC(mBaseChain)) {
-            mValOpAddress = getIntent().getStringExtra("valOpAddress");
+            mValAddress = getIntent().getStringExtra("valOpAddress");
         } else {
             mValidator = getIntent().getParcelableExtra("validator");
             mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
@@ -171,16 +166,16 @@ public class UndelegateActivity extends BaseBroadCastActivity {
 
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_UNDELEGATE);
         if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
                 mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
                 mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             intent.putExtra("toAddress", mValidator.operator_address);
-            intent.putExtra("uAmount", mUnDelegateAmount);
+            intent.putExtra("uAmount", mAmount);
 
         } else if (isGRPC(mBaseChain)) {
-            intent.putExtra("toAddress", mValOpAddress);
-            intent.putExtra("uAmount", mUnDelegateAmount);
+            intent.putExtra("toAddress", mValAddress);
+            intent.putExtra("uAmount", mAmount);
         }
 
         intent.putExtra("memo", mTxMemo);
@@ -201,7 +196,8 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(UndelegateStep0Fragment.newInstance(null));
             mFragments.add(UndelegateStep1Fragment.newInstance(null));
-            mFragments.add(UndelegateStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(UndelegateStep2Fragment.newInstance(null)); }
             mFragments.add(UndelegateStep3Fragment.newInstance(null));
         }
 

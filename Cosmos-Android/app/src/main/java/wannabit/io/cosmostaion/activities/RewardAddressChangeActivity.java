@@ -25,6 +25,10 @@ import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardAddressChangeStep3Fragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 
 public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
@@ -37,7 +41,6 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
     private ViewPager               mViewPager;
 
     public String                   mCurrentRewardAddress;
-    public String                   mNewRewardAddress;
 
     private RewardAddressChangePageAdapter mPageAdapter;
 
@@ -63,6 +66,8 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
+
         mCurrentRewardAddress = getIntent().getStringExtra("currentAddresses");
 
         mPageAdapter = new RewardAddressChangePageAdapter(getSupportFragmentManager());
@@ -150,7 +155,7 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
 
     public void onStartRewardAddressChange() {
         Intent intent = new Intent(RewardAddressChangeActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS);
         intent.putExtra("newRewardAddress", mNewRewardAddress);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
@@ -168,7 +173,8 @@ public class RewardAddressChangeActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(RewardAddressChangeStep0Fragment.newInstance(null));
             mFragments.add(RewardAddressChangeStep1Fragment.newInstance(null));
-            mFragments.add(RewardAddressChangeStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(RewardAddressChangeStep2Fragment.newInstance(null)); }
             mFragments.add(RewardAddressChangeStep3Fragment.newInstance(null));
         }
 

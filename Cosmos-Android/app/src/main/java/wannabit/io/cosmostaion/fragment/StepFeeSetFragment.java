@@ -13,47 +13,42 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 
-import com.addisonelliott.segmentedbutton.SegmentedButton;
 import com.addisonelliott.segmentedbutton.SegmentedButtonGroup;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
+import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+public class StepFeeSetFragment extends BaseFragment implements View.OnClickListener {
 
-public class StepFeeSetFragment extends BaseFragment {
-
-    //for Send and Delegate tx case visiable
-    private CardView                mSpendCard;
-    private TextView                mAvailableDenom, mAvailableAmount, mAvailableValue;
-    private TextView                mSpendTitle,  mSpendDenom, mSpendAmount, mSpendValue;
+    private CardView                mFeeTotalCard;
     private TextView                mFeeDenom, mFeeAmount, mFeeValue;
-    private TextView                mRemainDenom, mRemainAmount, mRemainValue;
-
-    //for Other tx case visiable (display ony fee)
-    private CardView                mFeeCard;
-    private TextView                mOnlyFeeDenom, mOnlyFeeAmount, mOnlyFeeValue;
 
     private CardView                mRateControlCard;
     private TextView                mGasAmount, mGasRate, mGasFee;
     private SegmentedButtonGroup    mButtonGroup;
-    private SegmentedButton         mTiny, mLow, mAverage;
 
     private LinearLayout            mSpeedLayer;
     private ImageView               mSpeedImg;
     private TextView                mSpeedTxt;
 
-    private CardView                mBottomControlCard;
+    private LinearLayout            mBottomControlCard;
     private RelativeLayout          mBtnGasCheck;
-    private Button                  mBtnBefore, mBtnNExt;
+    private Button                  mBtnBefore, mBtnNext;
 
 
-    private BigDecimal              mAvailable      = BigDecimal.ZERO;
-    private BigDecimal              mSpend          = BigDecimal.ZERO;
+    private int                     mSelectedGasPosition    = 1;
+    private BigDecimal              mSelectedGasRate        = BigDecimal.ZERO;
+    private BigDecimal              mEstimateGasAmount      = BigDecimal.ZERO;
+    private BigDecimal              mFee                    = BigDecimal.ZERO;
 
     public static StepFeeSetFragment newInstance(Bundle bundle) {
         StepFeeSetFragment fragment = new StepFeeSetFragment();
@@ -69,34 +64,16 @@ public class StepFeeSetFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_tx_step_fee_grpc, container, false);
-        mSpendCard = rootView.findViewById(R.id.card_total_spend);
-        mAvailableDenom = rootView.findViewById(R.id.spend_available_denom);
-        mAvailableAmount = rootView.findViewById(R.id.spend_available_amount);
-        mAvailableValue = rootView.findViewById(R.id.spend_available_value);
-        mSpendTitle = rootView.findViewById(R.id.spend_spend_title);
-        mSpendDenom = rootView.findViewById(R.id.spend_spend_denom);
-        mSpendAmount = rootView.findViewById(R.id.spend_spend_amount);
-        mSpendValue = rootView.findViewById(R.id.spend_spend_value);
-        mFeeDenom = rootView.findViewById(R.id.spend_fee_denom);
-        mFeeAmount = rootView.findViewById(R.id.spend_fee_amount);
-        mFeeValue = rootView.findViewById(R.id.spend_fee_value);
-        mRemainDenom = rootView.findViewById(R.id.spend_remain_denom);
-        mRemainAmount = rootView.findViewById(R.id.spend_remain_amount);
-        mRemainValue = rootView.findViewById(R.id.spend_remain_value);
-
-        mFeeCard = rootView.findViewById(R.id.card_only_fee);
-        mOnlyFeeDenom = rootView.findViewById(R.id.fee_fee_denom);
-        mOnlyFeeAmount = rootView.findViewById(R.id.fee_fee_amount);
-        mOnlyFeeValue = rootView.findViewById(R.id.fee_fee_value);
+        mFeeTotalCard = rootView.findViewById(R.id.card_fee_total);
+        mFeeDenom = rootView.findViewById(R.id.fee_denom);
+        mFeeAmount = rootView.findViewById(R.id.fee_amount);
+        mFeeValue = rootView.findViewById(R.id.fee_value);
 
         mRateControlCard = rootView.findViewById(R.id.rate_control_layer);
         mGasAmount = rootView.findViewById(R.id.gas_amount);
         mGasRate = rootView.findViewById(R.id.gas_rate);
         mGasFee = rootView.findViewById(R.id.gas_fee);
         mButtonGroup = rootView.findViewById(R.id.btns_segmented);
-        mTiny = rootView.findViewById(R.id.btn_tiny);
-        mLow = rootView.findViewById(R.id.btn_low);
-        mAverage = rootView.findViewById(R.id.btn_average);
 
         mSpeedLayer = rootView.findViewById(R.id.speed_layer);
         mSpeedImg = rootView.findViewById(R.id.speed_img);
@@ -105,25 +82,89 @@ public class StepFeeSetFragment extends BaseFragment {
         mBottomControlCard = rootView.findViewById(R.id.bottom_control_layer);
         mBtnGasCheck = rootView.findViewById(R.id.btn_gas_check);
         mBtnBefore = rootView.findViewById(R.id.btn_before);
-        mBtnNExt = rootView.findViewById(R.id.btn_next);
+        mBtnNext = rootView.findViewById(R.id.btn_next);
+
+        WDp.DpMainDenom(getContext(), getSActivity().mBaseChain, mFeeDenom);
+        mFeeTotalCard.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getSActivity().mBaseChain));
+        mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
+        mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
+        onUpdateView();
+
+        mButtonGroup.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
+            @Override
+            public void onPositionChanged(int position) {
+                mSelectedGasPosition = position;
+                onUpdateView();
+            }
+        });
+        mBtnGasCheck.setOnClickListener(this);
+        mBtnBefore.setOnClickListener(this);
+        mBtnNext.setOnClickListener(this);
         return rootView;
     }
 
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND || getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
-            mSpendCard.setVisibility(View.VISIBLE);
-            mRateControlCard.setVisibility(View.VISIBLE);
-            mSpeedLayer.setVisibility(View.VISIBLE);
-            mBottomControlCard.setVisibility(View.VISIBLE);
+        mFeeTotalCard.setVisibility(View.VISIBLE);
+        mRateControlCard.setVisibility(View.VISIBLE);
+        mSpeedLayer.setVisibility(View.VISIBLE);
+        mBottomControlCard.setVisibility(View.VISIBLE);
+    }
 
+    private void onCalculateFees() {
+        mSelectedGasRate = WUtil.getGasRate(getSActivity().mBaseChain, mSelectedGasPosition);
+        mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValAddresses.size()));
+        mFee = mSelectedGasRate.multiply(mEstimateGasAmount).setScale(0, RoundingMode.UP);
+    }
+
+    private void onUpdateView() {
+        onCalculateFees();
+
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, 6, 6));
+        mFeeValue.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFee, getSActivity().mBaseChain));
+
+        mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
+        mGasAmount.setText(mEstimateGasAmount.toPlainString());
+        mGasFee.setText(mFee.toPlainString());
+
+        if (mSelectedGasPosition == 0) {
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
+            mSpeedTxt.setText(getString(R.string.str_fee_speed_title_0));
+        } else if (mSelectedGasPosition == 1) {
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.car_img));
+            mSpeedTxt.setText(getString(R.string.str_fee_speed_title_1));
         } else {
-            mFeeCard.setVisibility(View.VISIBLE);
-            mRateControlCard.setVisibility(View.VISIBLE);
-            mSpeedLayer.setVisibility(View.VISIBLE);
-            mBottomControlCard.setVisibility(View.VISIBLE);
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.rocket_img));
+            mSpeedTxt.setText(getString(R.string.str_fee_speed_title_2));
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.equals(mBtnGasCheck)) {
+
+        } else if (v.equals(mBtnBefore)) {
+            getSActivity().onBeforeStep();
+
+        } else if (v.equals(mBtnNext)) {
+            if (onCheckValidate()) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+                gasCoin.amount = mFee.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = mEstimateGasAmount.toPlainString();
+                getSActivity().mTxFee = fee;
+            }
+        }
+    }
+
+
+    private boolean onCheckValidate() {
+        return true;
     }
 
     private BaseBroadCastActivity getSActivity() {

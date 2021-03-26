@@ -28,9 +28,8 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -56,16 +55,11 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     public BondingState                     mBondingState;
     public Validator                        mFromValidator;
     public Validator                        mToValidator;
-    public Coin                             mReDelegateAmount;
-
-    public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
     private int                             mTaskCount;
 
     //gRPC
     public ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
-    public String                           mValOpAddress;
-    public String                           mToValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,13 +82,13 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_SIMPLE_REDELEGATE;
 
         if (isGRPC(mBaseChain)) {
-            mValOpAddress = getIntent().getStringExtra("valOpAddress");
+            mValAddress = getIntent().getStringExtra("valOpAddress");
 
         } else {
             mFromValidator          = getIntent().getParcelableExtra("validator");
-            mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
             mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
         }
 
@@ -188,13 +182,13 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
         if (isGRPC(mBaseChain)) {
-            intent.putExtra("fromValidatorAddr", mValOpAddress);
-            intent.putExtra("toValidatorAddr", mToValOpAddress);
+            intent.putExtra("fromValidatorAddr", mValAddress);
+            intent.putExtra("toValidatorAddr", mToValAddress);
         } else {
             intent.putExtra("fromValidator", mFromValidator);
             intent.putExtra("toValidator", mToValidator);
         }
-        intent.putExtra("rAmount", mReDelegateAmount);
+        intent.putExtra("rAmount", mAmount);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -238,7 +232,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             ArrayList<Staking.Validator> temp = (ArrayList<Staking.Validator>)result.resultData;
             if (temp != null) {
                 for (Staking.Validator val:temp) {
-                    if (!val.getOperatorAddress().equals(mValOpAddress)) {
+                    if (!val.getOperatorAddress().equals(mValAddress)) {
                         mGRpcTopValidators.add(val);
                     }
                 }
@@ -266,7 +260,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             mFragments.add(RedelegateStep0Fragment.newInstance(null));
             mFragments.add(RedelegateStep1Fragment.newInstance(null));
             mFragments.add(RedelegateStep2Fragment.newInstance(null));
-            mFragments.add(RedelegateStep3Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(RedelegateStep3Fragment.newInstance(null)); }
             mFragments.add(RedelegateStep4Fragment.newInstance(null));
         }
 

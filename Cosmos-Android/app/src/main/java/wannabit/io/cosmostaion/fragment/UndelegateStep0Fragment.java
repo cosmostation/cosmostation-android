@@ -23,29 +23,19 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
@@ -157,7 +147,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
 
         if (isGRPC(getSActivity().mBaseChain)) {
-            mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValOpAddress);
+            mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else {
@@ -245,7 +235,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin coin = new Coin(TOKEN_KAVA, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
@@ -253,7 +243,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin coin = new Coin(TOKEN_BAND, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
@@ -261,7 +251,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin coin = new Coin(TOKEN_IOV, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -269,7 +259,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin coin = new Coin(TOKEN_IOV_TEST, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
@@ -277,7 +267,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin coin = new Coin(TOKEN_CERTIK, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
@@ -286,7 +276,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0)
                     return false;
                 Coin coin = new Coin(TOKEN_SECRET, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             }
@@ -296,14 +286,14 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (userInput.compareTo(mMaxAvailable) > 0) return false;
                 Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
-                getSActivity().mUnDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             }
             return false;
 
         } catch (Exception e) {
-            getSActivity().mUnDelegateAmount = null;
+            getSActivity().mAmount = null;
             return false;
         }
     }

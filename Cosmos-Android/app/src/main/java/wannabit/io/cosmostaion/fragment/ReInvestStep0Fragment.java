@@ -18,11 +18,6 @@ import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickListener {
@@ -67,17 +62,17 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         if (isGRPC(getSActivity().mBaseChain)) {
-            if (getSActivity().mReinvestCoin != null) {
-                BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
+            if (getSActivity().mAmount != null) {
+                BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
             }
-            mTvFromValidators.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
+            mTvFromValidators.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mProgressBar.setVisibility(View.GONE);
             mNextBtn.setClickable(true);
 
         } else {
-            if(getSActivity().mReinvestCoin != null) {
-                BigDecimal rewardSum = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
+            if(getSActivity().mAmount != null) {
+                BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
                 mProgressBar.setVisibility(View.GONE);

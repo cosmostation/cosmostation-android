@@ -318,12 +318,12 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
         super.onRefreshTab();
         if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
-            mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
+            mToSend     = new BigDecimal(getSActivity().mAmounts.get(0).amount);
             onUpdateFeeLayer();
 
         } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mAvailable  = getSActivity().mAccount.getBandBalance();
-            mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
+            mToSend     = new BigDecimal(getSActivity().mAmounts.get(0).amount);
             onUpdateFeeLayer();
 
         }

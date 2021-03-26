@@ -285,12 +285,12 @@ public class DelegateStep2Fragment extends BaseFragment implements View.OnClickL
         super.onRefreshTab();
         if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
-            mToDelegate = new BigDecimal(getSActivity().mToDelegateAmount.amount);
+            mToDelegate = new BigDecimal(getSActivity().mAmount.amount);
             onUpdateFeeLayer();
 
         } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mAvailable  = getSActivity().mAccount.getBandBalance();
-            mToDelegate = new BigDecimal(getSActivity().mToDelegateAmount.amount);
+            mToDelegate = new BigDecimal(getSActivity().mAmount.amount);
             onUpdateFeeLayer();
 
         }

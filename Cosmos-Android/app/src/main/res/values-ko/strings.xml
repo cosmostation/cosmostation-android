@@ -511,7 +511,8 @@
     <string name="str_collateral_value_title2">가치</string>
     <string name="str_collateral_value_title3">나의 %1$s 담보 가치</string>
     <string name="str_open_cdp">CDP 개설</string>
-    <string name="str_available_amount">Available Amount</string>
+    <string name="str_available_amount">사용 가능 수량</string>
+    <string name="str_delegable_amount">위임 가능 수량</string>
     <string name="str_self_deposited_amount">나의 담보 수량</string>
     <string name="str_total_deposited_amount">전체 담보 수량</string>
     <string name="str_expected_withdrawable_amount">출금 가능</string>

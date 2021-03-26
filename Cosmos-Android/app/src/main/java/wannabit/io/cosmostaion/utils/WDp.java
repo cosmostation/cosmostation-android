@@ -145,6 +145,13 @@ public class WDp {
         return result;
     }
 
+    public static SpannableString getDpGasRate(String input) {
+        SpannableString result;
+        result = new SpannableString(input);
+        result.setSpan(new RelativeSizeSpan(0.8f), 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
+        return result;
+    }
+
 
 
     public static void showCoinDp(Context c, Coin coin, TextView denomTv, TextView amountTv, BaseChain chain) {
@@ -1845,6 +1852,10 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorPersis);
         }
         return null;
+    }
+
+    public static void DpMainDenom(Context c, BaseChain chain, TextView textview) {
+        DpMainDenom(c, chain.getChain(), textview);
     }
 
     public static void DpMainDenom(Context c, String chain, TextView textview) {

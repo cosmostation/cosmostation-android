@@ -28,11 +28,13 @@ import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class SendActivity extends BaseBroadCastActivity {
 
@@ -44,10 +46,7 @@ public class SendActivity extends BaseBroadCastActivity {
     private ViewPager               mViewPager;
     private SendPageAdapter         mPageAdapter;
 
-    public String                   mStarName;
-    public String                   mTagetAddress;
-    public ArrayList<Coin>          mTargetCoins;
-
+    public String                       mStarName;
     public BnbToken                     mBnbToken;
     public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
     public String                       mIovDenom;
@@ -89,6 +88,8 @@ public class SendActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_SIMPLE_SEND;
+
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
         } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
             if (mBnbToken == null) onBackPressed();
@@ -101,6 +102,8 @@ public class SendActivity extends BaseBroadCastActivity {
         } else if (mBaseChain.equals(BaseChain.SECRET_MAIN)) {
             if (TextUtils.isEmpty(mSecretDenom)) onBackPressed();
         }
+
+
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -197,9 +200,9 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public void onStartSend() {
         Intent intent = new Intent(SendActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_SEND);
-        intent.putExtra("toAddress", mTagetAddress);
-        intent.putParcelableArrayListExtra("amount", mTargetCoins);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_SEND);
+        intent.putExtra("toAddress", mToAddress);
+        intent.putParcelableArrayListExtra("amount", mAmounts);
         intent.putExtra("memo", mTxMemo);
         intent.putExtra("fee", mTxFee);
         startActivity(intent);
@@ -220,7 +223,8 @@ public class SendActivity extends BaseBroadCastActivity {
             mFragments.add(SendStep0Fragment.newInstance(null));
             mFragments.add(SendStep1Fragment.newInstance(null));
             mFragments.add(SendStep2Fragment.newInstance(null));
-            mFragments.add(SendStep3Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(SendStep3Fragment.newInstance(null)); }
             mFragments.add(SendStep4Fragment.newInstance(null));
         }
 

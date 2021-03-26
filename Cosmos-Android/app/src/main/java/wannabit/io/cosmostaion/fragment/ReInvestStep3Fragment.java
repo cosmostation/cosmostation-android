@@ -71,22 +71,22 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     @Override
     public void onRefreshTab() {
         if (isGRPC(getSActivity().mBaseChain)) {
-            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
+            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
-            BigDecimal current = getSActivity().getBaseDao().getDelegation(getSActivity().mValOpAddress);
-            BigDecimal expected = current.add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
+            BigDecimal current = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
+            BigDecimal expected = current.add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
             mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, 6, 6));
             mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
-            mValidator.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
+            mValidator.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
             BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
-            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
+            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
             if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
                 mCurrentAmount.setText(WDp.getDpAmount2(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, 6));
-                BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN));
+                BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
                 mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
             }
             mValidator.setText(getSActivity().mValidator.description.moniker);
@@ -115,7 +115,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     }
 
     private boolean onCheckValidateRewardAndFee() {
-        BigDecimal reward       = new BigDecimal(getSActivity().mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN);
+        BigDecimal reward       = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
         BigDecimal feeAtom      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         return feeAtom.compareTo(reward) < 0;
     }

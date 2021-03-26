@@ -557,8 +557,15 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
 
+
+    public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
+    public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
     public final static String COSMOS_GAS_RATE_AVERAGE                  = "0.025";
+
+    public final static String IRIS_GAS_RATE_TINY                       = "0.002";
+    public final static String IRIS_GAS_RATE_LOW                        = "0.02";
     public final static String IRIS_GAS_RATE_AVERAGE                    = "0.2";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";

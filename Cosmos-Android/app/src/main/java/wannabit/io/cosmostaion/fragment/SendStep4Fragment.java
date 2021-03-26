@@ -101,7 +101,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
+        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mAmounts.get(0).amount);
         BigDecimal feeAmount      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
             mDpDecimal = 8;
@@ -313,7 +313,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         }
 
 
-        mRecipientAddress.setText(getSActivity().mTagetAddress);
+        mRecipientAddress.setText(getSActivity().mToAddress);
         mRecipientStartName.setVisibility(View.GONE);
 //        if (TextUtils.isEmpty(getSActivity().mStarName)) {
 //            mRecipientStartName.setVisibility(View.GONE);

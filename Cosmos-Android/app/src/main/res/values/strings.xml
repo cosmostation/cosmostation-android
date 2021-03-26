@@ -200,7 +200,7 @@
     <string name="str_send_fee">Send Tx Fee</string>
     <string name="str_total_spend_amount">Total Spend</string>
     <string name="str_current_available">Current Available</string>
-    <string name="str_remaining_available">Remaining Available</string>
+    <string name="str_remaining_available">Remaining Available Amount</string>
     <string name="str_from_c">FROM</string>
     <string name="str_to_c">TO</string>
     <string name="str_memo_c">MEMO</string>
@@ -683,6 +683,7 @@
     <string name="str_collateral_value_title3">My %1$s Collateral Value</string>
     <string name="str_open_cdp">Open CDP</string>
     <string name="str_available_amount">Available Amount</string>
+    <string name="str_delegable_amount">Delegable Amount</string>
     <string name="str_self_deposited_amount">Deposited Collateral (self)</string>
     <string name="str_total_deposited_amount">Deposited Collateral (total)</string>
     <string name="str_expected_withdrawable_amount">Withdrawable</string>
