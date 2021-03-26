@@ -20,10 +20,16 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.VoteStep0Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep1Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep2Fragment;
 import wannabit.io.cosmostaion.fragment.VoteStep3Fragment;
+
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 
 public class VoteActivity extends BaseBroadCastActivity {
 
@@ -60,6 +66,8 @@ public class VoteActivity extends BaseBroadCastActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_VOTE;
+
         mProposalId = getIntent().getStringExtra("proposalId");
         mProposeTitle = getIntent().getStringExtra("title");
         mProposer = getIntent().getStringExtra("proposer");
@@ -145,7 +153,7 @@ public class VoteActivity extends BaseBroadCastActivity {
 
     public void onStartVote() {
         Intent intent = new Intent(VoteActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_VOTE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_VOTE);
         intent.putExtra("proposal_id", mProposalId);
         intent.putExtra("opinion", mOpinion);
         intent.putExtra("memo", mTxMemo);
@@ -165,7 +173,8 @@ public class VoteActivity extends BaseBroadCastActivity {
             mFragments.clear();
             mFragments.add(VoteStep0Fragment.newInstance(null));
             mFragments.add(VoteStep1Fragment.newInstance(null));
-            mFragments.add(VoteStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(VoteStep2Fragment.newInstance(null)); }
             mFragments.add(VoteStep3Fragment.newInstance(null));
         }
 

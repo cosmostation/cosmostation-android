@@ -10,6 +10,7 @@ public class BaseBroadCastActivity extends BaseActivity {
     public int                  mTxType = -1;
     public Fee                  mTxFee;
     public String               mTxMemo;
+    public String               mDenom;                             //Transfer
     public String               mToAddress;                         //Transfer
     public ArrayList<Coin>      mAmounts;                           //Transfer
     public Coin                 mAmount;                            //Delegate, Undelegate, Redelegate, ReInvest

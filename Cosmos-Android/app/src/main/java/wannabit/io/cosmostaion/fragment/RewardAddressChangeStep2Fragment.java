@@ -47,7 +47,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_LOW;
@@ -55,7 +54,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -362,17 +360,6 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
-                getSActivity().mTxFee = fee;
-
-            } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = TOKEN_AKASH;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE;
                 getSActivity().mTxFee = fee;
 
             }

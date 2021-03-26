@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Validator;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -167,19 +168,15 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_UNDELEGATE);
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {
-            intent.putExtra("toAddress", mValidator.operator_address);
-            intent.putExtra("uAmount", mAmount);
-
-        } else if (isGRPC(mBaseChain)) {
+        if (isGRPC(mBaseChain)) {
             intent.putExtra("toAddress", mValAddress);
             intent.putExtra("uAmount", mAmount);
+        } else {
+            intent.putExtra("toAddress", mValidator.operator_address);
+            intent.putExtra("uAmount", mAmount);
         }
-
         intent.putExtra("memo", mTxMemo);
-        intent.putExtra("fee", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 

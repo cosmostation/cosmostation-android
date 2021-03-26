@@ -55,7 +55,6 @@ public class SendActivity extends BaseBroadCastActivity {
     public String                       mSecretDenom;
 
     //V1 .40 version
-    public String                       mDenom;
     public TokenOuterClass.Token        mIrisToken_Grpc;
 
     @Override

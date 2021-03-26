@@ -198,6 +198,59 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     }
 
     private boolean onCheckValidate() {
+        if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
+            BigDecimal available = getBaseDao().getAvailable(getSActivity().mDenom);
+            if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                BigDecimal toSend = new BigDecimal(getSActivity().mAmounts.get(0).amount);
+                if ((toSend.add(mFee)).compareTo(available) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            } else {
+                if (mFee.compareTo(available) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            }
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
+            BigDecimal delegatable = getBaseDao().getDelegatable(WDp.mainDenom(getSActivity().mBaseChain));
+            BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
+            if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
+                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            if (mFee.compareTo(available) > 0) {
+                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+            BigDecimal rewardSum = BigDecimal.ZERO;
+            for (String opAddress: getSActivity().mValAddresses) {
+                rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
+            }
+
+            if (mFee.compareTo(rewardSum) > 0) {
+                Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
+            BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(getSActivity().mBaseChain));
+            if (mFee.compareTo(available) > 0) {
+                Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            BigDecimal reinvest = new BigDecimal(getSActivity().mAmount.amount);
+            if (mFee.compareTo(reinvest) > 0) {
+                Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+        }
         return true;
     }
 
@@ -257,8 +310,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         if (result.isSuccess && result.resultData != null) {
             Abci.GasInfo gasInfo = ((Abci.GasInfo)result.resultData);
             long gasused = gasInfo.getGasUsed();
-//            WLog.w("gasused " +  gasused);
-            gasused = (long)((double)gasused * 1.2d);
+            gasused = (long)((double)gasused * 1.1d);
 //            WLog.w("padding gasused " +  gasused);
             mEstimateGasAmount = new BigDecimal(gasused);
             onUpdateView();

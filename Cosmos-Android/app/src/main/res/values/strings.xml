@@ -1299,6 +1299,7 @@
     <string name="error_no_more_today">No More Today.</string>
     <string name="error_no_address_export">No Address for Export.</string>
     <string name="error_remain_borrow_small">Remain borrow amount less than $10</string>
+    <string name="error_waste_fee">Fee is bigger than reward.</string>
 
     <string name="s_atom" translatable="false">ATOM</string>
     <string name="s_photon" translatable="false">PHOTON</string>
