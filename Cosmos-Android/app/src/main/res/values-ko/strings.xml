@@ -295,7 +295,7 @@
     <string name="str_gas_amount">가스량</string>
     <string name="str_gas_rate">가스 레이트</string>
     <string name="str_fee_amount">Tx 수수료</string>
-    <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.\n(블록체인에 반영시간이 좀 더 걸립니다.)</string>
+    <string name="str_fee_speed_title_0">Cosmostation을 비롯한 \n소수의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_iris">현재 아이리스 체인은 고정 전송 수수료를 지원합니다.</string>

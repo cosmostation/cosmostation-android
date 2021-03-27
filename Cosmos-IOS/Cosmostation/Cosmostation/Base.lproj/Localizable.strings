@@ -85,8 +85,8 @@
 "more_wait_msg" = "The transaction you requested has been successfully broadcasted to the blockchain. However, there is a delay in displaying the result. Please press the \"wait\" button below to wait until the result is displayed, or press \"close\" to return to your wallet dashboard and check your TX in the history tab later.";
 "more_wait_swap_title" = "Swap ID Confirmation Delayed";
 "more_wait_swap_msg" = "The sending chain successfully attempted a swap, but the swap ID has not been found yet.\n\nPress the \"Wait\" button to continue searching for the swap ID to perform the swap.\nIf you press the \"Close\" button, your funds will be refunded to your original wallet after a certain period of time.";
-"fee_speed_title_0" = "Only a handful of validators will process this Tx.";
-"fee_speed_title_1" = "A few validators include \"Cosmostation\" will process this Tx.";
+"fee_speed_title_0" = "Only a handful of validators include \"Cosmostation\" \nwill process this Tx.";
+"fee_speed_title_1" = "A few validators will process this Tx.";
 "fee_speed_title_2" = "Most validators will process this Tx.";
 "fee_speed_iris_title" = "Support fixed amount fee for Iris.\nIris Hub will refund the remaining gas fee after use.";
 "fee_speed_bnb_title" = "Support fixed fee for Binance Chain";
