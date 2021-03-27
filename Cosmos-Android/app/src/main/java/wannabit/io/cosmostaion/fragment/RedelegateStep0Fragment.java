@@ -32,9 +32,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -154,22 +156,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
 
         } else {
             mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator);
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 6, getSActivity().mBaseChain));
-
-            }
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
             if (getSActivity().mToValidators != null && getSActivity().mToValidators.size() > 0) {
                 mProgress.setVisibility(View.GONE);
             }
@@ -285,6 +272,14 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin scrt = new Coin(TOKEN_SECRET, amountTemp.movePointRight(6).setScale(0).toPlainString());
+                getSActivity().mAmount = scrt;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
+                Coin scrt = new Coin(TOKEN_DVPN, amountTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mAmount = scrt;
                 return true;
 

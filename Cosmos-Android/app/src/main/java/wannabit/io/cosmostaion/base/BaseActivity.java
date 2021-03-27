@@ -583,7 +583,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-
             new KavaPriceFeedParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
@@ -655,7 +654,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(SECRET_MAIN)) {
-            mTaskCount = 10;
+            mTaskCount = 11;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -670,7 +669,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-            mTaskCount = 10;
+            mTaskCount = 11;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -1031,10 +1030,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
                 getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
 //
 //                WLog.w("mBalances " + getBaseDao().mBalances.size());
 //                WLog.w("mBondings " + getBaseDao().mBondings.size());

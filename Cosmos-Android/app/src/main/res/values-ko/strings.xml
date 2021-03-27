@@ -708,6 +708,7 @@
     <string name="str_unbonding_3days_after"><![CDATA[(3일 후)]]></string>
     <string name="str_unbonding_14days_after"><![CDATA[(14일 후)]]></string>
     <string name="str_unbonding_21days_after"><![CDATA[(21일 후)]]></string>
+    <string name="str_unbonding_28days_after"><![CDATA[(28일 후)]]></string>
     <string name="str_reward_step_1">지급받을 이자 내역을 확인하세요</string>
     <string name="str_reward_step_2">메모를 입력하세요 (선택사항)</string>
     <string name="str_reward_step_3">Tx 수수료를 선택하세요</string>

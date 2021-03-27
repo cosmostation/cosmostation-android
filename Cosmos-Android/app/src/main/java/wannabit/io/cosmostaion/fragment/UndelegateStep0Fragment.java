@@ -31,9 +31,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -167,6 +169,9 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
             }
         }
     }
@@ -276,6 +281,15 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0)
                     return false;
                 Coin coin = new Coin(TOKEN_SECRET, atomTemp.movePointRight(6).setScale(0).toPlainString());
+                getSActivity().mAmount = coin;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0)
+                    return false;
+                Coin coin = new Coin(TOKEN_DVPN, atomTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mAmount = coin;
                 return true;
 

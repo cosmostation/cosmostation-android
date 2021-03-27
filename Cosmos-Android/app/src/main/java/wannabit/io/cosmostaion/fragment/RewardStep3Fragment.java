@@ -31,8 +31,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -246,6 +248,32 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                         expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
                     } else {
                         expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSecretTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
+                    }
+                    mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                for (Reward reward:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentScrt     = getSActivity().mAccount.getTokenBalance(TOKEN_DVPN);
+                    BigDecimal expectedScrt    = currentScrt.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedScrt, 6, 6));
+                    BigDecimal expectedPrice = BigDecimal.ZERO;
+                    if(getBaseDao().getCurrency() != 5) {
+                        expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSentinelTic())).divide(new BigDecimal("1000000"), 2, RoundingMode.DOWN);
+                    } else {
+                        expectedPrice = expectedScrt.multiply(new BigDecimal(""+getBaseDao().getLastSentinelTic())).divide(new BigDecimal("1000000"), 8, RoundingMode.DOWN);
                     }
                     mExpectedPrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), expectedPrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 

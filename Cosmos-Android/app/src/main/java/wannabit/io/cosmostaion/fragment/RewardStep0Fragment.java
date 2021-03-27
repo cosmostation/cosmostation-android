@@ -95,7 +95,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount(getContext(), rewardSum, 6, getSActivity().mBaseChain));
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
             String monikers = "";
             for (Validator validator:getSActivity().mValidators) {
                 if(TextUtils.isEmpty(monikers)) {

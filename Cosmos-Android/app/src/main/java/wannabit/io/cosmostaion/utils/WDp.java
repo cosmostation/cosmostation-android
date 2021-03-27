@@ -1557,6 +1557,13 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_14days_after);
 
+            } else if (chain.equals(SENTINEL_MAIN)) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.DATE, 28);
+                SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
+                result = unbondFormat.format(calendar.getTimeInMillis());
+                return result + "   " +c.getString(R.string.str_unbonding_28days_after);
+
             } else {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 21);
@@ -2343,7 +2350,7 @@ public class WDp {
             result = new BigDecimal("0.4");
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");
-        } else if (basechain.equals(AKASH_MAIN)) {
+        } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN)) {
             result = new BigDecimal("0.334");
         }
         return result.movePointRight(2).setScale(2);

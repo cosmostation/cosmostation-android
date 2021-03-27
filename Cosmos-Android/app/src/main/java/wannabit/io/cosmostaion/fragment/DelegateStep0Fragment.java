@@ -34,10 +34,12 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -169,6 +171,10 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_SECRET).subtract(new BigDecimal("50000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
+        } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_DVPN).subtract(new BigDecimal("20000"));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
         }
 
         else if (isGRPC(getSActivity().mBaseChain)) {
@@ -288,6 +294,14 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                 if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
                 Coin coin = new Coin(TOKEN_SECRET, amountTemp.movePointRight(6).setScale(0).toPlainString());
+                getSActivity().mAmount = coin;
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                BigDecimal amountTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if(amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if(amountTemp.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.CEILING)) > 0) return false;
+                Coin coin = new Coin(TOKEN_DVPN, amountTemp.movePointRight(6).setScale(0).toPlainString());
                 getSActivity().mAmount = coin;
                 return true;
 
