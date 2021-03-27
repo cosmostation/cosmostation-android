@@ -25,13 +25,14 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 
 public class SingleRewardTask extends CommonTask {
 
     private Account mAccount;
-    private String  mValidatorAddr;
+    private String mValidatorAddr;
 
     public SingleRewardTask(BaseApplication app, TaskListener listener, Account account, String validatorAddr) {
         super(app, listener);
@@ -43,30 +44,14 @@ public class SingleRewardTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (getChain(mAccount.baseChain).equals(COSMOS_MAIN)) {
-//                Response<ResLcdRewardFromVal> response = ApiClient.getCosmosChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
-//                    ArrayList<Coin> amounts = response.body().result;
-//                    long time = System.currentTimeMillis();
-//                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-//                    mResult.resultData = temp;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
+            if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getKavaChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -81,7 +66,7 @@ public class SingleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -91,12 +76,12 @@ public class SingleRewardTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getKavaTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if(!response.isSuccessful()) {
+                if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if(response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -111,7 +96,7 @@ public class SingleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -126,7 +111,7 @@ public class SingleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -141,7 +126,7 @@ public class SingleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -156,7 +141,7 @@ public class SingleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
@@ -171,7 +156,23 @@ public class SingleRewardTask extends CommonTask {
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
                     return mResult;
                 }
-                if (response.body() != null && response.body().result != null &&response.body().result.size() > 0) {
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    ArrayList<Coin> amounts = response.body().result;
+                    long time = System.currentTimeMillis();
+                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
+                    mResult.resultData = temp;
+                    mResult.isSuccess = true;
+                }
+
+
+            } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
+                Response<ResLcdRewardFromVal> response = ApiClient.getSentinelChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
                     ArrayList<Coin> amounts = response.body().result;
                     long time = System.currentTimeMillis();
                     Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);

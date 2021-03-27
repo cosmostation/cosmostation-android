@@ -47,6 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
@@ -54,6 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
 
 public class ValidatorAllFragment extends BaseFragment implements View.OnClickListener {
 
@@ -176,60 +178,8 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else {
                 final Validator validator  = getBaseDao().mTopValidators.get(position);
-                if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                    try {
-                        Picasso.get().load(KAVA_VAL_URL + validator.operator_address + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
-                    if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
-                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
-                        holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
-                    } else {
-                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
-                    }
-                    try {
-                        Picasso.get().load(BAND_VAL_URL + validator.operator_address + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                    try {
-                        Picasso.get().load(IOV_VAL_URL + validator.operator_address + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                    try {
-                        Picasso.get().load(CERTIK_VAL_URL + validator.operator_address + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                    holder.itemTvVotingPower.setText(WDp.getDpAmount(getContext(), new BigDecimal(validator.tokens), 6, getChain(getMainActivity().mAccount.baseChain)));
-                    holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
-                    try {
-                        Picasso.get().load(SECRET_VAL_URL + validator.operator_address + ".png")
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-
-                }
-
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
+                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -238,6 +188,9 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                         getMainActivity().onStartValidatorDetail(validator);
                     }
                 });
+                try {
+                    Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                } catch (Exception e){}
 
                 if (validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -251,6 +204,16 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
                 } else {
                     holder.itemRoot.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+                }
+
+                if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
+                    holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorGray1));
+                    if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
+                        holder.itemBandOracleOff.setVisibility(View.VISIBLE);
+                        holder.itemTvCommission.setTextColor(getResources().getColor(R.color.colorRed));
+                    } else {
+                        holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+                    }
                 }
             }
         }

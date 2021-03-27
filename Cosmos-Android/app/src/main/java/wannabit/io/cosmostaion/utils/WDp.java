@@ -86,11 +86,17 @@ import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -126,7 +132,8 @@ public class WDp {
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
         } else {
-            result = new SpannableString(getDecimalFormat(c, 0).format(amount));
+            result = new SpannableString(getDecimalFormat(c, 6).format(amount));
+            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         }
         return result;
     }
@@ -351,7 +358,7 @@ public class WDp {
         for(Reward reward : rewards) {
             sum = sum.add(reward.getRewardAmount(denom).setScale(0, BigDecimal.ROUND_DOWN));
         }
-        return getDpAmount(c, sum, 6, chain);
+        return getDpAmount2(c, sum, 6, 6);
     }
 
     public static BigDecimal getAllRewardAmount(ArrayList<Reward> rewards, String denom) {
@@ -365,12 +372,12 @@ public class WDp {
     public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain, String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for(Reward reward : rewards) {
-            if(reward.validatorAddress.equals(valOpAddress)) {
+            if (reward.validatorAddress.equals(valOpAddress)) {
                 result = reward.getRewardAmount(denom);
                 break;
             }
         }
-        return getDpAmount(c, result, 6, chain);
+        return getDpAmount2(c, result, 6, 6);
     }
 
     public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress, String denom) {
@@ -2295,6 +2302,20 @@ public class WDp {
             return AKASH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(PERSIS_MAIN)) {
             return PERSIS_VAL_URL + opAddress + ".png";
+        }
+
+        else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+            return KAVA_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(BAND_MAIN)) {
+            return BAND_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+            return IOV_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+            return CERTIK_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(SECRET_MAIN)) {
+            return SECRET_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return SENTINEL_VAL_URL + opAddress + ".png";
         }
         return "";
     }

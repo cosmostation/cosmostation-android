@@ -994,7 +994,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
             } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
-                    mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {
+                    mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN)) {
                 for (Validator top:getBaseDao().mTopValidators) {
                     boolean already = false;
                     for (BondingState bond: getBaseDao().mBondings) {
@@ -1166,6 +1166,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
                             getBaseDao().setLastOKexTic(0d);
                             getBaseDao().setLastOKexUpDown(0d);
+
+                        } else if (chain.equals(SENTINEL_MAIN)) {
+                            getBaseDao().setLastSentinelTic(0d);
+                            getBaseDao().setLastSentinelUpDown(0d);
+
                         }
                     }
                 }
