@@ -23,6 +23,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class SingleValidatorInfoTask extends CommonTask {
 
@@ -89,6 +90,13 @@ public class SingleValidatorInfoTask extends CommonTask {
                 }
 
             } else if (mChain.equals(SECRET_MAIN)) {
+                Response<ResLcdSingleValidator> response = ApiClient.getSecretChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(SENTINEL_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getSecretChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;

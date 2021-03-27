@@ -164,7 +164,6 @@ public class SingleRewardTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-
             } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getSentinelChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
                 if (!response.isSuccessful()) {
