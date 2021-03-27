@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
@@ -410,37 +411,23 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(SENTINEL_MAIN)) {
-//                holder.secretLayer.setVisibility(View.VISIBLE);
-//                holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
-//                ApiClient.getSecretChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
-//                    @Override
-//                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-//                        if (response.isSuccessful() && response.body() != null) {
-//                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-//                            if (balance != null && balance.size() > 0 && balance.get(0) != null)
-//                                holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_SECRET), 6, 6));
-//                        }
-//                    }
-//                    @Override
-//                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
-//                });
                 holder.coinLayer.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
-//                new BalanceGrpcTask(getBaseApplication(), new TaskListener() {
-//                    @Override
-//                    public void onTaskResponse(TaskResult result) {
-//                        WLog.w("result " + result.resultData);
-//                        ArrayList<CoinOuterClass.Coin> balances = (ArrayList<CoinOuterClass.Coin>)result.resultData;
-//                        if (balances != null && balances.size() > 0) {
-//                            for (CoinOuterClass.Coin balance: balances) {
-//                                if (balance.getDenom().equals(WDp.mainDenom(mChain))) {
-//                                    WDp.showCoinDp(getBaseContext(), balance.getDenom(), balance.getAmount(), holder.coinDenom, holder.coinAmount, mChain);
-//                                }
-//                            }
-//                        }
-//                    }
-//                }, mChain, address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+                ApiClient.getSentinelChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                });
             }
 
         }
