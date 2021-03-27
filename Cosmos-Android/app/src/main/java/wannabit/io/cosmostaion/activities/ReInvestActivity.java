@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep1Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep2Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep3Fragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -37,26 +37,13 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SINGLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 
-public class ReInvestActivity extends BaseActivity implements TaskListener {
+public class ReInvestActivity extends BaseBroadCastActivity implements TaskListener {
 
     private ImageView               mChainBg;
     private RelativeLayout          mRootView;
@@ -68,12 +55,6 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
     private ReInvestPageAdapter     mPageAdapter;
 
     public Validator                mValidator;
-    public Coin                     mReinvestCoin;
-    public String                   mReinvestMemo;
-    public Fee                      mReinvestFee;
-
-    //gRPC
-    public String                   mValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,8 +78,10 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_REINVEST;
+
         mValidator = getIntent().getParcelableExtra("validator");
-        mValOpAddress = getIntent().getStringExtra("valOpAddress");
+        mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new ReInvestPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -193,14 +176,14 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         Intent intent = new Intent(ReInvestActivity.this, PasswordCheckActivity.class);
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REINVEST);
         if (isGRPC(mBaseChain)) {
-            intent.putExtra("reInvestValAddr", mValOpAddress);
+            intent.putExtra("reInvestValAddr", mValAddress);
         } else {
             intent.putExtra("reInvestValidator", mValidator);
         }
-        mReinvestCoin.amount = new BigDecimal(mReinvestCoin.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
-        intent.putExtra("reInvestAmount", mReinvestCoin);
-        intent.putExtra("memo", mReinvestMemo);
-        intent.putExtra("fee", mReinvestFee);
+        mAmount.amount = new BigDecimal(mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN).toPlainString();
+        intent.putExtra("reInvestAmount", mAmount);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -211,7 +194,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
         if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
             Reward reward = (Reward)result.resultData;
             if (reward != null && reward.amount.size() > 0) {
-                mReinvestCoin = reward.amount.get(0);
+                mAmount = reward.amount.get(0);
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();
@@ -221,7 +204,7 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>)result.resultData;
             if (rewards != null) {
                 getBaseDao().mGrpcRewards = rewards;
-                mReinvestCoin = new Coin(WDp.mainDenom(mBaseChain), getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValOpAddress).toPlainString());
+                mAmount = new Coin(WDp.mainDenom(mBaseChain), getBaseDao().getReward(WDp.mainDenom(mBaseChain), mValAddress).toPlainString());
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();
@@ -240,7 +223,8 @@ public class ReInvestActivity extends BaseActivity implements TaskListener {
             mFragments.clear();
             mFragments.add(ReInvestStep0Fragment.newInstance(null));
             mFragments.add(ReInvestStep1Fragment.newInstance(null));
-            mFragments.add(ReInvestStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(ReInvestStep2Fragment.newInstance(null)); }
             mFragments.add(ReInvestStep3Fragment.newInstance(null));
         }
 

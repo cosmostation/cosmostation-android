@@ -144,7 +144,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
                 if (userInput.startsWith("cosmos1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -152,7 +152,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(IRIS_MAIN) || getSActivity().mBaseChain.equals(IRIS_TEST)) {
                 if (userInput.startsWith("iaa1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -160,7 +160,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(BNB_MAIN)) {
                 if (userInput.startsWith("bnb1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -168,7 +168,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 if (userInput.startsWith("kava1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -176,7 +176,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 if (userInput.startsWith("star") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -184,7 +184,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(BNB_TEST)) {
                 if (userInput.startsWith("tbnb1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -192,7 +192,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 if (userInput.startsWith("band1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -200,7 +200,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 if (userInput.startsWith("okexchain1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -208,7 +208,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 if (userInput.startsWith("certik1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -216,7 +216,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 if (userInput.startsWith("secret1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -224,7 +224,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(AKASH_MAIN)) {
                 if (userInput.startsWith("akash1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -232,7 +232,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(PERSIS_MAIN)) {
                 if (userInput.startsWith("persistence1") && WKey.isValidBech32(userInput)) {
-                    getSActivity().mTagetAddress = userInput;
+                    getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
@@ -281,7 +281,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
         if (requestCode == SELECT_STAR_NAME_ADDRESS) {
             if (resultCode == Activity.RESULT_OK) {
                 getSActivity().mStarName = data.getStringExtra("starname");
-                getSActivity().mTagetAddress = data.getStringExtra("originAddress");
+                getSActivity().mToAddress = data.getStringExtra("originAddress");
                 getSActivity().onNextStep();
             }
 

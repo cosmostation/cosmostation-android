@@ -39,7 +39,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
@@ -102,8 +101,8 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
-        BigDecimal feeAmount      = new BigDecimal(getSActivity().mTargetFee.amount.get(0).amount);
+        BigDecimal toSendAmount   = new BigDecimal(getSActivity().mAmounts.get(0).amount);
+        BigDecimal feeAmount      = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
             mDpDecimal = 8;
             mDenomSendAmount.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
@@ -314,7 +313,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
         }
 
 
-        mRecipientAddress.setText(getSActivity().mTagetAddress);
+        mRecipientAddress.setText(getSActivity().mToAddress);
         mRecipientStartName.setVisibility(View.GONE);
 //        if (TextUtils.isEmpty(getSActivity().mStarName)) {
 //            mRecipientStartName.setVisibility(View.GONE);
@@ -323,7 +322,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
 //            mRecipientStartName.setText(getSActivity().mStarName);
 //        }
 
-        mMemo.setText(getSActivity().mTargetMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override

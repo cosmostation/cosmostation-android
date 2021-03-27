@@ -48,7 +48,7 @@ public class ReInvestGrpcTask extends CommonTask {
         this.mReInvestMemo = mReInvestMemo;
         this.mReInvestFees = mReInvestFees;
         this.mChainId = chainId;
-        this.mResult.taskType   = TASK_GRPC_BROAD_REINVEST;
+        this.mResult.taskType = TASK_GRPC_BROAD_REINVEST;
     }
 
     @Override
@@ -82,7 +82,7 @@ public class ReInvestGrpcTask extends CommonTask {
             }
 
         } catch (Exception e) {
-            WLog.e( "DelegateGrpcTask "+ e.getMessage());
+            WLog.e( "ReInvestGrpcTask "+ e.getMessage());
             mResult.isSuccess = false;
         }
         return mResult;

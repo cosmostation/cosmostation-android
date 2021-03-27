@@ -293,8 +293,9 @@
     <string name="str_daily_return">예상 일 이자량</string>
     <string name="str_monthly_return">예상 월 이자량</string>
     <string name="str_gas_amount">가스량</string>
-    <string name="str_gas_rate">가스비</string>
-    <string name="str_fee_speed_title_0">소수의 검증인들만 처리해 줄 것입니다.\n(블록체인에 반영시간이 좀 더 걸립니다.)</string>
+    <string name="str_gas_rate">가스 레이트</string>
+    <string name="str_fee_amount">Tx 수수료</string>
+    <string name="str_fee_speed_title_0">Cosmostation을 비롯한 \n소수의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_1">일부의 검증인들만 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_2">대부분의 검증인들이 처리해 줄 것입니다.</string>
     <string name="str_fee_speed_title_iris">현재 아이리스 체인은 고정 전송 수수료를 지원합니다.</string>
@@ -510,7 +511,8 @@
     <string name="str_collateral_value_title2">가치</string>
     <string name="str_collateral_value_title3">나의 %1$s 담보 가치</string>
     <string name="str_open_cdp">CDP 개설</string>
-    <string name="str_available_amount">Available Amount</string>
+    <string name="str_available_amount">사용 가능 수량</string>
+    <string name="str_delegable_amount">위임 가능 수량</string>
     <string name="str_self_deposited_amount">나의 담보 수량</string>
     <string name="str_total_deposited_amount">전체 담보 수량</string>
     <string name="str_expected_withdrawable_amount">출금 가능</string>
@@ -839,7 +841,7 @@
     <string name="str_cdp_warn_title">CDP에 관해서</string>
     <string name="str_cdp_warn_msg">CDP는 담보물의 가치변동에 따라 청산의 위험이 있습니다. CDP 개설, 상환, 청산을 포함한 모든 결정 권한과 책임은 사용자에게 있습니다. Cosmostation 지갑은 청산과 청산 위험에 대한 알람은 별도로 제공되지 않습니다.</string>
     <string name="str_delegate_warn_title">위임에 관해서</string>
-    <string name="str_delegate_warn_msg">신중하게 검증인을 선택하세요.\n\n사용자는 자신을 대신해 노드를 운영할 검증인을 선택하여 위임함으로써 위임에 대한 리워드를 받을 수 있지만, 위임한 검증인의 노드에 문제가 발생 시 위임자 또한 지분의 일부가 삭감될 수 있습니다.\n\n위임 해제시, 네트워크에 따라 일정 기간의 언본딩 기간이 소요됩니다. 해제 기간동안 요청한 수량은 어떠한 거래도 할 수 없으며, 위임에 대한 리워드도 지급되지 않습니다.</string>
+    <string name="str_delegate_warn_msg">검증인에게 위임하여 스테이킹 보상을 받을 수 있습니다. 선택한 노드에 문제가 발생하면 위임 지분의 일부를 잃을 수 있습니다. 신중히 선택해주세요.\n위임을 해하면 해지 기간이 있습니다. 이 시간 동안에는 스테이킹 보상을 받을 수 없습니다.</string>
     <string name="str_memo_warn">메모 기입을 확인 바랍니다.\n특정 거래소 또는 지갑은 메모 입력을 요구합니다.</string>
     <string name="str_ok_stake_deposit_step_0">위임 수량을 설정하세요</string>
     <string name="str_ok_stake_deposit_step_1">메모를 입력하세요 (선택사항)</string>
@@ -1014,6 +1016,9 @@
     <string name="str_hard_withdraw_warn_msg">추가 대출 가능 금액이 0 이하가 될 시, 포지션 청산의 위험이 있습니다.\n대출 진행시 추가 대출 금액을 반드시 확인하세요. </string>
     <string name="str_keeper">키퍼</string>
     <string name="str_type">타입</string>
+    <string name="str_check_estimate_gas_amount">예상 가스량 확인</string>
+    <string name="str_apply_estimate_gas_amount">예상 가스량을 사용합니다.</string>
+
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1120,6 +1125,7 @@
     <string name="error_no_more_today">오늘은 보이지 않습니다.</string>
     <string name="error_no_address_export">연결할 주소가 없습니다.</string>
     <string name="error_remain_borrow_small">상환 후 남는 대출 금액이 $10 이하입니다.</string>
+    <string name="error_waste_fee">Tx 수수료가 아자금액 보다 높습니다.</string>
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>

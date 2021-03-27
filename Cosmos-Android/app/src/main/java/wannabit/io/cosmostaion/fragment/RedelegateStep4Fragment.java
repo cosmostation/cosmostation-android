@@ -19,11 +19,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegateConfirm;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class RedelegateStep4Fragment extends BaseFragment implements View.OnClickListener {
@@ -70,22 +65,22 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mReDelegateAmount.amount);
-        BigDecimal feeAmount= new BigDecimal(getSActivity().mReDelegateFee.amount.get(0).amount);
+        BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
+        BigDecimal feeAmount= new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (isGRPC(getSActivity().mBaseChain)) {
             mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
 
-            mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
-            mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValOpAddress).getDescription().getMoniker());
-            mMemo.setText(getSActivity().mReDelegateMemo);
+            mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+            mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
+            mMemo.setText(getSActivity().mTxMemo);
 
         } else {
             mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, getSActivity().mBaseChain));
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
             mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
             mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
-            mMemo.setText(getSActivity().mReDelegateMemo);
+            mMemo.setText(getSActivity().mTxMemo);
         }
 
     }

@@ -118,12 +118,16 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_TINY;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_TINY;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
@@ -1980,6 +1984,10 @@ public class WUtil {
         return null;
     }
 
+    public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType) {
+        return getEstimateGasAmount(c, basechain, txType, 0);
+    }
+
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(COSMOS_TEST)) {
@@ -2065,6 +2073,25 @@ public class WUtil {
 
         }
         return BigDecimal.ZERO;
+    }
+
+    public static BigDecimal getGasRate(BaseChain basechain, int position) {
+        if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            if (position == 0) {
+                return new BigDecimal(IRIS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(IRIS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(IRIS_GAS_RATE_AVERAGE);
+
+        } else {
+            if (position == 0) {
+                return new BigDecimal(COSMOS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(COSMOS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+        }
     }
 
 

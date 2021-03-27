@@ -318,12 +318,12 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
         super.onRefreshTab();
         if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
             mAvailable  = getSActivity().mAccount.getKavaBalance();
-            mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
+            mToSend     = new BigDecimal(getSActivity().mAmounts.get(0).amount);
             onUpdateFeeLayer();
 
         } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
             mAvailable  = getSActivity().mAccount.getBandBalance();
-            mToSend     = new BigDecimal(getSActivity().mTargetCoins.get(0).amount);
+            mToSend     = new BigDecimal(getSActivity().mAmounts.get(0).amount);
             onUpdateFeeLayer();
 
         }
@@ -345,7 +345,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_GAS_AMOUNT_AVERAGE;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 Fee fee = new Fee();
@@ -356,7 +356,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_KAVA_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
                 Fee fee = new Fee();
@@ -367,7 +367,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 Fee fee = new Fee();
@@ -378,7 +378,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_GAS_AMOUNT_HALF;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
                 Fee fee = new Fee();
@@ -389,7 +389,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 Fee fee = new Fee();
@@ -400,7 +400,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_OK_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 Fee fee = new Fee();
@@ -411,7 +411,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_CERTIK_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 Fee fee = new Fee();
@@ -422,7 +422,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = SECRET_GAS_AMOUNT_SEND;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
 
@@ -436,7 +436,7 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = V1_GAS_AMOUNT_LOW;
-                getSActivity().mTargetFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
             getSActivity().onNextStep();

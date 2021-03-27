@@ -17,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -25,13 +25,13 @@ import wannabit.io.cosmostaion.fragment.DelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.DelegateStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 
-public class DelegateActivity extends BaseActivity {
+public class DelegateActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private ImageView                   mChainBg;
@@ -43,12 +43,6 @@ public class DelegateActivity extends BaseActivity {
     private DelegatePageAdapter         mPageAdapter;
 
     public Validator                    mValidator;
-    public Coin                         mToDelegateAmount;
-    public String                       mToDelegateMemo;
-    public Fee                          mToDelegateFee;
-
-    //gRPC
-    public String                       mValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +66,10 @@ public class DelegateActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_SIMPLE_DELEGATE;
+
         mValidator = getIntent().getParcelableExtra("validator");
-        mValOpAddress = getIntent().getStringExtra("valOpAddress");
+        mValAddress = getIntent().getStringExtra("valOpAddress");
 
         mPageAdapter = new DelegatePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -144,7 +140,7 @@ public class DelegateActivity extends BaseActivity {
     }
 
     public void onNextStep() {
-        if(mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
+        if (mViewPager.getCurrentItem() < mViewPager.getChildCount()) {
             onHideKeyboard();
             mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1, true);
         }
@@ -166,16 +162,16 @@ public class DelegateActivity extends BaseActivity {
 
     public void onStartDelegate() {
         Intent intent = new Intent(DelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_DELEGATE);
 
         if (isGRPC(mBaseChain)) {
-            intent.putExtra("toAddress", mValOpAddress);
+            intent.putExtra("toAddress", mValAddress);
         } else {
             intent.putExtra("toAddress", mValidator.operator_address);
         }
-        intent.putExtra("dAmount", mToDelegateAmount);
-        intent.putExtra("memo", mToDelegateMemo);
-        intent.putExtra("fee", mToDelegateFee);
+        intent.putExtra("dAmount", mAmount);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -191,7 +187,8 @@ public class DelegateActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(DelegateStep0Fragment.newInstance(null));
             mFragments.add(DelegateStep1Fragment.newInstance(null));
-            mFragments.add(DelegateStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(DelegateStep2Fragment.newInstance(null)); }
             mFragments.add(DelegateStep3Fragment.newInstance(null));
         }
 

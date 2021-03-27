@@ -23,29 +23,20 @@ import wannabit.io.cosmostaion.activities.RedelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
@@ -157,7 +148,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
         super.onResume();
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValOpAddress);
+            mMaxAvailable = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
             mProgress.setVisibility(View.GONE);
 
@@ -254,7 +245,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin kava = new Coin(TOKEN_KAVA, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = kava;
+                getSActivity().mAmount = kava;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
@@ -262,7 +253,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin band = new Coin(TOKEN_BAND, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = band;
+                getSActivity().mAmount = band;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
@@ -270,7 +261,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin iov = new Coin(TOKEN_IOV, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = iov;
+                getSActivity().mAmount = iov;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -278,7 +269,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin iov = new Coin(TOKEN_IOV_TEST, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = iov;
+                getSActivity().mAmount = iov;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
@@ -286,7 +277,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin certik = new Coin(TOKEN_CERTIK, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = certik;
+                getSActivity().mAmount = certik;
                 return true;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
@@ -294,7 +285,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mFromValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
                 Coin scrt = new Coin(TOKEN_SECRET, amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = scrt;
+                getSActivity().mAmount = scrt;
                 return true;
 
             }
@@ -304,7 +295,7 @@ public class RedelegateStep0Fragment extends BaseFragment implements View.OnClic
                 if (amountTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (amountTemp.compareTo(mMaxAvailable.movePointLeft(6)) > 0) return false;
                 Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), amountTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mReDelegateAmount = coin;
+                getSActivity().mAmount = coin;
                 return true;
 
             }

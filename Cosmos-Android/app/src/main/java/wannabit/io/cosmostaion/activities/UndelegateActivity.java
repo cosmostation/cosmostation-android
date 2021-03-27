@@ -12,43 +12,34 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
-import wannabit.io.cosmostaion.dialog.Dialog_VestingAccount;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 
-public class UndelegateActivity extends BaseActivity {
+public class UndelegateActivity extends BaseBroadCastActivity {
 
     private ImageView                   mChainBg;
     private Toolbar                     mToolbar;
@@ -60,13 +51,6 @@ public class UndelegateActivity extends BaseActivity {
 
     public Validator                    mValidator;
     public BondingState                 mBondingState;
-    public Coin                         mUnDelegateAmount;
-    public String                       mUnDelegateMemo;
-    public Fee                          mUnDelegateFee;
-    public String                       mUnDelegateShare;
-
-    //gRPC
-    public String                       mValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,10 +73,10 @@ public class UndelegateActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-
+        mTxType = CONST_PW_TX_SIMPLE_UNDELEGATE;
 
         if (isGRPC(mBaseChain)) {
-            mValOpAddress = getIntent().getStringExtra("valOpAddress");
+            mValAddress = getIntent().getStringExtra("valOpAddress");
         } else {
             mValidator = getIntent().getParcelableExtra("validator");
             mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
@@ -183,20 +167,16 @@ public class UndelegateActivity extends BaseActivity {
 
     public void onStartUndelegate() {
         Intent intent = new Intent(UndelegateActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE);
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) ||
-                mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST) ||
-                mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN)) {
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_UNDELEGATE);
+        if (isGRPC(mBaseChain)) {
+            intent.putExtra("toAddress", mValAddress);
+            intent.putExtra("uAmount", mAmount);
+        } else {
             intent.putExtra("toAddress", mValidator.operator_address);
-            intent.putExtra("uAmount", mUnDelegateAmount);
-
-        } else if (isGRPC(mBaseChain)) {
-            intent.putExtra("toAddress", mValOpAddress);
-            intent.putExtra("uAmount", mUnDelegateAmount);
+            intent.putExtra("uAmount", mAmount);
         }
-
-        intent.putExtra("memo", mUnDelegateMemo);
-        intent.putExtra("fee", mUnDelegateFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -213,7 +193,8 @@ public class UndelegateActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(UndelegateStep0Fragment.newInstance(null));
             mFragments.add(UndelegateStep1Fragment.newInstance(null));
-            mFragments.add(UndelegateStep2Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(UndelegateStep2Fragment.newInstance(null)); }
             mFragments.add(UndelegateStep3Fragment.newInstance(null));
         }
 

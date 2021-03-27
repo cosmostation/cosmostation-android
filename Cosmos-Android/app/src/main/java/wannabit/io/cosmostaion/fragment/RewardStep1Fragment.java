@@ -15,7 +15,6 @@ import androidx.annotation.Nullable;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -94,7 +93,7 @@ public class RewardStep1Fragment extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
             if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                getSActivity().mRewardMemo = mMemo.getText().toString().trim();
+                getSActivity().mTxMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();

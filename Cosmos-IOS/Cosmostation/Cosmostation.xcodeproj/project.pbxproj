@@ -64,6 +64,8 @@
 		2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */; };
 		2827F4CA255B93240029AE1C /* WalletAkashCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827F4C8255B93240029AE1C /* WalletAkashCell.swift */; };
 		2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827F4C9255B93240029AE1C /* WalletAkashCell.xib */; };
+		282A9612260DE054000F4CE6 /* StepFeeGrpcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A9610260DE054000F4CE6 /* StepFeeGrpcViewController.swift */; };
+		282A9613260DE054000F4CE6 /* StepFeeGrpcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282A9611260DE054000F4CE6 /* StepFeeGrpcViewController.xib */; };
 		282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */; };
 		282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */; };
 		282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */; };
@@ -830,6 +832,8 @@
 		2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommonCell.xib; sourceTree = "<group>"; };
 		2827F4C8255B93240029AE1C /* WalletAkashCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAkashCell.swift; sourceTree = "<group>"; };
 		2827F4C9255B93240029AE1C /* WalletAkashCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAkashCell.xib; sourceTree = "<group>"; };
+		282A9610260DE054000F4CE6 /* StepFeeGrpcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeGrpcViewController.swift; sourceTree = "<group>"; };
+		282A9611260DE054000F4CE6 /* StepFeeGrpcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepFeeGrpcViewController.xib; sourceTree = "<group>"; };
 		282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcTradePopup.swift; sourceTree = "<group>"; };
 		282BDFE124A5992500D3A5D4 /* WcTradePopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WcTradePopup.xib; sourceTree = "<group>"; };
 		282BDFE424A5BCCB00D3A5D4 /* WcCancelPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcCancelPopup.swift; sourceTree = "<group>"; };
@@ -2221,6 +2225,8 @@
 				E171A074225B091300C5756C /* StepGenTxViewController.swift */,
 				E171A06E225B08B100C5756C /* StepMemoViewController.swift */,
 				E171A070225B08C100C5756C /* StepFeeViewController.swift */,
+				282A9610260DE054000F4CE6 /* StepFeeGrpcViewController.swift */,
+				282A9611260DE054000F4CE6 /* StepFeeGrpcViewController.xib */,
 				E12D6B88226DF36D00D07CE4 /* StepSendAddressViewController.swift */,
 				E12D6B8A226DF3A700D07CE4 /* StepSendAmountViewController.swift */,
 				E12D6B8C226DF3BB00D07CE4 /* StepSendCheckViewController.swift */,
@@ -2700,6 +2706,7 @@
 				283E9473254902F4007A9291 /* TxDeleteAccountCell.xib in Resources */,
 				28663BF0248A4FB000080311 /* WalletBandCell.xib in Resources */,
 				E126CF9B2387A60D002A546F /* WalletPriceCell.xib in Resources */,
+				282A9613260DE054000F4CE6 /* StepFeeGrpcViewController.xib in Resources */,
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */,
@@ -2980,6 +2987,7 @@
 				28A8401F2605A3D8008C2D61 /* NodeInfo.swift in Sources */,
 				287AC63525FDF7260070837E /* cosmos_genutil_v1beta1_genesis.pb.swift in Sources */,
 				28D7BE5A25F0FBB7006EECD7 /* KavaHardTotalDeposit.swift in Sources */,
+				282A9612260DE054000F4CE6 /* StepFeeGrpcViewController.swift in Sources */,
 				28D7BE5625F0FAFA006EECD7 /* HardInterestRate.swift in Sources */,
 				287AC5A825FDF7250070837E /* tendermint_types_validator.pb.swift in Sources */,
 				287AC5FC25FDF7260070837E /* akash_base_v1beta1_resource.pb.swift in Sources */,
@@ -4070,14 +4078,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 94;
+				CURRENT_PROJECT_VERSION = 96;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.17;
+				MARKETING_VERSION = 1.4.19;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -4097,14 +4105,14 @@
 				CODE_SIGN_ENTITLEMENTS = Cosmostation/Cosmostation.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 94;
+				CURRENT_PROJECT_VERSION = 96;
 				DEVELOPMENT_TEAM = 8G562MW56M;
 				INFOPLIST_FILE = Cosmostation/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.4.17;
+				MARKETING_VERSION = 1.4.19;
 				PRODUCT_BUNDLE_IDENTIFIER = io.wannabit.cosmostation;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

@@ -308,7 +308,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_KAVA_GAS_AMOUNT_REDELEGATE;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 Fee fee = new Fee();
@@ -319,7 +319,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_GAS_AMOUNT_REDELEGATE;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
                 Fee fee = new Fee();
@@ -330,7 +330,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_REDELEGATE;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
                 Fee fee = new Fee();
@@ -341,7 +341,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_REDELEGATE;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 Fee fee = new Fee();
@@ -352,7 +352,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_CERTIK_GAS_AMOUNT_REDELEGATE;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 Fee fee = new Fee();
@@ -363,7 +363,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = SECRET_GAS_AMOUNT_REDELEGATE;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
 
@@ -376,7 +376,7 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = V1_GAS_AMOUNT_HIGH;
-                getSActivity().mReDelegateFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
             getSActivity().onNextStep();

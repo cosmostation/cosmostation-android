@@ -1068,6 +1068,29 @@ class WUtils {
         return attributedString1
     }
     
+    static func displayGasRate2(_ rate: NSDecimalNumber, font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        let deciaml = rate.stringValue.count - 2
+        nf.minimumFractionDigits = deciaml
+        nf.maximumFractionDigits = deciaml
+        nf.numberStyle = .decimal
+        
+        let formatted   = nf.string(from: rate)!
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -(deciaml))
+        
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        
+        let preAttrs = [NSAttributedString.Key.font : font]
+        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
     static func displayPriceUPdown(_ updown:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
@@ -2619,9 +2642,26 @@ class WUtils {
         return NSDecimalNumber.zero
     }
     
-    
-    
-    
+    static func getGasRate(_ chain:ChainType, _ position: Int) -> NSDecimalNumber {
+        if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            if (position == 0) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_IRIS)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_IRIS)
+            } else {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
+            }
+            
+        } else {
+            if (position == 0) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_TINY)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW)
+            } else {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
+            }
+        }
+    }
     
     static func getAtomFees() -> Array<NSDecimalNumber> {
         var atomFees = Array<NSDecimalNumber>()

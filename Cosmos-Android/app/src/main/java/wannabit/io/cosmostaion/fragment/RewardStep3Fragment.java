@@ -89,7 +89,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     @Override
     public void onRefreshTab() {
         BigDecimal rewardSum    = BigDecimal.ZERO;
-        BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+        BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (isGRPC(getSActivity().mBaseChain)) {
             for (String opAddress: getSActivity().mValAddresses) {
                 rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
@@ -121,7 +121,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             mTvFromValidators.setText(monikers);
             mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-            mMemo.setText(getSActivity().mRewardMemo);
+            mMemo.setText(getSActivity().mTxMemo);
 
         } else {
             if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -266,7 +266,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
             }
             mTvFromValidators.setText(monikers);
             mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-            mMemo.setText(getSActivity().mRewardMemo);
+            mMemo.setText(getSActivity().mTxMemo);
         }
     }
 
@@ -290,7 +290,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
     private boolean onCheckValidateRewardAndFee() {
         if (isGRPC(getSActivity().mBaseChain)) {
             BigDecimal rewardSum    = BigDecimal.ZERO;
-            BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
             for (String opAddress: getSActivity().mValAddresses) {
                 rewardSum = rewardSum.add(getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
@@ -298,7 +298,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
 
         } else {
             BigDecimal rewardSum    = BigDecimal.ZERO;
-            BigDecimal feeAmount    = new BigDecimal(getSActivity().mRewardFee.amount.get(0).amount);
+            BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
             for (Reward reward:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
             }

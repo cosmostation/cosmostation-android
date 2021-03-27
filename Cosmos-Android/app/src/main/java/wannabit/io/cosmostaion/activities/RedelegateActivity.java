@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -28,27 +28,20 @@ import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
-import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
-import wannabit.io.cosmostaion.network.res.ResLcdIrisRedelegate;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BONDEB_VALIDATOR;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 
-public class RedelegateActivity extends BaseActivity implements TaskListener {
+public class RedelegateActivity extends BaseBroadCastActivity implements TaskListener {
 
     private ImageView                       mChainBg;
     private Toolbar                         mToolbar;
@@ -58,23 +51,15 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
     private ViewPager                       mViewPager;
     private RedelegatePageAdapter           mPageAdapter;
 
-
     public ArrayList<Validator>             mToValidators = new ArrayList<>();
     public BondingState                     mBondingState;
     public Validator                        mFromValidator;
     public Validator                        mToValidator;
-    public Coin                             mReDelegateAmount;
-    public String                           mReDelegateMemo;
-    public Fee                              mReDelegateFee;
-
-    public ArrayList<ResLcdIrisRedelegate>  mIrisRedelegateState;
 
     private int                             mTaskCount;
 
     //gRPC
     public ArrayList<Staking.Validator>     mGRpcTopValidators = new ArrayList<>();
-    public String                           mValOpAddress;
-    public String                           mToValOpAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,13 +82,13 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_SIMPLE_REDELEGATE;
 
         if (isGRPC(mBaseChain)) {
-            mValOpAddress = getIntent().getStringExtra("valOpAddress");
+            mValAddress = getIntent().getStringExtra("valOpAddress");
 
         } else {
             mFromValidator          = getIntent().getParcelableExtra("validator");
-            mIrisRedelegateState    = getIntent().getParcelableArrayListExtra("irisReState");
             mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
         }
 
@@ -197,15 +182,15 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
         Intent intent = new Intent(RedelegateActivity.this, PasswordCheckActivity.class);
         intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_SIMPLE_REDELEGATE);
         if (isGRPC(mBaseChain)) {
-            intent.putExtra("fromValidatorAddr", mValOpAddress);
-            intent.putExtra("toValidatorAddr", mToValOpAddress);
+            intent.putExtra("fromValidatorAddr", mValAddress);
+            intent.putExtra("toValidatorAddr", mToValAddress);
         } else {
             intent.putExtra("fromValidator", mFromValidator);
             intent.putExtra("toValidator", mToValidator);
         }
-        intent.putExtra("rAmount", mReDelegateAmount);
-        intent.putExtra("memo", mReDelegateMemo);
-        intent.putExtra("fee", mReDelegateFee);
+        intent.putExtra("rAmount", mAmount);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -247,7 +232,7 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             ArrayList<Staking.Validator> temp = (ArrayList<Staking.Validator>)result.resultData;
             if (temp != null) {
                 for (Staking.Validator val:temp) {
-                    if (!val.getOperatorAddress().equals(mValOpAddress)) {
+                    if (!val.getOperatorAddress().equals(mValAddress)) {
                         mGRpcTopValidators.add(val);
                     }
                 }
@@ -275,7 +260,8 @@ public class RedelegateActivity extends BaseActivity implements TaskListener {
             mFragments.add(RedelegateStep0Fragment.newInstance(null));
             mFragments.add(RedelegateStep1Fragment.newInstance(null));
             mFragments.add(RedelegateStep2Fragment.newInstance(null));
-            mFragments.add(RedelegateStep3Fragment.newInstance(null));
+            if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
+            else { mFragments.add(RedelegateStep3Fragment.newInstance(null)); }
             mFragments.add(RedelegateStep4Fragment.newInstance(null));
         }
 

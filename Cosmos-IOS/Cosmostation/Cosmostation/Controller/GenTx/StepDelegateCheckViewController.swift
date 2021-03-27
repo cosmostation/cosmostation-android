@@ -60,17 +60,15 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST || pageHolderVC.chainType! == ChainType.BAND_MAIN ||
-                pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST ||
-                pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-            targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
-            
-        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
+            
+        } else {
+            toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 6, pageHolderVC.chainType!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         }
         
         

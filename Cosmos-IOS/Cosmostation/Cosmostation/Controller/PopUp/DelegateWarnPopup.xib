@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -39,12 +39,10 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLD-UV-Do8">
-                            <rect key="frame" x="12" y="104" width="354" height="193.5"/>
-                            <string key="text">Please perform careful due diligence on validators before delegating.
+                            <rect key="frame" x="12" y="104" width="354" height="230"/>
+                            <string key="text">You can receive staking rewards by delegating to a validator. You may lose a portion of your delegated stake if a problem occurs with the selected node. Please perform careful due diligence before delegating.
 
-Users can receive staking rewards for delegating to a validator to operate a node on their behalf. If a problem occurs with the selected validators node, you may also lose a portion of your delegated stake..
-
-When you undelegate, there will be an unbonding period specific to the network. For tokens in "unbonding" state, you will not be able to accumulate staking rewards or make transactions.</string>
+When you undelegate, there is an unbonding period. You will not receive staking rewards during this time.</string>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="14"/>
                             <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
                             <nil key="highlightedColor"/>
@@ -52,7 +50,7 @@ When you undelegate, there will be an unbonding period specific to the network. 
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GdC-aK-2PT">
                             <rect key="frame" x="0.0" y="350" width="378" height="50"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnZ-of-W7v">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gnZ-of-W7v">
                                     <rect key="frame" x="0.0" y="0.0" width="184" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="8pN-Wm-Upd"/>
@@ -76,7 +74,7 @@ When you undelegate, there will be an unbonding period specific to the network. 
                                         <action selector="onClickCancel:" destination="-1" eventType="touchUpInside" id="IoV-k8-Psn"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDJ-FJ-BVy">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xDJ-FJ-BVy">
                                     <rect key="frame" x="194" y="0.0" width="184" height="50"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="50" id="BG8-mm-waq"/>
@@ -114,7 +112,7 @@ When you undelegate, there will be an unbonding period specific to the network. 
                         <constraint firstAttribute="trailing" secondItem="nLD-UV-Do8" secondAttribute="trailing" constant="12" id="OZe-pH-EEE"/>
                         <constraint firstAttribute="trailing" secondItem="GdC-aK-2PT" secondAttribute="trailing" id="OkL-mK-xIT"/>
                         <constraint firstItem="oXg-jq-j5K" firstAttribute="centerX" secondItem="ROE-xX-jLa" secondAttribute="centerX" id="SJ9-Nr-9fj"/>
-                        <constraint firstItem="GdC-aK-2PT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="nLD-UV-Do8" secondAttribute="bottom" constant="16" id="Y0S-EW-6wh"/>
+                        <constraint firstItem="GdC-aK-2PT" firstAttribute="top" secondItem="nLD-UV-Do8" secondAttribute="bottom" constant="16" id="Y0S-EW-6wh"/>
                         <constraint firstAttribute="trailing" secondItem="u6t-iL-Fz4" secondAttribute="trailing" constant="12" id="gJD-V0-VLT"/>
                         <constraint firstItem="oXg-jq-j5K" firstAttribute="top" secondItem="ROE-xX-jLa" secondAttribute="top" constant="8" id="pe1-TD-6So"/>
                         <constraint firstItem="u6t-iL-Fz4" firstAttribute="leading" secondItem="ROE-xX-jLa" secondAttribute="leading" constant="12" id="rhq-sE-xYh"/>
@@ -139,6 +137,7 @@ When you undelegate, there will be an unbonding period specific to the network. 
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="ROE-xX-jLa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="18" id="08h-CJ-Ih7"/>
@@ -147,7 +146,6 @@ When you undelegate, there will be an unbonding period specific to the network. 
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ROE-xX-jLa" secondAttribute="bottom" constant="209" id="99k-ao-luO"/>
                 <constraint firstItem="ROE-xX-jLa" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" constant="-18" id="U22-ea-dS0"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="139" y="154"/>
         </view>
     </objects>

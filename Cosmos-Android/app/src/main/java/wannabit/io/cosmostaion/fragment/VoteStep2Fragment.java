@@ -42,11 +42,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_AMOUNT_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_AKASH_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_HALF;
@@ -57,7 +54,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_AMOUNT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -296,7 +292,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_LOW;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
                 Fee fee = new Fee();
@@ -307,7 +303,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_GAS_AMOUNT_HALF;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
                 Fee fee = new Fee();
@@ -318,7 +314,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_CERTIK_GAS_VOTE;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
                 Fee fee = new Fee();
@@ -329,7 +325,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = FEE_IOV_GAS_AMOUNT_LOW;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 Fee fee = new Fee();
@@ -340,7 +336,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = SECRET_GAS_AMOUNT_VOTE;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
 
@@ -354,7 +350,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = V1_GAS_AMOUNT_LOW;
-                getSActivity().mFee = fee;
+                getSActivity().mTxFee = fee;
 
             }
 

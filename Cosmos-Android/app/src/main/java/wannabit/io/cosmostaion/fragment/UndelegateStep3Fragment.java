@@ -16,16 +16,11 @@ import wannabit.io.cosmostaion.activities.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -73,8 +68,8 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal toUnDeleagteAmount = new BigDecimal(getSActivity().mUnDelegateAmount.amount);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mUnDelegateFee.amount.get(0).amount);
+        BigDecimal toUnDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
                 getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST) ||
                 getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(SECRET_MAIN)) {
@@ -82,14 +77,14 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
             mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
             mValidatorName.setText(getSActivity().mValidator.description.moniker);
-            mMemo.setText(getSActivity().mUnDelegateMemo);
+            mMemo.setText(getSActivity().mTxMemo);
 
         } else if (isGRPC(getSActivity().mBaseChain)) {
             mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
-            mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValOpAddress).getDescription().getMoniker());
-            mMemo.setText(getSActivity().mUnDelegateMemo);
+            mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
+            mMemo.setText(getSActivity().mTxMemo);
 
         }
 
