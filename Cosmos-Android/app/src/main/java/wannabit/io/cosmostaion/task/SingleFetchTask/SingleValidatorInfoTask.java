@@ -97,7 +97,7 @@ public class SingleValidatorInfoTask extends CommonTask {
                 }
 
             } else if (mChain.equals(SENTINEL_MAIN)) {
-                Response<ResLcdSingleValidator> response = ApiClient.getSecretChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                Response<ResLcdSingleValidator> response = ApiClient.getSentinelChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

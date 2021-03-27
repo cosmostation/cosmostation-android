@@ -271,7 +271,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             new ProposalMyVoteGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else  if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                mBaseChain.equals(BaseChain.CERTIK_TEST)|| mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
+                mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN) || mBaseChain.equals(BaseChain.SENTINEL_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             this.mTaskCount = 5;
             new ProposalDetailTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalTallyTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
