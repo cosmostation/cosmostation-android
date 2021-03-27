@@ -65,6 +65,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
@@ -74,6 +75,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -267,6 +269,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgPersis));
             onUpdateTotalCard();
 
+        } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSentinel));
+            onUpdateTotalCard();
+
         }
 
         else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
@@ -423,6 +429,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalScrtAmount, 6, 6));
             mTotalValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalScrtAmount));
 
+        } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(TOKEN_DVPN) ) {
+                    totalAmount = totalAmount.add(WDp.getAllSentinel(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators));
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
         }
 
         if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -478,6 +494,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindAkashItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) {
                 onBindPersisItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                onBindSentinelItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -872,6 +890,22 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
         });
 
+    }
+
+    private void onBindSentinelItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_DVPN)) {
+            holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SENTINEL_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Sentinel Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
+
+            BigDecimal totalAmount = WDp.getAllSentinel(getBaseDao().mBalances, getBaseDao().mBondings, getBaseDao().mUnbondings, getBaseDao().mRewards, getBaseDao().mAllValidators);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalAmount));
+
+        }
     }
 
     private void onBindAkashItem(TokensAdapter.AssetHolder holder, final int position) {

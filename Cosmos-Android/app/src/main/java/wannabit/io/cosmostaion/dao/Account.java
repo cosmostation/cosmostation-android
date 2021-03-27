@@ -236,7 +236,10 @@ public class Account {
             } else if (chain.equals(BaseChain.SECRET_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
-            } else {
+            }  else if (chain.equals(BaseChain.SENTINEL_MAIN)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
+
+            }else {
                 return WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6);
             }
 

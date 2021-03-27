@@ -740,6 +740,31 @@ public class WDp {
         return sum;
     }
 
+    public static BigDecimal getAllSentinel(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
+        BigDecimal sum = BigDecimal.ZERO;
+        for(Balance balance : balances) {
+            if(balance.symbol.equals(TOKEN_DVPN)) {
+                sum = sum.add(balance.balance);
+            }
+        }
+        if (bondings != null) {
+            for(BondingState bonding : bondings) {
+                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
+            }
+        }
+        if (unbondings != null) {
+            for(UnBondingState unbonding : unbondings) {
+                sum = sum.add(unbonding.balance);
+            }
+        }
+        if (rewards != null) {
+            for(Reward reward : rewards) {
+                sum = sum.add(reward.getRewardAmount(TOKEN_DVPN));
+            }
+        }
+        return sum;
+    }
+
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;

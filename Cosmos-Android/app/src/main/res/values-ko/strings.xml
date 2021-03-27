@@ -275,7 +275,7 @@
     <string name="str_front_guide_title_akash"><![CDATA[아카시 네트워크]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[시크릿 네트워크]]></string>
     <string name="str_front_guide_title_persis"><![CDATA[퍼시스턴트 네트워크]]></string>
-    <string name="str_front_guide_title_sentinel"><![CDATA[센티넬 프로토콜]]></string>
+    <string name="str_front_guide_title_sentinel"><![CDATA[센티넬 허브]]></string>
     <string name="str_front_guide_msg">Tendermint BFT와 ABCI 기반의 분산형 블록체인 네트워크.</string>
     <string name="str_front_guide_msg_iris">분산형 비즈니스 생태계를 위한 인터체인 서비스 인프라 <![CDATA[&]]> 프로토콜.</string>
     <string name="str_front_guide_msg_bnb">바이낸스가 구축한 Tendermint 기반의 빠르고 안전한 분산형 디지털 자산 거래소.</string>

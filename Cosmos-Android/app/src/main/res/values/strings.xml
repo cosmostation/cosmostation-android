@@ -89,6 +89,7 @@
     <string name="str_scrt_c" translatable="false">SCRT</string>
     <string name="str_akt_c" translatable="false">AKT</string>
     <string name="str_xprt_c" translatable="false">XPRT</string>
+    <string name="str_dvpn_c" translatable="false">DVPN</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -456,7 +457,7 @@
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
     <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
-    <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL PROTOCOL]]></string>
+    <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>

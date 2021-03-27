@@ -88,6 +88,15 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.SENTINEL_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getSentinelApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
             }
 
 

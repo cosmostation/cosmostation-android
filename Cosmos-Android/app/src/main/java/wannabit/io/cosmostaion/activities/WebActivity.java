@@ -29,7 +29,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SENTINEL_MAIN;
 
 public class WebActivity extends BaseActivity {
 
@@ -206,6 +208,28 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_AKASH_MAIN + "account/" + mAddress);
             else
                 mWebview.loadUrl(EXPLORER_AKASH_MAIN);
+
+        } else if (mBasechain.equals(BaseChain.PERSIS_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorPersis));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_PERSIS_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_PERSIS_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_PERSIS_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_PERSIS_MAIN);
+
+        } else if (mBasechain.equals(BaseChain.SENTINEL_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_SENTINEL_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_SENTINEL_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_SENTINEL_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_SENTINEL_MAIN);
 
         } else if (mBasechain.equals(BaseChain.COSMOS_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));

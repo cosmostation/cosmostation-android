@@ -646,6 +646,7 @@ public class BaseConstant {
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
     public final static String EXPLORER_PERSIS_MAIN     = "https://dev.mintscan.io/persistence/";
+    public final static String EXPLORER_SENTINEL_MAIN   = "https://www.mintscan.io/sentinel/";
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
