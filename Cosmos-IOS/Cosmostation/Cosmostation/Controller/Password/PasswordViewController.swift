@@ -223,15 +223,13 @@ class PasswordViewController: BaseViewController {
                 self.initConfirmView()
             }
             
-        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK ||
-                    mTarget == PASSWORD_ACTION_CHECK_TX) {
+        } else if (mTarget == PASSWORD_ACTION_SIMPLE_CHECK || mTarget == PASSWORD_ACTION_CHECK_TX) {
             self.onStartCheckPassword(mUserInsert)
             
         } else if (mTarget == PASSWORD_ACTION_DELETE_ACCOUNT) {
             self.onStartCheckPasswordForDelete(mUserInsert)
             
-        } else if (mTarget == PASSWORD_ACTION_APP_LOCK ||
-                    mTarget ==  PASSWORD_ACTION_INTRO_LOCK) {
+        } else if (mTarget == PASSWORD_ACTION_APP_LOCK || mTarget ==  PASSWORD_ACTION_INTRO_LOCK) {
             self.onStartCheckAppLock(mUserInsert)
         }
         
