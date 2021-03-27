@@ -188,7 +188,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDpDecimal = 6;
             setDpDecimals(mDpDecimal);
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mDenom).subtract(new BigDecimal("20000"));
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mDenom).subtract(new BigDecimal("10000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }

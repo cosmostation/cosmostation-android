@@ -553,14 +553,6 @@ public class BaseConstant {
     public final static String FEE_CERTIK_GAS_ADDRESS_CHANGE    = "100000";
     public final static String FEE_CERTIK_GAS_VOTE              = "100000";
 
-    public final static String FEE_AKASH_GAS_RATE_AVERAGE           = "0.025";
-    public final static String FEE_AKASH_GAS_AMOUNT_SEND            = "100000";
-    public final static String FEE_AKASH_GAS_AMOUNT_STAKE           = "200000";
-    public final static String FEE_AKASH_GAS_AMOUNT_REDELEGATE      = "300000";
-    public final static String FEE_AKASH_GAS_AMOUNT_REINVEST        = "300000";
-    public final static String FEE_AKASH_GAS_AMOUNT_VOTE            = "100000";
-    public final static String FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE  = "100000";
-
     public final static String SECRET_GAS_FEE_RATE_AVERAGE              = "0.25";
     public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
     public final static String SECRET_GAS_AMOUNT_STAKE                  = "200000";
@@ -568,6 +560,14 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
+
+    public final static String SENTINEL_GAS_FEE_RATE_AVERAGE              = "0.1";
+    public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
+    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE             = "300000";
+    public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
+    public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
 
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";

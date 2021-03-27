@@ -2,10 +2,6 @@ package wannabit.io.cosmostaion.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -35,14 +31,9 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import org.json.JSONObject;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -50,7 +41,6 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
-import wannabit.io.cosmostaion.dialog.Dialog_Kava_Testnet;
 import wannabit.io.cosmostaion.dialog.Dialog_WalletConnect;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.dialog.TopSheetBehavior;
@@ -58,7 +48,6 @@ import wannabit.io.cosmostaion.fragment.MainHistoryFragment;
 import wannabit.io.cosmostaion.fragment.MainSendFragment;
 import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
-import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -90,7 +79,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -569,10 +557,10 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 intent.putExtra("secretDenom", TOKEN_SECRET);
 
             } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-//                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("20000")) > 0) {
-//                    hasbalance  = true;
-//                }
-//                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
             }
 
             if (!hasbalance) {
