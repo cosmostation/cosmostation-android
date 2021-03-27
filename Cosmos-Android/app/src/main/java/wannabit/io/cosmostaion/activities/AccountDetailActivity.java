@@ -210,6 +210,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
                     hasbalance  = true;
                 }
 
+            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) > 0) {
+                    hasbalance  = true;
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
                 return;

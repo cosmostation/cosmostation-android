@@ -294,9 +294,13 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
             mGasAmount.setText(SENTINEL_GAS_AMOUNT_SEND);
             mGasRate.setText(WDp.getDpString(SENTINEL_GAS_FEE_RATE_AVERAGE, 1));
             mFeeAmount = new BigDecimal(SENTINEL_GAS_AMOUNT_SEND).multiply(new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE)).setScale(0);
-
+            if(getBaseDao().getCurrency() != 5) {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastSentinelTic())).setScale(2, RoundingMode.DOWN);
+            } else {
+                mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastSentinelTic())).setScale(8, RoundingMode.DOWN);
+            }
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
-            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
+            mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
         }
 
