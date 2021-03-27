@@ -47,6 +47,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
@@ -183,6 +184,13 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSecretDenom).subtract(new BigDecimal("20000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
+        } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+            mDpDecimal = 6;
+            setDpDecimals(mDpDecimal);
+            WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mDenom).subtract(new BigDecimal("20000"));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+
         }
 
         else if (getSActivity().mBaseChain.equals(COSMOS_MAIN) || getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(PERSIS_MAIN) || getSActivity().mBaseChain.equals(COSMOS_TEST)) {
@@ -263,7 +271,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                                 getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(CERTIK_MAIN) ||
                                 getSActivity().mBaseChain.equals(AKASH_MAIN) || getSActivity().mBaseChain.equals(SECRET_MAIN) || getSActivity().mBaseChain.equals(PERSIS_MAIN) ||
                                 getSActivity().mBaseChain.equals(COSMOS_TEST) || getSActivity().mBaseChain.equals(IRIS_TEST) || getSActivity().mBaseChain.equals(KAVA_TEST) ||
-                                getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(BaseChain.IOV_TEST)) {
+                                getSActivity().mBaseChain.equals(CERTIK_TEST) || getSActivity().mBaseChain.equals(BaseChain.IOV_TEST) || getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
                             if(inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                                 mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             } else {
@@ -350,6 +358,9 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
 
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
+
             }
 
             else if (isGRPC(getSActivity().mBaseChain)) {
@@ -391,6 +402,12 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
                 mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
                 if (getSActivity().mSecretDenom.equals(SECRET_MAIN)) {
+                    onShowEmptyBlanaceWarnDialog();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+                if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
                     onShowEmptyBlanaceWarnDialog();
                 }
 
@@ -487,6 +504,14 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
                 Coin certik = new Coin(getSActivity().mSecretDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
                 mToSendCoins.add(certik);
+                return true;
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
+                if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
+                if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
+                Coin coin = new Coin(getSActivity().mDenom, sendTemp.multiply(new BigDecimal(mDecimalDivider1)).setScale(0).toPlainString());
+                mToSendCoins.add(coin);
                 return true;
 
             }

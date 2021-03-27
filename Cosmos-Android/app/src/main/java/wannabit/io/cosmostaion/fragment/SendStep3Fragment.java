@@ -50,6 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
@@ -71,6 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVER
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
@@ -423,6 +425,17 @@ public class SendStep3Fragment extends BaseFragment implements View.OnClickListe
                 fee.amount = amount;
                 fee.gas = SECRET_GAS_AMOUNT_SEND;
                 getSActivity().mTxFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+//                Fee fee = new Fee();
+//                Coin gasCoin = new Coin();
+//                gasCoin.denom = TOKEN_DVPN;
+//                gasCoin.amount = "10000";
+//                ArrayList<Coin> amount = new ArrayList<>();
+//                amount.add(gasCoin);
+//                fee.amount = amount;
+//                fee.gas = "100000";
+//                getSActivity().mTxFee = fee;
 
             }
 

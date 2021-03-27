@@ -97,6 +97,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_CERTIK;
@@ -107,6 +108,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SENTINEL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -1343,6 +1345,9 @@ public class WUtil {
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return CGC_OKEX;
 
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return CGC_SENTINEL;
+
         }
         return BaseConstant.CGC_ATOM;
     }
@@ -1938,6 +1943,9 @@ public class WUtil {
         } else if (chain.equals(PERSIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://persistence.one/"));
 
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://sentinel.co/"));
+
         }
         return null;
     }
@@ -1979,6 +1987,9 @@ public class WUtil {
 
         } else if (chain.equals(PERSIS_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/persistence-blog"));
+
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/sentinel"));
 
         }
         return null;

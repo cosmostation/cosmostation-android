@@ -46,6 +46,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class CreateActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -163,6 +164,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
             } else if (mChain.equals(PERSIS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_persis));
+            } else if (mChain.equals(SENTINEL_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sentinel));
             }
         }
 

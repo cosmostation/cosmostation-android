@@ -64,11 +64,15 @@
     <string name="url_api_secret" translatable="false"></string>
 
 
-    <string name="url_lcd_akash" translatable="false">https://lcd-akash-app.cosmostation.io/</string>
     <string name="url_api_akash" translatable="false">https://api-akash.cosmostation.io/</string>
 
 
     <string name="url_api_persis" translatable="false">https://api-persistence.cosmostation.io/</string>
+
+
+    <string name="url_lcd_sentinel" translatable="false">https://lcd-sentinel.cosmostation.io/</string>
+    <string name="url_api_sentinel" translatable="false">https://api-sentinel.cosmostation.io/</string>
+
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
@@ -129,6 +133,7 @@
     <string name="str_certik_main_net">Certik Mainnet</string>
     <string name="str_akash_main_net">Akash Mainnet</string>
     <string name="str_okex_main_net">Okex Mainnet</string>
+    <string name="str_sentinel_main_net">Sentinel Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -280,6 +285,8 @@
     <string name="str_guide_secret">Blog</string>
     <string name="str_faq_persis">Home</string>
     <string name="str_guide_persis">Blog</string>
+    <string name="str_faq_sentinel">Home</string>
+    <string name="str_guide_sentinel">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -351,6 +358,8 @@
     <string name="str_akash_chain_2" translatable="false">Akash Mainnet</string>
     <string name="str_persis_net" translatable="false">(Persistence Mainnet)</string>
     <string name="str_persis_net2" translatable="false">Persistence Mainnet</string>
+    <string name="str_sentinel_net" translatable="false">(Sentinel Mainnet)</string>
+    <string name="str_sentinel_net2" translatable="false">Sentinel Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -369,6 +378,7 @@
     <string name="str_akash_main" translatable="false">AKASH</string>
     <string name="str_okex_main" translatable="false">OKEX</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
+    <string name="str_sentinel_main" translatable="false">SENTINEL</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -446,6 +456,7 @@
     <string name="str_front_guide_title_akash"><![CDATA[AKASH NETWORK]]></string>
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
     <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
+    <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL PROTOCOL]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -457,6 +468,7 @@
     <string name="str_front_guide_msg_akash"><![CDATA[The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.]]></string>
     <string name="str_front_guide_msg_secret"><![CDATA[First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.]]></string>
     <string name="str_front_guide_msg_persis"><![CDATA[An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.]]></string>
+    <string name="str_front_guide_msg_sentinel"><![CDATA[Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1316,6 +1328,7 @@
     <string name="s_scrt" translatable="false">SCRT</string>
     <string name="s_bif" translatable="false">BIF</string>
     <string name="s_xprt" translatable="false">XPRT</string>
+    <string name="s_dvpn" translatable="false">DVPN</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

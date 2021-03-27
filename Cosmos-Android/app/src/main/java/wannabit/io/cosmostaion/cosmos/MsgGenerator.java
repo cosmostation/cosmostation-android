@@ -50,6 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -84,7 +85,7 @@ public class MsgGenerator {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
         if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN) ||
-                chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(SECRET_MAIN)) {
+                chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(SECRET_MAIN) || chain.equals(SENTINEL_MAIN)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;

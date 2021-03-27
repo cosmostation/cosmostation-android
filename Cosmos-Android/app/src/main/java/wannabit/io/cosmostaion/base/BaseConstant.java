@@ -42,6 +42,8 @@ public class BaseConstant {
     public final static String PRE_SECRET_UP_DOWN_24        = "PRE_SECRET_UP_DOWN_24";
     public final static String PRE_OKEX_TIC                 = "PRE_OKEX_TIC";
     public final static String PRE_OKEX_UP_DOWN_24          = "PRE_OKEX_UP_DOWN_24";
+    public final static String PRE_SENTINEL_TIC             = "PRE_SENTINEL_TIC";
+    public final static String PRE_SENTINEL_UP_DOWN_24      = "PRE_SENTINEL_UP_DOWN_24";
     public final static String PRE_OKEX_DOLLOR_TIC          = "PRE_OKEX_DOLLOR_TIC";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
@@ -449,6 +451,7 @@ public class BaseConstant {
     public final static String TOKEN_OK             = "okt";
     public final static String TOKEN_OK_OKB         = "okb";
     public final static String TOKEN_XPRT           = "uxprt";
+    public final static String TOKEN_DVPN           = "udvpn";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -589,6 +592,7 @@ public class BaseConstant {
     public final static String CGC_AKASH = "akash-network";
     public final static String CGC_SECRET = "secret";
     public final static String CGC_OKEX = "okexchain";
+    public final static String CGC_SENTINEL = "sentinel-group";
 
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;

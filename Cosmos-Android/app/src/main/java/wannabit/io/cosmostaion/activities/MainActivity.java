@@ -84,6 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -357,6 +358,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorBlack));
             mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorPersis));
 
+        } else if (mBaseChain.equals(SENTINEL_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsentinel));
+            mToolbarChainName.setText(getString(R.string.str_sentinel_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorSentinel));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel3));
+
         }
 
         else if (mBaseChain.equals(COSMOS_TEST)) {
@@ -561,6 +568,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
                 intent.putExtra("secretDenom", TOKEN_SECRET);
 
+            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
+//                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("20000")) > 0) {
+//                    hasbalance  = true;
+//                }
+//                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
             }
 
             if (!hasbalance) {
@@ -767,6 +779,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainpersistence));
                     holder.chainName.setText(getString(R.string.str_persis_main));
+
+                } else if (chain.equals(SENTINEL_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsentinel));
+                    holder.chainName.setText(getString(R.string.str_sentinel_main));
 
                 }
 

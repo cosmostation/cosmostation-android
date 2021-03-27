@@ -21,6 +21,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class SingleProvisionsTask extends CommonTask {
     private BaseChain mChain;
@@ -152,7 +153,20 @@ public class SingleProvisionsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            }
+            } else if (mChain.equals(SENTINEL_MAIN)) {
+                    Response<ResProvisions> response = ApiClient.getSentinelChain(mApp).getProvisions().execute();
+                    if(!response.isSuccessful()) {
+                        mResult.isSuccess = false;
+                        mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                        return mResult;
+                    }
+
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    }
+
+                }
 
 
         } catch (Exception e) {

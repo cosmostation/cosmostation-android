@@ -78,12 +78,15 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_OKEX_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_OKEX_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_UP_DOWN_24;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SENTINEL_TIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SENTINEL_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseData {
@@ -578,6 +581,27 @@ public class BaseData {
                 getSharedPreferences().edit().putString(PRE_OKEX_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
         }
 
     }
@@ -587,23 +611,6 @@ public class BaseData {
             return BigDecimal.valueOf(getLastAtomTic());
 
         } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            return BigDecimal.valueOf(getLastIrisTic());
-
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-            return BigDecimal.valueOf(getLastBnbTic());
-
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            return BigDecimal.valueOf(getLastKavaTic());
-
-        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-            return BigDecimal.valueOf(getLastIovTic());
-
-        } else if (chain.equals(BAND_MAIN)) {
-            return BigDecimal.valueOf(getLastBandTic());
-
-        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-            return BigDecimal.valueOf(getLastCertikTic());
-
         } else if (chain.equals(AKASH_MAIN)) {
             return BigDecimal.valueOf(getLastAkashTic());
 
@@ -612,6 +619,9 @@ public class BaseData {
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return BigDecimal.valueOf(getLastOKexTic());
+
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return BigDecimal.valueOf(getLastSentinelTic());
 
         }
         return BigDecimal.ZERO;
@@ -934,6 +944,34 @@ public class BaseData {
             return Double.parseDouble("0");
         }
     }
+
+
+    public void setLastSentinelTic(Double price) {
+        getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+price).commit();
+    }
+
+    public double getLastSentinelTic() {
+        String priceS = getSharedPreferences().getString(PRE_SENTINEL_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        } catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastSentinelUpDown(Double price) {
+        getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastSentinelUpDown() {
+        String priceS = getSharedPreferences().getString(PRE_SENTINEL_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
 
 
 

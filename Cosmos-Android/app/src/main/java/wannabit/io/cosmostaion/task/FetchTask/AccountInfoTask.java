@@ -31,6 +31,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class AccountInfoTask extends CommonTask {
 
@@ -130,6 +131,13 @@ public class AccountInfoTask extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getSecretChain(mApp).getAccountInfo(mAccount.address).execute();
+                if (response.isSuccessful()) {
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
+                Response<ResLcdAccountInfo> response = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
                     mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
