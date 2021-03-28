@@ -736,10 +736,8 @@ class WUtils {
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                     chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
                     chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST ||
-                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.PERSIS_MAIN) {
+                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.PERSIS_MAIN || chain == ChainType.SENTINEL_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
-        } else if (chain == ChainType.IRIS_MAIN) {
-            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
         }
@@ -1871,7 +1869,6 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.AKASH_MAIN) {
-            print("AKASH_MAIN ", coin.denom)
             if (coin.denom == AKASH_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1882,6 +1879,15 @@ class WUtils {
             
         } else if (chainType == ChainType.PERSIS_MAIN) {
             if (coin.denom == PERSIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (coin.denom == SENTINEL_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -2022,6 +2028,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (denom == SENTINEL_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -2108,6 +2123,8 @@ class WUtils {
             return COLOR_AKASH
         } else if (chain == ChainType.PERSIS_MAIN) {
             return COLOR_PERSIS
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return COLOR_SENTINEL
         }
         return COLOR_ATOM
     }
@@ -2135,6 +2152,8 @@ class WUtils {
             return COLOR_OK_DARK
         } else if (chain == ChainType.PERSIS_MAIN) {
             return COLOR_PERSIS_DARK
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return COLOR_SENTINEL_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2162,6 +2181,8 @@ class WUtils {
             return TRANS_BG_COLOR_OK
         } else if (chain == ChainType.PERSIS_MAIN) {
             return TRANS_BG_COLOR_PERSIS
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return TRANS_BG_COLOR_SENTINEL
         }
         return COLOR_BG_GRAY
     }
@@ -2189,6 +2210,8 @@ class WUtils {
             return "AKT"
         } else if (chain == ChainType.PERSIS_MAIN) {
             return "XPRT"
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return "DVPN"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2220,6 +2243,8 @@ class WUtils {
             return AKASH_MAIN_DENOM
         } else if (chain == ChainType.PERSIS_MAIN) {
             return PERSIS_MAIN_DENOM
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2267,6 +2292,9 @@ class WUtils {
         } else if (chain == ChainType.PERSIS_MAIN) {
             label.text = "XPRT"
             label.textColor = COLOR_PERSIS
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            label.text = "DVPN"
+            label.textColor = COLOR_SENTINEL
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2299,6 +2327,8 @@ class WUtils {
             return ChainType.OKEX_MAIN
         } else if (chainS == CHAIN_PERSIS_S) {
             return ChainType.PERSIS_MAIN
+        } else if (chainS == CHAIN_SENTINEL_S) {
+            return ChainType.SENTINEL_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2342,6 +2372,8 @@ class WUtils {
             return CHAIN_OKEX_S
         } else if (chain == ChainType.PERSIS_MAIN) {
             return CHAIN_PERSIS_S
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return CHAIN_SENTINEL_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

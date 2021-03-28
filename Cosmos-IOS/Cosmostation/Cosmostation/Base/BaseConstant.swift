@@ -85,12 +85,15 @@ let SECRET_URL                          = "https://api.secretnodes.org/";
 let SECRET_API                          = "";
 
 
-let AKASH_URL                           = "https://lcd-akash-app.cosmostation.io/";
 let AKASH_API                           = "https://api-akash.cosmostation.io/";
 
 
 //let PERSIS_API                          = "https://api-office.cosmostation.io/persistence/";
 let PERSIS_API                          = "https://api-persistence.cosmostation.io/";
+
+
+let SENTINEL_URL                        = "https://lcd-sentinel.cosmostation.io/";
+let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
 
 
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -447,6 +450,32 @@ let PERSIS_MAIN_HISTORY                     = PERSIS_API + "v1/account/txs/";
 let PERSIS_MAIN_TRANS_HISTORY               = PERSIS_API + "v1/account/transfer_txs/";
 
 
+//SENTINEL_URL
+let SENTINEL_NODE_INFO                  = SENTINEL_URL + "node_info";
+let SENTINEL_TX                         = SENTINEL_URL + "txs/";
+let SENTINEL_VALIDATORS                 = SENTINEL_URL + "staking/validators";
+let SENTINEL_ACCOUNT_INFO               = SENTINEL_URL + "auth/accounts/";
+let SENTINEL_BONDING                    = SENTINEL_URL + "staking/delegators/";
+let SENTINEL_BONDING_TAIL               = "/delegations";
+let SENTINEL_UNBONDING                  = SENTINEL_URL + "staking/delegators/";
+let SENTINEL_UNBONDING_TAIL             = "/unbonding_delegations";
+let SENTINEL_REWARD_FROM_VAL            = SENTINEL_URL + "distribution/delegators/";
+let SENTINEL_REWARD_FROM_VAL_TAIL       = "/rewards/";
+let SENTINEL_REWARD_ADDRESS             = SENTINEL_URL + "distribution/delegators/";
+let SENTINEL_REWARD_ADDRESS_TAIL        = "/withdraw_address";
+let SENTINEL_REDELEGATION               = SENTINEL_URL + "staking/redelegations";
+let SENTINEL_MINT_PARAM                 = SENTINEL_URL + "minting/parameters";
+let SENTINEL_INFLATION                  = SENTINEL_URL + "minting/inflation";
+let SENTINEL_PROVISIONS                 = SENTINEL_URL + "minting/annual-provisions";
+let SENTINEL_STAKING_POOL               = SENTINEL_URL + "staking/pool";
+let SENTINEL_BORAD_TX                   = SENTINEL_URL + "txs";
+let SENTINEL_PROPOSALS                  = SENTINEL_URL + "gov/proposals";
+let SENTINEL_PROPOSALS_TALLY_TAIL       = "/tally";
+
+let SENTINEL_API_HISTORY                = SENTINEL_API + "v1/account/txs/";
+let SENTINEL_API_TRANS_HISTORY          = SENTINEL_API + "v1/account/transfer_txs/";
+
+
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 
@@ -460,6 +489,7 @@ let CERTIK_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let SECRET_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/secret/";
 let AKASH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/akash/";
 let PERSIS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/persistence/";
+let SENTINEL_VAL_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -793,6 +823,15 @@ let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "80000"
 let SECRET_GAS_AMOUNT_VOTE                  = "100000"
 
 
+let SENTINEL_GAS_FEE_RATE_AVERAGE             = "0.1"
+let SENTINEL_GAS_AMOUNT_SEND                  = "100000"
+let SENTINEL_GAS_AMOUNT_STAKE                 = "200000"
+let SENTINEL_GAS_AMOUNT_REDELEGATE            = "300000"
+let SENTINEL_GAS_AMOUNT_REINVEST              = "350000"
+let SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE = "100000"
+let SENTINEL_GAS_AMOUNT_VOTE                  = "100000"
+
+
 // Constant for BEP3-Swap
 let BINANCE_MAIN_BNB_DEPUTY                 = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn"
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
@@ -892,6 +931,11 @@ let TRANS_BG_COLOR_PERSIS2                  = UIColor.init(hexString: "ededed", 
 let COLOR_PERSIS                            = UIColor.init(hexString: "e50a13")
 let COLOR_PERSIS_DARK                       = UIColor.init(hexString: "670000")
 
+let TRANS_BG_COLOR_SENTINEL                 = UIColor.init(hexString: "5b8ed7", alpha: 0.15)
+let TRANS_BG_COLOR_SENTINEL2                = UIColor.init(hexString: "5b8ed7", alpha: 0.4)
+let COLOR_SENTINEL                          = UIColor.init(hexString: "5b8ed7")
+let COLOR_SENTINEL_DARK                     = UIColor.init(hexString: "1e447b")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -915,6 +959,7 @@ enum ChainType: String {
     case AKASH_MAIN
     case OKEX_MAIN
     case PERSIS_MAIN
+    case SENTINEL_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -936,6 +981,7 @@ enum ChainType: String {
         result.append(IOV_MAIN)
         result.append(CERTIK_MAIN)
         result.append(AKASH_MAIN)
+        result.append(SENTINEL_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -1011,6 +1057,7 @@ let CHAIN_CERTIK_S = "SUPPORT_CHAIN_CERTIK_MAIN"
 let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
 let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
+let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1032,6 +1079,7 @@ let AKASH_MAIN_DENOM = "uakt"
 let OKEX_MAIN_DENOM = "okt"
 let OKEX_MAIN_OKB = "okb"
 let PERSIS_MAIN_DENOM = "uxprt"
+let SENTINEL_MAIN_DENOM = "udvpn"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -1078,6 +1126,7 @@ let EXPLORER_SECRET_MAIN    = "https://secretnodes.com/secret/chains/secret-2/";
 let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_PERSIS_MAIN    = "https://dev.mintscan.io/persistence/";
+let EXPLORER_SENTINEL_MAIN  = "https://dev.mintscan.io/sentinel/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
