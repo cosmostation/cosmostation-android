@@ -611,6 +611,23 @@ public class BaseData {
             return BigDecimal.valueOf(getLastAtomTic());
 
         } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
+            return BigDecimal.valueOf(getLastIrisTic());
+
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return BigDecimal.valueOf(getLastBnbTic());
+
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            return BigDecimal.valueOf(getLastKavaTic());
+
+        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+            return BigDecimal.valueOf(getLastIovTic());
+
+        } else if (chain.equals(BAND_MAIN)) {
+            return BigDecimal.valueOf(getLastBandTic());
+
+        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+            return BigDecimal.valueOf(getLastCertikTic());
+
         } else if (chain.equals(AKASH_MAIN)) {
             return BigDecimal.valueOf(getLastAkashTic());
 
@@ -657,6 +674,9 @@ public class BaseData {
 
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return BigDecimal.valueOf(getLastOKexUpDown());
+
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return BigDecimal.valueOf(getLastSentinelUpDown());
 
         }
         return BigDecimal.ZERO;
