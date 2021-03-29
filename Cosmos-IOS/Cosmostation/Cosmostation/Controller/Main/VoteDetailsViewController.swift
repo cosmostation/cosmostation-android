@@ -26,12 +26,6 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     var mVoters = Array<Vote>()
     var mMyVote: Vote?
     
-    //for v40
-//    var mProposalDetail_V1: Proposal_V1?
-//    var mTally_V1: Tally_V1?
-//    var mVoters_V1: Array<Vote_V1>?
-//    var mMyVote_V1: Vote_V1?
-    
     var mProposalDetail_gRPC: Cosmos_Gov_V1beta1_Proposal?
     var mTally_gRPC: Cosmos_Gov_V1beta1_TallyResult?
     var mVoters_gRPC: Array<Cosmos_Gov_V1beta1_Vote>?
@@ -79,32 +73,9 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onClickLink() {
-        if (WUtils.isGRPC(chainType!)) {
-            let link = WUtils.getProposalExplorer(self.chainType!, proposalId!)
-            guard let url = URL(string: link) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposals/" + proposalId!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposal/" + proposalId!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            guard let url = URL(string: EXPLORER_SECRET_MAIN + "governance/proposals/" + proposalId!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK + "governance/proposals/" + proposalId! + "?net=" + BaseData.instance.getChainId()) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            guard let url = URL(string: EXPLORER_IOV_MAIN + "proposals/" + proposalId!) else { return }
-            self.onShowSafariWeb(url)
-            
-        }
+        let link = WUtils.getProposalExplorer(self.chainType!, proposalId!)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
     }
     
     
@@ -114,7 +85,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         }
         
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (WUtils.isGRPC(chainType!)) {
             if (mProposalDetail_gRPC?.status != Cosmos_Gov_V1beta1_ProposalStatus.votingPeriod ) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
@@ -191,6 +162,24 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
+            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+            if (bondingList.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
+                return
+            }
+            
+            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
@@ -207,7 +196,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func getTitle() -> String? {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
+        if (WUtils.isGRPC(chainType!)) {
             return WUtils.onParseProposalTitle(mProposalDetail_gRPC!)
         } else {
             return mProposal?.getTitle()
@@ -326,10 +315,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = SECRET_PROPOSALS + "/" + id
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_PROPOSALS + "/" + id
+        }
+        else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_PROPOSALS + "/" + id
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -359,10 +351,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = SECRET_PROPOSALS + "/" + id + "/" + SECRET_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_PROPOSALS + "/" + id + "/" + CERTIK_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id + "/" + CERTIK_TEST_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id + "/" + IOV_PROPOSALS_TALLY_TAIL
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_PROPOSALS + "/" + id + "/" + SENTINEL_PROPOSALS_TALLY_TAIL
+        }
+        else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_PROPOSALS + "/" + id + "/" + CERTIK_TEST_PROPOSALS_TALLY_TAIL
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -392,10 +387,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = SECRET_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id +  "/votes/" + address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_PROPOSALS + "/" + id +  "/votes/" + address
+        }
+        else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes/" + address
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -425,10 +423,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = SECRET_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id +  "/proposer"
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_PROPOSALS + "/" + id +  "/proposer"
+        }
+        else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/proposer"
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
@@ -458,10 +459,13 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = SECRET_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_PROPOSALS + "/" + id +  "/votes"
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_PROPOSALS + "/" + id +  "/votes"
+        }
+        else if (chainType == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes"
         }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in

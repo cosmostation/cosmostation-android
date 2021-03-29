@@ -1197,6 +1197,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1212,17 +1219,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
-            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
-            txVC.mTargetValidator = mValidator
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator_gRPC = mValidator_gRPC
-            
+        } else {
+            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator = mValidator
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -1311,6 +1313,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+            if (mUnbondings.count >= 7) {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_UNDELEGATE2, 0)
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1337,14 +1354,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            txVC.mTargetValidator = mValidator
-            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             txVC.mTargetValidator_gRPC = mValidator_gRPC
+            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+        } else {
+            txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         }
         self.navigationItem.title = ""
@@ -1407,6 +1421,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
                 
+            } else if (chainType == ChainType.SENTINEL_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
+                if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue <= 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
                 return
@@ -1417,14 +1439,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onStartRedelegate() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            txVC.mTargetValidator = mValidator
-            txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             txVC.mTargetValidator_gRPC = mValidator_gRPC
+            txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
+        } else {
+            txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         }
         self.navigationItem.title = ""
@@ -1556,8 +1575,28 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, SENTINEL_MAIN_DENOM)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
-        
         
         else if (WUtils.isGRPC(chainType!)) {
             let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_gRPC?.operatorAddress)
@@ -1577,20 +1616,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            var validators = Array<Validator>()
-            validators.append(mValidator!)
-            txVC.mRewardTargetValidators = validators
-            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             var validators = Array<Cosmos_Staking_V1beta1_Validator>()
             validators.append(mValidator_gRPC!)
             txVC.mRewardTargetValidators_gRPC = validators
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            
+        } else {
+            var validators = Array<Validator>()
+            validators.append(mValidator!)
+            txVC.mRewardTargetValidators = validators
+            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -1731,6 +1766,28 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return
                 }
                 if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "15000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType == ChainType.SENTINEL_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
+                if (mRewards.count > 0) {
+                    let rewardSum = WUtils.getAllRewardByDenom(mRewards, SENTINEL_MAIN_DENOM)
+                    if (rewardSum == NSDecimalNumber.zero) {
+                        self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                        return
+                    }
+                    if (rewardSum.compare(feeAmount).rawValue < 0) {
+                        self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                        return
+                    }
+                    
+                } else {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                     return
                 }

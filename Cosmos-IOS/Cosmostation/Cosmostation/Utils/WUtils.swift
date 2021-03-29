@@ -2678,6 +2678,25 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }
             
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_VOTE))
+            }
         }
         return result
     }
@@ -2690,6 +2709,11 @@ class WUtils {
             
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -3245,6 +3269,27 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             return EXPLORER_AKASH_MAIN + "proposals/" + proposalId
             
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return EXPLORER_KAVA_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return EXPLORER_BAND_MAIN + "proposal/" + proposalId
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return EXPLORER_SECRET_MAIN + "governance/proposals/" + proposalId
+            
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId()
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return EXPLORER_IOV_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return EXPLORER_PERSIS_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return EXPLORER_SENTINEL_MAIN + "proposals/" + proposalId
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3253,6 +3298,8 @@ class WUtils {
         } else if (chain == ChainType.IRIS_TEST) {
             return EXPLORER_IRIS_TEST + "proposals/" + proposalId
             
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId()
         }
         return ""
     }
@@ -3262,7 +3309,7 @@ class WUtils {
             return NSDecimalNumber.init(string: "0.4")
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
-        } else if (chain == ChainType.AKASH_MAIN) {
+        } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.5")

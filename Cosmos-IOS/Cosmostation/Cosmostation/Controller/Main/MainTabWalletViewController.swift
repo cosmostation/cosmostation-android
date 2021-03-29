@@ -194,9 +194,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (chainType! == ChainType.PERSIS_MAIN) {
             floaty.buttonImage = UIImage.init(named: "btnSendPersistence")
             floaty.buttonColor = .black
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            floaty.buttonImage = UIImage.init(named: "sendImg")
+            floaty.buttonColor = COLOR_SENTINEL_DARK2
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
-            floaty.buttonColor =  WUtils.getChainColor(chainType)
+            floaty.buttonColor = WUtils.getChainColor(chainType)
         }
         floaty.fabDelegate = self
         self.view.addSubview(floaty)
@@ -1766,6 +1769,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             guard let url = URL(string: "https://persistence.one/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            guard let url = URL(string: "https://sentinel.co/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1818,6 +1825,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             guard let url = URL(string: "https://medium.com/persistence-blog") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            guard let url = URL(string: "https://medium.com/sentinel") else { return }
             self.onShowSafariWeb(url)
         }
     }
@@ -1877,6 +1888,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.AKASH_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/akash-network") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/sentinel-group") else { return }
             self.onShowSafariWeb(url)
         }
         
@@ -2034,11 +2049,19 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             txVC.mCertikSendDenom = CERTIK_MAIN_DENOM
             txVC.mType = CERTIK_MSG_TYPE_TRANSFER
             
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         }
         
         else if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
+            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

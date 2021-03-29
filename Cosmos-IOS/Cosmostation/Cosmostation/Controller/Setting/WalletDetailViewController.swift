@@ -397,6 +397,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     return
                 }
                 
+            } else if (chainType! == ChainType.SENTINEL_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+                if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
                 return

@@ -935,6 +935,7 @@ let TRANS_BG_COLOR_SENTINEL                 = UIColor.init(hexString: "5b8ed7", 
 let TRANS_BG_COLOR_SENTINEL2                = UIColor.init(hexString: "5b8ed7", alpha: 0.4)
 let COLOR_SENTINEL                          = UIColor.init(hexString: "5b8ed7")
 let COLOR_SENTINEL_DARK                     = UIColor.init(hexString: "1e447b")
+let COLOR_SENTINEL_DARK2                    = UIColor.init(hexString: "142d51")
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
