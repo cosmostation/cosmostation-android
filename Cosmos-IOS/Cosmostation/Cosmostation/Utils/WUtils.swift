@@ -3197,6 +3197,19 @@ class WUtils {
         } else if (chain == ChainType.PERSIS_MAIN) {
             return PERSIS_VAL_URL + opAddress + ".png";
         }
+        else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
+            return KAVA_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            return IOV_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+            return CERTIK_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_VAL_URL + opAddress + ".png";
+        }
         return ""
     }
     
@@ -3837,7 +3850,6 @@ class WUtils {
         }
         return false
     }
-    
 }
 
 extension Date {

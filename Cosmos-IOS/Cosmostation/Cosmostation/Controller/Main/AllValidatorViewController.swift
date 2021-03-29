@@ -162,39 +162,9 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + validator.operator_address + ".png")!)
-            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
-                if (!oracle) {
-                    cell.bandOracleOffImg.isHidden = false
-                    cell.commissionLabel.textColor = UIColor.init(hexString: "f31963")
-                }
-            }
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            cell.powerLabel.attributedText =  WUtils.displayAmount(validator.tokens, cell.powerLabel.font, 6, chainType!)
-            cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
-            
-        }
-        
+        cell.powerLabel.attributedText =  WUtils.displayAmount2(validator.tokens, cell.powerLabel.font, 6, 6)
+        cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
+        cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         cell.monikerLabel.text = validator.description.moniker
         cell.monikerLabel.adjustsFontSizeToFitWidth = true
         cell.freeEventImg.isHidden = true
@@ -206,21 +176,17 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             cell.revokedImg.isHidden = true
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
-
+        
         if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-            } else if (chainType == ChainType.BAND_MAIN) {
-                cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
-            } else if (chainType == ChainType.SECRET_MAIN) {
-                cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
-            } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-                cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-            }
+            cell.cardView.backgroundColor = WUtils.getChainBg(chainType)
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY
+        }
+        
+        if (chainType == ChainType.BAND_MAIN) {
+            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+                if (!oracle) { cell.bandOracleOffImg.isHidden = false }
+            }
         }
     }
     

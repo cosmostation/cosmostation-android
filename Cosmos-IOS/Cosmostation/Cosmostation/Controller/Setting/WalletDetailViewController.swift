@@ -58,7 +58,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             self.onFetchgRPCNodeInfo()
         } else {
             self.onFetchRewardAddress(account!.account_address)
-            onFetchNodeInfo()
+            self.onFetchNodeInfo()
         }
         
         
@@ -111,24 +111,6 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType == ChainType.BINANCE_TEST) {
-            chainImg.image = UIImage(named: "binancetestnet")
-            keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
-            cardPush.isHidden = true
-            constraint2.priority = .defaultHigh
-            constraint1.priority = .defaultLow
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            chainImg.image = UIImage(named: "kavaTestImg")
-            if (account!.account_new_bip44) {
-                keyPath.text = KAVA_BASE_PATH.appending(account!.account_path)
-            } else {
-                keyPath.text = BASE_PATH.appending(account!.account_path)
-            }
-            cardPush.isHidden = true
-            constraint2.priority = .defaultHigh
-            constraint1.priority = .defaultLow
-            
         } else if (chainType == ChainType.BAND_MAIN) {
             chainImg.image = UIImage(named: "bandChainImg")
             keyPath.text = BAND_BASE_PATH.appending(account!.account_path)
@@ -153,17 +135,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
-
+            
         } else if (chainType == ChainType.AKASH_MAIN) {
             chainImg.image = UIImage(named: "akashChainImg")
             keyPath.text = BASE_PATH.appending(account!.account_path)
-            cardPush.isHidden = true
-            constraint2.priority = .defaultHigh
-            constraint1.priority = .defaultLow
-
-        } else if (chainType == ChainType.IOV_TEST) {
-            chainImg.image = UIImage(named: "iovTestnetImg")
-            keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
@@ -176,6 +151,41 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            chainImg.image = UIImage(named: "chainpersistence")
+            keyPath.text = PERSIS_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            chainImg.image = UIImage(named: "chainsentinel")
+            keyPath.text = PERSIS_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        }
+        
+        
+        else if (chainType == ChainType.BINANCE_TEST) {
+            chainImg.image = UIImage(named: "binancetestnet")
+            keyPath.text = BNB_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        } else if (chainType == ChainType.KAVA_TEST) {
+            chainImg.image = UIImage(named: "kavaTestImg")
+            if (account!.account_new_bip44) {
+                keyPath.text = KAVA_BASE_PATH.appending(account!.account_path)
+            } else {
+                keyPath.text = BASE_PATH.appending(account!.account_path)
+            }
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         } else if (chainType == ChainType.OKEX_TEST) {
             chainImg.image = UIImage(named: "okexTestnetImg")
             if (account!.account_new_bip44) { keyPath.text = "(Ethermint Type) " + OK_BASE_PATH.appending(account!.account_path) }
@@ -184,9 +194,9 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType! == ChainType.PERSIS_MAIN) {
-            chainImg.image = UIImage(named: "chainpersistence")
-            keyPath.text = PERSIS_BASE_PATH.appending(account!.account_path)
+        } else if (chainType == ChainType.IOV_TEST) {
+            chainImg.image = UIImage(named: "iovTestnetImg")
+            keyPath.text = IOV_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
@@ -496,7 +506,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.IOV_TEST) {
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        }
+        else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
@@ -568,6 +581,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = CERTIK_NODE_INFO
         } else if (self.chainType == ChainType.SECRET_MAIN) {
             url = SECRET_NODE_INFO
+        } else if (self.chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_NODE_INFO
         }
         else if (self.chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_NODE_INFO
