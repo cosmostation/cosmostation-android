@@ -86,6 +86,14 @@ class WUtils {
         return result
     }
     
+    static func getAccountWithVestingAccountInfo(_ account: Account, _ accountInfo: VestingAccountInfo) -> Account {
+        let result = account
+        result.account_address = account.account_address
+        result.account_sequence_number = Int64(accountInfo.result!.value!.sequence!)!
+        result.account_account_numner = Int64(accountInfo.result!.value!.account_number!)!
+        return result
+    }
+    
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
         if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT ||
@@ -231,6 +239,109 @@ class WUtils {
              result.append(Balance(account.account_id, okBalance.symbol, okBalance.available, Date().millisecondsSince1970, "0", okBalance.locked))
         }
         return result;
+    }
+    
+    static func getBalancesWithVestingAccountInfo(_ account: Account, _ accountInfo: VestingAccountInfo) -> Array<Balance> {
+        var result = Array<Balance>()
+        if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+            })
+            
+        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                let denom = coin.denom
+                
+                dpBalance = NSDecimalNumber.init(string: coin.amount)
+                print("P_VESTING_ACCOUNT dpBalance", denom, " ", dpBalance)
+                
+                accountInfo.result?.value?.original_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("P_VESTING_ACCOUNT originalVesting", denom, " ", originalVesting)
+                
+                accountInfo.result?.value?.delegated_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("P_VESTING_ACCOUNT delegatedVesting", denom, " ", delegatedVesting)
+                
+                remainVesting = accountInfo.result?.getCalcurateVestingAmountSumByDenom(denom) ?? NSDecimalNumber.zero
+                print("P_VESTING_ACCOUNT remainVesting", denom, " ", remainVesting)
+                
+                dpVesting = remainVesting.subtracting(delegatedVesting);
+                print("P_VESTING_ACCOUNT dpVestingA", denom, " ", dpVesting)
+                
+                if (dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0) {
+                    dpVesting = NSDecimalNumber.zero;
+                }
+                print("P_VESTING_ACCOUNT dpVestingB", denom, " ", dpVesting)
+                
+                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
+                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                }
+                print("P_VESTING_ACCOUNT dpBalance", denom, " ", dpBalance)
+                
+                result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
+                
+            })
+            
+        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                let denom = coin.denom
+                
+                dpBalance = NSDecimalNumber.init(string: coin.amount)
+                print("C_VESTING_ACCOUNT dpBalance", denom, " ", dpBalance)
+                
+                accountInfo.result?.value?.original_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("C_VESTING_ACCOUNT originalVesting", denom, " ", originalVesting)
+                
+                accountInfo.result?.value?.delegated_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("C_VESTING_ACCOUNT delegatedVesting", denom, " ", delegatedVesting)
+                
+                let cTime = Date().millisecondsSince1970
+                let vestingEnd = (accountInfo.result!.value!.getStartTime() + accountInfo.result!.value!.getEndTime()) * 1000
+                if (cTime < vestingEnd) {
+                    remainVesting = originalVesting
+                }
+                print("C_VESTING_ACCOUNT remainVesting ", denom, "  ", remainVesting)
+                
+                dpVesting = remainVesting.subtracting(delegatedVesting);
+                print("C_VESTING_ACCOUNT dpVestingA ", denom, "  ", dpVesting)
+                
+                dpVesting = dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0 ? NSDecimalNumber.zero : dpVesting
+                print("C_VESTING_ACCOUNT dpVestingB ", denom, "  ", dpVesting)
+                
+                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
+                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                }
+                print("C_VESTING_ACCOUNT final dpBalance ", denom, "  ", dpBalance)
+                
+                result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
+            })
+        }
+        return result
     }
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
@@ -1456,6 +1567,7 @@ class WUtils {
         for balance in balances {
             if (balance.balance_denom == SENTINEL_MAIN_DENOM) {
                 amount = NSDecimalNumber.init(string: balance.balance_amount)
+                amount = amount.adding(NSDecimalNumber.init(string: balance.balance_locked))
             }
         }
         for bonding in bondings {

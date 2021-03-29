@@ -58,6 +58,8 @@ final class BaseData : NSObject{
     
     var mBandOracleStatus: BandOracleStatus?
     
+    var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?
+    
     
     //For ProtoBuf and gRPC
     var mNodeInfo_gRPC: Tendermint_P2p_DefaultNodeInfo?

@@ -816,6 +816,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     _ = BaseData.instance.updateAccount(WUtils.getAccountWithOkAccountInfo(account, okAccountInfo))
                     BaseData.instance.mOkAccountInfo = okAccountInfo
                     
+                } else if (self.mChainType == ChainType.SENTINEL_MAIN) {
+                    guard let info = res as? NSDictionary else {
+                        _ = BaseData.instance.deleteBalance(account: account)
+                        self.onFetchFinished()
+                        return
+                    }
+                    let vestingAccountInfo = VestingAccountInfo.init(info)
+                    BaseData.instance.mVestingAccountInfoResult = vestingAccountInfo.result
+                    _ = BaseData.instance.updateAccount(WUtils.getAccountWithVestingAccountInfo(account, vestingAccountInfo))
+                    BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithVestingAccountInfo(account, vestingAccountInfo))
+                    
                 } else {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {

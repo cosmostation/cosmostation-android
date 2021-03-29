@@ -1335,13 +1335,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
             let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
             let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SENTINEL_MAIN_DENOM, chainType!)
+            let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, SENTINEL_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
             cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
             cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
             cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
+            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
             cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
+            if (vestingAmount != NSDecimalNumber.zero) {
+                cell?.vestingLayer.isHidden = false
+            }
             
             cell?.actionDelegate = {
                 self.onClickValidatorList()

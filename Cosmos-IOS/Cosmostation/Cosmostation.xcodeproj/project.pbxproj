@@ -45,6 +45,7 @@
 		2812956F250F81C3007B217E /* SelectCoinCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2812956D250F81C3007B217E /* SelectCoinCell.xib */; };
 		2812BE15261170810050AE7C /* WalletSentinelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812BE13261170810050AE7C /* WalletSentinelCell.swift */; };
 		2812BE16261170810050AE7C /* WalletSentinelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2812BE14261170810050AE7C /* WalletSentinelCell.xib */; };
+		2812BE1A2611E9F50050AE7C /* VestingAccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */; };
 		28156E7F25360B70006FF06C /* HarvestListAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E7D25360B70006FF06C /* HarvestListAllCell.swift */; };
 		28156E8025360B70006FF06C /* HarvestListAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28156E7E25360B70006FF06C /* HarvestListAllCell.xib */; };
 		28156E892536912C006FF06C /* HarvestListRewardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28156E872536912C006FF06C /* HarvestListRewardCell.swift */; };
@@ -815,6 +816,7 @@
 		2812956D250F81C3007B217E /* SelectCoinCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectCoinCell.xib; sourceTree = "<group>"; };
 		2812BE13261170810050AE7C /* WalletSentinelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSentinelCell.swift; sourceTree = "<group>"; };
 		2812BE14261170810050AE7C /* WalletSentinelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSentinelCell.xib; sourceTree = "<group>"; };
+		2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VestingAccountInfo.swift; sourceTree = "<group>"; };
 		28156E7D25360B70006FF06C /* HarvestListAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestListAllCell.swift; sourceTree = "<group>"; };
 		28156E7E25360B70006FF06C /* HarvestListAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HarvestListAllCell.xib; sourceTree = "<group>"; };
 		28156E872536912C006FF06C /* HarvestListRewardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HarvestListRewardCell.swift; sourceTree = "<group>"; };
@@ -2437,6 +2439,7 @@
 				E151B64E22485B3B0026B8C0 /* Result.swift */,
 				E1A82DDE2244782B0097CAEE /* Validator.swift */,
 				E1A82DE02244818C0097CAEE /* AccountInfo.swift */,
+				2812BE192611E9F50050AE7C /* VestingAccountInfo.swift */,
 				E14FDC832373C52C00095C06 /* KavaAccountInfo.swift */,
 				E123FD3C233DEFE1004EC348 /* BnbAccountInfo.swift */,
 				284FF3C125A6C13E00505E7A /* OkAccountInfo.swift */,
@@ -3094,6 +3097,7 @@
 				E1E15FBF2253663600A10C7B /* AccountPopupCell.swift in Sources */,
 				285A33E2244862670052BD3D /* HtlcResultViewController.swift in Sources */,
 				287AC58925FDF7250070837E /* cosmos_mint_v1beta1_genesis.pb.swift in Sources */,
+				2812BE1A2611E9F50050AE7C /* VestingAccountInfo.swift in Sources */,
 				E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */,
 				287AC5E025FDF7260070837E /* cosmos_slashing_v1beta1_tx.pb.swift in Sources */,
 				285F8C8E25CFB27D00317B30 /* OkTickerList.swift in Sources */,
