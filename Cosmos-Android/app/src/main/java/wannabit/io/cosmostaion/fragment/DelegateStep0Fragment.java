@@ -172,7 +172,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_DVPN).subtract(new BigDecimal("20000"));
+            mMaxAvailable = getSActivity().mAccount.getTokenDelegable(TOKEN_DVPN).subtract(new BigDecimal("20000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         }

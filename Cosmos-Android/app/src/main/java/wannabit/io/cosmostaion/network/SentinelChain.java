@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdSingleUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdSingleValidator;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdValidators;
+import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdWithDrawAddress;
 import wannabit.io.cosmostaion.network.res.ResMintParam;
 import wannabit.io.cosmostaion.network.res.ResMyVote;
@@ -36,8 +37,11 @@ public interface SentinelChain {
     @GET("node_info")
     Call<ResNodeInfo> getNodeInfo();
 
+//    @GET("auth/accounts/{address}")
+//    Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
+
     @GET("auth/accounts/{address}")
-    Call<ResLcdAccountInfo> getAccountInfo(@Path("address") String address);
+    Call<ResLcdVestingAccountInfo> getAccountInfo(@Path("address") String address);
 
     @GET("txs/{hash}")
     Call<ResTxInfo> getSearchTx(@Path("hash") String hash);

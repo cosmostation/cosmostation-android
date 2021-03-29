@@ -242,6 +242,7 @@ public class BaseConstant {
     public final static String COSMOS_AUTH_TYPE_DELAYEDACCOUNT              = "cosmos-sdk/DelayedVestingAccount";
     public final static String COSMOS_AUTH_TYPE_VESTING_ACCOUNT             = "cosmos-sdk/ValidatorVestingAccount";
     public final static String COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT           = "cosmos-sdk/PeriodicVestingAccount";
+    public final static String COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT           = "cosmos-sdk/ContinuousVestingAccount";
     public final static String COSMOS_AUTH_TYPE_ACCOUNT                     = "cosmos-sdk/Account";
     public final static String COSMOS_AUTH_TYPE_ACCOUNT_LEGACY              = "auth/Account";
     public final static String COSMOS_AUTH_TYPE_CERTIK_MANUAL               = "auth/ManualVestingAccount";

@@ -9,6 +9,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -137,12 +138,11 @@ public class AccountInfoTask extends CommonTask {
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResLcdVestingAccountInfo> response = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromVestingLcd(mAccount.id, response.body()));
+                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromVestingLcd(mAccount.id, response.body()));
                 }
-
             }
             mResult.isSuccess = true;
 

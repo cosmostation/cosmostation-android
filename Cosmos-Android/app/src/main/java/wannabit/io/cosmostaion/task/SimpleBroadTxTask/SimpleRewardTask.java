@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -200,13 +201,14 @@ public class SimpleRewardTask extends CommonTask {
                 }
 
             } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdAccountInfo> accountResponse = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
+                Response<ResLcdVestingAccountInfo> accountResponse = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (!accountResponse.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
                     return mResult;
                 }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromVestingLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromVestingLcd(mAccount.id, accountResponse.body()));
+
 
                 for(Validator val:mValidators) {
                     Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));

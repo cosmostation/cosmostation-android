@@ -75,6 +75,7 @@ import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
+import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.network.res.ResOkTokenList;
@@ -117,8 +118,11 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWAR
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_TINY;
@@ -176,7 +180,7 @@ public class WUtil {
         Account result = new Account();
         result.id = id;
         if (lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                     lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
@@ -191,7 +195,7 @@ public class WUtil {
                 return result;
             }
         }
-        if (lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+        if (lcd.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
                 lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                 lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
                 lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
@@ -220,12 +224,12 @@ public class WUtil {
         Account result = new Account();
         result.id = id;
         if (lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT)) {
                 result.address = lcd.result.value.address;
                 result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
                 result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
 
-            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+            } else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
                 result.address = lcd.result.value.address;
                 result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
                 result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
@@ -233,7 +237,6 @@ public class WUtil {
         }
         return result;
     }
-
     public static Account getAccountFromOkLcd(long id, ResOkAccountInfo lcd) {
         Account result = new Account();
         result.id = id;
@@ -245,11 +248,23 @@ public class WUtil {
         return result;
     }
 
+    public static Account getAccountFromVestingLcd(long id, ResLcdVestingAccountInfo lcd) {
+        Account result = new Account();
+        result.id = id;
+        if (lcd.result != null && lcd.height != null) {
+            result.address = lcd.result.value.address;
+            result.sequenceNumber = Integer.parseInt(lcd.result.value.sequence);
+            result.accountNumber = Integer.parseInt(lcd.result.value.account_number);
+        }
+        return result;
+    }
+
+
     public static ArrayList<Balance> getBalancesFromLcd(long accountId, ResLcdAccountInfo lcd) {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
         if (lcd != null && lcd.result != null && lcd.height != null) {
-            if(lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+            if(lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                     lcd.result.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
                     lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
@@ -278,7 +293,7 @@ public class WUtil {
                 return result;
             }
         }
-        if(lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT) ||
+        if(lcd.type.equals(COSMOS_AUTH_TYPE_ACCOUNT) ||
                 lcd.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT_LEGACY) ||
                 lcd.type.equals(BaseConstant.IRIS_BANK_TYPE_ACCOUNT) ||
                 lcd.result.type.equals(COSMOS_AUTH_TYPE_CERTIK_MANUAL)) {
@@ -330,7 +345,7 @@ public class WUtil {
         long time = System.currentTimeMillis();
         ArrayList<Balance> result = new ArrayList<>();
         if (lcd != null && lcd.result != null && lcd.height != null) {
-            if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT)) {
+            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT)) {
                 if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
                     for (Coin coin : lcd.result.value.coins) {
                         Balance temp = new Balance();
@@ -343,7 +358,7 @@ public class WUtil {
                 }
                 return result;
 
-            }  else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+            }  else if (lcd.result.type.equals(BaseConstant.COSMOS_AUTH_TYPE_VESTING_ACCOUNT) || lcd.result.type.equals(COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
                 BigDecimal dpBalance = BigDecimal.ZERO;
                 BigDecimal dpVesting = BigDecimal.ZERO;
                 BigDecimal originalVesting = BigDecimal.ZERO;
@@ -462,6 +477,131 @@ public class WUtil {
                 temp.locked = new BigDecimal(currency.locked);
                 temp.fetchTime = time;
                 result.add(temp);
+            }
+        }
+        return result;
+    }
+
+    public static ArrayList<Balance> getBalancesFromVestingLcd(long accountId, ResLcdVestingAccountInfo lcd) {
+        long time = System.currentTimeMillis();
+        ArrayList<Balance> result = new ArrayList<>();
+        if (lcd != null && lcd.result != null && lcd.height != null) {
+            if (lcd.result.type.equals(COSMOS_AUTH_TYPE_ACCOUNT)) {
+                if (lcd.result.value.coins != null && lcd.result.value.coins.size() > 0) {
+                    for(Coin coin : lcd.result.value.coins) {
+                        Balance temp = new Balance();
+                        temp.accountId = accountId;
+                        temp.symbol = coin.denom;
+                        temp.balance = new BigDecimal(coin.amount);
+                        temp.fetchTime = time;
+                        result.add(temp);
+                    }
+                }
+
+            } else if (lcd.result.type.equals(COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT)) {
+                for( Coin coin : lcd.result.value.coins) {
+                    String denom = coin.denom;
+                    BigDecimal dpBalance = BigDecimal.ZERO;
+                    BigDecimal dpVesting = BigDecimal.ZERO;
+                    BigDecimal originalVesting = BigDecimal.ZERO;
+                    BigDecimal remainVesting = BigDecimal.ZERO;
+                    BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                    dpBalance = new BigDecimal(coin.amount);
+                    WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                    for (Coin vesting : lcd.result.value.original_vesting) {
+                        if (vesting.denom.equals(denom)) {
+                            originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
+                        }
+                    }
+                    WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                    for (Coin vesting : lcd.result.value.delegated_vesting) {
+                        if (vesting.denom.equals(denom)) {
+                            delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
+                        }
+                    }
+                    WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                    remainVesting = lcd.getCalcurateVestingAmountSumByDenom(denom);
+                    WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                    dpVesting = remainVesting.subtract(delegatedVesting);
+                    WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                    dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                    WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                    if (remainVesting.compareTo(delegatedVesting)> 0) {
+                        dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                    }
+                    WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = denom;
+                    temp.balance = dpBalance;
+                    temp.frozen = delegatedVesting;
+                    temp.locked = dpVesting;
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
+
+            } else if (lcd.result.type.equals(COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT)) {
+                for( Coin coin : lcd.result.value.coins) {
+                    String denom = coin.denom;
+                    BigDecimal dpBalance = BigDecimal.ZERO;
+                    BigDecimal dpVesting = BigDecimal.ZERO;
+                    BigDecimal originalVesting = BigDecimal.ZERO;
+                    BigDecimal remainVesting = BigDecimal.ZERO;
+                    BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                    dpBalance = new BigDecimal(coin.amount);
+                    WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                    for (Coin vesting : lcd.result.value.original_vesting) {
+                        if (vesting.denom.equals(denom)) {
+                            originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
+                        }
+                    }
+                    WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                    for (Coin vesting : lcd.result.value.delegated_vesting) {
+                        if (vesting.denom.equals(denom)) {
+                            delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
+                        }
+                    }
+                    WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = (lcd.result.value.getStartTime() + lcd.result.value.getEndTime()) * 1000;
+
+                    if (cTime < vestingEnd) {
+                        remainVesting = originalVesting;
+                    }
+                    WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                    dpVesting = remainVesting.subtract(delegatedVesting);
+                    WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                    dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                    WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                    if (remainVesting.compareTo(delegatedVesting)> 0) {
+                        dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                    }
+                    WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = denom;
+                    temp.balance = dpBalance;
+                    temp.frozen = delegatedVesting;
+                    temp.locked = dpVesting;
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
             }
         }
         return result;

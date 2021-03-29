@@ -178,6 +178,20 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getTokenDelegable(String symbol) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equalsIgnoreCase(symbol)) {
+                result = balance.balance.add(balance.locked);
+                break;
+            }
+        }
+        return result;
+    }
+
     public BigDecimal getIovBalance() {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {

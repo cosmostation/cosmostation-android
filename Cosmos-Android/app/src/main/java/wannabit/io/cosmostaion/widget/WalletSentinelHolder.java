@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class WalletSentinelHolder extends BaseHolder {
@@ -50,14 +51,18 @@ public class WalletSentinelHolder extends BaseHolder {
         final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
         final BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
         final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_DVPN);
-        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+        final BigDecimal vestingAmount = WDp.getLockedCoin(baseData.mBalances, TOKEN_DVPN);
+        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount).add(vestingAmount);
 
         mTvDvpnTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvDvpnAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvDvpnVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
         mTvDvpnDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvDvpnUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvDvpnRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvDvpnValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        if (!vestingAmount.equals(BigDecimal.ZERO)) { mDvpnVestingLayer.setVisibility(View.VISIBLE);
+        } else { mDvpnVestingLayer.setVisibility(View.GONE); }
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

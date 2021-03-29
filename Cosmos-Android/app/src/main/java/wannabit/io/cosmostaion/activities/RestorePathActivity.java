@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -413,9 +414,9 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
             } else if (mChain.equals(SENTINEL_MAIN)) {
                 holder.coinLayer.setVisibility(View.VISIBLE);
                 WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
-                ApiClient.getSentinelChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                ApiClient.getSentinelChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdVestingAccountInfo>() {
                     @Override
-                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                    public void onResponse(Call<ResLcdVestingAccountInfo> call, Response<ResLcdVestingAccountInfo> response) {
                         if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
                             ArrayList<Coin> coins = response.body().result.value.coins ;
                             for (Coin coin: coins) {
@@ -426,7 +427,7 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                         }
                     }
                     @Override
-                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
+                    public void onFailure(Call<ResLcdVestingAccountInfo> call, Throwable t) { }
                 });
             }
 

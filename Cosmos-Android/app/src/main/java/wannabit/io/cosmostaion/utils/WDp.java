@@ -752,6 +752,7 @@ public class WDp {
         for(Balance balance : balances) {
             if(balance.symbol.equals(TOKEN_DVPN)) {
                 sum = sum.add(balance.balance);
+                sum = sum.add(balance.locked);
             }
         }
         if (bondings != null) {
