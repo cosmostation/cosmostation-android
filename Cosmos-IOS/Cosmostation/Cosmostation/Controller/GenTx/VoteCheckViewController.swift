@@ -89,12 +89,19 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
             url = BAND_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             url = SECRET_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
+            url = CERTIK_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_ACCOUNT_INFO + account.account_address
+        }
+        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+            url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
         }
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
@@ -191,12 +198,19 @@ class VoteCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = BAND_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
                         url = SECRET_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-                        url = CERTIK_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                        url = CERTIK_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
+                        url = CERTIK_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+                        url = SENTINEL_BORAD_TX
+                    }
+                    else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                        url = KAVA_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                        url = IOV_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                        url = CERTIK_TEST_BORAD_TX
                     }
                     let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in

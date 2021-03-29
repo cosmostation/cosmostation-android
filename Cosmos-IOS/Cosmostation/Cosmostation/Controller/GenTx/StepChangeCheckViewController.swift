@@ -34,14 +34,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     
     func onUpdateView() {
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        if (pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN ||
-                pageHolderVC.chainType! == ChainType.CERTIK_TEST || pageHolderVC.chainType! == ChainType.AKASH_MAIN ) {
-            rewardAddressChangeFee.attributedText = WUtils.displayAmount(feeAmout.stringValue, rewardAddressChangeFee.font, 6, pageHolderVC.chainType!)
-            
-        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            rewardAddressChangeFee.attributedText = WUtils.displayAmount2(feeAmout.stringValue, rewardAddressChangeFee.font, 6, 6)
-        }
+        rewardAddressChangeFee.attributedText = WUtils.displayAmount2(feeAmout.stringValue, rewardAddressChangeFee.font, 6, 6)
         currentRewardAddress.text = pageHolderVC.mCurrentRewardAddress
         newRewardAddress.text = pageHolderVC.mToChangeRewardAddress
         currentRewardAddress.adjustsFontSizeToFitWidth = true
@@ -117,10 +110,13 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
             url = CERTIK_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_ACCOUNT_INFO + account.account_address
+        }
+        if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
         }
@@ -212,10 +208,13 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                        url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
                         url = CERTIK_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+                        url = SENTINEL_BORAD_TX
+                    }
+                    if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                        url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
                     }
@@ -290,8 +289,6 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             
             do {
                 let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).broadcastTx(reqTx).response.wait()
-                print("response ", response)
-                print("response ", response.txResponse.txhash)
                 DispatchQueue.main.async(execute: {
                     if (self.waitAlert != nil) {
                         self.waitAlert?.dismiss(animated: true, completion: {
