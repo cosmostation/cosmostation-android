@@ -44,8 +44,6 @@ final class BaseData : NSObject{
     var mModuleCoins: Array<Coin>?
     var mReserveCoins: Array<Coin>?
     
-    
-    
     var mBnbTokenList = Array<BnbToken>()
     
     var mOkAccountInfo: OkAccountInfo?
@@ -59,6 +57,8 @@ final class BaseData : NSObject{
     var mStarNameConfig: IovStarNameConfig.IovConfig?
     
     var mBandOracleStatus: BandOracleStatus?
+    
+    var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?
     
     
     //For ProtoBuf and gRPC

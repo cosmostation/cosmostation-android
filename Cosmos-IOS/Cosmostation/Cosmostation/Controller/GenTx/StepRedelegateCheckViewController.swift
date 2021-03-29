@@ -38,19 +38,18 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     func onUpdateView() {
         let toRedelegateAmount = WUtils.localeStringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN  || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            redelegateAmountLabel.attributedText = WUtils.displayAmount2(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, 6)
+            redelegateFeeLabel.attributedText = WUtils.displayAmount2(feeAmout.stringValue, redelegateFeeLabel.font, 6, 6)
+            redelegateFromValLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
+            redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator_gRPC?.description_p.moniker
+            
+        } else {
             redelegateAmountLabel.attributedText = WUtils.displayAmount(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, pageHolderVC.chainType!)
             redelegateFeeLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, redelegateFeeLabel.font, 6, pageHolderVC.chainType!)
             redelegateFromValLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator?.description.moniker
             
-        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            redelegateAmountLabel.attributedText = WUtils.displayAmount2(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, 6)
-            redelegateFeeLabel.attributedText = WUtils.displayAmount2(feeAmout.stringValue, redelegateFeeLabel.font, 6, 6)
-            redelegateFromValLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
-            redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator_gRPC?.description_p.moniker
         }
         redelegateMemoLabel.text = pageHolderVC.mMemo
     }
@@ -92,18 +91,21 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
         var url: String?
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
             url = CERTIK_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_ACCOUNT_INFO + account.account_address
+        }
+        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
         }
@@ -123,8 +125,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenRedelegateTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                            self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                } else {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -208,18 +209,21 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                     var url: String?
                     if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        url = KAVA_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
                         url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                        url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
                         url = CERTIK_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+                        url = SENTINEL_BORAD_TX
+                    }
+                    else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                        url = KAVA_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                        url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
                     }

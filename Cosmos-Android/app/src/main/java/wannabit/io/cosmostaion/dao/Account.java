@@ -178,6 +178,20 @@ public class Account {
         return result;
     }
 
+    public BigDecimal getTokenDelegable(String symbol) {
+        BigDecimal result = BigDecimal.ZERO;
+        if (balances == null || balances.size() == 0)  {
+            return result;
+        }
+        for(Balance balance:balances) {
+            if(balance.symbol.equalsIgnoreCase(symbol)) {
+                result = balance.balance.add(balance.locked);
+                break;
+            }
+        }
+        return result;
+    }
+
     public BigDecimal getIovBalance() {
         BigDecimal result = BigDecimal.ZERO;
         if(balances == null || balances.size() == 0)  {
@@ -236,7 +250,10 @@ public class Account {
             } else if (chain.equals(BaseChain.SECRET_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
 
-            } else {
+            }  else if (chain.equals(BaseChain.SENTINEL_MAIN)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
+
+            }else {
                 return WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6);
             }
 

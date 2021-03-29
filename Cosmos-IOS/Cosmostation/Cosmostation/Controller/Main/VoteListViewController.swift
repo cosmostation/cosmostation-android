@@ -71,22 +71,16 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
          if (WUtils.isGRPC(chainType!)) {
             return self.mProposals_gRPC.count
-         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                        chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
+         } else {
             return self.mProposals.count
          }
-        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (WUtils.isGRPC(chainType!)) {
             return onBindProposal_gRPC(tableView, indexPath)
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
+        } else {
             return onBindProposal(tableView, indexPath)
-        } else  {
-            let cell:ProposalCell? = tableView.dequeueReusableCell(withIdentifier:"ProposalCell") as? ProposalCell
-            return cell!
         }
     }
     
@@ -130,9 +124,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (WUtils.isGRPC(chainType!)) {
             let proposal = mProposals_gRPC[indexPath.row]
             if (proposal.status  == Cosmos_Gov_V1beta1_ProposalStatus.passed || proposal.status  == Cosmos_Gov_V1beta1_ProposalStatus.rejected) {
-                let link = WUtils.getProposalExplorer(self.chainType!, String(proposal.proposalID))
-                guard let url = URL(string: link) else { return }
-                self.onShowSafariWeb(url)
+                onExplorerLink(String(proposal.proposalID))
             } else {
                 let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
                 voteDetailsVC.proposalId = String(proposal.proposalID)
@@ -140,46 +132,23 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 self.navigationController?.pushViewController(voteDetailsVC, animated: true)
             }
             
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        } else {
             let proposal = mProposals[indexPath.row]
-            if (Int(proposal.id)! >= 3) {
+            if (proposal.proposal_status == "Rejected" || proposal.proposal_status == "Passed") {
+                onExplorerLink(proposal.id)
+            } else {
                 let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
                 voteDetailsVC.proposalId = proposal.id
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(voteDetailsVC, animated: true)
-                
-            } else {
-                guard let url = URL(string: EXPLORER_KAVA_MAIN + "proposals/" + proposal.id) else { return }
-                self.onShowSafariWeb(url)
             }
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            let proposal = mProposals[indexPath.row]
-            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
-            voteDetailsVC.proposalId = proposal.id
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            let proposal = mProposals[indexPath.row]
-            if (Int(proposal.id)! >= 15) {
-                let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
-                voteDetailsVC.proposalId = proposal.id
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(voteDetailsVC, animated: true)
-                
-            } else {
-                guard let url = URL(string: EXPLORER_SECRET_MAIN + "governance/proposals/" + proposal.id) else { return }
-                self.onShowSafariWeb(url)
-            }
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
-            let proposal = mProposals[indexPath.row]
-            let voteDetailsVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VoteDetailsViewController") as! VoteDetailsViewController
-            voteDetailsVC.proposalId = proposal.id
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(voteDetailsVC, animated: true)
         }
+    }
+    
+    func onExplorerLink(_ proposalId: String) {
+        let link = WUtils.getProposalExplorer(self.chainType!, proposalId)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
     }
     
     @objc func onFetchProposals() {
@@ -305,6 +274,27 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
                 }
                 self.onUpdateViews()
             }
+            
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            let url = SENTINEL_PROPOSALS;
+            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+            request.responseJSON { (response) in
+                switch response.result {
+                case .success(let res):
+                    guard let responseData = res as? NSDictionary,
+                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                            self.onUpdateViews()
+                            return
+                    }
+                    self.mProposals.removeAll()
+                    for proposal in proposals {
+                        self.mProposals.append(Proposal(proposal as! [String : Any]))
+                    }
+                case .failure(let error):
+                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+                }
+                self.onUpdateViews()
+            }
         }
     }
     
@@ -335,8 +325,7 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.mProposals_gRPC.sort{
                 return $0.proposalID < $1.proposalID ? false : true
             }
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.IOV_MAIN) {
+        } else {
             self.mProposals.sort{
                 return Int($0.id)! < Int($1.id)! ? false : true
             }

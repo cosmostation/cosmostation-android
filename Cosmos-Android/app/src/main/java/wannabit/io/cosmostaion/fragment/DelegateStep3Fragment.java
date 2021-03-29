@@ -27,6 +27,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class DelegateStep3Fragment extends BaseFragment implements View.OnClickListener {
@@ -85,8 +86,6 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mValidatorName.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);
-
-
         }
     }
 
@@ -99,6 +98,8 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
             Bundle bundle = new Bundle();
             if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
                 bundle.putInt("day", 3);
+            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
+                bundle.putInt("day", 28);
             } else {
                 bundle.putInt("day", 21);
             }

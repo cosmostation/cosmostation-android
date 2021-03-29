@@ -42,6 +42,8 @@ public class BaseConstant {
     public final static String PRE_SECRET_UP_DOWN_24        = "PRE_SECRET_UP_DOWN_24";
     public final static String PRE_OKEX_TIC                 = "PRE_OKEX_TIC";
     public final static String PRE_OKEX_UP_DOWN_24          = "PRE_OKEX_UP_DOWN_24";
+    public final static String PRE_SENTINEL_TIC             = "PRE_SENTINEL_TIC";
+    public final static String PRE_SENTINEL_UP_DOWN_24      = "PRE_SENTINEL_UP_DOWN_24";
     public final static String PRE_OKEX_DOLLOR_TIC          = "PRE_OKEX_DOLLOR_TIC";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
@@ -240,6 +242,7 @@ public class BaseConstant {
     public final static String COSMOS_AUTH_TYPE_DELAYEDACCOUNT              = "cosmos-sdk/DelayedVestingAccount";
     public final static String COSMOS_AUTH_TYPE_VESTING_ACCOUNT             = "cosmos-sdk/ValidatorVestingAccount";
     public final static String COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT           = "cosmos-sdk/PeriodicVestingAccount";
+    public final static String COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT           = "cosmos-sdk/ContinuousVestingAccount";
     public final static String COSMOS_AUTH_TYPE_ACCOUNT                     = "cosmos-sdk/Account";
     public final static String COSMOS_AUTH_TYPE_ACCOUNT_LEGACY              = "auth/Account";
     public final static String COSMOS_AUTH_TYPE_CERTIK_MANUAL               = "auth/ManualVestingAccount";
@@ -449,6 +452,7 @@ public class BaseConstant {
     public final static String TOKEN_OK             = "okt";
     public final static String TOKEN_OK_OKB         = "okb";
     public final static String TOKEN_XPRT           = "uxprt";
+    public final static String TOKEN_DVPN           = "udvpn";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -550,14 +554,6 @@ public class BaseConstant {
     public final static String FEE_CERTIK_GAS_ADDRESS_CHANGE    = "100000";
     public final static String FEE_CERTIK_GAS_VOTE              = "100000";
 
-    public final static String FEE_AKASH_GAS_RATE_AVERAGE           = "0.025";
-    public final static String FEE_AKASH_GAS_AMOUNT_SEND            = "100000";
-    public final static String FEE_AKASH_GAS_AMOUNT_STAKE           = "200000";
-    public final static String FEE_AKASH_GAS_AMOUNT_REDELEGATE      = "300000";
-    public final static String FEE_AKASH_GAS_AMOUNT_REINVEST        = "300000";
-    public final static String FEE_AKASH_GAS_AMOUNT_VOTE            = "100000";
-    public final static String FEE_AKASH_GAS_AMOUNT_ADDRESS_CHANGE  = "100000";
-
     public final static String SECRET_GAS_FEE_RATE_AVERAGE              = "0.25";
     public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
     public final static String SECRET_GAS_AMOUNT_STAKE                  = "200000";
@@ -565,6 +561,14 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REINVEST               = "350000";
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
+
+    public final static String SENTINEL_GAS_FEE_RATE_AVERAGE              = "0.1";
+    public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
+    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE             = "300000";
+    public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
+    public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
 
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
@@ -589,6 +593,7 @@ public class BaseConstant {
     public final static String CGC_AKASH = "akash-network";
     public final static String CGC_SECRET = "secret";
     public final static String CGC_OKEX = "okexchain";
+    public final static String CGC_SENTINEL = "sentinel-group";
 
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;
@@ -624,6 +629,7 @@ public class BaseConstant {
     public final static String SECRET_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/secret/";
     public final static String AKASH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/akash/";
     public final static String PERSIS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/persistence/";
+    public final static String SENTINEL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
@@ -642,6 +648,7 @@ public class BaseConstant {
     public final static String EXPLORER_AKASH_MAIN      = "https://www.mintscan.io/akash/";
     public final static String EXPLORER_OKEX_MAIN       = "https://www.oklink.com/okexchain/";
     public final static String EXPLORER_PERSIS_MAIN     = "https://dev.mintscan.io/persistence/";
+    public final static String EXPLORER_SENTINEL_MAIN   = "https://www.mintscan.io/sentinel/";
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";

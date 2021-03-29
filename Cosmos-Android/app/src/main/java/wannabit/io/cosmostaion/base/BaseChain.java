@@ -49,6 +49,7 @@ public enum BaseChain {
     OKEX_LEGACY1("okexchain-66"),
     OKEX_MAIN("okexchain-mainnet"),
     PERSIS_MAIN("persistence-mainnet"),
+    SENTINEL_MAIN("sentinel-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -141,6 +142,9 @@ public enum BaseChain {
         if (chainName.equals(PERSIS_MAIN.chainName)) {
             return PERSIS_MAIN;
         }
+        if (chainName.equals(SENTINEL_MAIN.chainName)) {
+            return SENTINEL_MAIN;
+        }
 
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -197,6 +201,7 @@ public enum BaseChain {
         result.add(IOV_MAIN);
         result.add(CERTIK_MAIN);
         result.add(AKASH_MAIN);
+        result.add(SENTINEL_MAIN);
         result.add(SECRET_MAIN);
 
 //        result.add(COSMOS_TEST);

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_Safe_Copy;
+import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -41,7 +42,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class MnemonicCheckActivity extends BaseActivity {
@@ -75,33 +78,7 @@ public class MnemonicCheckActivity extends BaseActivity {
 
         mEntropy = getIntent().getStringExtra("entropy");
         Account toCheck = getBaseDao().onSelectAccount(""+getIntent().getLongExtra("checkid", -1));
-        if (getChain(toCheck.baseChain).equals(COSMOS_MAIN) || getChain(toCheck.baseChain).equals(COSMOS_TEST)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-        } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN) || getChain(toCheck.baseChain).equals(IRIS_TEST)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
-        } else if (getChain(toCheck.baseChain).equals(BNB_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
-        } else if (getChain(toCheck.baseChain).equals(KAVA_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
-        } else if (getChain(toCheck.baseChain).equals(IOV_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
-        } else if (getChain(toCheck.baseChain).equals(BAND_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
-        } else if (getChain(toCheck.baseChain).equals(CERTIK_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
-        } else if (getChain(toCheck.baseChain).equals(SECRET_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
-        } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
-        } else if (getChain(toCheck.baseChain).equals(OKEX_MAIN)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
-        }
-
-        else if (getChain(toCheck.baseChain).equals(BNB_TEST) || getChain(toCheck.baseChain).equals(KAVA_TEST) || getChain(toCheck.baseChain).equals(IOV_TEST) ||
-                getChain(toCheck.baseChain).equals(OK_TEST) || getChain(toCheck.baseChain).equals(CERTIK_TEST)) {
-            mMnemonicLayer.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-
-        }
+        mMnemonicLayer.setCardBackgroundColor(WDp.getChainBgColor(getBaseContext(), getChain(toCheck.baseChain)));
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(WUtil.HexStringToByteArray(mEntropy)));
 
         for(int i = 0; i < mWordsLayer.length; i++) {
@@ -125,6 +102,10 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
             } else if (getChain(toCheck.baseChain).equals(OKEX_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
+            } else if (getChain(toCheck.baseChain).equals(PERSIS_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_persis));
+            } else if (getChain(toCheck.baseChain).equals(SENTINEL_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sentinel));
             }
 
             else if (getChain(toCheck.baseChain).equals(BNB_TEST) || getChain(toCheck.baseChain).equals(KAVA_TEST) || getChain(toCheck.baseChain).equals(IOV_TEST) ||

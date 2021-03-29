@@ -24,13 +24,14 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class Dialog_ChoiceNet extends DialogFragment {
 
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mSecret, mCosmosTest, mIrisTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -77,6 +78,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mAkash = view.findViewById(R.id.akash_chain);
         mSecret = view.findViewById(R.id.secret_chain);
         mPersis = view.findViewById(R.id.persis_chain);
+        mSentinel = view.findViewById(R.id.sentinel_chain);
 
 
 
@@ -145,14 +147,6 @@ public class Dialog_ChoiceNet extends DialogFragment {
             }
         });
 
-        mSecret.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SECRET_MAIN);
-                getDialog().dismiss();
-            }
-        });
-
         mCertik.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,6 +159,22 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(AKASH_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mSentinel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(SENTINEL_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mSecret.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.SECRET_MAIN);
                 getDialog().dismiss();
             }
         });

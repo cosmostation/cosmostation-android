@@ -76,8 +76,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
-            mTvRedelegateAmount.setText(WDp.getDpAmount(getContext(), toReDeleagteAmount, 6, getSActivity().mBaseChain));
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
             mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);

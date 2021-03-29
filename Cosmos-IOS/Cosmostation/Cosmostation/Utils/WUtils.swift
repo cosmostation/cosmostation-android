@@ -86,6 +86,14 @@ class WUtils {
         return result
     }
     
+    static func getAccountWithVestingAccountInfo(_ account: Account, _ accountInfo: VestingAccountInfo) -> Account {
+        let result = account
+        result.account_address = account.account_address
+        result.account_sequence_number = Int64(accountInfo.result!.value!.sequence!)!
+        result.account_account_numner = Int64(accountInfo.result!.value!.account_number!)!
+        return result
+    }
+    
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
         if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT ||
@@ -231,6 +239,109 @@ class WUtils {
              result.append(Balance(account.account_id, okBalance.symbol, okBalance.available, Date().millisecondsSince1970, "0", okBalance.locked))
         }
         return result;
+    }
+    
+    static func getBalancesWithVestingAccountInfo(_ account: Account, _ accountInfo: VestingAccountInfo) -> Array<Balance> {
+        var result = Array<Balance>()
+        if (accountInfo.result?.type == COSMOS_AUTH_TYPE_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
+            })
+            
+        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                let denom = coin.denom
+                
+                dpBalance = NSDecimalNumber.init(string: coin.amount)
+                print("P_VESTING_ACCOUNT dpBalance", denom, " ", dpBalance)
+                
+                accountInfo.result?.value?.original_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("P_VESTING_ACCOUNT originalVesting", denom, " ", originalVesting)
+                
+                accountInfo.result?.value?.delegated_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("P_VESTING_ACCOUNT delegatedVesting", denom, " ", delegatedVesting)
+                
+                remainVesting = accountInfo.result?.getCalcurateVestingAmountSumByDenom(denom) ?? NSDecimalNumber.zero
+                print("P_VESTING_ACCOUNT remainVesting", denom, " ", remainVesting)
+                
+                dpVesting = remainVesting.subtracting(delegatedVesting);
+                print("P_VESTING_ACCOUNT dpVestingA", denom, " ", dpVesting)
+                
+                if (dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0) {
+                    dpVesting = NSDecimalNumber.zero;
+                }
+                print("P_VESTING_ACCOUNT dpVestingB", denom, " ", dpVesting)
+                
+                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
+                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                }
+                print("P_VESTING_ACCOUNT dpBalance", denom, " ", dpBalance)
+                
+                result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
+                
+            })
+            
+        } else if (accountInfo.result?.type == COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT) {
+            accountInfo.result?.value?.coins?.forEach({ (coin) in
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                let denom = coin.denom
+                
+                dpBalance = NSDecimalNumber.init(string: coin.amount)
+                print("C_VESTING_ACCOUNT dpBalance", denom, " ", dpBalance)
+                
+                accountInfo.result?.value?.original_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("C_VESTING_ACCOUNT originalVesting", denom, " ", originalVesting)
+                
+                accountInfo.result?.value?.delegated_vesting?.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+                print("C_VESTING_ACCOUNT delegatedVesting", denom, " ", delegatedVesting)
+                
+                let cTime = Date().millisecondsSince1970
+                let vestingEnd = (accountInfo.result!.value!.getStartTime() + accountInfo.result!.value!.getEndTime()) * 1000
+                if (cTime < vestingEnd) {
+                    remainVesting = originalVesting
+                }
+                print("C_VESTING_ACCOUNT remainVesting ", denom, "  ", remainVesting)
+                
+                dpVesting = remainVesting.subtracting(delegatedVesting);
+                print("C_VESTING_ACCOUNT dpVestingA ", denom, "  ", dpVesting)
+                
+                dpVesting = dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0 ? NSDecimalNumber.zero : dpVesting
+                print("C_VESTING_ACCOUNT dpVestingB ", denom, "  ", dpVesting)
+                
+                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
+                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                }
+                print("C_VESTING_ACCOUNT final dpBalance ", denom, "  ", dpBalance)
+                
+                result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, delegatedVesting.stringValue, dpVesting.stringValue))
+            })
+        }
+        return result
     }
     
     static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
@@ -736,10 +847,8 @@ class WUtils {
         } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
                     chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
                     chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST ||
-                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.PERSIS_MAIN) {
+                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.PERSIS_MAIN || chain == ChainType.SENTINEL_MAIN) {
             formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
-        } else if (chain == ChainType.IRIS_MAIN) {
-            formatted = nf.string(from: amount.dividing(by: 1000000000000000000).rounding(accordingToBehavior: handler))
         } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
             formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
         }
@@ -1453,6 +1562,30 @@ class WUtils {
         return amount
     }
     
+    static func getAllSentinel(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in balances {
+            if (balance.balance_denom == SENTINEL_MAIN_DENOM) {
+                amount = NSDecimalNumber.init(string: balance.balance_amount)
+                amount = amount.adding(NSDecimalNumber.init(string: balance.balance_locked))
+            }
+        }
+        for bonding in bondings {
+            amount = amount.adding(bonding.getBondingAmount(validators))
+        }
+        for unbonding in unbondings {
+            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
+        }
+        for reward in rewards {
+            for coin in reward.reward_amount {
+                if (coin.denom == SENTINEL_MAIN_DENOM) {
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
     static func getAllBand(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -1871,7 +2004,6 @@ class WUtils {
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
         } else if (chainType == ChainType.AKASH_MAIN) {
-            print("AKASH_MAIN ", coin.denom)
             if (coin.denom == AKASH_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
@@ -1882,6 +2014,15 @@ class WUtils {
             
         } else if (chainType == ChainType.PERSIS_MAIN) {
             if (coin.denom == PERSIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (coin.denom == SENTINEL_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
@@ -2022,6 +2163,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (denom == SENTINEL_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -2108,6 +2258,8 @@ class WUtils {
             return COLOR_AKASH
         } else if (chain == ChainType.PERSIS_MAIN) {
             return COLOR_PERSIS
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return COLOR_SENTINEL
         }
         return COLOR_ATOM
     }
@@ -2135,6 +2287,8 @@ class WUtils {
             return COLOR_OK_DARK
         } else if (chain == ChainType.PERSIS_MAIN) {
             return COLOR_PERSIS_DARK
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return COLOR_SENTINEL_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2162,6 +2316,8 @@ class WUtils {
             return TRANS_BG_COLOR_OK
         } else if (chain == ChainType.PERSIS_MAIN) {
             return TRANS_BG_COLOR_PERSIS
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return TRANS_BG_COLOR_SENTINEL
         }
         return COLOR_BG_GRAY
     }
@@ -2189,6 +2345,8 @@ class WUtils {
             return "AKT"
         } else if (chain == ChainType.PERSIS_MAIN) {
             return "XPRT"
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return "DVPN"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2220,6 +2378,8 @@ class WUtils {
             return AKASH_MAIN_DENOM
         } else if (chain == ChainType.PERSIS_MAIN) {
             return PERSIS_MAIN_DENOM
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2267,6 +2427,9 @@ class WUtils {
         } else if (chain == ChainType.PERSIS_MAIN) {
             label.text = "XPRT"
             label.textColor = COLOR_PERSIS
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            label.text = "DVPN"
+            label.textColor = COLOR_SENTINEL
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2299,6 +2462,8 @@ class WUtils {
             return ChainType.OKEX_MAIN
         } else if (chainS == CHAIN_PERSIS_S) {
             return ChainType.PERSIS_MAIN
+        } else if (chainS == CHAIN_SENTINEL_S) {
+            return ChainType.SENTINEL_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2342,6 +2507,8 @@ class WUtils {
             return CHAIN_OKEX_S
         } else if (chain == ChainType.PERSIS_MAIN) {
             return CHAIN_PERSIS_S
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return CHAIN_SENTINEL_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2623,6 +2790,25 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             }
             
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_VOTE))
+            }
         }
         return result
     }
@@ -2635,6 +2821,11 @@ class WUtils {
             
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -3142,6 +3333,19 @@ class WUtils {
         } else if (chain == ChainType.PERSIS_MAIN) {
             return PERSIS_VAL_URL + opAddress + ".png";
         }
+        else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
+            return KAVA_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            return IOV_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+            return CERTIK_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_VAL_URL + opAddress + ".png";
+        }
         return ""
     }
     
@@ -3177,6 +3381,27 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             return EXPLORER_AKASH_MAIN + "proposals/" + proposalId
             
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return EXPLORER_KAVA_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return EXPLORER_BAND_MAIN + "proposal/" + proposalId
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return EXPLORER_SECRET_MAIN + "governance/proposals/" + proposalId
+            
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId()
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return EXPLORER_IOV_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return EXPLORER_PERSIS_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return EXPLORER_SENTINEL_MAIN + "proposals/" + proposalId
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3185,6 +3410,8 @@ class WUtils {
         } else if (chain == ChainType.IRIS_TEST) {
             return EXPLORER_IRIS_TEST + "proposals/" + proposalId
             
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId()
         }
         return ""
     }
@@ -3194,7 +3421,7 @@ class WUtils {
             return NSDecimalNumber.init(string: "0.4")
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
-        } else if (chain == ChainType.AKASH_MAIN) {
+        } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.5")
@@ -3782,7 +4009,6 @@ class WUtils {
         }
         return false
     }
-    
 }
 
 extension Date {

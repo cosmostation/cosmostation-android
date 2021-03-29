@@ -142,7 +142,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN) {
             mUnbondings.removeAll()
             mRewards.removeAll()
             mFetchCnt = 5
@@ -277,15 +277,23 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.present(safariViewController, animated: true, completion: nil)
             }
         }
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + mValidator!.operator_address + ".png")!)
+        cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+        cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, mValidator!.operator_address))!)
+        
+        if (mSelfBondingShare != nil) {
+            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+        } else {
+            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
+        }
+        if (mIsTop100) {
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
+        } else {
+            cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
+            cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+        }
+        
+        if (chainType == ChainType.BAND_MAIN) {
             if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
@@ -295,48 +303,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell?.bandOracleImg.isHidden = false
             }
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        }
-        
-        if (mSelfBondingShare != nil) {
-            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
-        } else {
-            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
-        }
-        
-        if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.SECRET_MAIN) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else {
-            cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
-            cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         return cell!
     }
@@ -363,16 +329,24 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.present(safariViewController, animated: true, completion: nil)
             }
         }
+        cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
+        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+        cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, mValidator!.operator_address))!)
         
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + mValidator!.operator_address + ".png")!)
+        if (mSelfBondingShare != nil) {
+            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
+        } else {
+            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
+        }
+        
+        if (mIsTop100) {
+            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
+        } else {
+            cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
+            cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
+        }
+        
+        if (chainType == ChainType.BAND_MAIN) {
             if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
@@ -382,48 +356,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell?.bandOracleImg.isHidden = false
             }
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-            cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
-            cell?.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + mValidator!.operator_address + ".png")!)
-            
-        }
-        
-        if (mSelfBondingShare != nil) {
-            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(mSelfBondingShare!, mValidator!.tokens, cell!.selfBondedRate.font)
-        } else {
-            cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
-        }
-        
-        if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.SECRET_MAIN) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
-            cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
-            
-        } else {
-            cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
-            cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         
         cell?.actionDelegate = {
@@ -441,158 +373,29 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     func onSetActionItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
         cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
-        
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            if(mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, chainType!)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, KAVA_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            }
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, chainType!)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, BAND_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            }
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, chainType!)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, chainType!)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, SECRET_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
-            }
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, 6)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, IOV_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardSum.stringValue, cell!.myRewardAmount.font, 6, 6)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
-            }
-            
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, 6)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, IOV_TEST_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardSum.stringValue, cell!.myRewardAmount.font, 6, 6)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
-            }
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            if (mBonding != nil) {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
-            } else {
-                cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, 6)
-            }
-            if (mUnbondings.count > 0) {
-                var unbondSum = NSDecimalNumber.zero
-                for unbonding in mUnbondings {
-                    unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
-                }
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            } else {
-                cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
-            }
-            if (mRewards.count > 0) {
-                let rewardSum = WUtils.getAllRewardByDenom(mRewards, CERTIK_MAIN_DENOM)
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardSum.stringValue, cell!.myRewardAmount.font, 6, 6)
-            } else {
-                cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, 6)
-            }
-            
+        if (mBonding != nil) {
+            cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2((mBonding?.getBondingAmount(mValidator!).stringValue)!, cell!.myDelegateAmount.font, 6, 6)
+        } else {
+            cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myDelegateAmount.font, 6, 6)
         }
         
-        if (mIsTop100 && (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST)) {
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.BAND_MAIN) {
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            
-        } else if (mIsTop100 && chainType == ChainType.SECRET_MAIN) {
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST)) {
-            cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
-            
-        } else if (mIsTop100 && (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST)) {
+        if (mUnbondings.count > 0) {
+            var unbondSum = NSDecimalNumber.zero
+            for unbonding in mUnbondings {
+                unbondSum  = unbondSum.adding(WUtils.localeStringToDecimal(unbonding.unbonding_balance))
+            }
+            cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondSum.stringValue, cell!.myUndelegateAmount.font, 6, 6)
+        } else {
+            cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.myUndelegateAmount.font, 6, 6)
+        }
+        if (mRewards.count > 0) {
+            let rewardSum = WUtils.getAllRewardByDenom(mRewards, WUtils.getMainDenom(chainType))
+            cell!.myRewardAmount.attributedText =  WUtils.displayAmount(rewardSum.stringValue, cell!.myRewardAmount.font, 6, chainType!)
+        } else {
+            cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
+        }
+        
+        if (mIsTop100) {
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             
@@ -777,8 +580,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -787,6 +588,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_VALIDATORS + "/" + validator.operator_address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_VALIDATORS + "/" + validator.operator_address
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -814,8 +620,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_BONDING + account.account_address + KAVA_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_BONDING + account.account_address + BAND_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -824,6 +628,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_BONDING + account.account_address + IOV_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_BONDING + account.account_address + CERTIK_BONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL + "/" + validator.operator_address
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -856,8 +665,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_UNBONDING + account.account_address + KAVA_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_UNBONDING + account.account_address + BAND_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -866,6 +673,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_UNBONDING + account.account_address + IOV_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_UNBONDING + account.account_address + CERTIK_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL + "/" + validator.operator_address
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -896,8 +708,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + account.account_address + KAVA_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + KAVA_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_FROM_VAL + account.account_address + BAND_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -906,6 +716,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_REWARD_FROM_VAL + account.account_address + IOV_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_REWARD_FROM_VAL + account.account_address + CERTIK_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_REWARD_FROM_VAL + account.account_address + SENTINEL_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + KAVA_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_FROM_VAL + account.account_address + IOV_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -938,8 +753,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_BONDING + address + KAVA_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_BONDING + address + BAND_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -948,6 +761,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_BONDING + address + IOV_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_BONDING + address + CERTIK_BONDING_TAIL + "/" + vAddress
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_BONDING + address + SENTINEL_BONDING_TAIL + "/" + vAddress
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_BONDING + address + IOV_TEST_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -975,8 +793,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_REDELEGATION;
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REDELEGATION;
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REDELEGATION;
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -985,6 +801,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_REDELEGATION;
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_REDELEGATION;
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_REDELEGATION;
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_REDELEGATION;
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REDELEGATION;
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1016,8 +837,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url = ""
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SECRET_MAIN) {
@@ -1026,6 +845,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.CERTIK_TEST) {
@@ -1076,8 +900,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.IOV_MAIN) {
@@ -1086,6 +908,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SECRET_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_API_HISTORY + account.account_address + "/" + validator.operator_address
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
         }
@@ -1370,6 +1197,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
+            
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1385,17 +1219,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN  || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST) {
-            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
-            txVC.mTargetValidator = mValidator
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             txVC.mType = COSMOS_MSG_TYPE_DELEGATE
             txVC.mTargetValidator_gRPC = mValidator_gRPC
-            
+        } else {
+            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mTargetValidator = mValidator
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -1484,6 +1313,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            if (mBonding == nil || self.mBonding!.getBondingAmount(mValidator!) == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+            if (mUnbondings.count >= 7) {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_UNDELEGATE2, 0)
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1510,14 +1354,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            txVC.mTargetValidator = mValidator
-            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             txVC.mTargetValidator_gRPC = mValidator_gRPC
+            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
+        } else {
+            txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
         }
         self.navigationItem.title = ""
@@ -1580,6 +1421,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
                 
+            } else if (chainType == ChainType.SENTINEL_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
+                if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue <= 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
                 return
@@ -1590,14 +1439,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onStartRedelegate() {
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            txVC.mTargetValidator = mValidator
-            txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             txVC.mTargetValidator_gRPC = mValidator_gRPC
+            txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
+        } else {
+            txVC.mTargetValidator = mValidator
             txVC.mType = COSMOS_MSG_TYPE_REDELEGATE2
         }
         self.navigationItem.title = ""
@@ -1729,8 +1575,28 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            if (mRewards.count > 0) {
+                let rewardSum = WUtils.getAllRewardByDenom(mRewards, SENTINEL_MAIN_DENOM)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                
+            } else {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
-        
         
         else if (WUtils.isGRPC(chainType!)) {
             let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_gRPC?.operatorAddress)
@@ -1750,20 +1616,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            var validators = Array<Validator>()
-            validators.append(mValidator!)
-            txVC.mRewardTargetValidators = validators
-            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            
-        } else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             var validators = Array<Cosmos_Staking_V1beta1_Validator>()
             validators.append(mValidator_gRPC!)
             txVC.mRewardTargetValidators_gRPC = validators
             txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
-            
+        } else {
+            var validators = Array<Validator>()
+            validators.append(mValidator!)
+            txVC.mRewardTargetValidators = validators
+            txVC.mType = COSMOS_MSG_TYPE_WITHDRAW_DEL
         }
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -1904,6 +1766,28 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return
                 }
                 if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "15000")).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType == ChainType.SENTINEL_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
+                if (mRewards.count > 0) {
+                    let rewardSum = WUtils.getAllRewardByDenom(mRewards, SENTINEL_MAIN_DENOM)
+                    if (rewardSum == NSDecimalNumber.zero) {
+                        self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                        return
+                    }
+                    if (rewardSum.compare(feeAmount).rawValue < 0) {
+                        self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                        return
+                    }
+                    
+                } else {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                     return
                 }

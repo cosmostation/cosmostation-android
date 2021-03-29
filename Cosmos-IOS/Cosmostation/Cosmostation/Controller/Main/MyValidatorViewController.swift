@@ -137,17 +137,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         } else {
             if (mainTabVC.mMyValidators.count < 1) {
                 let cell:PromotionCell? = tableView.dequeueReusableCell(withIdentifier:"PromotionCell") as? PromotionCell
-                if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-                } else if (chainType == ChainType.BAND_MAIN) {
-                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_BAND
-                } else if (chainType == ChainType.SECRET_MAIN) {
-                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
-                } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-                } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                    cell?.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-                }
+                cell?.cardView.backgroundColor = WUtils.getChainBg(chainType)
                 return cell!
                 
             } else if (mainTabVC.mMyValidators.count == 1) {
@@ -225,34 +215,14 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount(unbondSum.stringValue, cell.myUndelegatingAmountLabel.font, 6, chainType!)
 
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell.cardView.backgroundColor = TRANS_BG_COLOR_KAVA
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: KAVA_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            cell.cardView.backgroundColor = TRANS_BG_COLOR_BAND
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+        cell.cardView.backgroundColor = WUtils.getChainBg(chainType)
+        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
+        cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
+        
+        if (chainType == ChainType.BAND_MAIN) {
             if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
-            cell.validatorImg.af_setImage(withURL: URL(string: BAND_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            cell.cardView.backgroundColor = TRANS_BG_COLOR_SECRET
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: SECRET_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
-            cell.cardView.backgroundColor = TRANS_BG_COLOR_IOV
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: IOV_VAL_URL + validator.operator_address + ".png")!)
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            cell.cardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-            cell.rewardAmoutLabel.attributedText = WUtils.displayAmount(WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, validator.operator_address).stringValue, cell.rewardAmoutLabel.font, 6, chainType!)
-            cell.validatorImg.af_setImage(withURL: URL(string: CERTIK_VAL_URL + validator.operator_address + ".png")!)
-            
         }
     }
     
@@ -264,36 +234,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             
         } else {
             cell.totalRewardLabel.attributedText = WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell.totalRewardLabel.font, 6, chainType!)
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                if (mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, KAVA_MAIN_DENOM, chainType!)
-                }
-                
-            } else if (chainType == ChainType.BAND_MAIN) {
-                if (mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, BAND_MAIN_DENOM, chainType!)
-                }
-                
-            } else if (chainType == ChainType.SECRET_MAIN) {
-                if (mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, SECRET_MAIN_DENOM, chainType!)
-                }
-                
-            } else if (chainType == ChainType.IOV_MAIN) {
-                if (mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_MAIN_DENOM, chainType!)
-                }
-                
-            } else if (chainType == ChainType.IOV_TEST) {
-                if (mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, IOV_TEST_DENOM, chainType!)
-                }
-                
-            } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-                if (mainTabVC.mRewardList.count > 0) {
-                    cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, CERTIK_MAIN_DENOM, chainType!)
-                }
-                
+            if (mainTabVC.mRewardList.count > 0) {
+                cell.totalRewardLabel.attributedText = WUtils.dpRewards(mainTabVC.mRewardList, cell.totalRewardLabel.font, 6, WUtils.getMainDenom(chainType), chainType!)
             }
             cell.delegate = self
         }
@@ -508,6 +450,45 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
             let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: CERTIK_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
             let available = WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM)
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            if (WUtils.getAllRewardByDenom(mainTabVC.mRewardList, SENTINEL_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            var myBondedValidator = Array<Validator>()
+            for validator in self.mainTabVC.mAllValidator {
+                for bonding in self.mainTabVC.mBondingList {
+                    if (bonding.bonding_v_address == validator.operator_address &&
+                        WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, bonding.bonding_v_address).compare(feeAmount).rawValue > 0) {
+                        myBondedValidator.append(validator)
+                        break;
+                    }
+                }
+            }
+            myBondedValidator.sort {
+                let reward0 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $0.operator_address)
+                let reward1 = WUtils.getValidatorReward(chainType, mainTabVC.mRewardList, $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            if (myBondedValidator.count > 16) {
+                toClaimValidator = Array(myBondedValidator[0..<16])
+            } else {
+                toClaimValidator = myBondedValidator
+            }
+            if (toClaimValidator.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: SECRET_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
+            let available = WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM)
             if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return

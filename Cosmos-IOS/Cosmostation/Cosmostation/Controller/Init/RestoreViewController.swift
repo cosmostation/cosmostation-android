@@ -175,7 +175,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         persisAction.setValue(UIImage(named: "chainpersistence")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        
         let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SECRET_MAIN
             self.initViewUpdate()
@@ -193,6 +192,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
             self.initViewUpdate()
         })
         akashAction.setValue(UIImage(named: "akashChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let sentinelAction = UIAlertAction(title: NSLocalizedString("chain_title_sentinel", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SENTINEL_MAIN
+            self.initViewUpdate()
+        })
+        sentinelAction.setValue(UIImage(named: "chainsentinel")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let okexAction = UIAlertAction(title: NSLocalizedString("chain_title_okex", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.OKEX_MAIN
@@ -252,6 +257,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(iovAction)
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
+        showAlert.addAction(sentinelAction)
         showAlert.addAction(secretAction)
         
         

@@ -42,6 +42,9 @@ class WalletInflationCell: UITableViewCell {
             infaltionLabel.attributedText = WUtils.displayInflation(irisInflation.stringValue , font: infaltionLabel.font)
             yieldLabel.attributedText = WUtils.getDpEstApr(yieldLabel.font, chainType!)
             
+        } else {
+            infaltionLabel.attributedText = WUtils.displayInflation(BaseData.instance.mInflation, font: infaltionLabel.font)
+            yieldLabel.attributedText = WUtils.getDpEstApr(yieldLabel.font, chainType!)
         }
     }
     

@@ -50,6 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BNB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BTCB_DEPUTY;
 import static wannabit.io.cosmostaion.base.BaseConstant.BINANCE_MAIN_BUSD_DEPUTY;
@@ -83,16 +84,7 @@ public class MsgGenerator {
     public static Msg genTransferMsg(String fromAddr, String toAddr, ArrayList<Coin> coins, BaseChain chain) {
         Msg         result      = new Msg();
         Msg.Value   value       = new Msg.Value();
-        if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) || chain.equals(BAND_MAIN) ||
-                chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(SECRET_MAIN)) {
-            value.from_address = fromAddr;
-            value.to_address = toAddr;
-            value.amount = coins;
-
-            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
-            result.value = value;
-
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             value.from_address = fromAddr;
             value.to_address = toAddr;
             value.amount = coins;
@@ -108,6 +100,13 @@ public class MsgGenerator {
             result.type = BaseConstant.CERTIK_MSG_TYPE_TRANSFER;
             result.value = value;
 
+        } else {
+            value.from_address = fromAddr;
+            value.to_address = toAddr;
+            value.amount = coins;
+
+            result.type = BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
+            result.value = value;
         }
         return result;
     }
@@ -115,49 +114,24 @@ public class MsgGenerator {
     public static Msg genDelegateMsg(String fromAddr, String toValAddr, Coin toDeleagteAmout, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            value.delegator_address = fromAddr;
-            value.validator_address = toValAddr;
-            value.amount = toDeleagteAmout;
+        value.delegator_address = fromAddr;
+        value.validator_address = toValAddr;
+        value.amount = toDeleagteAmout;
 
-            result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            value.delegator_addr = fromAddr;
-            value.validator_addr = toValAddr;
-            value.delegation = toDeleagteAmout;
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_DELEGATE;
-            result.value = value;
-
-        }
+        result.type = BaseConstant.COSMOS_MSG_TYPE_DELEGATE;
+        result.value = value;
         return result;
     }
 
     public static Msg genUnbondMsg(String requestAddr, String fromValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            value.delegator_address = requestAddr;
-            value.validator_address = fromValAddr;
-            value.amount = amount;
+        value.delegator_address = requestAddr;
+        value.validator_address = fromValAddr;
+        value.amount = amount;
 
-            result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            value.delegator_addr = requestAddr;
-            value.validator_addr = fromValAddr;
-            value.shares_amount = amount.amount + ".0000000000";
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_UNDELEGATE;
-            result.value = value;
-        }
+        result.type = BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
+        result.value = value;
         return result;
     }
 
@@ -165,22 +139,11 @@ public class MsgGenerator {
     public static Msg genWithdrawDeleMsg(String requestAddr, String fromValAddr, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            value.delegator_address = requestAddr;
-            value.validator_address = fromValAddr;
+        value.delegator_address = requestAddr;
+        value.validator_address = fromValAddr;
 
-            result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            value.delegator_addr = requestAddr;
-            value.validator_addr = fromValAddr;
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_WITHDRAW;
-            result.value = value;
-        }
+        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
+        result.value = value;
         return result;
     }
 
@@ -197,77 +160,36 @@ public class MsgGenerator {
     public static Msg genReDelegateMsg(String accountAddr, String fromValAddr, String toValAddr, Coin amount, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            value.delegator_address = accountAddr;
-            value.validator_src_address = fromValAddr;
-            value.validator_dst_address = toValAddr;
-            value.amount = amount;
+        value.delegator_address = accountAddr;
+        value.validator_src_address = fromValAddr;
+        value.validator_dst_address = toValAddr;
+        value.amount = amount;
 
-            result.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            value.delegator_addr = accountAddr;
-            value.validator_src_addr = fromValAddr;
-            value.validator_dst_addr = toValAddr;
-            //TODO need cal bal to shares.
-//            value.shares = amount.amount + ".0000000000";
-            value.shares_amount = amount.amount + ".0000000000";
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_REDELEGATE;
-            result.value = value;
-        }
-
+        result.type = BaseConstant.COSMOS_MSG_TYPE_REDELEGATE2;
+        result.value = value;
         return result;
     }
 
     public static Msg genRewardAddressChange(String requestAddr, String newRewardAddr, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
+        value.delegator_address = requestAddr;
+        value.withdraw_address = newRewardAddr;
 
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            value.delegator_address = requestAddr;
-            value.withdraw_address = newRewardAddr;
-
-            result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            value.delegator_addr = requestAddr;
-            value.withdraw_addr = newRewardAddr;
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_WITHDRAW_MIDIFY;
-            result.value = value;
-        }
+        result.type = BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
+        result.value = value;
         return result;
     }
 
     public static Msg genVoteMsg(String accountAddr, String proposalId, String opinion, BaseChain chain) {
         Msg result  = new Msg();
         Msg.Value value = new Msg.Value();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST) ||
-                chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SECRET_MAIN)) {
-            value.proposal_id = proposalId;
-            value.voter = accountAddr;
-            value.option = opinion;
+        value.proposal_id = proposalId;
+        value.voter = accountAddr;
+        value.option = opinion;
 
-            result.type = BaseConstant.COSMOS_MSG_TYPE_VOTE;
-            result.value = value;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            value.proposal_id = proposalId;
-            value.voter = accountAddr;
-            value.option = opinion;
-
-            result.type = BaseConstant.IRIS_MSG_TYPE_VOTE;
-            result.value = value;
-        }
-
+        result.type = BaseConstant.COSMOS_MSG_TYPE_VOTE;
+        result.value = value;
         return result;
     }
 

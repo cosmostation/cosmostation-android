@@ -57,6 +57,12 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, CERTIK_MAIN_DENOM).subtracting(NSDecimalNumber(string: "20000"))
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            mDpDecimal = 6
+            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, SENTINEL_MAIN_DENOM).subtracting(feeAmount)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
+            
         }
         
         else if (WUtils.isGRPC(pageHolderVC.chainType!)) {

@@ -135,6 +135,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         bnbAction.setValue(UIImage(named: "binanceChImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let okexAction = UIAlertAction(title: NSLocalizedString("chain_title_okex", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.OKEX_MAIN
+            self.onGenNewKey()
+        })
+        okexAction.setValue(UIImage(named: "okexChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.IOV_MAIN
             self.onGenNewKey()
@@ -159,12 +165,6 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         persisAction.setValue(UIImage(named: "chainpersistence")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.SECRET_MAIN
-            self.onGenNewKey()
-        })
-        secretAction.setValue(UIImage(named: "secretChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
         let certikAction = UIAlertAction(title: NSLocalizedString("chain_title_certik", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.CERTIK_MAIN
             self.onGenNewKey()
@@ -177,11 +177,17 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         akashAction.setValue(UIImage(named: "akashChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
-        let okexAction = UIAlertAction(title: NSLocalizedString("chain_title_okex", comment: ""), style: .default, handler: {_ in
-            self.chainType = ChainType.OKEX_MAIN
+        let sentinelAction = UIAlertAction(title: NSLocalizedString("chain_title_sentinel", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SENTINEL_MAIN
             self.onGenNewKey()
         })
-        okexAction.setValue(UIImage(named: "okexChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        sentinelAction.setValue(UIImage(named: "chainsentinel")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
+        let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.SECRET_MAIN
+            self.onGenNewKey()
+        })
+        secretAction.setValue(UIImage(named: "secretChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
         let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.COSMOS_TEST
@@ -234,6 +240,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(iovAction)
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
+        showAlert.addAction(sentinelAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

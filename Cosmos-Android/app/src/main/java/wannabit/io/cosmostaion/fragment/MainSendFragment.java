@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.widget.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.WalletPersisHolder;
 import wannabit.io.cosmostaion.widget.WalletPriceHolder;
 import wannabit.io.cosmostaion.widget.WalletSecretHolder;
+import wannabit.io.cosmostaion.widget.WalletSentinelHolder;
 import wannabit.io.cosmostaion.widget.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.WalletUndelegationHolder;
 
@@ -50,6 +51,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainSendFragment extends BaseFragment {
@@ -181,6 +183,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_SECRET            = 9;
         private static final int TYPE_AKASH             = 10;
         private static final int TYPE_PERSIS            = 11;
+        private static final int TYPE_SENTINEL          = 12;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
@@ -226,6 +229,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_PERSIS) {
                 return new WalletPersisHolder(getLayoutInflater().inflate(R.layout.item_wallet_persis, viewGroup, false));
+
+            } else if (viewType == TYPE_SENTINEL) {
+                return new WalletSentinelHolder(getLayoutInflater().inflate(R.layout.item_wallet_sentinel, viewGroup, false));
 
             }
 
@@ -311,6 +317,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
+                    else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
                 } else if (position == 2) {
                     if (getBaseDao().mUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }

@@ -78,45 +78,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
 
     func checkIsWasteFee() -> Bool {
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, BAND_MAIN_DENOM)
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, SECRET_MAIN_DENOM)
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_MAIN_DENOM)
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_TEST_DENOM)
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_MAIN_DENOM)
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
-                return true
-            }
-            
-        }
-        
-        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
                 let amount = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
@@ -126,6 +88,11 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 return true
             }
 
+        } else {
+            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, WUtils.getMainDenom(pageHolderVC.chainType))
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
+                return true
+            }
         }
         return false
     }
@@ -178,97 +145,19 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else {
-            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, KAVA_MAIN_DENOM)
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == KAVA_MAIN_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
+            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, WUtils.getMainDenom(pageHolderVC.chainType))
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            
+            var userBalance = NSDecimalNumber.zero
+            for balance in pageHolderVC.mBalances {
+                if (balance.balance_denom == WUtils.getMainDenom(pageHolderVC.chainType)) {
+                    userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
                 }
-                
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, BAND_MAIN_DENOM)
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == BAND_MAIN_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
-                }
-                
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, SECRET_MAIN_DENOM)
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == SECRET_MAIN_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
-                }
-                
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_MAIN_DENOM)
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == IOV_MAIN_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
-                }
-                
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, IOV_TEST_DENOM)
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == IOV_TEST_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
-                }
-                
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, CERTIK_MAIN_DENOM)
-                rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
-                
-                var userBalance = NSDecimalNumber.zero
-                for balance in pageHolderVC.mBalances {
-                    if(balance.balance_denom == CERTIK_MAIN_DENOM) {
-                        userBalance = userBalance.adding(WUtils.localeStringToDecimal(balance.balance_amount))
-                    }
-                }
-                
-                let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-                expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-                
             }
+            
+            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
             
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {
@@ -322,18 +211,21 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
         var url: String?
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             url = SECRET_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
             url = CERTIK_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_ACCOUNT_INFO + account.account_address
+        }
+        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
         }
@@ -353,8 +245,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     BaseData.instance.updateBalances(account.account_id, WUtils.getBalancesWithKavaAccountInfo(account, accountInfo))
                     self.onGenGetRewardTx()
                     
-                } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN || self.pageHolderVC.chainType! == ChainType.SECRET_MAIN || self.pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                            self.pageHolderVC.chainType! == ChainType.IOV_TEST || self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN || self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+                } else {
                     guard let responseData = res as? NSDictionary,
                         let info = responseData.object(forKey: "result") as? [String : Any] else {
                             _ = BaseData.instance.deleteBalance(account: account)
@@ -435,18 +326,21 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     var url: String?
                     if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
                         url = KAVA_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        url = KAVA_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
                         url = BAND_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
                         url = SECRET_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
                         url = IOV_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                        url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
                         url = CERTIK_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+                        url = SENTINEL_BORAD_TX
+                    }
+                    else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                        url = KAVA_TEST_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                        url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
                     }

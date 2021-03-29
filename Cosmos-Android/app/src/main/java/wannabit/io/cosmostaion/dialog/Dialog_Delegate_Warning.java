@@ -44,6 +44,8 @@ public class Dialog_Delegate_Warning extends DialogFragment {
             dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_3_warning));
         } else if (dpDay == 14) {
             dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_14_warning));
+        } else if (dpDay == 28) {
+            dateImg.setImageDrawable(getResources().getDrawable(R.drawable.img_delegate_28_warning));
         }
 
 

@@ -236,6 +236,23 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
+            } else if (mBaseChain.equals(BaseChain.SENTINEL_MAIN)) {
+                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (getBaseDao().mBondings.size() == 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
 
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
@@ -271,7 +288,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             new ProposalMyVoteGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else  if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                mBaseChain.equals(BaseChain.CERTIK_TEST)|| mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN)) {
+                mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN) || mBaseChain.equals(BaseChain.SENTINEL_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             this.mTaskCount = 5;
             new ProposalDetailTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalTallyTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

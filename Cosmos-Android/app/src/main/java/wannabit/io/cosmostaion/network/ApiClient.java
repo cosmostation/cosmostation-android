@@ -397,6 +397,38 @@ public class ApiClient {
 
 
 
+    //Services for Sentinel mainnet
+    private static SentinelChain service_sentinel = null;
+    public static SentinelChain getSentinelChain(Context c) {
+        if (service_sentinel == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_sentinel))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_sentinel = retrofit.create(SentinelChain.class);
+            }
+        }
+        return service_sentinel;
+    }
+
+    //Services for Sentinel mainnet api
+    private static HistoryApi api_sentinel = null;
+    public static HistoryApi getSentinelApi(Context c) {
+        if (api_sentinel == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_sentinel))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_sentinel = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_sentinel;
+    }
+
+
+
     //Services for Cosmos Test api
     private static HistoryApi api_cosmos_test = null;
     public static HistoryApi getCosmosTestApi(Context c) {

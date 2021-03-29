@@ -501,18 +501,21 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         var url: String?
         if (chainType == ChainType.KAVA_MAIN) {
             url = KAVA_VALIDATORS
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS
         } else if (chainType == ChainType.BAND_MAIN) {
             url = BAND_VALIDATORS
         } else if (chainType == ChainType.SECRET_MAIN) {
             url = SECRET_VALIDATORS
         } else if (chainType == ChainType.IOV_MAIN) {
             url = IOV_VALIDATORS
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_VALIDATORS
         } else if (chainType == ChainType.CERTIK_MAIN) {
             url = CERTIK_VALIDATORS
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_VALIDATORS
+        }
+        else if (chainType == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_VALIDATORS
+        } else if (chainType == ChainType.IOV_TEST) {
+            url = IOV_TEST_VALIDATORS
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_VALIDATORS
         }
@@ -520,23 +523,19 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST || self.chainType == ChainType.BAND_MAIN ||
-                        self.chainType == ChainType.SECRET_MAIN || self.chainType == ChainType.IOV_MAIN || self.chainType == ChainType.IOV_TEST ||
-                        self.chainType == ChainType.CERTIK_MAIN || self.chainType == ChainType.CERTIK_TEST) {
-                    guard let responseData = res as? NSDictionary,
-                        let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                             print("no validators!!")
-                            return
-                    }
-                    self.mToReDelegateValidators.removeAll()
-                    for validator in validators {
-                        let tempVal = Validator(validator as! [String : Any])
-                        if(tempVal.operator_address != self.mTargetValidator?.operator_address) {
-                            self.mToReDelegateValidators.append(tempVal)
-                        }
-                    }
-                    self.sortByPower()
+                guard let responseData = res as? NSDictionary,
+                    let validators = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                         print("no validators!!")
+                        return
                 }
+                self.mToReDelegateValidators.removeAll()
+                for validator in validators {
+                    let tempVal = Validator(validator as! [String : Any])
+                    if(tempVal.operator_address != self.mTargetValidator?.operator_address) {
+                        self.mToReDelegateValidators.append(tempVal)
+                    }
+                }
+                self.sortByPower()
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
