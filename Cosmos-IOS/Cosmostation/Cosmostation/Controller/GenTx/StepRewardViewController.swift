@@ -47,23 +47,19 @@ class StepRewardViewController: BaseViewController {
         if(self.mFetchCnt > 0)  {
             return
         }
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            mFetchCnt = 2
+            self.onFetchRewards_gRPC(pageHolderVC.mAccount!.account_address)
+            self.onFetchRewardAddress_gRPC(pageHolderVC.mAccount!.account_address)
+            
+        } else {
             pageHolderVC.mRewardList.removeAll()
             mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
             for val in pageHolderVC.mRewardTargetValidators {
                 self.onFetchEachReward(pageHolderVC.mAccount!.account_address, val.operator_address)
             }
             self.onFetchRewardAddress(pageHolderVC.mAccount!.account_address)
-            
-        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            mFetchCnt = 2
-            self.onFetchRewards_gRPC(pageHolderVC.mAccount!.account_address)
-            self.onFetchRewardAddress_gRPC(pageHolderVC.mAccount!.account_address)
-            
         }
-        
     }
     
     func onFetchFinished() {
@@ -93,26 +89,7 @@ class StepRewardViewController: BaseViewController {
             rewardFromLabel.text = monikers
             
         } else {
-            if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, KAVA_MAIN_DENOM, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, BAND_MAIN_DENOM, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, SECRET_MAIN_DENOM, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_MAIN_DENOM, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, IOV_TEST_DENOM, pageHolderVC.chainType!)
-                
-            } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, CERTIK_MAIN_DENOM, pageHolderVC.chainType!)
-                
-            }
-            
+            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, WUtils.getMainDenom(pageHolderVC.chainType!), pageHolderVC.chainType!)
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {
                 if (monikers.count > 0) {
@@ -161,18 +138,21 @@ class StepRewardViewController: BaseViewController {
         var url: String?
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             url = SECRET_REWARD_FROM_VAL + accountAddr + SECRET_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_REWARD_FROM_VAL + accountAddr + IOV_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
             url = CERTIK_REWARD_FROM_VAL + accountAddr + CERTIK_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_REWARD_FROM_VAL + accountAddr + SENTINEL_REWARD_FROM_VAL_TAIL + validatorAddr
+        }
+        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
         }
@@ -204,18 +184,21 @@ class StepRewardViewController: BaseViewController {
         var url = ""
         if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
             url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        }
+        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
         }
