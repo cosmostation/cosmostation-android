@@ -96,6 +96,7 @@
 "fee_speed_certik_title" = "Support fixed amount fee for Certik Chain.";
 "fee_speed_secret_title" = "Support fixed amount fee for Secret Chain.";
 "fee_speed_akash_title" = "Support fixed amount fee for Akash Chain.";
+"fee_speed_sentinel_title" = "Support fixed amount fee for Sentinel Chain.";
 "fee_speed_stargate_title" = "Support fixed amount fee for Stargate Chain.";
 "fee_speed_cosmos_title" = "Support fixed amount fee for Cosmos Chain";
 "fee_speed_fixed_fee" = "Tx fees are for transactions on the network, distributed to the community pool, delegators, and validators. It safeguards the network and prevents congestion due to excessive spamming.";

@@ -78,6 +78,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             maxAvailable = pageHolderVC.mAccount!.getTokenBalance(CERTIK_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "5000"))
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            mDpDecimal = 6
+            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            maxAvailable = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
+            
         }
         
         //after 40.0
@@ -158,9 +164,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-        
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.IRIS_TEST || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
@@ -207,6 +211,13 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
                 return
             }
+            
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+            
         }
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
@@ -217,8 +228,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
         let userInput = WUtils.localeStringToDecimal(text!)
         if (userInput == NSDecimalNumber.zero) { return false }
         
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.IRIS_TEST || pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
                 self.onShowToast(NSLocalizedString("error_amount", comment: ""))
                 return false
@@ -272,6 +282,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return false
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
+                return false
+            }
+            
         }
         return true
     }
@@ -307,8 +323,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                 toSendCoin = Coin.init(CERTIK_MAIN_DENOM, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
+            } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+                toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
             }
-            
             
             else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
                 toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
@@ -378,8 +396,7 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
@@ -411,13 +428,16 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
+            
         }
         self.onUIupdate()
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN ||
-                pageHolderVC.chainType! == ChainType.COSMOS_TEST || pageHolderVC.chainType! == ChainType.IRIS_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
@@ -462,6 +482,13 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             if (pageHolderVC.mCertikSendDenom == CERTIK_MAIN_DENOM) {
+                self.showMaxWarnning()
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
+            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
                 self.showMaxWarnning()
             }
             

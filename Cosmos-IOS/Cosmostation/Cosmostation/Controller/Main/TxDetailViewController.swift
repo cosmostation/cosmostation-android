@@ -91,11 +91,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         if (mIsGen) {
             self.loadingMsg.isHidden = false
             self.loadingImg.onStartAnimation()
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                    chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                    chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                    chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST ||
-                    chainType == ChainType.OKEX_MAIN || chainType == ChainType.IRIS_TEST || chainType == ChainType.IRIS_MAIN) {
+            if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+                guard let txHash = mBroadCaseResult?["hash"] as? String  else {
+                    self.onStartMainTab()
+                    return
+                }
+                mTxHash = txHash
+            } else {
                 guard let txHash = mBroadCaseResult?["txhash"] as? String  else {
                     self.onStartMainTab()
                     return
@@ -105,13 +107,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     onShowErrorView(code)
                     return
                 }
-
-            } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-                guard let txHash = mBroadCaseResult?["hash"] as? String  else {
-                    self.onStartMainTab()
-                    return
-                }
-                mTxHash = txHash
             }
             self.onFetchTx(mTxHash!)
 
@@ -281,41 +276,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     func onBindTxCommon(_ tableView: UITableView) -> UITableViewCell {
         let cell:TxCommonCell? = tableView.dequeueReusableCell(withIdentifier:"TxCommonCell") as? TxCommonCell
         cell?.setDenomType(chainType!)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.CERTIK_TEST ||
-                chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
-            cell?.feeLayer.isHidden = false
-            cell?.usedFeeLayer.isHidden = true
-            cell?.limitFeeLayer.isHidden = true
-            if (mTxInfo!.isSuccess()) {
-                cell?.statusImg.image = UIImage(named: "successIc")
-                cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
-                cell?.errorMsg.isHidden = true
-                cell?.errorConstraint.priority = .defaultLow
-                cell?.successConstraint.priority = .defaultHigh
-            } else {
-                cell?.statusImg.image = UIImage(named: "failIc")
-                cell?.statusLabel.text = NSLocalizedString("tx_fail", comment: "")
-                if let bool = mTxInfo?.failMsg().starts(with: "atomic swap not found"), bool {
-                    cell?.errorMsg.text = "atomic swap not found"
-                } else {
-                    cell?.errorMsg.text = mTxInfo?.failMsg()
-                }
-                cell?.errorMsg.isHidden = false
-                cell?.errorConstraint.priority = .defaultHigh
-                cell?.successConstraint.priority = .defaultLow
-            }
-            cell?.heightLabel.text = mTxInfo!.height
-            cell?.msgCntLabel.text = String(mTxInfo!.getMsgs().count)
-            cell?.gasAmountLabel.text = mTxInfo!.gas_used! + " / " + mTxInfo!.gas_wanted!
-            cell?.timeLabel.text = WUtils.txTimetoString(input: mTxInfo!.timestamp!)
-            cell?.timeGapLabel.text = WUtils.txTimeGap(input: mTxInfo!.timestamp!)
-            cell?.hashLabel.text = mTxInfo!.txhash
-            cell?.memoLabel.text = mTxInfo!.tx?.value.memo
-            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, 6, 6)
-            
-        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             cell?.feeLayer.isHidden = false
             cell?.usedFeeLayer.isHidden = true
             cell?.limitFeeLayer.isHidden = true
@@ -360,6 +321,38 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.hashLabel.text = mTxInfo!.txhash
             cell?.memoLabel.text = mTxInfo!.tx?.value.memo
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, 0, 8)
+            
+        } else {
+            cell?.feeLayer.isHidden = false
+            cell?.usedFeeLayer.isHidden = true
+            cell?.limitFeeLayer.isHidden = true
+            if (mTxInfo!.isSuccess()) {
+                cell?.statusImg.image = UIImage(named: "successIc")
+                cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
+                cell?.errorMsg.isHidden = true
+                cell?.errorConstraint.priority = .defaultLow
+                cell?.successConstraint.priority = .defaultHigh
+            } else {
+                cell?.statusImg.image = UIImage(named: "failIc")
+                cell?.statusLabel.text = NSLocalizedString("tx_fail", comment: "")
+                if let bool = mTxInfo?.failMsg().starts(with: "atomic swap not found"), bool {
+                    cell?.errorMsg.text = "atomic swap not found"
+                } else {
+                    cell?.errorMsg.text = mTxInfo?.failMsg()
+                }
+                cell?.errorMsg.isHidden = false
+                cell?.errorConstraint.priority = .defaultHigh
+                cell?.successConstraint.priority = .defaultLow
+            }
+            cell?.heightLabel.text = mTxInfo!.height
+            cell?.msgCntLabel.text = String(mTxInfo!.getMsgs().count)
+            cell?.gasAmountLabel.text = mTxInfo!.gas_used! + " / " + mTxInfo!.gas_wanted!
+            cell?.timeLabel.text = WUtils.txTimetoString(input: mTxInfo!.timestamp!)
+            cell?.timeGapLabel.text = WUtils.txTimeGap(input: mTxInfo!.timestamp!)
+            cell?.hashLabel.text = mTxInfo!.txhash
+            cell?.memoLabel.text = mTxInfo!.tx?.value.memo
+            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, 6, 6)
+            
         }
         cell?.actionHashCheck = {
             self.onClickExplorer()
@@ -444,11 +437,18 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                chainType == ChainType.CERTIK_TEST || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST ||
-                chainType == ChainType.OKEX_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+            cell?.fromLabel.text = msg?.value.inputs![0].address
+            cell?.toLabel.text = msg?.value.outputs![0].address
+            if (self.account?.account_address == msg?.value.inputs![0].address) {
+                cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
+            } else if (self.account?.account_address == msg?.value.outputs![0].address) {
+                cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
+            }
+            let coins = msg?.value.inputs?[0].coins
+            cell?.multiAmountStack.isHidden = false
+            WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
+        } else {
             var coins :[Coin]?
             if (msg?.type == COSMOS_MSG_TYPE_TRANSFER3) {
                 cell?.fromLabel.text = msg?.value.inputs![0].address
@@ -504,18 +504,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                 cell?.multiAmountLayer4.isHidden = false
                 WUtils.showCoinDp(coins![4], cell!.multiAmountDenom4, cell!.multiAmount4, chainType!)
             }
-            
-        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            cell?.fromLabel.text = msg?.value.inputs![0].address
-            cell?.toLabel.text = msg?.value.outputs![0].address
-            if (self.account?.account_address == msg?.value.inputs![0].address) {
-                cell?.txTitleLabel.text = NSLocalizedString("tx_send", comment: "")
-            } else if (self.account?.account_address == msg?.value.outputs![0].address) {
-                cell?.txTitleLabel.text = NSLocalizedString("tx_receive", comment: "")
-            }
-            let coins = msg?.value.inputs?[0].coins
-            cell?.multiAmountStack.isHidden = false
-            WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
         }
         return cell!
     }
@@ -561,15 +549,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
         cell?.voterLabel.text = msg?.value.voter
         cell?.proposalIdLabel.text = msg?.value.proposal_id
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN) {
-            if (msg?.value.getOption() == "1") { cell?.opinionLabel.text = "Yes" }
-            else if (msg?.value.getOption() == "3") { cell?.opinionLabel.text = "No" }
-            else if (msg?.value.getOption() == "4") { cell?.opinionLabel.text = "No With Veto" }
-            else if (msg?.value.getOption() == "2") { cell?.opinionLabel.text = "Abstain" }
-            else { cell?.opinionLabel.text = msg?.value.getOption() }
-        } else {
-            cell?.opinionLabel.text = msg?.value.getOption()
-        }
+        cell?.opinionLabel.text = msg?.value.getOption()
         return cell!
     }
     
@@ -590,12 +570,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            cell?.pricePoster.text = msg?.value.from
-            cell?.marketId.text = msg?.value.market_id
-            cell?.postPrice.text = msg?.value.price
-            cell?.validityTime.text = WUtils.txTimetoString(input: msg!.value.expiry!)
-        }
+        cell?.pricePoster.text = msg?.value.from
+        cell?.marketId.text = msg?.value.market_id
+        cell?.postPrice.text = msg?.value.price
+        cell?.validityTime.text = WUtils.txTimetoString(input: msg!.value.expiry!)
         return cell!
     }
     
@@ -604,15 +582,13 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let cDenom = msg?.value.collateral!.denom
-            let pDenom = msg?.value.principal!.denom
-            cell?.senderLabel.text = msg?.value.sender
-            cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg?.value.collateral!.amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom!), WUtils.getKavaCoinDecimal(cDenom!))
-            cell?.principalAmount.attributedText = WUtils.displayAmount2(msg?.value.principal!.amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
-            cell?.collateralDenom.text = cDenom!.uppercased()
-            cell?.principalDenom.text = pDenom!.uppercased()
-        }
+        let cDenom = msg?.value.collateral!.denom
+        let pDenom = msg?.value.principal!.denom
+        cell?.senderLabel.text = msg?.value.sender
+        cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg?.value.collateral!.amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom!), WUtils.getKavaCoinDecimal(cDenom!))
+        cell?.principalAmount.attributedText = WUtils.displayAmount2(msg?.value.principal!.amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
+        cell?.collateralDenom.text = cDenom!.uppercased()
+        cell?.principalDenom.text = pDenom!.uppercased()
         return cell!
     }
     
@@ -621,13 +597,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let cDenom = msg?.value.collateral!.denom
-            cell?.owerLabel.text = msg?.value.owner
-            cell?.depositorLabel.text = msg?.value.depositor
-            cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg?.value.collateral!.amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom!), WUtils.getKavaCoinDecimal(cDenom!))
-            cell?.collateralDenom.text = cDenom!.uppercased()
-        }
+        let cDenom = msg?.value.collateral!.denom
+        cell?.owerLabel.text = msg?.value.owner
+        cell?.depositorLabel.text = msg?.value.depositor
+        cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg?.value.collateral!.amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom!), WUtils.getKavaCoinDecimal(cDenom!))
+        cell?.collateralDenom.text = cDenom!.uppercased()
         return cell!
     }
     
@@ -636,13 +610,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let cDenom = msg?.value.collateral!.denom
-            cell?.ownerLabel.text = msg?.value.owner
-            cell?.depositorLabel.text = msg?.value.depositor
-            cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg?.value.collateral!.amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom!), WUtils.getKavaCoinDecimal(cDenom!))
-            cell?.collateralDenom.text = cDenom!.uppercased()
-        }
+        let cDenom = msg?.value.collateral!.denom
+        cell?.ownerLabel.text = msg?.value.owner
+        cell?.depositorLabel.text = msg?.value.depositor
+        cell?.collateralAmount.attributedText = WUtils.displayAmount2(msg?.value.collateral!.amount, cell!.collateralAmount.font!, WUtils.getKavaCoinDecimal(cDenom!), WUtils.getKavaCoinDecimal(cDenom!))
+        cell?.collateralDenom.text = cDenom!.uppercased()
         return cell!
     }
     
@@ -651,11 +623,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN) {
-            cell?.coinTypeLabel.text = msg?.value.cdp_denom?.uppercased()
-        } else if (chainType == ChainType.KAVA_TEST) {
-            cell?.coinTypeLabel.text = msg?.value.collateral_type?.uppercased()
-        }
+        cell?.coinTypeLabel.text = msg?.value.collateral_type?.uppercased()
         let pDenom = msg?.value.principal!.denom
         cell?.senderLabel.text = msg?.value.sender
         cell?.principalAmount.attributedText = WUtils.displayAmount2(msg?.value.principal!.amount, cell!.principalAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
@@ -668,11 +636,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         let msg = mTxInfo?.getMsg(position - 1)
         cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
         cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if (chainType == ChainType.KAVA_MAIN) {
-            cell?.coinTypeLabel.text = msg?.value.cdp_denom?.uppercased()
-        } else if (chainType == ChainType.KAVA_TEST) {
-            cell?.coinTypeLabel.text = msg?.value.collateral_type?.uppercased()
-        }
+        cell?.coinTypeLabel.text = msg?.value.collateral_type?.uppercased()
         let pDenom = msg?.value.payment!.denom
         cell?.senderLabel.text = msg?.value.sender
         cell?.paymentAmount.attributedText = WUtils.displayAmount2(msg?.value.payment!.amount, cell!.paymentAmount.font!, WUtils.getKavaCoinDecimal(pDenom!), WUtils.getKavaCoinDecimal(pDenom!))
@@ -993,21 +957,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     @IBAction func onClickShare(_ sender: UIButton) {
-        if (self.chainType! == ChainType.COSMOS_MAIN) {
-            let text = EXPLORER_COSMOS_MAIN + "txs/" + mTxInfo!.txhash!
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.IRIS_MAIN) {
-            let text = EXPLORER_IRIS_MAIN + "txs/" + mTxInfo!.txhash!
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.BINANCE_MAIN) {
+        if (self.chainType! == ChainType.BINANCE_MAIN) {
             let text = EXPLORER_BINANCE_MAIN + "txs/" + mTxInfo!.hash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
@@ -1042,14 +992,24 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
-        } else if (self.chainType! == ChainType.OKEX_TEST) {
-            let text = EXPLORER_OKEX_TEST + "tx/" + mTxInfo!.txhash!
+        } else if (self.chainType! == ChainType.CERTIK_MAIN || self.chainType! == ChainType.CERTIK_TEST) {
+            let text = EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + BaseData.instance.getChainId()
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
+        } else if (self.chainType! == ChainType.SENTINEL_MAIN) {
+            let text = EXPLORER_SENTINEL_MAIN + "txs/" + mTxInfo!.txhash!
+            let textToShare = [ text ]
+            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
+            activityViewController.popoverPresentationController?.sourceView = self.view
+            self.present(activityViewController, animated: true, completion: nil)
+            
+        }
+        
+        
+        else if (self.chainType! == ChainType.BINANCE_TEST) {
             let text = EXPLORER_BINANCE_TEST + "tx/" + mTxInfo!.hash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
@@ -1063,47 +1023,19 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
-        } else if (self.chainType! == ChainType.CERTIK_MAIN || self.chainType! == ChainType.CERTIK_TEST) {
-            let text = EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + BaseData.instance.getChainId()
+        } else if (self.chainType! == ChainType.OKEX_TEST) {
+            let text = EXPLORER_OKEX_TEST + "tx/" + mTxInfo!.txhash!
             let textToShare = [ text ]
             let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
             activityViewController.popoverPresentationController?.sourceView = self.view
             self.present(activityViewController, animated: true, completion: nil)
             
-        } else if (self.chainType! == ChainType.AKASH_MAIN) {
-            let text = EXPLORER_AKASH_MAIN + "txs/" + mTxInfo!.txhash!
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.COSMOS_TEST) {
-            let text = EXPLORER_COSMOS_TEST + "txs/" + mTxInfo!.txhash!
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
-            
-        } else if (self.chainType! == ChainType.IRIS_TEST) {
-            let text = EXPLORER_IRIS_TEST + "txs/" + mTxInfo!.txhash!
-            let textToShare = [ text ]
-            let activityViewController = UIActivityViewController(activityItems: textToShare, applicationActivities: nil)
-            activityViewController.popoverPresentationController?.sourceView = self.view
-            self.present(activityViewController, animated: true, completion: nil)
         }
         
     }
     
     func onClickExplorer() {
-        if (self.chainType! == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (self.chainType! == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: EXPLORER_IRIS_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (self.chainType! == ChainType.BINANCE_MAIN) {
+        if (self.chainType! == ChainType.BINANCE_MAIN) {
             guard let url = URL(string: EXPLORER_BINANCE_MAIN + "txs/" + mTxInfo!.hash!) else { return }
             self.onShowSafariWeb(url)
             
@@ -1123,12 +1055,22 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             guard let url = URL(string: EXPLORER_IOV_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            guard let url = URL(string: EXPLORER_BINANCE_TEST + "tx/" + mTxInfo!.hash!) else { return }
-            self.onShowSafariWeb(url)
-            
         } else if (self.chainType! == ChainType.OKEX_MAIN) {
             guard let url = URL(string: EXPLORER_OKEX_MAIN + "tx/" + mTxInfo!.txhash!) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (self.chainType! == ChainType.CERTIK_MAIN || self.chainType! == ChainType.CERTIK_TEST) {
+            guard let url = URL(string: EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + BaseData.instance.getChainId()) else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (self.chainType! == ChainType.SENTINEL_MAIN) {
+            guard let url = URL(string: EXPLORER_SENTINEL_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
+            self.onShowSafariWeb(url)
+            
+        }
+        
+        else if (self.chainType! == ChainType.BINANCE_TEST) {
+            guard let url = URL(string: EXPLORER_BINANCE_TEST + "tx/" + mTxInfo!.hash!) else { return }
             self.onShowSafariWeb(url)
             
         } else if (self.chainType! == ChainType.OKEX_TEST) {
@@ -1139,21 +1081,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             guard let url = URL(string: EXPLORER_KAVA_TEST + "txs/" + mTxInfo!.txhash!) else { return }
             self.onShowSafariWeb(url)
             
-        } else if (self.chainType! == ChainType.CERTIK_MAIN || self.chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK + "Transactions/" + mTxInfo!.txhash!  + "?net=" + BaseData.instance.getChainId()) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (self.chainType! == ChainType.AKASH_MAIN) {
-            guard let url = URL(string: EXPLORER_AKASH_MAIN + "txs/" + mTxInfo!.txhash!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (self.chainType! == ChainType.COSMOS_TEST) {
-            guard let url = URL(string: EXPLORER_COSMOS_TEST + "txs/" + mTxInfo!.txhash!) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (self.chainType! == ChainType.IRIS_TEST) {
-            guard let url = URL(string: EXPLORER_IRIS_TEST + "txs/" + mTxInfo!.txhash!) else { return }
-            self.onShowSafariWeb(url)
         }
     }
     
@@ -1213,16 +1140,8 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = BNB_URL_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
             
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-            
         } else if (self.chainType! == ChainType.KAVA_MAIN) {
             url = KAVA_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.BAND_MAIN) {
@@ -1241,12 +1160,26 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = CERTIK_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
-        } else if (self.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
         } else if (self.chainType! == ChainType.OKEX_MAIN) {
             url = OKEX_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.chainType! == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
+        }
+        
+        else if (self.chainType! == ChainType.BINANCE_TEST) {
+            url = BNB_TEST_URL_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.chainType! == ChainType.KAVA_TEST) {
+            url = KAVA_TEST_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
+        } else if (self.chainType! == ChainType.IOV_TEST) {
+            url = IOV_TEST_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
         } else if (self.chainType! == ChainType.OKEX_TEST) {

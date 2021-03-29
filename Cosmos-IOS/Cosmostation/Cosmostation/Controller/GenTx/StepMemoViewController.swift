@@ -32,13 +32,10 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
         (NSClassFromString("UICalloutBarButton")! as! UIButton.Type).appearance().setTitleColor(UIColor.black, for: .normal)
         
         chainType = pageHolderVC.chainType!
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                chainType == ChainType.CERTIK_TEST || chainType == ChainType.COSMOS_TEST || chainType == ChainType.OKEX_MAIN) {
-            memoCntLabel.text = "0/255 byte"
-        } else {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             memoCntLabel.text = "0/100 byte"
+        } else {
+            memoCntLabel.text = "0/255 byte"
         }
         
         if (isTransfer()) {
@@ -99,37 +96,33 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
     
     func textViewDidChange(_ textView: UITextView) {
         let byteArray = [UInt8](textView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                chainType == ChainType.CERTIK_TEST || chainType == ChainType.COSMOS_TEST || chainType == ChainType.OKEX_MAIN) {
-            memoCntLabel.text = String(byteArray.count) + "/255 byte"
-            if (byteArray.count > 255) {
-                self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-            } else {
-                self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
-            }
-        } else {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             memoCntLabel.text = String(byteArray.count) + "/100 byte"
             if (byteArray.count > 100) {
                 self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             } else {
                 self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
             }
+            
+        } else {
+            memoCntLabel.text = String(byteArray.count) + "/255 byte"
+            if (byteArray.count > 255) {
+                self.memoInputTextView.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+            } else {
+                self.memoInputTextView.layer.borderColor = UIColor.white.cgColor
+            }
+            
         }
     }
     
     func isValiadMemoSize() -> Bool {
         let byteArray = [UInt8](memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines).utf8)
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ||
-                chainType == ChainType.IOV_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.SECRET_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.IOV_TEST || chainType == ChainType.OKEX_TEST ||
-                chainType == ChainType.CERTIK_TEST || chainType == ChainType.COSMOS_TEST || chainType == ChainType.OKEX_MAIN) {
-            if (byteArray.count > 255) {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+            if (byteArray.count > 100) {
                 return false
             }
         } else {
-            if (byteArray.count > 100) {
+            if (byteArray.count > 255) {
                 return false
             }
         }
