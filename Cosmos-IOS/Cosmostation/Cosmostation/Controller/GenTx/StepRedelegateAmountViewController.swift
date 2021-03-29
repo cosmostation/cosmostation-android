@@ -25,18 +25,16 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, availableDenomLabel)
-        
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST ||
-                pageHolderVC.chainType! == ChainType.BAND_MAIN || pageHolderVC.chainType! == ChainType.SECRET_MAIN || pageHolderVC.chainType! == ChainType.IOV_MAIN ||
-                pageHolderVC.chainType! == ChainType.IOV_TEST || pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            mDpDecimal = 6
+            userDelegated = BaseData.instance.getDelegated(self.pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
+            
+        } else {
             mDpDecimal = 6
             userDelegated = BaseData.instance.selectBondingWithValAdd(pageHolderVC.mAccount!.account_id, pageHolderVC.mTargetValidator!.operator_address)!.getBondingAmount(pageHolderVC.mTargetValidator!)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
-        } else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            mDpDecimal = 6
-            userDelegated = BaseData.instance.getDelegated(self.pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         }
         redelegateInputTextField.delegate = self
         redelegateInputTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
