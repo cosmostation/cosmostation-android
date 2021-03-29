@@ -61,6 +61,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_persis", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_persis", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            guideImg.image = UIImage(named: "sentinelImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_sentinel", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_sentinel", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_sentinel", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_sentinel", comment: ""), for: .normal)
+            
         }
     }
 }

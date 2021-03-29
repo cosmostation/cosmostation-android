@@ -136,6 +136,8 @@
 "send_guide_msg_akash" = "The DeCloud for DeFi, and the world\'s first decentralized cloud computing marketplace.";
 "send_guide_title_persis" = "PERSISTENCE";
 "send_guide_msg_persis" = "An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.";
+"send_guide_title_sentinel" = "SENTINEL";
+"send_guide_msg_sentinel" = "Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -147,6 +149,7 @@
 "send_guide_btn1_secret" = "Home";
 "send_guide_btn1_akash" = "Home";
 "send_guide_btn1_persis" = "Home";
+"send_guide_btn1_sentinel" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -158,6 +161,7 @@
 "send_guide_btn2_secret" = "Blog";
 "send_guide_btn2_akash" = "Blog";
 "send_guide_btn2_persis" = "Blog";
+"send_guide_btn2_sentinel" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";

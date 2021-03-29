@@ -152,6 +152,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_PERSIS
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsentinel")
+            titleChainName.text = "(Sentinel Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_SENTINEL
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -273,6 +279,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             onFetchPersisTokenPrice()
             
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            onFetchSentinelTokenPrice()
+            
         }
         
     }
@@ -388,6 +397,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), totalValue.font)
             
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            self.tokenCnt.text = String(mainTabVC.mBalances.count)
+            let allDvpn = WUtils.getAllSentinel(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            totalAmount.attributedText = WUtils.displayAmount2(allDvpn.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allDvpn, BaseData.instance.getLastPrice(), totalValue.font)
         }
         
         else if (chainType! == ChainType.COSMOS_MAIN) {
@@ -413,6 +427,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allXprt = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allXprt.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allXprt, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            
         }
         
         
@@ -463,6 +478,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetAkashItems(tableView, indexPath)
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             return onSetPersisItems(tableView, indexPath)
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            return onSetSentinelItems(tableView, indexPath)
         } else if (chainType! == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.IRIS_TEST) {
@@ -533,7 +550,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
         }
-        
         return cell!
     }
     
@@ -858,6 +874,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetSentinelItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == SENTINEL_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokensentinel")
+            cell?.tokenSymbol.text = "DVPN"
+            cell?.tokenSymbol.textColor = COLOR_SENTINEL
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Sentinel Staking Token"
+            let allDvpn = WUtils.getAllSentinel(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allDvpn.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpAtomValue(allDvpn, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
     
     
     func onFetchCosmosTokenPrice() {
@@ -893,25 +930,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchKavaTokenPrice() {
-//        for i in 0..<mainTabVC.mBalances.count {
-//            if ((mainTabVC.mBalances[i].balance_denom == KAVA_HARD_DENOM)) {
-//                let url = CGC_PRICE_TIC + "hard-protocol"
-//                let request = Alamofire.request(url, method: .get, parameters: ["localization":"false", "tickers":"false", "community_data":"false", "developer_data":"false", "sparkline":"false"], encoding: URLEncoding.default, headers: [:]);
-//                request.responseJSON { (response) in
-//                    switch response.result {
-//                    case .success(let res):
-//                        if let tics = res as? NSDictionary, let priceUsd = tics.value(forKeyPath: "market_data.current_price.usd") as? Double {
-//                            BaseData.instance.mHardPrice = NSDecimalNumber.init(value: priceUsd)
-//                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
-//                        }
-//                        self.onUpdateTotalCard()
-//
-//                    case .failure(let error):
-//                        if (SHOW_LOG) { print("onFetchKavaTokenPrice ", error) }
-//                    }
-//                }
-//            }
-//        }
     }
     
     func onFetchBandTokenPrice() {
@@ -958,6 +976,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchPersisTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchSentinelTokenPrice() {
         self.onUpdateTotalCard()
     }
     

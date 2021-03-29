@@ -93,6 +93,10 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "chainpersistence")
             titleChainName.text = "(Perisistence Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsentinel")
+            titleChainName.text = "(Sentinel Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {

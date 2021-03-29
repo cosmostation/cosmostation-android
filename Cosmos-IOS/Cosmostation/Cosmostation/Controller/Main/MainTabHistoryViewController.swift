@@ -71,6 +71,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SENTINEL_MAIN ) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -150,6 +152,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "chainpersistence")
             titleChainName.text = "(Perisistence Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsentinel")
+            titleChainName.text = "(Sentinel Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         
@@ -218,6 +224,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.SENTINEL_MAIN ) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
 
@@ -252,6 +260,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetCertikItem(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return onSetOkItem(tableView, indexPath);
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            return onSetDefaultItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
     }
@@ -378,6 +388,21 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return cell!
     }
     
+    func onSetDefaultItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+        let history = mApiHistories[indexPath.row]
+        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+        cell?.txBlockLabel.text = String(history.height) + " block"
+        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
+        if (history.isSuccess) {
+            cell?.txResultLabel.isHidden = true
+        } else {
+            cell?.txResultLabel.isHidden = false
+        }
+        return cell!
+    }
+    
     func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         let okHistory = mOkHistories[indexPath.row]
@@ -398,9 +423,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST || chainType == ChainType.BAND_MAIN ||
-                chainType == ChainType.SECRET_MAIN || chainType == ChainType.IOV_MAIN || chainType == ChainType.CERTIK_MAIN ||
-                chainType == ChainType.CERTIK_TEST) {
+        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN ||
+                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.SENTINEL_MAIN ||
+                chainType == ChainType.KAVA_TEST || chainType == ChainType.CERTIK_TEST) {
             let history = mApiHistories[indexPath.row]
             let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
             txDetailVC.mIsGen = false
@@ -545,8 +570,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             url = IOV_API_HISTORY + address
         } else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_API_HISTORY + address
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            url = SENTINEL_API_HISTORY + address
         }
-        print("url ", url)
+//        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

@@ -1257,6 +1257,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "akash-network"
             parameters = [:]
             
+        } else if (mChainType == ChainType.SENTINEL_MAIN) {
+            url = CGC_PRICE_TIC + "sentinel-group"
+            parameters = [:]
+            
         } else {
             BaseData.instance.setPriceTicCgc(nil)
             return

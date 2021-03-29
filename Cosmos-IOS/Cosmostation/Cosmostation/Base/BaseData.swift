@@ -44,8 +44,6 @@ final class BaseData : NSObject{
     var mModuleCoins: Array<Coin>?
     var mReserveCoins: Array<Coin>?
     
-    
-    
     var mBnbTokenList = Array<BnbToken>()
     
     var mOkAccountInfo: OkAccountInfo?

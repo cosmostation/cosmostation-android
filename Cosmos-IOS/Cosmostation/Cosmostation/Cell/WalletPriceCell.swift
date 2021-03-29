@@ -74,7 +74,8 @@ class WalletPriceCell: UITableViewCell {
             buyConstraint.priority = .defaultHigh
             noBuyConstraint.priority = .defaultLow
             
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN || chainType == ChainType.SENTINEL_MAIN ||
+                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
             let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
@@ -99,6 +100,8 @@ class WalletPriceCell: UITableViewCell {
             buyBtn.isHidden = true
             buyConstraint.priority = .defaultLow
             noBuyConstraint.priority = .defaultHigh
+            
         }
+        
     }
 }
