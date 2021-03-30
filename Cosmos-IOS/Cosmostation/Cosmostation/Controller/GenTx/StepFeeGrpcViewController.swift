@@ -65,7 +65,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         feeTotalAmount.attributedText = WUtils.displayAmount2(mFee.stringValue, feeTotalAmount.font!, 6, 6)
         feeTotalValue.attributedText = WUtils.dpTokenValue(mFee, BaseData.instance.getLastPrice(), 6, feeTotalValue.font)
         
-        gasRateLabel.attributedText = WUtils.displayGasRate2(mSelectedGasRate, font: gasRateLabel.font)
+        gasRateLabel.attributedText = WUtils.displayGasRate(mSelectedGasRate.rounding(accordingToBehavior: WUtils.handler6), font: gasRateLabel.font, 5)
         gasAmountLabel.text = mEstimateGasAmount.stringValue
         gasFeeLabel.text = mFee.stringValue
         

@@ -367,14 +367,19 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                     ReplaceResource3ViewController(nibName: "ReplaceResource3ViewController", bundle: nil)]
 
         } else {
-            return [self.newVc(viewController: "StepRewardViewController"),
-                    self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
-                    self.newVc(viewController: "StepRewardCheckViewController")]
+            if (WUtils.isGRPC(chainType!)) {
+                return [self.newVc(viewController: "StepRewardViewController"),
+                        self.newVc(viewController: "StepMemoViewController"),
+                        StepFeeGrpcViewController(nibName: "StepFeeGrpcViewController", bundle: nil),
+                        self.newVc(viewController: "StepRewardCheckViewController")]
+            } else {
+                return [self.newVc(viewController: "StepRewardViewController"),
+                        self.newVc(viewController: "StepMemoViewController"),
+                        self.newVc(viewController: "StepFeeViewController"),
+                        self.newVc(viewController: "StepRewardCheckViewController")]
+            }
             
         }
-        
-        
     }()
     
     required init?(coder aDecoder: NSCoder) {

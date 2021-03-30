@@ -478,7 +478,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //                print("nodeInfo ", BaseData.instance.mNodeInfo_gRPC?.network)
 //                print("authInfo ", BaseData.instance.mAccount_gRPC?.typeURL)
                 if (BaseData.instance.mAccount_gRPC != nil && BaseData.instance.mAccount_gRPC!.typeURL.contains(Cosmos_Auth_V1beta1_BaseAccount.protoMessageName) == false) {
-                    WUtils.onParseVestingAccount()
+                    if (mChainType == ChainType.PERSIS_MAIN) {
+                        WUtils.onParsePersisVestingAccount()
+                    } else {
+                        WUtils.onParseVestingAccount()
+                    }
+                    
                 }
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)

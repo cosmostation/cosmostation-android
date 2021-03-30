@@ -518,9 +518,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 toClaimValidator_gRPC = claimAbleValidators
             }
             
-            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator_gRPC.count)
-            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
-            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(estimatedFeeAmount).rawValue < 0) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator_gRPC.count)
+            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

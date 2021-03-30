@@ -127,7 +127,7 @@ final class BaseData : NSObject{
         if (mAccount_gRPC?.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName) == true) {
             let account = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: mAccount_gRPC!.value)
             return WUtils.onParsePeriodicRemainVestingsByDenom(account, denom)
-            
+
         } else if (mAccount_gRPC?.typeURL.contains(Cosmos_Vesting_V1beta1_ContinuousVestingAccount.protoMessageName) == true) {
             let account = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: mAccount_gRPC!.value)
             let cTime = Date().millisecondsSince1970

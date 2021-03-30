@@ -2814,13 +2814,18 @@ class WUtils {
     }
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.COSMOS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
         } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_PERSIS)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -2841,6 +2846,15 @@ class WUtils {
                 return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_IRIS)
             } else {
                 return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_IRIS)
+            }
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_PERSIS)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_PERSIS)
+            } else {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_PERSIS)
             }
             
         } else {
@@ -3762,6 +3776,52 @@ class WUtils {
                 
             })
         }
+    }
+    
+    static func onParsePersisVestingAccount() {
+//        print("onParsePersisVestingAccount")
+        guard let account = BaseData.instance.mAccount_gRPC else { return }
+        var sBalace = Array<Coin>()
+        BaseData.instance.mMyBalances_gRPC.forEach { coin in
+            sBalace.append(coin)
+        }
+//        print("sBalace ", sBalace)
+        if (account.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName)) {
+            let vestingAccount = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: account.value)
+            sBalace.forEach({ (coin) in
+                let denom = coin.denom
+                var bankBalance = NSDecimalNumber.zero
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                
+                bankBalance = NSDecimalNumber.init(string: coin.amount)
+                print("bankBalance ", denom, "  ", bankBalance)
+                
+                remainVesting = WUtils.onParsePeriodicRemainVestingsAmountByDenom(vestingAccount, denom)
+                print("remainVesting ", denom, "  ", remainVesting)
+                
+                dpBalance = bankBalance.compare(remainVesting).rawValue <= 0 ? NSDecimalNumber.zero : bankBalance.subtracting(remainVesting)
+                print("final dpBalance ", denom, "  ", dpBalance)
+                
+                dpVesting = bankBalance.subtracting(dpBalance)
+                print("dpVesting ", denom, "  ", dpVesting)
+                
+                let vestingCoin = Coin.init(denom, dpVesting.stringValue)
+                BaseData.instance.mMyVestings_gRPC.append(vestingCoin)
+                var replace = -1
+                for i in 0..<BaseData.instance.mMyBalances_gRPC.count {
+                    if (BaseData.instance.mMyBalances_gRPC[i].denom == denom) {
+                        replace = i
+                    }
+                }
+                if (replace >= 0) {
+                    BaseData.instance.mMyBalances_gRPC[replace] = Coin.init(denom, dpBalance.stringValue)
+                }
+            })
+            
+        }
+        
     }
     
     static func onParsePeriodicUnLockTime(_ vestingAccount: Cosmos_Vesting_V1beta1_PeriodicVestingAccount, _ position: Int) -> Int64 {

@@ -719,6 +719,10 @@ let GAS_FEE_RATE_TINY_IRIS                  = 0.002
 let GAS_FEE_RATE_LOW_IRIS                   = 0.02
 let GAS_FEE_RATE_AVERAGE_IRIS               = 0.2
 
+let GAS_FEE_RATE_TINY_PERSIS                = 0.000
+let GAS_FEE_RATE_LOW_PERSIS                 = 0.000
+let GAS_FEE_RATE_AVERAGE_PERSIS             = 0.000
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
