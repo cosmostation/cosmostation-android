@@ -115,17 +115,9 @@ public class OKValidatorOtherFragment extends BaseFragment {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 0));
                 holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
 
-                String imgUrl = validator.description.identity;
-                if (!TextUtils.isEmpty(imgUrl) && imgUrl.startsWith("logo|||")) {
-                    imgUrl = imgUrl.replace("logo|||" , "");
-                    try {
-                        Picasso.get().load(imgUrl)
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-                } else {
-                    holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
-                }
+                try {
+                    Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                } catch (Exception e){}
 
                 if (validator.jailed) {
                     holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));

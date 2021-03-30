@@ -104,18 +104,9 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
             if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.delegator_shares), 0, 8));
                 holder.itemTvCommission.setText(WDp.getCommissionRate("0"));
-
-                String imgUrl = validator.description.identity;
-                if (!TextUtils.isEmpty(imgUrl) && imgUrl.startsWith("logo|||")) {
-                    imgUrl = imgUrl.replace("logo|||" , "");
-                    try {
-                        Picasso.get().load(imgUrl)
-                                .fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img)
-                                .into(holder.itemAvatar);
-                    } catch (Exception e){}
-                } else {
-                    holder.itemAvatar.setImageDrawable(getResources().getDrawable(R.drawable.validator_none_img));
-                }
+                try {
+                    Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
+                } catch (Exception e){}
 
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);

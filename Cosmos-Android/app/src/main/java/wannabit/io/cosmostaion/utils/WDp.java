@@ -94,6 +94,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
@@ -2324,6 +2325,8 @@ public class WDp {
             return SECRET_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(SENTINEL_MAIN)) {
             return SENTINEL_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+            return OKEX_VAL_URL + opAddress + ".png";
         }
         return "";
     }
