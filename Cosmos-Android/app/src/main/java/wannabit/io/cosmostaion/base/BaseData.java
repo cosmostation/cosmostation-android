@@ -244,9 +244,6 @@ public class BaseData {
         return result;
     }
 
-
-
-
     public BigDecimal getDelegatable(String denom) {
         return getAvailable(denom).add(getVesting(denom));
     }

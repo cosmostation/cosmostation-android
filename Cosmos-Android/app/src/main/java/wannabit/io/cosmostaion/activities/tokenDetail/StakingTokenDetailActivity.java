@@ -129,8 +129,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
 
     private void onFetchTokenHistory() {
-        mApiTxHistory.clear();
-        mApiTxCustomHistory.clear();
+        if (mApiTxHistory != null) { mApiTxHistory.clear(); }
+        if (mApiTxCustomHistory != null) { mApiTxCustomHistory.clear(); }
         if (isGRPC(mBaseChain)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
