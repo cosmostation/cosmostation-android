@@ -1128,7 +1128,7 @@ let EXPLORER_BAND_MAIN      = "https://cosmoscan.io/";
 let EXPLORER_SECRET_MAIN    = "https://secretnodes.com/secret/chains/secret-2/";
 let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
-let EXPLORER_PERSIS_MAIN    = "https://dev.mintscan.io/persistence/";
+let EXPLORER_PERSIS_MAIN    = "https://www.mintscan.io/persistence/";
 let EXPLORER_SENTINEL_MAIN  = "https://www.mintscan.io/sentinel/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";

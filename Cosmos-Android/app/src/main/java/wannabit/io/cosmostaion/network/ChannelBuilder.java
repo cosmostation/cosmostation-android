@@ -23,8 +23,6 @@ public class ChannelBuilder {
 
     private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
     private final static int PORT_PERSIS_MAIN = 9090;
-//    private final static String GRPC_PERSIS_MAIN = "lcd-office.cosmostation.io";
-//    private final static int PORT_PERSIS_MAIN = 43090;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
