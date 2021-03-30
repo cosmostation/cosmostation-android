@@ -1518,63 +1518,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickActionLink() {
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: EXPLORER_IRIS_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN) {
-            guard let url = URL(string: EXPLORER_BINANCE_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            guard let url = URL(string: EXPLORER_IOV_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: EXPLORER_KAVA_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            guard let url = URL(string: EXPLORER_BAND_MAIN + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.SECRET_MAIN) {
-            guard let url = URL(string: EXPLORER_SECRET_MAIN + "accounts/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.BINANCE_TEST) {
-            guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.OKEX_MAIN) {
-            guard let url = URL(string: EXPLORER_OKEX_MAIN + "address/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            guard let url = URL(string: EXPLORER_OKEX_TEST + "address/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            guard let url = URL(string: EXPLORER_KAVA_TEST + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + mainTabVC.mAccount.account_address + "?net=" + BaseData.instance.getChainId()) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            guard let url = URL(string: EXPLORER_AKASH_MAIN + "account/" + mainTabVC.mAccount.account_address + "?net=" + BaseData.instance.getChainId()) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.COSMOS_TEST) {
-            guard let url = URL(string: EXPLORER_COSMOS_TEST + "account/" + mainTabVC.mAccount.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        }
+        let link = WUtils.getAccountExplorer(chainType!, mainTabVC.mAccount.account_address)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
     }
     
     func onClickValidatorList() {

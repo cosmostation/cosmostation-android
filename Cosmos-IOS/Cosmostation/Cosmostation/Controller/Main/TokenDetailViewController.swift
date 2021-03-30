@@ -106,50 +106,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
 
     @IBAction func onClickWebLink(_ sender: UIButton) {
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            guard let url = URL(string: EXPLORER_COSMOS_MAIN + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
-            guard let url = URL(string: EXPLORER_IRIS_MAIN + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN) {
-            guard let url = URL(string: EXPLORER_BINANCE_MAIN + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            guard let url = URL(string: EXPLORER_IOV_MAIN + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.KAVA_MAIN) {
-            guard let url = URL(string: EXPLORER_KAVA_MAIN + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            guard let url = URL(string: EXPLORER_BAND_MAIN + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.BINANCE_TEST) {
-            guard let url = URL(string: EXPLORER_BINANCE_TEST + "address/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.OKEX_MAIN) {
-            guard let url = URL(string: EXPLORER_OKEX_MAIN + "address/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.OKEX_TEST) {
-            guard let url = URL(string: EXPLORER_OKEX_TEST + "address/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            guard let url = URL(string: EXPLORER_KAVA_TEST + "account/" + account!.account_address) else { return }
-            self.onShowSafariWeb(url)
-            
-        } else if (chainType! == ChainType.CERTIK_TEST) {
-            guard let url = URL(string: EXPLORER_CERTIK + "accounts/" + account!.account_address + "?net=" + BaseData.instance.getChainId()) else { return }
-            self.onShowSafariWeb(url)
-        }
+        let link = WUtils.getAccountExplorer(chainType!, account!.account_address)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
     }
     
     @IBAction func onClickShare(_ sender: UIButton) {

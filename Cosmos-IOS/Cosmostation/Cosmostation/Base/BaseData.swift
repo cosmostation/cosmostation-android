@@ -122,10 +122,46 @@ final class BaseData : NSObject{
         return WUtils.plainStringToDecimal(getVesting(symbol))
     }
     
+    func onParseRemainVestingsByDenom(_ denom: String) -> Array<Cosmos_Vesting_V1beta1_Period> {
+        var results = Array<Cosmos_Vesting_V1beta1_Period>()
+        if (mAccount_gRPC?.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName) == true) {
+            let account = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: mAccount_gRPC!.value)
+            return WUtils.onParsePeriodicRemainVestingsByDenom(account, denom)
+            
+        } else if (mAccount_gRPC?.typeURL.contains(Cosmos_Vesting_V1beta1_ContinuousVestingAccount.protoMessageName) == true) {
+            let account = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: mAccount_gRPC!.value)
+            let cTime = Date().millisecondsSince1970
+            let vestingEnd = account.baseVestingAccount.endTime * 1000
+            if (cTime < vestingEnd) {
+                account.baseVestingAccount.originalVesting.forEach { (vp) in
+                    if (vp.denom == denom) {
+                        let temp = Cosmos_Vesting_V1beta1_Period.with {
+                            $0.length = vestingEnd
+                            $0.amount = account.baseVestingAccount.originalVesting
+                        }
+                        results.append(temp)
+                    }
+                }
+            }
+        }
+        return Array<Cosmos_Vesting_V1beta1_Period>()
+    }
+    
+    func onParseRemainVestingsAmountSumByDenom(_ denom: String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        onParseRemainVestingsByDenom(denom).forEach { (vp) in
+            vp.amount.forEach { (coin) in
+                if (coin.denom == denom) {
+                    result = result.adding(NSDecimalNumber.init(string: coin.amount))
+                }
+            }
+        }
+        return result
+    }
+    
     func getDelegatable(_ symbol:String) -> NSDecimalNumber {
         return getAvailableAmount(symbol).adding(getVestingAmount(symbol))
     }
-    
     
     func getDelegatedSum() -> String {
         var amount = NSDecimalNumber.zero

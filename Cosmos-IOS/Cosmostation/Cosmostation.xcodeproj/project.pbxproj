@@ -519,6 +519,13 @@
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CAAB6B25AC414A00416AA5 /* OkHistory.swift */; };
 		28CE973625872B7C006DEBEE /* Signer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CE973525872B7C006DEBEE /* Signer.swift */; };
+		28CFB6A726133C9700A18634 /* StakingTokenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFB6A526133C9700A18634 /* StakingTokenDetailViewController.swift */; };
+		28CFB6A826133C9700A18634 /* StakingTokenDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28CFB6A626133C9700A18634 /* StakingTokenDetailViewController.xib */; };
+		28CFB6AD2613422200A18634 /* TokenDetailAkashCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFB6AB2613422200A18634 /* TokenDetailAkashCell.swift */; };
+		28CFB6AE2613422200A18634 /* TokenDetailAkashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28CFB6AC2613422200A18634 /* TokenDetailAkashCell.xib */; };
+		28CFB6B22613447C00A18634 /* TokenDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFB6B12613447C00A18634 /* TokenDetailCell.swift */; };
+		28CFB6B72613594D00A18634 /* TokenDetailPersistenceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */; };
+		28CFB6B82613594D00A18634 /* TokenDetailPersistenceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28CFB6B62613594D00A18634 /* TokenDetailPersistenceCell.xib */; };
 		28D14E6E2418B7F0002CD42E /* ApiHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D14E6D2418B7F0002CD42E /* ApiHistory.swift */; };
 		28D3551725386A9300B804CF /* StepHardPoolIncentive0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3551625386A9300B804CF /* StepHardPoolIncentive0ViewController.swift */; };
 		28D3551A25386AA200B804CF /* StepHardPoolIncentive3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28D3551925386AA200B804CF /* StepHardPoolIncentive3ViewController.swift */; };
@@ -1301,6 +1308,13 @@
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28CAAB6B25AC414A00416AA5 /* OkHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkHistory.swift; sourceTree = "<group>"; };
 		28CE973525872B7C006DEBEE /* Signer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signer.swift; sourceTree = "<group>"; };
+		28CFB6A526133C9700A18634 /* StakingTokenDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StakingTokenDetailViewController.swift; sourceTree = "<group>"; };
+		28CFB6A626133C9700A18634 /* StakingTokenDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StakingTokenDetailViewController.xib; sourceTree = "<group>"; };
+		28CFB6AB2613422200A18634 /* TokenDetailAkashCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailAkashCell.swift; sourceTree = "<group>"; };
+		28CFB6AC2613422200A18634 /* TokenDetailAkashCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailAkashCell.xib; sourceTree = "<group>"; };
+		28CFB6B12613447C00A18634 /* TokenDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailCell.swift; sourceTree = "<group>"; };
+		28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailPersistenceCell.swift; sourceTree = "<group>"; };
+		28CFB6B62613594D00A18634 /* TokenDetailPersistenceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailPersistenceCell.xib; sourceTree = "<group>"; };
 		28D14E6D2418B7F0002CD42E /* ApiHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistory.swift; sourceTree = "<group>"; };
 		28D3551625386A9300B804CF /* StepHardPoolIncentive0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHardPoolIncentive0ViewController.swift; sourceTree = "<group>"; };
 		28D3551925386AA200B804CF /* StepHardPoolIncentive3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHardPoolIncentive3ViewController.swift; sourceTree = "<group>"; };
@@ -2379,6 +2393,8 @@
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
 				2845D87C246FAE16007CD497 /* VoteDetailsViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
+				28CFB6A526133C9700A18634 /* StakingTokenDetailViewController.swift */,
+				28CFB6A626133C9700A18634 /* StakingTokenDetailViewController.xib */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,
@@ -2608,6 +2624,11 @@
 				E126CFB62387A7BD002A546F /* TokenDetailHeaderKavaCell.xib */,
 				283D2EB124F6250F00247424 /* TokenDetailHeaderOkCell.swift */,
 				283D2EB224F6250F00247424 /* TokenDetailHeaderOkCell.xib */,
+				28CFB6B12613447C00A18634 /* TokenDetailCell.swift */,
+				28CFB6AB2613422200A18634 /* TokenDetailAkashCell.swift */,
+				28CFB6AC2613422200A18634 /* TokenDetailAkashCell.xib */,
+				28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */,
+				28CFB6B62613594D00A18634 /* TokenDetailPersistenceCell.xib */,
 				E17B214623470960001743D6 /* TokenDetailHeaderCustomCell.swift */,
 				E126CFBB2387A7F4002A546F /* TokenDetailHeaderCustomCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
@@ -2824,6 +2845,7 @@
 				280E1F12254AB5C70007BA7D /* ReplaceResource3ViewController.xib in Resources */,
 				285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */,
 				2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */,
+				28CFB6A826133C9700A18634 /* StakingTokenDetailViewController.xib in Resources */,
 				280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */,
 				E126CF822387A48F002A546F /* WalletAddressCell.xib in Resources */,
 				E14BDFFC224CCFE20007DD7D /* MnemonicCell.xib in Resources */,
@@ -2846,6 +2868,7 @@
 				283E94782549030C007A9291 /* TxReplaceResourceCell.xib in Resources */,
 				280E1F1C254ABB1D0007BA7D /* ResourceEditCell.xib in Resources */,
 				28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */,
+				28CFB6B82613594D00A18634 /* TokenDetailPersistenceCell.xib in Resources */,
 				E1F2AE4E227EC05100C87F3F /* InfoPlist.strings in Resources */,
 				282FF34623F5062A0028CC66 /* TxDelegateCell.xib in Resources */,
 				2868559824989AB80099D18F /* CdpWarnPopup.xib in Resources */,
@@ -2868,6 +2891,7 @@
 				28474ED6241E06AF00AF5A81 /* TxCdpDepositCell.xib in Resources */,
 				2868559024989A8F0099D18F /* Bep3SupplyPopup.xib in Resources */,
 				E126CF872387A4B4002A546F /* WalletIrisCell.xib in Resources */,
+				28CFB6AE2613422200A18634 /* TokenDetailAkashCell.xib in Resources */,
 				E103DADE22814802006C2146 /* Init.storyboard in Resources */,
 				28DB570C25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.xib in Resources */,
 				28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */,
@@ -2985,6 +3009,7 @@
 				286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */,
 				287AC61225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.pb.swift in Sources */,
 				287AC62F25FDF7260070837E /* cosmos_auth_v1beta1_auth.pb.swift in Sources */,
+				28CFB6A726133C9700A18634 /* StakingTokenDetailViewController.swift in Sources */,
 				E1861D2F224DB1570027DED1 /* RestorePathCell.swift in Sources */,
 				287AC59E25FDF7250070837E /* oracle_tx.pb.swift in Sources */,
 				280E1F11254AB5C70007BA7D /* ReplaceResource3ViewController.swift in Sources */,
@@ -3202,6 +3227,7 @@
 				287AC61C25FDF7260070837E /* cosmos_tx_v1beta1_service.pb.swift in Sources */,
 				E1406FCC2260A11300D9440C /* StepRewardCheckViewController.swift in Sources */,
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
+				28CFB6AD2613422200A18634 /* TokenDetailAkashCell.swift in Sources */,
 				287AC64525FDF7260070837E /* tendermint_abci_types.pb.swift in Sources */,
 				28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
@@ -3320,6 +3346,7 @@
 				287AC62425FDF7260070837E /* service_tx.pb.swift in Sources */,
 				287AC5E325FDF7260070837E /* oracle_query.pb.swift in Sources */,
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
+				28CFB6B22613447C00A18634 /* TokenDetailCell.swift in Sources */,
 				287AC62525FDF7260070837E /* token_tx.grpc.swift in Sources */,
 				283E946D254902E5007A9291 /* TxDeleteDomainCell.swift in Sources */,
 				287AC63425FDF7260070837E /* cosmos_tx_signing_v1beta1_signing.pb.swift in Sources */,
@@ -3337,6 +3364,7 @@
 				287AC5C225FDF7250070837E /* akash_deployment_v1beta1_params.pb.swift in Sources */,
 				282FF36523F533AF0028CC66 /* TxUnknownCell.swift in Sources */,
 				E1271B08224B90230083AF17 /* AddressInputTextField.swift in Sources */,
+				28CFB6B72613594D00A18634 /* TokenDetailPersistenceCell.swift in Sources */,
 				287AC62325FDF7260070837E /* akash_base_v1beta1_resourcevalue.pb.swift in Sources */,
 				287AC58425FDF7250070837E /* random_random.pb.swift in Sources */,
 				E1E15FC22253748B00A10C7B /* DashedButton.swift in Sources */,

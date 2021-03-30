@@ -3373,6 +3373,67 @@ class WUtils {
         return ""
     }
     
+    static func getAccountExplorer(_ chain: ChainType, _ address: String) -> String {
+        if (chain == ChainType.COSMOS_MAIN) {
+            return EXPLORER_COSMOS_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.IRIS_MAIN) {
+            return EXPLORER_IRIS_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            return EXPLORER_AKASH_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return EXPLORER_KAVA_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return EXPLORER_BAND_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return EXPLORER_SECRET_MAIN + "accounts/" + address
+            
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return EXPLORER_CERTIK + "accounts/" + address + "?net=" + BaseData.instance.getChainId()
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return EXPLORER_IOV_MAIN + "accounts/" + address
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return EXPLORER_PERSIS_MAIN + "accounts/" + address
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return EXPLORER_SENTINEL_MAIN + "accounts/" + address
+            
+        } else if (chain == ChainType.BINANCE_MAIN) {
+            return EXPLORER_BINANCE_MAIN + "accounts/" + address
+            
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return EXPLORER_OKEX_MAIN + "address/" + address
+            
+        }
+        
+        else if (chain == ChainType.COSMOS_TEST) {
+            return EXPLORER_COSMOS_TEST + "accounts/" + address
+            
+        } else if (chain == ChainType.IRIS_TEST) {
+            return EXPLORER_IRIS_TEST + "address/" + address
+            
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return EXPLORER_CERTIK + "address/" + address + "?net=" + BaseData.instance.getChainId()
+            
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return EXPLORER_BINANCE_TEST + "accounts/" + address
+            
+        } else if (chain == ChainType.OKEX_TEST) {
+            return EXPLORER_OKEX_TEST + "address/" + address
+            
+        } else if (chain == ChainType.KAVA_TEST) {
+            return EXPLORER_KAVA_TEST + "account/" + address
+            
+        }
+        return ""
+    }
+    
     static func getProposalExplorer(_ chain: ChainType, _ proposalId: String) -> String {
         if (chain == ChainType.COSMOS_MAIN) {
             return EXPLORER_COSMOS_MAIN + "proposals/" + proposalId
@@ -3668,7 +3729,7 @@ class WUtils {
                 print("delegatedVesting ", denom, "  ", delegatedVesting)
                 
                 let cTime = Date().millisecondsSince1970
-                let vestingEnd = (vestingAccount.startTime + vestingAccount.baseVestingAccount.endTime) * 1000
+                let vestingEnd = vestingAccount.baseVestingAccount.endTime * 1000
                 if (cTime < vestingEnd) {
                     remainVesting = originalVesting
                 }
@@ -3773,8 +3834,15 @@ class WUtils {
         return NSDecimalNumber.zero
     }
     
-    
-    
+    static func getAmountVp(_ vp: Cosmos_Vesting_V1beta1_Period, _ denom: String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        vp.amount.forEach { (coin) in
+            if (coin.denom == denom) {
+                result = NSDecimalNumber.init(string: coin.amount)
+            }
+        }
+        return result
+    }
     
     static func onParseFeeAmountGrpc(_ tx: Cosmos_Tx_V1beta1_GetTxResponse) -> NSDecimalNumber {
         let result = NSDecimalNumber.zero
