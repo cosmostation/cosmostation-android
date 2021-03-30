@@ -24,6 +24,9 @@ class StepOkVoteToViewController: BaseViewController, UITableViewDelegate, UITab
         super.viewDidLoad()
         
         self.pageHolderVC = self.parent as? StepGenTxViewController
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        
         self.mAllValidator = BaseData.instance.mAllValidator
         self.sortOkValidator()
         self.toValCnt.text = String(self.pageHolderVC.mOkVoteValidators.count)
@@ -49,10 +52,7 @@ class StepOkVoteToViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.valjailedImg.isHidden = true
             cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
-        if (validator.description.identity.starts(with: "logo|||")) {
-            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
-            cell?.valImg.af_setImage(withURL: URL(string: url)!)
-        }
+        cell?.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         cell?.valPowerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.valPowerLabel.font, 0, 0)
         cell?.valCommissionLabel.attributedText = WUtils.displayCommission("0", font: cell!.valCommissionLabel.font)
         

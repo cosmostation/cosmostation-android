@@ -122,11 +122,7 @@ class OkMyValidatorViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.powerLabel.attributedText =  WUtils.displayAmount2(validator.delegator_shares, cell!.powerLabel.font, 0, 0)
             cell?.commissionLabel.attributedText = WUtils.displayCommission("0", font: cell!.commissionLabel.font)
             cell?.cardView.backgroundColor = TRANS_BG_COLOR_OK
-
-            if (validator.description.identity.starts(with: "logo|||")) {
-                let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
-                cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
-            }
+            cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
             return cell!
         }
     }

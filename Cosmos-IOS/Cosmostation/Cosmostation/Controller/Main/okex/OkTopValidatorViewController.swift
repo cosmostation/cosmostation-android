@@ -96,11 +96,7 @@ class OkTopValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         } else {
             cell?.cardView.backgroundColor = COLOR_BG_GRAY
         }
-        
-        if (validator.description.identity.starts(with: "logo|||")) {
-            let url = validator.description.identity.replacingOccurrences(of: "logo|||", with: "").trimmingCharacters(in: .whitespaces)
-            cell?.validatorImg.af_setImage(withURL: URL(string: url)!)
-        }
+        cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         return cell!
     }
     

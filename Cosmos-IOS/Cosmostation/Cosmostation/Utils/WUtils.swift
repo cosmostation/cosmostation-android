@@ -3345,6 +3345,8 @@ class WUtils {
             return SECRET_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return SENTINEL_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return OKEX_VAL_URL + opAddress + ".png";
         }
         return ""
     }
