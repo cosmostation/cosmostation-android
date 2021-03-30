@@ -922,17 +922,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
         } else {
 
         }
-
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-//                startActivity(intent);
-            }
-        });
     }
 
     private void onBindPersisItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -949,17 +948,17 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    WLog.w("onClickonClickonClick");
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
         } else {
 
         }
-
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-//                startActivity(intent);
-            }
-        });
     }
 
     private void onBindCosmosTestItem(TokensAdapter.AssetHolder holder, final int position) {

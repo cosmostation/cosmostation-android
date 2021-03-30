@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.google.protobuf2.Any;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -2672,5 +2673,14 @@ public class WDp {
         return BigDecimal.ZERO;
     }
 
+    public static BigDecimal getAmountVp(Vesting.Period vp, String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (CoinOuterClass.Coin coin: vp.getAmountList()) {
+            if (coin.getDenom().equals(denom)) {
+                return new BigDecimal(coin.getAmount());
+            }
+        }
+        return result;
+    }
 
 }

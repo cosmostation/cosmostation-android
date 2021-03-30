@@ -15,7 +15,7 @@
         app:cardPreventCornerOverlap="true"
         app:cardCornerRadius="@dimen/space_6"
         app:cardElevation="1.5dp"
-        app:cardBackgroundColor="@color/colorTransBgAkash"
+        app:cardBackgroundColor="@color/colorTransBgPersis"
         app:cardUseCompatPadding="true">
         <LinearLayout
             android:layout_width="match_parent"
@@ -26,17 +26,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
                 <ImageView
-                    android:id="@+id/akash_icon"
+                    android:id="@+id/persis_icon"
                     android:layout_width="@dimen/space_20"
                     android:layout_height="@dimen/space_20"
-                    android:src="@drawable/akash_token_img"/>
+                    android:src="@drawable/tokenpersistence"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/akash_icon"
+                    android:layout_toRightOf="@+id/persis_icon"
                     android:layout_marginLeft="@dimen/space_8"
-                    android:text="AKT"
-                    style="@style/font_ss_14_akash"/>
+                    android:text="XPRT"
+                    style="@style/font_ss_14_persis"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -44,14 +44,14 @@
                     android:orientation="vertical"
                     android:gravity="right">
                     <TextView
-                        android:id="@+id/akash_amount"
+                        android:id="@+id/xprt_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
                         android:text="-"
                         style="@style/font_ssm_17_white"/>
                     <TextView
-                        android:id="@+id/akash_value"
+                        android:id="@+id/xprt_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="right"
@@ -76,7 +76,7 @@
                     android:text="@string/str_available"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/akash_available"
+                    android:id="@+id/xprt_available"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -86,7 +86,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/akash_vesting_layer"
+                android:id="@+id/xprt_vesting_layer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_8"
@@ -97,7 +97,7 @@
                     android:text="@string/str_vesting_amount"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/akash_vesting"
+                    android:id="@+id/xprt_vesting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -105,7 +105,6 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
             </RelativeLayout>
-
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -117,7 +116,7 @@
                     android:text="@string/str_delegated"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/akash_delegate"
+                    android:id="@+id/xprt_delegate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -136,7 +135,7 @@
                     android:text="@string/str_unbonding"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/akash_unbonding"
+                    android:id="@+id/xprt_unbonding"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -152,10 +151,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_reward"
+                    android:text="@string/str_stake_reward"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/akash_reward"
+                    android:id="@+id/xprt_reward"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -163,7 +162,6 @@
                     android:text="-"
                     style="@style/font_ssl_12_white"/>
             </RelativeLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

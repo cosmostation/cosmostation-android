@@ -34,18 +34,20 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
+import wannabit.io.cosmostaion.widget.TokenAkashHolder;
 import wannabit.io.cosmostaion.widget.TokenCosmosHolder;
 import wannabit.io.cosmostaion.widget.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.TokenKavaHolder;
+import wannabit.io.cosmostaion.widget.TokenPersisHolder;
 import wannabit.io.cosmostaion.widget.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -83,7 +85,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(AKASH_MAIN)) {
+        if (isGRPC(mBaseChain) && getBaseDao().mGRpcAccount != null) {
+            if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) {
+                mHasVesting = true;
+            }
+
+        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(WDp.mainDenom(mBaseChain)) > 0) {
                 mHasVesting = true;
             }
@@ -124,11 +131,10 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private void onFetchTokenHistory() {
         mApiTxHistory.clear();
         mApiTxCustomHistory.clear();
-        if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN)) {
+        if (isGRPC(mBaseChain)) {
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST)) {
-
-        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+        } else {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
@@ -177,7 +183,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private class StakingTokenAdapter extends RecyclerView.Adapter<BaseHolder> {
         private static final int TYPE_ATOM              = 0;
         private static final int TYPE_IRIS              = 1;
-        private static final int TYPE_KAVA              = 3;
+        private static final int TYPE_AKASH             = 2;
+        private static final int TYPE_PERSISTENCE       = 3;
+
+
+        private static final int TYPE_KAVA              = 40;
 
         private static final int TYPE_VESTING           = 99;
         private static final int TYPE_HISTORY           = 100;
@@ -190,6 +200,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
             } else if (viewType == TYPE_IRIS) {
                 return new TokenIrisHolder(getLayoutInflater().inflate(R.layout.layout_card_iris, viewGroup, false));
+
+            } else if (viewType == TYPE_AKASH) {
+                return new TokenAkashHolder(getLayoutInflater().inflate(R.layout.layout_card_akash, viewGroup, false));
+
+            } else if (viewType == TYPE_PERSISTENCE) {
+                return new TokenPersisHolder(getLayoutInflater().inflate(R.layout.layout_card_persistence, viewGroup, false));
 
             } else if (viewType == TYPE_KAVA) {
                 return new TokenKavaHolder(getLayoutInflater().inflate(R.layout.layout_card_kava, viewGroup, false));
@@ -218,7 +234,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     ((HistoryHolder)holder).onBindHistory(StakingTokenDetailActivity.this, tx, mAccount.address);
                 }
 
-            } else {
+            }
+//            else if (getItemViewType(position) == TYPE_VESTING) {
+//
+//            }
+            else {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
             }
 
@@ -248,6 +268,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
                 } else if (mBaseChain.equals(IRIS_MAIN)) {
                     return TYPE_IRIS;
+
+                } else if (mBaseChain.equals(AKASH_MAIN)) {
+                    return TYPE_AKASH;
+
+                } else if (mBaseChain.equals(PERSIS_MAIN)) {
+                    return TYPE_PERSISTENCE;
 
                 } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                     return TYPE_KAVA;

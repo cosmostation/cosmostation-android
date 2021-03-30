@@ -8,12 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 
+import java.util.ArrayList;
+
+import cosmos.vesting.v1beta1.Vesting;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
@@ -59,6 +64,52 @@ public class VestingHolder extends BaseHolder {
             mVestingRoot.setCardBackgroundColor(c.getResources().getColor(R.color.colorTransBghard));
         }
 
+        if (isGRPC(chain)) {
+            onBindGRPC(c, chain, baseData, denom);
+
+        } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
+            onBindKava(c, chain, baseData, denom);
+        }
+
+
+
+    }
+
+    private void onBindGRPC (Context c, BaseChain chain, BaseData baseData, String denom) {
+        ArrayList<Vesting.Period> vps = baseData.onParseRemainVestingsByDenom(denom);
+        mVestingCnt.setText("(" + vps.size() + ")");
+        mVestingTotalAmount.setText(WDp.getDpAmount2(c, baseData.onParseRemainVestingsAmountSumByDenom(denom), 6, 6));
+
+        mVestingTime0.setText(WDp.getDpTime(c, vps.get(0).getLength()));
+        mVestingGap0.setText(WDp.getUnbondingTimeleft(c, vps.get(0).getLength()));
+        mVestingAmount0.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(0), denom), 6, 6));
+        if (vps.size() > 1) {
+            mVestingLayer1.setVisibility(View.VISIBLE);
+            mVestingTime1.setText(WDp.getDpTime(c, vps.get(1).getLength()));
+            mVestingGap1.setText(WDp.getUnbondingTimeleft(c, vps.get(1).getLength()));
+            mVestingAmount1.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(1), denom), 6, 6));
+        }
+        if (vps.size() > 2) {
+            mVestingLayer2.setVisibility(View.VISIBLE);
+            mVestingTime2.setText(WDp.getDpTime(c, vps.get(2).getLength()));
+            mVestingGap2.setText(WDp.getUnbondingTimeleft(c, vps.get(2).getLength()));
+            mVestingAmount2.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(2), denom), 6, 6));
+        }
+        if (vps.size() > 3) {
+            mVestingLayer3.setVisibility(View.VISIBLE);
+            mVestingTime3.setText(WDp.getDpTime(c, vps.get(3).getLength()));
+            mVestingGap3.setText(WDp.getUnbondingTimeleft(c, vps.get(3).getLength()));
+            mVestingAmount3.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(3), denom), 6, 6));
+        }
+        if (vps.size() > 4) {
+            mVestingLayer4.setVisibility(View.VISIBLE);
+            mVestingTime4.setText(WDp.getDpTime(c, vps.get(4).getLength()));
+            mVestingGap4.setText(WDp.getUnbondingTimeleft(c, vps.get(4).getLength()));
+            mVestingAmount4.setText(WDp.getDpAmount2(c, WDp.getAmountVp(vps.get(4), denom), 6, 6));
+        }
+    }
+
+    private void onBindKava (Context c, BaseChain chain, BaseData baseData, String denom) {
         final ResLcdKavaAccountInfo.Value mKavaAccount = baseData.mKavaAccount.value;
         mVestingCnt.setText("(" + mKavaAccount.getCalcurateVestingCntByDenom(denom) + ")");
         mVestingTotalAmount.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateVestingAmountSumByDenom(denom), 6, 6));
@@ -90,6 +141,5 @@ public class VestingHolder extends BaseHolder {
             mVestingGap4.setText(WDp.getUnbondingTimeleft(c, mKavaAccount.getCalcurateTime(denom, 4)));
             mVestingAmount4.setText(WDp.getDpAmount2(c, mKavaAccount.getCalcurateAmount(denom, 4), 6, 6));
         }
-
     }
 }

@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 
+import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf2.Any;
 
 import net.sqlcipher.Cursor;
@@ -22,6 +23,7 @@ import java.util.List;
 import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
+import cosmos.vesting.v1beta1.Vesting;
 import irismod.token.TokenOuterClass;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
@@ -204,6 +206,46 @@ public class BaseData {
         }
         return result;
     }
+
+    public ArrayList<Vesting.Period> onParseRemainVestingsByDenom(String denom) {
+        ArrayList<Vesting.Period> result = new ArrayList<>();
+        if (mGRpcAccount.getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
+            try {
+                Vesting.PeriodicVestingAccount vestingAccount = Vesting.PeriodicVestingAccount.parseFrom(mGRpcAccount.getValue());
+                return WDp.onParsePeriodicRemainVestingsByDenom(vestingAccount, denom);
+            } catch (InvalidProtocolBufferException e) { }
+
+        } else if (mGRpcAccount.getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+            try {
+                Vesting.ContinuousVestingAccount vestingAccount = Vesting.ContinuousVestingAccount.parseFrom(mGRpcAccount.getValue());
+                long cTime = Calendar.getInstance().getTime().getTime();
+                long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                if (cTime < vestingEnd) {
+                    for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                        if (vesting.getDenom().equals(denom)) {
+                            result.add(Vesting.Period.newBuilder().setLength(vestingEnd).addAllAmount(vestingAccount.getBaseVestingAccount().getOriginalVestingList()).build());
+                        }
+                    }
+                }
+            } catch (InvalidProtocolBufferException e) { }
+        }
+        return result;
+    }
+
+    public BigDecimal onParseRemainVestingsAmountSumByDenom(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Vesting.Period vps: onParseRemainVestingsByDenom(denom)) {
+            for (CoinOuterClass.Coin coin : vps.getAmountList()) {
+                if (coin.getDenom().equals(denom)) {
+                    result = result.add(new BigDecimal(coin.getAmount()));
+                }
+            }
+        }
+        return result;
+    }
+
+
+
 
     public BigDecimal getDelegatable(String denom) {
         return getAvailable(denom).add(getVesting(denom));

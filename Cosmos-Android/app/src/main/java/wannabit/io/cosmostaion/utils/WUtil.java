@@ -2632,7 +2632,7 @@ public class WUtil {
                 WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
 
                 long cTime = Calendar.getInstance().getTime().getTime();
-                long vestingEnd = (vestingAccount.getStartTime() + vestingAccount.getBaseVestingAccount().getEndTime()) * 1000;
+                long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
                 if (cTime < vestingEnd) {
                     remainVesting = originalVesting;
                 }
