@@ -62,7 +62,7 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
         if (getSActivity().mDeleteType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
             mStarName.setText( "*" + getSActivity().mToDelDomain );
         } else {
-            mStarName.setText( getSActivity().mToDelDomain + "*" + getSActivity().mToDelAccount );
+            mStarName.setText(getSActivity().mToDelAccount + "*" + getSActivity().mToDelDomain);
         }
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
         mMemo.setText(getSActivity().mMemo);

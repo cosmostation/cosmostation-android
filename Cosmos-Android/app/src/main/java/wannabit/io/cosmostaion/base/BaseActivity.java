@@ -1033,10 +1033,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mAllValidators.addAll(getBaseDao().mTopValidators);
                 getBaseDao().mAllValidators.addAll(getBaseDao().mOtherValidators);
 
-                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
 //
 //                WLog.w("mBalances " + getBaseDao().mBalances.size());
 //                WLog.w("mBondings " + getBaseDao().mBondings.size());
@@ -1059,10 +1059,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     }
 
                 }
-                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
 
                 if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                     for (String valAddr : getBaseDao().mOkStaking.validator_address) {
