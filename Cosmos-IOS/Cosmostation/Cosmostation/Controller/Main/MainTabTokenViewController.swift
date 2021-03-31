@@ -514,13 +514,21 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     sTokenDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationItem.title = ""
                     self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-                    return
+                    
+                } else {
+                    let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
+                    tokenDetailVC.hidesBottomBarWhenPushed = true
+                    self.navigationItem.title = ""
+                    tokenDetailVC.balance = balance
+                    tokenDetailVC.allValidator = mainTabVC.mAllValidator
+                    tokenDetailVC.allRewards = mainTabVC.mRewardList
+                    self.navigationController?.pushViewController(tokenDetailVC, animated: true)
                 }
                 
             } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
                 let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
                 tokenDetailVC.hidesBottomBarWhenPushed = true
-                tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
+                tokenDetailVC.balance = balance
                 tokenDetailVC.bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
                 tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
                 self.navigationItem.title = ""
@@ -529,7 +537,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
                 let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
                 tokenDetailVC.hidesBottomBarWhenPushed = true
-                tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
+                tokenDetailVC.okDenom = balance.balance_denom
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(tokenDetailVC, animated: true)
             }
