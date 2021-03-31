@@ -493,51 +493,47 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType! == ChainType.AKASH_MAIN || chainType! == ChainType.PERSIS_MAIN) {
-            let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
-            sTokenDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
-            return
+        if (WUtils.isGRPC(chainType!)) {
+            let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+            if (balance.denom == WUtils.getMainDenom(chainType)) {
+                let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
+                sTokenDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
+                return
+            } else {
+                //TODO not this yet
+            }
+            
+        } else {
+            //TODO update for all chains
+            let balance = mainTabVC.mBalances[indexPath.row]
+            if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
+                    let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
+                    sTokenDetailVC.hidesBottomBarWhenPushed = true
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
+                    return
+                }
+                
+            } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+                let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
+                tokenDetailVC.hidesBottomBarWhenPushed = true
+                tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
+                tokenDetailVC.bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
+                tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+                
+            } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
+                let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
+                tokenDetailVC.hidesBottomBarWhenPushed = true
+                tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+            }
         }
-        
-        
-        let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
-        tokenDetailVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        if (chainType! == ChainType.COSMOS_MAIN) {
-            //TODO
-            
-        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
-            tokenDetailVC.allValidator = mainTabVC.mAllValidator
-            tokenDetailVC.allRewards = mainTabVC.mRewardList
-            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
-            //TODO
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            tokenDetailVC.balance = mainTabVC.mBalances[indexPath.row]
-            tokenDetailVC.bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
-            tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
-            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            //TODO IOV tokens details
-            
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            //TODO Band tokens details
-            
-        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            tokenDetailVC.okDenom = mainTabVC.mBalances[indexPath.row].balance_denom
-            self.navigationController?.pushViewController(tokenDetailVC, animated: true)
-            
-        } else if (chainType! == ChainType.CERTIK_TEST || chainType! == ChainType.CERTIK_MAIN) {
-            //TODO Certik tokens details
-            
-        }
-        
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {

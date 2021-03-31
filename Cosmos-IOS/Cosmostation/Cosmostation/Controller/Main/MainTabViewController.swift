@@ -181,6 +181,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mTopValidator.removeAll()
         BaseData.instance.mOtherValidator.removeAll()
         BaseData.instance.mMyValidator.removeAll()
+        BaseData.instance.mBalances.removeAll()
+        BaseData.instance.mBondingList.removeAll()
+        BaseData.instance.mUnbondingList.removeAll()
+        BaseData.instance.mRewardList.removeAll()
         
         //gRPC
         BaseData.instance.mNodeInfo_gRPC = nil
@@ -437,6 +441,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            BaseData.instance.mBalances = mBalances
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return
@@ -541,6 +546,17 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     self.mMyValidators.append(validator)
                 }
             }
+            
+            BaseData.instance.mBalances = mBalances
+            BaseData.instance.mBondingList = mBondingList
+            BaseData.instance.mUnbondingList = mUnbondingList
+            BaseData.instance.mRewardList = mRewardList
+            
+//            print("BaseData.instance.mBalances ", BaseData.instance.mBalances.count)
+//            print("BaseData.instance.mBondingList ", BaseData.instance.mBondingList.count)
+//            print("BaseData.instance.mUnbondingList ", BaseData.instance.mUnbondingList.count)
+//            print("BaseData.instance.mRewardList ", BaseData.instance.mRewardList.count)
+            
         }
         
 //        print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)

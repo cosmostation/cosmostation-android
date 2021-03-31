@@ -494,9 +494,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             let totalAmount = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM)
             let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
@@ -600,9 +600,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
             let totalAmount = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM)
             let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
@@ -700,9 +700,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
             let totalAmount = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_MAIN_DENOM)
 
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
@@ -793,9 +793,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletBandCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBandCell") as? WalletBandCell
             let totalAmount = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BAND_MAIN_DENOM)   //mainTabVC.mAccount.getBandBalance()
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, BAND_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, BAND_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
@@ -896,9 +896,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell:WalletSecretCell? = tableView.dequeueReusableCell(withIdentifier:"WalletSecretCell") as? WalletSecretCell
             let totalAmount = WUtils.getAllSecret(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, SECRET_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SECRET_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SECRET_MAIN_DENOM)
 
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
@@ -987,9 +987,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
             let totalAmount = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_TEST_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_TEST_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_TEST_DENOM)
 
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
@@ -1174,9 +1174,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
             let totalAmount = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, CERTIK_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, CERTIK_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, CERTIK_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
             cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
@@ -1332,9 +1332,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSentinelCell") as? WalletSentinelCell
             let totalAmount = WUtils.getAllSentinel(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
             let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, SENTINEL_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator, chainType!)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList, chainType!)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SENTINEL_MAIN_DENOM, chainType!)
+            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
+            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
+            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SENTINEL_MAIN_DENOM)
             let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, SENTINEL_MAIN_DENOM)
             
             cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)

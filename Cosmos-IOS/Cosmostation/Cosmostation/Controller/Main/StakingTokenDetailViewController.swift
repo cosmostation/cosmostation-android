@@ -24,8 +24,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.delegate = self
         self.tokenDetailTableView.dataSource = self
         self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCosmosCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderIrisCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAkashCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAkashCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailPersistenceCell", bundle: nil), forCellReuseIdentifier: "TokenDetailPersistenceCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -107,8 +110,14 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             if (chainType == ChainType.COSMOS_MAIN) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCosmosCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
                 
-            } else if (chainType == ChainType.COSMOS_MAIN) {
+            } else if (chainType == ChainType.IRIS_MAIN) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderIrisCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
                 
             } else if (chainType == ChainType.AKASH_MAIN) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailAkashCell") as? TokenDetailCell
@@ -119,6 +128,13 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailPersistenceCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
+            }
+            
+            else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderKavaCell") as? TokenDetailHeaderKavaCell
+                cell?.onBindTokens(account!)
+                return cell!
+                
             }
             
         } else if (indexPath.row == 1 && hasVesting) {

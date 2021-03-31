@@ -19,6 +19,10 @@ final class BaseData : NSObject{
     var copySalt: String?
     
     var mNodeInfo: NodeInfo?
+    var mBalances = Array<Balance>()
+    var mBondingList = Array<Bonding>()
+    var mUnbondingList = Array<Unbonding>()
+    var mRewardList = Array<Reward>()
     var mAllValidator = Array<Validator>()
     var mTopValidator = Array<Validator>()
     var mOtherValidator = Array<Validator>()

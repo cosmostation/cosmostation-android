@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TokenDetailHeaderIrisCell: UITableViewCell {
+class TokenDetailHeaderIrisCell: TokenDetailCell {
 
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalValue: UILabel!
@@ -26,10 +26,13 @@ class TokenDetailHeaderIrisCell: UITableViewCell {
         rewardAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
-    var actionSend: (() -> Void)? = nil
-    
-    @IBAction func onClickSend(_ sender: Any) {
-        actionSend?()
+    override func onBindToken() {
+        let totalToken = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
+        totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
+        totalValue.attributedText = WUtils.dpTokenValue(totalToken, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(IRIS_MAIN_DENOM), availableAmount.font!, 6, 6)
+        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
+        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
+        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(IRIS_MAIN_DENOM), rewardAmount.font, 6, 6)
     }
-    
 }

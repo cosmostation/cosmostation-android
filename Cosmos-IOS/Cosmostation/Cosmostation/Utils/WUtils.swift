@@ -969,7 +969,7 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
-    static func deleagtedAmount(_ bondings:Array<Bonding>, _ validators:Array<Validator>, _ chain:ChainType) -> NSDecimalNumber {
+    static func deleagtedAmount(_ bondings:Array<Bonding>, _ validators:Array<Validator>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for bonding in bondings {
             amount = amount.adding(bonding.getBondingAmount(validators))
@@ -985,7 +985,7 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
-    static func unbondingAmount(_ unbondings:Array<Unbonding>, _ chain:ChainType) -> NSDecimalNumber {
+    static func unbondingAmount(_ unbondings:Array<Unbonding>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in unbondings {
             amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
@@ -1005,7 +1005,7 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain)
     }
     
-    static func rewardAmount(_ rewards:Array<Reward>, _ symbol:String, _ chain:ChainType) ->  NSDecimalNumber {
+    static func rewardAmount(_ rewards:Array<Reward>, _ symbol:String) ->  NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for reward in rewards {
             for coin in reward.reward_amount {

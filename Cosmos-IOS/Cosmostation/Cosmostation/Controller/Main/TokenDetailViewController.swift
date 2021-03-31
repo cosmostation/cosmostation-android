@@ -258,15 +258,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 6, chainType!)
         cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 6, chainType!)
         cell?.rewardAmount.attributedText = WUtils.dpRewards(allRewards, cell!.rewardAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
-        cell?.actionReceive = {
-            self.onRecieveToken()
-        }
-        cell?.actionBuy = {
-            self.onBuyCoin()
-        }
         return cell!
     }
     
@@ -316,9 +307,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let totalAmount = WUtils.getAllKava(balances, bondingList, unbondingList, allRewards, allValidator)
         let availableAmount = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-        let delegatedAmount = WUtils.deleagtedAmount(bondingList, allValidator, chainType!)
-        let unbondingAmount = WUtils.unbondingAmount(unbondingList, chainType!)
-        let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM, chainType!)
+        let delegatedAmount = WUtils.deleagtedAmount(bondingList, allValidator)
+        let unbondingAmount = WUtils.unbondingAmount(unbondingList)
+        let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM)
         let vestingAmount = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
         
         cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
@@ -330,12 +321,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
         if (vestingAmount != NSDecimalNumber.zero) {
             cell?.vestingLayer.isHidden = false
-        }
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
-        cell?.actionRecieve = {
-            self.onRecieveToken()
         }
         return cell!
     }
@@ -349,9 +334,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         
         let totalAmount = WUtils.getAllKava(balances, bondingList, unbondingList, allRewards, allValidator)
         let availableAmount = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-        let delegatedAmount = WUtils.deleagtedAmount(bondingList, allValidator, chainType!)
-        let unbondingAmount = WUtils.unbondingAmount(unbondingList, chainType!)
-        let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM, chainType!)
+        let delegatedAmount = WUtils.deleagtedAmount(bondingList, allValidator)
+        let unbondingAmount = WUtils.unbondingAmount(unbondingList)
+        let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM)
         let vestingAmount = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
         
         cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
@@ -363,12 +348,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
         if (vestingAmount != NSDecimalNumber.zero) {
             cell?.vestingLayer.isHidden = false
-        }
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
-        cell?.actionRecieve = {
-            self.onRecieveToken()
         }
         return cell!
     }
