@@ -392,21 +392,21 @@ class WKey {
     // Ethermint Style address gen (OKex)
     static func generateAddressFromPriv(_ prefix: String, _ priKey: BitcoinKit.PrivateKey) -> String {
         let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey.raw, compressed: false)
-        print("uncompressedPubKey ", uncompressedPubKey.dataToHexString(), "   ", uncompressedPubKey.dataToHexString().count)
+//        print("uncompressedPubKey ", uncompressedPubKey.dataToHexString(), "   ", uncompressedPubKey.dataToHexString().count)
         var pub = Data(count: 64)
         pub = uncompressedPubKey.subdata(in: (1..<65))
-        print("pub ", pub.dataToHexString(), "   ", pub.dataToHexString().count)
+//        print("pub ", pub.dataToHexString(), "   ", pub.dataToHexString().count)
         
         let eth = HDWalletKit.Crypto.sha3keccak256(data: pub)
         var address = Data(count: 20)
         address = eth.subdata(in: (12..<32))
         let ethAddress  = EthereumAddress.init(data: address)
-        print("ethAddress ", ethAddress.string)
+//        print("ethAddress ", ethAddress.string)
         
         var result = ""
         let convert = try? WKey.convertBits(from: 8, to: 5, pad: true, idata: address)
         result = Bech32().encode("okexchain", values: convert!)
-        print("OKexAddress ", result)
+//        print("OKexAddress ", result)
         return result
     }
     
