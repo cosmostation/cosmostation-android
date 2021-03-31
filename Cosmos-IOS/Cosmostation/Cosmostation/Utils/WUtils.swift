@@ -3376,6 +3376,9 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             return EXPLORER_AKASH_MAIN + "txs/" + hash
             
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return EXPLORER_PERSIS_MAIN + "txs/" + hash
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
