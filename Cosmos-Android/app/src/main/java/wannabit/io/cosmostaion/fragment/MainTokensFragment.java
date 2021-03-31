@@ -951,7 +951,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    WLog.w("onClickonClickonClick");
                     startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
                 }
             });

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
@@ -26,12 +28,14 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
 import wannabit.io.cosmostaion.widget.TokenAkashHolder;
@@ -48,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -171,10 +176,25 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
         } else if (v.equals(mBtnSend)) {
             WLog.w("mBtnSend");
-            Intent intent = new Intent(StakingTokenDetailActivity.this, SendActivity.class);
-            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-            startActivity(intent);
+            if (mAccount == null) return;
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
 
+            if (isGRPC(mBaseChain)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Intent intent = new Intent(StakingTokenDetailActivity.this, SendActivity.class);
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+                startActivity(intent);
+            }
         }
 
     }

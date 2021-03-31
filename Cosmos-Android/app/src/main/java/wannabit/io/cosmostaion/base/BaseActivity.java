@@ -995,8 +995,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 //                    WLog.w("getBaseDao().mGRpcNodeInfo " + getBaseDao().mGRpcNodeInfo.getNetwork());
                 }
 
-
-
             } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
                     mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN)) {
                 for (Validator top:getBaseDao().mTopValidators) {

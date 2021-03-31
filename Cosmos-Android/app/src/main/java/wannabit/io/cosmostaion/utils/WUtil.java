@@ -145,6 +145,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_END;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_START;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_TINY;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -2208,7 +2211,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(PERSIS_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(PERSIS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2224,6 +2227,14 @@ public class WUtil {
                 return new BigDecimal(IRIS_GAS_RATE_LOW);
             }
             return new BigDecimal(IRIS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(PERSIS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(PERSIS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(PERSIS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(PERSIS_GAS_RATE_AVERAGE);
 
         } else {
             if (position == 0) {
