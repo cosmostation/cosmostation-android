@@ -3411,16 +3411,16 @@ class WUtils {
             return EXPLORER_CERTIK + "accounts/" + address + "?net=" + BaseData.instance.getChainId()
             
         } else if (chain == ChainType.IOV_MAIN) {
-            return EXPLORER_IOV_MAIN + "accounts/" + address
+            return EXPLORER_IOV_MAIN + "account/" + address
             
         } else if (chain == ChainType.PERSIS_MAIN) {
-            return EXPLORER_PERSIS_MAIN + "accounts/" + address
+            return EXPLORER_PERSIS_MAIN + "account/" + address
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
-            return EXPLORER_SENTINEL_MAIN + "accounts/" + address
+            return EXPLORER_SENTINEL_MAIN + "account/" + address
             
         } else if (chain == ChainType.BINANCE_MAIN) {
-            return EXPLORER_BINANCE_MAIN + "accounts/" + address
+            return EXPLORER_BINANCE_MAIN + "account/" + address
             
         } else if (chain == ChainType.OKEX_MAIN) {
             return EXPLORER_OKEX_MAIN + "address/" + address
@@ -3428,7 +3428,7 @@ class WUtils {
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
-            return EXPLORER_COSMOS_TEST + "accounts/" + address
+            return EXPLORER_COSMOS_TEST + "account/" + address
             
         } else if (chain == ChainType.IRIS_TEST) {
             return EXPLORER_IRIS_TEST + "address/" + address
