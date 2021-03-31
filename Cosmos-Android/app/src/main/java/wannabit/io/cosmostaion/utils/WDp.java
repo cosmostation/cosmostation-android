@@ -125,21 +125,6 @@ import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_SIDE_SEND
 import static wannabit.io.cosmostaion.network.res.ResOkHistory.OK_TYPE_TRANSFER;
 
 public class WDp {
-
-    public static SpannableString getDpAmount(Context c, BigDecimal input, int point, BaseChain chain) {
-        SpannableString result;
-        BigDecimal amount = input.setScale(point, BigDecimal.ROUND_DOWN);
-        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-            result = new SpannableString(getDecimalFormat(c, point).format(amount));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-
-        } else {
-            result = new SpannableString(getDecimalFormat(c, 6).format(amount));
-            result.setSpan(new RelativeSizeSpan(0.8f), result.length() - point, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        }
-        return result;
-    }
-
     //show display text with full input amount and to divide deciaml and to show point
     public static SpannableString getDpAmount2(Context c, BigDecimal input, int divideDecimal, int displayDecimal) {
         SpannableString result;

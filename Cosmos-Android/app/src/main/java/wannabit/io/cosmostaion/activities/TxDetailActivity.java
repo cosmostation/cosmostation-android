@@ -906,62 +906,62 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         //TODO now not perfect support with multi transfer with multi coins!!
         private void onBindMultiSend(RecyclerView.ViewHolder viewHolder, int position) {
-            final TxMultiSendHolder holder = (TxMultiSendHolder)viewHolder;
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom0);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom1);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom2);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom3);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom0);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom1);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom2);
-            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom3);
-            holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-
-            final Msg msg = mResTxInfo.getMsg(position - 1);
-            holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
-            holder.itemInputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 6, mBaseChain));
-            holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
-            holder.itemOutputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 6, mBaseChain));
-            if (msg.value.inputs.size() > 1) {
-                holder.itemInputLayer1.setVisibility(View.VISIBLE);
-                holder.itemInputAddress1.setText(msg.value.inputs.get(1).address);
-                holder.itemInputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(1).coins.get(0).amount), 6, mBaseChain));
-            }
-            if (msg.value.inputs.size() > 2) {
-                holder.itemInputLayer2.setVisibility(View.VISIBLE);
-                holder.itemInputAddress2.setText(msg.value.inputs.get(2).address);
-                holder.itemInputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(2).coins.get(0).amount), 6, mBaseChain));
-            }
-            if (msg.value.inputs.size() > 3) {
-                holder.itemInputLayer3.setVisibility(View.VISIBLE);
-                holder.itemInputAddress3.setText(msg.value.inputs.get(3).address);
-                holder.itemInputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(3).coins.get(0).amount), 6, mBaseChain));
-            }
-            if (msg.value.outputs.size() > 1) {
-                holder.itemOutputLayer1.setVisibility(View.VISIBLE);
-                holder.itemOutputAddress1.setText(msg.value.outputs.get(1).address);
-                holder.itemOutputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(1).coins.get(0).amount), 6, mBaseChain));
-            }
-            if (msg.value.outputs.size() > 2) {
-                holder.itemOutputLayer2.setVisibility(View.VISIBLE);
-                holder.itemOutputAddress2.setText(msg.value.outputs.get(2).address);
-                holder.itemOutputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(2).coins.get(0).amount), 6, mBaseChain));
-            }
-            if (msg.value.outputs.size() > 3) {
-                holder.itemOutputLayer3.setVisibility(View.VISIBLE);
-                holder.itemOutputAddress3.setText(msg.value.outputs.get(3).address);
-                holder.itemOutputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(3).coins.get(0).amount), 6, mBaseChain));
-            }
-            for (Input input:msg.value.inputs) {
-                if (mAccount.address.equals(input.address)) {
-                    holder.itemSendRecieveTv.setText(R.string.tx_send);
-                }
-            }
-            for (Output output:msg.value.outputs) {
-                if (mAccount.address.equals(output.address)) {
-                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
-                }
-            }
+//            final TxMultiSendHolder holder = (TxMultiSendHolder)viewHolder;
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom0);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom1);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom2);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemInputDenom3);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom0);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom1);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom2);
+//            WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemOutputDenom3);
+//            holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+//
+//            final Msg msg = mResTxInfo.getMsg(position - 1);
+//            holder.itemInputAddress0.setText(msg.value.inputs.get(0).address);
+//            holder.itemInputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(0).coins.get(0).amount), 6, mBaseChain));
+//            holder.itemOutputAddress0.setText(msg.value.outputs.get(0).address);
+//            holder.itemOutputAmount0.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(0).coins.get(0).amount), 6, mBaseChain));
+//            if (msg.value.inputs.size() > 1) {
+//                holder.itemInputLayer1.setVisibility(View.VISIBLE);
+//                holder.itemInputAddress1.setText(msg.value.inputs.get(1).address);
+//                holder.itemInputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(1).coins.get(0).amount), 6, mBaseChain));
+//            }
+//            if (msg.value.inputs.size() > 2) {
+//                holder.itemInputLayer2.setVisibility(View.VISIBLE);
+//                holder.itemInputAddress2.setText(msg.value.inputs.get(2).address);
+//                holder.itemInputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(2).coins.get(0).amount), 6, mBaseChain));
+//            }
+//            if (msg.value.inputs.size() > 3) {
+//                holder.itemInputLayer3.setVisibility(View.VISIBLE);
+//                holder.itemInputAddress3.setText(msg.value.inputs.get(3).address);
+//                holder.itemInputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.inputs.get(3).coins.get(0).amount), 6, mBaseChain));
+//            }
+//            if (msg.value.outputs.size() > 1) {
+//                holder.itemOutputLayer1.setVisibility(View.VISIBLE);
+//                holder.itemOutputAddress1.setText(msg.value.outputs.get(1).address);
+//                holder.itemOutputAmount1.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(1).coins.get(0).amount), 6, mBaseChain));
+//            }
+//            if (msg.value.outputs.size() > 2) {
+//                holder.itemOutputLayer2.setVisibility(View.VISIBLE);
+//                holder.itemOutputAddress2.setText(msg.value.outputs.get(2).address);
+//                holder.itemOutputAmount2.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(2).coins.get(0).amount), 6, mBaseChain));
+//            }
+//            if (msg.value.outputs.size() > 3) {
+//                holder.itemOutputLayer3.setVisibility(View.VISIBLE);
+//                holder.itemOutputAddress3.setText(msg.value.outputs.get(3).address);
+//                holder.itemOutputAmount3.setText(WDp.getDpAmount(getBaseContext(), new BigDecimal(msg.value.outputs.get(3).coins.get(0).amount), 6, mBaseChain));
+//            }
+//            for (Input input:msg.value.inputs) {
+//                if (mAccount.address.equals(input.address)) {
+//                    holder.itemSendRecieveTv.setText(R.string.tx_send);
+//                }
+//            }
+//            for (Output output:msg.value.outputs) {
+//                if (mAccount.address.equals(output.address)) {
+//                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
+//                }
+//            }
         }
 
         private void onBindDelegate(RecyclerView.ViewHolder viewHolder, int position) {

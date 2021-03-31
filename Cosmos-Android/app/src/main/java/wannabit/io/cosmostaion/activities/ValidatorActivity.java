@@ -1147,9 +1147,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 for (UnBondingState unbond : mUnBondingStates) {
                     sum = sum.add(unbond.balance);
                 }
-                holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), sum, 6, BaseChain.getChain(mAccount.baseChain)));
+                holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), sum, 6, 6));
             } else {
-                holder.itemTvUnbondingAmount.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 6, BaseChain.getChain(mAccount.baseChain)));
+                holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
             }
 
             if (mReward != null) {

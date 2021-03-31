@@ -540,9 +540,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
             final BnbHolder holder = (BnbHolder)viewHolder;
             if (mBnbToken != null) {
                 BigDecimal totalAmount = mBalance.locked.add(mBalance.balance);
-                holder.mTvBnbBalance.setText(WDp.getDpAmount(getBaseContext(), mBalance.balance, 8, mBaseChain));
-                holder.mTvBnbLocked.setText(WDp.getDpAmount(getBaseContext(), mBalance.locked, 8, mBaseChain));
-                holder.mTvBnbTotal.setText(WDp.getDpAmount(getBaseContext(), mBalance.locked.add(mBalance.balance), 8, mBaseChain));
+                holder.mTvBnbBalance.setText(WDp.getDpAmount2(getBaseContext(), mBalance.balance, 0, 8));
+                holder.mTvBnbLocked.setText(WDp.getDpAmount2(getBaseContext(), mBalance.locked, 0, 8));
+                holder.mTvBnbTotal.setText(WDp.getDpAmount2(getBaseContext(), mBalance.locked.add(mBalance.balance), 0, 8));
                 holder.mTvBnbValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), totalAmount));
             }
 
@@ -658,13 +658,13 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 holder.mTokenLink.setVisibility(View.VISIBLE);
                 holder.mTvTokenSymbol.setText(mBnbToken.original_symbol);
                 holder.mTvTokenDenom.setText(mBnbToken.symbol);
-                holder.mTvTokenTotal.setText(WDp.getDpAmount(getBaseContext(), mBalance.getAllBnbBalance(), 8, mBaseChain));
+                holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), mBalance.getAllBnbBalance(), 0, 8));
 
                 BigDecimal amount = BigDecimal.ZERO;
                 ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(mBalance.symbol));
                 if (tic != null) { amount = mBalance.exchangeToBnbAmount(tic); }
                 holder.mTvTokenValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), amount));
-                holder.mTvTokenAvailable.setText(WDp.getDpAmount(getBaseContext(), mBalance.balance, 8, mBaseChain));
+                holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), mBalance.balance, 0, 8));
                 holder. mTokenRewardLayer.setVisibility(View.GONE);
                 try {
                     Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.mTokenImg);
@@ -680,7 +680,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 holder.mTokenLink.setVisibility(View.VISIBLE);
                 holder.mTvTokenSymbol.setText(mBnbToken.original_symbol);
                 holder.mTvTokenDenom.setText(mBnbToken.symbol);
-                holder.mTvTokenTotal.setText(WDp.getDpAmount(getBaseContext(), mBalance.getAllBnbBalance(), 8, mBaseChain));
+                holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), mBalance.getAllBnbBalance(), 0, 8));
 
                 BigDecimal amount = BigDecimal.ZERO;
                 ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(mBalance.symbol));
@@ -689,7 +689,7 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 }
 
                 holder.mTvTokenValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), amount));
-                holder.mTvTokenAvailable.setText(WDp.getDpAmount(getBaseContext(), mBalance.balance, 8, mBaseChain));
+                holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), mBalance.balance, 0, 8));
                 holder.mTokenRewardLayer.setVisibility(View.GONE);
                 try {
                     Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.mTokenImg);
@@ -977,9 +977,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mBtnReceiveBnb          = itemView.findViewById(R.id.btn_bnb_receive);
                 mBtnInterChain          = itemView.findViewById(R.id.btn_bep3_send2);
 
-                mTvBnbBalance.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 8, mBaseChain));
-                mTvBnbLocked.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 8, mBaseChain));
-                mTvBnbTotal.setText(WDp.getDpAmount(getBaseContext(), BigDecimal.ZERO, 8, mBaseChain));
+                mTvBnbBalance.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
+                mTvBnbLocked.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
+                mTvBnbTotal.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
                 mTvBnbValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), BigDecimal.ZERO));
             }
         }

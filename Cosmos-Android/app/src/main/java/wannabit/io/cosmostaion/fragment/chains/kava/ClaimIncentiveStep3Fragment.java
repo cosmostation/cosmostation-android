@@ -59,7 +59,7 @@ public class ClaimIncentiveStep3Fragment extends BaseFragment implements View.On
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
-        mFee.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+        mFee.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
         WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mReceivableAmount.toPlainString(), mReceivableAmountDenom, mReceivableAmount, getSActivity().mBaseChain);
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
         mClaimType.setText(getSActivity().mSelectedMultiplier.name.toUpperCase());

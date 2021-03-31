@@ -127,11 +127,11 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDenomTitle.setText(getSActivity().mBnbToken.original_symbol.toUpperCase());
             if (getSActivity().mBnbToken.symbol.equals(TOKEN_BNB)) {
                 mMaxAvailable = getSActivity().mAccount.getBnbBalance().subtract(new BigDecimal(FEE_BNB_SEND));
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
+                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
                 mDenomTitle.setTextColor(getResources().getColor(R.color.colorBnb));
             } else {
                 mMaxAvailable = getSActivity().mAccount.getBnbTokenBalance(getSActivity().mBnbToken.symbol);
-                mAvailableAmount.setText(WDp.getDpAmount(getContext(), mMaxAvailable, 8, getSActivity().mBaseChain));
+                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, 8));
             }
 
         } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {

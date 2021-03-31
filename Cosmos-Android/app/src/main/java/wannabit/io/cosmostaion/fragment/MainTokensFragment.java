@@ -596,7 +596,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(token.original_symbol);
             holder.itemInnerSymbol.setText("(" + token.symbol + ")");
             holder.itemFullName.setText(token.name);
-            holder.itemBalance.setText(WDp.getDpAmount(getContext(), balance.getAllBnbBalance(), 6, getMainActivity().mBaseChain));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.getAllBnbBalance(), 0, 6));
             Picasso.get().cancelRequest(holder.itemImg);
 
             BigDecimal amount = BigDecimal.ZERO;

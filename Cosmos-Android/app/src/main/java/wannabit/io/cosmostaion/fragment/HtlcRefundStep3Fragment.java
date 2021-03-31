@@ -63,7 +63,7 @@ public class HtlcRefundStep3Fragment extends BaseFragment implements View.OnClic
             WDp.showCoinDp(getContext(), coin, mRefundAmountDenom, mRefundAmount, getSActivity().mBaseChain);
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
             mSwapId.setText(getSActivity().mSwapId);
             mRefundAddress.setText(getSActivity().mResKavaSwapInfo.result.sender);
             Coin coin = getSActivity().mResKavaSwapInfo.result.amount.get(0);

@@ -97,10 +97,10 @@ public class WalletKavaHolder extends BaseHolder {
         mBtnKavaDapp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
-                    Toast.makeText(mainActivity, "Preparing..\nPlease test DeFi with testnet before launch KAVA 5.1", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (mainActivity.mBaseChain.equals(KAVA_MAIN)) {
+//                    Toast.makeText(mainActivity, "Preparing..\nPlease test DeFi with testnet before launch KAVA 5.1", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 mainActivity.startActivity(new Intent(mainActivity, DAppsList5Activity.class));
             }
         });

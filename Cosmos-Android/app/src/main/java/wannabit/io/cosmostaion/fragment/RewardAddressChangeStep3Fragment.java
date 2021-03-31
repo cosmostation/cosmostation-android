@@ -59,7 +59,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     @Override
     public void onRefreshTab() {
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount(getContext(), feeAmount, 6, getSActivity().mBaseChain));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         mNewAddress.setText(getSActivity().mNewRewardAddress);
         mMemo.setText(getSActivity().mTxMemo);
