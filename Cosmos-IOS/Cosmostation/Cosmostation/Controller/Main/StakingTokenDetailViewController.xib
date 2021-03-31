@@ -118,7 +118,7 @@
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="Q0E-fh-0bd"/>
                     </constraints>
-                    <state key="normal" title=" Send" image="sendIc">
+                    <state key="normal" title="  Send" image="txtransferblue">
                         <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <userDefinedRuntimeAttributes>
@@ -132,6 +132,9 @@
                             <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onClickSend:" destination="-1" eventType="touchUpInside" id="vuC-qB-d6U"/>
+                    </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -159,7 +162,7 @@
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="key_off" width="20" height="20"/>
         <image name="qrcodeIc" width="24" height="24"/>
-        <image name="sendIc" width="24" height="24"/>
+        <image name="txtransferblue" width="20" height="20"/>
         <image name="walletDetailBtn" width="25" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
