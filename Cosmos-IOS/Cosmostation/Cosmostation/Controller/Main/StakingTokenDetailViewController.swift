@@ -24,11 +24,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.delegate = self
         self.tokenDetailTableView.dataSource = self
         self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCosmosCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderIrisCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCosmosCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIrisCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAkashCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAkashCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailPersistenceCell", bundle: nil), forCellReuseIdentifier: "TokenDetailPersistenceCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderKavaCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -110,12 +110,12 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             if (chainType == ChainType.COSMOS_MAIN) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCosmosCell") as? TokenDetailCell
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailCosmosCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
                 
             } else if (chainType == ChainType.IRIS_MAIN) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderIrisCell") as? TokenDetailCell
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailIrisCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
                 
@@ -131,7 +131,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
             }
             
             else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ) {
-                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderKavaCell") as? TokenDetailHeaderKavaCell
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailKavaCell") as? TokenDetailKavaCell
                 cell?.onBindTokens(account!)
                 return cell!
                 

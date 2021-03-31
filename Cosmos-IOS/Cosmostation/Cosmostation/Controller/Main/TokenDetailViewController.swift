@@ -38,10 +38,10 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.tokenDetailTableView.dataSource = self
         self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCosmosCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderIrisCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCosmosCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIrisCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderBnbCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderKavaCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderOkCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderOkCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCustomCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCustomCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
@@ -247,7 +247,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenDetailHeaderCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCosmosCell") as? TokenDetailHeaderCosmosCell
+        let cell:TokenDetailCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailCosmosCell") as? TokenDetailCosmosCell
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
         let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
@@ -262,7 +262,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailHeaderIrisCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderIrisCell") as? TokenDetailHeaderIrisCell
+        let cell:TokenDetailIrisCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailIrisCell") as? TokenDetailIrisCell
 //        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
 //        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
 //        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
@@ -300,7 +300,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailHeaderKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderKavaCell") as? TokenDetailHeaderKavaCell
+        let cell:TokenDetailKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailKavaCell") as? TokenDetailKavaCell
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
         let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
@@ -326,7 +326,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailHeaderKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderKavaCell") as? TokenDetailHeaderKavaCell
+        let cell:TokenDetailKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailKavaCell") as? TokenDetailKavaCell
         cell?.cardRoot.backgroundColor = WUtils.getChainBg(chainType!)
         let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
         let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
