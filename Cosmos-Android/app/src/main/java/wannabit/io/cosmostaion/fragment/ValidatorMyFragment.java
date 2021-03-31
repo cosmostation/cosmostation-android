@@ -212,7 +212,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 });
 
             } else if (getItemViewType(position) == TYPE_MY_VALIDATOR) {
-                final RewardMyValidatorHolder holder    = (RewardMyValidatorHolder)viewHolder;
+                final RewardMyValidatorHolder holder = (RewardMyValidatorHolder)viewHolder;
                 holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                 if (isGRPC(getMainActivity().mBaseChain)) {
                     final Staking.Validator validator = getBaseDao().mGRpcMyValidators.get(position);
@@ -262,7 +262,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         unBondSum = unBondSum.add(unbond.balance);
                     }
                     holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), unBondSum, 6, 6));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), getBaseDao().mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), TOKEN_DVPN));
+                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), getBaseDao().mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), WDp.mainDenom(getMainActivity().mBaseChain)));
                     holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
