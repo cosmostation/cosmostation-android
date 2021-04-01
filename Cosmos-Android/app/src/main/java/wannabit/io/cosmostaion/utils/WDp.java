@@ -2335,12 +2335,10 @@ public class WDp {
     }
 
     public static BigDecimal systemQuorum(BaseChain basechain) {
-        BigDecimal result = new BigDecimal("0.5");
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(COSMOS_TEST)) {
-            result = new BigDecimal("0.4");
-        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+        BigDecimal result = new BigDecimal("0.4");
+        if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");
-        } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN)) {
+        } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(IOV_MAIN) || basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN)) {
             result = new BigDecimal("0.334");
         }
         return result.movePointRight(2).setScale(2);

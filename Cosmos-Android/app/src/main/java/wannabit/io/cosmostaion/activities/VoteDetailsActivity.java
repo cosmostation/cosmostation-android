@@ -489,6 +489,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 if (mProposal != null && mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
+                    holder.itemQuorum.setText(WDp.getDpString(WDp.systemQuorum(mBaseChain) + "%", 3));
                     holder.itemTurnout.setText(WDp.getDpString(mTally.getTurnout(getBaseDao().mStakingPool).toPlainString() + "%", 3));
                 }
 

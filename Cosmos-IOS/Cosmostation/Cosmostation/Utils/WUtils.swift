@@ -3498,14 +3498,13 @@ class WUtils {
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.COSMOS_TEST) {
-            return NSDecimalNumber.init(string: "0.4")
-        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+        if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
-        } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN) {
+        } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
+                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
-        return NSDecimalNumber.init(string: "0.5")
+        return NSDecimalNumber.init(string: "0.4")
     }
     
     static func getHardSuppliedAmountByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?) -> NSDecimalNumber {

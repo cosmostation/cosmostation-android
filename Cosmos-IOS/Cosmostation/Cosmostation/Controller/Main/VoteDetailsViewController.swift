@@ -272,7 +272,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.onCheckMyVote_gRPC(mMyVote_gRPC)
 
         } else if (mTally != nil) {
-            cell?.onUpdateCards(mTally!, mVoters, mProposal?.proposal_status)
+            cell?.onUpdateCards(chainType!, mTally!, mVoters, mProposal?.proposal_status)
             cell?.onCheckMyVote(mMyVote)
         }
         return cell!

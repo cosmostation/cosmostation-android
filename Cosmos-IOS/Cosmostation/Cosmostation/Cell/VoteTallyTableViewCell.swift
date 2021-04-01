@@ -77,7 +77,7 @@ class VoteTallyTableViewCell: UITableViewCell {
         }
     }
     
-    func onUpdateCards(_ tally:Tally, _ voters:Array<Vote>, _ status: String?) {
+    func onUpdateCards(_ chain: ChainType, _ tally:Tally, _ voters:Array<Vote>, _ status: String?) {
         progressYes.progress = tally.getYes().floatValue / 100
         progressNo.progress = tally.getNo().floatValue / 100
         progressVeto.progress = tally.getVeto().floatValue / 100
@@ -103,8 +103,11 @@ class VoteTallyTableViewCell: UITableViewCell {
             cntVeto.text = WUtils.getVoterTypeCnt(voters, Vote.OPTION_VETO)
             cntAbstain.text = WUtils.getVoterTypeCnt(voters, Vote.OPTION_ABSTAIN)
             
+            quorumTitle.isHidden = false
+            quorumRate.isHidden = false
             turnoutRate.isHidden = false
             turnoutTitle.isHidden = false
+            quorumRate.attributedText = WUtils.displayPercent(WUtils.systemQuorum(chain).multiplying(byPowerOf10: 2), quorumRate.font)
             turnoutRate.attributedText = WUtils.displayPercent(tally.getTurnout(), turnoutRate.font)
             
         }
