@@ -1293,6 +1293,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "sentinel-group"
             parameters = [:]
             
+        } else if (mChainType == ChainType.PERSIS_MAIN) {
+            url = CGC_PRICE_TIC + "persistence"
+            parameters = [:]
+            
         } else {
             BaseData.instance.setPriceTicCgc(nil)
             return
