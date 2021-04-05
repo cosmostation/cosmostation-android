@@ -150,7 +150,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             titleChainImg.image = UIImage(named: "chainpersistence")
-            titleChainName.text = "(Perisistence Mainnet)"
+            titleChainName.text = "(Persistence Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             titleChainImg.image = UIImage(named: "chainsentinel")

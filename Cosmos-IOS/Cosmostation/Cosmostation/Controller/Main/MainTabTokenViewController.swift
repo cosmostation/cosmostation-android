@@ -148,7 +148,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalCard.backgroundColor = TRANS_BG_COLOR_OK
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             titleChainImg.image = UIImage(named: "chainpersistence")
-            titleChainName.text = "(Perisistence Mainnet)"
+            titleChainName.text = "(Persistence Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_PERSIS
