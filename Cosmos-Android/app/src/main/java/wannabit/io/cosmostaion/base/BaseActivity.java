@@ -1173,6 +1173,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                             getBaseDao().setLastSentinelTic(0d);
                             getBaseDao().setLastSentinelUpDown(0d);
 
+                        } else if (chain.equals(PERSIS_MAIN)) {
+                            getBaseDao().setLastPersistenceTic(0d);
+                            getBaseDao().setLastPersistencelUpDown(0d);
+
                         }
                     }
                 }

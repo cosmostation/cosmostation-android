@@ -79,12 +79,15 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_OKEX_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_OKEX_UP_DOWN_24;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_PERSISTENCE_TIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_PERSISTENCE_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SENTINEL_TIC;
@@ -641,6 +644,27 @@ public class BaseData {
                 getSharedPreferences().edit().putString(PRE_SENTINEL_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
         }
 
     }
@@ -679,6 +703,9 @@ public class BaseData {
         } else if (chain.equals(SENTINEL_MAIN)) {
             return BigDecimal.valueOf(getLastSentinelTic());
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return BigDecimal.valueOf(getLastPersistencelTic());
+
         }
         return BigDecimal.ZERO;
     }
@@ -716,6 +743,9 @@ public class BaseData {
 
         } else if (chain.equals(SENTINEL_MAIN)) {
             return BigDecimal.valueOf(getLastSentinelUpDown());
+
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return BigDecimal.valueOf(getLastPersistencelUpDown());
 
         }
         return BigDecimal.ZERO;
@@ -1004,7 +1034,6 @@ public class BaseData {
         }
     }
 
-
     public void setLastSentinelTic(Double price) {
         getSharedPreferences().edit().putString(PRE_SENTINEL_TIC, ""+price).commit();
     }
@@ -1032,6 +1061,31 @@ public class BaseData {
     }
 
 
+    public void setLastPersistenceTic(Double price) {
+        getSharedPreferences().edit().putString(PRE_PERSISTENCE_TIC, ""+price).commit();
+    }
+
+    public double getLastPersistencelTic() {
+        String priceS = getSharedPreferences().getString(PRE_PERSISTENCE_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        } catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastPersistencelUpDown(Double price) {
+        getSharedPreferences().edit().putString(PRE_PERSISTENCE_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastPersistencelUpDown() {
+        String priceS = getSharedPreferences().getString(PRE_PERSISTENCE_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
 
 
 

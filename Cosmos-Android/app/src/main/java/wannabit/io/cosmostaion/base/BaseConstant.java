@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -42,9 +42,11 @@ public class BaseConstant {
     public final static String PRE_SECRET_UP_DOWN_24        = "PRE_SECRET_UP_DOWN_24";
     public final static String PRE_OKEX_TIC                 = "PRE_OKEX_TIC";
     public final static String PRE_OKEX_UP_DOWN_24          = "PRE_OKEX_UP_DOWN_24";
+    public final static String PRE_OKEX_DOLLOR_TIC          = "PRE_OKEX_DOLLOR_TIC";
     public final static String PRE_SENTINEL_TIC             = "PRE_SENTINEL_TIC";
     public final static String PRE_SENTINEL_UP_DOWN_24      = "PRE_SENTINEL_UP_DOWN_24";
-    public final static String PRE_OKEX_DOLLOR_TIC          = "PRE_OKEX_DOLLOR_TIC";
+    public final static String PRE_PERSISTENCE_TIC          = "PRE_PERSISTENCE_TIC";
+    public final static String PRE_PERSISTENCE_UP_DOWN_24   = "PRE_PERSISTENCE_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -598,6 +600,7 @@ public class BaseConstant {
     public final static String CGC_SECRET = "secret";
     public final static String CGC_OKEX = "okexchain";
     public final static String CGC_SENTINEL = "sentinel-group";
+    public final static String CGC_PERSISTENCE = "persistence";
 
     public final static int CMC_ATOM = 3794;
     public final static int CMC_IRIS = 3874;

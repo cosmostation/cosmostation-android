@@ -108,6 +108,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
+import static wannabit.io.cosmostaion.base.BaseConstant.CGC_PERSISTENCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SENTINEL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -1490,6 +1491,9 @@ public class WUtil {
 
         } else if (chain.equals(SENTINEL_MAIN)) {
             return CGC_SENTINEL;
+
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return CGC_PERSISTENCE;
 
         }
         return BaseConstant.CGC_ATOM;
