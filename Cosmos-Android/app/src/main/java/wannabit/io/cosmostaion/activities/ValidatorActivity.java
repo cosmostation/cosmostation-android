@@ -1394,7 +1394,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
+                    Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
                     txDetail.putExtra("txHash", history.tx_hash);
                     txDetail.putExtra("isGen", false);
                     txDetail.putExtra("isSuccess", true);

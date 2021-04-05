@@ -303,11 +303,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                 viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-//                        txDetail.putExtra("txHash", history.tx_hash);
-//                        txDetail.putExtra("isGen", false);
-//                        txDetail.putExtra("isSuccess", true);
-//                        startActivity(txDetail);
                         Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
                         txDetail.putExtra("txHash", history.tx_hash);
                         txDetail.putExtra("isGen", false);
