@@ -237,6 +237,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(okexAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(bandAction)
+        showAlert.addAction(persisAction)
         showAlert.addAction(iovAction)
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
