@@ -134,7 +134,7 @@
 "send_guide_msg_secret" = "프라이버시를 보호하는 스마트 계약을 가능하게하는 최초의 지분 증명 네트워크. 비밀은 개인적이고 안전한 계산을 허용합니다.";
 "send_guide_title_akash" = "아카시 네트워크";
 "send_guide_msg_akash" = "DeFi 용 DeCloud와 세계 최초의 분산 형 클라우드 컴퓨팅 마켓입니다.";
-"send_guide_title_persis" = "퍼시스턴트";
+"send_guide_title_persis" = "퍼시스턴스";
 "send_guide_msg_persis" = "기관과 암호화폐 사용자들을 위해 NFT와 DeFi 어플리케이션 등 다양한 탈중앙화 금융 생태계를 제공하는 PoS 네트워크.";
 "send_guide_title_sentinel" = "센티넬";
 "send_guide_msg_sentinel" = "탈중앙화 오픈소스 VPN 서비스를 호스팅하여 유저들에게 프라이버시와 보안을 제공하는 Cosmos SDK 기반의 PoS 네트워크.";
