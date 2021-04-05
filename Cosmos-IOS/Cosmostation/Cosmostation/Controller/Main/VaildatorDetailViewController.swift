@@ -554,7 +554,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else if (indexPath.section == 1 && mApiCustomHistories.count > 0) {
             let history = mApiCustomHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+            let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
             txDetailVC.mIsGen = false
             txDetailVC.mTxHash = history.tx_hash
             txDetailVC.hidesBottomBarWhenPushed = true
