@@ -95,6 +95,7 @@ class StepRewardViewController: BaseViewController {
                     selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
                 }
             }
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
             
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {

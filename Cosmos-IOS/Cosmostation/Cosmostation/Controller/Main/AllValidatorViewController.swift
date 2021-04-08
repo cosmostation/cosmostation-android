@@ -176,7 +176,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             cell.validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
         
-        if mainTabVC.mMyValidators.first(where: {$0.operator_address == validator.operator_address}) != nil {
+        if BaseData.instance.mMyValidator.first(where: {$0.operator_address == validator.operator_address}) != nil {
             cell.cardView.backgroundColor = WUtils.getChainBg(chainType)
         } else {
             cell.cardView.backgroundColor = COLOR_BG_GRAY

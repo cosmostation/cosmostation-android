@@ -36,7 +36,7 @@ final class BaseData : NSObject{
     var mMintParam: MintParam.MintParamResult?
     
     
-    //kava-5
+    //kava-7
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
     var mKavaPrice = [String:KavaPriceFeedPrice]()
     var mCdpParam: CdpParam?

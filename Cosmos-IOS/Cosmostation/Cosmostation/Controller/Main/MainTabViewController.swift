@@ -20,10 +20,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mChainType: ChainType!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
-    var mAllValidator = Array<Validator>()
-    var mTopValidators = Array<Validator>()
-    var mOtherValidators = Array<Validator>()
-    var mMyValidators = Array<Validator>()
     var mPriceTic: NSDictionary?
     var mFetchCnt = 0
         
@@ -166,10 +162,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (self.mFetchCnt > 0)  {
             return false
         }
-        self.mAllValidator.removeAll()
-        self.mTopValidators.removeAll()
-        self.mOtherValidators.removeAll()
-        self.mMyValidators.removeAll()
+//        self.mAllValidator.removeAll()
+//        self.mTopValidators.removeAll()
+//        self.mOtherValidators.removeAll()
+//        self.mMyValidators.removeAll()
         
         BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()
@@ -503,35 +499,29 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
             
-            for validator in mAllValidator {
+            for validator in BaseData.instance.mAllValidator {
                 if (validator.status == validator.BONDED) {
-                    mTopValidators.append(validator)
+                    BaseData.instance.mTopValidator.append(validator)
                 } else {
-                    mOtherValidators.append(validator)
+                    BaseData.instance.mOtherValidator.append(validator)
                 }
                 if let validator_address = BaseData.instance.mOkStaking?.validator_address {
                     for myVal in validator_address {
                         if (validator.operator_address == myVal) {
-                            self.mMyValidators.append(validator)
+                            BaseData.instance.mMyValidator.append(validator)
                         }
                     }
                 }
             }
             
-            BaseData.instance.mBalances = mBalances
-            BaseData.instance.mAllValidator = mAllValidator
-            BaseData.instance.mTopValidator = mTopValidators
-            BaseData.instance.mOtherValidator = mOtherValidators
-            BaseData.instance.mMyValidator = mMyValidators
-            
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
             
-            mAllValidator.append(contentsOf: mTopValidators)
-            mAllValidator.append(contentsOf: mOtherValidators)
+            BaseData.instance.mAllValidator.append(contentsOf: BaseData.instance.mTopValidator)
+            BaseData.instance.mAllValidator.append(contentsOf: BaseData.instance.mOtherValidator)
             
-            for validator in mAllValidator {
+            for validator in BaseData.instance.mAllValidator {
                 var mine = false;
                 for delegate in BaseData.instance.mMyDelegations {
                     if (delegate.validator_address == validator.operator_address) {
@@ -546,15 +536,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
                 if (mine) {
-                    self.mMyValidators.append(validator)
+                    BaseData.instance.mMyValidator.append(validator)
                 }
             }
             
             BaseData.instance.mBalances = mBalances
-            BaseData.instance.mAllValidator = mAllValidator
-            BaseData.instance.mTopValidator = mTopValidators
-            BaseData.instance.mOtherValidator = mOtherValidators
-            BaseData.instance.mMyValidator = mMyValidators
             
             print("BaseData.instance.mMyDelegations ", BaseData.instance.mMyDelegations.count)
             print("BaseData.instance.mMyUnbondings ", BaseData.instance.mMyUnbondings.count)
@@ -567,11 +553,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
         print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
         
-        if (BaseData.instance.mNodeInfo == nil || mAllValidator.count <= 0) {
+        if (BaseData.instance.mNodeInfo == nil || BaseData.instance.mAllValidator.count <= 0) {
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
-        } else {
-            BaseData.instance.setAllValidators(mAllValidator)
-//            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
         }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         self.hideWaittingAlert()
@@ -655,7 +638,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mTopValidators.append(Validator(validator as! [String : Any]))
+//                    self.mTopValidators.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mTopValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -696,7 +680,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+//                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mOtherValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -737,7 +722,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+//                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mOtherValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -763,7 +749,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+//                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mAllValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):

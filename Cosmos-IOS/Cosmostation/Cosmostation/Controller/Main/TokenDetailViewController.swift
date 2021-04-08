@@ -17,7 +17,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tokenDetailTableView: UITableView!
     
     var balance:Balance?
-    var allValidator = Array<Validator>()
     var bnbToken:BnbToken?
     var bnbTic:NSMutableDictionary?
     var okDenom:String?

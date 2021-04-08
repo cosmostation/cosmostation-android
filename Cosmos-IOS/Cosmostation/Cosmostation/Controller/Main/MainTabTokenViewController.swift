@@ -526,7 +526,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     tokenDetailVC.hidesBottomBarWhenPushed = true
                     self.navigationItem.title = ""
                     tokenDetailVC.balance = balance
-                    tokenDetailVC.allValidator = mainTabVC.mAllValidator
                     self.navigationController?.pushViewController(tokenDetailVC, animated: true)
                 }
                 
