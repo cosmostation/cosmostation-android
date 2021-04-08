@@ -898,24 +898,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
-                    bondinginfos.count > 0  else {
-                        _ = BaseData.instance.deleteBonding(account: account)
+                    let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return;
                 }
-                let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, self.mChainType)
-                BaseData.instance.updateBondings(mTempBondings)
-                
-                //YONG REFACTORING
                 bondinginfos.forEach { bondinginfo in
                     BaseData.instance.mMyDelegations.append(BondingInfo.init(bondinginfo))
                 }
-                
-//                self.mFetchCnt = self.mFetchCnt + mTempBondings.count
-//                for bondig in mTempBondings {
-//                    self.onFetchEachReward(tempAddress, bondig.bonding_v_address)
-//                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchBondingInfo ", error) }
@@ -952,15 +941,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
-                    unbondinginfos.count > 0  else {
-                        _ = BaseData.instance.deleteUnbonding(account: account)
+                    let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
                 }
-                BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, self.mChainType))
-                
-                //YONG REFACTORING
                 unbondinginfos.forEach { unbondinginfo in
                     BaseData.instance.mMyUnbondings.append(UnbondingInfo.init(unbondinginfo))
                 }
@@ -1005,7 +989,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         self.onFetchFinished()
                         return;
                 }
-                //YONG REFACTORING
                 rawRewards.forEach { rawReward in
                     BaseData.instance.mMyReward.append(RewardInfo.init(rawReward))
                 }

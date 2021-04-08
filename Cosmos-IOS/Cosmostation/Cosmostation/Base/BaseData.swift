@@ -1053,7 +1053,7 @@ final class BaseData : NSObject{
     
     
     
-    
+    /*
     public func selectAllBondings() -> Array<Bonding> {
         var result = Array<Bonding>()
         do {
@@ -1068,7 +1068,7 @@ final class BaseData : NSObject{
         }
         return result;
     }
-    
+
     public func selectBondingById(accountId: Int64) -> Array<Bonding> {
         var result = Array<Bonding>()
         do {
@@ -1083,7 +1083,7 @@ final class BaseData : NSObject{
         }
         return result
     }
-    
+
     public func selectBondingWithValAdd(_ accountId: Int64, _ valAddr: String) -> Bonding? {
         do {
             for bondingBD in try database.prepare(DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == accountId && DB_BONDING_V_Address == valAddr)) {
@@ -1097,7 +1097,7 @@ final class BaseData : NSObject{
         }
         return nil
     }
-    
+
     public func deleteBonding(account: Account) -> Int {
         let query = DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == account.account_id)
         do {
@@ -1107,7 +1107,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func deleteBondingById(accountId: Int64) -> Int {
         let query = DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == accountId)
         do {
@@ -1117,7 +1117,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func insertBonding(bonding: Bonding) -> Int64 {
         let insertBonding = DB_BONDING.insert(DB_BONDING_ACCOUNT_ID <- bonding.bonding_account_id,
                                               DB_BONDING_V_Address <- bonding.bonding_v_address,
@@ -1130,7 +1130,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func updateBondings(_ newBondings: Array<Bonding>) {
         if (newBondings.count > 0) {
             _ = deleteBondingById(accountId: newBondings[0].bonding_account_id)
@@ -1139,10 +1139,10 @@ final class BaseData : NSObject{
             }
         }
     }
-    
-    
-    
-    
+
+
+
+
     public func selectAllUnbondings() -> Array<Unbonding> {
         var result = Array<Unbonding>()
         do {
@@ -1158,7 +1158,7 @@ final class BaseData : NSObject{
         }
         return result;
     }
-    
+
     public func selectUnbondingById(accountId: Int64) -> Array<Unbonding> {
         var result = Array<Unbonding>()
         do {
@@ -1174,7 +1174,7 @@ final class BaseData : NSObject{
         }
         return result
     }
-    
+
     public func selectUnBondingWithValAdd(_ accountId: Int64, _ valAddr: String) -> Array<Unbonding> {
         var result = Array<Unbonding>()
         do {
@@ -1188,10 +1188,10 @@ final class BaseData : NSObject{
         } catch {
             if(SHOW_LOG) { print(error) }
         }
-        
+
         return result
     }
-    
+
     public func deleteUnbonding(account: Account) -> Int {
         let query = DB_UNBONDING.filter(DB_UNBONDING_ACCOUNT_ID == account.account_id)
         do {
@@ -1201,7 +1201,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func deleteUnbondingById(accountId: Int64) -> Int {
         let query = DB_UNBONDING.filter(DB_UNBONDING_ACCOUNT_ID == accountId)
         do {
@@ -1211,7 +1211,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func insertUnbonding(unbonding: Unbonding) -> Int64 {
         let insertUnbonding = DB_UNBONDING.insert(DB_UNBONDING_ACCOUNT_ID <- unbonding.unbonding_account_id,
                                                   DB_UNBONDING_V_Address <- unbonding.unbonding_v_address,
@@ -1227,7 +1227,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func updateUnbondings(_ accountId: Int64, _ newUnbondings: Array<Unbonding>) {
         _ = deleteUnbondingById(accountId: accountId)
         if (newUnbondings.count > 0) {
@@ -1236,6 +1236,7 @@ final class BaseData : NSObject{
             }
         }
     }
+    */
     
 }
 

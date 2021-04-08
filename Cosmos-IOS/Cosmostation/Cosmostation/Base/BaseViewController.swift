@@ -123,8 +123,6 @@ class BaseViewController: UIViewController {
         DispatchQueue.global().async {
             BaseData.instance.deleteAccount(account: account)
             BaseData.instance.deleteBalance(account: account)
-            BaseData.instance.deleteBonding(account: account)
-            BaseData.instance.deleteUnbonding(account: account)
             
             if (KeychainWrapper.standard.hasValue(forKey: account.account_uuid.sha1())) {
                 KeychainWrapper.standard.removeObject(forKey: account.account_uuid.sha1())

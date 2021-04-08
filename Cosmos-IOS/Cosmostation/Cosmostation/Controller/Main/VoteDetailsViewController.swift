@@ -105,7 +105,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
-            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+            let bondingList = BaseData.instance.mMyDelegations
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -116,7 +116,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
-            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+            let bondingList = BaseData.instance.mMyDelegations
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -133,7 +133,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
-            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+            let bondingList = BaseData.instance.mMyDelegations
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -150,7 +150,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
-            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+            let bondingList = BaseData.instance.mMyDelegations
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
@@ -167,7 +167,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
                 return
             }
-            let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
+            let bondingList = BaseData.instance.mMyDelegations
             if (bondingList.count <= 0) {
                 self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
                 return
