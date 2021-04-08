@@ -20,14 +20,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mChainType: ChainType!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
-    var mAllValidator = Array<Validator>()
-    var mTopValidators = Array<Validator>()
-    var mOtherValidators = Array<Validator>()
-    var mMyValidators = Array<Validator>()
-    var mBondingList = Array<Bonding>()
-    var mUnbondingList = Array<Unbonding>()
-    var mRewardList = Array<Reward>()
-    var mAtomTic: NSDictionary?
     var mPriceTic: NSDictionary?
     var mFetchCnt = 0
         
@@ -170,11 +162,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (self.mFetchCnt > 0)  {
             return false
         }
-        self.mAllValidator.removeAll()
-        self.mTopValidators.removeAll()
-        self.mOtherValidators.removeAll()
-        self.mMyValidators.removeAll()
-        self.mRewardList.removeAll()
+//        self.mAllValidator.removeAll()
+//        self.mTopValidators.removeAll()
+//        self.mOtherValidators.removeAll()
+//        self.mMyValidators.removeAll()
         
         BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()
@@ -182,9 +173,15 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mOtherValidator.removeAll()
         BaseData.instance.mMyValidator.removeAll()
         BaseData.instance.mBalances.removeAll()
-        BaseData.instance.mBondingList.removeAll()
-        BaseData.instance.mUnbondingList.removeAll()
-        BaseData.instance.mRewardList.removeAll()
+        BaseData.instance.mMyDelegations.removeAll()
+        BaseData.instance.mMyUnbondings.removeAll()
+        BaseData.instance.mMyReward.removeAll()
+        
+        BaseData.instance.mOkStaking = nil
+        BaseData.instance.mOkUnbonding = nil
+        BaseData.instance.mOkTokenList = nil
+        
+        
         
         //gRPC
         BaseData.instance.mNodeInfo_gRPC = nil
@@ -254,7 +251,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokens()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 13
+            self.mFetchCnt = 14
             BaseData.instance.mCdpParam = nil
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
@@ -264,6 +261,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
             
             onFetchMintParam()
             onFetchInflation()
@@ -274,39 +272,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchIncentiveParam()
             
         } else if (mChainType == ChainType.BAND_MAIN) {
-            self.mFetchCnt = 12
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            onFetchBandOracleStatus()
-            
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            self.mFetchCnt = 11
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
-        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 13
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
@@ -316,6 +281,42 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
+            
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            onFetchBandOracleStatus()
+            
+        } else if (mChainType == ChainType.SECRET_MAIN) {
+            self.mFetchCnt = 12
+            onFetchNodeInfo()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
+            
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            
+        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
+            self.mFetchCnt = 14
+            onFetchNodeInfo()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
             
             onFetchMintParam()
             onFetchInflation()
@@ -327,9 +328,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
             self.mFetchCnt = 8
-            BaseData.instance.mOkStaking = nil
-            BaseData.instance.mOkUnbonding = nil
-            BaseData.instance.mOkTokenList = nil
             onFetchNodeInfo()
             onFetchAllValidatorsInfo();
             
@@ -343,7 +341,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -351,6 +349,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
             
             onFetchMintParam()
             onFetchInflation()
@@ -358,7 +357,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchStakingPool()
             
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            self.mFetchCnt = 11
+            self.mFetchCnt = 12
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -367,6 +366,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
             
             onFetchMintParam()
             onFetchInflation()
@@ -499,76 +499,62 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
             
-            for validator in mAllValidator {
+            for validator in BaseData.instance.mAllValidator {
                 if (validator.status == validator.BONDED) {
-                    mTopValidators.append(validator)
+                    BaseData.instance.mTopValidator.append(validator)
                 } else {
-                    mOtherValidators.append(validator)
+                    BaseData.instance.mOtherValidator.append(validator)
                 }
                 if let validator_address = BaseData.instance.mOkStaking?.validator_address {
                     for myVal in validator_address {
                         if (validator.operator_address == myVal) {
-                            self.mMyValidators.append(validator)
+                            BaseData.instance.mMyValidator.append(validator)
                         }
                     }
                 }
             }
             
-            BaseData.instance.mAllValidator = mAllValidator
-            BaseData.instance.mTopValidator = mTopValidators
-            BaseData.instance.mOtherValidator = mOtherValidators
-            BaseData.instance.mMyValidator = mMyValidators
-            
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            mBondingList = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-            mUnbondingList = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
             
-            mAllValidator.append(contentsOf: mTopValidators)
-            mAllValidator.append(contentsOf: mOtherValidators)
+            BaseData.instance.mAllValidator.append(contentsOf: BaseData.instance.mTopValidator)
+            BaseData.instance.mAllValidator.append(contentsOf: BaseData.instance.mOtherValidator)
             
-            for validator in mAllValidator {
+            for validator in BaseData.instance.mAllValidator {
                 var mine = false;
-                for bonding in mBondingList {
-                    if (bonding.bonding_v_address == validator.operator_address) {
+                for delegate in BaseData.instance.mMyDelegations {
+                    if (delegate.validator_address == validator.operator_address) {
                         mine = true;
                         break;
                     }
                 }
-                for unbonding in mUnbondingList {
-                    if (unbonding.unbonding_v_address == validator.operator_address) {
+                for unbonding in BaseData.instance.mMyUnbondings {
+                    if (unbonding.validator_address == validator.operator_address) {
                         mine = true;
                         break;
                     }
                 }
                 if (mine) {
-                    self.mMyValidators.append(validator)
+                    BaseData.instance.mMyValidator.append(validator)
                 }
             }
             
             BaseData.instance.mBalances = mBalances
-            BaseData.instance.mBondingList = mBondingList
-            BaseData.instance.mUnbondingList = mUnbondingList
-            BaseData.instance.mRewardList = mRewardList
             
-//            print("BaseData.instance.mBalances ", BaseData.instance.mBalances.count)
-//            print("BaseData.instance.mBondingList ", BaseData.instance.mBondingList.count)
-//            print("BaseData.instance.mUnbondingList ", BaseData.instance.mUnbondingList.count)
-//            print("BaseData.instance.mRewardList ", BaseData.instance.mRewardList.count)
+            print("BaseData.instance.mMyDelegations ", BaseData.instance.mMyDelegations.count)
+            print("BaseData.instance.mMyUnbondings ", BaseData.instance.mMyUnbondings.count)
+            print("BaseData.instance.mMyReward ", BaseData.instance.mMyReward.count)
             
         }
         
-//        print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
-//        print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
-//        print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
-//        print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
+        print("BaseData.instance.mAllValidator ", BaseData.instance.mAllValidator.count)
+        print("BaseData.instance.mTopValidator ", BaseData.instance.mTopValidator.count)
+        print("BaseData.instance.mOtherValidator ", BaseData.instance.mOtherValidator.count)
+        print("BaseData.instance.mMyValidator ", BaseData.instance.mMyValidator.count)
         
-        if (BaseData.instance.mNodeInfo == nil || mAllValidator.count <= 0) {
+        if (BaseData.instance.mNodeInfo == nil || BaseData.instance.mAllValidator.count <= 0) {
             self.onShowToast(NSLocalizedString("error_network", comment: ""))
-        } else {
-            BaseData.instance.setAllValidators(mAllValidator)
-//            print("nodeInfo ", BaseData.instance.mNodeInfo?.network)
         }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         self.hideWaittingAlert()
@@ -652,7 +638,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mTopValidators.append(Validator(validator as! [String : Any]))
+//                    self.mTopValidators.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mTopValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -693,7 +680,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+//                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mOtherValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -734,7 +722,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+//                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mOtherValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -760,7 +749,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+//                    self.mAllValidator.append(Validator(validator as! [String : Any]))
+                    BaseData.instance.mAllValidator.append(Validator(validator as! [String : Any]))
                 }
                 
             case .failure(let error):
@@ -889,24 +879,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL
         }
-        let tempAddress = account.account_address
         
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
-                    bondinginfos.count > 0  else {
-                        _ = BaseData.instance.deleteBonding(account: account)
+                    let bondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return;
                 }
-                let mTempBondings = WUtils.getBondingwithBondingInfo(account, bondinginfos, self.mChainType)
-                BaseData.instance.updateBondings(mTempBondings)
-                self.mFetchCnt = self.mFetchCnt + mTempBondings.count
-                for bondig in mTempBondings {
-                    self.onFetchEachReward(tempAddress, bondig.bonding_v_address)
+                bondinginfos.forEach { bondinginfo in
+                    BaseData.instance.mMyDelegations.append(BondingInfo.init(bondinginfo))
                 }
                 
             case .failure(let error):
@@ -944,13 +928,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary>,
-                    unbondinginfos.count > 0  else {
-                        _ = BaseData.instance.deleteUnbonding(account: account)
+                    let unbondinginfos = responseData.object(forKey: "result") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return
                 }
-                BaseData.instance.updateUnbondings(self.mAccount.account_id, WUtils.getUnbondingwithUnbondingInfo(account, unbondinginfos, self.mChainType))
+                unbondinginfos.forEach { unbondinginfo in
+                    BaseData.instance.mMyUnbondings.append(UnbondingInfo.init(unbondinginfo))
+                }
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchUnbondingInfo ", error) }
@@ -959,44 +943,42 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchEachReward(_ accountAddr: String, _ validatorAddr:String) {
+    
+    func onFetchAllReward(_ account: Account) {
         var url: String?
         if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = KAVA_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = BAND_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_FROM_VAL + accountAddr + SECRET_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = SECRET_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_FROM_VAL + accountAddr + IOV_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = IOV_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_FROM_VAL + accountAddr + CERTIK_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = CERTIK_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_FROM_VAL + accountAddr + SENTINEL_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = SENTINEL_REWARD_FROM_VAL + account.account_address + "/rewards"
         }
         else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = IOV_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
+            url = CERTIK_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
         }
-//        print("url ", url)
+        
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let rawRewards = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                    let rawRewards = responseData.value(forKeyPath: "result.rewards") as? Array<NSDictionary> else {
                         self.onFetchFinished()
                         return;
                 }
-                let reward = Reward.init()
-                reward.reward_v_address = validatorAddr
-                for rawReward in rawRewards {
-                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                rawRewards.forEach { rawReward in
+                    BaseData.instance.mMyReward.append(RewardInfo.init(rawReward))
                 }
-                self.mRewardList.append(reward)
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchEachReward ", error) }

@@ -37,4 +37,21 @@ class WalletCertikCell: UITableViewCell {
         actionVote?()
     }
     
+    func updateView(_ account: Account?, _ chainType: ChainType?) {
+        let available = BaseData.instance.availableAmount(CERTIK_MAIN_DENOM)
+        let delegated = BaseData.instance.deleagtedSumAmount()
+        let unbonding = BaseData.instance.unbondingSumAmount()
+        let reward = BaseData.instance.rewardAmount(CERTIK_MAIN_DENOM)
+        let total = available.adding(delegated).adding(unbonding).adding(reward)
+        
+        totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 6, 6)
+        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 6, 6)
+        delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
+        unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
+        rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
+        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
+        
+    }
+
 }

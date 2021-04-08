@@ -219,6 +219,7 @@
 		2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559924989ACD0099D18F /* DelegateWarnPopup.swift */; };
 		2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */; };
 		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
+		286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A47CE261D790500F29C5A /* RewardInfo.swift */; };
 		286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A9914253ECA0600306417 /* BandOracleStatus.swift */; };
 		286EB38626035FB00021C79D /* TxCdpLiquidateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */; };
 		286EB38726035FB00021C79D /* TxCdpLiquidateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286EB38526035FB00021C79D /* TxCdpLiquidateCell.xib */; };
@@ -736,8 +737,6 @@
 		E1A82DD1224220910097CAEE /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD0224220910097CAEE /* Account.swift */; };
 		E1A82DD3224222E00097CAEE /* Password.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD2224222E00097CAEE /* Password.swift */; };
 		E1A82DD5224223250097CAEE /* Balance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD4224223250097CAEE /* Balance.swift */; };
-		E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD6224223EC0097CAEE /* Bonding.swift */; };
-		E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DD8224224420097CAEE /* Unbonding.swift */; };
 		E1A82DDC224378D40097CAEE /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DDB224378D40097CAEE /* CardView.swift */; };
 		E1A82DDF2244782B0097CAEE /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DDE2244782B0097CAEE /* Validator.swift */; };
 		E1A82DE12244818C0097CAEE /* AccountInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1A82DE02244818C0097CAEE /* AccountInfo.swift */; };
@@ -763,7 +762,6 @@
 		E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1E251DD22A66FC30008F0DB /* OtherValidatorCell.swift */; };
 		E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1E251E322A671180008F0DB /* OtherValidatorCell.xib */; };
 		E1ECCA7A224CB4AA00BAB623 /* BottomLineTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */; };
-		E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1ED75AA2251B37C002CFE85 /* Reward.swift */; };
 		E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F1CF05239F53C5004EF8A2 /* IrisProposal.swift */; };
 		E1F1CF08239F5737004EF8A2 /* Vote.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F1CF07239F5737004EF8A2 /* Vote.swift */; };
 		E1F1CF0A239F7D7D004EF8A2 /* VoteSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1F1CF09239F7D7D004EF8A2 /* VoteSelectViewController.swift */; };
@@ -1005,6 +1003,7 @@
 		2868559924989ACD0099D18F /* DelegateWarnPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateWarnPopup.swift; sourceTree = "<group>"; };
 		2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateWarnPopup.xib; sourceTree = "<group>"; };
 		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
+		286A47CE261D790500F29C5A /* RewardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardInfo.swift; sourceTree = "<group>"; };
 		286A9914253ECA0600306417 /* BandOracleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOracleStatus.swift; sourceTree = "<group>"; };
 		286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCdpLiquidateCell.swift; sourceTree = "<group>"; };
 		286EB38526035FB00021C79D /* TxCdpLiquidateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCdpLiquidateCell.xib; sourceTree = "<group>"; };
@@ -1562,8 +1561,6 @@
 		E1A82DD0224220910097CAEE /* Account.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
 		E1A82DD2224222E00097CAEE /* Password.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Password.swift; sourceTree = "<group>"; };
 		E1A82DD4224223250097CAEE /* Balance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Balance.swift; sourceTree = "<group>"; };
-		E1A82DD6224223EC0097CAEE /* Bonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bonding.swift; sourceTree = "<group>"; };
-		E1A82DD8224224420097CAEE /* Unbonding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unbonding.swift; sourceTree = "<group>"; };
 		E1A82DDB224378D40097CAEE /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		E1A82DDE2244782B0097CAEE /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		E1A82DE02244818C0097CAEE /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
@@ -1591,7 +1588,6 @@
 		E1E251E222A671180008F0DB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/OtherValidatorCell.xib; sourceTree = "<group>"; };
 		E1E251E522A671260008F0DB /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/OtherValidatorCell.strings; sourceTree = "<group>"; };
 		E1ECCA79224CB4AA00BAB623 /* BottomLineTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomLineTextField.swift; sourceTree = "<group>"; };
-		E1ED75AA2251B37C002CFE85 /* Reward.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reward.swift; sourceTree = "<group>"; };
 		E1F1CF05239F53C5004EF8A2 /* IrisProposal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IrisProposal.swift; sourceTree = "<group>"; };
 		E1F1CF07239F5737004EF8A2 /* Vote.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vote.swift; sourceTree = "<group>"; };
 		E1F1CF09239F7D7D004EF8A2 /* VoteSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoteSelectViewController.swift; sourceTree = "<group>"; };
@@ -2479,9 +2475,6 @@
 				E1A82DD0224220910097CAEE /* Account.swift */,
 				E1A82DD2224222E00097CAEE /* Password.swift */,
 				E1A82DD4224223250097CAEE /* Balance.swift */,
-				E1A82DD6224223EC0097CAEE /* Bonding.swift */,
-				E1A82DD8224224420097CAEE /* Unbonding.swift */,
-				E1ED75AA2251B37C002CFE85 /* Reward.swift */,
 				E1F7F633234311F8000E597F /* BnbToken.swift */,
 				283D2EA324F52FE700247424 /* OkToken.swift */,
 				285F8C8A25CFB21000317B30 /* OkTicker.swift */,
@@ -2530,6 +2523,7 @@
 				E1A82DE4224482800097CAEE /* Coin.swift */,
 				E1A82DE92244A20B0097CAEE /* BondingInfo.swift */,
 				E1A82DEB2244A87D0097CAEE /* UnbondigInfo.swift */,
+				286A47CE261D790500F29C5A /* RewardInfo.swift */,
 				E151B63E22484A710026B8C0 /* InOutPut.swift */,
 				E151B64022484AE60026B8C0 /* Signature.swift */,
 				E151B64222484F490026B8C0 /* Fee.swift */,
@@ -3004,6 +2998,7 @@
 				287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */,
 				286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */,
 				287AC5B925FDF7250070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift in Sources */,
+				286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,
 				287AC65525FDF7260070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift in Sources */,
 				287AC64325FDF7260070837E /* ibc_core_client_v1_tx.grpc.swift in Sources */,
@@ -3153,7 +3148,6 @@
 				287AC60B25FDF7260070837E /* cosmos_base_store_v1beta1_snapshot.pb.swift in Sources */,
 				28156E922536982A006FF06C /* HarvestListHeader.swift in Sources */,
 				28617A7B243198D0006D66EA /* StepCreateCpdAmountViewController.swift in Sources */,
-				E1A82DD9224224420097CAEE /* Unbonding.swift in Sources */,
 				28641F302601AD59000AAEB8 /* TxCell.swift in Sources */,
 				287AC5AF25FDF7250070837E /* akash_audit_v1beta1_audit.pb.swift in Sources */,
 				2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */,
@@ -3235,7 +3229,6 @@
 				287AC58325FDF7250070837E /* nft_query.grpc.swift in Sources */,
 				287AC5B725FDF7250070837E /* oracle_query.grpc.swift in Sources */,
 				28B4303924F7996C00BD7BB2 /* TxOkStakeCell.swift in Sources */,
-				E1A82DD7224223EC0097CAEE /* Bonding.swift in Sources */,
 				28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */,
 				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
 				28D7BE0A25F0BCF0006EECD7 /* DebtParam.swift in Sources */,
@@ -3400,7 +3393,6 @@
 				283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */,
 				287AC61825FDF7260070837E /* cosmos_params_v1beta1_params.pb.swift in Sources */,
 				287AC59D25FDF7250070837E /* akash_base_v1beta1_attribute.pb.swift in Sources */,
-				E1ED75AB2251B37C002CFE85 /* Reward.swift in Sources */,
 				E1827E212256292900BC0350 /* ValidatorDetailMyActionCell.swift in Sources */,
 				E16D9B172248BD990019B7BB /* CreateViewController.swift in Sources */,
 				28474ED0241E06AF00AF5A81 /* TxCdpWithdrawCell.swift in Sources */,

@@ -35,4 +35,16 @@ class WalletBnbCell: UITableViewCell {
         actionBep3?()
     }
     
+    func updateView(_ account: Account?, _ chainType: ChainType?) {
+        let available = BaseData.instance.availableAmount(BNB_MAIN_DENOM)
+        let locked = BaseData.instance.lockedAmount(BNB_MAIN_DENOM)
+        let total = available.adding(locked)
+        
+        totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 6)
+        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 6)
+        lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, lockedAmount.font, 0, 6)
+        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, totalValue.font)
+        BaseData.instance.updateLastTotal(account, total.stringValue)
+    }
+    
 }

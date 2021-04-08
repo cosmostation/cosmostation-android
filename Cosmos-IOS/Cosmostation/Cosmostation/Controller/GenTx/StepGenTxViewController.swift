@@ -22,10 +22,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mAccount: Account?
     var chainType: ChainType?
     var mBalances = Array<Balance>()
-    var mBondingList = Array<Bonding>()
-    var mUnbondingList = Array<Unbonding>()
     
-    var mRewardList = Array<Reward>()
+    var mRewards = Array<Coin>()
     var mRewardAddress: String?
     
     var mTargetValidator: Validator?
@@ -390,8 +388,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         super.viewDidLoad()
         mAccount        = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         mBalances       = mAccount!.account_balances
-        mBondingList    = BaseData.instance.selectBondingById(accountId: mAccount!.account_id)
-        mUnbondingList  = BaseData.instance.selectUnbondingById(accountId: mAccount!.account_id)
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {

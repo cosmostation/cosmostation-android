@@ -20,9 +20,9 @@ final class BaseData : NSObject{
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()
-    var mBondingList = Array<Bonding>()
-    var mUnbondingList = Array<Unbonding>()
-    var mRewardList = Array<Reward>()
+    var mMyDelegations = Array<BondingInfo>()
+    var mMyUnbondings = Array<UnbondingInfo>()
+    var mMyReward = Array<RewardInfo>()
     var mAllValidator = Array<Validator>()
     var mTopValidator = Array<Validator>()
     var mOtherValidator = Array<Validator>()
@@ -36,7 +36,7 @@ final class BaseData : NSObject{
     var mMintParam: MintParam.MintParamResult?
     
     
-    //kava-5
+    //kava-7
     var mKavaAccountResult = KavaAccountInfo.KavaAccountResult.init()
     var mKavaPrice = [String:KavaPriceFeedPrice]()
     var mCdpParam: CdpParam?
@@ -62,10 +62,103 @@ final class BaseData : NSObject{
     
     var mBandOracleStatus: BandOracleStatus?
     
-    var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?
+    
+    func availableAmount(_ symbol:String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in mBalances {
+            if (balance.balance_denom == symbol) {
+                amount = WUtils.plainStringToDecimal(balance.balance_amount)
+            }
+        }
+        return amount;
+    }
+    
+    func lockedAmount(_ symbol:String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in mBalances {
+            if (balance.balance_denom == symbol) {
+                amount = WUtils.plainStringToDecimal(balance.balance_locked)
+            }
+        }
+        return amount;
+    }
+    
+    func deleagtedSumAmount() -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for bonding in mMyDelegations {
+            amount = amount.adding(NSDecimalNumber.init(string: bonding.balance.amount))
+        }
+        return amount
+    }
+    
+    func deleagtedAmountByValidator(_ opAddress: String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for bonding in mMyDelegations {
+            if (bonding.validator_address == opAddress) {
+                amount = amount.adding(NSDecimalNumber.init(string: bonding.balance.amount))
+            }
+        }
+        return amount
+    }
+    
+    func unbondingSumAmount() -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        mMyUnbondings.forEach { unbondingInfo in
+            unbondingInfo.entries.forEach { entry in
+                amount = amount.adding(NSDecimalNumber.init(string: entry.balance))
+            }
+        }
+        return amount
+    }
+    
+    func unbondingAmountByValidator(_ opAddress: String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for unbonding in mMyUnbondings {
+            if (unbonding.validator_address == opAddress) {
+                unbonding.entries.forEach { entry in
+                    amount = amount.adding(NSDecimalNumber.init(string: entry.balance))
+                }
+            }
+        }
+        return amount
+    }
+    
+    func rewardAmount(_ symbol: String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for reward in mMyReward {
+            for coin in reward.reward {
+                if (coin.denom == symbol) {
+                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: WUtils.handler0Down))
+                }
+            }
+        }
+        return amount
+    }
+    
+    func rewardAmountByValidator(_ symbol: String, _ opAddress: String) -> NSDecimalNumber {
+        if let reward = BaseData.instance.mMyReward.filter({ $0.validator_address == opAddress}).first {
+            for coin in reward.reward {
+                if (coin.denom == symbol) {
+                    return NSDecimalNumber.init(string:coin.amount).rounding(accordingToBehavior: WUtils.handler0Down)
+                }
+            }
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    func okDepositAmount() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(mOkStaking?.tokens)
+    }
+    
+    func okWithdrawAmount() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(mOkUnbonding?.quantity)
+    }
+    
+    
     
     
     //For ProtoBuf and gRPC
+    var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?
     var mNodeInfo_gRPC: Tendermint_P2p_DefaultNodeInfo?
     var mAccount_gRPC: Google_Protobuf2_Any?
     var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
@@ -960,7 +1053,7 @@ final class BaseData : NSObject{
     
     
     
-    
+    /*
     public func selectAllBondings() -> Array<Bonding> {
         var result = Array<Bonding>()
         do {
@@ -975,7 +1068,7 @@ final class BaseData : NSObject{
         }
         return result;
     }
-    
+
     public func selectBondingById(accountId: Int64) -> Array<Bonding> {
         var result = Array<Bonding>()
         do {
@@ -990,7 +1083,7 @@ final class BaseData : NSObject{
         }
         return result
     }
-    
+
     public func selectBondingWithValAdd(_ accountId: Int64, _ valAddr: String) -> Bonding? {
         do {
             for bondingBD in try database.prepare(DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == accountId && DB_BONDING_V_Address == valAddr)) {
@@ -1004,7 +1097,7 @@ final class BaseData : NSObject{
         }
         return nil
     }
-    
+
     public func deleteBonding(account: Account) -> Int {
         let query = DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == account.account_id)
         do {
@@ -1014,7 +1107,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func deleteBondingById(accountId: Int64) -> Int {
         let query = DB_BONDING.filter(DB_BONDING_ACCOUNT_ID == accountId)
         do {
@@ -1024,7 +1117,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func insertBonding(bonding: Bonding) -> Int64 {
         let insertBonding = DB_BONDING.insert(DB_BONDING_ACCOUNT_ID <- bonding.bonding_account_id,
                                               DB_BONDING_V_Address <- bonding.bonding_v_address,
@@ -1037,7 +1130,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func updateBondings(_ newBondings: Array<Bonding>) {
         if (newBondings.count > 0) {
             _ = deleteBondingById(accountId: newBondings[0].bonding_account_id)
@@ -1046,10 +1139,10 @@ final class BaseData : NSObject{
             }
         }
     }
-    
-    
-    
-    
+
+
+
+
     public func selectAllUnbondings() -> Array<Unbonding> {
         var result = Array<Unbonding>()
         do {
@@ -1065,7 +1158,7 @@ final class BaseData : NSObject{
         }
         return result;
     }
-    
+
     public func selectUnbondingById(accountId: Int64) -> Array<Unbonding> {
         var result = Array<Unbonding>()
         do {
@@ -1081,7 +1174,7 @@ final class BaseData : NSObject{
         }
         return result
     }
-    
+
     public func selectUnBondingWithValAdd(_ accountId: Int64, _ valAddr: String) -> Array<Unbonding> {
         var result = Array<Unbonding>()
         do {
@@ -1095,10 +1188,10 @@ final class BaseData : NSObject{
         } catch {
             if(SHOW_LOG) { print(error) }
         }
-        
+
         return result
     }
-    
+
     public func deleteUnbonding(account: Account) -> Int {
         let query = DB_UNBONDING.filter(DB_UNBONDING_ACCOUNT_ID == account.account_id)
         do {
@@ -1108,7 +1201,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func deleteUnbondingById(accountId: Int64) -> Int {
         let query = DB_UNBONDING.filter(DB_UNBONDING_ACCOUNT_ID == accountId)
         do {
@@ -1118,7 +1211,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func insertUnbonding(unbonding: Unbonding) -> Int64 {
         let insertUnbonding = DB_UNBONDING.insert(DB_UNBONDING_ACCOUNT_ID <- unbonding.unbonding_account_id,
                                                   DB_UNBONDING_V_Address <- unbonding.unbonding_v_address,
@@ -1134,7 +1227,7 @@ final class BaseData : NSObject{
             return -1
         }
     }
-    
+
     public func updateUnbondings(_ accountId: Int64, _ newUnbondings: Array<Unbonding>) {
         _ = deleteUnbondingById(accountId: accountId)
         if (newUnbondings.count > 0) {
@@ -1143,6 +1236,7 @@ final class BaseData : NSObject{
             }
         }
     }
+    */
     
 }
 

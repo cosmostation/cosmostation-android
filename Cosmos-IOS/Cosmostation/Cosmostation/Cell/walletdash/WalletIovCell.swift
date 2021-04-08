@@ -40,4 +40,39 @@ class WalletIovCell: UITableViewCell {
     @IBAction func onClickNameService(_ sender: UIButton) {
         actionNameService?()
     }
+    
+    func updateView(_ account: Account?, _ chainType: ChainType?) {
+        if (chainType == ChainType.IOV_MAIN) {
+            let available = BaseData.instance.availableAmount(IOV_MAIN_DENOM)
+            let delegated = BaseData.instance.deleagtedSumAmount()
+            let unbonding = BaseData.instance.unbondingSumAmount()
+            let reward = BaseData.instance.rewardAmount(IOV_MAIN_DENOM)
+            let total = available.adding(delegated).adding(unbonding).adding(reward)
+            
+            totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 6, 6)
+            availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 6, 6)
+            delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
+            unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
+            rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
+            
+        } else if (chainType == ChainType.IOV_TEST) {
+            let available = BaseData.instance.availableAmount(IOV_TEST_DENOM)
+            let delegated = BaseData.instance.deleagtedSumAmount()
+            let unbonding = BaseData.instance.unbondingSumAmount()
+            let reward = BaseData.instance.rewardAmount(IOV_TEST_DENOM)
+            let total = available.adding(delegated).adding(unbonding).adding(reward)
+            
+            totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 6, 6)
+            availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 6, 6)
+            delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
+            unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
+            rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 6, totalValue.font)
+            BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
+            
+        }
+        
+    }
 }

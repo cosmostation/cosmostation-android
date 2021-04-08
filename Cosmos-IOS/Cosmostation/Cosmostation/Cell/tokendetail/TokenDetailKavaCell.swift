@@ -47,28 +47,24 @@ class TokenDetailKavaCell: TokenDetailCell {
     }
     
     func onBindTokens(_ account: Account) {
-        let balances = BaseData.instance.mBalances
-        let bondingList = BaseData.instance.mBondingList
-        let unbondingList = BaseData.instance.mUnbondingList
-        let rewardList = BaseData.instance.mRewardList
-        let allvalidatorList = BaseData.instance.mAllValidator
-
-        let total = WUtils.getAllKava(balances, bondingList, unbondingList, rewardList, allvalidatorList)
-        let available = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-        let delegated = WUtils.deleagtedAmount(bondingList, allvalidatorList)
-        let unbonding = WUtils.unbondingAmount(unbondingList)
-        let reward = WUtils.rewardAmount(rewardList, KAVA_MAIN_DENOM)
-        let vesting = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
+        let available = BaseData.instance.availableAmount(KAVA_MAIN_DENOM)
+        let vesting = BaseData.instance.lockedAmount(KAVA_MAIN_DENOM)
+        let delegated = BaseData.instance.deleagtedSumAmount()
+        let unbonding = BaseData.instance.unbondingSumAmount()
+        let reward = BaseData.instance.rewardAmount(KAVA_MAIN_DENOM)
+        let total = available.adding(vesting).adding(delegated).adding(unbonding).adding(reward)
         
         totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 6, 6)
-        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 6, totalValue.font)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 6, 6)
         delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
-        vestingAmount.attributedText = WUtils.displayAmount2(vesting.stringValue, vestingAmount.font, 6, 6)
-        if (vesting != NSDecimalNumber.zero) {
+        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        
+        if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false
+            vestingAmount.attributedText = WUtils.displayAmount2(vesting.stringValue, vestingAmount.font!, 6, 6)
         }
+        BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
     }
 }

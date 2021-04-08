@@ -43,6 +43,18 @@ public class UnbondingInfo {
         self.balance = dictionary["balance"] as? String ?? ""
     }
     
+    init(_ dictionary: NSDictionary?) {
+        self.delegator_address = dictionary?["delegator_address"] as? String ?? ""
+        self.validator_address = dictionary?["validator_address"] as? String ?? ""
+        
+        self.entries.removeAll()
+        if let rawEntries = dictionary?["entries"] as? Array<NSDictionary> {
+            for rawEntry in rawEntries {
+                self.entries.append(Entry.init(rawEntry))
+            }
+        }
+    }
+    
     
     public class Entry {
         var creation_height:String = "";
@@ -58,5 +70,20 @@ public class UnbondingInfo {
             self.initial_balance = dictionary["initial_balance"] as? String ?? ""
             self.balance = dictionary["balance"] as? String ?? ""
         }
+        
+        init(_ dictionary: NSDictionary?) {
+            self.creation_height = dictionary?["creation_height"] as? String ?? ""
+            self.completion_time = dictionary?["completion_time"] as? String ?? ""
+            self.initial_balance = dictionary?["initial_balance"] as? String ?? ""
+            self.balance = dictionary?["balance"] as? String ?? ""
+        }
+    }
+    
+    func getUnbondingSum() -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        entries.forEach { entry in
+            amount = amount.adding(NSDecimalNumber.init(string: entry.balance))
+        }
+        return amount
     }
 }

@@ -17,8 +17,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var tokenDetailTableView: UITableView!
     
     var balance:Balance?
-    var allValidator = Array<Validator>()
-    var allRewards = Array<Reward>()
     var bnbToken:BnbToken?
     var bnbTic:NSMutableDictionary?
     var okDenom:String?
@@ -147,21 +145,9 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
             if (indexPath.row == 0) {
-                if (chainType == ChainType.COSMOS_MAIN && balance?.balance_denom == COSMOS_MAIN_DENOM) {
-                    return onSetCosmosItems(tableView, indexPath);
-                    
-                } else if (chainType == ChainType.IRIS_MAIN && balance?.balance_denom == IRIS_MAIN_DENOM) {
-                    return onSetIrisItem(tableView, indexPath);
-                    
-                } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) &&
+                if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) &&
                     balance?.balance_denom == BNB_MAIN_DENOM) {
                     return onSetBnbItem(tableView, indexPath);
-                    
-                } else if (chainType == ChainType.KAVA_MAIN && balance?.balance_denom == KAVA_MAIN_DENOM) {
-                    return onSetKavaItem(tableView, indexPath);
-                    
-                } else if (chainType == ChainType.KAVA_TEST && balance?.balance_denom == KAVA_MAIN_DENOM) {
-                    return onSetKavaTestItem(tableView, indexPath);
                     
                 } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && self.okDenom == OKEX_MAIN_DENOM) {
                     return onSetOkItem(tableView, indexPath);
@@ -199,16 +185,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath.section == 1) {
-            if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN) {
-                let history = mApiHistories[indexPath.row]
-                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history.tx_hash
-                txDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txDetailVC, animated: true)
-                
-            } else if (chainType == ChainType.BINANCE_MAIN) {
+            if (chainType == ChainType.BINANCE_MAIN) {
                 let bnbHistory = mBnbHistories[indexPath.row]
                 if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
                     let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
@@ -226,15 +203,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                     present(safariViewController, animated: true, completion: nil)
                 }
                            
-            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                let history = mApiHistories[indexPath.row]
-                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                txDetailVC.mIsGen = false
-                txDetailVC.mTxHash = history.tx_hash
-                txDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(txDetailVC, animated: true)
-                
             } else if (chainType == ChainType.BINANCE_TEST) {
                 let bnbHistory = mBnbHistories[indexPath.row]
                 guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
@@ -244,39 +212,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
                 
             }
         }
-    }
-    
-    func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenDetailCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailCosmosCell") as? TokenDetailCosmosCell
-        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
-        
-        cell?.totalAmount.attributedText = WUtils.dpAllAtom(balances, bondingList, unbondingList, allRewards, allValidator, cell!.totalAmount.font, 6, chainType!)
-        cell?.totalValue.attributedText = WUtils.dpAllAtomValue(balances, bondingList, unbondingList, allRewards, allValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
-        cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.availableAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
-        cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 6, chainType!)
-        cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 6, chainType!)
-        cell?.rewardAmount.attributedText = WUtils.dpRewards(allRewards, cell!.rewardAmount.font, 6, COSMOS_MAIN_DENOM, chainType!)
-        return cell!
-    }
-    
-    func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailIrisCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailIrisCell") as? TokenDetailIrisCell
-//        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-//        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-//        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
-//        
-//        cell?.totalAmount.attributedText = WUtils.dpAllIris(balances, bondingList, unbondingList, irisRewards, allValidator, cell!.totalAmount.font, 18, chainType!)
-//        cell?.totalValue.attributedText = WUtils.dpAllIrisValue(balances, bondingList, unbondingList, irisRewards, allValidator, BaseData.instance.getLastPrice(), cell!.totalAmount.font)
-//        cell?.availableAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.availableAmount.font, 18, IRIS_MAIN_DENOM, chainType!)
-//        cell?.delegatedAmount.attributedText = WUtils.dpDeleagted(bondingList, allValidator, cell!.delegatedAmount.font, 18, chainType!)
-//        cell?.unbondingAmount.attributedText = WUtils.dpUnbondings(unbondingList, cell!.unbondingAmount.font, 18, chainType!)
-//        cell?.rewardAmount.attributedText = WUtils.dpIrisRewards(irisRewards, cell!.rewardAmount.font, 18, chainType!)
-//        cell?.actionSend  = {
-//            self.onSendToken()
-//        }
-        return cell!
     }
     
     func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
@@ -295,59 +230,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         cell?.BtnSendBep3.isHidden = false;
         cell?.actionSendBep3 = {
             self.onClickBep3Send(self.balance?.balance_denom)
-        }
-        return cell!
-    }
-    
-    func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailKavaCell") as? TokenDetailKavaCell
-        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
-        
-        let totalAmount = WUtils.getAllKava(balances, bondingList, unbondingList, allRewards, allValidator)
-        let availableAmount = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-        let delegatedAmount = WUtils.deleagtedAmount(bondingList, allValidator)
-        let unbondingAmount = WUtils.unbondingAmount(unbondingList)
-        let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM)
-        let vestingAmount = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
-        
-        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-        cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-        cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-        cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-        cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-        cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-        if (vestingAmount != NSDecimalNumber.zero) {
-            cell?.vestingLayer.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailKavaCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailKavaCell") as? TokenDetailKavaCell
-        cell?.cardRoot.backgroundColor = WUtils.getChainBg(chainType!)
-        let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-        let bondingList = BaseData.instance.selectBondingById(accountId: account!.account_id)
-        let unbondingList = BaseData.instance.selectUnbondingById(accountId: account!.account_id)
-        
-        let totalAmount = WUtils.getAllKava(balances, bondingList, unbondingList, allRewards, allValidator)
-        let availableAmount = WUtils.availableAmount(balances, KAVA_MAIN_DENOM)
-        let delegatedAmount = WUtils.deleagtedAmount(bondingList, allValidator)
-        let unbondingAmount = WUtils.unbondingAmount(unbondingList)
-        let rewardAmount = WUtils.rewardAmount(allRewards, KAVA_MAIN_DENOM)
-        let vestingAmount = WUtils.lockedAmount(balances, KAVA_MAIN_DENOM)
-        
-        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-        cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-        cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-        cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-        cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-        cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-        if (vestingAmount != NSDecimalNumber.zero) {
-            cell?.vestingLayer.isHidden = false
         }
         return cell!
     }

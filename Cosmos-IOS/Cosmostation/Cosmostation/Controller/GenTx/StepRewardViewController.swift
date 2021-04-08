@@ -53,7 +53,7 @@ class StepRewardViewController: BaseViewController {
             self.onFetchRewardAddress_gRPC(pageHolderVC.mAccount!.account_address)
             
         } else {
-            pageHolderVC.mRewardList.removeAll()
+            pageHolderVC.mRewards.removeAll()
             mFetchCnt = 1 + pageHolderVC.mRewardTargetValidators.count;
             for val in pageHolderVC.mRewardTargetValidators {
                 self.onFetchEachReward(pageHolderVC.mAccount!.account_address, val.operator_address)
@@ -89,7 +89,14 @@ class StepRewardViewController: BaseViewController {
             rewardFromLabel.text = monikers
             
         } else {
-            rewardAmountLabel.attributedText = WUtils.dpRewards(pageHolderVC.mRewardList, rewardAmountLabel.font, 6, WUtils.getMainDenom(pageHolderVC.chainType!), pageHolderVC.chainType!)
+            var selectedRewardSum = NSDecimalNumber.zero
+            pageHolderVC.mRewards.forEach { coin in
+                if (coin.denom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                    selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
+                }
+            }
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
+            
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {
                 if (monikers.count > 0) {
@@ -166,12 +173,9 @@ class StepRewardViewController: BaseViewController {
                     self.onFetchFinished()
                     return;
                 }
-                let reward = Reward.init()
-                reward.reward_v_address = validatorAddr
                 for rawReward in rawRewards {
-                    reward.reward_amount.append(Coin(rawReward as! [String : Any]))
+                    self.pageHolderVC.mRewards.append(Coin(rawReward))
                 }
-                self.pageHolderVC.mRewardList.append(reward)
                 
             case .failure(let error):
                 if(SHOW_LOG) { print("onFetchEachReward ", error) }
