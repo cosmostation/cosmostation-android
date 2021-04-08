@@ -89,8 +89,13 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
 
         } else {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, WUtils.getMainDenom(pageHolderVC.chainType))
-            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(rewardSum).rawValue > 0 ) {
+            var selectedRewardSum = NSDecimalNumber.zero
+            pageHolderVC.mRewards.forEach { coin in
+                if (coin.denom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                    selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
+                }
+            }
+            if (NSDecimalNumber.init(string: pageHolderVC.mFee!.amount[0].amount).compare(selectedRewardSum).rawValue > 0 ) {
                 return true
             }
         }
@@ -145,9 +150,14 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else {
-            let rewardSum = WUtils.getAllRewardByDenom(pageHolderVC.mRewardList, WUtils.getMainDenom(pageHolderVC.chainType))
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount(rewardSum.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            var selectedRewardSum = NSDecimalNumber.zero
+            pageHolderVC.mRewards.forEach { coin in
+                if (coin.denom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                    selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
+                }
+            }
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
+            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, 6)
             
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
@@ -156,8 +166,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 }
             }
             
-            let expectedAmount = userBalance.adding(rewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, pageHolderVC.chainType!)
+            let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
+            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
             
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {

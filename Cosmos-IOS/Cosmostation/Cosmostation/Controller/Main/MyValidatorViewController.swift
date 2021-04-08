@@ -247,13 +247,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.one).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.one).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -269,13 +269,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.one).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.one).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -291,13 +291,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "37500")).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "37500")).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -325,13 +325,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -359,13 +359,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "150000")).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -393,13 +393,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "7500")).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(NSDecimalNumber.init(string: "7500")).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -428,13 +428,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             var myBondedValidator = Array<Validator>()
             BaseData.instance.mAllValidator.forEach { validator in
-                if (BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operator_address).compare(feeAmount).rawValue > 0) {
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(feeAmount).rawValue > 0) {
                     myBondedValidator.append(validator)
                 }
             }
             myBondedValidator.sort {
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (myBondedValidator.count > 16) {
@@ -584,8 +584,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
                 if (!$0.jailed && $1.jailed) { return true }
-                let reward0 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $0.operator_address)
-                let reward1 = BaseData.instance.getReward(WUtils.getMainDenom(chainType), $1.operator_address)
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
         }

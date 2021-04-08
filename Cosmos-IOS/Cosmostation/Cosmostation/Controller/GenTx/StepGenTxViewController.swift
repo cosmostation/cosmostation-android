@@ -23,7 +23,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var chainType: ChainType?
     var mBalances = Array<Balance>()
     
-    var mRewardList = Array<Reward>()
+    var mRewards = Array<Coin>()
     var mRewardAddress: String?
     
     var mTargetValidator: Validator?

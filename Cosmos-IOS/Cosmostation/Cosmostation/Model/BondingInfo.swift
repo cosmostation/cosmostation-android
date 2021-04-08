@@ -40,4 +40,8 @@ public struct BondingInfo {
         self.delegator_addr = dictionary?["delegator_addr"] as? String ?? ""
         self.validator_addr = dictionary?["validator_addr"] as? String ?? ""
     }
+    
+    func getAmount() -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(balance.amount)
+    }
 }

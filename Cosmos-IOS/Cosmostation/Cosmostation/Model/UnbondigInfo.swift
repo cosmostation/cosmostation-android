@@ -78,4 +78,12 @@ public class UnbondingInfo {
             self.balance = dictionary?["balance"] as? String ?? ""
         }
     }
+    
+    func getUnbondingSum() -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        entries.forEach { entry in
+            amount = amount.adding(NSDecimalNumber.init(string: entry.balance))
+        }
+        return amount
+    }
 }

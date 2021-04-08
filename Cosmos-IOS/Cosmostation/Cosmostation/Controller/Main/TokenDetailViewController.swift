@@ -18,7 +18,6 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var balance:Balance?
     var allValidator = Array<Validator>()
-    var allRewards = Array<Reward>()
     var bnbToken:BnbToken?
     var bnbTic:NSMutableDictionary?
     var okDenom:String?

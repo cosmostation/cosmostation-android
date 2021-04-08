@@ -940,64 +940,6 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
-    
-    static func dpDeleagted(_ bondings:Array<Bonding>, _ validators:Array<Validator>,_ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
-        var amount = NSDecimalNumber.zero
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        return displayAmount(amount.stringValue, font, deciaml, chain);
-    }
-    
-    static func deleagtedAmount(_ bondings:Array<Bonding>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        return amount
-    }
-    
-    static func dpUnbondings(_ unbondings:Array<Unbonding>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
-        var amount = NSDecimalNumber.zero
-        for unbonding in unbondings {
-            amount = amount.adding(plainStringToDecimal(unbonding.unbonding_balance))
-        }
-        return displayAmount(amount.stringValue, font, deciaml, chain);
-    }
-    
-    static func unbondingAmount(_ unbondings:Array<Unbonding>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
-        }
-        return amount
-    }
-    
-    static func dpRewards(_ rewards:Array<Reward>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) ->  NSMutableAttributedString {
-        var amount = NSDecimalNumber.zero
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == symbol) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return displayAmount(amount.stringValue, font, deciaml, chain)
-    }
-    
-    static func rewardAmount(_ rewards:Array<Reward>, _ symbol:String) ->  NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == symbol) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
-
     static func dpAtomValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
         if (price == nil) {
             return dpValue(NSDecimalNumber.zero, font)
@@ -1444,56 +1386,6 @@ class WUtils {
         
         attributedString1.append(attributedString2)
         return attributedString1
-    }
-    
-    static func getAllRewardByDenom(_ rewards:Array<Reward>, _ denom:String) -> NSDecimalNumber {
-        var rewardSum = NSDecimalNumber.zero
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == denom) {
-                    rewardSum = rewardSum.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return rewardSum
-    }
-    
-    static func getValidatorReward(_ chain: ChainType?,  _ rewards:Array<Reward>, _ valOpAddr:String) -> NSDecimalNumber {
-        var result = NSDecimalNumber.zero
-        for reward in rewards {
-            if (reward.reward_v_address == valOpAddr && reward.reward_amount.count > 0) {
-                for coin in reward.reward_amount {
-                    if (coin.denom == getMainDenom(chain)) {
-                        result = localeStringToDecimal(coin.amount)
-                        break;
-                    }
-                }
-            }
-        }
-        return result
-    }
-    
-    static func getAllAtom(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == COSMOS_MAIN_DENOM) {
-                amount = localeStringToDecimal(balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == COSMOS_MAIN_DENOM) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
     }
     
     static func getAllMainAsset(_ denom: String) -> NSDecimalNumber {
