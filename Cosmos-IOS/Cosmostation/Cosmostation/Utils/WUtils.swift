@@ -345,26 +345,6 @@ class WUtils {
         return result
     }
     
-    static func getBondingwithBondingInfo(_ account: Account, _ rawbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Bonding> {
-        var result = Array<Bonding>()
-        for raw in rawbondinginfos{
-            let bondinginfo = BondingInfo(raw as! [String : Any])
-            result.append(Bonding(account.account_id, bondinginfo.validator_address, bondinginfo.shares, Date().millisecondsSince1970))
-        }
-        return result
-    }
-    
-    static func getUnbondingwithUnbondingInfo(_ account: Account, _ rawunbondinginfos: Array<NSDictionary>, _ chain:ChainType) -> Array<Unbonding> {
-        var result = Array<Unbonding>()
-        for raw in rawunbondinginfos {
-            let unbondinginfo = UnbondingInfo(raw as! [String : Any])
-            for entry in unbondinginfo.entries {
-                result.append(Unbonding(account.account_id, unbondinginfo.validator_address, entry.creation_height, nodeTimeToInt64(input: entry.completion_time).millisecondsSince1970, entry.initial_balance, entry.balance, Date().millisecondsSince1970))
-            }
-        }
-        return result
-    }
-    
     
     static func nodeTimeToInt64(input: String) -> Date {
         let nodeFormatter = DateFormatter()
@@ -1017,23 +997,7 @@ class WUtils {
         return amount
     }
     
-    static func dpAllAtom(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) ->  NSMutableAttributedString {
-        return displayAmount(getAllAtom(balances, bondings, unbondings, rewards, validators).stringValue, font, deciaml, chain)
-    }
-    
-    static func dpAllAtomValue(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        var amount = getAllAtom(balances, bondings, unbondings, rewards, validators)
-        if (BaseData.instance.getCurrency() == 5) {
-            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
-        } else {
-            amount = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
-        }
-        return dpValue(amount, font)
-    }
-    
+
     static func dpAtomValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
         if (price == nil) {
             return dpValue(NSDecimalNumber.zero, font)
@@ -1572,123 +1536,7 @@ class WUtils {
         
         return available.adding(lock).adding(delegated).adding(unbonding).adding(reward)
     }
-    
-    static func getAllSentinel(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == SENTINEL_MAIN_DENOM) {
-                amount = NSDecimalNumber.init(string: balance.balance_amount)
-                amount = amount.adding(NSDecimalNumber.init(string: balance.balance_locked))
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == SENTINEL_MAIN_DENOM) {
-                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
-    static func getAllBand(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == BAND_MAIN_DENOM) {
-                amount = NSDecimalNumber.init(string: balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == BAND_MAIN_DENOM) {
-                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
-    static func getAllSecret(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == SECRET_MAIN_DENOM) {
-                amount = NSDecimalNumber.init(string: balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == SECRET_MAIN_DENOM) {
-                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
-    static func getAllIov(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
-                amount = NSDecimalNumber.init(string: balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == IOV_MAIN_DENOM || coin.denom == IOV_TEST_DENOM) {
-                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
-    static func getAllCertik(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == CERTIK_MAIN_DENOM) {
-                amount = NSDecimalNumber.init(string: balance.balance_amount)
-            }
-        }
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        for unbonding in unbondings {
-            amount = amount.adding(NSDecimalNumber.init(string: unbonding.unbonding_balance))
-        }
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == CERTIK_MAIN_DENOM) {
-                    amount = amount.adding(NSDecimalNumber.init(string: coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
-    
+     
     static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking?, _ withdraw: OkUnbonding?) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
         for balance in balances {
@@ -1709,33 +1557,6 @@ class WUtils {
         return plainStringToDecimal(balance!.balance_amount).adding(plainStringToDecimal(balance!.balance_locked))
     }
     
-    static func getAllKava(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
-        var amount = NSDecimalNumber.zero
-        
-        for balance in balances {
-            if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                amount = localeStringToDecimal(balance.balance_amount)
-                amount = amount.adding(localeStringToDecimal(balance.balance_locked))
-            }
-        }
-        
-        for bonding in bondings {
-            amount = amount.adding(bonding.getBondingAmount(validators))
-        }
-        
-        for unbonding in unbondings {
-            amount = amount.adding(localeStringToDecimal(unbonding.unbonding_balance))
-        }
-        
-        for reward in rewards {
-            for coin in reward.reward_amount {
-                if (coin.denom == KAVA_MAIN_DENOM) {
-                    amount = amount.adding(localeStringToDecimal(coin.amount).rounding(accordingToBehavior: handler0Down))
-                }
-            }
-        }
-        return amount
-    }
     
     static func getKavaTokenAvailable(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
@@ -1843,48 +1664,6 @@ class WUtils {
         }
         return nil
     }
-    
-    static func displayIrisToken(_ amount: String, _ font:UIFont, _ deciaml:Int16, _ deciaml2:Int16) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = Int(deciaml)
-        nf.maximumFractionDigits = Int(deciaml)
-        nf.numberStyle = .decimal
-        
-        let amount = localeStringToDecimal(amount)
-        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
-        
-        var formatted: String?
-        if (amount == NSDecimalNumber.zero) {
-            formatted = nf.string(from: NSDecimalNumber.zero)
-        } else {
-            formatted = nf.string(from: amount.dividing(by: NSDecimalNumber(decimal: pow(10,Int(deciaml2)))).rounding(accordingToBehavior: handler))
-        }
-        let added       = formatted
-        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
-        
-        let preString   = added![..<endIndex]
-        let postString  = added![endIndex...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-    
-    static func getTokenBalace(_ balances:Array<Balance>, _ symbol:String) -> Balance? {
-        for balance in balances {
-            if (balance.balance_denom.caseInsensitiveCompare(symbol) == .orderedSame) {
-                return balance
-            }
-        }
-        return nil
-    }
-    
     
     static func getTokenAmount(_ balances:Array<Balance>?, _ symbol:String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
