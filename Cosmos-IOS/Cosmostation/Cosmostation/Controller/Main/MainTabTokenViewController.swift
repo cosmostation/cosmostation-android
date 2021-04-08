@@ -345,7 +345,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             var allKava = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                    allKava = allKava.adding(WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator))
+                    allKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
                 } else {
                     let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
                     let totalTokenValue = WUtils.getKavaTokenDollorValue(balance.balance_denom, totalTokenAmount)
@@ -358,19 +358,25 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SECRET_MAIN) {
             self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allSecret = WUtils.getAllSecret(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allSecret, BaseData.instance.getLastPrice(), totalValue.font)
             
-        } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
+        } else if (chainType! == ChainType.IOV_MAIN) {
             self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allIov = WUtils.getAllMainAssetOld(IOV_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
+            totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
+            
+        } else if (chainType! == ChainType.IOV_TEST) {
+            self.tokenCnt.text = String(mainTabVC.mBalances.count)
+            let allIov = WUtils.getAllMainAssetOld(IOV_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), totalValue.font)
             
@@ -393,13 +399,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
             self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allCtk = WUtils.getAllMainAssetOld(CERTIK_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), totalValue.font)
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allDvpn = WUtils.getAllSentinel(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allDvpn = WUtils.getAllMainAssetOld(SENTINEL_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allDvpn.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpAtomValue(allDvpn, BaseData.instance.getLastPrice(), totalValue.font)
         }
@@ -521,7 +527,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     self.navigationItem.title = ""
                     tokenDetailVC.balance = balance
                     tokenDetailVC.allValidator = mainTabVC.mAllValidator
-                    tokenDetailVC.allRewards = mainTabVC.mRewardList
                     self.navigationController?.pushViewController(tokenDetailVC, animated: true)
                 }
                 
@@ -659,7 +664,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Kava Chain Native Token"
             
-            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
@@ -697,7 +702,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Kava Chain Native Token"
             
-            let totalKava = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(totalKava, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
@@ -735,7 +740,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Starname Native Token"
                         
-            let allIov = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            let allIov = WUtils.getAllMainAssetOld(IOV_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allIov, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
@@ -752,7 +757,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_BAND
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Band Chain Native Token"
-            let allBand = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            
+            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allBand, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
 
@@ -773,7 +779,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_SECRET
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Secret Native Token"
-            let allSecret = WUtils.getAllSecret(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            
+            let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allSecret, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
 
@@ -832,7 +839,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_CERTIK
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Certik Staking Token"
-            let allCtk = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            
+            let allCtk = WUtils.getAllMainAssetOld(CERTIK_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allCtk, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             
@@ -895,7 +903,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_SENTINEL
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Sentinel Staking Token"
-            let allDvpn = WUtils.getAllSentinel(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
+            
+            let allDvpn = WUtils.getAllMainAssetOld(SENTINEL_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allDvpn.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpAtomValue(allDvpn, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
             

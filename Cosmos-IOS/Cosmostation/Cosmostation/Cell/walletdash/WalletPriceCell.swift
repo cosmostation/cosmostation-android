@@ -54,7 +54,7 @@ class WalletPriceCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BINANCE_MAIN || chainType == ChainType.KAVA_MAIN) {
             sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
             let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
@@ -74,8 +74,7 @@ class WalletPriceCell: UITableViewCell {
             buyConstraint.priority = .defaultHigh
             noBuyConstraint.priority = .defaultLow
             
-        } else if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.AKASH_MAIN || chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.PERSIS_MAIN ||
-                    chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
+        } else {
             sourceSite.text = "("+BaseData.instance.getMarketString()+")"
             perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
             let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())

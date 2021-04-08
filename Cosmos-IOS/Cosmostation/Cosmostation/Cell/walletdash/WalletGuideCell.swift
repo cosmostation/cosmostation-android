@@ -68,6 +68,55 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_sentinel", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_sentinel", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
+            guideImg.image = UIImage(named: "certikImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_certik", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_certik", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_certik", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_certik", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            guideImg.image = UIImage(named: "secretImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_secret", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_secret", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_secret", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_secret", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
+            guideImg.image = UIImage(named: "iovImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.BAND_MAIN) {
+            guideImg.image = UIImage(named: "bandprotocolImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_band", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_band", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_band", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_band", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+            guideImg.image = UIImage(named: "kavamainImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_kava", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_kava", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_kava", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_kava", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+            guideImg.image = UIImage(named: "binanceImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_bnb", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_bnb", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_bnb", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_bnb", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            guideImg.image = UIImage(named: "okexImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_ok", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_ok", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_ok", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_ok", comment: ""), for: .normal)
         }
+        
     }
 }

@@ -266,18 +266,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetIrisItem(tableView, indexPath);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
-        } else if (chainType == ChainType.KAVA_MAIN) {
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             return onSetKavaItem(tableView, indexPath);
         } else if (chainType == ChainType.BAND_MAIN) {
             return onSetBandItem(tableView, indexPath);
         } else if (chainType == ChainType.SECRET_MAIN) {
             return onSetSecretItem(tableView, indexPath);
-        } else if (chainType == ChainType.KAVA_TEST) {
-            return onSetKavaTestItem(tableView, indexPath);
-        } else if (chainType == ChainType.IOV_MAIN) {
+        } else if (chainType == ChainType.IOV_MAIN || chainType == ChainType.IOV_TEST) {
             return onSetIovItems(tableView, indexPath);
-        } else if (chainType == ChainType.IOV_TEST) {
-            return onSetIovTestItems(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return onSetOKexItems(tableView, indexPath);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
@@ -304,34 +300,34 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
-            let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -341,33 +337,33 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetIrisItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
-            let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -378,95 +374,31 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_BNB
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
-            let cell:WalletBnbCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
-            cell?.bnbCard.backgroundColor = WUtils.getChainBg(chainType!)
-            cell?.btnBep3.isHidden = false
-            
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BNB_MAIN_DENOM)
-            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, BNB_MAIN_DENOM)
-            let totalAmount = availableAmount.adding(lockedAmount)
-            
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 6)
-            cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
-            
-            cell?.actionWC = {
-                self.onClickWalletConect()
-            }
-            cell?.actionBep3 = {
-                self.onClickBep3Send(BNB_MAIN_DENOM)
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.stringValue)
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletBnbCell") as? WalletBnbCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionWC = { self.onClickWalletConect() }
+            cell?.actionBep3 = { self.onClickBep3Send(BNB_MAIN_DENOM) }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            if (chainType == ChainType.BINANCE_MAIN) {
-                cell?.buySeparator.isHidden = false
-                cell?.buyBtn.isHidden = false
-                cell?.buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
-                cell?.buyConstraint.priority = .defaultHigh
-                cell?.noBuyConstraint.priority = .defaultLow
-                cell?.actionBuy = {
-                    self.onClickBuyCoin()
-                }
-            } else {
-                cell?.buySeparator.isHidden = true
-                cell?.buyBtn.isHidden = true
-                cell?.buyConstraint.priority = .defaultLow
-                cell?.noBuyConstraint.priority = .defaultHigh
-                cell?.actionBuy = { }
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "binanceImg")
-            
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_bnb", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_bnb", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_bnb", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_bnb", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
             return cell!
         }
         
@@ -474,806 +406,254 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_KAVA
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
-            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
-            let totalAmount = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM)
-            let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-            if (vestingAmount != NSDecimalNumber.zero) {
-                cell?.vestingLayer.isHidden = false
-            }
-            
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            cell?.actionCdp = {
-                self.onClickCdp()
-//                //TODO temp guard
-//                self.onShowToast("Preparing..\nPlease test DeFi with testnet before launch KAVA 5.1")
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = false
-            cell?.buyBtn.isHidden = false
-            cell?.buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
-            cell?.buyConstraint.priority = .defaultHigh
-            cell?.noBuyConstraint.priority = .defaultLow
-            cell?.actionBuy = {
-                self.onClickBuyCoin()
-            }
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "kavamainImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_kava", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_kava", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_kava", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_kava", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetKavaTestItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_KAVA
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletKavaCell? = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
-            cell?.cardKava.backgroundColor = WUtils.getChainBg(chainType!)
-            let totalAmount = WUtils.getAllKava(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, KAVA_MAIN_DENOM)
-            let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, KAVA_MAIN_DENOM)
-            
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-            if (vestingAmount != NSDecimalNumber.zero) {
-                cell?.vestingLayer.isHidden = false
-            }
-            
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            cell?.actionCdp = {
-                self.onClickCdp()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionBuy = { }
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "kavamainImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_kava", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_kava", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_kava", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_kava", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_IOV
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
-            let totalAmount = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_MAIN_DENOM)
-
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            cell?.actionNameService = {
-                self.onClickStarName()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "iovImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetBandItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_BAND
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletBandCell? = tableView.dequeueReusableCell(withIdentifier:"WalletBandCell") as? WalletBandCell
-            let totalAmount = WUtils.getAllBand(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, BAND_MAIN_DENOM)   //mainTabVC.mAccount.getBandBalance()
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, BAND_MAIN_DENOM)
-            
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-
-//            cell?.buySeparator.isHidden = false
-//            cell?.buyBtn.isHidden = false
-//            cell?.buyBtn.setTitle(NSLocalizedString("buy_band", comment: ""), for: .normal)
-//            cell?.buyConstraint.priority = .defaultHigh
-//            cell?.noBuyConstraint.priority = .defaultLow
-//            cell?.actionTapPricel = {
-//                self.onClickMarketInfo()
-//            }
-//            cell?.actionBuy = {
-//                self.onClickBuyCoin()
-//            }
-            
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "bandprotocolImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_band", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_band", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_band", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_band", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetSecretItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_SECRET
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletSecretCell? = tableView.dequeueReusableCell(withIdentifier:"WalletSecretCell") as? WalletSecretCell
-            let totalAmount = WUtils.getAllSecret(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, SECRET_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SECRET_MAIN_DENOM)
-
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.text = ""
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "secretImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_secret", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_secret", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_secret", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_secret", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetIovTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_IOV
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletIovCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
-            cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
-            let totalAmount = WUtils.getAllIov(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, IOV_TEST_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, IOV_TEST_DENOM)
-
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-            }
-            cell?.actionNameService = {
-                self.onClickStarName()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "iovImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_iov", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_iov", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_iov", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_iov", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetOKexItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_OK
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletOkCell? = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
-            let totalAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM)
-            let lockedAmount = WUtils.lockedAmount(mainTabVC.mBalances, OKEX_MAIN_DENOM)
-            let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
-            let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
-
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 6)
-            cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 6)
-            cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 6)
-            cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
-            
-            cell?.actionDeposit = {
-                self.onClickOkDeposit()
-            }
-            cell?.actionWithdraw = {
-                self.onClickOkWithdraw()
-            }
-            cell?.actionVoteforVal = {
-                self.onClickOkVoteVal()
-            }
-            cell?.actionVote = {
-                self.onShowToast(NSLocalizedString("error_not_yet", comment: ""))
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "okexImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_ok", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_ok", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_ok", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_ok", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
-            if (mainTabVC.mAccount.account_has_private) {
-                cell?.keyState.image = cell?.keyState.image?.withRenderingMode(.alwaysTemplate)
-                cell?.keyState.tintColor = COLOR_CERTIK
-            }
-            cell?.dpAddress.text = mainTabVC.mAccount.account_address
-            cell?.dpAddress.adjustsFontSizeToFitWidth = true
-            cell?.actionShare = {
-                self.onClickActionShare()
-            }
-            cell?.actionWebLink = {
-                self.onClickActionLink()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 1) {
-            let cell:WalletCertikCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCertikCell") as? WalletCertikCell
-            if (chainType == ChainType.CERTIK_MAIN) {
-                cell?.rootCardView.backgroundColor = TRANS_BG_COLOR_CERTIK
-            } else {
-                cell?.rootCardView.backgroundColor = COLOR_BG_GRAY
-            }
-            
-            let totalAmount = WUtils.getAllCertik(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, CERTIK_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, CERTIK_MAIN_DENOM)
-            
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
-            return cell!
-            
-        } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
-            cell?.sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            cell?.perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), cell!.perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                cell?.updownImg.image = UIImage(named: "priceUp")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                cell?.updownImg.image = UIImage(named: "priceDown")
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: cell!.updownPercent.font)
-            } else {
-                cell?.updownImg.image = nil
-                cell?.updownPercent.attributedText = WUtils.displayPriceUPdown(NSDecimalNumber.zero, font: cell!.updownPercent.font)
-            }
-            cell?.buySeparator.isHidden = true
-            cell?.buyBtn.isHidden = true
-            cell?.buyConstraint.priority = .defaultLow
-            cell?.noBuyConstraint.priority = .defaultHigh
-            cell?.actionTapPricel = {
-                self.onClickMarketInfo()
-            }
-            return cell!
-            
-        } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
-            cell?.infaltionLabel.attributedText = WUtils.displayInflation(self.mInflation, font: cell!.infaltionLabel.font)
-            cell?.yieldLabel.attributedText = WUtils.getDpEstApr(cell!.yieldLabel.font, chainType!)
-            cell?.actionTapApr = {
-                self.onClickAprHelp()
-            }
-            return cell!
-            
-        } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
-            cell?.guideImg.image = UIImage(named: "certikImg")
-            cell?.guideTitle.text = NSLocalizedString("send_guide_title_certik", comment: "")
-            cell?.guideMsg.text = NSLocalizedString("send_guide_msg_certik", comment: "")
-            cell?.btn1Label.setTitle(NSLocalizedString("send_guide_btn1_certik", comment: ""), for: .normal)
-            cell?.btn2Label.setTitle(NSLocalizedString("send_guide_btn2_certik", comment: ""), for: .normal)
-            cell?.actionGuide1 = {
-                self.onClickGuide1()
-            }
-            cell?.actionGuide2 = {
-                self.onClickGuide2()
-            }
-            return cell!
-        }
-    }
-    
-    func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
-            let cell:WalletAkashCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAkashCell") as? WalletAkashCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletKavaCell") as? WalletKavaCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
+            cell?.actionCdp = { self.onClickCdp() }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletIovCell") as? WalletIovCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            cell?.actionNameService = { self.onClickStarName() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetBandItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletBandCell") as? WalletBandCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetSecretItem(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSecretCell") as? WalletSecretCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetOKexItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOkCell") as? WalletOkCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDeposit = { self.onClickOkDeposit() }
+            cell?.actionWithdraw = { self.onClickOkWithdraw() }
+            cell?.actionVoteforVal = { self.onClickOkVoteVal() }
+            cell?.actionVote = { self.onShowToast(NSLocalizedString("error_not_yet", comment: "")) }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCertikCell") as? WalletCertikCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
+    func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAkashCell") as? WalletAkashCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -1284,7 +664,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
@@ -1298,20 +678,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -1322,7 +702,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetSentinelItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
@@ -1330,50 +710,26 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSentinelCell") as? WalletSentinelCell
-            let totalAmount = WUtils.getAllSentinel(mainTabVC.mBalances, mainTabVC.mBondingList, mainTabVC.mUnbondingList, mainTabVC.mRewardList, mainTabVC.mAllValidator)
-            let availableAmount = WUtils.availableAmount(mainTabVC.mBalances, SENTINEL_MAIN_DENOM)
-            let delegatedAmount = WUtils.deleagtedAmount(mainTabVC.mBondingList, mainTabVC.mAllValidator)
-            let unbondingAmount = WUtils.unbondingAmount(mainTabVC.mUnbondingList)
-            let rewardAmount = WUtils.rewardAmount(mainTabVC.mRewardList, SENTINEL_MAIN_DENOM)
-            let vestingAmount = WUtils.lockedAmount(mainTabVC.mBalances, SENTINEL_MAIN_DENOM)
-            
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 6, 6)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 6, 6)
-            cell?.delegatedAmount.attributedText = WUtils.displayAmount2(delegatedAmount.stringValue, cell!.delegatedAmount.font, 6, 6)
-            cell?.unbondingAmount.attributedText = WUtils.displayAmount2(unbondingAmount.stringValue, cell!.unbondingAmount.font, 6, 6)
-            cell?.rewardAmount.attributedText = WUtils.displayAmount2(rewardAmount.stringValue, cell!.rewardAmount.font, 6, 6)
-            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingAmount.stringValue, cell!.vestingAmount.font, 6, 6)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 6, cell!.totalValue.font)
-            if (vestingAmount != NSDecimalNumber.zero) {
-                cell?.vestingLayer.isHidden = false
-            }
-            
-            cell?.actionDelegate = {
-                self.onClickValidatorList()
-            }
-            cell?.actionVote = {
-                self.onClickVoteList()
-            }
-            BaseData.instance.updateLastTotal(mainTabVC!.mAccount, totalAmount.multiplying(byPowerOf10: -6).stringValue)
+            cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             cell?.actionBuy = { self.onClickBuyCoin() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -1381,38 +737,37 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         }
         
-        
     }
     
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
-            let cell:WalletCosmosCell? = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCosmosCell") as? WalletCosmosCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -1422,33 +777,33 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
-            let cell:WalletIrisCell? = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletIrisCell") as? WalletIrisCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
             return cell!
             
         } else if (indexPath.row == 2) {
-            let cell:WalletPriceCell? = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }
             return cell!
             
         } else if (indexPath.row == 3) {
-            let cell:WalletInflationCell? = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapApr = { self.onClickAprHelp() }
             return cell!
             
         } else {
-            let cell:WalletGuideCell? = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionGuide1 = { self.onClickGuide1() }
             cell?.actionGuide2 = { self.onClickGuide2() }
@@ -1843,6 +1198,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/sentinel-group") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.PERSIS_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/persistence") else { return }
             self.onShowSafariWeb(url)
         }
         

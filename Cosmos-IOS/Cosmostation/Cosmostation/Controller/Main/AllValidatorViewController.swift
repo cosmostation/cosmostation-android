@@ -27,6 +27,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        
         self.mInflation = BaseData.instance.mInflation
         self.mProvision = BaseData.instance.mProvision
         self.mStakingPool = BaseData.instance.mStakingPool
@@ -52,7 +56,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
-        self.chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.onSorting()
     }
     
@@ -91,7 +94,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         if (WUtils.isGRPC(chainType!)) {
             self.allValidatorCnt.text = String(BaseData.instance.mBondedValidators_gRPC.count)
         } else {
-            self.allValidatorCnt.text = String(self.mainTabVC.mTopValidators.count)
+            self.allValidatorCnt.text = String(BaseData.instance.mTopValidator.count)
         }
         if (BaseData.instance.getAllValidatorSort() == 0) {
             self.sortType.text = NSLocalizedString("sort_by_power", comment: "")
@@ -117,7 +120,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         if (WUtils.isGRPC(chainType!)) {
             return BaseData.instance.mBondedValidators_gRPC.count
         } else {
-            return self.mainTabVC.mTopValidators.count
+            return BaseData.instance.mTopValidator.count
         }
     }
     
@@ -129,9 +132,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             }
             
         } else {
-            guard self.mainTabVC.mTopValidators.count > 0 else { return cell! }
-            if let validator = self.mainTabVC.mTopValidators[indexPath.row] as? Validator {
-                self.onSetValidatorItem(cell!, validator, indexPath)
+            if (BaseData.instance.mTopValidator.count > 0) {
+                self.onSetValidatorItem(cell!, BaseData.instance.mTopValidator[indexPath.row])
             }
         }
         return cell!
@@ -150,18 +152,15 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
             
         } else {
-            if let validator = self.mainTabVC.mTopValidators[indexPath.row] as? Validator {
-                let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-                validatorDetailVC.mValidator = validator
-                validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
-                validatorDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(validatorDetailVC, animated: true)
-            }
+            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
+            validatorDetailVC.mValidator = BaseData.instance.mTopValidator[indexPath.row]
+            validatorDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(validatorDetailVC, animated: true)
         }
     }
     
-    func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
+    func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator) {
         cell.powerLabel.attributedText =  WUtils.displayAmount2(validator.tokens, cell.powerLabel.font, 6, 6)
         cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
         cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
@@ -218,7 +217,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 return $0.description_p.moniker < $1.description_p.moniker
             }
         } else {
-            mainTabVC.mTopValidators.sort{
+            BaseData.instance.mTopValidator.sort{
                 if ($0.description.moniker == "Cosmostation") { return true }
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
@@ -238,7 +237,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 return Double($0.tokens)! > Double($1.tokens)!
             }
         } else {
-            mainTabVC.mTopValidators.sort{
+            BaseData.instance.mTopValidator.sort{
                 if ($0.description.moniker == "Cosmostation") { return true }
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
@@ -258,14 +257,12 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 return Double($0.commission.commissionRates.rate)! < Double($1.commission.commissionRates.rate)!
             }
         } else {
-            mainTabVC.mTopValidators.sort{
+            BaseData.instance.mTopValidator.sort{
                 if ($0.description.moniker == "Cosmostation") { return true }
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
                 if (!$0.jailed && $1.jailed) { return true }
-                
-                if (chainType == ChainType.IRIS_MAIN) { return Double($0.commission.rate)! < Double($1.commission.rate)! }
-                else { return Double(truncating: $0.getCommission()) < Double(truncating: $1.getCommission()) }
+                return Double(truncating: $0.getCommission()) < Double(truncating: $1.getCommission())
             }
         }
     }

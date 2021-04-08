@@ -44,4 +44,20 @@ class WalletOkCell: UITableViewCell {
     @IBAction func onClickVote(_ sender: UIButton) {
         actionVote?()
     }
+    
+    func updateView(_ account: Account?, _ chainType: ChainType?) {
+        let available = BaseData.instance.availableAmount(OKEX_MAIN_DENOM)
+        let locked = BaseData.instance.lockedAmount(OKEX_MAIN_DENOM)
+        let deposit = BaseData.instance.okDepositAmount()
+        let withdraw = BaseData.instance.okWithdrawAmount()
+        let total = available.adding(locked).adding(deposit).adding(withdraw)
+        
+        totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 6)
+        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 6)
+        lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, lockedAmount.font, 0, 6)
+        depositAmount.attributedText = WUtils.displayAmount2(deposit.stringValue, depositAmount.font, 0, 6)
+        withdrawAmount.attributedText = WUtils.displayAmount2(withdraw.stringValue, withdrawAmount.font, 0, 6)
+        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, totalValue.font)
+        BaseData.instance.updateLastTotal(account, total.stringValue)
+    }
 }

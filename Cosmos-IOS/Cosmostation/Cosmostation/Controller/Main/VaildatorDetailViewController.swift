@@ -26,7 +26,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mSelfBondingShare: String?
     var mFetchCnt = 0
     var mMyValidator = false
-    var mIsTop100 = false
     
     //grpc
     var mValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
@@ -286,7 +285,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         } else {
             cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
         }
-        if (mIsTop100) {
+        
+        if (self.mValidator?.status == 2) {
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
@@ -339,7 +339,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.selfBondedRate.attributedText = WUtils.displaySelfBondRate(NSDecimalNumber.zero.stringValue, mValidator!.tokens, cell!.selfBondedRate.font)
         }
         
-        if (mIsTop100) {
+        if (self.mValidator?.status == 2) {
             cell!.avergaeYield.attributedText = WUtils.getDpEstAprCommission(cell!.avergaeYield.font, mValidator!.getCommission(), chainType!)
         } else {
             cell!.avergaeYield.attributedText = WUtils.displayCommission(NSDecimalNumber.zero.stringValue, font: cell!.avergaeYield.font)
@@ -395,7 +395,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.myRewardAmount.attributedText =  WUtils.displayAmount(NSDecimalNumber.zero.stringValue, cell!.myRewardAmount.font, 6, chainType!)
         }
         
-        if (mIsTop100) {
+        if (self.mValidator?.status == 2) {
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, mValidator!.getCommission(), mBonding?.getBondingAmount(mValidator!), chainType!)
             

@@ -55,7 +55,7 @@ class WalletPersisCell: UITableViewCell {
         let vesting = BaseData.instance.getVestingAmount(PERSIS_MAIN_DENOM)
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false
-            vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
+            vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting(PERSIS_MAIN_DENOM), vestingAmount.font!, 6, 6)
         }
         BaseData.instance.updateLastTotal(account, totalToken.multiplying(byPowerOf10: -6).stringValue)
     }

@@ -1563,6 +1563,16 @@ class WUtils {
         return amount
     }
     
+    static func getAllMainAssetOld(_ denom: String) -> NSDecimalNumber {
+        let available = BaseData.instance.availableAmount(denom)
+        let lock = BaseData.instance.lockedAmount(denom)
+        let delegated = BaseData.instance.deleagtedSumAmount()
+        let unbonding = BaseData.instance.unbondingSumAmount()
+        let reward = BaseData.instance.rewardAmount(denom)
+        
+        return available.adding(lock).adding(delegated).adding(unbonding).adding(reward)
+    }
+    
     static func getAllSentinel(_ balances:Array<Balance>, _ bondings:Array<Bonding>, _ unbondings:Array<Unbonding>,_ rewards:Array<Reward>, _ validators:Array<Validator>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in balances {

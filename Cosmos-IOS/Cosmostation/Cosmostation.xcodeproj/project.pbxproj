@@ -219,6 +219,7 @@
 		2868559B24989ACD0099D18F /* DelegateWarnPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559924989ACD0099D18F /* DelegateWarnPopup.swift */; };
 		2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */; };
 		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
+		286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A47CE261D790500F29C5A /* RewardInfo.swift */; };
 		286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A9914253ECA0600306417 /* BandOracleStatus.swift */; };
 		286EB38626035FB00021C79D /* TxCdpLiquidateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */; };
 		286EB38726035FB00021C79D /* TxCdpLiquidateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286EB38526035FB00021C79D /* TxCdpLiquidateCell.xib */; };
@@ -1005,6 +1006,7 @@
 		2868559924989ACD0099D18F /* DelegateWarnPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DelegateWarnPopup.swift; sourceTree = "<group>"; };
 		2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateWarnPopup.xib; sourceTree = "<group>"; };
 		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
+		286A47CE261D790500F29C5A /* RewardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardInfo.swift; sourceTree = "<group>"; };
 		286A9914253ECA0600306417 /* BandOracleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOracleStatus.swift; sourceTree = "<group>"; };
 		286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCdpLiquidateCell.swift; sourceTree = "<group>"; };
 		286EB38526035FB00021C79D /* TxCdpLiquidateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCdpLiquidateCell.xib; sourceTree = "<group>"; };
@@ -2530,6 +2532,7 @@
 				E1A82DE4224482800097CAEE /* Coin.swift */,
 				E1A82DE92244A20B0097CAEE /* BondingInfo.swift */,
 				E1A82DEB2244A87D0097CAEE /* UnbondigInfo.swift */,
+				286A47CE261D790500F29C5A /* RewardInfo.swift */,
 				E151B63E22484A710026B8C0 /* InOutPut.swift */,
 				E151B64022484AE60026B8C0 /* Signature.swift */,
 				E151B64222484F490026B8C0 /* Fee.swift */,
@@ -3004,6 +3007,7 @@
 				287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */,
 				286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */,
 				287AC5B925FDF7250070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift in Sources */,
+				286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,
 				287AC65525FDF7260070837E /* cosmos_crypto_multisig_v1beta1_multisig.pb.swift in Sources */,
 				287AC64325FDF7260070837E /* ibc_core_client_v1_tx.grpc.swift in Sources */,

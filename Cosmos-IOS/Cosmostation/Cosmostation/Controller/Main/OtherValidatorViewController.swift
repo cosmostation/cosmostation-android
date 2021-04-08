@@ -21,6 +21,10 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
+        self.chainType = WUtils.getChainType(account!.account_base_chain)
+        
         self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.otherValidatorTableView.delegate = self
         self.otherValidatorTableView.dataSource = self
@@ -38,7 +42,6 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mainTabVC = ((self.parent)?.parent)?.parent as? MainTabViewController
-        self.chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
         self.onSorting()
     }
     
@@ -70,7 +73,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         if (WUtils.isGRPC(chainType!)) {
             self.otherValidatorCnt.text = String(BaseData.instance.mUnbondValidators_gRPC.count)
         } else {
-            self.otherValidatorCnt.text = String(self.mainTabVC.mOtherValidators.count)
+            self.otherValidatorCnt.text = String(BaseData.instance.mOtherValidator.count)
         }
         
         self.sortByPower()
@@ -87,7 +90,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
         if (WUtils.isGRPC(chainType!)) {
             return BaseData.instance.mUnbondValidators_gRPC.count
         } else {
-            return self.mainTabVC.mOtherValidators.count
+            return BaseData.instance.mOtherValidator.count
         }
     }
     
@@ -99,9 +102,8 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             }
             
         } else {
-            guard self.mainTabVC.mTopValidators.count > 0 else { return cell! }
-            if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
-                self.onSetValidatorItem(cell!, validator, indexPath)
+            if (BaseData.instance.mOtherValidator.count > 0) {
+                self.onSetValidatorItem(cell!, BaseData.instance.mOtherValidator[indexPath.row])
             }
         }
         return cell!
@@ -120,18 +122,15 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
             self.navigationController?.pushViewController(validatorDetailVC, animated: true)
             
         } else {
-            if let validator = self.mainTabVC.mOtherValidators[indexPath.row] as? Validator {
-                let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
-                validatorDetailVC.mValidator = validator
-                validatorDetailVC.mIsTop100 = mainTabVC.mTopValidators.contains(where: {$0.operator_address == validator.operator_address})
-                validatorDetailVC.hidesBottomBarWhenPushed = true
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(validatorDetailVC, animated: true)
-            }
+            let validatorDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "VaildatorDetailViewController") as! VaildatorDetailViewController
+            validatorDetailVC.mValidator = BaseData.instance.mOtherValidator[indexPath.row]
+            validatorDetailVC.hidesBottomBarWhenPushed = true
+            self.navigationItem.title = ""
+            self.navigationController?.pushViewController(validatorDetailVC, animated: true)
         }
     }
     
-    func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator, _ indexPath: IndexPath) {
+    func onSetValidatorItem(_ cell: OtherValidatorCell, _ validator: Validator) {
         cell.powerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell.powerLabel.font!, 6, 6)
         cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, NSDecimalNumber.one, chainType!)
         cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
@@ -170,7 +169,7 @@ class OtherValidatorViewController: BaseViewController, UITableViewDelegate, UIT
                 return Double($0.tokens)! > Double($1.tokens)!
             }
         } else {
-            mainTabVC.mOtherValidators.sort{
+            BaseData.instance.mOtherValidator.sort{
                 if ($0.description.moniker == "Cosmostation") { return true }
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
