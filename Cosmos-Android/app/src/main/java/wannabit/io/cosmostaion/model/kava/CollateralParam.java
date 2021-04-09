@@ -62,8 +62,6 @@ public class CollateralParam {
     }
 
     public String getImagePath() {
-        if (!TextUtils.isEmpty(spot_market_id))
-            return spot_market_id.replace(":","")   +".png";
-        return "";
+        return denom + "usd.png";
     }
 }
