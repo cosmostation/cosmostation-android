@@ -118,13 +118,12 @@ public class BaseData {
     public ArrayList<UnbondingInfo>     mMyUnbondings = new ArrayList<>();
     public ArrayList<RewardInfo>        mMyRewards = new ArrayList<>();
 
-
     public ResStakingPool               mStakingPool;
     public BigDecimal                   mInflation = BigDecimal.ZERO;
     public BigDecimal                   mProvisions = BigDecimal.ZERO;
     public ResMintParam.MintParam       mMintParam;
 
-    //COMMON DATA FOR KAVA-5
+    //COMMON DATA FOR KAVA-7
     public ResLcdKavaAccountInfo.Result     mKavaAccount;
     public CdpParam                         mCdpParam;
     public IncentiveParam                   mIncentiveParam5;
@@ -136,7 +135,6 @@ public class BaseData {
     public ArrayList<Coin>                  mModuleCoins = new ArrayList<>();
     public ArrayList<Coin>                  mReserveCoins = new ArrayList<>();
     public HashMap<String, MarketPrice>     mKavaTokenPrices = new HashMap<>();
-
 
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();
@@ -270,8 +268,6 @@ public class BaseData {
     public BigDecimal getAllMainAssetOld(String denom) {
         return availableAmount(denom).add(lockedAmount(denom)).add(delegatedSumAmount()).add(unbondingSumAmount()).add(rewardAmount(denom));
     }
-
-
 
     //gRPC
     public Types.DefaultNodeInfo                                mGRpcNodeInfo;

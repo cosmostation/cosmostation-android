@@ -44,93 +44,66 @@ public class SingleBondingStateTask extends CommonTask {
         try {
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, KAVA_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getKavaTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, KAVA_TEST));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getBandChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, BAND_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getIovChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, IOV_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getIovTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, IOV_TEST));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getCertikChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, CERTIK_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getCertikTestChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, CERTIK_TEST));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getSecretChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, SECRET_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getSentinelChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
-                if(response.isSuccessful()) {
-                    if(response.body() != null && response.body().result != null)
-                        mApp.getBaseDao().onUpdateBondingState(mAccount.id, WUtil.getBondingFromLcd(mAccount.id, response.body().result, SECRET_MAIN));
-                    else
-                        mApp.getBaseDao().onDeleteBondingStates(mAccount.id);
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
-                mResult.isSuccess = true;
 
             }
 

@@ -46,136 +46,64 @@ public class SingleRewardTask extends CommonTask {
         try {
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getKavaChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getBandChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getKavaTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IOV_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getIovChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getIovTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getCertikChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getCertikTestChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getSecretChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getSentinelChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    ArrayList<Coin> amounts = response.body().result;
-                    long time = System.currentTimeMillis();
-                    Reward temp = new Reward(mAccount.id, mValidatorAddr, amounts, time);
-                    mResult.resultData = temp;
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 

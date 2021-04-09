@@ -794,14 +794,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mMyRewards = (ArrayList<RewardInfo>)result.resultData;
             }
 
-        }
-//        else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {
-//            Reward reward = (Reward)result.resultData;
-//            if(reward != null)
-//                onUpdateReward(reward);
-//
-//        }
-        else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
+        } else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
             try {
                 getBaseDao().mInflation = new BigDecimal((String)result.resultData);
             } catch (Exception e) {}
