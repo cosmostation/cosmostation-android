@@ -46,7 +46,7 @@ public struct CollateralParam {
     }
     
     func getMarketImgPath() -> String? {
-        return spot_market_id?.replacingOccurrences(of: ":", with: "")
+        return denom! + "usd"
     }
     
     func getDpMarketId() -> String? {
