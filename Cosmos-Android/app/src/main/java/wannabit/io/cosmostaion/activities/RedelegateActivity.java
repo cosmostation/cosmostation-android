@@ -22,7 +22,6 @@ import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;

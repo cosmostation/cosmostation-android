@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.google.protobuf2.Any;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -44,11 +43,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
-import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
-import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.kava.Cdp;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
@@ -340,45 +336,6 @@ public class WDp {
         }
     }
 
-    public static SpannableString getDpAllRewardAmount(Context c, ArrayList<Reward> rewards, BaseChain chain, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getRewardAmount(denom).setScale(0, BigDecimal.ROUND_DOWN));
-        }
-        return getDpAmount2(c, sum, 6, 6);
-    }
-
-    public static BigDecimal getAllRewardAmount(ArrayList<Reward> rewards, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Reward reward : rewards) {
-            sum = sum.add(reward.getRewardAmount(denom).setScale(0, BigDecimal.ROUND_DOWN));
-        }
-        return sum;
-    }
-
-    public static SpannableString getValidatorReward(Context c, ArrayList<Reward> rewards, String valOpAddress, BaseChain chain, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for(Reward reward : rewards) {
-            if (reward.validatorAddress.equals(valOpAddress)) {
-                result = reward.getRewardAmount(denom);
-                break;
-            }
-        }
-        return getDpAmount2(c, result, 6, 6);
-    }
-
-    public static BigDecimal getValidatorReward(ArrayList<Reward> rewards, String valOpAddress, String denom) {
-        BigDecimal result = BigDecimal.ZERO;
-        for(Reward reward : rewards) {
-            if(reward.validatorAddress.equals(valOpAddress)) {
-                result = reward.getRewardAmount(denom);
-                break;
-            }
-        }
-        return result;
-    }
-
-
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
@@ -584,101 +541,6 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal getAllDelegatedAmount(ArrayList<BondingState> bondings, ArrayList<Validator> validators,  BaseChain chain) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (bondings == null || bondings.size() == 0) return sum;
-        for(BondingState bonding : bondings) {
-            sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-        }
-        return sum;
-    }
-
-    public static BigDecimal getAllUnbondingAmount(ArrayList<UnBondingState> unbondings) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (unbondings == null || unbondings.size() == 0) return sum;
-        for(UnBondingState unbonding : unbondings) {
-            sum = sum.add(unbonding.balance);
-        }
-        return sum;
-    }
-
-    public static BigDecimal getAllKava(BaseData baseData, ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equals(BaseConstant.TOKEN_KAVA)) {
-                sum = sum.add(balance.balance);
-                sum = sum.add(balance.locked);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_KAVA));
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getAllBand(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_BAND)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_BAND));
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getAllIov(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_IOV));
-                sum = sum.add(reward.getRewardAmount(TOKEN_IOV_TEST));
-            }
-        }
-        return sum;
-    }
-
     public static BigDecimal getAllOk(Balance balance, ResOkStaking deposit, ResOkUnbonding withdraw) {
         BigDecimal sum = BigDecimal.ZERO;
         if (balance != null) {
@@ -688,82 +550,6 @@ public class WDp {
         sum = sum.add(getOkDepositCoin(deposit));
         sum = sum.add(getOkWithdrawingCoin(withdraw));
 
-        return sum;
-    }
-
-    public static BigDecimal getAllCtk(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_CERTIK)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_CERTIK));
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getAllSecret(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_SECRET)) {
-                sum = sum.add(balance.balance);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_SECRET));
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getAllSentinel(ArrayList<Balance> balances, ArrayList<BondingState> bondings, ArrayList<UnBondingState> unbondings, ArrayList<Reward> rewards, ArrayList<Validator> validators) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for(Balance balance : balances) {
-            if(balance.symbol.equals(TOKEN_DVPN)) {
-                sum = sum.add(balance.balance);
-                sum = sum.add(balance.locked);
-            }
-        }
-        if (bondings != null) {
-            for(BondingState bonding : bondings) {
-                sum = sum.add(bonding.getBondingAmount(selectValidator(validators, bonding.validatorAddress)));
-            }
-        }
-        if (unbondings != null) {
-            for(UnBondingState unbonding : unbondings) {
-                sum = sum.add(unbonding.balance);
-            }
-        }
-        if (rewards != null) {
-            for(Reward reward : rewards) {
-                sum = sum.add(reward.getRewardAmount(TOKEN_DVPN));
-            }
-        }
         return sum;
     }
 

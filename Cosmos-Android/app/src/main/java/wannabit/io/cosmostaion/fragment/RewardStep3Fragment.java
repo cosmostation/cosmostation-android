@@ -18,7 +18,6 @@ import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;

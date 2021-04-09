@@ -21,7 +21,6 @@ import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.fragment.RewardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;

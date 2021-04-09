@@ -53,10 +53,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.OkToken;
-import wannabit.io.cosmostaion.dao.Reward;
-import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
@@ -73,7 +70,6 @@ import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
@@ -611,8 +607,7 @@ public class WUtil {
         }
         return result;
     }
-
-
+    
     public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
         for (Balance balance:list) {
             if (balance.symbol.equals(symbol)) {
@@ -620,100 +615,6 @@ public class WUtil {
             }
         }
         return null;
-    }
-
-
-    public static ArrayList<BondingState> getBondingFromLcds(long accountId, ArrayList<ResLcdBonding> list, BaseChain chain) {
-        long time = System.currentTimeMillis();
-        ArrayList<BondingState> result = new ArrayList<>();
-        if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(BAND_MAIN) ||
-                chain.equals(KAVA_TEST) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) ||
-                chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN) || chain.equals(AKASH_MAIN)) {
-            for(ResLcdBonding val : list) {
-                String valAddress = "";
-                if(!TextUtils.isEmpty(val.validator_addr))
-                    valAddress = val.validator_addr;
-                if(!TextUtils.isEmpty(val.validator_address))
-                    valAddress = val.validator_address;
-
-                BondingState temp = new BondingState(accountId, valAddress, new BigDecimal(val.shares), time);
-                result.add(temp);
-            }
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            for(ResLcdBonding val : list) {
-                String valAddress = "";
-                if(!TextUtils.isEmpty(val.validator_addr))
-                    valAddress = val.validator_addr;
-                if(!TextUtils.isEmpty(val.validator_address))
-                    valAddress = val.validator_address;
-
-                BondingState temp = new BondingState(accountId, valAddress, new BigDecimal(val.shares).movePointRight(18), time);
-                result.add(temp);
-            }
-        }
-
-        return result;
-    }
-
-    public static BondingState getBondingFromLcd(long accountId, ResLcdBonding lcd, BaseChain chain) {
-        String valAddress = "";
-        if(!TextUtils.isEmpty(lcd.validator_addr))
-            valAddress = lcd.validator_addr;
-        if(!TextUtils.isEmpty(lcd.validator_address))
-            valAddress = lcd.validator_address;
-
-        return new BondingState(accountId, valAddress, new BigDecimal(lcd.shares), System.currentTimeMillis());
-    }
-
-    public static ArrayList<UnBondingState> getUnbondingFromLcds(Context c, BaseChain chain, long accountId, ArrayList<ResLcdUnBonding> list) {
-        long time = System.currentTimeMillis();
-        ArrayList<UnBondingState> result = new ArrayList<>();
-        for(ResLcdUnBonding val : list) {
-            String valAddress = "";
-            if(!TextUtils.isEmpty(val.validator_addr))
-                valAddress = val.validator_addr;
-            if(!TextUtils.isEmpty(val.validator_address))
-                valAddress = val.validator_address;
-
-            for(ResLcdUnBonding.Entry entry:val.entries) {
-                UnBondingState temp = new UnBondingState(
-                        accountId,
-                        valAddress,
-                        entry.creation_height,
-                        WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-                        new BigDecimal(entry.getinitial_balance()),
-                        new BigDecimal(entry.getbalance()),
-                        time
-                );
-                result.add(temp);
-            }
-        }
-        return result;
-    }
-
-    public static ArrayList<UnBondingState> getUnbondingFromLcd(Context c, long accountId, ResLcdUnBonding lcd) {
-        long time = System.currentTimeMillis();
-        ArrayList<UnBondingState> result = new ArrayList<>();
-        for(ResLcdUnBonding.Entry entry:lcd.entries) {
-            String valAddress = "";
-            if(!TextUtils.isEmpty(lcd.validator_addr))
-                valAddress = lcd.validator_addr;
-            if(!TextUtils.isEmpty(lcd.validator_address))
-                valAddress = lcd.validator_address;
-
-            UnBondingState temp = new UnBondingState(
-                    accountId,
-                    valAddress,
-                    entry.creation_height,
-                    WUtil.cosmosTimetoLocalLong(c, entry.completion_time),
-                    new BigDecimal(entry.getinitial_balance()),
-                    new BigDecimal(entry.getbalance()),
-                    time
-            );
-            result.add(temp);
-        }
-        return result;
     }
 
     public static String prettyPrinter(Object object) {
