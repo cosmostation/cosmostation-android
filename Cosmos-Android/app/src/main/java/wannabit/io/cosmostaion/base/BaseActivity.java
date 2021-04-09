@@ -727,11 +727,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new IrisParamMintGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new IrisTokenListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-
         }
 
         onPriceTic(BaseChain.getChain(mAccount.baseChain));
-//        return true;
     }
 
     @Override
@@ -773,16 +771,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDING_STATE) {
-            //YONG REFACT
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mMyDelegations = (ArrayList<BondingInfo>)result.resultData;
             }
-//            getBaseDao().mBondings = getBaseDao().onSelectBondingStates(mAccount.id);
-//            mTaskCount = mTaskCount + getBaseDao().mBondings.size();
-//            getBaseDao().mRewards.clear();
-//            for(BondingState bonding:getBaseDao().mBondings) {
-//                new SingleRewardTask(getBaseApplication(), this, mAccount, bonding.validatorAddress).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_UNBONDING_STATE) {
             if (result.isSuccess && result.resultData != null) {
@@ -1020,9 +1011,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().mTopValidators.add(all);
                     } else {
                         getBaseDao().mOtherValidators.add(all);
-
                     }
-
                 }
 //                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
 //                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
@@ -1066,16 +1055,14 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     if (already) getBaseDao().mMyValidators.add(top);
                 }
 
-
 //                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
 //                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
 //                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
 //                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
-
-                WLog.w("mBalances " + getBaseDao().mBalances.size());
-                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
-                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
-                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
+//                WLog.w("mBalances " + getBaseDao().mBalances.size());
+//                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
+//                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
+//                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
@@ -1099,73 +1086,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     private Handler mHandler = new Handler(Looper.getMainLooper());
 
     public void onPriceTic(final BaseChain chain) {
-        if (getBaseDao().getMarket() == 0) {
-            ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
-                @Override
-                public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-                    if(isFinishing()) return;
-                    try {
-                        getBaseDao().setLastPriceTic(chain, response.body());
-                    } catch (Exception e) {
-                        if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-                            getBaseDao().setLastAtomTic(0d);
-                            getBaseDao().setLastAtomUpDown(0d);
-
-                        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-                            getBaseDao().setLastIrisTic(0d);
-                            getBaseDao().setLastIrisUpDown(0d);
-
-                        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                            getBaseDao().setLastBnbTic(0d);
-                            getBaseDao().setLastBnbUpDown(0d);
-
-                        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                            getBaseDao().setLastKavaTic(0d);
-                            getBaseDao().setLastKavaUpDown(0d);
-
-                        } else if (chain.equals(BAND_MAIN)) {
-                            getBaseDao().setLastBandTic(0d);
-                            getBaseDao().setLastBandUpDown(0d);
-
-                        } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-                            getBaseDao().setLastIovTic(0d);
-                            getBaseDao().setLastIovUpDown(0d);
-
-                        } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-                            getBaseDao().setLastCertikTic(0d);
-                            getBaseDao().setLastCertikUpDown(0d);
-
-                        } else if (chain.equals(AKASH_MAIN)) {
-                            getBaseDao().setLastAkashTic(0d);
-                            getBaseDao().setLastAkashUpDown(0d);
-
-                        } else if (chain.equals(SECRET_MAIN)) {
-                            getBaseDao().setLastSecretTic(0d);
-                            getBaseDao().setLastSecretUpDown(0d);
-
-                        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-                            getBaseDao().setLastOKexTic(0d);
-                            getBaseDao().setLastOKexUpDown(0d);
-
-                        } else if (chain.equals(SENTINEL_MAIN)) {
-                            getBaseDao().setLastSentinelTic(0d);
-                            getBaseDao().setLastSentinelUpDown(0d);
-
-                        } else if (chain.equals(PERSIS_MAIN)) {
-                            getBaseDao().setLastPersistenceTic(0d);
-                            getBaseDao().setLastPersistencelUpDown(0d);
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResCgcTic> call, Throwable t) {
-                    if (chain.equals(COSMOS_MAIN)) {
+        ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
+            @Override
+            public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
+                if(isFinishing()) return;
+                try {
+                    getBaseDao().setLastPriceTic(chain, response.body());
+                } catch (Exception e) {
+                    if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
                         getBaseDao().setLastAtomTic(0d);
                         getBaseDao().setLastAtomUpDown(0d);
 
-                    } else if (chain.equals(IRIS_MAIN)) {
+                    } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
                         getBaseDao().setLastIrisTic(0d);
                         getBaseDao().setLastIrisUpDown(0d);
 
@@ -1188,82 +1120,63 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
                         getBaseDao().setLastCertikTic(0d);
                         getBaseDao().setLastCertikUpDown(0d);
-                    }
-                }
-            });
 
-        } else if (getBaseDao().getMarket() == 1) {
-            ApiClient.getCMCClient(getBaseContext()).getPriceTic(WUtil.getCMCId(chain), getBaseDao().getCurrencyString()).enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    if(isFinishing()) return;
-                    try {
-                        if (response.isSuccessful() && chain.equals(COSMOS_MAIN)) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastAtomTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastAtomUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+                    } else if (chain.equals(AKASH_MAIN)) {
+                        getBaseDao().setLastAkashTic(0d);
+                        getBaseDao().setLastAkashUpDown(0d);
 
-                        } else if (response.isSuccessful() && chain.equals(IRIS_MAIN)) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastIrisTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastIrisUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+                    } else if (chain.equals(SECRET_MAIN)) {
+                        getBaseDao().setLastSecretTic(0d);
+                        getBaseDao().setLastSecretUpDown(0d);
 
-                        } else if (response.isSuccessful() && (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST) )) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastBnbTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastBnbUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+                    } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+                        getBaseDao().setLastOKexTic(0d);
+                        getBaseDao().setLastOKexUpDown(0d);
 
-                        } else if (response.isSuccessful() && (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST))) {
-                            ResCmcTic mResCmcTic = new Gson().fromJson(response.body(), ResCmcTic.class);
-                            getBaseDao().setLastKavaTic(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPrice());
-                            getBaseDao().setLastKavaUpDown(mResCmcTic.getData().getQuotesMap().get(getBaseDao().getCurrencyString()).getPercent_change_24h());
+                    } else if (chain.equals(SENTINEL_MAIN)) {
+                        getBaseDao().setLastSentinelTic(0d);
+                        getBaseDao().setLastSentinelUpDown(0d);
 
-                        }
-
-                    } catch (Exception e) {
-                        if (chain.equals(COSMOS_MAIN)) {
-                            getBaseDao().setLastAtomTic(0d);
-                            getBaseDao().setLastAtomUpDown(0d);
-
-                        } else if (chain.equals(IRIS_MAIN)) {
-                            getBaseDao().setLastIrisTic(0d);
-                            getBaseDao().setLastIrisUpDown(0d);
-
-                        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                            getBaseDao().setLastBnbTic(0d);
-                            getBaseDao().setLastBnbUpDown(0d);
-
-                        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                            getBaseDao().setLastKavaTic(0d);
-                            getBaseDao().setLastKavaUpDown(0d);
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
-                    if (chain.equals(COSMOS_MAIN)) {
-                        getBaseDao().setLastAtomTic(0d);
-                        getBaseDao().setLastAtomUpDown(0d);
-
-                    } else if (chain.equals(IRIS_MAIN)) {
-                        getBaseDao().setLastIrisTic(0d);
-                        getBaseDao().setLastIrisUpDown(0d);
-
-                    } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                        getBaseDao().setLastBnbTic(0d);
-                        getBaseDao().setLastBnbUpDown(0d);
-
-                    } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-                        getBaseDao().setLastKavaTic(0d);
-                        getBaseDao().setLastKavaUpDown(0d);
+                    } else if (chain.equals(PERSIS_MAIN)) {
+                        getBaseDao().setLastPersistenceTic(0d);
+                        getBaseDao().setLastPersistencelUpDown(0d);
 
                     }
-
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<ResCgcTic> call, Throwable t) {
+                if (chain.equals(COSMOS_MAIN)) {
+                    getBaseDao().setLastAtomTic(0d);
+                    getBaseDao().setLastAtomUpDown(0d);
+
+                } else if (chain.equals(IRIS_MAIN)) {
+                    getBaseDao().setLastIrisTic(0d);
+                    getBaseDao().setLastIrisUpDown(0d);
+
+                } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+                    getBaseDao().setLastBnbTic(0d);
+                    getBaseDao().setLastBnbUpDown(0d);
+
+                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+                    getBaseDao().setLastKavaTic(0d);
+                    getBaseDao().setLastKavaUpDown(0d);
+
+                } else if (chain.equals(BAND_MAIN)) {
+                    getBaseDao().setLastBandTic(0d);
+                    getBaseDao().setLastBandUpDown(0d);
+
+                } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
+                    getBaseDao().setLastIovTic(0d);
+                    getBaseDao().setLastIovUpDown(0d);
+
+                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
+                    getBaseDao().setLastCertikTic(0d);
+                    getBaseDao().setLastCertikUpDown(0d);
+                }
+            }
+        });
     }
 
 

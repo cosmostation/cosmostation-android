@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class ResKavaSwapSupply2 {
+public class ResKavaSwapSupply {
 
     @SerializedName("height")
     public String height;

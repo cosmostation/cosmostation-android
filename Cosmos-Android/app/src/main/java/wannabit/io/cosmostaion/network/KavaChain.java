@@ -13,7 +13,7 @@ import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.network.res.ResKavaCdpParam;
 import wannabit.io.cosmostaion.network.res.ResKavaAuctionParam;
-import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
+import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaHardInterestRate;
 import wannabit.io.cosmostaion.network.res.ResKavaHardModuleAccount;
 import wannabit.io.cosmostaion.network.res.ResKavaHardMyBorrow;
@@ -22,14 +22,14 @@ import wannabit.io.cosmostaion.network.res.ResKavaHardParam;
 import wannabit.io.cosmostaion.network.res.ResKavaHardReserves;
 import wannabit.io.cosmostaion.network.res.ResKavaHardTotalBorrow;
 import wannabit.io.cosmostaion.network.res.ResKavaHardTotalDeposit;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam5;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveParam;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.network.res.ResKavaMarketPrice;
 import wannabit.io.cosmostaion.network.res.ResKavaMyCdps;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.network.res.ResLcdAllRewards;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
@@ -151,7 +151,7 @@ public interface KavaChain {
 
 
     @GET("bep3/parameters")
-    Call<ResKavaBep3Param2> getSwapParams2();
+    Call<ResKavaBep3Param> getSwapParams2();
 
     @GET("bep3/swap/{swapId}")
     Call<ResKavaSwapInfo> getSwapById(@Path("swapId") String swapId);
@@ -160,7 +160,7 @@ public interface KavaChain {
     Call<String> getSwaps();
 
     @GET("bep3/supplies")
-    Call<ResKavaSwapSupply2> getSupplies2();
+    Call<ResKavaSwapSupply> getSupplies2();
 
 
     @GET("cdp/parameters")
@@ -177,10 +177,10 @@ public interface KavaChain {
     Call<ResKavaAuctionParam> getAuctionParam();
 
     @GET("incentive/parameters")
-    Call<ResKavaIncentiveParam5> getIncentiveParam5();
+    Call<ResKavaIncentiveParam> getIncentiveParam5();
 
     @GET("incentive/rewards")
-    Call<ResKavaIncentiveReward5> getIncentiveReward5(@Query("owner") String owner);
+    Call<ResKavaIncentiveReward> getIncentiveReward5(@Query("owner") String owner);
 
 
     @GET("hard/parameters")

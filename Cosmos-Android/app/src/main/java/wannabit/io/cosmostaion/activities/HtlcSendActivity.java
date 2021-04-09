@@ -30,9 +30,8 @@ import wannabit.io.cosmostaion.fragment.HtlcSendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcSendStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
-import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_BEP3;
@@ -59,8 +58,8 @@ public class HtlcSendActivity extends BaseActivity {
     public BigDecimal               mRemainCap = BigDecimal.ZERO;
     public BigDecimal               mMaxOnce = BigDecimal.ZERO;
 
-    public ResKavaBep3Param2       mKavaBep3Param2;
-    public ResKavaSwapSupply2      mKavaSuppies2;
+    public ResKavaBep3Param mKavaBep3Param2;
+    public ResKavaSwapSupply mKavaSuppies2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

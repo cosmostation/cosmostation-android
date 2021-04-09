@@ -207,21 +207,6 @@ public class ApiClient {
         return service_iov_test;
     }
 
-    //Faucet for IOV Test
-    private static IovChain service_iov_test_faucet = null;
-    public static IovChain getIovTestFaucet(Context c) {
-        if (service_iov_test_faucet == null) {
-            synchronized (ApiClient.class) {
-                Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_test_iov_faucet))
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build();
-                service_iov_test_faucet = retrofit.create(IovChain.class);
-            }
-        }
-        return service_iov_test_faucet;
-    }
-
     //Rest for Band main net
     private static BandChain service_band = null;
     public static BandChain getBandChain(Context c) {
@@ -463,21 +448,6 @@ public class ApiClient {
 
 
 
-    private static MarketCapService marketCapService = null;
-    public static MarketCapService getCMCClient(Context c) {
-        if (marketCapService == null) {
-            synchronized (ApiClient.class) {
-                if (marketCapService == null)  {
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(c.getString(R.string.url_coinmarketcap))
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    marketCapService = retrofit.create(MarketCapService.class);
-                }
-            }
-        }
-        return marketCapService;
-    }
 
     private static CoinGeckoService coingeckoService = null;
     public static CoinGeckoService getCGCClient(Context c) {

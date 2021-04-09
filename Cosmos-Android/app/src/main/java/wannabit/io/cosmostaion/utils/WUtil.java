@@ -1039,17 +1039,9 @@ public class WUtil {
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
                 if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-                if (chain.equals(COSMOS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)
-                        || chain.equals(BAND_MAIN) || chain.equals(IOV_MAIN) || chain.equals(IOV_TEST) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(SECRET_MAIN)) {
-                    if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
-                    else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
-                    else return 0;
-                } else if (chain.equals(IRIS_MAIN)) {
-                    if (Float.parseFloat(o1.commission.rate) > Float.parseFloat(o2.commission.rate)) return 1;
-                    else if (Float.parseFloat(o1.commission.rate) < Float.parseFloat(o2.commission.rate)) return -1;
-                    else return 0;
-                }
-                return 0;
+                if (Float.parseFloat(o1.commission.commission_rates.rate) > Float.parseFloat(o2.commission.commission_rates.rate)) return 1;
+                else if (Float.parseFloat(o1.commission.commission_rates.rate) < Float.parseFloat(o2.commission.commission_rates.rate)) return -1;
+                else return 0;
             }
         });
         Collections.sort(validators, new Comparator<Validator>() {
@@ -1308,53 +1300,6 @@ public class WUtil {
 
             }
         });
-    }
-
-    public static ArrayList<Validator> getTopVals(ArrayList<Validator> allValidators) {
-        ArrayList<Validator> result = new ArrayList<>();
-        for(Validator v:allValidators) {
-            if(v.status == Validator.BONDED) {
-                result.add(v);
-            }
-        }
-        return result;
-
-    }
-
-    public static ArrayList<Validator> getOthersVals(ArrayList<Validator> allValidators) {
-        ArrayList<Validator> result = new ArrayList<>();
-        for(Validator v:allValidators) {
-            if(v.status != Validator.BONDED) {
-                result.add(v);
-            }
-        }
-        return result;
-    }
-
-    public static Validator selectValidatorByAddr(ArrayList<Validator> validators, String opAddr) {
-        for (Validator v:validators) {
-            if (v.operator_address.equals(opAddr)) {
-                return v;
-            }
-        }
-        return null;
-    }
-
-
-    public static int getCMCId(BaseChain chain) {
-        if (chain.equals(COSMOS_MAIN)) {
-            return BaseConstant.CMC_ATOM;
-
-        } else if (chain.equals(IRIS_MAIN)) {
-            return BaseConstant.CMC_IRIS;
-
-        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-            return BaseConstant.CMC_BNB;
-
-        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-            return BaseConstant.CMC_KAVA;
-        }
-        return BaseConstant.CMC_ATOM;
     }
 
     public static String getCGCId(BaseChain chain) {

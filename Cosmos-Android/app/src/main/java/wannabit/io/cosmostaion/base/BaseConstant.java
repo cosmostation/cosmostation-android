@@ -602,12 +602,6 @@ public class BaseConstant {
     public final static String CGC_SENTINEL = "sentinel-group";
     public final static String CGC_PERSISTENCE = "persistence";
 
-    public final static int CMC_ATOM = 3794;
-    public final static int CMC_IRIS = 3874;
-    public final static int CMC_BNB = 1839;
-    public final static int CMC_KAVA = 4846;
-
-
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
     public final static String BINANCE_MAIN_BTCB_DEPUTY = "bnb1xz3xqf4p2ygrw9lhp5g5df4ep4nd20vsywnmpr";

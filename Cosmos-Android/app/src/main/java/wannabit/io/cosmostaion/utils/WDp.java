@@ -506,15 +506,6 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-//        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(SENTINEL_MAIN) ||
-//                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
-//            return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
-//        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-//            return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
-//        } else {
-//            return BigDecimal.ZERO;
-//        }
-
         if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
 
@@ -527,17 +518,6 @@ public class WDp {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         SpannableString result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, dpDecimal).format(getMainAssetValue(c, dao, amount, chain)));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - dpDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
-        return result;
-    }
-
-    public static Validator selectValidator(ArrayList<Validator> validators, String opAddress) {
-        Validator result = null;
-        for (Validator val:validators) {
-            if(val.operator_address.equals(opAddress)) {
-                result = val;
-                break;
-            }
-        }
         return result;
     }
 

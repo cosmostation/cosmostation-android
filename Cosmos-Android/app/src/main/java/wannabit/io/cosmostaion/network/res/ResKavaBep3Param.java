@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class ResKavaBep3Param2 {
+public class ResKavaBep3Param {
     @SerializedName("height")
     public String height;
 

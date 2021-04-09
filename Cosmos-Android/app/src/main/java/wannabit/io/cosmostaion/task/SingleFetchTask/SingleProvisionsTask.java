@@ -35,21 +35,7 @@ public class SingleProvisionsTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
-//            if (mChain.equals(COSMOS_MAIN)) {
-//                Response<ResProvisions> response = ApiClient.getCosmosChain(mApp).getProvisions().execute();
-//                if(!response.isSuccessful()) {
-//                    mResult.isSuccess = false;
-//                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-//                    return mResult;
-//                }
-//
-//                if(response.body() != null && response.body().result != null) {
-//                    mResult.resultData = response.body().result;
-//                    mResult.isSuccess = true;
-//                }
-//
-//            } else
-                if (mChain.equals(KAVA_MAIN)) {
+            if (mChain.equals(KAVA_MAIN)) {
                 Response<ResProvisions> response = ApiClient.getKavaChain(mApp).getProvisions().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
@@ -154,19 +140,19 @@ public class SingleProvisionsTask extends CommonTask {
                 }
 
             } else if (mChain.equals(SENTINEL_MAIN)) {
-                    Response<ResProvisions> response = ApiClient.getSentinelChain(mApp).getProvisions().execute();
-                    if(!response.isSuccessful()) {
-                        mResult.isSuccess = false;
-                        mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                        return mResult;
-                    }
-
-                    if(response.body() != null && response.body().result != null) {
-                        mResult.resultData = response.body().result;
-                        mResult.isSuccess = true;
-                    }
-
+                Response<ResProvisions> response = ApiClient.getSentinelChain(mApp).getProvisions().execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
                 }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            }
 
 
         } catch (Exception e) {

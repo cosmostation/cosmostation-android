@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import wannabit.io.cosmostaion.model.kava.IncentiveParam;
 
-public class ResKavaIncentiveParam5 {
+public class ResKavaIncentiveParam {
     @SerializedName("height")
     public String height;
 

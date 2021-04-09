@@ -2,7 +2,6 @@
     <string name="app_name">Cosmostation</string>
     <string name="db_password" translatable="false">wannabit</string>
 
-    <string name="url_coinmarketcap" translatable="false">https://api.coinmarketcap.com/</string>
     <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>
@@ -40,7 +39,6 @@
 
     <string name="url_lcd_iov_test" translatable="false">https://iovnscli-rest-api.cluster-galaxynet.iov.one/</string>
     <string name="url_api_iov_test" translatable="false"></string>
-    <string name="url_test_iov_faucet" translatable="false">https://faucet.cluster-galaxynet.iov.one/</string>
 
 
     <string name="url_lcd_band_main" translatable="false">https://lcd-band.cosmostation.io/</string>

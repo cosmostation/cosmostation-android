@@ -30,8 +30,8 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Receive_Chain;
 import wannabit.io.cosmostaion.dialog.Dialog_Htlc_Send_Coin;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResKavaBep3Param2;
-import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
+import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
+import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
@@ -76,8 +76,8 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
     private ArrayList<String>                               mSwappableCoinList;
     private String                                          mToSwapDenom;
 
-    private ResKavaBep3Param2                               mKavaBep3Param2;
-    private ResKavaSwapSupply2                              mKavaSuppies2;
+    private ResKavaBep3Param mKavaBep3Param2;
+    private ResKavaSwapSupply mKavaSuppies2;
 
     private BigDecimal supply_limit = BigDecimal.ZERO;
     private BigDecimal supply_remain = BigDecimal.ZERO;
@@ -309,9 +309,9 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onCheckSwapParam() {
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param2>() {
+            ApiClient.getKavaChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
                 @Override
-                public void onResponse(Call<ResKavaBep3Param2> call, Response<ResKavaBep3Param2> response) {
+                public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
                     if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     } else {
@@ -321,15 +321,15 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                     }
                 }
                 @Override
-                public void onFailure(Call<ResKavaBep3Param2> call, Throwable t) {
+                public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)){
-            ApiClient.getKavaTestChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param2>() {
+            ApiClient.getKavaTestChain(getContext()).getSwapParams2().enqueue(new Callback<ResKavaBep3Param>() {
                 @Override
-                public void onResponse(Call<ResKavaBep3Param2> call, Response<ResKavaBep3Param2> response) {
+                public void onResponse(Call<ResKavaBep3Param> call, Response<ResKavaBep3Param> response) {
                     if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     } else {
@@ -339,7 +339,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                     }
                 }
                 @Override
-                public void onFailure(Call<ResKavaBep3Param2> call, Throwable t) {
+                public void onFailure(Call<ResKavaBep3Param> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
 
                 }
@@ -350,9 +350,9 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
 
     private void onCheckSwapSupply() {
         if (getSActivity().mBaseChain.equals(BaseChain.BNB_MAIN) || getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            ApiClient.getKavaChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply2>() {
+            ApiClient.getKavaChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
                 @Override
-                public void onResponse(Call<ResKavaSwapSupply2> call, Response<ResKavaSwapSupply2> response) {
+                public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
                     if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     } else {
@@ -362,15 +362,15 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                     }
                 }
                 @Override
-                public void onFailure(Call<ResKavaSwapSupply2> call, Throwable t) {
+                public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });
 
         } else if (getSActivity().mBaseChain.equals(BaseChain.BNB_TEST) || getSActivity().mBaseChain.equals(BaseChain.KAVA_TEST)){
-            ApiClient.getKavaTestChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply2>() {
+            ApiClient.getKavaTestChain(getContext()).getSupplies2().enqueue(new Callback<ResKavaSwapSupply>() {
                 @Override
-                public void onResponse(Call<ResKavaSwapSupply2> call, Response<ResKavaSwapSupply2> response) {
+                public void onResponse(Call<ResKavaSwapSupply> call, Response<ResKavaSwapSupply> response) {
                     if (!response.isSuccessful()) {
                         Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                     } else {
@@ -380,7 +380,7 @@ public class HtlcSendStep0Fragment extends BaseFragment implements View.OnClickL
                     }
                 }
                 @Override
-                public void onFailure(Call<ResKavaSwapSupply2> call, Throwable t) {
+                public void onFailure(Call<ResKavaSwapSupply> call, Throwable t) {
                     Toast.makeText(getContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 }
             });

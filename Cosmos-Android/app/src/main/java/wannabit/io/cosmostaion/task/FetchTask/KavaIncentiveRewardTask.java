@@ -6,7 +6,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward5;
+import wannabit.io.cosmostaion.network.res.ResKavaIncentiveReward;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
@@ -28,14 +28,14 @@ public class KavaIncentiveRewardTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                Response<ResKavaIncentiveReward5> response = ApiClient.getKavaChain(mApp).getIncentiveReward5(mAccount.address).execute();
+                Response<ResKavaIncentiveReward> response = ApiClient.getKavaChain(mApp).getIncentiveReward5(mAccount.address).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
                 }
 
             } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ResKavaIncentiveReward5> response = ApiClient.getKavaTestChain(mApp).getIncentiveReward5(mAccount.address).execute();
+                Response<ResKavaIncentiveReward> response = ApiClient.getKavaTestChain(mApp).getIncentiveReward5(mAccount.address).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
