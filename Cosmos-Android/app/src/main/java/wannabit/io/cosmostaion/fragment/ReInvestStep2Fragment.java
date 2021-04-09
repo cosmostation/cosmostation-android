@@ -258,7 +258,7 @@ public class ReInvestStep2Fragment extends BaseFragment implements View.OnClickL
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_sentinel));
 
             mGasAmount.setText(SENTINEL_GAS_AMOUNT_REINVEST);
-            mGasRate.setText(WDp.getDpString(SENTINEL_GAS_FEE_RATE_AVERAGE, 3));
+            mGasRate.setText(WDp.getDpString(SENTINEL_GAS_FEE_RATE_AVERAGE, 2));
             mFeeAmount = new BigDecimal(SENTINEL_GAS_AMOUNT_REINVEST).multiply(new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastSentinelTic())).setScale(2, RoundingMode.DOWN);

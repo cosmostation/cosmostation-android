@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -92,8 +93,8 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
         } else {
             BigDecimal rewardSum = BigDecimal.ZERO;
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            for (Coin coin:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(coin.amount));
             }
             mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
             String monikers = "";

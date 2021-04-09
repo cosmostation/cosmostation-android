@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
@@ -23,7 +24,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.fragment.ReInvestStep0Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep1Fragment;
 import wannabit.io.cosmostaion.fragment.ReInvestStep2Fragment;
@@ -192,9 +192,13 @@ public class ReInvestActivity extends BaseBroadCastActivity implements TaskListe
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
-            Reward reward = (Reward)result.resultData;
-            if (reward != null && reward.amount.size() > 0) {
-                mAmount = reward.amount.get(0);
+            if (result.isSuccess && result.resultData != null) {
+                ArrayList<Coin> rewardCoins = (ArrayList<Coin>)result.resultData;
+                for (Coin coin: rewardCoins) {
+                    if (coin.denom.equals(WDp.mainDenom(mBaseChain))) {
+                        mAmount = new Coin(WDp.mainDenom(mBaseChain), new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN).toPlainString());
+                    }
+                }
                 mPageAdapter.mCurrentFragment.onRefreshTab();
             } else {
                 onBackPressed();

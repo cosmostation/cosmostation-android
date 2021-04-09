@@ -81,14 +81,14 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
-            BondingState bonding = getBaseDao().onSelectBondingState(getSActivity().mAccount.id, getSActivity().mValidator.operator_address);
+
+
             mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
-            if(bonding != null && bonding.getBondingAmount(getSActivity().mValidator) != null) {
-                mCurrentAmount.setText(WDp.getDpAmount2(getContext(), bonding.getBondingAmount(getSActivity().mValidator), 6, 6));
-                BigDecimal expected = bonding.getBondingAmount(getSActivity().mValidator).add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
-                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
-            }
+            BigDecimal current = getBaseDao().delegatedAmountByValidator(getSActivity().mValidator.operator_address);
+            BigDecimal expected = current.add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
+            mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, 6, 6));
+            mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
             mValidator.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);
         }

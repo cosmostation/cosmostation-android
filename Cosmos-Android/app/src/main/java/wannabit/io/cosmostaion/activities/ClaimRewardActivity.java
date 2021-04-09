@@ -13,6 +13,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 
 import cosmos.distribution.v1beta1.Distribution;
@@ -25,6 +27,7 @@ import wannabit.io.cosmostaion.fragment.RewardStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.RewardStep3Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.SingleFetchTask.CheckWithdrawAddressTask;
 import wannabit.io.cosmostaion.task.SingleFetchTask.SingleRewardTask;
@@ -32,6 +35,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
+import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -53,7 +57,8 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private RewardPageAdapter           mPageAdapter;
 
     public ArrayList<Validator>         mValidators = new ArrayList<>();
-    public ArrayList<Reward>            mRewards = new ArrayList<>();
+//    public ArrayList<Reward>            mRewards = new ArrayList<>();
+    public ArrayList<Coin>              mRewards = new ArrayList<>();
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 
@@ -206,9 +211,14 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         mTaskCount--;
         if(isFinishing()) return;
         if (result.taskType == TASK_FETCH_SINGLE_REWARD) {
-            Reward reward = (Reward)result.resultData;
-            if(reward != null)
-                onUpdateReward(reward);
+            if (result.isSuccess && result.resultData != null) {
+                ArrayList<Coin> rewardCoins = (ArrayList<Coin>)result.resultData;
+                for (Coin coin: rewardCoins) {
+                    if (coin.denom.equals(WDp.mainDenom(mBaseChain))) {
+                        mRewards.add(new Coin(WDp.mainDenom(mBaseChain), new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN).toPlainString()));
+                    }
+                }
+            }
 
         } else if (result.taskType == TASK_FETCH_WITHDRAW_ADDRESS) {
             mWithdrawAddress = (String)result.resultData;
@@ -228,23 +238,23 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
         }
     }
 
-    private void onUpdateReward(Reward reward) {
-        if (mRewards == null) mRewards = new ArrayList<>();
-        if (mRewards.size() == 0) {
-            mRewards.add(reward);
-        } else {
-            int match = -1;
-            for(int i = 0; i < mRewards.size(); i++) {
-                if(mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
-                    match = i; break;
-                }
-            }
-            if(match > 0) {
-                mRewards.remove(match);
-            }
-            mRewards.add(reward);
-        }
-    }
+//    private void onUpdateReward(Reward reward) {
+//        if (mRewards == null) mRewards = new ArrayList<>();
+//        if (mRewards.size() == 0) {
+//            mRewards.add(reward);
+//        } else {
+//            int match = -1;
+//            for(int i = 0; i < mRewards.size(); i++) {
+//                if(mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
+//                    match = i; break;
+//                }
+//            }
+//            if(match > 0) {
+//                mRewards.remove(match);
+//            }
+//            mRewards.add(reward);
+//        }
+//    }
 
     private class RewardPageAdapter extends FragmentPagerAdapter {
 

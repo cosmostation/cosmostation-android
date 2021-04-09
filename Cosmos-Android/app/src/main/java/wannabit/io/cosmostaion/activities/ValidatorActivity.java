@@ -372,7 +372,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else {
-            if (mBondingInfo == null || mBondingInfo.balance != null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
+            if (mBondingInfo == null || mBondingInfo.balance == null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
                 Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -495,7 +495,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             startActivity(toDelegate);
 
         } else {
-            if (mBondingInfo == null || mBondingInfo.balance != null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
+            if (mBondingInfo == null || mBondingInfo.balance == null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
                 Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -865,7 +865,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_SELF_BONDING) {
-            ResLcdBonding temp = (ResLcdBonding)result.resultData;
+            BondingInfo temp = (BondingInfo)result.resultData;
             if (temp != null) mSelfBondingRate = WDp.getSelfBondRate(mValidator.tokens, temp.shares);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_SINGLE_REWARD) {

@@ -50,7 +50,6 @@ public class UndelegateActivity extends BaseBroadCastActivity {
     private UndelegatePageAdapter       mPageAdapter;
 
     public Validator                    mValidator;
-    public BondingState                 mBondingState;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +78,6 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             mValAddress = getIntent().getStringExtra("valOpAddress");
         } else {
             mValidator = getIntent().getParcelableExtra("validator");
-            mBondingState = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
         }
 
         mPageAdapter = new UndelegatePageAdapter(getSupportFragmentManager());

@@ -52,7 +52,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     private RedelegatePageAdapter           mPageAdapter;
 
     public ArrayList<Validator>             mToValidators = new ArrayList<>();
-    public BondingState                     mBondingState;
+//    public BondingState                     mBondingState;
     public Validator                        mFromValidator;
     public Validator                        mToValidator;
 
@@ -86,10 +86,8 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
 
         if (isGRPC(mBaseChain)) {
             mValAddress = getIntent().getStringExtra("valOpAddress");
-
         } else {
             mFromValidator          = getIntent().getParcelableExtra("validator");
-            mBondingState           = getBaseDao().onSelectBondingState(mAccount.id, mFromValidator.operator_address);
         }
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());

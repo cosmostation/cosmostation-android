@@ -153,26 +153,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else {
-            mMaxAvailable = getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator);
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-            }
+            mMaxAvailable = getBaseDao().delegatedAmountByValidator(getSActivity().mValidator.operator_address);
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
         }
     }
 
@@ -235,76 +217,12 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     private boolean isValidateUnDelegateAmount() {
         try {
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(TOKEN_KAVA, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(TOKEN_BAND, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(TOKEN_IOV, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(TOKEN_IOV_TEST, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if(atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if(atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) return false;
-                Coin coin = new Coin(TOKEN_CERTIK, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0)
-                    return false;
-                Coin coin = new Coin(TOKEN_SECRET, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                BigDecimal atomTemp = new BigDecimal(mAmountInput.getText().toString().trim());
-                if (atomTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (atomTemp.compareTo(getSActivity().mBondingState.getBondingAmount(getSActivity().mValidator).movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0)
-                    return false;
-                Coin coin = new Coin(TOKEN_DVPN, atomTemp.movePointRight(6).setScale(0).toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            }
-
-            else if (isGRPC(getSActivity().mBaseChain)) {
-                BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(6).setScale(0);
-                if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
-                if (userInput.compareTo(mMaxAvailable) > 0) return false;
-                Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
-                getSActivity().mAmount = coin;
-                return true;
-
-            }
-            return false;
+            BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(6).setScale(0);
+            if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
+            if (userInput.compareTo(mMaxAvailable) > 0) return false;
+            Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
+            getSActivity().mAmount = coin;
+            return true;
 
         } catch (Exception e) {
             getSActivity().mAmount = null;

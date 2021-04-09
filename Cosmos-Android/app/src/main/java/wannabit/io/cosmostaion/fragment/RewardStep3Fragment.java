@@ -20,6 +20,7 @@ import wannabit.io.cosmostaion.activities.ClaimRewardActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dialog.Dialog_Reward_Small;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
@@ -127,8 +128,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
 
         } else {
             if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                for (Reward reward:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -153,8 +154,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                for (Reward reward:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -179,8 +180,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-                for (Reward reward:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -205,8 +206,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                for (Reward reward:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -231,8 +232,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                for (Reward reward:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -257,8 +258,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                for (Reward reward:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }
                 mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
                 mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -327,8 +328,8 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
         } else {
             BigDecimal rewardSum    = BigDecimal.ZERO;
             BigDecimal feeAmount    = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-            for (Reward reward:getSActivity().mRewards) {
-                rewardSum = rewardSum.add(new BigDecimal(reward.amount.get(0).amount).setScale(0, BigDecimal.ROUND_DOWN));
+            for (Coin coin:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(coin.amount));
             }
             return feeAmount.compareTo(rewardSum) < 0;
         }

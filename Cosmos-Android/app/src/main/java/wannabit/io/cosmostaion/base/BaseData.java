@@ -1875,167 +1875,167 @@ public class BaseData {
 
 
 
-    public ArrayList<BondingState> onSelectBondingStates(long accountId) {
-        ArrayList<BondingState> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            do {
-                BondingState delegate = new BondingState(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        new BigDecimal(cursor.getString(2)),
-                        cursor.getLong(3));
-                result.add(delegate);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return result;
-    }
-
-    public BondingState onSelectBondingState(long accountId, String vAddr) {
-        BondingState result = null;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            result = new BondingState(
-                    cursor.getLong(0),
-                    cursor.getString(1),
-                    new BigDecimal(cursor.getString(2)),
-                    cursor.getLong(3));
-        }
-        cursor.close();
-        return result;
-    }
-
-
-    public long onInsertBondingStates(BondingState bonding) {
-        ContentValues values = new ContentValues();
-        values.put("accountId",         bonding.accountId);
-        values.put("validatorAddress",  bonding.validatorAddress);
-        values.put("shares",            bonding.shares.toPlainString());
-        values.put("fetchTime",         bonding.fetchTime);
-        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BONDING, null, values);
-
-    }
-
-    public void onUpdateBondingStates(long accountId, ArrayList<BondingState> bondings) {
-        onDeleteBondingStates(accountId);
-        for(BondingState bonding: bondings) {
-            onInsertBondingStates(bonding);
-        }
-    }
-
-    public void onUpdateBondingState(long accountId, BondingState bonding) {
-        onDeleteBondingState(accountId, bonding.validatorAddress);
-        onInsertBondingStates(bonding);
-    }
-
-    public boolean onHasBondingStates(BondingState bondingState) {
-        boolean existed = false;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress == ?", new String[]{""+bondingState.accountId, bondingState.validatorAddress}, null, null, null);
-        if(cursor != null && cursor.getCount() > 0) {
-            existed = true;
-        }
-        cursor.close();
-        return existed;
-    }
-
-    public boolean onDeleteBondingStates(long accountId) {
-        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ?", new String[]{""+accountId}) > 0;
-    }
-
-    public boolean onDeleteBondingState(long accountId, String vAddr) {
-        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
-    }
-
-
-
-    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId) {
-        ArrayList<UnBondingState> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            do {
-                UnBondingState temp = new UnBondingState(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getLong(3),
-                        new BigDecimal(cursor.getString(4)),
-                        new BigDecimal(cursor.getString(5)),
-                        cursor.getLong(6));
-                result.add(temp);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return result;
-    }
-
-    public UnBondingState onSelectUnbondingState(long accountId, String vAddr) {
-        UnBondingState result = null;
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            result = new UnBondingState(
-                    cursor.getLong(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getLong(3),
-                    new BigDecimal(cursor.getString(4)),
-                    new BigDecimal(cursor.getString(5)),
-                    cursor.getLong(6));
-        }
-        cursor.close();
-        return result;
-    }
-
-    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId, String vAddr) {
-        ArrayList<UnBondingState> result = new ArrayList<>();
-        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
-        if(cursor != null && cursor.moveToFirst()) {
-            do {
-                UnBondingState temp = new UnBondingState(
-                        cursor.getLong(0),
-                        cursor.getString(1),
-                        cursor.getString(2),
-                        cursor.getLong(3),
-                        new BigDecimal(cursor.getString(4)),
-                        new BigDecimal(cursor.getString(5)),
-                        cursor.getLong(6));
-                result.add(temp);
-            } while (cursor.moveToNext());
-        }
-        cursor.close();
-        return result;
-    }
-
-    public long onInsertUnbondingStates(UnBondingState unbonding) {
-        ContentValues values = new ContentValues();
-        values.put("accountId",         unbonding.accountId);
-        values.put("validatorAddress",  unbonding.validatorAddress);
-        values.put("creationHeight",    unbonding.creationHeight);
-        values.put("completionTime",    unbonding.completionTime);
-        values.put("initialBalance",    unbonding.initialBalance.toPlainString());
-        values.put("balance",           unbonding.balance.toPlainString());
-        values.put("fetchTime",         unbonding.fetchTime);
-        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_UNBONDING, null, values);
-    }
-
-    public boolean onDeleteUnbondingStates(long accountId) {
-        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ?", new String[]{""+accountId}) > 0;
-    }
-
-    public boolean onDeleteUnbondingState(long accountId, String vAddr) {
-        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
-    }
-
-    public void onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
-        onDeleteUnbondingStates(accountId);
-        for(UnBondingState unbond: unbondings) {
-            onInsertUnbondingStates(unbond);
-        }
-    }
-
-    public void onUpdateUnbondingState(long accountId, UnBondingState unbonding) {
-        onDeleteUnbondingState(accountId, unbonding.validatorAddress);
-        onInsertUnbondingStates(unbonding);
-    }
+//    public ArrayList<BondingState> onSelectBondingStates(long accountId) {
+//        ArrayList<BondingState> result = new ArrayList<>();
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            do {
+//                BondingState delegate = new BondingState(
+//                        cursor.getLong(0),
+//                        cursor.getString(1),
+//                        new BigDecimal(cursor.getString(2)),
+//                        cursor.getLong(3));
+//                result.add(delegate);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//    public BondingState onSelectBondingState(long accountId, String vAddr) {
+//        BondingState result = null;
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            result = new BondingState(
+//                    cursor.getLong(0),
+//                    cursor.getString(1),
+//                    new BigDecimal(cursor.getString(2)),
+//                    cursor.getLong(3));
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//
+//    public long onInsertBondingStates(BondingState bonding) {
+//        ContentValues values = new ContentValues();
+//        values.put("accountId",         bonding.accountId);
+//        values.put("validatorAddress",  bonding.validatorAddress);
+//        values.put("shares",            bonding.shares.toPlainString());
+//        values.put("fetchTime",         bonding.fetchTime);
+//        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_BONDING, null, values);
+//
+//    }
+//
+//    public void onUpdateBondingStates(long accountId, ArrayList<BondingState> bondings) {
+//        onDeleteBondingStates(accountId);
+//        for(BondingState bonding: bondings) {
+//            onInsertBondingStates(bonding);
+//        }
+//    }
+//
+//    public void onUpdateBondingState(long accountId, BondingState bonding) {
+//        onDeleteBondingState(accountId, bonding.validatorAddress);
+//        onInsertBondingStates(bonding);
+//    }
+//
+//    public boolean onHasBondingStates(BondingState bondingState) {
+//        boolean existed = false;
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_BONDING, new String[]{"accountId", "validatorAddress", "shares", "fetchTime"}, "accountId == ? AND validatorAddress == ?", new String[]{""+bondingState.accountId, bondingState.validatorAddress}, null, null, null);
+//        if(cursor != null && cursor.getCount() > 0) {
+//            existed = true;
+//        }
+//        cursor.close();
+//        return existed;
+//    }
+//
+//    public boolean onDeleteBondingStates(long accountId) {
+//        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ?", new String[]{""+accountId}) > 0;
+//    }
+//
+//    public boolean onDeleteBondingState(long accountId, String vAddr) {
+//        return getBaseDB().delete(BaseConstant.DB_TABLE_BONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
+//    }
+//
+//
+//
+//    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId) {
+//        ArrayList<UnBondingState> result = new ArrayList<>();
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ?", new String[]{""+accountId}, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            do {
+//                UnBondingState temp = new UnBondingState(
+//                        cursor.getLong(0),
+//                        cursor.getString(1),
+//                        cursor.getString(2),
+//                        cursor.getLong(3),
+//                        new BigDecimal(cursor.getString(4)),
+//                        new BigDecimal(cursor.getString(5)),
+//                        cursor.getLong(6));
+//                result.add(temp);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//    public UnBondingState onSelectUnbondingState(long accountId, String vAddr) {
+//        UnBondingState result = null;
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            result = new UnBondingState(
+//                    cursor.getLong(0),
+//                    cursor.getString(1),
+//                    cursor.getString(2),
+//                    cursor.getLong(3),
+//                    new BigDecimal(cursor.getString(4)),
+//                    new BigDecimal(cursor.getString(5)),
+//                    cursor.getLong(6));
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//    public ArrayList<UnBondingState> onSelectUnbondingStates(long accountId, String vAddr) {
+//        ArrayList<UnBondingState> result = new ArrayList<>();
+//        Cursor cursor 	= getBaseDB().query(BaseConstant.DB_TABLE_UNBONDING, new String[]{"accountId", "validatorAddress", "creationHeight", "completionTime", "initialBalance", "balance", "fetchTime"}, "accountId == ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}, null, null, null);
+//        if(cursor != null && cursor.moveToFirst()) {
+//            do {
+//                UnBondingState temp = new UnBondingState(
+//                        cursor.getLong(0),
+//                        cursor.getString(1),
+//                        cursor.getString(2),
+//                        cursor.getLong(3),
+//                        new BigDecimal(cursor.getString(4)),
+//                        new BigDecimal(cursor.getString(5)),
+//                        cursor.getLong(6));
+//                result.add(temp);
+//            } while (cursor.moveToNext());
+//        }
+//        cursor.close();
+//        return result;
+//    }
+//
+//    public long onInsertUnbondingStates(UnBondingState unbonding) {
+//        ContentValues values = new ContentValues();
+//        values.put("accountId",         unbonding.accountId);
+//        values.put("validatorAddress",  unbonding.validatorAddress);
+//        values.put("creationHeight",    unbonding.creationHeight);
+//        values.put("completionTime",    unbonding.completionTime);
+//        values.put("initialBalance",    unbonding.initialBalance.toPlainString());
+//        values.put("balance",           unbonding.balance.toPlainString());
+//        values.put("fetchTime",         unbonding.fetchTime);
+//        return getBaseDB().insertOrThrow(BaseConstant.DB_TABLE_UNBONDING, null, values);
+//    }
+//
+//    public boolean onDeleteUnbondingStates(long accountId) {
+//        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ?", new String[]{""+accountId}) > 0;
+//    }
+//
+//    public boolean onDeleteUnbondingState(long accountId, String vAddr) {
+//        return getBaseDB().delete(BaseConstant.DB_TABLE_UNBONDING, "accountId = ? AND validatorAddress = ?", new String[]{""+accountId, vAddr}) > 0;
+//    }
+//
+//    public void onUpdateUnbondingStates(long accountId, ArrayList<UnBondingState> unbondings) {
+//        onDeleteUnbondingStates(accountId);
+//        for(UnBondingState unbond: unbondings) {
+//            onInsertUnbondingStates(unbond);
+//        }
+//    }
+//
+//    public void onUpdateUnbondingState(long accountId, UnBondingState unbonding) {
+//        onDeleteUnbondingState(accountId, unbonding.validatorAddress);
+//        onInsertUnbondingStates(unbonding);
+//    }
 
 }
