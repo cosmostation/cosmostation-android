@@ -175,16 +175,16 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func onBindOtherCdp(_ tableView: UITableView, _ position:Int) -> UITableViewCell  {
-            let cell:CdpListAllCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListAllCell") as? CdpListAllCell
-            let mCollateralParam = otherCdps![position]
-            cell?.marketType.text = mCollateralParam.type!.uppercased()
-            cell?.marketTitle.text = mCollateralParam.getDpMarketId()
-            cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), cell!.minCollateralRate.font)
-            cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), cell!.stabilityFee.font)
-            cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
-            let url = KAVA_CDP_IMG_URL + mCollateralParam.getMarketImgPath()! + ".png"
-            cell?.marketImg.af_setImage(withURL: URL(string: url)!)
-            return cell!
+        let cell:CdpListAllCell? = tableView.dequeueReusableCell(withIdentifier:"CdpListAllCell") as? CdpListAllCell
+        let mCollateralParam = otherCdps![position]
+        cell?.marketType.text = mCollateralParam.type!.uppercased()
+        cell?.marketTitle.text = mCollateralParam.getDpMarketId()
+        cell?.minCollateralRate.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationRatio(), cell!.minCollateralRate.font)
+        cell?.stabilityFee.attributedText = WUtils.displayPercent(mCollateralParam.getDpStabilityFee(), cell!.stabilityFee.font)
+        cell?.liquidationPenalty.attributedText = WUtils.displayPercent(mCollateralParam.getDpLiquidationPenalty(), cell!.liquidationPenalty.font)
+        let url = KAVA_CDP_IMG_URL + mCollateralParam.getMarketImgPath()! + ".png"
+        cell?.marketImg.af_setImage(withURL: URL(string: url)!)
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
