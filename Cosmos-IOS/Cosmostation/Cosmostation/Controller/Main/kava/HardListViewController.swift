@@ -209,7 +209,7 @@ class HardListViewController: BaseViewController, UITableViewDelegate, UITableVi
         //Display supplied amounts
         var myDepositAmount = NSDecimalNumber.zero
         var myDepositValue = NSDecimalNumber.zero
-        if let deposits = self.myDeposit, let coins = deposits[0].amount {
+        if let deposits = self.myDeposit, deposits.count > 0, let coins = deposits[0].amount {
             for coin in coins {
                 if (coin.denom == hardMoneyMarket.denom) {
                     myDepositAmount = NSDecimalNumber.init(string: coin.amount)
