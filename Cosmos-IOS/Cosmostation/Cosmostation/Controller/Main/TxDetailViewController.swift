@@ -1269,8 +1269,11 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onFetchHtlcStatus(_ swapId: String?) {
-//        print("onFetchHtlcStatus ", swapId)
-        if (swapId == nil) {self.onUpdateView()}
+        print("onFetchHtlcStatus ", swapId)
+        if (swapId == nil) {
+            self.onUpdateView()
+            return
+        }
         var url = ""
         if (self.chainType! == ChainType.BINANCE_MAIN) {
             url = BNB_URL_CHECK_SWAPID + swapId!
@@ -1284,7 +1287,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         } else if (self.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_CHECK_SWAPID + swapId!
         }
-        print("swapId url ", url)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
