@@ -32,7 +32,7 @@ class StepUndelegateAmountViewController: BaseViewController, UITextFieldDelegat
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
         } else {
             mDpDecimal = 6
-            userDelegated = BaseData.instance.deleagtedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)
+            userDelegated = BaseData.instance.delegatedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
         }

@@ -56,7 +56,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, 6)
             feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, 6)
             
-            let currentDelegation = BaseData.instance.deleagtedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)
+            let currentDelegation = BaseData.instance.delegatedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)
             let expected = currentDelegation.adding(NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount))
             currentDelegateAmount.attributedText = WUtils.displayAmount2(currentDelegation.stringValue, currentDelegateAmount.font, 6, 6)
             expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 6, 6)

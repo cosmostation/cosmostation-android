@@ -438,15 +438,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
 //        print("onFetchFinished ", self.mFetchCnt)
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt > 0) { return }
-        if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
-            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
-            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
-            BaseData.instance.mBalances = mBalances
-            NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
-            self.hideWaittingAlert()
-            return
-            
-        } else if (WUtils.isGRPC(mChainType!)) {
+        if (WUtils.isGRPC(mChainType!)) {
             BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mBondedValidators_gRPC)
             BaseData.instance.mAllValidators_gRPC.append(contentsOf: BaseData.instance.mUnbondValidators_gRPC)
             for validator in BaseData.instance.mAllValidators_gRPC {
@@ -491,6 +483,14 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     
                 }
             }
+            NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
+            self.hideWaittingAlert()
+            return
+            
+        } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
+            mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
+            mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
+            BaseData.instance.mBalances = mBalances
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return

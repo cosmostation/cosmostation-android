@@ -46,7 +46,7 @@ class WalletSentinelCell: UITableViewCell {
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
         let available = BaseData.instance.availableAmount(SENTINEL_MAIN_DENOM)
-        let delegated = BaseData.instance.deleagtedSumAmount()
+        let delegated = BaseData.instance.delegatedSumAmount()
         let unbonding = BaseData.instance.unbondingSumAmount()
         let reward = BaseData.instance.rewardAmount(SENTINEL_MAIN_DENOM)
         let total = available.adding(delegated).adding(unbonding).adding(reward)

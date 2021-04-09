@@ -203,7 +203,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         
-        let delegated = BaseData.instance.deleagtedAmountByValidator(validator.operator_address)
+        let delegated = BaseData.instance.delegatedAmountByValidator(validator.operator_address)
         cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(delegated.stringValue, cell.myDelegatedAmoutLabel.font, 6, 6)
         
         let unbonding = BaseData.instance.unbondingAmountByValidator(validator.operator_address)
@@ -558,8 +558,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 if ($1.description.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
                 if (!$0.jailed && $1.jailed) { return true }
-                let firstVal = BaseData.instance.deleagtedAmountByValidator($0.operator_address)
-                let seconVal = BaseData.instance.deleagtedAmountByValidator($1.operator_address)
+                let firstVal = BaseData.instance.delegatedAmountByValidator($0.operator_address)
+                let seconVal = BaseData.instance.delegatedAmountByValidator($1.operator_address)
                 return firstVal.compare(seconVal).rawValue > 0 ? true : false
             }
             

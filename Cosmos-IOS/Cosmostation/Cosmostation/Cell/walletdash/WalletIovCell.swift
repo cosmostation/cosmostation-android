@@ -44,7 +44,7 @@ class WalletIovCell: UITableViewCell {
     func updateView(_ account: Account?, _ chainType: ChainType?) {
         if (chainType == ChainType.IOV_MAIN) {
             let available = BaseData.instance.availableAmount(IOV_MAIN_DENOM)
-            let delegated = BaseData.instance.deleagtedSumAmount()
+            let delegated = BaseData.instance.delegatedSumAmount()
             let unbonding = BaseData.instance.unbondingSumAmount()
             let reward = BaseData.instance.rewardAmount(IOV_MAIN_DENOM)
             let total = available.adding(delegated).adding(unbonding).adding(reward)
@@ -59,7 +59,7 @@ class WalletIovCell: UITableViewCell {
             
         } else if (chainType == ChainType.IOV_TEST) {
             let available = BaseData.instance.availableAmount(IOV_TEST_DENOM)
-            let delegated = BaseData.instance.deleagtedSumAmount()
+            let delegated = BaseData.instance.delegatedSumAmount()
             let unbonding = BaseData.instance.unbondingSumAmount()
             let reward = BaseData.instance.rewardAmount(IOV_TEST_DENOM)
             let total = available.adding(delegated).adding(unbonding).adding(reward)

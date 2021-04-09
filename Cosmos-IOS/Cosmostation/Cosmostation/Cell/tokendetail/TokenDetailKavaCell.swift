@@ -49,7 +49,7 @@ class TokenDetailKavaCell: TokenDetailCell {
     func onBindTokens(_ account: Account) {
         let available = BaseData.instance.availableAmount(KAVA_MAIN_DENOM)
         let vesting = BaseData.instance.lockedAmount(KAVA_MAIN_DENOM)
-        let delegated = BaseData.instance.deleagtedSumAmount()
+        let delegated = BaseData.instance.delegatedSumAmount()
         let unbonding = BaseData.instance.unbondingSumAmount()
         let reward = BaseData.instance.rewardAmount(KAVA_MAIN_DENOM)
         let total = available.adding(vesting).adding(delegated).adding(unbonding).adding(reward)

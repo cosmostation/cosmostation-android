@@ -1422,7 +1422,7 @@ class WUtils {
     static func getAllMainAssetOld(_ denom: String) -> NSDecimalNumber {
         let available = BaseData.instance.availableAmount(denom)
         let lock = BaseData.instance.lockedAmount(denom)
-        let delegated = BaseData.instance.deleagtedSumAmount()
+        let delegated = BaseData.instance.delegatedSumAmount()
         let unbonding = BaseData.instance.unbondingSumAmount()
         let reward = BaseData.instance.rewardAmount(denom)
         
