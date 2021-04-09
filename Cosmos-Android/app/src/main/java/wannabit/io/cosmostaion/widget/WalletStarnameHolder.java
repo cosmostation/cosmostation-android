@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.activities.chains.starname.StarNameListActivity;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 
 public class WalletStarnameHolder extends BaseHolder {
@@ -40,11 +41,11 @@ public class WalletStarnameHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_IOV);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_IOV);
-        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_IOV);
+        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
+        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
+        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_IOV);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_IOV);
 
         mTvIovTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvIovAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
@@ -60,7 +61,6 @@ public class WalletStarnameHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("rewards", baseData.mRewards);
                 mainActivity.startActivity(validators);
             }
         });

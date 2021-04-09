@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 
 public class WalletBandHolder extends BaseHolder {
     public TextView mTvBandTotal, mTvBandValue, mTvBandAvailable, mTvBandDelegated, mTvBandUnBonding, mTvBandRewards;
@@ -38,11 +39,11 @@ public class WalletBandHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_BAND);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_BAND);
-        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_BAND);
+        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
+        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
+        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_BAND);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_BAND);
 
         mTvBandTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvBandAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
@@ -57,7 +58,6 @@ public class WalletBandHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("rewards", baseData.mRewards);
                 mainActivity.startActivity(validators);
             }
         });

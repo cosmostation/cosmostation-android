@@ -180,28 +180,8 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                     holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, 6, 6));
 
                 } else {
-                    if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_KAVA));
-
-                    } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_BAND));
-
-                    } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV));
-
-                    } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_IOV_TEST));
-
-                    } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_CERTIK));
-
-                    } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_SECRET));
-
-                    } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                        holder.itemTvAllRewards.setText(WDp.getDpAllRewardAmount(getContext(), getBaseDao().mRewards, getChain(getMainActivity().mAccount.baseChain), TOKEN_DVPN));
-
-                    }
+                    final BigDecimal allRewardAmount = getBaseDao().rewardAmount(WDp.mainDenom(getMainActivity().mBaseChain));
+                    holder.itemTvAllRewards.setText(WDp.getDpAmount2(getContext(), allRewardAmount, 6, 6));
                 }
 
                 holder.itemBtnWithdrawAll.setOnClickListener(new View.OnClickListener() {
@@ -245,34 +225,18 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
 
                 } else {
                     final Validator validator = getBaseDao().mMyValidators.get(position);
-                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
-                    holder.itemTvMoniker.setText(validator.description.moniker);
-                    holder.itemFree.setVisibility(View.GONE);
-
-                    BondingState bonding = getBaseDao().onSelectBondingState(getMainActivity().mAccount.id, validator.operator_address);
-                    if(bonding != null && bonding.getBondingAmount(validator) != null) {
-                        holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), bonding.getBondingAmount(validator), 6, 6));
-                    } else {
-                        holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), BigDecimal.ZERO, 6, 6));
-                    }
-
-                    BigDecimal unBondSum = BigDecimal.ZERO;
-                    ArrayList<UnBondingState> unBondingStates = getBaseDao().onSelectUnbondingStates(getMainActivity().mAccount.id, validator.operator_address);
-                    for(UnBondingState unbond:unBondingStates) {
-                        unBondSum = unBondSum.add(unbond.balance);
-                    }
-                    holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), unBondSum, 6, 6));
-                    holder.itemTvReward.setText(WDp.getValidatorReward(getContext(), getBaseDao().mRewards, validator.operator_address , getChain(getMainActivity().mAccount.baseChain), WDp.mainDenom(getMainActivity().mBaseChain)));
-                    holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            getMainActivity().onStartValidatorDetail(validator);
-                        }
-                    });
-
+                    final BigDecimal delegationAmount = getBaseDao().delegatedAmountByValidator(validator.operator_address);
+                    final BigDecimal undelegationAmount = getBaseDao().unbondingAmountByValidator(validator.operator_address);
+                    final BigDecimal rewardAmount = getBaseDao().rewardAmountByValidator(WDp.mainDenom(getMainActivity().mBaseChain), validator.operator_address);
                     try {
                         Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.operator_address)).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                     } catch (Exception e){}
+
+                    holder.itemRoot.setCardBackgroundColor(WDp.getChainBgColor(getMainActivity(), getMainActivity().mBaseChain));
+                    holder.itemTvMoniker.setText(validator.description.moniker);
+                    holder.itemTvDelegateAmount.setText(WDp.getDpAmount2(getContext(), delegationAmount, 6, 6));
+                    holder.itemTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), undelegationAmount, 6, 6));
+                    holder.itemTvReward.setText(WDp.getDpAmount2(getContext(), rewardAmount, 6, 6));
 
                     if (validator.jailed) {
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorRed));
@@ -281,6 +245,12 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                         holder.itemAvatar.setBorderColor(getResources().getColor(R.color.colorGray3));
                         holder.itemRevoked.setVisibility(View.GONE);
                     }
+                    holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            getMainActivity().onStartValidatorDetail(validator);
+                        }
+                    });
 
                     if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
                         if (getBaseDao().mBandOracles != null && !getBaseDao().mBandOracles.isEnable(validator.operator_address)) {
@@ -402,32 +372,14 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 mSortType.setText(getString(R.string.str_sorting_by_name));
 
             } else {
-                WUtil.onSortByDelegateV1(getMainActivity().mAccount.id, getBaseDao().mGRpcMyValidators, getBaseDao());
+                WUtil.onSortByDelegateV1(getBaseDao().mGRpcMyValidators, getBaseDao());
                 mSortType.setText(getString(R.string.str_sorting_by_my_delegated));
 
             }
 
         } else {
             if (getBaseDao().getMyValSorting() == 2) {
-                if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_KAVA);
-
-                } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_BAND);
-
-                } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_IOV);
-
-                } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_IOV_TEST);
-
-                } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_CERTIK);
-
-                } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                    WUtil.onSortByReward(getBaseDao().mMyValidators, getBaseDao().mRewards, TOKEN_SECRET);
-
-                }
+                WUtil.onSortByReward(getBaseDao().mMyValidators, WDp.mainDenom(getMainActivity().mBaseChain), getBaseDao());
                 mSortType.setText(getString(R.string.str_sorting_by_reward));
 
             } else if (getBaseDao().getMyValSorting() == 0) {
@@ -435,7 +387,7 @@ public class ValidatorMyFragment extends BaseFragment implements View.OnClickLis
                 mSortType.setText(getString(R.string.str_sorting_by_name));
 
             } else {
-                WUtil.onSortByDelegate(getMainActivity().mAccount.id, getBaseDao().mMyValidators, getBaseDao());
+                WUtil.onSortByDelegate(getBaseDao().mMyValidators, getBaseDao());
                 mSortType.setText(getString(R.string.str_sorting_by_my_delegated));
             }
         }

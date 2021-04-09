@@ -180,7 +180,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (getBaseDao().mBondings.size() == 0) {
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -191,7 +191,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (getBaseDao().mBondings.size() == 0) {
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -208,7 +208,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (getBaseDao().mBondings.size() == 0) {
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -225,7 +225,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (getBaseDao().mBondings.size() == 0) {
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -242,7 +242,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-                if (getBaseDao().mBondings.size() == 0) {
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }

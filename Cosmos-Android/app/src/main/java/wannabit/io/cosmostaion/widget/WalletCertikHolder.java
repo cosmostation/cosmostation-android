@@ -38,26 +38,28 @@ public class WalletCertikHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_CERTIK);
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_CERTIK);
-        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_CERTIK);
+        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
+        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
+        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_CERTIK);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_CERTIK);
 
         mTvCertikTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvCertikAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
         mTvCertikDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvCertikUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvCertikRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvCertikValue.setText(WDp.getValueOfCertik(mainActivity, baseData, totalAmount));
+        mTvCertikValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
+
+
+
 
         mBtnCertikStake.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent validators = new Intent(mainActivity, ValidatorListActivity.class);
-                validators.putExtra("rewards", baseData.mRewards);
                 mainActivity.startActivity(validators);
             }
         });

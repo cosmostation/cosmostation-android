@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
 
@@ -45,14 +46,14 @@ public class WalletBinanceHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount    = WDp.getAvailableCoin(baseData.mBalances, TOKEN_BNB);
-        final BigDecimal lockedAmount       = WDp.getLockedCoin(baseData.mBalances, TOKEN_BNB);
+        final BigDecimal availableAmount    = baseData.availableAmount(TOKEN_BNB);
+        final BigDecimal lockedAmount       = baseData.lockedAmount(TOKEN_BNB);
         final BigDecimal totalAmount        = availableAmount.add(lockedAmount);
 
         mTvBnbTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
         mTvBnbBalance.setText(WDp.getDpAmount2(mainActivity, availableAmount, 0, 6));
         mTvBnbLocked.setText(WDp.getDpAmount2(mainActivity, lockedAmount, 0, 6));
-        mTvBnbValue.setText(WDp.getValueOfBnb(mainActivity, baseData, totalAmount));
+        mTvBnbValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

@@ -13,6 +13,7 @@ import net.sqlcipher.Cursor;
 import net.sqlcipher.database.SQLiteDatabase;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -35,7 +36,10 @@ import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
+import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
+import wannabit.io.cosmostaion.model.RewardInfo;
+import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -110,9 +114,10 @@ public class BaseData {
     public ArrayList<Validator>         mOtherValidators = new ArrayList<>();
 
     public ArrayList<Balance>           mBalances = new ArrayList<>();
-    public ArrayList<BondingState>      mBondings = new ArrayList<>();
-    public ArrayList<UnBondingState>    mUnbondings = new ArrayList<>();
-    public ArrayList<Reward>            mRewards = new ArrayList<>();
+    public ArrayList<BondingInfo>       mMyDelegations = new ArrayList<>();
+    public ArrayList<UnbondingInfo>     mMyUnbondings = new ArrayList<>();
+    public ArrayList<RewardInfo>        mMyRewards = new ArrayList<>();
+
 
     public ResStakingPool               mStakingPool;
     public BigDecimal                   mInflation = BigDecimal.ZERO;
@@ -151,6 +156,122 @@ public class BaseData {
 
     //COMMON DATA FOR BAND
     public ResBandOracleStatus      mBandOracles;
+
+    public BigDecimal availableAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Balance balance: mBalances) {
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                result = balance.balance;
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal lockedAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Balance balance: mBalances) {
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                result = balance.locked;
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal delegatedSumAmount() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (BondingInfo bondingInfo: mMyDelegations) {
+            if (bondingInfo.balance != null) {
+                result = result.add(new BigDecimal(bondingInfo.balance.amount));
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal delegatedAmountByValidator(String opAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (BondingInfo bondingInfo: mMyDelegations) {
+            if (bondingInfo.validator_address.equals(opAddress) && bondingInfo.balance != null) {
+                result = result.add(new BigDecimal(bondingInfo.balance.amount));
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal unbondingSumAmount() {
+        BigDecimal result = BigDecimal.ZERO;
+        for (UnbondingInfo unbondingInfo: mMyUnbondings) {
+            if (unbondingInfo.entries != null) {
+                for (UnbondingInfo.Entry entry: unbondingInfo.entries) {
+                    result = result.add(new BigDecimal(entry.balance));
+                }
+
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal unbondingAmountByValidator(String opAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (UnbondingInfo unbondingInfo: mMyUnbondings) {
+            if (unbondingInfo.validator_address.equals(opAddress) && unbondingInfo.entries != null) {
+                for (UnbondingInfo.Entry entry: unbondingInfo.entries) {
+                    result = result.add(new BigDecimal(entry.balance));
+                }
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal rewardAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (RewardInfo rewardInfo: mMyRewards) {
+            if (rewardInfo.reward != null) {
+                for (Coin coin: rewardInfo.reward) {
+                    if (coin.denom.equals(denom)) {
+                        result = result.add(new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN));
+                    }
+                }
+
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal rewardAmountByValidator(String denom, String opAddress) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (RewardInfo rewardInfo: mMyRewards) {
+            if (rewardInfo.validator_address.equals(opAddress) && rewardInfo.reward != null) {
+                for (Coin coin: rewardInfo.reward) {
+                    if (coin.denom.equals(denom)) {
+                        result = result.add(new BigDecimal(coin.amount).setScale(0, RoundingMode.DOWN));
+                    }
+                }
+            }
+        }
+        return result;
+    }
+
+    public BigDecimal okDepositAmount() {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (mOkStaking != null && !TextUtils.isEmpty(mOkStaking.tokens)) {
+            sum = new BigDecimal(mOkStaking.tokens);
+        }
+        return sum;
+    }
+
+    public BigDecimal okWithdrawAmount() {
+        BigDecimal sum = BigDecimal.ZERO;
+        if (mOkUnbonding != null && !TextUtils.isEmpty(mOkUnbonding.quantity)) {
+            sum = new BigDecimal(mOkUnbonding.quantity);
+        }
+        return sum;
+    }
+
+    public BigDecimal getAllMainAssetOld(String denom) {
+        return availableAmount(denom).add(lockedAmount(denom)).add(delegatedSumAmount()).add(unbondingSumAmount()).add(rewardAmount(denom));
+    }
+
+
 
     //gRPC
     public Types.DefaultNodeInfo                                mGRpcNodeInfo;

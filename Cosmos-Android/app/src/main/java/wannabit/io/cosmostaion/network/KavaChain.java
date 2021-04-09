@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResKavaSupply;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply2;
+import wannabit.io.cosmostaion.network.res.ResLcdAllRewards;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
@@ -78,6 +79,9 @@ public interface KavaChain {
 
     @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
+
+    @GET("distribution/delegators/{delegatorAddr}/rewards")
+    Call<ResLcdAllRewards> getAllRewards(@Path("delegatorAddr") String delegatorAddr);
 
     @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);

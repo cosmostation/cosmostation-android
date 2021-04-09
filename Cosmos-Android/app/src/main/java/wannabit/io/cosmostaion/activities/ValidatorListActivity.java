@@ -24,12 +24,14 @@ import cosmos.distribution.v1beta1.Distribution;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.BondingState;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.ValidatorAllFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.ValidatorOtherFragment;
+import wannabit.io.cosmostaion.model.RewardInfo;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -159,18 +161,14 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
         ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc
 
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (getBaseDao().mRewards == null) {
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_KAVA).compareTo(BigDecimal.ONE) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_KAVA));
-                    }
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ZERO) > 0) {
+                    toClaimValidators.add(validator);
                 }
             }
 
@@ -179,67 +177,54 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_KAVA);
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            if (rewardSum.compareTo(BigDecimal.ONE) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
             }
 
         } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            if (getBaseDao().mRewards == null) {
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_BAND).compareTo(BigDecimal.ONE) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_BAND));
-                    }
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
+                    toClaimValidators.add(validator);
                 }
             }
+
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_BAND);
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            if (rewardSum.compareTo(BigDecimal.ONE) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                return;
             }
 
         } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
             //only collect over 0.15 iov
-            if (getBaseDao().mRewards == null) {
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_IOV).compareTo(new BigDecimal("150000")) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_IOV));
-                    }
+
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) >= 0) {
+                    toClaimValidators.add(validator);
                 }
             }
+
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_IOV);
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -257,24 +242,23 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
         } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
             //only collect over 0.15 iov
-            if (getBaseDao().mRewards == null) {
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_IOV_TEST).compareTo(new BigDecimal("150000")) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_IOV_TEST));
-                    }
+
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) >= 0) {
+                    toClaimValidators.add(validator);
                 }
             }
+
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_IOV_TEST);
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -291,24 +275,24 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
         } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-            if (getBaseDao().mRewards == null) {
+            //only collect over 0.0075 ctk
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_CERTIK).compareTo(new BigDecimal("7500")) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_CERTIK));
-                    }
+
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) >= 0) {
+                    toClaimValidators.add(validator);
                 }
             }
+
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_CERTIK);
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -325,24 +309,24 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
         } else if (mBaseChain.equals(SECRET_MAIN)) {
-            if (getBaseDao().mRewards == null) {
+            //only collect over 0.0375 scrt
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_SECRET).compareTo(new BigDecimal("37500")) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_SECRET));
-                    }
+
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) >= 0) {
+                    toClaimValidators.add(validator);
                 }
             }
+
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_SECRET);
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
@@ -359,24 +343,24 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
         } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-            if (getBaseDao().mRewards == null) {
+            //only collect over 0.02 dvpn
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal rewardSum = BigDecimal.ZERO;
-            for (BondingState bond:getBaseDao().mBondings) {
-                if (WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_DVPN).compareTo(new BigDecimal("20000")) >= 0) {
-                    if (WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress) != null) {
-                        toClaimValidators.add(WUtil.selectValidatorByAddr(getBaseDao().mMyValidators, bond.validatorAddress));
-                        rewardSum = rewardSum.add(WDp.getValidatorReward(getBaseDao().mRewards, bond.validatorAddress, TOKEN_DVPN));
-                    }
+
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) >= 0) {
+                    toClaimValidators.add(validator);
                 }
             }
+
             if (toClaimValidators.size() == 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
-            WUtil.onSortByOnlyReward(toClaimValidators, getBaseDao().mRewards, TOKEN_DVPN);
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
             if (toClaimValidators.size() >= 17) {
                 toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();

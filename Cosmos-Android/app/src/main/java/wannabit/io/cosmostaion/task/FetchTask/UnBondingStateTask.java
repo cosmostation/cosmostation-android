@@ -1,33 +1,26 @@
 package wannabit.io.cosmostaion.task.FetchTask;
 
-import java.util.ArrayList;
-
 import retrofit2.Response;
 import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdUnBondings;
 import wannabit.io.cosmostaion.task.CommonTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_UNBONDING_STATE;
 
 public class UnBondingStateTask extends CommonTask {
 
@@ -36,7 +29,7 @@ public class UnBondingStateTask extends CommonTask {
     public UnBondingStateTask(BaseApplication app, TaskListener listener, Account account) {
         super(app, listener);
         this.mAccount           = account;
-        this.mResult.taskType   = BaseConstant.TASK_FETCH_UNBONDING_STATE;
+        this.mResult.taskType   = TASK_FETCH_UNBONDING_STATE;
     }
 
     @Override
@@ -44,96 +37,68 @@ public class UnBondingStateTask extends CommonTask {
         try {
             if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, KAVA_MAIN, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(KAVA_TEST)) {
                 Response<ResLcdUnBondings> response = ApiClient.getKavaTestChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, KAVA_TEST, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(BAND_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getBandChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, BAND_MAIN, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getIovChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, IOV_MAIN, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_TEST)) {
                 Response<ResLcdUnBondings> response = ApiClient.getIovTestChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, IOV_TEST, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getCertikChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, CERTIK_MAIN, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
                 Response<ResLcdUnBondings> response = ApiClient.getCertikTestChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, CERTIK_TEST, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getSecretChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, SECRET_MAIN, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getSentinelChain(mApp).getUnBondingList(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                        mApp.getBaseDao().onUpdateUnbondingStates(mAccount.id, WUtil.getUnbondingFromLcds(mApp, SENTINEL_MAIN, mAccount.id, response.body().result));
-                    } else {
-                        mApp.getBaseDao().onDeleteUnbondingStates(mAccount.id);
-                    }
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
                 }
 
             }
-            mResult.isSuccess = true;
 
         } catch (Exception e) {
             WLog.w("UnBondingStateTask Error " + e.getMessage());

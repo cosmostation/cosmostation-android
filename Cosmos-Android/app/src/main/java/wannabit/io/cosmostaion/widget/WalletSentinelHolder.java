@@ -47,12 +47,12 @@ public class WalletSentinelHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_DVPN);;
-        final BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, mainActivity.mBaseChain);
-        final BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
-        final BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, TOKEN_DVPN);
-        final BigDecimal vestingAmount = WDp.getLockedCoin(baseData.mBalances, TOKEN_DVPN);
-        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount).add(vestingAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_DVPN);
+        final BigDecimal vestingAmount = baseData.lockedAmount(TOKEN_DVPN);
+        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
+        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
+        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_DVPN);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_DVPN);
 
         mTvDvpnTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvDvpnAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));

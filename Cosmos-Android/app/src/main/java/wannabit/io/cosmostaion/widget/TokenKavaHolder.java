@@ -15,6 +15,8 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+
 public class TokenKavaHolder extends BaseHolder {
 
 
@@ -49,12 +51,12 @@ public class TokenKavaHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c,  BaseChain chain, BaseData baseData, String denom) {
-        BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, denom);
-        BigDecimal delegateAmount = WDp.getAllDelegatedAmount(baseData.mBondings, baseData.mAllValidators, chain);
-        BigDecimal unbondingAmount = WDp.getAllUnbondingAmount(baseData.mUnbondings);
-        BigDecimal rewardAmount = WDp.getAllRewardAmount(baseData.mRewards, denom);
-        BigDecimal vestingAmount = WDp.getLockedCoin(baseData.mBalances, denom);
-        BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount).add(vestingAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_KAVA);
+        final BigDecimal vestingAmount = baseData.lockedAmount(TOKEN_KAVA);
+        final BigDecimal delegateAmount = baseData.delegatedSumAmount();
+        final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
+        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_KAVA);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_KAVA);
 
         mTvKavaTotal.setText(WDp.getDpAmount2(c, totalAmount, 6, 6));
         mTvKavaAvailable.setText(WDp.getDpAmount2(c, availableAmount, 6, 6));

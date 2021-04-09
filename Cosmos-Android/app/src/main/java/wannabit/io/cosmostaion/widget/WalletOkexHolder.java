@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class WalletOkexHolder extends BaseHolder {
@@ -46,11 +47,12 @@ public class WalletOkexHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        BigDecimal availableAmount = WDp.getAvailableCoin(baseData.mBalances, TOKEN_OK);
-        BigDecimal lockedAmount = WDp.getLockedCoin(baseData.mBalances, TOKEN_OK);
-        BigDecimal depositAmount = WDp.getOkDepositCoin(baseData.mOkStaking);
-        BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(baseData.mOkUnbonding);
-        BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
+        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_OK);
+        final BigDecimal lockedAmount = baseData.lockedAmount(TOKEN_OK);
+        final BigDecimal depositAmount = baseData.okDepositAmount();
+        final BigDecimal withdrawAmount = baseData.okWithdrawAmount();
+        final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
+
 
         mOkTotalAmount.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
         mOkAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 0, 6));

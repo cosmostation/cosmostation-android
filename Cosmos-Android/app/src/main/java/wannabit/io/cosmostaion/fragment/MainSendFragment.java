@@ -267,7 +267,7 @@ public class MainSendFragment extends BaseFragment {
                         getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
                     return 4;
                 } else {
-                    if (getBaseDao().mUnbondings.size() > 0) {
+                    if (getBaseDao().mMyUnbondings.size() > 0) {
                         return 6;
                     } else {
                         return 5;
@@ -319,15 +319,15 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
                 } else if (position == 2) {
-                    if (getBaseDao().mUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
+                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }
 
                 } else if (position == 3) {
-                    if (getBaseDao().mUnbondings.size() > 0) { return TYPE_PRICE; }
+                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_PRICE; }
                     else { return TYPE_MINT; }
 
                 } else if (position == 4) {
-                    if (getBaseDao().mUnbondings.size() > 0) { return TYPE_MINT; }
+                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_MINT; }
                     else { return TYPE_GIUDE; }
 
                 } else if (position == 5) {

@@ -4,12 +4,14 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.model.BondingInfo;
+
 public class ResLcdBondings {
 
     @SerializedName("height")
     public String height;
 
     @SerializedName("result")
-    public ArrayList<ResLcdBonding> result;
+    public ArrayList<BondingInfo> result;
 
 }

@@ -59,6 +59,7 @@ import wannabit.io.cosmostaion.dao.Reward;
 import wannabit.io.cosmostaion.dao.UnBondingState;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.StarNameResource;
+import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
@@ -1008,23 +1009,14 @@ public class WUtil {
 
 
 
-    public static void onSortByDelegate(final long userId, ArrayList<Validator> validators, final BaseData dao) {
+    public static void onSortByDelegate(ArrayList<Validator> validators, final BaseData dao) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
                 if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
-
-                BigDecimal bondingO1 = BigDecimal.ZERO;
-                BigDecimal bondingO2 = BigDecimal.ZERO;
-                if(dao.onSelectBondingState(userId, o1.operator_address) != null &&
-                        dao.onSelectBondingState(userId, o1.operator_address).getBondingAmount(o1) != null) {
-                    bondingO1  = dao.onSelectBondingState(userId, o1.operator_address).getBondingAmount(o1) ;
-                }
-                if(dao.onSelectBondingState(userId, o2.operator_address) != null &&
-                        dao.onSelectBondingState(userId, o2.operator_address).getBondingAmount(o2)  != null) {
-                    bondingO2  = dao.onSelectBondingState(userId, o2.operator_address).getBondingAmount(o2) ;
-                }
+                BigDecimal bondingO1 = dao.delegatedAmountByValidator(o1.operator_address);
+                BigDecimal bondingO2 = dao.delegatedAmountByValidator(o2.operator_address);
                 return bondingO2.compareTo(bondingO1);
 
             }
@@ -1039,7 +1031,7 @@ public class WUtil {
         });
     }
 
-    public static void onSortByDelegateV1(final long userId, ArrayList<Staking.Validator> validators, final BaseData dao) {
+    public static void onSortByDelegateV1(ArrayList<Staking.Validator> validators, final BaseData dao) {
         Collections.sort(validators, new Comparator<Staking.Validator>() {
             @Override
             public int compare(Staking.Validator o1, Staking.Validator o2) {
@@ -1060,15 +1052,15 @@ public class WUtil {
         });
     }
 
-    public static void onSortByReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards, String denom) {
+    public static void onSortByReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
                 if(o1.description.moniker.equalsIgnoreCase("Cosmostation")) return -1;
                 if(o2.description.moniker.equalsIgnoreCase("Cosmostation")) return 1;
 
-                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address, denom);
-                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address, denom);
+                BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
+                BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
                 return rewardO2.compareTo(rewardO1);
             }
         });
@@ -1103,12 +1095,12 @@ public class WUtil {
         });
     }
 
-    public static void onSortByOnlyReward(ArrayList<Validator> validators, final ArrayList<Reward> rewards, String denom) {
+    public static void onSortByOnlyReward(ArrayList<Validator> validators, String denom, BaseData basedata) {
         Collections.sort(validators, new Comparator<Validator>() {
             @Override
             public int compare(Validator o1, Validator o2) {
-                BigDecimal rewardO1 = WDp.getValidatorReward(rewards, o1.operator_address, denom);
-                BigDecimal rewardO2 = WDp.getValidatorReward(rewards, o2.operator_address, denom);
+                BigDecimal rewardO1 = basedata.rewardAmountByValidator(denom, o1.operator_address);
+                BigDecimal rewardO2 = basedata.rewardAmountByValidator(denom, o2.operator_address);
                 return rewardO2.compareTo(rewardO1);
             }
         });
@@ -1388,14 +1380,21 @@ public class WUtil {
         });
     }
 
-    public static void onSortUnbondingsRecent(ArrayList<UnBondingState> UnBondingStates) {
-        Collections.sort(UnBondingStates, new Comparator<UnBondingState>() {
-            @Override
-            public int compare(UnBondingState o1, UnBondingState o2) {
-                return o1.completionTime < o2.completionTime ?  -1 : 1;
+    public static ArrayList<UnbondingInfo.DpEntry> onSortUnbondingsRecent(Context c, ArrayList<UnbondingInfo> unbondingInfos) {
+        ArrayList<UnbondingInfo.DpEntry> result = new ArrayList<>();
+        for (UnbondingInfo unbondingInfo: unbondingInfos) {
+            for (UnbondingInfo.Entry entry: unbondingInfo.entries) {
+                result.add(new UnbondingInfo.DpEntry(unbondingInfo.validator_address, entry.completion_time, entry.balance));
+            }
+        }
 
+        Collections.sort(result, new Comparator<UnbondingInfo.DpEntry>() {
+            @Override
+            public int compare(UnbondingInfo.DpEntry o1, UnbondingInfo.DpEntry o2) {
+                return WDp.dateToLong(c, o1.completion_time) < WDp.dateToLong(c, o2.completion_time) ?  -1 : 1;
             }
         });
+        return result;
     }
 
 

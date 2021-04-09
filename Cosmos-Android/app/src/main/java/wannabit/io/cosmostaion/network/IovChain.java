@@ -16,12 +16,13 @@ import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
-import wannabit.io.cosmostaion.network.res.ResIovStarNameAccountInDomain;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameAccount;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameAccountInDomain;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameDomain;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameDomainInfo;
+import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdAllRewards;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdProposal;
@@ -71,6 +72,9 @@ public interface IovChain {
 
     @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
+
+    @GET("distribution/delegators/{delegatorAddr}/rewards")
+    Call<ResLcdAllRewards> getAllRewards(@Path("delegatorAddr") String delegatorAddr);
 
     @GET("minting/parameters")
     Call<ResMintParam> getMintParam();

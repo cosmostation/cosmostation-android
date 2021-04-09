@@ -549,13 +549,20 @@ public class WDp {
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
         BigDecimal price = dao.getLastPriceTic(chain);
-        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(SENTINEL_MAIN) ||
-                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
-            return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
-        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+//        if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(KAVA_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(SENTINEL_MAIN) ||
+//                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KAVA_TEST)) {
+//            return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
+//        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+//            return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
+//        } else {
+//            return BigDecimal.ZERO;
+//        }
+
+        if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
+
         } else {
-            return BigDecimal.ZERO;
+            return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         }
     }
 
@@ -1612,6 +1619,16 @@ public class WDp {
         } catch (Exception e){}
 
         return result;
+    }
+
+    public static long dateToLong(Context c, String rawValue) {
+        long result = 0;
+        try {
+            SimpleDateFormat blockDateFormat = new SimpleDateFormat(c.getString(R.string.str_block_time_format));
+            blockDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
+            result = blockDateFormat.parse(rawValue).getTime();
+        } catch (Exception e) {};
+        return 0;
     }
 
     public static String getDateformat(Context c, String rawValue) {

@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
+import wannabit.io.cosmostaion.network.res.ResLcdAllRewards;
 import wannabit.io.cosmostaion.network.res.ResLcdBondings;
 import wannabit.io.cosmostaion.network.res.ResLcdInflation;
 import wannabit.io.cosmostaion.network.res.ResLcdProposal;
@@ -59,6 +60,9 @@ public interface BandChain {
 
     @GET("staking/delegators/{address}/unbonding_delegations")
     Call<ResLcdUnBondings> getUnBondingList(@Path("address") String address);
+
+    @GET("distribution/delegators/{delegatorAddr}/rewards")
+    Call<ResLcdAllRewards> getAllRewards(@Path("delegatorAddr") String delegatorAddr);
 
     @GET("distribution/delegators/{delegatorAddr}/rewards/{validatorAddr}")
     Call<ResLcdRewardFromVal> getRewardFromValidator(@Path("delegatorAddr") String delegatorAddr, @Path("validatorAddr") String validatorAddr);
