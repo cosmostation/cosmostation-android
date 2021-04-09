@@ -71,7 +71,6 @@ import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResLcdUnBonding;
 import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
@@ -607,7 +606,7 @@ public class WUtil {
         }
         return result;
     }
-    
+
     public static Balance getTokenBalance(ArrayList<Balance> list, String symbol) {
         for (Balance balance:list) {
             if (balance.symbol.equals(symbol)) {
