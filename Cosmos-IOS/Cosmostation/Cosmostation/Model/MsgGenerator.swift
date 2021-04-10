@@ -258,7 +258,7 @@ class MsgGenerator {
                                       sendAmount: sendAmount.int64Value,
                                       sendDenom: sendCoin[0].denom,
                                       expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
-                                      heightSpan: 10001,
+                                      heightSpan: 407547,
                                       crossChain: true,
                                       memo: SWAP_MEMO_CREATE,
                                       wallet: wallet)
@@ -281,7 +281,7 @@ class MsgGenerator {
                                       sendAmount: sendAmount.int64Value,
                                       sendDenom: sendCoin[0].denom,
                                       expectedIncom: sendAmount.stringValue + ":" + sendCoin[0].denom,
-                                      heightSpan: 10001,
+                                      heightSpan: 407547,
                                       crossChain: true,
                                       memo: SWAP_MEMO_CREATE,
                                       wallet: wallet)
@@ -316,7 +316,8 @@ class MsgGenerator {
             do {
                 value.amount = try JSONDecoder().decode(AmountType.self, from:data!)
             } catch { print(error) }
-            value.height_span = "250"
+//            value.height_span = "250"
+            value.height_span = "24686"
             
         } else  if (fromChain == ChainType.KAVA_TEST) {
             if (sendCoin[0].denom == TOKEN_HTLC_KAVA_TEST_BNB) {
