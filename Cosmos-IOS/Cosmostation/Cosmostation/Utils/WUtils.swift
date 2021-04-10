@@ -3069,6 +3069,32 @@ class WUtils {
             return EXPLORER_IRIS_TEST + "txs/" + hash
             
         }
+        
+        if (chain == ChainType.BINANCE_MAIN) {
+            return EXPLORER_BINANCE_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return EXPLORER_KAVA_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            return EXPLORER_BAND_MAIN + "tx/" + hash
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return EXPLORER_SECRET_MAIN + "transactions/" + hash
+            
+        } else if (chain == ChainType.IOV_MAIN) {
+            return EXPLORER_IOV_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return EXPLORER_OKEX_MAIN + "tx/" + hash
+            
+        } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
+            return EXPLORER_CERTIK + "Transactions/" + hash + "?net=" + BaseData.instance.getChainId()
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return EXPLORER_SENTINEL_MAIN + "txs/" + hash
+        }
+        
         return ""
     }
     

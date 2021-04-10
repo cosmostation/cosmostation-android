@@ -423,18 +423,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN ||
-                chainType == ChainType.CERTIK_MAIN || chainType == ChainType.SENTINEL_MAIN ||
-                chainType == ChainType.KAVA_TEST || chainType == ChainType.CERTIK_TEST) {
-            let history = mApiHistories[indexPath.row]
-            let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-            txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history.tx_hash
-            txDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txDetailVC, animated: true)
-            
-        } else if (chainType == ChainType.BINANCE_MAIN) {
+        if (chainType == ChainType.BINANCE_MAIN) {
             let bnbHistory = mBnbHistories[indexPath.row]
             if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
                 let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
@@ -487,6 +476,23 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             txDetailVC.hidesBottomBarWhenPushed = true
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txDetailVC, animated: true)
+            
+        } else {
+            let history = mApiHistories[indexPath.row]
+            if (history.chain_id.count > 0 && (BaseData.instance.getChainId() != history.chain_id)) {
+                let link = WUtils.getTxExplorer(self.chainType!, history.tx_hash)
+                guard let url = URL(string: link) else { return }
+                self.onShowSafariWeb(url)
+                
+            } else {
+                let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history.tx_hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
+                
+            }
         }
     }
     
@@ -573,7 +579,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_API_HISTORY + address
         }
-//        print("url ", url)
+        print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -605,6 +611,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistoryCustom(_ address:String) {
         let url = BaseNetWork.accountHistory(chainType!, address)
+        print("url ", url)
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

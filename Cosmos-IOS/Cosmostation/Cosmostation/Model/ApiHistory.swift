@@ -27,6 +27,7 @@ public class ApiHistory {
         var tx_hash: String = ""
         var memo: String = ""
         var time: String = ""
+        var chain_id: String = ""
         var fee: Fee = Fee.init()
         var msg: Array<Msg> = Array<Msg>()
         var result: Result = Result.init()
@@ -40,6 +41,7 @@ public class ApiHistory {
             self.height = dictionary["height"] as? Int64 ?? -1
             self.tx_hash = dictionary["tx_hash"] as? String ?? ""
             self.memo = dictionary["memo"] as? String ?? ""
+            self.chain_id = dictionary["chain_id"] as? String ?? ""
             self.time = dictionary["timestamp"] as? String ?? ""
             
             if let rawTime = dictionary["time"] as? String {
