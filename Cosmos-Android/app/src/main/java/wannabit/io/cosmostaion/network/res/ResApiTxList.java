@@ -38,6 +38,9 @@ public class ResApiTxList {
         @SerializedName("memo")
         public String memo;
 
+        @SerializedName("chain_id")
+        public String chain_id;
+
         @SerializedName(value="time", alternate={"timestamp"})
         public String time;
 

@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -372,11 +373,20 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
-                            txDetail.putExtra("txHash", tx.tx_hash);
-                            txDetail.putExtra("isGen", false);
-                            txDetail.putExtra("isSuccess", true);
-                            startActivity(txDetail);
+                            if (!TextUtils.isEmpty(tx.chain_id) && !getBaseDao().getChainId().equals(tx.chain_id)) {
+                                Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
+                                webintent.putExtra("txid", tx.tx_hash);
+                                webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
+                                webintent.putExtra("goMain", false);
+                                startActivity(webintent);
+
+                            } else {
+                                Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);
+                                txDetail.putExtra("txHash", tx.tx_hash);
+                                txDetail.putExtra("isGen", false);
+                                txDetail.putExtra("isSuccess", true);
+                                startActivity(txDetail);
+                            }
                         }
                     });
 

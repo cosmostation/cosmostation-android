@@ -35,7 +35,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
     protected TaskResult doInBackground(String... strings) {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
-                WLog.w("as" + ApiClient.getKavaApi(mApp).getAccountTxs(mAddress, "50").request().url());
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
