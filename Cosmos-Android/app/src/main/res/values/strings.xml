@@ -133,6 +133,7 @@
     <string name="str_akash_main_net">Akash Mainnet</string>
     <string name="str_okex_main_net">Okex Mainnet</string>
     <string name="str_sentinel_main_net">Sentinel Mainnet</string>
+    <string name="str_fetch_main_net">Fetch Ai Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -1330,6 +1331,7 @@
     <string name="s_bif" translatable="false">BIF</string>
     <string name="s_xprt" translatable="false">XPRT</string>
     <string name="s_dvpn" translatable="false">DVPN</string>
+    <string name="s_fet" translatable="false">FET</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

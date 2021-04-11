@@ -71,6 +71,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -102,6 +103,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -1592,6 +1594,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorPersis);
         } else if (chain.equals(SENTINEL_MAIN)) {
             return c.getResources().getColor(R.color.colorSentinel);
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return c.getResources().getColor(R.color.colorFetch);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1622,6 +1626,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgPersis);
         } else if (chain.equals(SENTINEL_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgSentinel);
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgFetch);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1651,6 +1657,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_persis);
         } else if (chain.equals(SENTINEL_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sentinel);
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_fetch);
         }
         return null;
     }
@@ -1678,6 +1686,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorPersis);
         } else if (chain.equals(SENTINEL_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorSentinel);
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorFetch);
         }
         return null;
     }
@@ -1735,7 +1745,13 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorSentinel));
             textview.setText(c.getString(R.string.s_dvpn));
 
-        } else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
+        } else if (BaseChain.getChain(chain).equals(FETCHAI_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorFetch));
+            textview.setText(c.getString(R.string.s_fet));
+
+        }
+
+        else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorAtom));
             textview.setText(c.getString(R.string.s_muon));
 
@@ -1769,6 +1785,8 @@ public class WDp {
             return TOKEN_XPRT;
         } else if (chain.equals(SENTINEL_MAIN)) {
             return TOKEN_DVPN;
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return TOKEN_FET;
         } else if (chain.equals(COSMOS_TEST)) {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {

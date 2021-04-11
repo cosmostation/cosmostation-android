@@ -455,6 +455,7 @@ public class BaseConstant {
     public final static String TOKEN_OK_OKB         = "okb";
     public final static String TOKEN_XPRT           = "uxprt";
     public final static String TOKEN_DVPN           = "udvpn";
+    public final static String TOKEN_FET            = "afet";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
