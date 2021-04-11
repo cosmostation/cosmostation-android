@@ -412,6 +412,22 @@ public class ApiClient {
         return api_sentinel;
     }
 
+    //Services for fetchAi mainnet
+    private static FetchAiChain service_fetch = null;
+    public static FetchAiChain getFetchChain(Context c) {
+        if (service_fetch == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_fetch))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_fetch = retrofit.create(FetchAiChain.class);
+            }
+        }
+        return service_fetch;
+    }
+
+
 
 
     //Services for Cosmos Test api
