@@ -392,14 +392,14 @@ public class WDp {
         BigDecimal rpr = getYieldPerBlock(baseData, chain);
         BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
         BigDecimal estDpr = DAY_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
-        return getDpAmount2(c, estDpr, 6, 12);
+        return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         BigDecimal rpr = getYieldPerBlock(baseData, chain);
         BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
         BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
-        return getDpAmount2(c, estDpr, 6, 12);
+        return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
     }
 
 

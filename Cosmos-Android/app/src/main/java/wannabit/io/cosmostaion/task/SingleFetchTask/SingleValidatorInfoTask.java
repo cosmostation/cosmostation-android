@@ -17,6 +17,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -98,6 +99,13 @@ public class SingleValidatorInfoTask extends CommonTask {
 
             } else if (mChain.equals(SENTINEL_MAIN)) {
                 Response<ResLcdSingleValidator> response = ApiClient.getSentinelChain(mApp).getValidatorDetail(mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(FETCHAI_MAIN)) {
+                Response<ResLcdSingleValidator> response = ApiClient.getFetchChain(mApp).getValidatorDetail(mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;

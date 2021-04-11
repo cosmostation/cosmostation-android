@@ -67,12 +67,14 @@ import wannabit.io.cosmostaion.task.gRpcTask.ValidatorInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -169,13 +171,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     protected void onResume() {
         super.onResume();
         if (mAccount == null) { onBackPressed(); }
-//        if (isGRPC(mBaseChain)) {
-//
-//        } else {
-//            if (mValidator == null || TextUtils.isEmpty(mValidator.operator_address)) { onBackPressed(); }
-//            mBondingState       = getBaseDao().onSelectBondingState(mAccount.id, mValidator.operator_address);
-//            mUnBondingStates    = getBaseDao().onSelectUnbondingStates(mAccount.id, mValidator.operator_address);
-//        }
 
         mValidatorAdapter = new ValidatorAdapter();
         mRecyclerView.setAdapter(mValidatorAdapter);
@@ -804,7 +799,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
+        if (mBaseChain.equals(FETCHAI_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             return;
         }
         mTaskCount++;
@@ -1017,7 +1012,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
             holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mValidator.tokens), 6, 6));
+            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mValidator.tokens), WDp.mainDivideDecimal(mBaseChain), 6));
             if (mValidator.status == Validator.BONDED) {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, mValidator.getCommission()));
             } else {
@@ -1081,7 +1076,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemTvDescription.setVisibility(View.GONE);
             }
             holder.itemTvCommissionRate.setText(WDp.getCommissionRate(mValidator.commission.commission_rates.rate));
-            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mValidator.tokens), 6, 6));
+            holder.itemTvTotalBondAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(mValidator.tokens), WDp.mainDivideDecimal(mBaseChain), 6));
             if (mValidator.status == Validator.BONDED) {
                 holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), mBaseChain, mValidator.getCommission()));
             } else {
@@ -1140,9 +1135,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
             }
 
-            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), delegatedAmount, 6, 6));
-            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), unBondingAmount, 6, 6));
-            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseContext(), rewardAmount, 6, 6));
+            holder.itemTvDelegatedAmount.setText(WDp.getDpAmount2(getBaseContext(), delegatedAmount, WDp.mainDivideDecimal(mBaseChain), 6));
+            holder.itemTvUnbondingAmount.setText(WDp.getDpAmount2(getBaseContext(), unBondingAmount, WDp.mainDivideDecimal(mBaseChain), 6));
+            holder.itemTvSimpleReward.setText(WDp.getDpAmount2(getBaseContext(), rewardAmount, WDp.mainDivideDecimal(mBaseChain), 6));
 
             if (mValidator != null && mValidator.status == Validator.BONDED) {
                 holder.itemDailyReturn.setText(WDp.getDailyReward(getBaseContext(), getBaseDao(), mValidator.getCommission(), delegatedAmount, mBaseChain));

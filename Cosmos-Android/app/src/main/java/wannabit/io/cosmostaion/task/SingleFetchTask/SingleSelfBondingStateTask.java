@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -94,6 +95,13 @@ public class SingleSelfBondingStateTask extends CommonTask {
 
             } else if (mChain.equals(SENTINEL_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getSentinelChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
+                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(FETCHAI_MAIN)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getFetchChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
