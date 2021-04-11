@@ -292,6 +292,8 @@
     <string name="str_guide_persis">Blog</string>
     <string name="str_faq_sentinel">Home</string>
     <string name="str_guide_sentinel">Blog</string>
+    <string name="str_faq_fetch">Home</string>
+    <string name="str_guide_fetch">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -465,6 +467,7 @@
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
     <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
     <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
+    <string name="str_front_guide_title_fetch"><![CDATA[FETCH AI NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -477,6 +480,7 @@
     <string name="str_front_guide_msg_secret"><![CDATA[First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.]]></string>
     <string name="str_front_guide_msg_persis"><![CDATA[An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.]]></string>
     <string name="str_front_guide_msg_sentinel"><![CDATA[Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.]]></string>
+    <string name="str_front_guide_msg_fetch"><![CDATA[Open access, decentralized machine learning network built with the Cosmos SDK.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

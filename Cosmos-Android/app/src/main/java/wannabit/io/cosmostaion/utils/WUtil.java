@@ -1932,6 +1932,9 @@ public class WUtil {
         } else if (chain.equals(SENTINEL_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://sentinel.co/"));
 
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://fetch.ai/"));
+
         }
         return null;
     }
@@ -1976,6 +1979,9 @@ public class WUtil {
 
         } else if (chain.equals(SENTINEL_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/sentinel"));
+
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://fetch.ai/blog/"));
 
         }
         return null;
