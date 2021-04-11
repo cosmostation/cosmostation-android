@@ -92,6 +92,7 @@
     <string name="str_akt_c" translatable="false">AKT</string>
     <string name="str_xprt_c" translatable="false">XPRT</string>
     <string name="str_dvpn_c" translatable="false">DVPN</string>
+    <string name="str_fet_c" translatable="false">FET</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
