@@ -519,6 +519,9 @@ public class WDp {
         if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             return amount.multiply(price).setScale(dpDecimal, RoundingMode.DOWN);
 
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return amount.multiply(price).movePointLeft(18).setScale(dpDecimal, RoundingMode.DOWN);
+
         } else {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         }

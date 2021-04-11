@@ -1107,7 +1107,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
             @Override
             public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-                if(isFinishing()) return;
+                if (isFinishing()) return;
                 try {
                     getBaseDao().setLastPriceTic(chain, response.body());
                 } catch (Exception e) {

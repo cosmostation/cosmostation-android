@@ -23,6 +23,7 @@ import wannabit.io.cosmostaion.widget.WalletBandHolder;
 import wannabit.io.cosmostaion.widget.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.WalletCertikHolder;
 import wannabit.io.cosmostaion.widget.WalletCosmosHolder;
+import wannabit.io.cosmostaion.widget.WalletFetchHolder;
 import wannabit.io.cosmostaion.widget.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.WalletKavaHolder;
@@ -42,6 +43,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -234,6 +236,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_SENTINEL) {
                 return new WalletSentinelHolder(getLayoutInflater().inflate(R.layout.item_wallet_sentinel, viewGroup, false));
 
+            } else if (viewType == TYPE_FETCH) {
+                return new WalletFetchHolder(getLayoutInflater().inflate(R.layout.item_wallet_fetch, viewGroup, false));
+
             }
 
             else if (viewType == TYPE_PRICE) {
@@ -319,6 +324,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
+                    else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                 } else if (position == 2) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }
