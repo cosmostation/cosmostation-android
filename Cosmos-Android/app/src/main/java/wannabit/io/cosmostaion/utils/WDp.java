@@ -88,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
@@ -1808,6 +1809,18 @@ public class WDp {
         return "";
     }
 
+    public static int mainDivideDecimal(BaseChain chain) {
+        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return 0;
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            return 0;
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return 18;
+        } else {
+            return 6;
+        }
+    }
+
     public static int getDpRiskColor(Context c, BigDecimal riskRate) {
         if (riskRate.longValue() <= 50) {
             return c.getResources().getColor(R.color.colorCdpSafe);
@@ -2125,6 +2138,8 @@ public class WDp {
             return SENTINEL_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             return OKEX_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            return FETCH_VAL_URL + opAddress + ".png";
         }
         return "";
     }
