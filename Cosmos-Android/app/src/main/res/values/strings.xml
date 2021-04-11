@@ -364,6 +364,8 @@
     <string name="str_persis_net2" translatable="false">Persistence Mainnet</string>
     <string name="str_sentinel_net" translatable="false">(Sentinel Mainnet)</string>
     <string name="str_sentinel_net2" translatable="false">Sentinel Mainnet</string>
+    <string name="str_fetch_net" translatable="false">(Fetch Ai Mainnet)</string>
+    <string name="str_fetch_net2" translatable="false">Fetch Ai Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -383,6 +385,7 @@
     <string name="str_okex_main" translatable="false">OKEX</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
+    <string name="str_fetch_main" translatable="false">FETCH AI</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
