@@ -936,7 +936,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(getString(R.string.str_fet_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Fetch-Ai Native Token");
+            holder.itemFullName.setText("Fetch.ai Native Token");
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
