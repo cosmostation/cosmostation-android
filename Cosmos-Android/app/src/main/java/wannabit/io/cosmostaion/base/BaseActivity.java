@@ -1080,6 +1080,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
                 WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
                 WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
+
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
@@ -1157,6 +1158,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(PERSIS_MAIN)) {
                         getBaseDao().setLastPersistenceTic(0d);
                         getBaseDao().setLastPersistencelUpDown(0d);
+
+                    } else if (chain.equals(FETCHAI_MAIN)) {
+                        getBaseDao().setLastFetchTic(0d);
+                        getBaseDao().setLastFetchUpDown(0d);
 
                     }
                 }

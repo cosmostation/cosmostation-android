@@ -184,6 +184,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_AKASH             = 10;
         private static final int TYPE_PERSIS            = 11;
         private static final int TYPE_SENTINEL          = 12;
+        private static final int TYPE_FETCH             = 13;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;

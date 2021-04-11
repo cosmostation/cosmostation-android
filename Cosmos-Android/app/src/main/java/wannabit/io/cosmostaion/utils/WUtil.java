@@ -84,6 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -103,6 +104,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.CGC_FETCH;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_PERSISTENCE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SECRET;
@@ -1338,6 +1340,9 @@ public class WUtil {
 
         } else if (chain.equals(PERSIS_MAIN)) {
             return CGC_PERSISTENCE;
+
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return CGC_FETCH;
 
         }
         return BaseConstant.CGC_ATOM;
