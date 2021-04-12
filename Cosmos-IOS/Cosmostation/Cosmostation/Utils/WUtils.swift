@@ -1960,6 +1960,8 @@ class WUtils {
             return COLOR_PERSIS
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return COLOR_SENTINEL
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return COLOR_FETCH
         }
         return COLOR_ATOM
     }
@@ -1989,6 +1991,8 @@ class WUtils {
             return COLOR_PERSIS_DARK
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return COLOR_SENTINEL_DARK
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return COLOR_FETCH_DARK
         }
         return COLOR_DARK_GRAY
     }

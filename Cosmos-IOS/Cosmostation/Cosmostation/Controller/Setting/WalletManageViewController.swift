@@ -197,6 +197,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainImg.image = UIImage(named: "chainsentinel")
                     cell?.chainName.text = "SENTINEL"
                     
+                } else if (selectedChain == ChainType.FETCH_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "chainfetchai")
+                    cell?.chainName.text = "FETCH.AI"
+                    
                 }
                 
                 else if (selectedChain == ChainType.COSMOS_TEST) {

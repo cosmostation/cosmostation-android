@@ -268,8 +268,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                     return
                             }
                             let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
+                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
+                                if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, 6, 6)
+                                }
                             }
                             
                         case .failure(let error):
@@ -278,7 +280,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                 } else if (self.userChain == ChainType.FETCH_MAIN) {
                     cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 18, 6)
-                    let request = Alamofire.request(SENTINEL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    let request = Alamofire.request(FETCH_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
@@ -287,8 +289,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                                     return
                             }
                             let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
+                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
+                                if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, 18, 6)
+                                }
                             }
                             
                         case .failure(let error):

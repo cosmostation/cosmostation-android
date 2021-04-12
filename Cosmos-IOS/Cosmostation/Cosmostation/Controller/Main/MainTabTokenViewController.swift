@@ -158,6 +158,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_SENTINEL
+        } else if (chainType! == ChainType.FETCH_MAIN) {
+            titleChainImg.image = UIImage(named: "chainfetchai")
+            titleChainName.text = "(Fetch.ai Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_FETCH
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
