@@ -516,15 +516,15 @@ public class BaseConstant {
 
 
     public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "150000";
-    public final static String FEE_KAVA_GAS_AMOUNT_SEND         = "200000";
-    public final static String FEE_KAVA_GAS_AMOUNT_REWARD       = "200000";
-    public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "1500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CREATE_CDP   = "1500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "350000";
+    public final static String FEE_KAVA_GAS_AMOUNT_SEND         = "300000";
+    public final static String FEE_KAVA_GAS_AMOUNT_REWARD       = "300000";
+    public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "800000";
+    public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "800000";
+    public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "800000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "2000000";
+    public final static String FEE_KAVA_GAS_AMOUNT_CREATE_CDP   = "2000000";
+    public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "500000";
+    public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "800000";
 
 
     public final static String FEE_BNB_SEND                     = "0.000375";
