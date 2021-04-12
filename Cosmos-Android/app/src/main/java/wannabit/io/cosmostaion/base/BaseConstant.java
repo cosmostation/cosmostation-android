@@ -515,7 +515,7 @@ public class BaseConstant {
     public final static String FEE_GAS_AMOUNT_REINVEST      = "220000";
 
 
-    public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "150000";
+    public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_SEND         = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_REWARD       = "300000";
     public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "800000";

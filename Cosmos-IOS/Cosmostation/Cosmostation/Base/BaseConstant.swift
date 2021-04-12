@@ -778,7 +778,7 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
 
-let KAVA_GAS_FEE_AMOUNT_LOW                 = "150000"
+let KAVA_GAS_FEE_AMOUNT_LOW                 = "300000"
 let KAVA_GAS_FEE_AMOUNT_SEND                = "300000"
 let KAVA_GAS_FEE_AMOUNT_REWARD              = "300000"
 let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "800000"
