@@ -2103,6 +2103,18 @@ class WUtils {
 
     }
     
+    static func mainDivideDecimal(_ chain:ChainType?) -> Int16 {
+        if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return 0
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return 0
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return 18
+        } else {
+            return 6
+        }
+    }
+    
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
         if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"
@@ -3078,6 +3090,8 @@ class WUtils {
             return SENTINEL_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return OKEX_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_VAL_URL + opAddress + ".png";
         }
         return ""
     }

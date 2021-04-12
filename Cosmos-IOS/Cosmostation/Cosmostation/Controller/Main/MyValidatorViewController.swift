@@ -204,13 +204,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         
         let delegated = BaseData.instance.delegatedAmountByValidator(validator.operator_address)
-        cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(delegated.stringValue, cell.myDelegatedAmoutLabel.font, 6, 6)
+        cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(delegated.stringValue, cell.myDelegatedAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
         
         let unbonding = BaseData.instance.unbondingAmountByValidator(validator.operator_address)
-        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount2(unbonding.stringValue, cell.myUndelegatingAmountLabel.font, 6, 6)
+        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount2(unbonding.stringValue, cell.myUndelegatingAmountLabel.font, WUtils.mainDivideDecimal(chainType), 6)
         
         let reward = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address)
-        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, 6, 6)
+        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
 
         if (chainType == ChainType.BAND_MAIN) {
             if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
@@ -226,7 +226,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.delegate = self
             
         } else {
-            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.rewardAmount(WUtils.getMainDenom(chainType)).stringValue, cell.totalRewardLabel.font, 6, 6)
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.rewardAmount(WUtils.getMainDenom(chainType)).stringValue, cell.totalRewardLabel.font, WUtils.mainDivideDecimal(chainType), 6)
             cell.delegate = self
         }
     }
