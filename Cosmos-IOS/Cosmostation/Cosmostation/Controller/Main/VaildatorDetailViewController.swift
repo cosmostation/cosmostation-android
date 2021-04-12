@@ -144,6 +144,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
             
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            mRewardCoins.removeAll()
+            mFetchCnt = 4
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(account!, mValidator!)
+            onFetchSignleUnBondingInfo(account!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -270,7 +277,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, WUtils.mainDivideDecimal(chainType), 6)
         cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, mValidator!.operator_address))!)
         
         if (mSelfBondingShare != nil) {
@@ -323,7 +330,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, 6, 6)
+        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, WUtils.mainDivideDecimal(chainType), 6)
         cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, mValidator!.operator_address))!)
         
         if (mSelfBondingShare != nil) {
@@ -367,13 +374,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
         cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
         
-        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(mBonding?.getAmount().stringValue, cell!.myDelegateAmount.font, 6, 6)
+        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(mBonding?.getAmount().stringValue, cell!.myDelegateAmount.font, WUtils.mainDivideDecimal(chainType), 6)
         
         var unbondingAmount = NSDecimalNumber.zero
         mUnbonding?.entries.forEach { entry in
             unbondingAmount = unbondingAmount.adding(NSDecimalNumber.init(string: entry.balance))
         }
-        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondingAmount.stringValue, cell!.myUndelegateAmount.font, 6, 6)
+        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondingAmount.stringValue, cell!.myUndelegateAmount.font, WUtils.mainDivideDecimal(chainType), 6)
         
         var rewardAmount = NSDecimalNumber.zero
         mRewardCoins.forEach { coin in
@@ -381,7 +388,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 rewardAmount = NSDecimalNumber.init(string:coin.amount)
             }
         }
-        cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardAmount.stringValue, cell!.myRewardAmount.font, 6, 6)
+        cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardAmount.stringValue, cell!.myRewardAmount.font, WUtils.mainDivideDecimal(chainType), 6)
         
         if (self.mValidator?.status == 2) {
             cell!.myDailyReturns.attributedText = WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getAmount(), chainType!)
@@ -578,6 +585,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = IOV_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_VALIDATORS + "/" + validator.operator_address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_VALIDATORS + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
@@ -618,6 +627,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_BONDING + account.account_address + CERTIK_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_BONDING + account.account_address + FETCH_BONDING_TAIL + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
@@ -663,6 +674,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_UNBONDING + account.account_address + CERTIK_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_UNBONDING + account.account_address + FETCH_UNBONDING_TAIL + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
@@ -703,6 +716,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_REWARD_FROM_VAL + account.account_address + CERTIK_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_FROM_VAL + account.account_address + SENTINEL_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_FROM_VAL + account.account_address + FETCH_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + KAVA_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
@@ -746,6 +761,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_BONDING + address + CERTIK_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_BONDING + address + SENTINEL_BONDING_TAIL + "/" + vAddress
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_BONDING + address + FETCH_BONDING_TAIL + "/" + vAddress
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
@@ -786,6 +803,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_REDELEGATION;
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REDELEGATION;
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_REDELEGATION;
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;
@@ -830,6 +849,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL

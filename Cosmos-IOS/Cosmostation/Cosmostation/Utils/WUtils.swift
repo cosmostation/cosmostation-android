@@ -1237,7 +1237,7 @@ class WUtils {
             dAmount = delegated!
         }
         let estDpr = DAY_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
-        return displayAmount2(estDpr.stringValue, font, 6, 12)
+        return displayAmount2(estDpr.stringValue, font, mainDivideDecimal(chain), 12)
     }
     
     static func getMonthlyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
@@ -1248,7 +1248,7 @@ class WUtils {
             dAmount = delegated!
         }
         let estDpr = MONTH_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
-        return displayAmount2(estDpr.stringValue, font, 6, 12)
+        return displayAmount2(estDpr.stringValue, font, mainDivideDecimal(chain), 12)
     }
     
     static func displayYield(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
