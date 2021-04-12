@@ -251,7 +251,7 @@ public struct TxInfo {
     }
     
     public func simpleHardReward(_ denom: String) -> Coin? {
-        var coin = Coin.init()
+        var coin = Coin.init(denom, "0")
         self.logs?[0].events?.forEach({ (event) in
             if (event.type == "transfer") {
                 event.attributes?.forEach({ (eventAttribute) in

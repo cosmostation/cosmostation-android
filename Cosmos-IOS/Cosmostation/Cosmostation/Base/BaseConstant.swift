@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -778,16 +778,16 @@ let GAS_FEE_AMOUNT_IRIS_REWARD_MUX          = "5000"
 
 let GAS_FEE_BNB_TRANSFER                    = "0.000375"
 
-let KAVA_GAS_FEE_AMOUNT_LOW                 = "150000"
-let KAVA_GAS_FEE_AMOUNT_SEND                = "200000"
-let KAVA_GAS_FEE_AMOUNT_REWARD              = "200000"
-let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "500000"
-let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "500000"
-let KAVA_GAS_FEE_AMOUNT_REINVEST            = "500000"
-let KAVA_GAS_FEE_AMOUNT_CDP                 = "1500000"
-let KAVA_GAS_FEE_AMOUNT_BEP3                = "300000"
-let KAVA_GAS_FEE_AMOUNT_HIGH                = "350000"
-let KAVA_GAS_FEE_AMOUNT_CREATE_CDP          = "1500000"
+let KAVA_GAS_FEE_AMOUNT_LOW                 = "300000"
+let KAVA_GAS_FEE_AMOUNT_SEND                = "300000"
+let KAVA_GAS_FEE_AMOUNT_REWARD              = "300000"
+let KAVA_GAS_FEE_AMOUNT_AVERAGE             = "800000"
+let KAVA_GAS_FEE_AMOUNT_REDELEGATE          = "800000"
+let KAVA_GAS_FEE_AMOUNT_REINVEST            = "800000"
+let KAVA_GAS_FEE_AMOUNT_CDP                 = "2000000"
+let KAVA_GAS_FEE_AMOUNT_BEP3                = "500000"
+let KAVA_GAS_FEE_AMOUNT_HIGH                = "800000"
+let KAVA_GAS_FEE_AMOUNT_CREATE_CDP          = "2000000"
 
 
 let IOV_GAS_FEE_RATE_AVERAGE                = "1"

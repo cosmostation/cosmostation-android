@@ -42,10 +42,15 @@ public class TxHardPoolIncentive extends TxHolder {
         Coin kavaCoin = res.simpleHardPoolReward(TOKEN_KAVA);
         if (kavaCoin != null) {
             WDp.showCoinDp(c, kavaCoin, itemKavaDenom, itemKavaAmount, baseChain);
+        } else {
+            WDp.showCoinDp(c, TOKEN_KAVA, "0", itemKavaDenom, itemKavaAmount, baseChain);
+
         }
         Coin hardCoin = res.simpleHardPoolReward(TOKEN_HARD);
         if (hardCoin != null) {
             WDp.showCoinDp(c, hardCoin, itemHardDenom, itemHardAmount, baseChain);
+        } else {
+            WDp.showCoinDp(c, TOKEN_HARD, "0", itemHardDenom, itemHardAmount, baseChain);
         }
     }
 }
