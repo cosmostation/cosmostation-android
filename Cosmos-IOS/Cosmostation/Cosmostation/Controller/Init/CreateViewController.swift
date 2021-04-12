@@ -183,6 +183,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         sentinelAction.setValue(UIImage(named: "chainsentinel")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let fetchAction = UIAlertAction(title: NSLocalizedString("chain_title_fetch", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.FETCH_MAIN
+            self.onGenNewKey()
+        })
+        fetchAction.setValue(UIImage(named: "chainfetchai")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SECRET_MAIN
             self.onGenNewKey()
@@ -242,6 +248,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
         showAlert.addAction(sentinelAction)
+        showAlert.addAction(fetchAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

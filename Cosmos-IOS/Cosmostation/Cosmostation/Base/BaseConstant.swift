@@ -95,6 +95,9 @@ let PERSIS_API                          = "https://api-persistence.cosmostation.
 let SENTINEL_URL                        = "https://lcd-sentinel.cosmostation.io/";
 let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
 
+let FETCH_URL                           = "https://rest-fetchhub.fetch-ai.com/";
+let FETCH_API                           = "";
+
 
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
@@ -476,6 +479,33 @@ let SENTINEL_API_HISTORY                = SENTINEL_API + "v1/account/txs/";
 let SENTINEL_API_TRANS_HISTORY          = SENTINEL_API + "v1/account/transfer_txs/";
 
 
+//FETCH_URL
+let FETCH_NODE_INFO                     = FETCH_URL + "node_info";
+let FETCH_TX                            = FETCH_URL + "txs/";
+let FETCH_VALIDATORS                    = FETCH_URL + "staking/validators";
+let FETCH_ACCOUNT_INFO                  = FETCH_URL + "auth/accounts/";
+let FETCH_BONDING                       = FETCH_URL + "staking/delegators/";
+let FETCH_BONDING_TAIL                  = "/delegations";
+let FETCH_UNBONDING                     = FETCH_URL + "staking/delegators/";
+let FETCH_UNBONDING_TAIL                = "/unbonding_delegations";
+let FETCH_REWARD_FROM_VAL               = FETCH_URL + "distribution/delegators/";
+let FETCH_REWARD_FROM_VAL_TAIL          = "/rewards/";
+let FETCH_REWARD_ADDRESS                = FETCH_URL + "distribution/delegators/";
+let FETCH_REWARD_ADDRESS_TAIL           = "/withdraw_address";
+let FETCH_REDELEGATION                  = FETCH_URL + "staking/redelegations";
+let FETCH_MINT_PARAM                    = FETCH_URL + "minting/parameters";
+let FETCH_INFLATION                     = FETCH_URL + "minting/inflation";
+let FETCH_PROVISIONS                    = FETCH_URL + "minting/annual-provisions";
+let FETCH_STAKING_POOL                  = FETCH_URL + "staking/pool";
+let FETCH_BORAD_TX                      = FETCH_URL + "txs";
+let FETCH_PROPOSALS                     = FETCH_URL + "gov/proposals";
+let FETCH_PROPOSALS_TALLY_TAIL          = "/tally";
+
+let FETCH_API_HISTORY                   = FETCH_API + "v1/account/txs/";
+let FETCH_API_TRANS_HISTORY             = FETCH_API + "v1/account/transfer_txs/";
+
+
+
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 
@@ -491,6 +521,7 @@ let AKASH_VAL_URL                       = "https://raw.githubusercontent.com/cos
 let PERSIS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/persistence/";
 let SENTINEL_VAL_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
 let OKEX_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
+let FETCH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -944,6 +975,12 @@ let COLOR_SENTINEL                          = UIColor.init(hexString: "5b8ed7")
 let COLOR_SENTINEL_DARK                     = UIColor.init(hexString: "1e447b")
 let COLOR_SENTINEL_DARK2                    = UIColor.init(hexString: "142d51")
 
+let TRANS_BG_COLOR_FETCH                    = UIColor.init(hexString: "57b5a8", alpha: 0.15)
+let TRANS_BG_COLOR_FETCH2                   = UIColor.init(hexString: "57b5a8", alpha: 0.4)
+let COLOR_FETCH                             = UIColor.init(hexString: "57b5a8")
+let COLOR_FETCH_DARK                        = UIColor.init(hexString: "265750")
+let COLOR_FETCH_DARK2                       = UIColor.init(hexString: "1d284c")
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -968,6 +1005,7 @@ enum ChainType: String {
     case OKEX_MAIN
     case PERSIS_MAIN
     case SENTINEL_MAIN
+    case FETCH_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -990,6 +1028,7 @@ enum ChainType: String {
         result.append(CERTIK_MAIN)
         result.append(AKASH_MAIN)
         result.append(SENTINEL_MAIN)
+        result.append(FETCH_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -1066,6 +1105,7 @@ let CHAIN_AKASH_S = "SUPPORT_CHAIN_AKASH_MAIN"
 let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
 let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
+let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1088,6 +1128,7 @@ let OKEX_MAIN_DENOM = "okt"
 let OKEX_MAIN_OKB = "okb"
 let PERSIS_MAIN_DENOM = "uxprt"
 let SENTINEL_MAIN_DENOM = "udvpn"
+let FETCH_MAIN_DENOM = "afet"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
