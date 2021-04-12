@@ -160,7 +160,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             chainImg.image = UIImage(named: "chainsentinel")
-            keyPath.text = PERSIS_BASE_PATH.appending(account!.account_path)
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        } else if (chainType! == ChainType.FETCH_MAIN) {
+            chainImg.image = UIImage(named: "chainfetchai")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
@@ -515,6 +522,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
         }
         else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
@@ -590,6 +599,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = SECRET_NODE_INFO
         } else if (self.chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_NODE_INFO
+        } else if (self.chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_NODE_INFO
         }
         else if (self.chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_NODE_INFO
