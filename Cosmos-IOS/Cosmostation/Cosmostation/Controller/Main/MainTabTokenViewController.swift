@@ -497,7 +497,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else if (chainType! == ChainType.IRIS_TEST) {
             return onSetIrisTestItems(tableView, indexPath)
         }
-        return onSetCosmosItems(tableView, indexPath)
+        return tableView.dequeueReusableCell(withIdentifier:"TokenCell") as! TokenCell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

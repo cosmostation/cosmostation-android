@@ -139,6 +139,8 @@
 "send_guide_msg_persis" = "An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.";
 "send_guide_title_sentinel" = "SENTINEL";
 "send_guide_msg_sentinel" = "Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.";
+"send_guide_title_fetch" = "FETCH AI NETWORK";
+"send_guide_msg_fetch" = "Open access, decentralized machine learning network built with the Cosmos SDK.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -151,6 +153,7 @@
 "send_guide_btn1_akash" = "Home";
 "send_guide_btn1_persis" = "Home";
 "send_guide_btn1_sentinel" = "Home";
+"send_guide_btn1_fetch" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -163,6 +166,7 @@
 "send_guide_btn2_akash" = "Blog";
 "send_guide_btn2_persis" = "Blog";
 "send_guide_btn2_sentinel" = "Blog";
+"send_guide_btn2_fetch" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
