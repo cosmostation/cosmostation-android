@@ -115,7 +115,21 @@ public class ProposalTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
+            } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
+                Response<ResLcdProposals> response = ApiClient.getFetchChain(mApp).getProposalList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
+
 
         } catch (Exception e) {
             WLog.w("AllProposalTask Error " + e.getMessage());

@@ -11,6 +11,8 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+
 public class ProposalProposerTask extends CommonTask {
 
     private BaseChain mChain;
@@ -107,6 +109,19 @@ public class ProposalProposerTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.SENTINEL_MAIN)) {
                 Response<ResLcdProposer> response = ApiClient.getSentinelChain(mApp).getProposer(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result.proposer;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(FETCHAI_MAIN)) {
+                Response<ResLcdProposer> response = ApiClient.getFetchChain(mApp).getProposer(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
