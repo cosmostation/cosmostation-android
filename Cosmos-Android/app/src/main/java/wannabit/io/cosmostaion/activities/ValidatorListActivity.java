@@ -394,7 +394,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimRewards.size());
 
-            if (available.compareTo(feeAmount) <= 0) {
+            if (available.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
