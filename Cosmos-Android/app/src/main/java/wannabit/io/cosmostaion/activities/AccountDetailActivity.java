@@ -356,7 +356,7 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardAlarm.setVisibility(View.GONE);
             mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgFetch));
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgFetch));
-            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mCardRewardAddress.setVisibility(View.GONE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
 
         }

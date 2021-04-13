@@ -575,6 +575,14 @@ public class BaseConstant {
     public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
     public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
 
+    public final static String FETCH_GAS_FEE_RATE_AVERAGE               = "0.00";
+    public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
+    public final static String FETCH_GAS_AMOUNT_STAKE                   = "200000";
+    public final static String FETCH_GAS_AMOUNT_REDELEGATE              = "300000";
+    public final static String FETCH_GAS_AMOUNT_REINVEST                = "350000";
+    public final static String FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
+    public final static String FETCH_GAS_AMOUNT_VOTE                    = "100000";
+
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";

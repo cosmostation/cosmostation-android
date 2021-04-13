@@ -57,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -731,7 +732,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeUsedDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeLimitDenom);
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN) ||
+                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
                     mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_TEST)) {
                 if (mResTxInfo.isSuccess()) {
                     holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
@@ -797,7 +798,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     Intent webintent = new Intent(getBaseContext(), WebActivity.class);
                     if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN)|| mBaseChain.equals(IOV_MAIN) ||
                             mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(SECRET_MAIN) ||
-                            mBaseChain.equals(SENTINEL_MAIN) ||
+                            mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
                             mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(OK_TEST)) {
                         webintent.putExtra("txid", mResTxInfo.txhash);
                     } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
@@ -818,7 +819,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN)|| mBaseChain.equals(IOV_MAIN) ||
                     mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(SECRET_MAIN) ||
-                    mBaseChain.equals(SENTINEL_MAIN) ||
+                    mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
                     mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(OK_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
@@ -966,6 +967,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindDelegate(RecyclerView.ViewHolder viewHolder, int position) {
             final TxDelegateHolder holder = (TxDelegateHolder)viewHolder;
+            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemDelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -973,8 +975,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), 6, 6));
-            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
+            holder.itemDelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), dpDecimal, dpDecimal));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), dpDecimal, dpDecimal));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
@@ -982,6 +984,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindUndelegate(RecyclerView.ViewHolder viewHolder, int position) {
             final TxUndelegateHolder holder = (TxUndelegateHolder)viewHolder;
+            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemUnDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemUndelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -989,8 +992,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemUnDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), 6, 6));
-            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
+            holder.itemUndelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), dpDecimal, dpDecimal));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), dpDecimal, dpDecimal));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
@@ -998,6 +1001,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindRedelegate(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRedelegateHolder holder = (TxRedelegateHolder)viewHolder;
+            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemReDelegateAmountDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemAutoRewardAmountDenom);
             holder.itemRedelegateImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
@@ -1007,8 +1011,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemFromMoniker.setText(WUtil.getMonikerName(msg.value.validator_src_address, getBaseDao().mAllValidators, true));
             holder.itemToValidator.setText(msg.value.validator_dst_address);
             holder.itemToMoniker.setText(WUtil.getMonikerName(msg.value.validator_dst_address, getBaseDao().mAllValidators, true));
-            holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), 6, 6));
-            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), 6, 6));
+            holder.itemRedelegateAmount.setText(WDp.getDpAmount2(getBaseContext(), new BigDecimal(WDp.getCoins(msg.value.amount).get(0).amount), dpDecimal, dpDecimal));
+            holder.itemAutoRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleAutoReward(mAccount.address, position - 1), dpDecimal, dpDecimal));
             if (mResTxInfo.getMsgs().size() == 1) {
                 holder.itemAutoRewardLayer.setVisibility(View.VISIBLE);
             }
@@ -1016,13 +1020,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindReward(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRewardHolder holder = (TxRewardHolder)viewHolder;
+            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemRewardAmountDenom);
             holder.itemRewardImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             final Msg msg = mResTxInfo.getMsg(position - 1);
             holder.itemDelegator.setText(msg.value.delegator_address);
             holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
             holder.itemValidator.setText(msg.value.validator_address);
-            holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), 6, 6));
+            holder.itemRewardAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleReward(msg.value.validator_address, position - 1), dpDecimal, dpDecimal));
         }
 
         private void onBindRewardAll(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1048,12 +1053,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindCommission(RecyclerView.ViewHolder viewHolder, int position) {
             final TxCommissionHolder holder = (TxCommissionHolder)viewHolder;
+            final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemCommissionAmountDenom);
             holder.itemCommissionImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             final Msg msg = mResTxInfo.getMsg(position - 1);
             holder.itemCommissionValidator.setText(msg.value.validator_address);
             holder.itemCommissionValidatorMoniker.setText(WUtil.getMonikerName(msg.value.validator_address, getBaseDao().mAllValidators, true));
-            holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), 6, 6));
+            holder.itemCommissionAmount.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleCommission(position - 1), dpDecimal, dpDecimal));
         }
 
         //Bind KAVA msgs
@@ -2609,6 +2615,39 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         } else if (mBaseChain.equals(SENTINEL_MAIN)) {
             ApiClient.getSentinelChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
+                @Override
+                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
+                    if (isFinishing()) return;
+                    WLog.w("onFetchTx " + response.toString());
+                    if (response.isSuccessful() && response.body() != null) {
+                        mResTxInfo = response.body();
+                        onUpdateView();
+                    } else {
+                        if (mIsSuccess && FetchCnt < 10) {
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    FetchCnt++;
+                                    onFetchTx(mTxHash);
+                                }
+                            }, 6000);
+                        } else if (!mIsGen) {
+                            onBackPressed();
+                        } else {
+                            onShowMoreWait();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResTxInfo> call, Throwable t) {
+                    if (IS_SHOWLOG) t.printStackTrace();
+                    if (isFinishing()) return;
+                }
+            });
+
+        } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+            ApiClient.getFetchChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                     if (isFinishing()) return;

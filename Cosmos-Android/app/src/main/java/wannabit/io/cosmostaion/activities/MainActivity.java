@@ -564,7 +564,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 intent.putExtra("secretDenom", TOKEN_SECRET);
 
             } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) > 0) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+
+            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
                     hasbalance  = true;
                 }
                 intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));

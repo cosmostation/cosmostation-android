@@ -130,6 +130,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_STAKE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_TINY;
@@ -147,6 +154,13 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_S
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_TINY;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_STAKE;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -2049,6 +2063,62 @@ public class WUtil {
 
             }
 
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_SEND);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_REDELEGATE);
+
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_REINVEST);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
+
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(SENTINEL_GAS_AMOUNT_VOTE);
+
+            }
+
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_SEND);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_REDELEGATE);
+
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_REINVEST);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
+
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(FETCH_GAS_AMOUNT_VOTE);
+
+            }
+
         }
         return result;
     }
@@ -2071,6 +2141,16 @@ public class WUtil {
 
         } else if (basechain.equals(PERSIS_MAIN)) {
             BigDecimal gasRate = new BigDecimal(PERSIS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
