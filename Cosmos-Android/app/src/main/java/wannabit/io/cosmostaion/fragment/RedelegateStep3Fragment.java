@@ -38,6 +38,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -49,6 +50,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
@@ -56,6 +58,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_AMOUNT_REDELEGAT
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REDELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_STAKE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_AMOUNT_REDELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
@@ -270,6 +275,21 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
 
+        } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_fetch));
+
+            mGasAmount.setText(FETCH_GAS_AMOUNT_REDELEGATE);
+            mGasRate.setText(WDp.getDpString(FETCH_GAS_FEE_RATE_AVERAGE, 2));
+            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
+
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 18, 6));
+            mGasFeePrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
         }
 
         return rootView;
@@ -370,6 +390,17 @@ public class RedelegateStep3Fragment extends BaseFragment implements View.OnClic
                 amount.add(gasCoin);
                 fee.amount = amount;
                 fee.gas = SENTINEL_GAS_AMOUNT_REDELEGATE;
+                getSActivity().mTxFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = FETCH_GAS_AMOUNT_REDELEGATE;
                 getSActivity().mTxFee = fee;
 
             }

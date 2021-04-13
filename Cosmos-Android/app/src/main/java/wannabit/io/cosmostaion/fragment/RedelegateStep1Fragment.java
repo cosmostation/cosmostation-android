@@ -175,7 +175,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
         public void onBindViewHolder(@NonNull final ToValidatorHolder holder, final int position) {
             if (isGRPC(getSActivity().mBaseChain)) {
                 final Staking.Validator mGrpcValidator  = mGRpcTopValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), 6, 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
                 holder.itemTvCommission.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
@@ -208,7 +208,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
 
             } else {
                 final Validator validator  = mToValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);

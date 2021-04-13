@@ -176,7 +176,7 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
-                        BigDecimal checkPosition = inputAmount.movePointRight(6);
+                        BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
                         try {
                             Long.parseLong(checkPosition.toPlainString());
                         } catch (Exception e) {

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.activities.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -101,11 +102,11 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
         if (isGRPC(getSActivity().mBaseChain)) {
             mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValAddress);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
 
         } else {
             mMaxAvailable = getBaseDao().delegatedAmountByValidator(getSActivity().mValidator.operator_address);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
         }
         onAddAmountWatcher();
     }
@@ -144,7 +145,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
-                        BigDecimal checkPosition = inputAmount.movePointRight(6);
+                        BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
                         try {
                             Long.parseLong(checkPosition.toPlainString());
                         } catch (Exception e) {

@@ -28,8 +28,8 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
     private TextView        mTvRedelegateAmount, mTvRedelegateDenom;
     private TextView        mFeeAmount, mFeeDenom;
     private TextView        mFromValidatorName, mToValidatorName, mMemo;
-
     private Button          mBeforeBtn, mConfirmBtn;
+    private int             mDpDecimal = 6;
 
     public static RedelegateStep4Fragment newInstance(Bundle bundle) {
         RedelegateStep4Fragment fragment = new RedelegateStep4Fragment();
@@ -65,19 +65,20 @@ public class RedelegateStep4Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal toReDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount= new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
 
             mFromValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mToValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mToValAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
-            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTvRedelegateAmount.setText(WDp.getDpAmount2(getContext(), toReDeleagteAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
             mFromValidatorName.setText(getSActivity().mFromValidator.description.moniker);
             mToValidatorName.setText(getSActivity().mToValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);

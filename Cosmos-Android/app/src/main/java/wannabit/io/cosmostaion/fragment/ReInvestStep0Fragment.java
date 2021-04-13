@@ -25,9 +25,9 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
     private CardView        mCardReward;
     private TextView        mTvRewardAmount, mTvRewardDenom;
     private TextView        mTvFromValidators;
-
     private RelativeLayout  mProgressBar;
     private Button          mCancelBtn, mNextBtn;
+    private int             mDpDecimal = 6;
 
     public static ReInvestStep0Fragment newInstance(Bundle bundle) {
         ReInvestStep0Fragment fragment = new ReInvestStep0Fragment();
@@ -61,10 +61,11 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         if (isGRPC(getSActivity().mBaseChain)) {
             if (getSActivity().mAmount != null) {
                 BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
             }
             mTvFromValidators.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mProgressBar.setVisibility(View.GONE);
@@ -73,7 +74,7 @@ public class ReInvestStep0Fragment extends BaseFragment implements View.OnClickL
         } else {
             if(getSActivity().mAmount != null) {
                 BigDecimal rewardSum = new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN);
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
                 mTvFromValidators.setText(getSActivity().mValidator.description.moniker);
                 mProgressBar.setVisibility(View.GONE);
                 mNextBtn.setClickable(true);
