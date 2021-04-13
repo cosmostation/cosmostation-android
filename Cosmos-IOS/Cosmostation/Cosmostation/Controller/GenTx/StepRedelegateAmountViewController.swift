@@ -25,15 +25,17 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, availableDenomLabel)
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            mDpDecimal = 6
             userDelegated = BaseData.instance.getDelegated(self.pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, mDpDecimal, mDpDecimal)
             
         } else {
-            mDpDecimal = 6
             userDelegated = BaseData.instance.delegatedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, 6, mDpDecimal)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, mDpDecimal, mDpDecimal)
             
         }
         redelegateInputTextField.delegate = self
@@ -181,13 +183,13 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-        let halfValue = userDelegated.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
+        let halfValue = userDelegated.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
         redelegateInputTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
         self.onUIupdate()
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-        let maxValue = userDelegated.dividing(by: NSDecimalNumber(string: "1000000", locale: Locale.current), withBehavior: WUtils.handler6)
+        let maxValue = userDelegated.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
         redelegateInputTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
         self.onUIupdate()
     }

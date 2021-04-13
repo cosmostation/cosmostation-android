@@ -1274,73 +1274,6 @@ class WUtils {
         
     }
     
-    static func displayDailyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont, baseChain:ChainType) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        var formatted = ""
-        var endIndex: String.Index?
-        if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-                baseChain == ChainType.BAND_MAIN || baseChain == ChainType.SECRET_MAIN || baseChain == ChainType.CERTIK_MAIN ||
-                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST || baseChain == ChainType.AKASH_MAIN) {
-            nf.minimumFractionDigits = 12
-            nf.maximumFractionDigits = 12
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
-            
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
-        } else if (baseChain == ChainType.IRIS_MAIN) {
-            nf.minimumFractionDigits = 18
-            nf.maximumFractionDigits = 18
-            
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"), withBehavior: handler18)) ?? "0"
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-    static func displayMonthlyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont, baseChain:ChainType) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        var formatted = ""
-        var endIndex: String.Index?
-        if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-                baseChain == ChainType.BAND_MAIN || baseChain == ChainType.SECRET_MAIN || baseChain == ChainType.CERTIK_MAIN ||
-                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST || baseChain == ChainType.AKASH_MAIN) {
-            nf.minimumFractionDigits = 12
-            nf.maximumFractionDigits = 12
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
-        } else if (baseChain == ChainType.IRIS_MAIN) {
-            nf.minimumFractionDigits = 18
-            nf.maximumFractionDigits = 18
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000000000000000"), withBehavior: handler18)) ?? "0"
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-    
     static func displayCommission(_ rate:String?, font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = 2
@@ -2520,7 +2453,7 @@ class WUtils {
             }
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
             if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
             } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
@@ -2537,6 +2470,26 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_VOTE))
+            }
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_VOTE))
             }
         }
         return result
@@ -2560,6 +2513,11 @@ class WUtils {
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             let gasRate = NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             

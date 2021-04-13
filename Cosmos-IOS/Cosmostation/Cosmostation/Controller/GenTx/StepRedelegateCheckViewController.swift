@@ -25,8 +25,8 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     @IBOutlet weak var btnBefore: UIButton!
     @IBOutlet weak var btnConfirm: UIButton!
     
-    
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,17 +36,21 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         let toRedelegateAmount = WUtils.localeStringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            redelegateAmountLabel.attributedText = WUtils.displayAmount2(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, 6)
-            redelegateFeeLabel.attributedText = WUtils.displayAmount2(feeAmout.stringValue, redelegateFeeLabel.font, 6, 6)
+            redelegateAmountLabel.attributedText = WUtils.displayAmount2(toRedelegateAmount.stringValue, redelegateAmountLabel.font, mDpDecimal, mDpDecimal)
+            redelegateFeeLabel.attributedText = WUtils.displayAmount2(feeAmout.stringValue, redelegateFeeLabel.font, mDpDecimal, mDpDecimal)
             redelegateFromValLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator_gRPC?.description_p.moniker
             
         } else {
-            redelegateAmountLabel.attributedText = WUtils.displayAmount(toRedelegateAmount.stringValue, redelegateAmountLabel.font, 6, pageHolderVC.chainType!)
-            redelegateFeeLabel.attributedText = WUtils.displayAmount(feeAmout.stringValue, redelegateFeeLabel.font, 6, pageHolderVC.chainType!)
+            redelegateAmountLabel.attributedText = WUtils.displayAmount2(toRedelegateAmount.stringValue, redelegateAmountLabel.font, mDpDecimal, mDpDecimal)
+            redelegateFeeLabel.attributedText = WUtils.displayAmount2(feeAmout.stringValue, redelegateFeeLabel.font, mDpDecimal, mDpDecimal)
             redelegateFromValLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             redelegateToValLabel.text = pageHolderVC.mToReDelegateValidator?.description.moniker
             
@@ -101,6 +105,8 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -219,6 +225,8 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                         url = SENTINEL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                        url = FETCH_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

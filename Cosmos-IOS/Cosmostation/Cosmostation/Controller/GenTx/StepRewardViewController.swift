@@ -28,6 +28,7 @@ class StepRewardViewController: BaseViewController {
     @IBOutlet weak var rewardToAddressLabel: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     var mFetchCnt = 0
     
     override func viewDidLoad() {
@@ -70,13 +71,16 @@ class StepRewardViewController: BaseViewController {
     }
     
     func updateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
                 let amount = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
                 selectedRewardSum = selectedRewardSum.adding(amount)
             }
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, mDpDecimal, mDpDecimal)
             
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
@@ -95,7 +99,7 @@ class StepRewardViewController: BaseViewController {
                     selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
                 }
             }
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, 6, 6)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, mDpDecimal, mDpDecimal)
             
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {
@@ -155,6 +159,8 @@ class StepRewardViewController: BaseViewController {
             url = CERTIK_REWARD_FROM_VAL + accountAddr + CERTIK_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_FROM_VAL + accountAddr + SENTINEL_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_FROM_VAL + accountAddr + FETCH_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
@@ -198,6 +204,8 @@ class StepRewardViewController: BaseViewController {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL

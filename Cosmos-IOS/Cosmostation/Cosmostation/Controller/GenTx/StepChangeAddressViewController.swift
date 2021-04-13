@@ -128,6 +128,12 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            if (!userInput!.starts(with: "fetch1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
             return;
@@ -152,6 +158,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
         }
         else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL

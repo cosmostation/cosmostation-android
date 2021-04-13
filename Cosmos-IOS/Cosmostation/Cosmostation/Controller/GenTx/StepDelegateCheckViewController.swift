@@ -25,6 +25,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     @IBOutlet weak var confirmBtn: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,14 +63,17 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     }
     
     func onUpdateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, 6, 6)
             feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             
         } else {
-            toDelegateAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            toDelegateAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mToDelegateAmount?.amount)!, toDelegateAmountLabel.font, mDpDecimal, mDpDecimal)
+            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         }
         
@@ -114,6 +118,8 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -231,6 +237,8 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                         url = SENTINEL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                        url = FETCH_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

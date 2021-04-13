@@ -26,6 +26,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     @IBOutlet weak var confirmBtn: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,14 +59,18 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, 6, 6)
-            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, mDpDecimal, mDpDecimal)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             
         } else {
-            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, 6, pageHolderVC.chainType!)
-            feeAmountLabel.attributedText = WUtils.displayAmount((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, pageHolderVC.chainType!)
+            toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2((pageHolderVC.mToUndelegateAmount?.amount)!, toUnDelegateAmoutLaebl.font, mDpDecimal, mDpDecimal)
+            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             
         }
@@ -104,6 +109,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -221,6 +228,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                         url = SENTINEL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                        url = FETCH_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

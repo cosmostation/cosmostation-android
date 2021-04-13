@@ -411,6 +411,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     return
                 }
                 
+            } else if (chainType! == ChainType.FETCH_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
                 return
@@ -522,9 +529,10 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
         }
+//        else if (chainType == ChainType.FETCH_MAIN) {
+//            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
+//        }
         else if (chainType == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.CERTIK_TEST) {

@@ -512,6 +512,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             url = CERTIK_VALIDATORS
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_VALIDATORS
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_VALIDATORS
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS

@@ -29,6 +29,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var confirmBtn: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,26 +41,30 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, 6)
-            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, 6)
+            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, mDpDecimal, mDpDecimal)
+            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, mDpDecimal, mDpDecimal)
             
             let currentDelegation = BaseData.instance.getDelegated(pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
             let expectedDelegation = currentDelegation.adding(NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount))
-            currentDelegateAmount.attributedText = WUtils.displayAmount2(currentDelegation.stringValue, currentDelegateAmount.font, 6, 6)
-            expectedDelegateAmount.attributedText = WUtils.displayAmount2(expectedDelegation.stringValue, expectedDelegateAmount.font, 6, 6)
+            currentDelegateAmount.attributedText = WUtils.displayAmount2(currentDelegation.stringValue, currentDelegateAmount.font, mDpDecimal, mDpDecimal)
+            expectedDelegateAmount.attributedText = WUtils.displayAmount2(expectedDelegation.stringValue, expectedDelegateAmount.font, mDpDecimal, mDpDecimal)
             
             validatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             memoLabel.text = pageHolderVC.mMemo
             
         } else {
-            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, 6, 6)
-            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, 6, 6)
+            rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, mDpDecimal, mDpDecimal)
+            feeLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeLabel.font, mDpDecimal, mDpDecimal)
             
             let currentDelegation = BaseData.instance.delegatedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)
             let expected = currentDelegation.adding(NSDecimalNumber.init(string: pageHolderVC.mReinvestReward!.amount))
-            currentDelegateAmount.attributedText = WUtils.displayAmount2(currentDelegation.stringValue, currentDelegateAmount.font, 6, 6)
-            expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, 6, 6)
+            currentDelegateAmount.attributedText = WUtils.displayAmount2(currentDelegation.stringValue, currentDelegateAmount.font, mDpDecimal, mDpDecimal)
+            expectedDelegateAmount.attributedText = WUtils.displayAmount2(expected.stringValue, expectedDelegateAmount.font, mDpDecimal, mDpDecimal)
             
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             memoLabel.text = pageHolderVC.mMemo
@@ -133,6 +138,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -259,6 +266,8 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                         url = SENTINEL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                        url = FETCH_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX
