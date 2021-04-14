@@ -145,6 +145,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "chainfetchai")
             titleChainName.text = "(Fetch.ai Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            titleChainImg.image = UIImage(named: "chaincrypto")
+            titleChainName.text = "(Cryto.org Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {

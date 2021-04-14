@@ -164,6 +164,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_FETCH
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            titleChainImg.image = UIImage(named: "chaincrypto")
+            titleChainName.text = "(Cryto.org Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_CRYTO
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {

@@ -391,7 +391,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
 
         
-        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN ) {
+        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYTO_MAIN) {
             self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
