@@ -56,7 +56,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private RewardPageAdapter           mPageAdapter;
 
     public ArrayList<Validator>         mValidators = new ArrayList<>();
-//    public ArrayList<Reward>            mRewards = new ArrayList<>();
     public ArrayList<Coin>              mRewards = new ArrayList<>();
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
@@ -236,24 +235,6 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
             mPageAdapter.mCurrentFragment.onRefreshTab();
         }
     }
-
-//    private void onUpdateReward(Reward reward) {
-//        if (mRewards == null) mRewards = new ArrayList<>();
-//        if (mRewards.size() == 0) {
-//            mRewards.add(reward);
-//        } else {
-//            int match = -1;
-//            for(int i = 0; i < mRewards.size(); i++) {
-//                if(mRewards.get(i).validatorAddress.equals(reward.validatorAddress)) {
-//                    match = i; break;
-//                }
-//            }
-//            if(match > 0) {
-//                mRewards.remove(match);
-//            }
-//            mRewards.add(reward);
-//        }
-//    }
 
     private class RewardPageAdapter extends FragmentPagerAdapter {
 

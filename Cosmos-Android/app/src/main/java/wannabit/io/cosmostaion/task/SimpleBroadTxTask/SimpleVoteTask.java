@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -132,6 +133,17 @@ public class SimpleVoteTask extends CommonTask {
                 }
                 mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromVestingLcd(mAccount.id, accountResponse.body()));
                 mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromVestingLcd(mAccount.id, accountResponse.body()));
+
+            } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getFetchChain(mApp).getAccountInfo(mAccount.address).execute();
+                if(!accountResponse.isSuccessful()) {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+                mAccount = mApp.getBaseDao().onSelectAccount(""+mAccount.id);
+
             }
 
             String entropy = CryptoHelper.doDecryptData(mApp.getString(R.string.key_mnemonic) + mAccount.uuid, mAccount.resource, mAccount.spec);
@@ -252,6 +264,24 @@ public class SimpleVoteTask extends CommonTask {
             } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getSecretChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+                    if(response.body().code != null) {
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
+                Response<ResBroadTx> response = ApiClient.getFetchChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;
