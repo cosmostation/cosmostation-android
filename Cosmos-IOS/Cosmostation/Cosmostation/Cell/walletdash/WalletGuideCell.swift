@@ -116,6 +116,14 @@ class WalletGuideCell: UITableViewCell {
             guideMsg.text = NSLocalizedString("send_guide_msg_ok", comment: "")
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_ok", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_ok", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            guideImg.image = UIImage(named: "fetchaiImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_fetch", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_fetch", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_fetch", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_fetch", comment: ""), for: .normal)
+            
         }
         
     }

@@ -62,7 +62,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
                 
-                cell?.valPowerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
+                cell?.valPowerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), 6)
                 cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, NSDecimalNumber.init(string: validator.commission.commissionRates.rate).multiplying(byPowerOf10: -18), pageHolderVC.chainType!)
                 cell!.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(pageHolderVC.chainType!, validator.operatorAddress))!)
                 cell?.rootCard.needBorderUpdate = false
@@ -91,7 +91,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valjailedImg.isHidden = true
                     cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
-                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, 6, 6)
+                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), 6)
                 cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
                 cell?.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(pageHolderVC.chainType!, validator.operator_address))!)
             
@@ -221,6 +221,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             url = CERTIK_REDELEGATION;
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REDELEGATION;
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_REDELEGATION;
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;

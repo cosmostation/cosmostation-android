@@ -20,21 +20,21 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8lP-lE-wnM" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
                         <rect key="frame" x="12" y="4" width="395" height="306"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="tokensentinel" translatesAutoresizingMaskIntoConstraints="NO" id="g8Y-dj-ZV5">
-                                <rect key="frame" x="12" y="15" width="20" height="20"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tokensentinel" translatesAutoresizingMaskIntoConstraints="NO" id="g8Y-dj-ZV5">
+                                <rect key="frame" x="12" y="16" width="20" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="20" id="A8x-Jd-PaP"/>
                                     <constraint firstAttribute="height" constant="20" id="fWx-xB-aii"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="DVPN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwI-Oc-yDM">
-                                <rect key="frame" x="38" y="16" width="40.5" height="18"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="DVPN" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HwI-Oc-yDM">
+                                <rect key="frame" x="38" y="16" width="40.5" height="20"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                 <color key="textColor" red="0.35686274509803922" green="0.55686274509803924" blue="0.84313725490196079" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="log-Cj-JAx">
-                                <rect key="frame" x="367.5" y="15" width="15.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="log-Cj-JAx">
+                                <rect key="frame" x="367.5" y="-37.5" width="15.5" height="127"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -240,6 +240,7 @@
                             <constraint firstItem="g8Y-dj-ZV5" firstAttribute="leading" secondItem="8lP-lE-wnM" secondAttribute="leading" constant="12" id="1gz-ZF-CqK"/>
                             <constraint firstItem="HwI-Oc-yDM" firstAttribute="centerY" secondItem="g8Y-dj-ZV5" secondAttribute="centerY" id="1i2-uO-zn0"/>
                             <constraint firstItem="NDc-pW-bQc" firstAttribute="leading" secondItem="8lP-lE-wnM" secondAttribute="leading" constant="12" id="3SP-TT-keA"/>
+                            <constraint firstItem="g8Y-dj-ZV5" firstAttribute="top" secondItem="8lP-lE-wnM" secondAttribute="top" constant="16" id="4r9-0G-fuo"/>
                             <constraint firstItem="HO5-Gy-T59" firstAttribute="top" secondItem="log-Cj-JAx" secondAttribute="bottom" constant="6" id="5u5-zL-hJX"/>
                             <constraint firstAttribute="trailing" secondItem="HO5-Gy-T59" secondAttribute="trailing" constant="12" id="5yZ-9M-3OS"/>
                             <constraint firstAttribute="trailing" secondItem="log-Cj-JAx" secondAttribute="trailing" constant="12" id="6u3-nj-AqY"/>

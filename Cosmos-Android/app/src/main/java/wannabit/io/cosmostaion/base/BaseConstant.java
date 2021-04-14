@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -47,6 +47,8 @@ public class BaseConstant {
     public final static String PRE_SENTINEL_UP_DOWN_24      = "PRE_SENTINEL_UP_DOWN_24";
     public final static String PRE_PERSISTENCE_TIC          = "PRE_PERSISTENCE_TIC";
     public final static String PRE_PERSISTENCE_UP_DOWN_24   = "PRE_PERSISTENCE_UP_DOWN_24";
+    public final static String PRE_FETCH_TIC                = "PRE_FETCH_TIC";
+    public final static String PRE_FETCH_UP_DOWN_24         = "PRE_FETCH_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -455,6 +457,7 @@ public class BaseConstant {
     public final static String TOKEN_OK_OKB         = "okb";
     public final static String TOKEN_XPRT           = "uxprt";
     public final static String TOKEN_DVPN           = "udvpn";
+    public final static String TOKEN_FET            = "afet";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -572,6 +575,14 @@ public class BaseConstant {
     public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
     public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
 
+    public final static String FETCH_GAS_FEE_RATE_AVERAGE               = "0.00";
+    public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
+    public final static String FETCH_GAS_AMOUNT_STAKE                   = "200000";
+    public final static String FETCH_GAS_AMOUNT_REDELEGATE              = "300000";
+    public final static String FETCH_GAS_AMOUNT_REINVEST                = "350000";
+    public final static String FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE   = "100000";
+    public final static String FETCH_GAS_AMOUNT_VOTE                    = "100000";
+
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -601,6 +612,7 @@ public class BaseConstant {
     public final static String CGC_OKEX = "okexchain";
     public final static String CGC_SENTINEL = "sentinel-group";
     public final static String CGC_PERSISTENCE = "persistence";
+    public final static String CGC_FETCH = "fetch-ai";
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
@@ -632,6 +644,7 @@ public class BaseConstant {
     public final static String PERSIS_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/persistence/";
     public final static String SENTINEL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
     public final static String OKEX_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
+    public final static String FETCH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";

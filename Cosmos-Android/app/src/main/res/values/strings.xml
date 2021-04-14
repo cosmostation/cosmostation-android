@@ -72,6 +72,10 @@
     <string name="url_api_sentinel" translatable="false">https://api-sentinel.cosmostation.io/</string>
 
 
+    <string name="url_lcd_fetch" translatable="false">https://rest-fetchhub.fetch-ai.com/</string>
+    <string name="url_api_fetch" translatable="false"></string>
+
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
@@ -88,6 +92,7 @@
     <string name="str_akt_c" translatable="false">AKT</string>
     <string name="str_xprt_c" translatable="false">XPRT</string>
     <string name="str_dvpn_c" translatable="false">DVPN</string>
+    <string name="str_fet_c" translatable="false">FET</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -133,6 +138,7 @@
     <string name="str_akash_main_net">Akash Mainnet</string>
     <string name="str_okex_main_net">Okex Mainnet</string>
     <string name="str_sentinel_main_net">Sentinel Mainnet</string>
+    <string name="str_fetch_main_net">Fetch.ai Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -286,6 +292,8 @@
     <string name="str_guide_persis">Blog</string>
     <string name="str_faq_sentinel">Home</string>
     <string name="str_guide_sentinel">Blog</string>
+    <string name="str_faq_fetch">Home</string>
+    <string name="str_guide_fetch">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -359,6 +367,8 @@
     <string name="str_persis_net2" translatable="false">Persistence Mainnet</string>
     <string name="str_sentinel_net" translatable="false">(Sentinel Mainnet)</string>
     <string name="str_sentinel_net2" translatable="false">Sentinel Mainnet</string>
+    <string name="str_fetch_net" translatable="false">(Fetch.ai Mainnet)</string>
+    <string name="str_fetch_net2" translatable="false">Fetch.ai Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -378,6 +388,7 @@
     <string name="str_okex_main" translatable="false">OKEX</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
+    <string name="str_fetch_main" translatable="false">FETCH.AI</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -456,6 +467,7 @@
     <string name="str_front_guide_title_secret"><![CDATA[SECRET NETWORK]]></string>
     <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
     <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
+    <string name="str_front_guide_title_fetch"><![CDATA[FETCH AI NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -468,6 +480,7 @@
     <string name="str_front_guide_msg_secret"><![CDATA[First Proof-of-Stake network to enable privacy-preserving smart contracts. Secret allows private, secure computation.]]></string>
     <string name="str_front_guide_msg_persis"><![CDATA[An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.]]></string>
     <string name="str_front_guide_msg_sentinel"><![CDATA[Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.]]></string>
+    <string name="str_front_guide_msg_fetch"><![CDATA[Open access, decentralized machine learning network built with the Cosmos SDK.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -490,6 +503,7 @@
     <string name="str_fee_speed_title_akash">Support fixed transfer fee for Akash Chain.</string>
     <string name="str_fee_speed_title_secret">Support fixed transfer fee for Secret Chain.</string>
     <string name="str_fee_speed_title_sentinel">Support fixed transfer fee for Sentinel Chain.</string>
+    <string name="str_fee_speed_title_fetch">Support fixed transfer fee for Fetch.ai Chain.</string>
     <string name="str_fee_speed_title_stargate">Support fixed transfer fee for Cosmos Testnet.</string>
     <string name="str_fee_speed_title_bifrost">Support fixed transfer fee for Iris Testnet.</string>
     <string name="str_fee_speed_title_cosmos">Support fixed transfer fee for Cosmos Mainnet.</string>
@@ -1330,6 +1344,7 @@
     <string name="s_bif" translatable="false">BIF</string>
     <string name="s_xprt" translatable="false">XPRT</string>
     <string name="s_dvpn" translatable="false">DVPN</string>
+    <string name="s_fet" translatable="false">FET</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

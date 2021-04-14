@@ -253,6 +253,23 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
+            } else if (mBaseChain.equals(BaseChain.FETCHAI_MAIN)) {
+                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
 
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);

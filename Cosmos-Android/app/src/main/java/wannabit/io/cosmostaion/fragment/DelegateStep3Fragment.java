@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -38,6 +39,7 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView        mValidatorName, mMemo;
     private Button          mBeforeBtn, mConfirmBtn;
     private TextView        mDenomDelegateAmount, mDenomFeeType;
+    private int             mDpDecimal = 6;
 
 
     public static DelegateStep3Fragment newInstance(Bundle bundle) {
@@ -73,17 +75,18 @@ public class DelegateStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
             mValidatorName.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
-            mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mDelegateAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
             mValidatorName.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);
         }

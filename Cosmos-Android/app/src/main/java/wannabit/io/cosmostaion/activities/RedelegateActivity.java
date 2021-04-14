@@ -51,7 +51,6 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
     private RedelegatePageAdapter           mPageAdapter;
 
     public ArrayList<Validator>             mToValidators = new ArrayList<>();
-//    public BondingState                     mBondingState;
     public Validator                        mFromValidator;
     public Validator                        mToValidator;
 

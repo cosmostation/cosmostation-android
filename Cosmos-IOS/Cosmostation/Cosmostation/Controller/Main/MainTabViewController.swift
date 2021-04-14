@@ -362,7 +362,22 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
             onFetchUnbondingValidatorsInfo()
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
             
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            self.mFetchCnt = 12
+            onFetchNodeInfo()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
             onFetchAccountInfo(mAccount)
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
@@ -579,6 +594,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SECRET_NODE_INFO
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_NODE_INFO
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_NODE_INFO
         }
         else if (mChainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_NODE_INFO
@@ -621,6 +638,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SECRET_VALIDATORS
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_VALIDATORS
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_VALIDATORS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -663,6 +682,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SECRET_VALIDATORS
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_VALIDATORS
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_VALIDATORS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -705,6 +726,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SECRET_VALIDATORS
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_VALIDATORS
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_VALIDATORS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -779,6 +802,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = OKEX_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         else if (mChainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_ACCOUNT_INFO + account.account_address
@@ -871,6 +896,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_BONDING + account.account_address + CERTIK_BONDING_TAIL
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_BONDING + account.account_address + FETCH_BONDING_TAIL
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL
@@ -914,6 +941,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_UNBONDING + account.account_address + CERTIK_UNBONDING_TAIL
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_UNBONDING + account.account_address + FETCH_UNBONDING_TAIL
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL
@@ -958,6 +987,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_FROM_VAL + account.account_address + "/rewards"
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_FROM_VAL + account.account_address + "/rewards"
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
@@ -1001,6 +1032,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_MINT_PARAM
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_MINT_PARAM
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_MINT_PARAM
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_MINT_PARAM
@@ -1043,6 +1076,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_INFLATION
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_INFLATION
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_INFLATION
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_INFLATION
@@ -1085,6 +1120,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_PROVISIONS
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_PROVISIONS
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_PROVISIONS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_PROVISIONS
@@ -1127,6 +1164,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CERTIK_STAKING_POOL
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_STAKING_POOL
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = FETCH_STAKING_POOL
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_STAKING_POOL
@@ -1215,84 +1254,41 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         var url: String?
         var parameters: Parameters?
         if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                url = CGC_PRICE_TIC + "cosmos"
-                parameters = [:]
-            } else {
-                url = CMC_PRICE_TIC + "3794"
-                parameters = ["convert":BaseData.instance.getCurrencyString()]
-            }
+            url = CGC_PRICE_TIC + "cosmos"
         } else if (mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                url = CGC_PRICE_TIC + "iris-network"
-                parameters = [:]
-            } else {
-                url = CMC_PRICE_TIC + "3874"
-                parameters = ["convert":BaseData.instance.getCurrencyString()]
-            }
+            url = CGC_PRICE_TIC + "iris-network"
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                url = CGC_PRICE_TIC + "binancecoin"
-                parameters = [:]
-            } else {
-                url = CMC_PRICE_TIC + "1839"
-                parameters = ["convert":BaseData.instance.getCurrencyString()]
-            }
+            url = CGC_PRICE_TIC + "binancecoin"
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                url = CGC_PRICE_TIC + "kava"
-                parameters = [:]
-            } else {
-                url = CMC_PRICE_TIC + "4846"
-                parameters = ["convert":BaseData.instance.getCurrencyString()]
-            }
-            
+            url = CGC_PRICE_TIC + "kava"
         } else if (mChainType == ChainType.BAND_MAIN) {
             url = CGC_PRICE_TIC + "band-protocol"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             url = CGC_PRICE_TIC + "starname"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.SECRET_MAIN) {
             url = CGC_PRICE_TIC + "secret"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
             url = CGC_PRICE_TIC + "okexchain"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
             url = CGC_PRICE_TIC + "certik"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.AKASH_MAIN) {
             url = CGC_PRICE_TIC + "akash-network"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
             url = CGC_PRICE_TIC + "sentinel-group"
-            parameters = [:]
-            
         } else if (mChainType == ChainType.PERSIS_MAIN) {
             url = CGC_PRICE_TIC + "persistence"
-            parameters = [:]
-            
-        } else {
+        } else if (mChainType == ChainType.FETCH_MAIN) {
+            url = CGC_PRICE_TIC + "fetch-ai"
+        }  else {
             BaseData.instance.setPriceTicCgc(nil)
             return
         }
-        let request = Alamofire.request(url!, method: .get,  parameters: parameters, encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(url!, method: .get,  parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if let priceTic = res as? NSDictionary {
-                    if (BaseData.instance.getMarket() == 0) {
-                        BaseData.instance.setPriceTicCgc(priceTic)
-                    } else {
-                        BaseData.instance.setPriceTicCmc(priceTic)
-                    }
+                    BaseData.instance.setPriceTicCgc(priceTic)
                     self.mPriceTic = priceTic
                     if(showMsg) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
                 }

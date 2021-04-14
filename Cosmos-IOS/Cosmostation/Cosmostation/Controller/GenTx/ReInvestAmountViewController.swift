@@ -24,6 +24,7 @@ class ReInvestAmountViewController: BaseViewController {
     @IBOutlet weak var nextBtn: UIButton!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,9 +58,13 @@ class ReInvestAmountViewController: BaseViewController {
     }
     
     func updateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(cReward.stringValue, rewardAmountLabel.font, 6, 6)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(cReward.stringValue, rewardAmountLabel.font, mDpDecimal, mDpDecimal)
             validatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             
             let coin = Coin(WUtils.getMainDenom(pageHolderVC.chainType), cReward.rounding(accordingToBehavior: WUtils.handler0Down).stringValue)
@@ -70,7 +75,7 @@ class ReInvestAmountViewController: BaseViewController {
             self.cardView.isHidden = false
             
         } else if (self.pageHolderVC.mReinvestReward != nil) {
-            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, 6, 6)
+            rewardAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardAmountLabel.font, mDpDecimal, mDpDecimal)
             validatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
             self.loadingImg.isHidden = true
             self.controlLayer.isHidden = false
@@ -96,6 +101,8 @@ class ReInvestAmountViewController: BaseViewController {
             url = CERTIK_REWARD_FROM_VAL + accountAddr + CERTIK_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_FROM_VAL + accountAddr + SENTINEL_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_REWARD_FROM_VAL + accountAddr + FETCH_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr

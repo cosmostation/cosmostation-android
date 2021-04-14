@@ -34,6 +34,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     @IBOutlet weak var confirmBtn: UIButton!
 
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,6 +104,10 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
@@ -123,12 +128,12 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                 selectedRewardSum = selectedRewardSum.adding(amount)
             }
             
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
-            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, mDpDecimal, mDpDecimal)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             
             let userBalance: NSDecimalNumber = BaseData.instance.getAvailableAmount(WUtils.getMainDenom(pageHolderVC.chainType))
             let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.plainStringToDecimal(pageHolderVC.mFee?.amount[0].amount))
-            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
+            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, mDpDecimal, mDpDecimal)
             
             if (pageHolderVC.mAccount?.account_address == pageHolderVC.mRewardAddress) {
                 recipientTitleLabel.isHidden = true
@@ -156,8 +161,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                     selectedRewardSum = selectedRewardSum.adding(WUtils.plainStringToDecimal(coin.amount))
                 }
             }
-            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, 6, 6)
-            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, 6)
+            rewardAmoutLaebl.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmoutLaebl.font, mDpDecimal, mDpDecimal)
+            feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             
             var userBalance = NSDecimalNumber.zero
             for balance in pageHolderVC.mBalances {
@@ -167,7 +172,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
             let expectedAmount = userBalance.adding(selectedRewardSum).subtracting(WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!))
-            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, 6, 6)
+            expectedAmountLabel.attributedText = WUtils.displayAmount2(expectedAmount.stringValue, rewardAmoutLaebl.font, mDpDecimal, mDpDecimal)
             
             var monikers = ""
             for validator in pageHolderVC.mRewardTargetValidators {
@@ -231,6 +236,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -346,6 +353,8 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                         url = SENTINEL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                        url = FETCH_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

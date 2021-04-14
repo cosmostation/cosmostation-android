@@ -175,7 +175,25 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
+            let bondingList = BaseData.instance.mMyDelegations
+            if (bondingList.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
+                return
+            }
+            
+            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -319,6 +337,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = IOV_PROPOSALS + "/" + id
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_PROPOSALS + "/" + id
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_PROPOSALS + "/" + id
         }
         else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROPOSALS + "/" + id
@@ -355,6 +375,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = IOV_PROPOSALS + "/" + id + "/" + IOV_PROPOSALS_TALLY_TAIL
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_PROPOSALS + "/" + id + "/" + SENTINEL_PROPOSALS_TALLY_TAIL
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_PROPOSALS + "/" + id + "/" + FETCH_PROPOSALS_TALLY_TAIL
         }
         else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROPOSALS + "/" + id + "/" + CERTIK_TEST_PROPOSALS_TALLY_TAIL
@@ -391,6 +413,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = IOV_PROPOSALS + "/" + id +  "/votes/" + address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_PROPOSALS + "/" + id +  "/votes/" + address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_PROPOSALS + "/" + id +  "/votes/" + address
         }
         else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes/" + address
@@ -427,6 +451,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = IOV_PROPOSALS + "/" + id +  "/proposer"
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_PROPOSALS + "/" + id +  "/proposer"
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_PROPOSALS + "/" + id +  "/proposer"
         }
         else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROPOSALS + "/" + id +  "/proposer"
@@ -463,6 +489,8 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             url = IOV_PROPOSALS + "/" + id +  "/votes"
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_PROPOSALS + "/" + id +  "/votes"
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_PROPOSALS + "/" + id +  "/votes"
         }
         else if (chainType == ChainType.CERTIK_TEST) {
             url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes"

@@ -34,12 +34,14 @@ import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -183,7 +185,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ONE) >= 0) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ONE) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -207,7 +209,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) >= 0) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -241,7 +243,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) >= 0) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -275,7 +277,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) >= 0) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -309,7 +311,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) >= 0) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -343,7 +345,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
             for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) >= 0) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) > 0) {
                     toClaimValidators.add(validator);
                 }
             }
@@ -369,14 +371,46 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
                 return;
             }
 
-        } else if (isGRPC(mBaseChain)) {
+        } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ZERO) > 0) {
+                    toClaimValidators.add(validator);
+                }
+            }
+
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
+            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
+
+            if (available.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        else if (isGRPC(mBaseChain)) {
             ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mGrpcRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
             for (Distribution.DelegationDelegatorReward reward: getBaseDao().mGrpcRewards) {
-                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(new BigDecimal("3750")) >= 0) {
+                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(new BigDecimal("3750")) > 0) {
                     toClaimRewards.add(reward);
                 }
             }

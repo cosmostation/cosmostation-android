@@ -156,6 +156,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "chainsentinel")
             titleChainName.text = "(Sentinel Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.FETCH_MAIN) {
+            titleChainImg.image = UIImage(named: "chainfetchai")
+            titleChainName.text = "(Fetch.ai Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         

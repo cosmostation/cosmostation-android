@@ -1237,7 +1237,7 @@ class WUtils {
             dAmount = delegated!
         }
         let estDpr = DAY_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
-        return displayAmount2(estDpr.stringValue, font, 6, 12)
+        return displayAmount2(estDpr.stringValue, font, mainDivideDecimal(chain), 12)
     }
     
     static func getMonthlyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
@@ -1248,7 +1248,7 @@ class WUtils {
             dAmount = delegated!
         }
         let estDpr = MONTH_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
-        return displayAmount2(estDpr.stringValue, font, 6, 12)
+        return displayAmount2(estDpr.stringValue, font, mainDivideDecimal(chain), 12)
     }
     
     static func displayYield(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
@@ -1273,73 +1273,6 @@ class WUtils {
         return attributedString1
         
     }
-    
-    static func displayDailyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont, baseChain:ChainType) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        var formatted = ""
-        var endIndex: String.Index?
-        if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-                baseChain == ChainType.BAND_MAIN || baseChain == ChainType.SECRET_MAIN || baseChain == ChainType.CERTIK_MAIN ||
-                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST || baseChain == ChainType.AKASH_MAIN) {
-            nf.minimumFractionDigits = 12
-            nf.maximumFractionDigits = 12
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000"), withBehavior: handler12)) ?? "0"
-            
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
-        } else if (baseChain == ChainType.IRIS_MAIN) {
-            nf.minimumFractionDigits = 18
-            nf.maximumFractionDigits = 18
-            
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "365000000000000000000"), withBehavior: handler18)) ?? "0"
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-    static func displayMonthlyReturns(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, _ delegated:NSDecimalNumber, font:UIFont, baseChain:ChainType) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        var formatted = ""
-        var endIndex: String.Index?
-        if (baseChain == ChainType.COSMOS_MAIN || baseChain == ChainType.KAVA_MAIN || baseChain == ChainType.KAVA_TEST ||
-                baseChain == ChainType.BAND_MAIN || baseChain == ChainType.SECRET_MAIN || baseChain == ChainType.CERTIK_MAIN ||
-                baseChain == ChainType.IOV_MAIN || baseChain == ChainType.IOV_TEST || baseChain == ChainType.CERTIK_TEST || baseChain == ChainType.AKASH_MAIN) {
-            nf.minimumFractionDigits = 12
-            nf.maximumFractionDigits = 12
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000"), withBehavior: handler12)) ?? "0"
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -12)
-        } else if (baseChain == ChainType.IRIS_MAIN) {
-            nf.minimumFractionDigits = 18
-            nf.maximumFractionDigits = 18
-            formatted = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: delegated).dividing(by: NSDecimalNumber.init(string: "12000000000000000000"), withBehavior: handler18)) ?? "0"
-            endIndex = formatted.index(formatted.endIndex, offsetBy: -18)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
     
     static func displayCommission(_ rate:String?, font:UIFont ) -> NSMutableAttributedString {
         let nf = NumberFormatter()
@@ -1712,6 +1645,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            if (coin.denom == FETCH_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1854,6 +1796,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            if (denom == FETCH_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1942,6 +1893,8 @@ class WUtils {
             return COLOR_PERSIS
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return COLOR_SENTINEL
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return COLOR_FETCH
         }
         return COLOR_ATOM
     }
@@ -1971,6 +1924,8 @@ class WUtils {
             return COLOR_PERSIS_DARK
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return COLOR_SENTINEL_DARK
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return COLOR_FETCH_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2000,6 +1955,8 @@ class WUtils {
             return TRANS_BG_COLOR_PERSIS
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return TRANS_BG_COLOR_SENTINEL
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return TRANS_BG_COLOR_FETCH
         }
         return COLOR_BG_GRAY
     }
@@ -2029,6 +1986,8 @@ class WUtils {
             return "XPRT"
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return "DVPN"
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return "FET"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2062,6 +2021,8 @@ class WUtils {
             return PERSIS_MAIN_DENOM
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return SENTINEL_MAIN_DENOM
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2073,6 +2034,18 @@ class WUtils {
         }
         return ""
 
+    }
+    
+    static func mainDivideDecimal(_ chain:ChainType?) -> Int16 {
+        if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return 0
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return 0
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return 18
+        } else {
+            return 6
+        }
     }
     
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
@@ -2112,6 +2085,9 @@ class WUtils {
         } else if (chain == ChainType.SENTINEL_MAIN) {
             label.text = "DVPN"
             label.textColor = COLOR_SENTINEL
+        } else if (chain == ChainType.FETCH_MAIN) {
+            label.text = "FET"
+            label.textColor = COLOR_FETCH
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2146,6 +2122,8 @@ class WUtils {
             return ChainType.PERSIS_MAIN
         } else if (chainS == CHAIN_SENTINEL_S) {
             return ChainType.SENTINEL_MAIN
+        } else if (chainS == CHAIN_FETCH_S) {
+            return ChainType.FETCH_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2191,6 +2169,8 @@ class WUtils {
             return CHAIN_PERSIS_S
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return CHAIN_SENTINEL_S
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return CHAIN_FETCH_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2473,7 +2453,7 @@ class WUtils {
             }
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
-            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
             if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_STAKE))
             } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
@@ -2490,6 +2470,26 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(SENTINEL_GAS_AMOUNT_VOTE))
+            }
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_VOTE))
             }
         }
         return result
@@ -2513,6 +2513,11 @@ class WUtils {
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             let gasRate = NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -3043,6 +3048,8 @@ class WUtils {
             return SENTINEL_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return OKEX_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_VAL_URL + opAddress + ".png";
         }
         return ""
     }

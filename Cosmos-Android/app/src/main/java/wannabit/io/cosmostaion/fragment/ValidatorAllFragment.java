@@ -178,7 +178,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else {
                 final Validator validator  = getBaseDao().mTopValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), WDp.mainDivideDecimal(getMainActivity().mBaseChain), 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);

@@ -54,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -428,6 +429,25 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                     }
                     @Override
                     public void onFailure(Call<ResLcdVestingAccountInfo> call, Throwable t) { }
+                });
+
+            } else if (mChain.equals(FETCHAI_MAIN)) {
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
+                ApiClient.getFetchChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
+                    @Override
+                    public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResLcdAccountInfo> call, Throwable t) { }
                 });
             }
 

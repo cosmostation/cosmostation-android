@@ -19,6 +19,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
@@ -31,7 +32,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mSecret, mCosmosTest, mIrisTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -79,6 +80,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mSecret = view.findViewById(R.id.secret_chain);
         mPersis = view.findViewById(R.id.persis_chain);
         mSentinel = view.findViewById(R.id.sentinel_chain);
+        mFetch = view.findViewById(R.id.fetch_chain);
 
 
 
@@ -167,6 +169,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(SENTINEL_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mFetch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(FETCHAI_MAIN);
                 getDialog().dismiss();
             }
         });

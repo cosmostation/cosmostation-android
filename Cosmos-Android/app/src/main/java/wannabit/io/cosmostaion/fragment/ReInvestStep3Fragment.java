@@ -26,6 +26,7 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
     private TextView    mValidator, mMemo, mCurrentAmount, mExpectedAmount;
     private TextView    mCurrentDenom, mExpectedDenom;
     private Button      mBeforeBtn, mConfirmBtn;
+    private int         mDpDecimal = 6;
 
 
     public static ReInvestStep3Fragment newInstance(Bundle bundle) {
@@ -69,25 +70,26 @@ public class ReInvestStep3Fragment extends BaseFragment implements View.OnClickL
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
+            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), mDpDecimal, mDpDecimal));
             BigDecimal current = getSActivity().getBaseDao().getDelegation(getSActivity().mValAddress);
             BigDecimal expected = current.add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
-            mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, 6, 6));
-            mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
+            mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, mDpDecimal, mDpDecimal));
+            mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, mDpDecimal, mDpDecimal));
             mValidator.setText(getSActivity().getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
 
 
-            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), 6, 6));
+            mRewardAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN), mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), new BigDecimal(getSActivity().mTxFee.amount.get(0).amount), mDpDecimal, mDpDecimal));
             BigDecimal current = getBaseDao().delegatedAmountByValidator(getSActivity().mValidator.operator_address);
             BigDecimal expected = current.add(new BigDecimal(getSActivity().mAmount.amount).setScale(0, BigDecimal.ROUND_DOWN));
-            mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, 6, 6));
-            mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, 6, 6));
+            mCurrentAmount.setText(WDp.getDpAmount2(getContext(), current, mDpDecimal, mDpDecimal));
+            mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expected, mDpDecimal, mDpDecimal));
             mValidator.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);
         }

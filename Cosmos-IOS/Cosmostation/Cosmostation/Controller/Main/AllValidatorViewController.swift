@@ -161,7 +161,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onSetValidatorItem(_ cell: AllValidatorCell, _ validator: Validator) {
-        cell.powerLabel.attributedText =  WUtils.displayAmount2(validator.tokens, cell.powerLabel.font, 6, 6)
+        cell.powerLabel.attributedText =  WUtils.displayAmount2(validator.tokens, cell.powerLabel.font, WUtils.mainDivideDecimal(chainType), 6)
         cell.commissionLabel.attributedText = WUtils.getDpEstAprCommission(cell.commissionLabel.font, validator.getCommission(), chainType!)
         cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         cell.monikerLabel.text = validator.description.moniker

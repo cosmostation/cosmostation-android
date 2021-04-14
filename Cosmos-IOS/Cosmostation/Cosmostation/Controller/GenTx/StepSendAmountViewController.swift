@@ -84,6 +84,11 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             maxAvailable = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            maxAvailable = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, mDpDecimal, mDpDecimal)
         }
         
         //after 40.0
@@ -218,6 +223,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
+                return
+            }
+            
         }
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
@@ -288,6 +299,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 return false
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
+                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
+                return false
+            }
+            
         }
         return true
     }
@@ -326,6 +343,8 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                 toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
                 
+            } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
             }
             
             else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
@@ -432,6 +451,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
+            
         }
         self.onUIupdate()
     }
@@ -492,6 +515,9 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 self.showMaxWarnning()
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
         }
         self.onUIupdate()
     }

@@ -22,6 +22,7 @@ import wannabit.io.cosmostaion.activities.UndelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
@@ -50,6 +51,8 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
     private ImageView   mClearAll;
     private Button      mAdd01, mAdd1, mAdd10, mAdd100, mAddHalf, mAddMax;
     private BigDecimal  mMaxAvailable = BigDecimal.ZERO;
+    private int         mDpDecimal = 6;
+    private String      mDecimalChecker, mDecimalSetter;
 
     public static UndelegateStep0Fragment newInstance(Bundle bundle) {
         UndelegateStep0Fragment fragment = new UndelegateStep0Fragment();
@@ -86,7 +89,29 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         mAdd100.setOnClickListener(this);
         mAddHalf.setOnClickListener(this);
         mAddMax.setOnClickListener(this);
+        return rootView;
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+        setDpDecimals(mDpDecimal);
+        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
+
+        if (isGRPC(getSActivity().mBaseChain)) {
+            mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValAddress);
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+
+        } else {
+            mMaxAvailable = getBaseDao().delegatedAmountByValidator(getSActivity().mValidator.operator_address);
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+        }
+        onAddAmountWatcher();
+    }
+
+    private void onAddAmountWatcher() {
         mAmountInput.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
@@ -110,9 +135,9 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                     mAmountInput.setSelection(1);
                 }
 
-                if(es.equals("0.000000")) {
-                    mAmountInput.setText("0.00000");
-                    mAmountInput.setSelection(7);
+                if (es.equals(mDecimalChecker)) {
+                    mAmountInput.setText(mDecimalSetter);
+                    mAmountInput.setSelection(mDpDecimal + 1);
                 } else {
                     try {
                         final BigDecimal inputAmount = new BigDecimal(es);
@@ -120,7 +145,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
-                        BigDecimal checkPosition = inputAmount.movePointRight(6);
+                        BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
                         try {
                             Long.parseLong(checkPosition.toPlainString());
                         } catch (Exception e) {
@@ -129,7 +154,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                             mAmountInput.setSelection(recover.length());
                             return;
                         }
-                        if(inputAmount.compareTo(mMaxAvailable.movePointLeft(6).setScale(6, RoundingMode.DOWN)) > 0) {
+                        if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN)) > 0) {
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                         } else {
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box));
@@ -139,23 +164,6 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
                 }
             }
         });
-        return rootView;
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if(!isAdded() || getSActivity() == null || getSActivity().mAccount == null) getSActivity().onBackPressed();
-        WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mDenomTitle);
-
-        if (isGRPC(getSActivity().mBaseChain)) {
-            mMaxAvailable = getBaseDao().getDelegation(getSActivity().mValAddress);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
-        } else {
-            mMaxAvailable = getBaseDao().delegatedAmountByValidator(getSActivity().mValidator.operator_address);
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-        }
     }
 
 
@@ -204,10 +212,12 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
             mAmountInput.setText(existed.add(new BigDecimal("100")).toPlainString());
 
         } else if (v.equals(mAddHalf)) {
-            mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("2000000"), 6, RoundingMode.DOWN).toPlainString());
+            BigDecimal half = mMaxAvailable.movePointLeft(mDpDecimal).divide(new BigDecimal("2"), mDpDecimal, RoundingMode.DOWN);
+            mAmountInput.setText(half.toPlainString());
 
         } else if (v.equals(mAddMax)) {
-            mAmountInput.setText(mMaxAvailable.divide(new BigDecimal("1000000"), 6, RoundingMode.DOWN).toPlainString());
+            BigDecimal max = mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.DOWN);
+            mAmountInput.setText(max.toPlainString());
 
         } else if (v.equals(mClearAll)) {
             mAmountInput.setText("");
@@ -217,7 +227,7 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
 
     private boolean isValidateUnDelegateAmount() {
         try {
-            BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(6).setScale(0);
+            BigDecimal userInput = new BigDecimal(mAmountInput.getText().toString().trim()).movePointRight(mDpDecimal).setScale(0);
             if (userInput.compareTo(BigDecimal.ZERO) <= 0) return false;
             if (userInput.compareTo(mMaxAvailable) > 0) return false;
             Coin coin = new Coin(WDp.mainDenom(getSActivity().mBaseChain), userInput.toPlainString());
@@ -227,6 +237,17 @@ public class UndelegateStep0Fragment extends BaseFragment implements View.OnClic
         } catch (Exception e) {
             getSActivity().mAmount = null;
             return false;
+        }
+    }
+
+    private void setDpDecimals(int decimals) {
+        mDecimalChecker = "0.";
+        mDecimalSetter = "0.";
+        for (int i = 0; i < decimals; i ++) {
+            mDecimalChecker = mDecimalChecker+"0";
+        }
+        for (int i = 0; i < decimals-1; i ++) {
+            mDecimalSetter = mDecimalSetter + "0";
         }
     }
 

@@ -199,6 +199,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         sentinelAction.setValue(UIImage(named: "chainsentinel")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let fetchAction = UIAlertAction(title: NSLocalizedString("chain_title_fetch", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.FETCH_MAIN
+            self.initViewUpdate()
+        })
+        fetchAction.setValue(UIImage(named: "chainfetchai")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let okexAction = UIAlertAction(title: NSLocalizedString("chain_title_okex", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.OKEX_MAIN
             self.initViewUpdate()
@@ -259,6 +265,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(certikAction)
         showAlert.addAction(akashAction)
         showAlert.addAction(sentinelAction)
+        showAlert.addAction(fetchAction)
         showAlert.addAction(secretAction)
         
         

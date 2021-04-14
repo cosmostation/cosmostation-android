@@ -63,6 +63,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -352,6 +353,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorSentinel));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel3));
 
+        } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
+            mToolbarChainName.setText(getString(R.string.str_fetch_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorFetch));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorFetch));
+
         }
 
         else if (mBaseChain.equals(COSMOS_TEST)) {
@@ -557,7 +564,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 intent.putExtra("secretDenom", TOKEN_SECRET);
 
             } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) > 0) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+
+            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
                     hasbalance  = true;
                 }
                 intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
@@ -773,6 +788,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsentinel));
                     holder.chainName.setText(getString(R.string.str_sentinel_main));
+
+                } else if (chain.equals(FETCHAI_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
+                    holder.chainName.setText(getString(R.string.str_fetch_main));
 
                 }
 

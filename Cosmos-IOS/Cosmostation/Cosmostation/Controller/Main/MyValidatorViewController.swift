@@ -204,13 +204,13 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, validator.operator_address))!)
         
         let delegated = BaseData.instance.delegatedAmountByValidator(validator.operator_address)
-        cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(delegated.stringValue, cell.myDelegatedAmoutLabel.font, 6, 6)
+        cell.myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(delegated.stringValue, cell.myDelegatedAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
         
         let unbonding = BaseData.instance.unbondingAmountByValidator(validator.operator_address)
-        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount2(unbonding.stringValue, cell.myUndelegatingAmountLabel.font, 6, 6)
+        cell.myUndelegatingAmountLabel.attributedText =  WUtils.displayAmount2(unbonding.stringValue, cell.myUndelegatingAmountLabel.font, WUtils.mainDivideDecimal(chainType), 6)
         
         let reward = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address)
-        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, 6, 6)
+        cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
 
         if (chainType == ChainType.BAND_MAIN) {
             if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
@@ -226,7 +226,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             cell.delegate = self
             
         } else {
-            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.rewardAmount(WUtils.getMainDenom(chainType)).stringValue, cell.totalRewardLabel.font, 6, 6)
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.rewardAmount(WUtils.getMainDenom(chainType)).stringValue, cell.totalRewardLabel.font, WUtils.mainDivideDecimal(chainType), 6)
             cell.delegate = self
         }
     }
@@ -450,6 +450,41 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
             let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: SECRET_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler6)
             let available = WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM)
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            if (BaseData.instance.rewardAmount(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            var myBondedValidator = Array<Validator>()
+            BaseData.instance.mAllValidator.forEach { validator in
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(feeAmount).rawValue > 0) {
+                    myBondedValidator.append(validator)
+                }
+            }
+            myBondedValidator.sort {
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            if (myBondedValidator.count > 16) {
+                toClaimValidator = Array(myBondedValidator[0..<16])
+            } else {
+                toClaimValidator = myBondedValidator
+            }
+            if (toClaimValidator.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler18)
+            let available = WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType))
             if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return

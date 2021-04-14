@@ -30,12 +30,11 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
     private CardView        mCardReward;
     private TextView        mTvRewardAmount, mTvDenomTitle;
     private TextView        mTvFromValidators;
-
     private LinearLayout    mReceiveLayer;
     private TextView        mTvReceiveAddress;
     private RelativeLayout  mProgressBar;
-
     private Button          mCancelBtn, mNextBtn;
+    private int             mDpDecimal = 6;
 
     public static RewardStep0Fragment newInstance(Bundle bundle) {
         RewardStep0Fragment fragment = new RewardStep0Fragment();
@@ -71,12 +70,13 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         if (isGRPC(getSActivity().mBaseChain)) {
             BigDecimal rewardSum = BigDecimal.ZERO;
             for (String opAddress: getSActivity().mValAddresses) {
                 rewardSum = rewardSum.add(getSActivity().getBaseDao().getReward(WDp.mainDenom(getSActivity().mBaseChain), opAddress));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
             String monikers = "";
             for (Staking.Validator validator: getBaseDao().mGRpcAllValidators) {
                 boolean isMatch = false;
@@ -95,7 +95,7 @@ public class RewardStep0Fragment extends BaseFragment implements View.OnClickLis
             for (Coin coin:getSActivity().mRewards) {
                 rewardSum = rewardSum.add(new BigDecimal(coin.amount));
             }
-            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
             String monikers = "";
             for (Validator validator:getSActivity().mValidators) {
                 if(TextUtils.isEmpty(monikers)) {

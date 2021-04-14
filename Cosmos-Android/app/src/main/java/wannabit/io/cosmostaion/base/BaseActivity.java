@@ -151,6 +151,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -689,6 +690,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
+        } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+            mTaskCount = 12;
+            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
         }
 
         else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(PERSIS_MAIN) || mBaseChain.equals(COSMOS_TEST)) {
@@ -1055,14 +1072,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     if (already) getBaseDao().mMyValidators.add(top);
                 }
 
-//                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
-//                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
-//                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
-//                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
-//                WLog.w("mBalances " + getBaseDao().mBalances.size());
-//                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
-//                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
-//                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
+                WLog.w("mAllValidators " + getBaseDao().mAllValidators.size());
+                WLog.w("mMyValidators " + getBaseDao().mMyValidators.size());
+                WLog.w("mTopValidators " + getBaseDao().mTopValidators.size());
+                WLog.w("mOtherValidators " + getBaseDao().mOtherValidators.size());
+                WLog.w("mBalances " + getBaseDao().mBalances.size());
+                WLog.w("mMyDelegations " + getBaseDao().mMyDelegations.size());
+                WLog.w("mMyUnbondings " + getBaseDao().mMyUnbondings.size());
+                WLog.w("mMyRewards " + getBaseDao().mMyRewards.size());
+
                 if (getBaseDao().mNodeInfo == null) {
                     Toast.makeText(getBaseContext(), R.string.error_network_error, Toast.LENGTH_SHORT).show();
                 } else {
@@ -1089,7 +1107,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
             @Override
             public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-                if(isFinishing()) return;
+                if (isFinishing()) return;
                 try {
                     getBaseDao().setLastPriceTic(chain, response.body());
                 } catch (Exception e) {
@@ -1140,6 +1158,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                     } else if (chain.equals(PERSIS_MAIN)) {
                         getBaseDao().setLastPersistenceTic(0d);
                         getBaseDao().setLastPersistencelUpDown(0d);
+
+                    } else if (chain.equals(FETCHAI_MAIN)) {
+                        getBaseDao().setLastFetchTic(0d);
+                        getBaseDao().setLastFetchUpDown(0d);
 
                     }
                 }

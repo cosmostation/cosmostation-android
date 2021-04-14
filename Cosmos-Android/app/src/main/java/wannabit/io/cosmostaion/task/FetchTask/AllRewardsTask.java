@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -72,6 +73,13 @@ public class AllRewardsTask extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 Response<ResLcdAllRewards> response = ApiClient.getSentinelChain(mApp).getAllRewards(mAccount.address).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result.rewards;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
+                Response<ResLcdAllRewards> response = ApiClient.getFetchChain(mApp).getAllRewards(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result.rewards;
                     mResult.isSuccess = true;

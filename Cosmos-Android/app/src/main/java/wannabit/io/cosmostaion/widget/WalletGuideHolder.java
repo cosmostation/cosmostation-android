@@ -22,6 +22,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -135,7 +136,14 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideTitle.setText(R.string.str_front_guide_title_sentinel);
             itemGuideMsg.setText(R.string.str_front_guide_msg_sentinel);
             itemBtnGuide1.setText(R.string.str_faq_sentinel);
-            itemBtnGuide2.setText(R.string.str_faq_sentinel);
+            itemBtnGuide2.setText(R.string.str_guide_sentinel);
+
+        } else if (mainActivity.mBaseChain.equals(FETCHAI_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.fetchai_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_fetch);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_fetch);
+            itemBtnGuide1.setText(R.string.str_faq_fetch);
+            itemBtnGuide2.setText(R.string.str_guide_fetch);
 
         }
 

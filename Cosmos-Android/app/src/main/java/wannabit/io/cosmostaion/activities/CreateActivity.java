@@ -36,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -166,6 +167,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_persis));
             } else if (mChain.equals(SENTINEL_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sentinel));
+            } else if (mChain.equals(FETCHAI_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_fetch));
             }
         }
 
@@ -173,7 +176,7 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
         mCardMnemonics.setVisibility(View.VISIBLE);
         mWarnLayer.setVisibility(View.VISIBLE);
         mBtnNext.setVisibility(View.VISIBLE);
-        if(getBaseDao().onHasPassword() && mCheckPassword) {
+        if (getBaseDao().onHasPassword() && mCheckPassword) {
             for(int i = 0; i < mTvWords.length; i++) {
                 mTvWords[i].setText(mWords.get(i));
             }

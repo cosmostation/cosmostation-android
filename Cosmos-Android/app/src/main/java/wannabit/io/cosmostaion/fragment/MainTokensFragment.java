@@ -55,6 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -76,6 +77,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
@@ -273,6 +275,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSentinel));
             onUpdateTotalCard();
 
+        } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgFetch));
+            onUpdateTotalCard();
+
         }
 
         else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
@@ -443,6 +449,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
+        } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(TOKEN_FET) ) {
+                    totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
         }
 
         if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -500,6 +516,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindPersisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
                 onBindSentinelItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+                onBindFetchItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -859,7 +877,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalAmount));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
         } else {
             //TODO no case yet
 
@@ -883,7 +901,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalAmount));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         } else {
             //TODO no case yet
@@ -907,7 +925,23 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_DVPN);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalAmount));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+        }
+    }
+
+    private void onBindFetchItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_FET)) {
+            holder.itemSymbol.setText(getString(R.string.str_fet_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Fetch.ai Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         }
     }

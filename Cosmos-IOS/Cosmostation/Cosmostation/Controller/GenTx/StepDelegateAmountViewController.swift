@@ -63,6 +63,12 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
             userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, SENTINEL_MAIN_DENOM).subtracting(feeAmount)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
             
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
+            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), mDpDecimal)
+            
         }
         
         else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
@@ -213,7 +219,7 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
         self.onUIupdate()
     }
     @IBAction func onClickHalf(_ sender: UIButton) {
-        let halfValue = userBalance.dividing(by: NSDecimalNumber(string: "2000000", locale: Locale.current), withBehavior: WUtils.handler6)
+        let halfValue = userBalance.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
         toDelegateAmountInput.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
         self.onUIupdate()
     }

@@ -142,7 +142,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
             } else {
                 final Validator validator  = getBaseDao().mOtherValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), 6, 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), WDp.mainDivideDecimal(getMainActivity().mBaseChain), 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);

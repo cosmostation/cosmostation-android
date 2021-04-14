@@ -33,6 +33,7 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
     private TextView        mValidatorName, mMemo, mTime;
     private TextView        mDenomUndelegateAmount, mDenomFeeType;
     private Button          mBeforeBtn, mConfirmBtn;
+    private int             mDpDecimal = 6;
 
     public static UndelegateStep3Fragment newInstance(Bundle bundle) {
         UndelegateStep3Fragment fragment = new UndelegateStep3Fragment();
@@ -68,18 +69,19 @@ public class UndelegateStep3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal toUnDeleagteAmount = new BigDecimal(getSActivity().mAmount.amount);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
             mValidatorName.setText(getBaseDao().getValidatorInfo(getSActivity().mValAddress).getDescription().getMoniker());
             mMemo.setText(getSActivity().mTxMemo);
 
         } else {
-            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, 6, 6));
-            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+            mTvUndelegateAmount.setText(WDp.getDpAmount2(getContext(), toUnDeleagteAmount, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
             mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
             mValidatorName.setText(getSActivity().mValidator.description.moniker);
             mMemo.setText(getSActivity().mTxMemo);

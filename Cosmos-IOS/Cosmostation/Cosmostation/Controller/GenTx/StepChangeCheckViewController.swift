@@ -25,6 +25,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     @IBOutlet weak var memoLabel: UILabel!
     
     var pageHolderVC: StepGenTxViewController!
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +34,12 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
+        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            mDpDecimal = 18
+        }
+        
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        rewardAddressChangeFee.attributedText = WUtils.displayAmount2(feeAmout.stringValue, rewardAddressChangeFee.font, 6, 6)
+        rewardAddressChangeFee.attributedText = WUtils.displayAmount2(feeAmout.stringValue, rewardAddressChangeFee.font, mDpDecimal, mDpDecimal)
         currentRewardAddress.text = pageHolderVC.mCurrentRewardAddress
         newRewardAddress.text = pageHolderVC.mToChangeRewardAddress
         currentRewardAddress.adjustsFontSizeToFitWidth = true
@@ -114,6 +119,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             url = CERTIK_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+            url = FETCH_ACCOUNT_INFO + account.account_address
         }
         if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_ACCOUNT_INFO + account.account_address
@@ -212,6 +219,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = CERTIK_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
                         url = SENTINEL_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
+                        url = FETCH_BORAD_TX
                     }
                     if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                         url = IOV_TEST_BORAD_TX
