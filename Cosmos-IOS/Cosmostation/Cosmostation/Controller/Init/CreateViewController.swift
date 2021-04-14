@@ -141,6 +141,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         okexAction.setValue(UIImage(named: "okexChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let crytoAction = UIAlertAction(title: NSLocalizedString("chain_title_cryto", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.CRYTO_MAIN
+            self.onGenNewKey()
+        })
+        crytoAction.setValue(UIImage(named: "chaincrypto")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let iovAction = UIAlertAction(title: NSLocalizedString("chain_title_iov", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.IOV_MAIN
             self.onGenNewKey()
@@ -241,6 +247,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(okexAction)
+        showAlert.addAction(crytoAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(bandAction)
         showAlert.addAction(persisAction)

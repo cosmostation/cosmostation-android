@@ -211,6 +211,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         okexAction.setValue(UIImage(named: "okexChainImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let crytoAction = UIAlertAction(title: NSLocalizedString("chain_title_cryto", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.CRYTO_MAIN
+            self.initViewUpdate()
+        })
+        crytoAction.setValue(UIImage(named: "chaincrypto")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         
         let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.COSMOS_TEST
@@ -258,6 +264,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
         showAlert.addAction(okexAction)
+        showAlert.addAction(crytoAction)
         showAlert.addAction(kavaAction)
         showAlert.addAction(bandAction)
         showAlert.addAction(persisAction)
@@ -267,7 +274,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(sentinelAction)
         showAlert.addAction(fetchAction)
         showAlert.addAction(secretAction)
-        
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
             showAlert.addAction(cosmosTestAction)

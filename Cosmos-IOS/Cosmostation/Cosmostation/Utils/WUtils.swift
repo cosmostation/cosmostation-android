@@ -1654,6 +1654,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 6)
             
+        } else if (chainType == ChainType.CRYTO_MAIN) {
+            if (coin.denom == CRYTO_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1805,6 +1814,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 6)
             
+        } else if (chainType == ChainType.CRYTO_MAIN) {
+            if (denom == CRYTO_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 8, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1895,6 +1913,8 @@ class WUtils {
             return COLOR_SENTINEL
         } else if (chain == ChainType.FETCH_MAIN) {
             return COLOR_FETCH
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return COLOR_CRYTO
         }
         return COLOR_ATOM
     }
@@ -1926,6 +1946,8 @@ class WUtils {
             return COLOR_SENTINEL_DARK
         } else if (chain == ChainType.FETCH_MAIN) {
             return COLOR_FETCH_DARK
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return COLOR_CRYTO_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -1957,6 +1979,8 @@ class WUtils {
             return TRANS_BG_COLOR_SENTINEL
         } else if (chain == ChainType.FETCH_MAIN) {
             return TRANS_BG_COLOR_FETCH
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return TRANS_BG_COLOR_CRYTO
         }
         return COLOR_BG_GRAY
     }
@@ -1988,6 +2012,8 @@ class WUtils {
             return "DVPN"
         } else if (chain == ChainType.FETCH_MAIN) {
             return "FET"
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return "CRO"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2023,6 +2049,8 @@ class WUtils {
             return SENTINEL_MAIN_DENOM
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_MAIN_DENOM
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return CRYTO_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2043,6 +2071,8 @@ class WUtils {
             return 0
         } else if (chain == ChainType.FETCH_MAIN) {
             return 18
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return 8
         } else {
             return 6
         }
@@ -2088,6 +2118,9 @@ class WUtils {
         } else if (chain == ChainType.FETCH_MAIN) {
             label.text = "FET"
             label.textColor = COLOR_FETCH
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            label.text = "CRO"
+            label.textColor = COLOR_CRYTO
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2124,6 +2157,8 @@ class WUtils {
             return ChainType.SENTINEL_MAIN
         } else if (chainS == CHAIN_FETCH_S) {
             return ChainType.FETCH_MAIN
+        } else if (chainS == CHAIN_CRYTO_S) {
+            return ChainType.CRYTO_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2171,6 +2206,8 @@ class WUtils {
             return CHAIN_SENTINEL_S
         } else if (chain == ChainType.FETCH_MAIN) {
             return CHAIN_FETCH_S
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return CHAIN_CRYTO_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3850,8 +3887,8 @@ class WUtils {
     }
     
     static func isGRPC(_ chain: ChainType) -> Bool {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
+                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYTO_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             return true
         }
         return false

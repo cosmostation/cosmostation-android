@@ -735,6 +735,7 @@ let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
+let CRYTO_BASE_PATH                         = "m/44'/394'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -989,6 +990,12 @@ let COLOR_FETCH                             = UIColor.init(hexString: "57b5a8")
 let COLOR_FETCH_DARK                        = UIColor.init(hexString: "265750")
 let COLOR_FETCH_DARK2                       = UIColor.init(hexString: "1d284c")
 
+let TRANS_BG_COLOR_CRYTO                    = UIColor.init(hexString: "1199fa", alpha: 0.15)
+let TRANS_BG_COLOR_CRYTO2                   = UIColor.init(hexString: "1199fa", alpha: 0.4)
+let COLOR_CRYTO                             = UIColor.init(hexString: "1199fa")
+let COLOR_CRYTO_DARK                        = UIColor.init(hexString: "032d74")
+
+
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
 let COLOR_CDP_SAFE                          = UIColor.init(hexString: "40F683")
@@ -1014,6 +1021,7 @@ enum ChainType: String {
     case PERSIS_MAIN
     case SENTINEL_MAIN
     case FETCH_MAIN
+    case CRYTO_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -1029,6 +1037,7 @@ enum ChainType: String {
         result.append(IRIS_MAIN)
         result.append(BINANCE_MAIN)
         result.append(OKEX_MAIN)
+        result.append(CRYTO_MAIN)
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
         result.append(PERSIS_MAIN)
@@ -1114,6 +1123,7 @@ let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
 let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
 let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
+let CHAIN_CRYTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1137,6 +1147,7 @@ let OKEX_MAIN_OKB = "okb"
 let PERSIS_MAIN_DENOM = "uxprt"
 let SENTINEL_MAIN_DENOM = "udvpn"
 let FETCH_MAIN_DENOM = "afet"
+let CRYTO_MAIN_DENOM = "basecro"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"

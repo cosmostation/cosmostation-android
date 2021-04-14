@@ -45,11 +45,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         let cell:RestorePathCell? = tableView.dequeueReusableCell(withIdentifier:"RestorePathCell") as? RestorePathCell
         cell?.rootCardView.backgroundColor = WUtils.getChainBg(userChain!)
         WUtils.setDenomTitle(userChain!, cell!.denomTitle)
-        if (userChain == ChainType.COSMOS_MAIN || userChain == ChainType.IRIS_MAIN || userChain == ChainType.CERTIK_MAIN ||
-                userChain == ChainType.AKASH_MAIN || userChain == ChainType.SENTINEL_MAIN || userChain == ChainType.FETCH_MAIN ||
-                userChain == ChainType.COSMOS_TEST || userChain == ChainType.IRIS_TEST || userChain == ChainType.CERTIK_TEST) {
-            cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
-        } else if (userChain == ChainType.BINANCE_MAIN || userChain == ChainType.BINANCE_TEST) {
+        if (userChain == ChainType.BINANCE_MAIN || userChain == ChainType.BINANCE_TEST) {
             cell?.pathLabel.text = BNB_BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.IOV_MAIN || userChain == ChainType.IOV_TEST) {
             cell?.pathLabel.text = IOV_BASE_PATH.appending(String(indexPath.row))
@@ -75,6 +71,10 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             }
         } else if (userChain == ChainType.PERSIS_MAIN) {
             cell?.pathLabel.text = PERSIS_BASE_PATH.appending(String(indexPath.row))
+        } else if (userChain == ChainType.CRYTO_MAIN) {
+            cell?.pathLabel.text = CRYTO_BASE_PATH.appending(String(indexPath.row))
+        } else {
+            cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         }
         
         DispatchQueue.global().async {
