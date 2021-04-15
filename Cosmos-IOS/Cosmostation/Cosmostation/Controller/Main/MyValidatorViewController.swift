@@ -71,7 +71,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onPriceFetchDone(_ notification: NSNotification) {
-        print("onPriceFetchDone")
     }
     
     @objc func onSortingMy() {

@@ -972,7 +972,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickValidatorList() {
-        print("onClickValidatorList")
         let validatorListVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "ValidatorListViewController") as! ValidatorListViewController
         validatorListVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
