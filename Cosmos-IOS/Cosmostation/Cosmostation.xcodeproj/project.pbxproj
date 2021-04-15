@@ -67,6 +67,8 @@
 		2827E11623F3DC9B007CDB6E /* TxCommonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */; };
 		2827F4CA255B93240029AE1C /* WalletAkashCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2827F4C8255B93240029AE1C /* WalletAkashCell.swift */; };
 		2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2827F4C9255B93240029AE1C /* WalletAkashCell.xib */; };
+		2829CEA72627080C0048B52A /* WalletCrytoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2829CEA52627080C0048B52A /* WalletCrytoCell.swift */; };
+		2829CEA82627080C0048B52A /* WalletCrytoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2829CEA62627080C0048B52A /* WalletCrytoCell.xib */; };
 		282A9612260DE054000F4CE6 /* StepFeeGrpcViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282A9610260DE054000F4CE6 /* StepFeeGrpcViewController.swift */; };
 		282A9613260DE054000F4CE6 /* StepFeeGrpcViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 282A9611260DE054000F4CE6 /* StepFeeGrpcViewController.xib */; };
 		282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */; };
@@ -845,6 +847,8 @@
 		2827E11423F3DC9B007CDB6E /* TxCommonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCommonCell.xib; sourceTree = "<group>"; };
 		2827F4C8255B93240029AE1C /* WalletAkashCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAkashCell.swift; sourceTree = "<group>"; };
 		2827F4C9255B93240029AE1C /* WalletAkashCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAkashCell.xib; sourceTree = "<group>"; };
+		2829CEA52627080C0048B52A /* WalletCrytoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletCrytoCell.swift; sourceTree = "<group>"; };
+		2829CEA62627080C0048B52A /* WalletCrytoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletCrytoCell.xib; sourceTree = "<group>"; };
 		282A9610260DE054000F4CE6 /* StepFeeGrpcViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeGrpcViewController.swift; sourceTree = "<group>"; };
 		282A9611260DE054000F4CE6 /* StepFeeGrpcViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepFeeGrpcViewController.xib; sourceTree = "<group>"; };
 		282BDFE024A5992500D3A5D4 /* WcTradePopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WcTradePopup.swift; sourceTree = "<group>"; };
@@ -1914,6 +1918,8 @@
 				2812BE14261170810050AE7C /* WalletSentinelCell.xib */,
 				2896525F2624715E0006FC2E /* WalletFetchCell.swift */,
 				289652602624715E0006FC2E /* WalletFetchCell.xib */,
+				2829CEA52627080C0048B52A /* WalletCrytoCell.swift */,
+				2829CEA62627080C0048B52A /* WalletCrytoCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -2760,6 +2766,7 @@
 				283A80C824513FF7008FF813 /* CdpDetailTopCell.xib in Resources */,
 				2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */,
 				280524B5255CDA7D004D6172 /* StarnameWalletConnectViewController.xib in Resources */,
+				2829CEA82627080C0048B52A /* WalletCrytoCell.xib in Resources */,
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
@@ -3004,6 +3011,7 @@
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */,
 				286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */,
+				2829CEA72627080C0048B52A /* WalletCrytoCell.swift in Sources */,
 				287AC5B925FDF7250070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift in Sources */,
 				286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */,
 				285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */,

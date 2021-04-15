@@ -1252,7 +1252,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     func onFetchPriceTic(_ showMsg:Bool) {
         var url: String?
-        var parameters: Parameters?
         if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST) {
             url = CGC_PRICE_TIC + "cosmos"
         } else if (mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.IRIS_TEST) {
@@ -1279,7 +1278,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "persistence"
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = CGC_PRICE_TIC + "fetch-ai"
-        }  else {
+        } else if (mChainType == ChainType.CRYTO_MAIN) {
+            url = CGC_PRICE_TIC + "crypto-com-chain"
+        } else {
             BaseData.instance.setPriceTicCgc(nil)
             return
         }

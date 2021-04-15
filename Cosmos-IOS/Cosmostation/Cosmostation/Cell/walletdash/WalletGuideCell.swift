@@ -124,6 +124,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_fetch", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_fetch", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.CRYTO_MAIN) {
+            guideImg.image = UIImage(named: "cryptochainImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_cryto", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_cryto", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cryto", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cryto", comment: ""), for: .normal)
+            
         }
         
     }

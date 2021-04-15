@@ -441,7 +441,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-persistence-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.CRYTO_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "mainnet.crypto.org", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-cryptocom.cosmostation.io", port: 9090)
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
