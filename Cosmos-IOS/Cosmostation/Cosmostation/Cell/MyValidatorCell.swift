@@ -60,9 +60,9 @@ class MyValidatorCell: UITableViewCell {
             validatorImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
         }
         
-        myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegated(validator.operatorAddress).stringValue, myDelegatedAmoutLabel.font, 6, 6)
-        myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbonding(validator.operatorAddress).stringValue, myUndelegatingAmountLabel.font, 6, 6)
-        rewardAmoutLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operatorAddress).stringValue, rewardAmoutLabel.font, 6, 6)
+        myDelegatedAmoutLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegated(validator.operatorAddress).stringValue, myDelegatedAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
+        myUndelegatingAmountLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbonding(validator.operatorAddress).stringValue, myUndelegatingAmountLabel.font, WUtils.mainDivideDecimal(chainType), 6)
+        rewardAmoutLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getReward(WUtils.getMainDenom(chainType), validator.operatorAddress).stringValue, rewardAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
         
         cardView.backgroundColor = WUtils.getChainBg(chainType)
         validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator.operatorAddress))!)

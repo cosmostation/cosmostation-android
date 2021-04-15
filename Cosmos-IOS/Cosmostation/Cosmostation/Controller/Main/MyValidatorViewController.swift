@@ -222,7 +222,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
         if (WUtils.isGRPC(chainType!)) {
-            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(WUtils.getMainDenom(chainType)), cell.totalRewardLabel.font, 6, 6)
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(WUtils.getMainDenom(chainType)), cell.totalRewardLabel.font, WUtils.mainDivideDecimal(chainType), 6)
             cell.delegate = self
             
         } else {

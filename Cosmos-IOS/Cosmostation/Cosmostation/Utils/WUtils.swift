@@ -3088,6 +3088,8 @@ class WUtils {
             return OKEX_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return CRYTO_VAL_URL + opAddress + ".png";
         }
         return ""
     }
