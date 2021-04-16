@@ -227,7 +227,6 @@ public class RestoreActivity extends BaseActivity implements View.OnClickListene
         } else  if (v.equals(mPaste)) {
             onClearAll();
 
-
             if (getBaseDao().mCopySalt != null && getBaseDao().mCopyEncResult != null) {
                 String words = CryptoHelper.doDecryptData(getBaseDao().mCopySalt, getBaseDao().mCopyEncResult.getEncDataString(), getBaseDao().mCopyEncResult.getIvDataString());
                 if(TextUtils.isEmpty(words)) {

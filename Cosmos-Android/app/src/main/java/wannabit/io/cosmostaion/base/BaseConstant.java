@@ -458,6 +458,7 @@ public class BaseConstant {
     public final static String TOKEN_XPRT           = "uxprt";
     public final static String TOKEN_DVPN           = "udvpn";
     public final static String TOKEN_FET            = "afet";
+    public final static String TOKEN_CRO            = "basecro";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -493,6 +494,7 @@ public class BaseConstant {
     public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
     public final static String KEY_NEW_SECRET_PATH  = "44'/529'/0'/0/";
     public final static String KEY_PERSIS_PATH      = "44'/750'/0'/0/";
+    public final static String KEY_CRYTO_PATH       = "44'/394'/0'/0/";
     public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -596,6 +598,10 @@ public class BaseConstant {
     public final static String PERSIS_GAS_RATE_LOW                      = "0.000";
     public final static String PERSIS_GAS_RATE_AVERAGE                  = "0.000";
 
+    public final static String CRYTO_GAS_RATE_TINY                      = "0.025";
+    public final static String CRYTO_GAS_RATE_LOW                       = "0.05";
+    public final static String CRYTO_GAS_RATE_AVERAGE                   = "0.1";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -645,6 +651,7 @@ public class BaseConstant {
     public final static String SENTINEL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
     public final static String OKEX_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
     public final static String FETCH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
+    public final static String CRYTO_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";

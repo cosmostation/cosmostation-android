@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -23,6 +24,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
     private final static int PORT_PERSIS_MAIN = 9090;
+
+    private final static String GRPC_CRYTO_MAIN = "lcd-cryptocom.cosmostation.io";
+    private final static int PORT_CRYTO_MAIN = 9090;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -44,6 +48,8 @@ public class ChannelBuilder {
             return getAkashMain();
         } else if (chain.equals(PERSIS_MAIN)) {
             return getPersisMain();
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return getCrytoMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -106,6 +112,19 @@ public class ChannelBuilder {
             }
         }
         return channel_persis_main;
+    }
+
+    //Channel for cryto.org main
+    private static ManagedChannel channel_cryto_main = null;
+    public static ManagedChannel getCrytoMain() {
+        if (channel_cryto_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_cryto_main = ManagedChannelBuilder.forAddress(GRPC_CRYTO_MAIN, PORT_CRYTO_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_cryto_main;
     }
 
 
