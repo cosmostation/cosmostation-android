@@ -104,9 +104,7 @@ class StepRewardCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var monikers = ""

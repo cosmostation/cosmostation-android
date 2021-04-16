@@ -34,10 +34,7 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
-        
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         rewardAddressChangeFee.attributedText = WUtils.displayAmount2(feeAmout.stringValue, rewardAddressChangeFee.font, mDpDecimal, mDpDecimal)
         currentRewardAddress.text = pageHolderVC.mCurrentRewardAddress
