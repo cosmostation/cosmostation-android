@@ -84,6 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -104,6 +105,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
+import static wannabit.io.cosmostaion.base.BaseConstant.CGC_CRYTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_FETCH;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
 import static wannabit.io.cosmostaion.base.BaseConstant.CGC_PERSISTENCE;
@@ -1358,6 +1360,9 @@ public class WUtil {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return CGC_FETCH;
 
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return CGC_CRYTO;
+
         }
         return BaseConstant.CGC_ATOM;
     }
@@ -1949,6 +1954,9 @@ public class WUtil {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://fetch.ai/"));
 
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crypto.org/"));
+
         }
         return null;
     }
@@ -1996,6 +2004,9 @@ public class WUtil {
 
         } else if (chain.equals(FETCHAI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://fetch.ai/blog/"));
+
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crypto.org/community/"));
 
         }
         return null;

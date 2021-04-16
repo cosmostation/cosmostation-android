@@ -295,6 +295,8 @@
     <string name="str_guide_sentinel">Blog</string>
     <string name="str_faq_fetch">Home</string>
     <string name="str_guide_fetch">Blog</string>
+    <string name="str_faq_cryto">Home</string>
+    <string name="str_guide_cryto">Communities</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -370,6 +372,8 @@
     <string name="str_sentinel_net2" translatable="false">Sentinel Mainnet</string>
     <string name="str_fetch_net" translatable="false">(Fetch.ai Mainnet)</string>
     <string name="str_fetch_net2" translatable="false">Fetch.ai Mainnet</string>
+    <string name="str_cryto_net" translatable="false">(Cryto.org Mainnet)</string>
+    <string name="str_cryto_net2" translatable="false">Cryto.org Mainnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -390,6 +394,7 @@
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
     <string name="str_fetch_main" translatable="false">FETCH.AI</string>
+    <string name="str_cryto_main" translatable="false">CRYTO.ORG</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -469,6 +474,7 @@
     <string name="str_front_guide_title_persis"><![CDATA[PERSISTENCE NETWORK]]></string>
     <string name="str_front_guide_title_sentinel"><![CDATA[SENTINEL HUB]]></string>
     <string name="str_front_guide_title_fetch"><![CDATA[FETCH AI NETWORK]]></string>
+    <string name="str_front_guide_title_cryto"><![CDATA[CRYTO.ORG CHAIN]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -482,6 +488,7 @@
     <string name="str_front_guide_msg_persis"><![CDATA[An ecosystem of financial products to serve institutional and crypto-native users for DeFi and NFTs.]]></string>
     <string name="str_front_guide_msg_sentinel"><![CDATA[Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.]]></string>
     <string name="str_front_guide_msg_fetch"><![CDATA[Open access, decentralized machine learning network built with the Cosmos SDK.]]></string>
+    <string name="str_front_guide_msg_cryto"><![CDATA[Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

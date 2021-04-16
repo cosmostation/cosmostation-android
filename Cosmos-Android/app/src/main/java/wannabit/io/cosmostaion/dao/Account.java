@@ -13,9 +13,11 @@ import java.util.UUID;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -227,10 +229,7 @@ public class Account {
             return SpannableString.valueOf("--");
         }
         try {
-            if (isGRPC(chain)) {
-                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 6, 6);
-
-            } else if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
+            if (chain.equals(BaseChain.BNB_MAIN) || chain.equals(BaseChain.BNB_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
             } else if (chain.equals(BaseChain.KAVA_MAIN) || chain.equals(BaseChain.KAVA_TEST)) {
@@ -256,6 +255,9 @@ public class Account {
 
             } else if (chain.equals(FETCHAI_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
+
+            } else if (chain.equals(CRYTO_MAIN)) {
+                return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 8, 6);
 
             } else {
                 return WDp.getDpAmount2(c, BigDecimal.ZERO, 6, 6);

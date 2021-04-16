@@ -63,6 +63,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -359,6 +360,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorFetch));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorFetch));
 
+        } else if (mBaseChain.equals(CRYTO_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
+            mToolbarChainName.setText(getString(R.string.str_cryto_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCryto));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCryto2));
+
         }
 
         else if (mBaseChain.equals(COSMOS_TEST)) {
@@ -436,7 +443,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         invalidateOptionsMenu();
         mSelectChainPosition = position;
         getBaseDao().setLastChain(mSelectChainPosition);
-//        mChainListAdapter.notifyDataSetChanged();
         mChainListAdapter.notifyItemRangeChanged(0, mChainListAdapter.getItemCount());
         if (mSelectChainPosition == 0) {
             mAccounts = getBaseDao().onSelectAccounts();
@@ -447,7 +453,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
-//        mAccountListAdapter.notifyItemRangeChanged(0, mAccountListAdapter.getItemCount() - 1);
     }
 
     public void onUpdateAccountListAdapter() {
@@ -460,7 +465,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         }
         WUtil.onSortingAccount(mAccounts);
         mAccountListAdapter.notifyDataSetChanged();
-//        mAccountListAdapter.notifyItemRangeChanged(0, mAccountListAdapter.getItemCount() - 1);
     }
 
     private void onUpdateTitle() {
@@ -794,6 +798,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
                     holder.chainName.setText(getString(R.string.str_fetch_main));
+
+                } else if (chain.equals(CRYTO_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
+                    holder.chainName.setText(getString(R.string.str_cryto_main));
 
                 }
 

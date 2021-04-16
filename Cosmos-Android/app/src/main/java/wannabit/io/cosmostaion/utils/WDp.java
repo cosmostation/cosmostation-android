@@ -533,6 +533,9 @@ public class WDp {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return amount.multiply(price).movePointLeft(18).setScale(dpDecimal, RoundingMode.DOWN);
 
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return amount.multiply(price).movePointLeft(8).setScale(dpDecimal, RoundingMode.DOWN);
+
         } else {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
         }
