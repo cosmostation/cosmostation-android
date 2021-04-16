@@ -2529,7 +2529,29 @@ class WUtils {
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_VOTE))
             }
+            
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            }
+            
         }
+        
         return result
     }
     
@@ -2549,7 +2571,14 @@ class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
-        } else if (chain == ChainType.SENTINEL_MAIN) {
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_CRYTO)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        }
+        
+        else if (chain == ChainType.SENTINEL_MAIN) {
             let gasRate = NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
@@ -2580,6 +2609,15 @@ class WUtils {
                 return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_PERSIS)
             } else {
                 return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_PERSIS)
+            }
+            
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_CRYTO)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_CRYTO)
+            } else {
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_CRYTO)
             }
             
         } else {

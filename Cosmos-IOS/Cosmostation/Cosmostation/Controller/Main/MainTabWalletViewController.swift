@@ -207,6 +207,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = COLOR_SENTINEL_DARK2
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            floaty.buttonImage = UIImage.init(named: "sendImg")
+            floaty.buttonColor = COLOR_CRYTO_DARK
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = WUtils.getChainColor(chainType)
