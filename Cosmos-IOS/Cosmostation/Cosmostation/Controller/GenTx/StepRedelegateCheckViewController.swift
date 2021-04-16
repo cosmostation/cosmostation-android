@@ -36,10 +36,7 @@ class StepRedelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
-        
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         let toRedelegateAmount = WUtils.localeStringToDecimal(pageHolderVC.mToReDelegateAmount!.amount)
         let feeAmout = WUtils.localeStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {

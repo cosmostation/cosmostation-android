@@ -64,9 +64,9 @@ class ValidatorDetailMyActionCell: UITableViewCell {
         let delegation = BaseData.instance.getDelegated(validator!.operatorAddress)
         let unbonding = BaseData.instance.getUnbonding(validator!.operatorAddress)
         let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType!), validator!.operatorAddress)
-        myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation.stringValue, myDelegateAmount.font, WUtils.mainDivideDecimal(chainType), 6)
-        myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding.stringValue, myUndelegateAmount.font, WUtils.mainDivideDecimal(chainType), 6)
-        myRewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, myRewardAmount.font, WUtils.mainDivideDecimal(chainType), 6)
+        myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation.stringValue, myDelegateAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
+        myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding.stringValue, myUndelegateAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
+        myRewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, myRewardAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
         myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), delegation, chainType!)
         myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), delegation, chainType!)
     }

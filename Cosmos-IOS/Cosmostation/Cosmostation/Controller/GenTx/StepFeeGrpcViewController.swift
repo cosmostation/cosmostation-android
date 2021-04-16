@@ -36,6 +36,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
     var mSelectedGasRate = NSDecimalNumber.zero
     var mEstimateGasAmount = NSDecimalNumber.zero
     var mFee = NSDecimalNumber.zero
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +44,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         
         feeTotalCard.backgroundColor = WUtils.getChainBg(pageHolderVC.chainType!)
         WUtils.setDenomTitle(pageHolderVC.chainType!, feeTotalDenom)
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         if #available(iOS 13.0, *) {
             gasSelectSegments.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
             gasSelectSegments.setTitleTextAttributes([.foregroundColor: UIColor.gray], for: .normal)
@@ -62,8 +64,8 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
     func onUpdateView() {
         onCalculateFees()
         
-        feeTotalAmount.attributedText = WUtils.displayAmount2(mFee.stringValue, feeTotalAmount.font!, 6, 6)
-        feeTotalValue.attributedText = WUtils.dpTokenValue(mFee, BaseData.instance.getLastPrice(), 6, feeTotalValue.font)
+        feeTotalAmount.attributedText = WUtils.displayAmount2(mFee.stringValue, feeTotalAmount.font!, mDpDecimal, mDpDecimal)
+        feeTotalValue.attributedText = WUtils.dpTokenValue(mFee, BaseData.instance.getLastPrice(), mDpDecimal, feeTotalValue.font)
         
         gasRateLabel.attributedText = WUtils.displayGasRate(mSelectedGasRate.rounding(accordingToBehavior: WUtils.handler6), font: gasRateLabel.font, 5)
         gasAmountLabel.text = mEstimateGasAmount.stringValue

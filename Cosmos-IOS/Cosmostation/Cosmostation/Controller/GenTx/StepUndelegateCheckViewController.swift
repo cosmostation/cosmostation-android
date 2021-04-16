@@ -59,9 +59,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             toUnDelegateAmoutLaebl.attributedText = WUtils.displayAmount2(pageHolderVC.mToUndelegateAmount?.amount, toUnDelegateAmoutLaebl.font, mDpDecimal, mDpDecimal)
@@ -77,7 +75,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
         memoLabel.text = pageHolderVC.mMemo
         if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(3) + " (3days after)"
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN || pageHolderVC.chainType! == ChainType.CRYTO_MAIN) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(28) + " (28days after)"
         } else {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(21) + " (21days after)"

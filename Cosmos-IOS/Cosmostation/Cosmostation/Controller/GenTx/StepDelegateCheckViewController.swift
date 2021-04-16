@@ -38,7 +38,7 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
         let popupVC = DelegateWarnPopup(nibName: "DelegateWarnPopup", bundle: nil)
         if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             popupVC.warnImgType = 3
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN || pageHolderVC.chainType! == ChainType.CRYTO_MAIN) {
             popupVC.warnImgType = 28
         } else {
             popupVC.warnImgType = 21
@@ -63,12 +63,10 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, 6, 6)
-            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, 6, 6)
+            toDelegateAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mToDelegateAmount?.amount, toDelegateAmountLabel.font, mDpDecimal, mDpDecimal)
+            feeAmountLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mFee?.amount[0].amount, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             
         } else {
@@ -76,8 +74,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, mDpDecimal, mDpDecimal)
             targetValidatorLabel.text = pageHolderVC.mTargetValidator?.description.moniker
         }
-        
-        
         memoLabel.text = pageHolderVC.mMemo
     }
     
