@@ -71,6 +71,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -87,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
@@ -103,6 +105,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
@@ -229,6 +232,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
+        } else if (chain.equals(CRYTO_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -329,6 +336,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
 
+        } else if (chain.equals(CRYTO_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -350,7 +361,7 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(COSMOS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYTO_MAIN) || chain.equals(COSMOS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
@@ -522,6 +533,9 @@ public class WDp {
 
         } else if (chain.equals(FETCHAI_MAIN)) {
             return amount.multiply(price).movePointLeft(18).setScale(dpDecimal, RoundingMode.DOWN);
+
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return amount.multiply(price).movePointLeft(8).setScale(dpDecimal, RoundingMode.DOWN);
 
         } else {
             return amount.multiply(price).movePointLeft(6).setScale(dpDecimal, RoundingMode.DOWN);
@@ -1222,8 +1236,11 @@ public class WDp {
                 return BaseConstant.KEY_PATH + String.valueOf(position);
             }
 
-        }  else if (chain.equals(PERSIS_MAIN)) {
+        } else if (chain.equals(PERSIS_MAIN)) {
             return BaseConstant.KEY_PERSIS_PATH + String.valueOf(position);
+
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return BaseConstant.KEY_CRYTO_PATH + String.valueOf(position);
 
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
@@ -1332,7 +1349,7 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_14days_after);
 
-            } else if (chain.equals(SENTINEL_MAIN)) {
+            } else if (chain.equals(SENTINEL_MAIN) || chain.equals(CRYTO_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 28);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -1608,6 +1625,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorSentinel);
         } else if (chain.equals(FETCHAI_MAIN)) {
             return c.getResources().getColor(R.color.colorFetch);
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return c.getResources().getColor(R.color.colorCryto);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1640,6 +1659,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgSentinel);
         } else if (chain.equals(FETCHAI_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgFetch);
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgCryto);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1671,6 +1692,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sentinel);
         } else if (chain.equals(FETCHAI_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_fetch);
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cryto);
         }
         return null;
     }
@@ -1700,6 +1723,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorSentinel);
         } else if (chain.equals(FETCHAI_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorFetch);
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorCryto);
         }
         return null;
     }
@@ -1761,6 +1786,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorFetch));
             textview.setText(c.getString(R.string.s_fet));
 
+        } else if (BaseChain.getChain(chain).equals(CRYTO_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorCryto));
+            textview.setText(c.getString(R.string.s_cro));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -1799,6 +1828,8 @@ public class WDp {
             return TOKEN_DVPN;
         } else if (chain.equals(FETCHAI_MAIN)) {
             return TOKEN_FET;
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return TOKEN_CRO;
         } else if (chain.equals(COSMOS_TEST)) {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {
@@ -1816,6 +1847,8 @@ public class WDp {
             return 0;
         } else if (chain.equals(FETCHAI_MAIN)) {
             return 18;
+        } else if (chain.equals(CRYTO_MAIN)) {
+            return 8;
         } else {
             return 6;
         }
@@ -2122,6 +2155,8 @@ public class WDp {
             return AKASH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(PERSIS_MAIN)) {
             return PERSIS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CRYTO_MAIN)) {
+            return CRYTO_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
@@ -2165,7 +2200,7 @@ public class WDp {
         BigDecimal result = new BigDecimal("0.4");
         if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");
-        } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(IOV_MAIN) || basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN)) {
+        } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(IOV_MAIN) || basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN) || basechain.equals(CRYTO_MAIN)) {
             result = new BigDecimal("0.334");
         }
         return result.movePointRight(2).setScale(2);

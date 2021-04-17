@@ -41,9 +41,7 @@ class ReInvestCheckViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             rewardLabel.attributedText = WUtils.displayAmount2(pageHolderVC.mReinvestReward!.amount, rewardLabel.font, mDpDecimal, mDpDecimal)

@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
 import wannabit.io.cosmostaion.widget.TokenAkashHolder;
 import wannabit.io.cosmostaion.widget.TokenCosmosHolder;
+import wannabit.io.cosmostaion.widget.TokenCrytoHolder;
 import wannabit.io.cosmostaion.widget.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.TokenKavaHolder;
 import wannabit.io.cosmostaion.widget.TokenPersisHolder;
@@ -47,6 +48,7 @@ import wannabit.io.cosmostaion.widget.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
@@ -175,7 +177,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
 
         } else if (v.equals(mBtnSend)) {
-            WLog.w("mBtnSend");
             if (mAccount == null) return;
             if (!mAccount.hasPrivateKey) {
                 Dialog_WatchMode add = Dialog_WatchMode.newInstance();
@@ -205,6 +206,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         private static final int TYPE_IRIS              = 1;
         private static final int TYPE_AKASH             = 2;
         private static final int TYPE_PERSISTENCE       = 3;
+        private static final int TYPE_CRYTO             = 4;
 
 
         private static final int TYPE_KAVA              = 40;
@@ -227,10 +229,17 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             } else if (viewType == TYPE_PERSISTENCE) {
                 return new TokenPersisHolder(getLayoutInflater().inflate(R.layout.layout_card_persistence, viewGroup, false));
 
-            } else if (viewType == TYPE_KAVA) {
+            } else if (viewType == TYPE_CRYTO) {
+                return new TokenCrytoHolder(getLayoutInflater().inflate(R.layout.layout_card_cryto, viewGroup, false));
+
+            }
+
+            else if (viewType == TYPE_KAVA) {
                 return new TokenKavaHolder(getLayoutInflater().inflate(R.layout.layout_card_kava, viewGroup, false));
 
-            } else if (viewType == TYPE_VESTING) {
+            }
+
+            else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
 
             } else if (viewType == TYPE_HISTORY) {
@@ -295,7 +304,12 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 } else if (mBaseChain.equals(PERSIS_MAIN)) {
                     return TYPE_PERSISTENCE;
 
-                } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+                } else if (mBaseChain.equals(CRYTO_MAIN)) {
+                    return TYPE_CRYTO;
+
+                }
+
+                else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                     return TYPE_KAVA;
 
                 }

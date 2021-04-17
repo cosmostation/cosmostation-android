@@ -55,6 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -76,6 +77,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
@@ -142,7 +144,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             @Override
             public void onRefresh() {
                 getMainActivity().onFetchAllData();
-//                mTokensAdapter.notifyDataSetChanged();
             }
         });
 
@@ -157,7 +158,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-//        onUpdateView();
     }
 
     @Override
@@ -279,6 +279,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgFetch));
             onUpdateTotalCard();
 
+        } else if (getMainActivity().mBaseChain.equals(CRYTO_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCryto));
+            onUpdateTotalCard();
+
         }
 
         else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
@@ -342,8 +346,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onUpdateTotalCard() {
         if (isGRPC(getMainActivity().mBaseChain)) {
+            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(WDp.mainDenom(getMainActivity().mBaseChain));
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
             mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
@@ -518,6 +523,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindSentinelItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
                 onBindFetchItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(CRYTO_MAIN)) {
+                onBindCrytoItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -994,6 +1001,30 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else {
+
+        }
+    }
+
+    private void onBindCrytoItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_CRO)) {
+            holder.itemSymbol.setText(getString(R.string.str_cro_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRYTO_MAIN));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Cryto.org Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRO);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 8, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
 
         }
     }

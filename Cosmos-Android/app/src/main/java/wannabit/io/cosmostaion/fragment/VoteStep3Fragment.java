@@ -24,6 +24,7 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
     private TextView mFeeAmount, mDenomFeeType;
     private TextView mMemo;
     private Button mBeforeBtn, mConfirmBtn;
+    private int             mDpDecimal = 6;
 
 
     public static VoteStep3Fragment newInstance(Bundle bundle) {
@@ -59,8 +60,9 @@ public class VoteStep3Fragment extends BaseFragment implements View.OnClickListe
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mOpinion.setText(getSActivity().mOpinion);
         mMemo.setText(getSActivity().mTxMemo);
     }

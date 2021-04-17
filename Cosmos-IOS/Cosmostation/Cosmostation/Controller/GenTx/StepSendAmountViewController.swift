@@ -91,28 +91,17 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, mDpDecimal, mDpDecimal)
         }
         
-        //after 40.0
-        else if (pageHolderVC.chainType! == ChainType.COSMOS_MAIN || pageHolderVC.chainType! == ChainType.AKASH_MAIN  || pageHolderVC.chainType! == ChainType.PERSIS_MAIN ||
-                    pageHolderVC.chainType! == ChainType.COSMOS_TEST) {
-            mDpDecimal = 6
+        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
                 let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
                 maxAvailable = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
+                mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, mDpDecimal, mDpDecimal)
+                
             } else {
-                maxAvailable = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!)
+                // another denom
+                
             }
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IRIS_MAIN || pageHolderVC.chainType! == ChainType.IRIS_TEST ) {
-            mDpDecimal = 6
-            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-                let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-                maxAvailable = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
-            } else {
-                maxAvailable = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!)
-            }
-            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, 6, mDpDecimal)
-            
         }
         
         mTargetAmountTextField.delegate = self

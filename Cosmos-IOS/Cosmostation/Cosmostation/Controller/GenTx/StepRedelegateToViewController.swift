@@ -26,6 +26,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     var checkedValidator: Validator?
     var checkedValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var checkedPosition:IndexPath?
+    var mDpDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,6 +35,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
         self.mIrisStakePool = BaseData.instance.mIrisStakePool
         
         pageHolderVC = self.parent as? StepGenTxViewController
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+        
         self.redelegateToValTableView.delegate = self
         self.redelegateToValTableView.dataSource = self
         self.redelegateToValTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -62,7 +65,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
                 
-                cell?.valPowerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), 6)
+                cell?.valPowerLabel.attributedText = WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, mDpDecimal, mDpDecimal)
                 cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, NSDecimalNumber.init(string: validator.commission.commissionRates.rate).multiplying(byPowerOf10: -18), pageHolderVC.chainType!)
                 cell!.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(pageHolderVC.chainType!, validator.operatorAddress))!)
                 cell?.rootCard.needBorderUpdate = false
@@ -91,7 +94,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
                     cell?.valjailedImg.isHidden = true
                     cell?.valjailedImg.layer.borderColor = UIColor(hexString: "#4B4F54").cgColor
                 }
-                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), 6)
+                cell?.valPowerLabel.attributedText  =  WUtils.displayAmount2(validator.tokens, cell!.valPowerLabel.font, mDpDecimal, mDpDecimal)
                 cell?.valCommissionLabel.attributedText = WUtils.getDpEstAprCommission(cell!.valCommissionLabel.font, validator.getCommission(), pageHolderVC.chainType!)
                 cell?.valImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(pageHolderVC.chainType!, validator.operator_address))!)
             

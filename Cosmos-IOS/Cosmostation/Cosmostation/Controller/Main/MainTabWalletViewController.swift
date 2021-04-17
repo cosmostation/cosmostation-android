@@ -53,6 +53,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletPersisCell", bundle: nil), forCellReuseIdentifier: "WalletPersisCell")
         self.walletTableView.register(UINib(nibName: "WalletSentinelCell", bundle: nil), forCellReuseIdentifier: "WalletSentinelCell")
         self.walletTableView.register(UINib(nibName: "WalletFetchCell", bundle: nil), forCellReuseIdentifier: "WalletFetchCell")
+        self.walletTableView.register(UINib(nibName: "WalletCrytoCell", bundle: nil), forCellReuseIdentifier: "WalletCrytoCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -145,6 +146,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "chainfetchai")
             titleChainName.text = "(Fetch.ai Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            titleChainImg.image = UIImage(named: "chaincrypto")
+            titleChainName.text = "(Cryto.org Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -202,6 +207,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = COLOR_SENTINEL_DARK2
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            floaty.buttonImage = UIImage.init(named: "sendImg")
+            floaty.buttonColor = COLOR_CRYTO_DARK
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = WUtils.getChainColor(chainType)
@@ -259,6 +267,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return 5;
         } else if (chainType == ChainType.FETCH_MAIN) {
             return 5;
+        } else if (chainType == ChainType.CRYTO_MAIN) {
+            return 5;
         } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
             return 5;
         } else {
@@ -293,6 +303,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetSentinelItems(tableView, indexPath);
         } else if (chainType == ChainType.FETCH_MAIN) {
             return onSetFetchItems(tableView, indexPath);
+        } else if (chainType == ChainType.CRYTO_MAIN) {
+            return onSetCrytoItems(tableView, indexPath);
         } else if (chainType == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath);
         } else if (chainType == ChainType.IRIS_TEST) {
@@ -785,6 +797,44 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletCrytoCell") as? WalletCrytoCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+            
+        }
+    }
+    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
@@ -1125,6 +1175,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             guard let url = URL(string: "https://sentinel.co/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.FETCH_MAIN) {
+            guard let url = URL(string: "https://fetch.ai/") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            guard let url = URL(string: "https://crypto.org/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1181,6 +1239,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             guard let url = URL(string: "https://medium.com/sentinel") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.FETCH_MAIN) {
+            guard let url = URL(string: "https://fetch.ai/blog/") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            guard let url = URL(string: "https://crypto.org/community") else { return }
             self.onShowSafariWeb(url)
         }
     }

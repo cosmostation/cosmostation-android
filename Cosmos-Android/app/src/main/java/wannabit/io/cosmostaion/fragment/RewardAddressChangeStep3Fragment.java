@@ -26,6 +26,7 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
     private TextView        mFeeAmount, mFeeType;
     private TextView        mCurrentAddress, mNewAddress, mMemo;
     private Button          mBeforeBtn, mConfirmBtn;
+    private int             mDpDecimal = 6;
 
     public static RewardAddressChangeStep3Fragment newInstance(Bundle bundle) {
         RewardAddressChangeStep3Fragment fragment = new RewardAddressChangeStep3Fragment();
@@ -58,8 +59,9 @@ public class RewardAddressChangeStep3Fragment extends BaseFragment implements Vi
 
     @Override
     public void onRefreshTab() {
+        mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
         BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
         mCurrentAddress.setText(getSActivity().mCurrentRewardAddress);
         mNewAddress.setText(getSActivity().mNewRewardAddress);
         mMemo.setText(getSActivity().mTxMemo);

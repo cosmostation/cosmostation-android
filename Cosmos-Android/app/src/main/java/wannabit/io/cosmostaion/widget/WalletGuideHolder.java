@@ -22,6 +22,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -144,6 +145,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_fetch);
             itemBtnGuide1.setText(R.string.str_faq_fetch);
             itemBtnGuide2.setText(R.string.str_guide_fetch);
+
+        } else if (mainActivity.mBaseChain.equals(CRYTO_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.cryptochain_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_cryto);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_cryto);
+            itemBtnGuide1.setText(R.string.str_faq_cryto);
+            itemBtnGuide2.setText(R.string.str_guide_cryto);
 
         }
 

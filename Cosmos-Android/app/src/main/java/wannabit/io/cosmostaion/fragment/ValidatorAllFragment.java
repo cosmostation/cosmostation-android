@@ -148,9 +148,10 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onBindViewHolder(@NonNull final AllValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
             if (isGRPC(getMainActivity().mBaseChain)) {
                 final Staking.Validator validator  = getBaseDao().mGRpcTopValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), 6, 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, new BigDecimal(validator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
@@ -178,7 +179,7 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
 
             } else {
                 final Validator validator  = getBaseDao().mTopValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), WDp.mainDivideDecimal(getMainActivity().mBaseChain), 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);

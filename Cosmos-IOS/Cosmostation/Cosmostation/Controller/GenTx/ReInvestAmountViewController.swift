@@ -58,9 +58,7 @@ class ReInvestAmountViewController: BaseViewController {
     }
     
     func updateView() {
-        if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-        }
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_gRPC?.operatorAddress)

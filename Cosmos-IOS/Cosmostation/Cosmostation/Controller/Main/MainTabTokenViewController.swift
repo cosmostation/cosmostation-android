@@ -164,6 +164,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_FETCH
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            titleChainImg.image = UIImage(named: "chaincrypto")
+            titleChainName.text = "(Cryto.org Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_CRYTO
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -290,6 +296,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
         } else if (chainType! == ChainType.FETCH_MAIN) {
             onFetchFetchaiTokenPrice()
+            
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            onFetchCrytoTokenPrice()
             
         }
         
@@ -450,6 +459,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allXprt.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allXprt, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
+            let allCro = WUtils.getAllMainAsset(CRYTO_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, totalAmount.font, 8, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allCro, BaseData.instance.getLastPrice(), 8, totalValue.font)
+            
         }
         
         
@@ -504,6 +519,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetSentinelItems(tableView, indexPath)
         } else if (chainType! == ChainType.FETCH_MAIN) {
             return onSetFetchItems(tableView, indexPath)
+        } else if (chainType! == ChainType.CRYTO_MAIN) {
+            return onSetCrytoItems(tableView, indexPath)
         } else if (chainType! == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.IRIS_TEST) {
@@ -878,6 +895,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_AKASH
             cell?.tokenTitle.text = "(" + balance.denom + ")"
             cell?.tokenDescription.text = "Akash Staking Token"
+            
             let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
@@ -899,6 +917,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_PERSIS
             cell?.tokenTitle.text = "(" + balance.denom + ")"
             cell?.tokenDescription.text = "Persistence Staking Token"
+            
             let allAkt = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
@@ -946,6 +965,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allFet = WUtils.getAllMainAssetOld(FETCH_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(allFet, BaseData.instance.getLastPrice(), 18, cell!.tokenValue.font)
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == CRYTO_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokencrypto")
+            cell?.tokenSymbol.text = "CRO"
+            cell?.tokenSymbol.textColor = COLOR_CRYTO
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Cryto.org Staking Token"
+            
+            let allCro = WUtils.getAllMainAsset(CRYTO_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allCro, BaseData.instance.getLastPrice(), 8, cell!.tokenValue.font)
         } else {
             // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -1043,6 +1083,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchFetchaiTokenPrice() {
+        self.onUpdateTotalCard()
+    }
+    
+    func onFetchCrytoTokenPrice() {
         self.onUpdateTotalCard()
     }
     

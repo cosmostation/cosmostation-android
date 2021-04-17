@@ -112,13 +112,14 @@ public class ValidatorOtherFragment extends BaseFragment {
         @Override
         public void onBindViewHolder(@NonNull final OtherValidatorHolder holder, final int position) {
             holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
+            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
             if (isGRPC(getMainActivity().mBaseChain)) {
                 final Staking.Validator validator  = getBaseDao().mGRpcOtherValidators.get(position);
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getMainActivity().mBaseChain, validator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
 
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), 6, 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.getTokens()), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.getDescription().getMoniker());
                 if(validator.getJailed()) {
@@ -142,7 +143,7 @@ public class ValidatorOtherFragment extends BaseFragment {
 
             } else {
                 final Validator validator  = getBaseDao().mOtherValidators.get(position);
-                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), WDp.mainDivideDecimal(getMainActivity().mBaseChain), 6));
+                holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), dpDecimal, 6));
                 holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getMainActivity().mBaseChain, BigDecimal.ONE));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);

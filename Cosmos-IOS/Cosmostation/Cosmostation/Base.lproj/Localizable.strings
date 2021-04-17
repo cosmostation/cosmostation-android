@@ -142,6 +142,8 @@
 "send_guide_msg_sentinel" = "Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.";
 "send_guide_title_fetch" = "FETCH AI NETWORK";
 "send_guide_msg_fetch" = "Open access, decentralized machine learning network built with the Cosmos SDK.";
+"send_guide_title_cryto" = "CRYTO.ORG CHAIN";
+"send_guide_msg_cryto" = "Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -155,6 +157,7 @@
 "send_guide_btn1_persis" = "Home";
 "send_guide_btn1_sentinel" = "Home";
 "send_guide_btn1_fetch" = "Home";
+"send_guide_btn1_cryto" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -168,6 +171,7 @@
 "send_guide_btn2_persis" = "Blog";
 "send_guide_btn2_sentinel" = "Blog";
 "send_guide_btn2_fetch" = "Blog";
+"send_guide_btn2_cryto" = "Communities";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -664,6 +668,7 @@
 "chain_title_okex" = "Okex Mainnet";
 "chain_title_sentinel" = "Sentinel Mainnet";
 "chain_title_fetch" = "Fetch.ai Mainnet";
+"chain_title_cryto" = "Cryto.org Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";
