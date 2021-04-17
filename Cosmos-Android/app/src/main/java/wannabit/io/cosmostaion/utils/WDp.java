@@ -1349,7 +1349,7 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_14days_after);
 
-            } else if (chain.equals(SENTINEL_MAIN)) {
+            } else if (chain.equals(SENTINEL_MAIN) || chain.equals(CRYTO_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 28);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
