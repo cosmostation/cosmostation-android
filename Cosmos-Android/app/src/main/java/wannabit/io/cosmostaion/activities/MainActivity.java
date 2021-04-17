@@ -116,8 +116,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
     private AccountListAdapter          mAccountListAdapter;
     private int                         mSelectChainPosition = 0;
 
-    private boolean                     mToShowTestWarn = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -941,7 +939,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                                 @Override
                                 public void run() {
                                     getBaseDao().setLastUser(account.id);
-                                    mToShowTestWarn = true;
                                     onAccountSwitched();
                                 }
                             },200);

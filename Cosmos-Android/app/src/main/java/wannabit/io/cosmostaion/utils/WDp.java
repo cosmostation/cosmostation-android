@@ -88,6 +88,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.DAY_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
@@ -2154,6 +2155,8 @@ public class WDp {
             return AKASH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(PERSIS_MAIN)) {
             return PERSIS_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(CRYTO_MAIN)) {
+            return CRYTO_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
