@@ -256,9 +256,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetMyValidatorItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyDetailCell") as? ValidatorDetailMyDetailCell
+        let dpDecimal = WUtils.mainDivideDecimal(chainType)
         cell?.monikerName.text = self.mValidator!.description.moniker
         cell?.monikerName.adjustsFontSizeToFitWidth = true
-        if(self.mValidator!.jailed) {
+        if (self.mValidator!.jailed) {
             cell!.jailedImg.isHidden = false
             cell!.validatorImg.layer.borderColor = UIColor(hexString: "#f31963").cgColor
         } else {
@@ -277,7 +278,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, WUtils.mainDivideDecimal(chainType), 6)
+        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, dpDecimal, dpDecimal)
         cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, mValidator!.operator_address))!)
         
         if (mSelfBondingShare != nil) {
@@ -309,6 +310,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetValidatorItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailCell") as? ValidatorDetailCell
+        let dpDecimal = WUtils.mainDivideDecimal(chainType)
         cell?.monikerName.text = self.mValidator!.description.moniker
         cell?.monikerName.adjustsFontSizeToFitWidth = true
         if(self.mValidator!.jailed) {
@@ -330,7 +332,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
         }
         cell!.commissionRate.attributedText = WUtils.displayCommission(mValidator!.commission.commission_rates.rate, font: cell!.commissionRate.font)
-        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, WUtils.mainDivideDecimal(chainType), 6)
+        cell?.totalBondedAmount.attributedText =  WUtils.displayAmount2(mValidator!.tokens, cell!.totalBondedAmount.font!, dpDecimal, dpDecimal)
         cell?.validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType!, mValidator!.operator_address))!)
         
         if (mSelfBondingShare != nil) {
@@ -372,15 +374,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     
     func onSetActionItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:ValidatorDetailMyActionCell? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailMyActionCell") as? ValidatorDetailMyActionCell
-        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
+        let dpDecimal = WUtils.mainDivideDecimal(chainType)
         
-        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(mBonding?.getAmount().stringValue, cell!.myDelegateAmount.font, WUtils.mainDivideDecimal(chainType), 6)
+        cell?.cardView.backgroundColor = WUtils.getChainBg(chainType!)
+        cell!.myDelegateAmount.attributedText =  WUtils.displayAmount2(mBonding?.getAmount().stringValue, cell!.myDelegateAmount.font, dpDecimal, dpDecimal)
         
         var unbondingAmount = NSDecimalNumber.zero
         mUnbonding?.entries.forEach { entry in
             unbondingAmount = unbondingAmount.adding(NSDecimalNumber.init(string: entry.balance))
         }
-        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondingAmount.stringValue, cell!.myUndelegateAmount.font, WUtils.mainDivideDecimal(chainType), 6)
+        cell!.myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbondingAmount.stringValue, cell!.myUndelegateAmount.font, dpDecimal, dpDecimal)
         
         var rewardAmount = NSDecimalNumber.zero
         mRewardCoins.forEach { coin in
@@ -388,7 +391,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 rewardAmount = NSDecimalNumber.init(string:coin.amount)
             }
         }
-        cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardAmount.stringValue, cell!.myRewardAmount.font, WUtils.mainDivideDecimal(chainType), 6)
+        cell!.myRewardAmount.attributedText =  WUtils.displayAmount2(rewardAmount.stringValue, cell!.myRewardAmount.font, dpDecimal, dpDecimal)
         
         if (self.mValidator?.status == 2) {
             cell!.myDailyReturns.attributedText = WUtils.getDailyReward(cell!.myDailyReturns.font, mValidator!.getCommission(), mBonding?.getAmount(), chainType!)

@@ -67,8 +67,18 @@ class ValidatorDetailMyActionCell: UITableViewCell {
         myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation.stringValue, myDelegateAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
         myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding.stringValue, myUndelegateAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
         myRewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, myRewardAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
-        myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), delegation, chainType!)
-        myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), delegation, chainType!)
+        
+        if (validator?.status == Cosmos_Staking_V1beta1_BondStatus.bonded) {
+            myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), delegation, chainType!)
+            myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, NSDecimalNumber.init(string: validator?.commission.commissionRates.rate).multiplying(byPowerOf10: -18), delegation, chainType!)
+            
+        } else {
+            myDailyReturns.attributedText =  WUtils.getDailyReward(myDailyReturns.font, NSDecimalNumber.zero, NSDecimalNumber.zero, chainType!)
+            myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(myMonthlyReturns.font, NSDecimalNumber.zero, NSDecimalNumber.zero, chainType!)
+            myDailyReturns.textColor = UIColor.init(hexString: "f31963")
+            myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
+            
+        }
     }
     
     
