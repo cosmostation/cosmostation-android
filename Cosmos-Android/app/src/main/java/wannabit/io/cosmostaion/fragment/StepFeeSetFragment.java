@@ -148,7 +148,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
     private void onUpdateView() {
         onCalculateFees();
 
-        mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, 6, 6));
+        mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain), WDp.mainDivideDecimal(getSActivity().mBaseChain)));
         mFeeValue.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFee, getSActivity().mBaseChain));
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));

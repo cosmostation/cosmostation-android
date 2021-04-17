@@ -1048,7 +1048,7 @@ public class WUtil {
         BigDecimal result = BigDecimal.ZERO;
         for (CoinOuterClass.DecCoin coin: coins) {
             if (coin.getDenom().equals(denom)) {
-                return new BigDecimal(coin.getAmount()).movePointLeft(18);
+                return new BigDecimal(coin.getAmount()).movePointLeft(18).setScale(0, RoundingMode.DOWN);
             }
         }
         return result;
