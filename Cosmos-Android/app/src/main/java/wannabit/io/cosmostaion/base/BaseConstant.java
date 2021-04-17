@@ -602,7 +602,7 @@ public class BaseConstant {
 
     public final static String CRYTO_GAS_RATE_TINY                      = "0.025";
     public final static String CRYTO_GAS_RATE_LOW                       = "0.05";
-    public final static String CRYTO_GAS_RATE_AVERAGE                   = "0.1";
+    public final static String CRYTO_GAS_RATE_AVERAGE                   = "0.075";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";

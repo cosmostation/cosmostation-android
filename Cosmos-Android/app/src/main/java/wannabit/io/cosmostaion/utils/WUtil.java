@@ -127,6 +127,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_P_VESTI
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_TINY;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_GAS_RATE_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_GAS_RATE_TINY;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
@@ -2018,7 +2021,8 @@ public class WUtil {
 
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) ||
+                basechain.equals(CRYTO_MAIN) || basechain.equals(COSMOS_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
 
@@ -2155,7 +2159,15 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
+        } else if (basechain.equals(CRYTO_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(CRYTO_GAS_RATE_TINY);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        }
+
+
+        else if (basechain.equals(SENTINEL_MAIN)) {
             BigDecimal gasRate = new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
@@ -2185,6 +2197,14 @@ public class WUtil {
                 return new BigDecimal(PERSIS_GAS_RATE_LOW);
             }
             return new BigDecimal(PERSIS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CRYTO_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(CRYTO_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(CRYTO_GAS_RATE_LOW);
+            }
+            return new BigDecimal(CRYTO_GAS_RATE_AVERAGE);
 
         } else {
             if (position == 0) {
