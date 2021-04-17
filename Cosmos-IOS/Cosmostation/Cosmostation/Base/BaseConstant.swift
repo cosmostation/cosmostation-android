@@ -758,7 +758,7 @@ let GAS_FEE_RATE_AVERAGE_PERSIS             = 0.000
 
 let GAS_FEE_RATE_TINY_CRYTO                 = 0.025
 let GAS_FEE_RATE_LOW_CRYTO                  = 0.05
-let GAS_FEE_RATE_AVERAGE_CRYTO              = 0.1
+let GAS_FEE_RATE_AVERAGE_CRYTO              = 0.075
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
