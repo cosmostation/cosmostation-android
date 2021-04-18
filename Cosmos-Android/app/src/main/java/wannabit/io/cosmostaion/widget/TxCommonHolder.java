@@ -53,6 +53,7 @@ public class TxCommonHolder extends TxHolder {
         WDp.DpMainDenom(c, baseChain.getChain(), itemFeeDenom);
         WDp.DpMainDenom(c, baseChain.getChain(), itemFeeUsedDenom);
         WDp.DpMainDenom(c, baseChain.getChain(), itemFeeLimitDenom);
+        final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         if (response.getTxResponse().getCode() != 0) {
             itemStatusImg.setImageDrawable(c.getDrawable(R.drawable.fail_ic));
             itemStatusTxt.setText(R.string.str_failed_c);
@@ -64,7 +65,7 @@ public class TxCommonHolder extends TxHolder {
         itemHeight.setText("" + response.getTxResponse().getHeight());
         itemMsgCnt.setText("" + response.getTx().getBody().getMessagesCount());
         itemGas.setText(String.format("%s / %s", ""+response.getTxResponse().getGasUsed() , ""+response.getTxResponse().getGasWanted()));
-        itemFee.setText(WDp.getDpAmount2(c, WDp.onParseFee(response), 6, 6));
+        itemFee.setText(WDp.getDpAmount2(c, WDp.onParseFee(response), dpDecimal, dpDecimal));
         itemFeeLayer.setVisibility(View.VISIBLE);
         itemTime.setText(WDp.getTimeTxformat(c, response.getTxResponse().getTimestamp()));
         itemTimeGap.setText(WDp.getTimeTxGap(c, response.getTxResponse().getTimestamp()));

@@ -35,12 +35,13 @@ public class TxCommissionHolder extends TxHolder {
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
         WDp.DpMainDenom(c, baseChain.getChain(), itemCommissionAmountDenom);
         itemCommissionImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        final int dpDecimal = WDp.mainDivideDecimal(baseChain);
 
         try {
             Tx.MsgWithdrawValidatorCommission msg = Tx.MsgWithdrawValidatorCommission.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCommissionValidator.setText(msg.getValidatorAddress());
             itemCommissionValidatorMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
-            itemCommissionAmount.setText(WDp.getDpAmount2(c, WDp.onParseCommission(response, position), 6, 6));
+            itemCommissionAmount.setText(WDp.getDpAmount2(c, WDp.onParseCommission(response, position), dpDecimal, dpDecimal));
 
         } catch (Exception e) {}
 

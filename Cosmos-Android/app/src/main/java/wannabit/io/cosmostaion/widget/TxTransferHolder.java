@@ -78,7 +78,6 @@ public class TxTransferHolder extends TxHolder {
             for (CoinOuterClass.Coin coin: msg.getAmountList()) {
                 toDpCoin.add(new Coin(coin.getDenom(), coin.getAmount()));
             }
-            WLog.w("toDpCoin " + toDpCoin.size());
             itemMultiCoinLayer.setVisibility(View.VISIBLE);
             itemAmountLayer0.setVisibility(View.VISIBLE);
             WDp.showCoinDp(c, toDpCoin.get(0), itemAmountDenom0, itemAmount0, baseChain);

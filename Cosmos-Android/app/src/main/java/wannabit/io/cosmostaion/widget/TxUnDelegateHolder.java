@@ -40,6 +40,7 @@ public class TxUnDelegateHolder extends TxHolder {
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
         WDp.DpMainDenom(c, baseChain.getChain(), itemUnDelegateAmountDenom);
         WDp.DpMainDenom(c, baseChain.getChain(), itemAutoRewardAmountDenom);
+        final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         itemUndelegateImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
@@ -47,8 +48,8 @@ public class TxUnDelegateHolder extends TxHolder {
             itemUnDelegator.setText(msg.getDelegatorAddress());
             itemValidator.setText(msg.getValidatorAddress());
             itemMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
-            itemUndelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), 6, 6));
-            itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), 6, 6));
+            itemUndelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
+            itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), dpDecimal, dpDecimal));
 
         } catch (Exception e) {}
     }

@@ -731,33 +731,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeUsedDenom);
             WDp.DpMainDenom(getBaseContext(), mBaseChain.getChain(), holder.itemFeeLimitDenom);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
-                    mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(IOV_TEST)) {
-                if (mResTxInfo.isSuccess()) {
-                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
-                    holder.itemStatusTxt.setText(R.string.str_success_c);
-                } else {
-                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
-                    holder.itemStatusTxt.setText(R.string.str_failed_c);
-                    if (mResTxInfo.failMessage().replace("\u00A0", "").startsWith("atomicswapnotfound")) {
-                        holder.itemFailTxt.setText("atomic swap not found");
-                    } else {
-                        holder.itemFailTxt.setText(mResTxInfo.failMessage());
-                    }
-                    holder.itemFailTxt.setVisibility(View.VISIBLE);
-                }
-                holder.itemHeight.setText(mResTxInfo.height);
-                holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
-                holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
-                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), 6, 6));
-                holder.itemFeeLayer.setVisibility(View.VISIBLE);
-                holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemHash.setText(mResTxInfo.txhash);
-                holder.itemMemo.setText(mResTxInfo.tx.value.memo);
-
-            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
                 holder.itemStatusTxt.setText(R.string.str_success_c);
                 holder.itemHeight.setText(mResBnbTxInfo.height);
@@ -790,19 +764,41 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemHash.setText(mResTxInfo.txhash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
+            } else {
+                final int dpDecimal = WDp.mainDivideDecimal(mBaseChain);
+                if (mResTxInfo.isSuccess()) {
+                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.success_ic));
+                    holder.itemStatusTxt.setText(R.string.str_success_c);
+                } else {
+                    holder.itemStatusImg.setImageDrawable(getResources().getDrawable(R.drawable.fail_ic));
+                    holder.itemStatusTxt.setText(R.string.str_failed_c);
+                    if (mResTxInfo.failMessage().replace("\u00A0", "").startsWith("atomicswapnotfound")) {
+                        holder.itemFailTxt.setText("atomic swap not found");
+                    } else {
+                        holder.itemFailTxt.setText(mResTxInfo.failMessage());
+                    }
+                    holder.itemFailTxt.setVisibility(View.VISIBLE);
+                }
+                holder.itemHeight.setText(mResTxInfo.height);
+                holder.itemMsgCnt.setText(String.valueOf(mResTxInfo.getMsgs().size()));
+                holder.itemGas.setText(String.format("%s / %s", mResTxInfo.gas_used, mResTxInfo.gas_wanted));
+                holder.itemFee.setText(WDp.getDpAmount2(getBaseContext(), mResTxInfo.simpleFee(), dpDecimal, dpDecimal));
+                holder.itemFeeLayer.setVisibility(View.VISIBLE);
+                holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
+                holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
+                holder.itemHash.setText(mResTxInfo.txhash);
+                holder.itemMemo.setText(mResTxInfo.tx.value.memo);
+
             }
 
             holder.itemBtnHashLink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                    if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN)|| mBaseChain.equals(IOV_MAIN) ||
-                            mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(SECRET_MAIN) ||
-                            mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
-                            mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(OK_TEST)) {
-                        webintent.putExtra("txid", mResTxInfo.txhash);
-                    } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+                    if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                         webintent.putExtra("txid", mResBnbTxInfo.hash);
+                    } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
+                        webintent.putExtra("txid", mResTxInfo.txhash);
                     } else {
                         return;
                     }
@@ -817,10 +813,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private void onBindTransfer(RecyclerView.ViewHolder viewHolder, int position) {
             final TxTransferHolder holder = (TxTransferHolder)viewHolder;
             holder.itemSendReceiveImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(BAND_MAIN)|| mBaseChain.equals(IOV_MAIN) ||
-                    mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(SECRET_MAIN) ||
-                    mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
-                    mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(CERTIK_TEST) || mBaseChain.equals(OK_TEST)) {
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+                final Msg msg = mResBnbTxInfo.getMsg(position - 1);
+                holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
+                holder.itemToAddress.setText(msg.value.outputs.get(0).address);
+                if (mAccount.address.equals(msg.value.inputs.get(0).address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_send);
+                }
+                if (mAccount.address.equals(msg.value.outputs.get(0).address)) {
+                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
+                }
+                ArrayList<Coin> toDpCoin = msg.value.inputs.get(0).coins;
+                holder.itemSingleCoinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom, holder.itemAmount, mBaseChain);
+
+            } else {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
                 if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER2) || msg.type.equals(OK_MSG_TYPE_TRANSFER) || msg.type.equals(CERTIK_MSG_TYPE_TRANSFER))  {
@@ -887,21 +894,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                         WDp.showCoinDp(getBaseContext(), toDpCoin.get(4), holder.itemAmountDenom4, holder.itemAmount4, mBaseChain);
                     }
                 }
-
-            } else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                final Msg msg = mResBnbTxInfo.getMsg(position - 1);
-                holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
-                holder.itemToAddress.setText(msg.value.outputs.get(0).address);
-                if (mAccount.address.equals(msg.value.inputs.get(0).address)) {
-                    holder.itemSendRecieveTv.setText(R.string.tx_send);
-                }
-                if (mAccount.address.equals(msg.value.outputs.get(0).address)) {
-                    holder.itemSendRecieveTv.setText(R.string.tx_receive);
-                }
-                ArrayList<Coin> toDpCoin = msg.value.inputs.get(0).coins;
-                holder.itemSingleCoinLayer.setVisibility(View.VISIBLE);
-                WDp.showCoinDp(getBaseContext(), toDpCoin.get(0), holder.itemAmountDenom, holder.itemAmount, mBaseChain);
-
             }
         }
 

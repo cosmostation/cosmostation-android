@@ -42,6 +42,7 @@ public class TxReDelegateHolder extends TxHolder {
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
         WDp.DpMainDenom(c, baseChain.getChain(), itemReDelegateAmountDenom);
         WDp.DpMainDenom(c, baseChain.getChain(), itemAutoRewardAmountDenom);
+        final int dpDecimal = WDp.mainDivideDecimal(baseChain);
         itemRedelegateImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
 
         try {
@@ -51,8 +52,8 @@ public class TxReDelegateHolder extends TxHolder {
             itemToValidator.setText(msg.getValidatorDstAddress());
             itemFromMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorSrcAddress()).getDescription().getMoniker() + ")");
             itemToMoniker.setText( "(" + baseData.getValidatorInfo(msg.getValidatorDstAddress()).getDescription().getMoniker() + ")");
-            itemRedelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), 6, 6));
-            itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), 6, 6));
+            itemRedelegateAmount.setText(WDp.getDpAmount2(c, new BigDecimal(msg.getAmount().getAmount()), dpDecimal, dpDecimal));
+            itemAutoRewardAmount.setText(WDp.getDpAmount2(c, WDp.onParseAutoReward(response, msg.getDelegatorAddress(), position), dpDecimal, dpDecimal));
 
         } catch (Exception e) {}
     }
