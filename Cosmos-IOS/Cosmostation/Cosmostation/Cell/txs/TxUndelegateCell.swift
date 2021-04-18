@@ -38,6 +38,7 @@ class TxUndelegateCell: TxCell {
     
     override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
         setDenomType(chain)
+        let decimal = WUtils.mainDivideDecimal(chain)
         txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
         txIcon.tintColor = WUtils.getChainColor(chain)
         
@@ -47,7 +48,7 @@ class TxUndelegateCell: TxCell {
         if let validator = BaseData.instance.mAllValidators_gRPC.filter({ $0.operatorAddress == msg.validatorAddress}).first {
             monikerLabel.text = "(" + validator.description_p.moniker + ")"
         }
-        undelegateAmountLabel.attributedText = WUtils.displayAmount2(msg.amount.amount, undelegateAmountLabel.font!, 6, 6)
-        autoRewardAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseAutoRewardGrpc(response, msg.delegatorAddress, position).stringValue, autoRewardAmountLabel.font!, 6, 6)
+        undelegateAmountLabel.attributedText = WUtils.displayAmount2(msg.amount.amount, undelegateAmountLabel.font!, decimal, decimal)
+        autoRewardAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseAutoRewardGrpc(response, msg.delegatorAddress, position).stringValue, autoRewardAmountLabel.font!, decimal, decimal)
     }
 }

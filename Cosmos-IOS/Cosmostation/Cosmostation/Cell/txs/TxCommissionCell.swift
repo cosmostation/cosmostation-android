@@ -30,6 +30,7 @@ class TxCommissionCell: TxCell {
     
     override func onBindMsg(_ chain: ChainType, _ response: Cosmos_Tx_V1beta1_GetTxResponse, _ position: Int) {
         setDenomType(chain)
+        let decimal = WUtils.mainDivideDecimal(chain)
         txIcon.image = txIcon.image?.withRenderingMode(.alwaysTemplate)
         txIcon.tintColor = WUtils.getChainColor(chain)
         
@@ -38,6 +39,6 @@ class TxCommissionCell: TxCell {
         if let validator = BaseData.instance.mAllValidators_gRPC.filter({ $0.operatorAddress == msg.validatorAddress}).first {
             monikerLabel.text = "(" + validator.description_p.moniker + ")"
         }
-        commissionAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseCommisiondGrpc(response, position).stringValue, commissionAmountLabel.font!, 6, 6)
+        commissionAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseCommisiondGrpc(response, position).stringValue, commissionAmountLabel.font!, decimal, decimal)
     }
 }

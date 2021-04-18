@@ -326,6 +326,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.feeLayer.isHidden = false
             cell?.usedFeeLayer.isHidden = true
             cell?.limitFeeLayer.isHidden = true
+            let decimal = WUtils.mainDivideDecimal(chainType)
             if (mTxInfo!.isSuccess()) {
                 cell?.statusImg.image = UIImage(named: "successIc")
                 cell?.statusLabel.text = NSLocalizedString("tx_success", comment: "")
@@ -351,7 +352,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.timeGapLabel.text = WUtils.txTimeGap(input: mTxInfo!.timestamp!)
             cell?.hashLabel.text = mTxInfo!.txhash
             cell?.memoLabel.text = mTxInfo!.tx?.value.memo
-            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, 6, 6)
+            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, decimal, decimal)
             
         }
         cell?.actionHashCheck = {

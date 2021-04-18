@@ -65,6 +65,7 @@ class TxCommonCell: TxCell {
     
     override func onBind(_ chain: ChainType, _ tx: Cosmos_Tx_V1beta1_GetTxResponse) {
         setDenomType(chain)
+        let decimal = WUtils.mainDivideDecimal(chain)
         feeLayer.isHidden = false
         usedFeeLayer.isHidden = true
         limitFeeLayer.isHidden = true
@@ -88,7 +89,7 @@ class TxCommonCell: TxCell {
         timeGapLabel.text = WUtils.txTimeGap(input: tx.txResponse.timestamp)
         hashLabel.text = tx.txResponse.txhash
         memoLabel.text = tx.tx.body.memo
-        feeAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseFeeAmountGrpc(tx).stringValue, feeAmountLabel.font!, 6, 6)
+        feeAmountLabel.attributedText = WUtils.displayAmount2(WUtils.onParseFeeAmountGrpc(tx).stringValue, feeAmountLabel.font!, decimal, decimal)
         
     }
     
