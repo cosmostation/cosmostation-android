@@ -15,6 +15,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 
 public class ApiStakeTxsHistoryTask extends CommonTask {
@@ -97,6 +98,15 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getFetchApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
             }
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
@@ -134,7 +144,18 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.COSMOS_TEST)) {
+            } else if (mChain.equals(CRYTO_MAIN)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCrytoApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
+            }
+
+            else if (mChain.equals(BaseChain.COSMOS_TEST)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

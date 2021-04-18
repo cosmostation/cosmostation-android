@@ -427,6 +427,38 @@ public class ApiClient {
         return service_fetch;
     }
 
+    //Services for fetchAi mainnet api
+    private static HistoryApi api_fetch = null;
+    public static HistoryApi getFetchApi(Context c) {
+        if (api_fetch == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_fetch))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_fetch = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_fetch;
+    }
+
+
+
+    //Services for fCryto.org mainnet api
+    private static HistoryApi api_cryto = null;
+    public static HistoryApi getCrytoApi(Context c) {
+        if (api_cryto == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_cryto))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_cryto = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_cryto;
+    }
+
 
 
 

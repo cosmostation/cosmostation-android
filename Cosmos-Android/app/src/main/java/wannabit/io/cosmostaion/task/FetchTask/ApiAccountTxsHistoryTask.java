@@ -88,7 +88,18 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.SENTINEL_MAIN)) {
+//                WLog.w("SENTINEL_MAIN " + ApiClient.getSentinelApi(mApp).getAccountTxs(mAddress, "50").request().url());
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getSentinelApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
+//                WLog.w("FETCHAI_MAIN " + ApiClient.getFetchApi(mApp).getAccountTxs(mAddress, "50").request().url());
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getFetchApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -100,6 +111,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
 
             else if (mChain.equals(COSMOS_MAIN)) {
+                WLog.w("COSMOS_MAIN " + ApiClient.getCosmosApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
@@ -118,6 +130,7 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.AKASH_MAIN)) {
+                WLog.w("AKASH_MAIN " + ApiClient.getAkashApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAkashApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
@@ -125,7 +138,9 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
+
             } else if (mChain.equals(BaseChain.PERSIS_MAIN)) {
+                WLog.w("PERSIS_MAIN " + ApiClient.getPersisApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getPersisApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
@@ -133,7 +148,20 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
-            }  else if (mChain.equals(COSMOS_TEST)) {
+
+            } else if (mChain.equals(BaseChain.CRYTO_MAIN)) {
+                WLog.w("CRYTO_MAIN " + ApiClient.getCrytoApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCrytoApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+            }
+
+
+            else if (mChain.equals(COSMOS_TEST)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();

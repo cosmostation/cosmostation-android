@@ -72,8 +72,11 @@
     <string name="url_api_sentinel" translatable="false">https://api-sentinel.cosmostation.io/</string>
 
 
-    <string name="url_lcd_fetch" translatable="false">https://rest-fetchhub.fetch-ai.com/</string>
-    <string name="url_api_fetch" translatable="false"></string>
+    <string name="url_lcd_fetch" translatable="false">https://lcd-fetchai.cosmostation.io/</string>
+    <string name="url_api_fetch" translatable="false">https://api-fetchai.cosmostation.io/</string>
+
+
+    <string name="url_api_cryto" translatable="false">https://api-cryptocom.cosmostation.io/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
