@@ -135,7 +135,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN) {
             mRewardCoins.removeAll()
             mFetchCnt = 5
             onFetchValidatorInfo(mValidator!)
@@ -144,13 +144,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             onFetchApiHistory(account!, mValidator!)
             
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 4
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -431,27 +424,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         if (mApiHistories.count > 0) {
             let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
             let history = mApiHistories[indexPath.row]
-            if (chainType == ChainType.IRIS_MAIN) {
-                cell?.txBlockLabel.text = String(history.height) + " block"
-                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
-                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-                if (history.result.code > 0) {
-                    cell?.txResultLabel.isHidden = false
-                } else {
-                    cell?.txResultLabel.isHidden = true
-                }
-                
+            cell?.txBlockLabel.text = String(history.height) + " block"
+            cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
+            cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
+            cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
+            if(history.isSuccess) {
+                cell?.txResultLabel.isHidden = true
             } else {
-                cell?.txBlockLabel.text = String(history.height) + " block"
-                cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, account!.account_address)
-                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-                if(history.isSuccess) {
-                    cell?.txResultLabel.isHidden = true
-                } else {
-                    cell?.txResultLabel.isHidden = false
-                }
+                cell?.txResultLabel.isHidden = false
             }
             return cell!
         } else {
@@ -917,6 +897,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_API_HISTORY + account.account_address + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address

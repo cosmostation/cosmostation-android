@@ -71,7 +71,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SENTINEL_MAIN ) {
+        } else if (chainType == ChainType.SENTINEL_MAIN) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.FETCH_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
         
@@ -234,6 +236,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SENTINEL_MAIN ) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
 
@@ -268,7 +272,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetCertikItem(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return onSetOkItem(tableView, indexPath);
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
+        } else if (chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN) {
             return onSetDefaultItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
@@ -586,6 +590,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             url = CERTIK_TEST_API_HISTORY + address
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_API_HISTORY + address
+        } else if (chainType == ChainType.FETCH_MAIN) {
+            url = FETCH_API_HISTORY + address
         }
         print("url ", url)
         let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);

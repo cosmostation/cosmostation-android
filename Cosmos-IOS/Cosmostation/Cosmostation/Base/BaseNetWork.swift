@@ -391,6 +391,8 @@ class BaseNetWork {
             result = AKASH_MAIN_HISTORY + address
         } else if (chain == ChainType.PERSIS_MAIN) {
             result = PERSIS_MAIN_HISTORY + address
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            result = CRYTO_MAIN_HISTORY + address
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -411,6 +413,8 @@ class BaseNetWork {
             result = AKASH_MAIN_HISTORY + address + "/" + valAddress
         } else if (chain == ChainType.PERSIS_MAIN) {
             result = PERSIS_MAIN_HISTORY + address + "/" + valAddress
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            result = CRYTO_MAIN_HISTORY + address + "/" + valAddress
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

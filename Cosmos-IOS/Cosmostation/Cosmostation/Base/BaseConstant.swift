@@ -88,15 +88,17 @@ let SECRET_API                          = "";
 let AKASH_API                           = "https://api-akash.cosmostation.io/";
 
 
-//let PERSIS_API                          = "https://api-office.cosmostation.io/persistence/";
 let PERSIS_API                          = "https://api-persistence.cosmostation.io/";
 
 
 let SENTINEL_URL                        = "https://lcd-sentinel.cosmostation.io/";
 let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
 
-let FETCH_URL                           = "https://rest-fetchhub.fetch-ai.com/";
-let FETCH_API                           = "";
+let FETCH_URL                           = "https://lcd-fetchai.cosmostation.io/";
+let FETCH_API                           = "https://api-fetchai.cosmostation.io/";
+
+
+let CRYTO_API                           = "https://api-cryptocom.cosmostation.io/";
 
 
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -503,6 +505,10 @@ let FETCH_PROPOSALS_TALLY_TAIL          = "/tally";
 
 let FETCH_API_HISTORY                   = FETCH_API + "v1/account/txs/";
 let FETCH_API_TRANS_HISTORY             = FETCH_API + "v1/account/transfer_txs/";
+
+
+let CRYTO_MAIN_HISTORY                  = CRYTO_API + "v1/account/txs/";
+let CRYTO_MAIN_TRANS_HISTORY            = CRYTO_API + "v1/account/transfer_txs/";
 
 
 
