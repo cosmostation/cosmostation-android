@@ -1048,7 +1048,6 @@ enum ChainType: String {
         result.append(IRIS_MAIN)
         result.append(BINANCE_MAIN)
         result.append(OKEX_MAIN)
-        result.append(CRYTO_MAIN)
         result.append(KAVA_MAIN)
         result.append(BAND_MAIN)
         result.append(PERSIS_MAIN)
@@ -1057,6 +1056,7 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SENTINEL_MAIN)
         result.append(FETCH_MAIN)
+        result.append(CRYTO_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)

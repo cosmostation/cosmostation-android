@@ -203,7 +203,6 @@ public enum BaseChain {
         result.add(IRIS_MAIN);
         result.add(BNB_MAIN);
         result.add(OKEX_MAIN);
-        result.add(CRYTO_MAIN);
         result.add(KAVA_MAIN);
         result.add(BAND_MAIN);
         result.add(PERSIS_MAIN);
@@ -212,6 +211,7 @@ public enum BaseChain {
         result.add(AKASH_MAIN);
         result.add(SENTINEL_MAIN);
         result.add(FETCHAI_MAIN);
+        result.add(CRYTO_MAIN);
         result.add(SECRET_MAIN);
 
 //        result.add(COSMOS_TEST);
