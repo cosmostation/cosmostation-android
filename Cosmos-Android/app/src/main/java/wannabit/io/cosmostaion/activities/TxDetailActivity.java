@@ -32,9 +32,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Input;
 import wannabit.io.cosmostaion.model.type.Msg;
-import wannabit.io.cosmostaion.model.type.Output;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
@@ -49,19 +47,14 @@ import wannabit.io.cosmostaion.widget.TxCdpLiquidate;
 import wannabit.io.cosmostaion.widget.TxHardPoolIncentive;
 import wannabit.io.cosmostaion.widget.TxHardPoolLiquidate;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -85,20 +78,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_VAL;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_BROADCAST;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
@@ -283,37 +262,17 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             onBackPressed();
 
         } else if (v.equals(mShareBtn)) {
+            String hash = "";
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+                hash = mResBnbTxInfo.hash;
+            } else {
+                hash = mResTxInfo.txhash;
+            }
+            if (TextUtils.isEmpty(hash)) { return; }
+
             Intent shareIntent = new Intent();
             shareIntent.setAction(Intent.ACTION_SEND);
-            if (mBaseChain.equals(COSMOS_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_COSMOS_MAIN + "txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(IRIS_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_IRIS_MAIN + "txs/" + mResTxInfo.hash);
-            } else if (mBaseChain.equals(BNB_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_BINANCE_MAIN + "txs/" + mResBnbTxInfo.hash);
-            } else if (mBaseChain.equals(BNB_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_BINANCE_TEST + "tx/" + mResBnbTxInfo.hash);
-            } else if (mBaseChain.equals(KAVA_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_KAVA_MAIN + "txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(KAVA_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_KAVA_TEST + "txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(OKEX_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_OKEX_MAIN  + "tx/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(OK_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_OKEX_TEST  + "tx/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(BAND_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_BAND_MAIN + "tx/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_IOV_MAIN + "txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_CERTIK + "Transactions/" + mResTxInfo.txhash + "?net=" + mBaseChain.getChain());
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_SECRET_MAIN + "transactions/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(AKASH_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_AKASH_MAIN + "txs/" + mResTxInfo.txhash);
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                shareIntent.putExtra(Intent.EXTRA_TEXT, EXPLORER_SENTINEL_MAIN + "txs/" + mResTxInfo.txhash);
-            }
+            shareIntent.putExtra(Intent.EXTRA_TEXT, WUtil.getTxExplorer(mBaseChain, hash));
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 

@@ -97,103 +97,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_COSMOS;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.BLOCK_TIME_SECRET;
-import static wannabit.io.cosmostaion.base.BaseConstant.CGC_CRYTO;
-import static wannabit.io.cosmostaion.base.BaseConstant.CGC_FETCH;
-import static wannabit.io.cosmostaion.base.BaseConstant.CGC_OKEX;
-import static wannabit.io.cosmostaion.base.BaseConstant.CGC_PERSISTENCE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SECRET;
-import static wannabit.io.cosmostaion.base.BaseConstant.CGC_SENTINEL;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_CERTIK_MANUAL;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_C_VESTING_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_OKEX_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_AUTH_TYPE_P_VESTING_ACCOUNT;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_TINY;
-import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_GAS_RATE_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.CRYTO_GAS_RATE_TINY;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_STAKE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_TINY;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_BasicProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_ParameterProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_PlainTextProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_SystemHaltProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_PROPOAL_TYPE_TokenAdditionProposal;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_END;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_COSMOS_EVENT_START;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_END;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSISTENCE_KAVA_EVENT_START;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_GAS_RATE_TINY;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REINVEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_STAKE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_VOTE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_BINANCE_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BTCB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_BUSD;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BNB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_TEST_BTC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HTLC_KAVA_XRPB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK_OKB;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
-import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_HIGH;
-import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.V1_GAS_AMOUNT_MID;
+import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
 
@@ -2487,8 +2391,109 @@ public class WUtil {
         return false;
     }
 
+    public static String getExplorer(BaseChain basechain) {
+        if (basechain.equals(BNB_MAIN)) {
+            return EXPLORER_BINANCE_MAIN;
+
+        } else if (basechain.equals(BNB_TEST)) {
+            return EXPLORER_BINANCE_TEST;
+
+        } else if (basechain.equals(KAVA_MAIN)) {
+            return EXPLORER_KAVA_MAIN;
+
+        } else if (basechain.equals(KAVA_TEST)) {
+            return EXPLORER_KAVA_TEST;
+
+        } else if (basechain.equals(OKEX_MAIN)) {
+            return EXPLORER_OKEX_MAIN;
+
+        } else if (basechain.equals(OK_TEST)) {
+            return EXPLORER_OKEX_TEST;
+
+        } else if (basechain.equals(BAND_MAIN)) {
+            return EXPLORER_BAND_MAIN;
+
+        } else if (basechain.equals(IOV_MAIN)) {
+            return EXPLORER_IOV_MAIN;
+
+        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+            return EXPLORER_CERTIK;
+
+        } else if (basechain.equals(SECRET_MAIN)) {
+            return EXPLORER_SECRET_MAIN;
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return EXPLORER_SENTINEL_MAIN;
+
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            return EXPLORER_FETCHAI_MAIN;
+
+        }
+
+        else if (basechain.equals(COSMOS_MAIN)) {
+            return EXPLORER_COSMOS_MAIN;
+
+        } else if (basechain.equals(IRIS_MAIN)) {
+            return EXPLORER_IRIS_MAIN;
+
+        } else if (basechain.equals(AKASH_MAIN)) {
+            return EXPLORER_AKASH_MAIN;
+
+        } else if (basechain.equals(CRYTO_MAIN)) {
+            return EXPLORER_CRYTOORG_MAIN;
+
+        }
+
+        else if (basechain.equals(COSMOS_TEST)) {
+            return EXPLORER_COSMOS_TEST;
+
+        } else if (basechain.equals(IRIS_TEST)) {
+            return EXPLORER_IRIS_TEST;
+
+        }
+        return "";
+    }
+
     public static String getTxExplorer(BaseChain basechain, String hash) {
-        if (basechain.equals(COSMOS_MAIN)) {
+        if (basechain.equals(BNB_MAIN)) {
+            return EXPLORER_BINANCE_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(BNB_TEST)) {
+            return EXPLORER_BINANCE_TEST + "tx/" + hash;
+
+        } else if (basechain.equals(KAVA_MAIN)) {
+            return EXPLORER_KAVA_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(KAVA_TEST)) {
+            return EXPLORER_KAVA_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(OKEX_MAIN)) {
+            return EXPLORER_OKEX_MAIN + "tx/" + hash;
+
+        } else if (basechain.equals(OK_TEST)) {
+            return EXPLORER_OKEX_TEST + "tx/" + hash;
+
+        } else if (basechain.equals(BAND_MAIN)) {
+            return EXPLORER_BAND_MAIN + "tx/" + hash;
+
+        } else if (basechain.equals(IOV_MAIN)) {
+            return EXPLORER_IOV_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+            return EXPLORER_CERTIK + "Transactions/" + hash;
+
+        } else if (basechain.equals(SECRET_MAIN)) {
+            return EXPLORER_SECRET_MAIN + "transactions/" + hash;
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
+
+        }
+
+        else if (basechain.equals(COSMOS_MAIN)) {
             return EXPLORER_COSMOS_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(IRIS_MAIN)) {
@@ -2496,6 +2501,9 @@ public class WUtil {
 
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(CRYTO_MAIN)) {
+            return EXPLORER_CRYTOORG_MAIN + "txs/" + hash;
 
         }
 

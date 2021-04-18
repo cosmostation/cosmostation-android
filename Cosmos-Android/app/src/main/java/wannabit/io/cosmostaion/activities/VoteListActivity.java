@@ -37,11 +37,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.ProposalsGrpcTask;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_PROPOSALS;
 
@@ -171,94 +166,38 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
         @Override
         public void onBindViewHolder(@NonNull VoteAdapter.VoteHolder voteHolder, int position) {
-            if (mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                final Proposal proposal = mProposals.get(position);
-                voteHolder.proposal_id.setText("# " + proposal.id);
-                voteHolder.proposal_status.setText(proposal.proposal_status);
-                voteHolder.proposal_title.setText(proposal.content.value.title);
-                voteHolder.proposal_details.setText(proposal.content.value.description);
-                if (proposal.proposal_status.equals("DepositPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                } else if (proposal.proposal_status.equals("VotingPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                } else if (proposal.proposal_status.equals("Rejected")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                } else if (proposal.proposal_status.equals("Passed")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                } else {
-                    voteHolder.proposal_status_img.setVisibility(View.GONE);
-                }
-                voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (Integer.parseInt(proposal.id) >= 38) {
-                            Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                            voteIntent.putExtra("proposalId", proposal.id);
-                            startActivity(voteIntent);
-
-                        } else {
-                            Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                            webintent.putExtra("voteId", proposal.id);
-                            webintent.putExtra("chain", mAccount.baseChain);
-                            startActivity(webintent);
-
-                        }
-                    }
-                });
-
-            } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-                final Proposal proposal = mProposals.get(position);
-                voteHolder.proposal_id.setText("# " + proposal.id);
-                voteHolder.proposal_status.setText(proposal.proposal_status);
-                voteHolder.proposal_title.setText(proposal.content.value.title);
-                voteHolder.proposal_details.setText(proposal.content.value.description);
-                if (proposal.proposal_status.equals("DepositPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                } else if (proposal.proposal_status.equals("VotingPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                } else if (proposal.proposal_status.equals("Rejected")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                } else if (proposal.proposal_status.equals("Passed")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                } else {
-                    voteHolder.proposal_status_img.setVisibility(View.GONE);
-                }
-                voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                        voteIntent.putExtra("proposalId", proposal.id);
-                        startActivity(voteIntent);
-                    }
-                });
-
-            } else if (mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(FETCHAI_MAIN)) {
-                final Proposal proposal = mProposals.get(position);
-                voteHolder.proposal_id.setText("# " + proposal.id);
-                voteHolder.proposal_status.setText(proposal.proposal_status);
-                voteHolder.proposal_title.setText(proposal.content.value.title);
-                voteHolder.proposal_details.setText(proposal.content.value.description);
-                if (proposal.proposal_status.equals("DepositPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
-                } else if (proposal.proposal_status.equals("VotingPeriod")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
-                } else if (proposal.proposal_status.equals("Rejected")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
-                } else if (proposal.proposal_status.equals("Passed")) {
-                    voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
-                } else {
-                    voteHolder.proposal_status_img.setVisibility(View.GONE);
-                }
-                voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
-                        voteIntent.putExtra("proposalId", proposal.id);
-                        startActivity(voteIntent);
-                    }
-                });
-
+            final Proposal proposal = mProposals.get(position);
+            voteHolder.proposal_id.setText("# " + proposal.id);
+            voteHolder.proposal_status.setText(proposal.proposal_status);
+            voteHolder.proposal_title.setText(proposal.content.value.title);
+            voteHolder.proposal_details.setText(proposal.content.value.description);
+            if (proposal.proposal_status.equals("DepositPeriod")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_deposit_img));
+            } else if (proposal.proposal_status.equals("VotingPeriod")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_voting_img));
+            } else if (proposal.proposal_status.equals("Rejected")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_rejected_img));
+            } else if (proposal.proposal_status.equals("Passed")) {
+                voteHolder.proposal_status_img.setImageDrawable(getResources().getDrawable(R.drawable.ic_passed_img));
+            } else {
+                voteHolder.proposal_status_img.setVisibility(View.GONE);
             }
+            voteHolder.card_proposal.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (proposal.proposal_status.equals("DepositPeriod") || proposal.proposal_status.equals("VotingPeriod")) {
+                        Intent voteIntent = new Intent(VoteListActivity.this, VoteDetailsActivity.class);
+                        voteIntent.putExtra("proposalId", proposal.id);
+                        startActivity(voteIntent);
+
+                    } else {
+                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
+                        webintent.putExtra("voteId", proposal.id);
+                        webintent.putExtra("chain", mAccount.baseChain);
+                        startActivity(webintent);
+                    }
+                }
+            });
         }
 
         @Override

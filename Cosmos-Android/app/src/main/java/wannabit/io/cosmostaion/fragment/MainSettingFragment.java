@@ -34,38 +34,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Currency_Set;
 import wannabit.io.cosmostaion.dialog.Dialog_Starname_WC_Confirm;
+import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_PERSIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SENTINEL_MAIN;
 
 public class MainSettingFragment extends BaseFragment implements View.OnClickListener {
 
@@ -218,56 +189,9 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
             startActivity(telegram);
 
         } else if (v.equals(mBtnExplore)) {
-            if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_COSMOS_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_IRIS_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BINANCE_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_KAVA_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_IOV_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BAND_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_BINANCE_TEST));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_OKEX_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_OKEX_TEST));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_KAVA_TEST));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-                String certikUrl = EXPLORER_CERTIK + "?net=" + getMainActivity().mBaseChain.getChain();
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(certikUrl));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_AKASH_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_SECRET_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_PERSIS_MAIN));
-                startActivity(intent);
-            } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(EXPLORER_SENTINEL_MAIN));
-                startActivity(intent);
-            }
-
-
-
+            String url  = WUtil.getExplorer(getMainActivity().mBaseChain);
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
 
         } else if (v.equals(mBtnHomepage)) {
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.cosmostation.io/"));

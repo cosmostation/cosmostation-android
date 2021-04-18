@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.protobuf2.Any;
 
-import cosmos.gov.v1beta1.Tx;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import io.grpc.stub.StreamObserver;
@@ -43,35 +42,8 @@ import wannabit.io.cosmostaion.widget.TxUnDelegateHolder;
 import wannabit.io.cosmostaion.widget.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.TxVoterHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
 
 public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickListener, Dialog_MoreWait.OnTxWaitListener {
     private Toolbar         mToolbar;

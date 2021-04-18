@@ -14,7 +14,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
@@ -22,6 +25,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CRYTOORG_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_TEST;
@@ -231,7 +236,31 @@ public class WebActivity extends BaseActivity {
             else
                 mWebview.loadUrl(EXPLORER_SENTINEL_MAIN);
 
-        } else if (mBasechain.equals(BaseChain.COSMOS_TEST)) {
+        } else if (mBasechain.equals(FETCHAI_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_FETCHAI_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_FETCHAI_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_FETCHAI_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_FETCHAI_MAIN);
+
+        } else if (mBasechain.equals(CRYTO_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN);
+
+        }
+
+        else if (mBasechain.equals(BaseChain.COSMOS_TEST)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorAtom));
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl(EXPLORER_COSMOS_TEST + "txs/" + mTxid);
