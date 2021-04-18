@@ -3145,6 +3145,9 @@ class WUtils {
         } else if (chain == ChainType.PERSIS_MAIN) {
             return EXPLORER_PERSIS_MAIN + "txs/" + hash
             
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return EXPLORER_CRYTO_MAIN + "txs/" + hash
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3178,6 +3181,10 @@ class WUtils {
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return EXPLORER_SENTINEL_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return EXPLORER_FETCH_MAIN + "txs/" + hash
+            
         }
         
         return ""
@@ -3219,6 +3226,12 @@ class WUtils {
             
         } else if (chain == ChainType.OKEX_MAIN) {
             return EXPLORER_OKEX_MAIN + "address/" + address
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return EXPLORER_FETCH_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return EXPLORER_CRYTO_MAIN + "account/" + address
             
         }
         
@@ -3274,6 +3287,12 @@ class WUtils {
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return EXPLORER_SENTINEL_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return EXPLORER_FETCH_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.CRYTO_MAIN) {
+            return EXPLORER_CRYTO_MAIN + "proposals/" + proposalId
             
         }
         

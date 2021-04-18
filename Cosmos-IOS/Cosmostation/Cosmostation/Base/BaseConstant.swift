@@ -1206,6 +1206,8 @@ let EXPLORER_AKASH_MAIN     = "https://www.mintscan.io/akash/";
 let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_PERSIS_MAIN    = "https://www.mintscan.io/persistence/";
 let EXPLORER_SENTINEL_MAIN  = "https://www.mintscan.io/sentinel/";
+let EXPLORER_FETCH_MAIN     = "https://www.mintscan.io/fetchai/";
+let EXPLORER_CRYTO_MAIN     = "https://www.mintscan.io/crypto-org/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
