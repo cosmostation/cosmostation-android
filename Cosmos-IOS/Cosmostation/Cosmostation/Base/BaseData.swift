@@ -240,8 +240,25 @@ final class BaseData : NSObject{
                     }
                 }
             }
+            
+        } else if (mAccount_gRPC?.typeURL.contains(Cosmos_Vesting_V1beta1_DelayedVestingAccount.protoMessageName) == true) {
+            let account = try! Cosmos_Vesting_V1beta1_DelayedVestingAccount.init(serializedData: mAccount_gRPC!.value)
+            let cTime = Date().millisecondsSince1970
+            let vestingEnd = account.baseVestingAccount.endTime * 1000
+            if (cTime < vestingEnd) {
+                account.baseVestingAccount.originalVesting.forEach { (vp) in
+                    if (vp.denom == denom) {
+                        let temp = Cosmos_Vesting_V1beta1_Period.with {
+                            $0.length = vestingEnd
+                            $0.amount = account.baseVestingAccount.originalVesting
+                        }
+                        results.append(temp)
+                    }
+                }
+            }
+            
         }
-        return Array<Cosmos_Vesting_V1beta1_Period>()
+        return results
     }
     
     func onParseRemainVestingsAmountSumByDenom(_ denom: String) -> NSDecimalNumber {
