@@ -500,7 +500,67 @@ public class WUtil {
                     WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
 
                     long cTime = Calendar.getInstance().getTime().getTime();
-                    long vestingEnd = (lcd.result.value.getStartTime() + lcd.result.value.getEndTime()) * 1000;
+                    long vestingStart = lcd.result.value.getStartTime() * 1000;
+                    long vestingEnd = lcd.result.value.getEndTime() * 1000;
+                    if (cTime < vestingStart) {
+                        remainVesting = originalVesting;
+                    } else if (cTime > vestingEnd) {
+                        remainVesting = BigDecimal.ZERO;
+                    } else if (cTime < vestingEnd) {
+                        float progress = ((float)(cTime - vestingStart) / (float)(vestingEnd - vestingStart));
+                        remainVesting = originalVesting.multiply(new BigDecimal(progress)).setScale(0, RoundingMode.DOWN);
+                    }
+                    WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                    dpVesting = remainVesting.subtract(delegatedVesting);
+                    WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                    dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                    WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                    if (remainVesting.compareTo(delegatedVesting)> 0) {
+                        dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                    }
+                    WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                    Balance temp = new Balance();
+                    temp.accountId = accountId;
+                    temp.symbol = denom;
+                    temp.balance = dpBalance;
+                    temp.frozen = delegatedVesting;
+                    temp.locked = dpVesting;
+                    temp.fetchTime = time;
+                    result.add(temp);
+                }
+
+            } else if (lcd.result.type.equals(COSMOS_AUTH_TYPE_D_VESTING_ACCOUNT)) {
+                for( Coin coin : lcd.result.value.coins) {
+                    String denom = coin.denom;
+                    BigDecimal dpBalance = BigDecimal.ZERO;
+                    BigDecimal dpVesting = BigDecimal.ZERO;
+                    BigDecimal originalVesting = BigDecimal.ZERO;
+                    BigDecimal remainVesting = BigDecimal.ZERO;
+                    BigDecimal delegatedVesting = BigDecimal.ZERO;
+
+                    dpBalance = new BigDecimal(coin.amount);
+                    WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                    for (Coin vesting : lcd.result.value.original_vesting) {
+                        if (vesting.denom.equals(denom)) {
+                            originalVesting = originalVesting.add(new BigDecimal(vesting.amount));
+                        }
+                    }
+                    WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                    for (Coin vesting : lcd.result.value.delegated_vesting) {
+                        if (vesting.denom.equals(denom)) {
+                            delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.amount));
+                        }
+                    }
+                    WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                    long cTime = Calendar.getInstance().getTime().getTime();
+                    long vestingEnd = lcd.result.value.getEndTime() * 1000;
 
                     if (cTime < vestingEnd) {
                         remainVesting = originalVesting;
@@ -527,6 +587,7 @@ public class WUtil {
                     temp.fetchTime = time;
                     result.add(temp);
                 }
+
             }
         }
         return result;
@@ -2621,6 +2682,77 @@ public class WUtil {
                 WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
 
                 long cTime = Calendar.getInstance().getTime().getTime();
+                long vestingStart = vestingAccount.getStartTime()  * 1000;
+                long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
+                if (cTime < vestingStart) {
+                    remainVesting = originalVesting;
+                } else if (cTime > vestingEnd) {
+                    remainVesting = BigDecimal.ZERO;
+                } else if (cTime < vestingEnd) {
+                    float progress = ((float)(cTime - vestingStart) / (float)(vestingEnd - vestingStart));
+                    remainVesting = originalVesting.multiply(new BigDecimal(progress)).setScale(0, RoundingMode.DOWN);
+                }
+                WLog.w("remainVesting " +  denom + "  " +  remainVesting);
+
+                dpVesting = remainVesting.subtract(delegatedVesting);
+                WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
+
+                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
+                WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
+
+                if (remainVesting.compareTo(delegatedVesting)> 0) {
+                    dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                }
+                WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
+
+                if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
+                    baseData.mGrpcVesting.add(vestingCoin);
+                    int replace = -1;
+                    for (int i = 0; i < baseData.mGrpcBalance.size(); i ++) {
+                        if (baseData.mGrpcBalance.get(i).denom.equals(denom)) {
+                            replace = i;
+                        }
+                    }
+                    if (replace >= 0) {
+                        baseData.mGrpcBalance.set(replace, new Coin(denom, dpBalance.toPlainString()));
+                    }
+                }
+            }
+
+        } else if (account.getTypeUrl().contains(Vesting.DelayedVestingAccount.getDescriptor().getFullName())) {
+            Vesting.DelayedVestingAccount vestingAccount = null;
+            try {
+                vestingAccount = Vesting.DelayedVestingAccount.parseFrom(account.getValue());
+            } catch (InvalidProtocolBufferException e) {
+                WLog.e("onParseVestingAccount " + e.getMessage());
+                return;
+            }
+            for (Coin coin: sBalace) {
+                String denom = coin.denom;
+                BigDecimal dpBalance = BigDecimal.ZERO;
+                BigDecimal dpVesting = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
+                BigDecimal remainVesting = BigDecimal.ZERO;
+                BigDecimal delegatedVesting = BigDecimal.ZERO;
+                dpBalance = new BigDecimal(coin.amount);
+                WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("originalVesting " +  denom + "  " +  originalVesting);
+
+                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
+                    if (vesting.getDenom().equals(denom)) {
+                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
+                    }
+                }
+                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
+
+                long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingEnd = vestingAccount.getBaseVestingAccount().getEndTime() * 1000;
                 if (cTime < vestingEnd) {
                     remainVesting = originalVesting;
@@ -2652,6 +2784,7 @@ public class WUtil {
                     }
                 }
             }
+
         }
     }
 
