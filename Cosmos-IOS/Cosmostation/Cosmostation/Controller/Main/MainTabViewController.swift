@@ -495,7 +495,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     } else {
                         WUtils.onParseVestingAccount()
                     }
-                    
                 }
             }
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
