@@ -669,6 +669,7 @@
 "chain_title_sentinel" = "Sentinel Mainnet";
 "chain_title_fetch" = "Fetch.ai Mainnet";
 "chain_title_cryto" = "Cryto.org Mainnet";
+"chain_title_sif" = "Sifchain Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";

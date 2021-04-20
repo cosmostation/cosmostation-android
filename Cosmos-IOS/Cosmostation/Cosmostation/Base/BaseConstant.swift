@@ -101,6 +101,10 @@ let FETCH_API                           = "https://api-fetchai.cosmostation.io/"
 let CRYTO_API                           = "https://api-cryptocom.cosmostation.io/";
 
 
+let SIF_URL                             = "https://api.sifchain.finance/";
+let SIF_API                             = "";
+
+
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
@@ -509,6 +513,32 @@ let FETCH_API_TRANS_HISTORY             = FETCH_API + "v1/account/transfer_txs/"
 
 let CRYTO_MAIN_HISTORY                  = CRYTO_API + "v1/account/txs/";
 let CRYTO_MAIN_TRANS_HISTORY            = CRYTO_API + "v1/account/transfer_txs/";
+
+
+//SIF_URL
+let SIF_NODE_INFO                       = SIF_URL + "node_info";
+let SIF_TX                              = SIF_URL + "txs/";
+let SIF_VALIDATORS                      = SIF_URL + "staking/validators";
+let SIF_ACCOUNT_INFO                    = SIF_URL + "auth/accounts/";
+let SIF_BONDING                         = SIF_URL + "staking/delegators/";
+let SIF_BONDING_TAIL                    = "/delegations";
+let SIF_UNBONDING                       = SIF_URL + "staking/delegators/";
+let SIF_UNBONDING_TAIL                  = "/unbonding_delegations";
+let SIF_REWARD_FROM_VAL                 = SIF_URL + "distribution/delegators/";
+let SIF_REWARD_FROM_VAL_TAIL            = "/rewards/";
+let SIF_REWARD_ADDRESS                  = SIF_URL + "distribution/delegators/";
+let SIF_REWARD_ADDRESS_TAIL             = "/withdraw_address";
+let SIF_REDELEGATION                    = SIF_URL + "staking/redelegations";
+let SIF_MINT_PARAM                      = SIF_URL + "minting/parameters";
+let SIF_INFLATION                       = SIF_URL + "minting/inflation";
+let SIF_PROVISIONS                      = SIF_URL + "minting/annual-provisions";
+let SIF_STAKING_POOL                    = SIF_URL + "staking/pool";
+let SIF_BORAD_TX                        = SIF_URL + "txs";
+let SIF_PROPOSALS                       = SIF_URL + "gov/proposals";
+let SIF_PROPOSALS_TALLY_TAIL            = "/tally";
+
+let SIF_API_HISTORY                     = SIF_API + "v1/account/txs/";
+let SIF_API_TRANS_HISTORY               = SIF_API + "v1/account/transfer_txs/";
 
 
 
@@ -1007,6 +1037,11 @@ let TRANS_BG_COLOR_CRYTO2                   = UIColor.init(hexString: "1199fa", 
 let COLOR_CRYTO                             = UIColor.init(hexString: "1199fa")
 let COLOR_CRYTO_DARK                        = UIColor.init(hexString: "032d74")
 
+let TRANS_BG_COLOR_SIF                      = UIColor.init(hexString: "c19f33", alpha: 0.15)
+let TRANS_BG_COLOR_SIF2                     = UIColor.init(hexString: "c19f33", alpha: 0.4)
+let COLOR_SIF                               = UIColor.init(hexString: "c19f33")
+let COLOR_SIF_DARK                          = UIColor.init(hexString: "5e4d19")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -1034,6 +1069,7 @@ enum ChainType: String {
     case SENTINEL_MAIN
     case FETCH_MAIN
     case CRYTO_MAIN
+    case SIF_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -1058,6 +1094,7 @@ enum ChainType: String {
         result.append(SENTINEL_MAIN)
         result.append(FETCH_MAIN)
         result.append(CRYTO_MAIN)
+        result.append(SIF_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -1136,6 +1173,7 @@ let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
 let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
 let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
 let CHAIN_CRYTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
+let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1160,6 +1198,7 @@ let PERSIS_MAIN_DENOM = "uxprt"
 let SENTINEL_MAIN_DENOM = "udvpn"
 let FETCH_MAIN_DENOM = "afet"
 let CRYTO_MAIN_DENOM = "basecro"
+let SIF_MAIN_DENOM = "rowan"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"

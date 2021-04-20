@@ -1719,6 +1719,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 6)
             
+        } else if (chainType == ChainType.SIF_MAIN) {
+            if (coin.denom == SIF_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1879,6 +1888,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 8, 6)
             
+        } else if (chainType == ChainType.SIF_MAIN) {
+            if (denom == SIF_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1971,6 +1989,8 @@ class WUtils {
             return COLOR_FETCH
         } else if (chain == ChainType.CRYTO_MAIN) {
             return COLOR_CRYTO
+        } else if (chain == ChainType.SIF_MAIN) {
+            return COLOR_SIF
         }
         return COLOR_ATOM
     }
@@ -2004,6 +2024,8 @@ class WUtils {
             return COLOR_FETCH_DARK
         } else if (chain == ChainType.CRYTO_MAIN) {
             return COLOR_CRYTO_DARK
+        } else if (chain == ChainType.SIF_MAIN) {
+            return COLOR_SIF_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2037,6 +2059,8 @@ class WUtils {
             return TRANS_BG_COLOR_FETCH
         } else if (chain == ChainType.CRYTO_MAIN) {
             return TRANS_BG_COLOR_CRYTO
+        } else if (chain == ChainType.SIF_MAIN) {
+            return TRANS_BG_COLOR_SIF
         }
         return COLOR_BG_GRAY
     }
@@ -2070,6 +2094,8 @@ class WUtils {
             return "FET"
         } else if (chain == ChainType.CRYTO_MAIN) {
             return "CRO"
+        } else if (chain == ChainType.SIF_MAIN) {
+            return "ROWAN"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2107,6 +2133,8 @@ class WUtils {
             return FETCH_MAIN_DENOM
         } else if (chain == ChainType.CRYTO_MAIN) {
             return CRYTO_MAIN_DENOM
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2125,7 +2153,7 @@ class WUtils {
             return 0
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return 0
-        } else if (chain == ChainType.FETCH_MAIN) {
+        } else if (chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN) {
             return 18
         } else if (chain == ChainType.CRYTO_MAIN) {
             return 8
@@ -2177,6 +2205,9 @@ class WUtils {
         } else if (chain == ChainType.CRYTO_MAIN) {
             label.text = "CRO"
             label.textColor = COLOR_CRYTO
+        } else if (chain == ChainType.SIF_MAIN) {
+            label.text = "ROWAN"
+            label.textColor = COLOR_SIF
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2215,6 +2246,8 @@ class WUtils {
             return ChainType.FETCH_MAIN
         } else if (chainS == CHAIN_CRYTO_S) {
             return ChainType.CRYTO_MAIN
+        } else if (chainS == CHAIN_SIF_S) {
+            return ChainType.SIF_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2264,6 +2297,8 @@ class WUtils {
             return CHAIN_FETCH_S
         } else if (chain == ChainType.CRYTO_MAIN) {
             return CHAIN_CRYTO_S
+        } else if (chain == ChainType.SIF_MAIN) {
+            return CHAIN_SIF_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

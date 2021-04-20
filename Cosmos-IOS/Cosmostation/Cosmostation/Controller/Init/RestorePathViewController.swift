@@ -299,6 +299,27 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
                     }
+                } else if (self.userChain == ChainType.SIF_MAIN) {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 18, 6)
+                    let request = Alamofire.request(SIF_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                    request.responseJSON { (response) in
+                        switch response.result {
+                        case .success(let res):
+                            guard let responseData = res as? NSDictionary,
+                                let info = responseData.object(forKey: "result") as? [String : Any] else {
+                                    return
+                            }
+                            let accountInfo = AccountInfo.init(info)
+                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
+                                if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
+                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, 18, 6)
+                                }
+                            }
+                            
+                        case .failure(let error):
+                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
+                        }
+                    }
                 }
                 
                 else if (self.userChain == ChainType.BINANCE_TEST) {

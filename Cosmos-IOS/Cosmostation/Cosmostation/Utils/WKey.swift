@@ -46,7 +46,8 @@ class WKey {
         let chainType = WUtils.getChainType(account.account_base_chain)
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST) {
+                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN ||
+                chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -120,6 +121,8 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "fetch", program: ripemd160)
         } else if (chain == ChainType.CRYTO_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "cro", program: ripemd160)
+        } else if (chain == ChainType.SIF_MAIN) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "sif", program: ripemd160)
         }
         return result
     }
@@ -128,7 +131,8 @@ class WKey {
         do {
             var childKey:HDPrivateKey?
             if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.AKASH_MAIN ||
-                    chain == ChainType.SENTINEL_MAIN || chain == ChainType.FETCH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST) {
+                    chain == ChainType.SENTINEL_MAIN || chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN ||
+                    chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -238,6 +242,8 @@ class WKey {
             result = bech32.encode("fetch", values: data)
         } else if (chain == ChainType.CRYTO_MAIN) {
             result = bech32.encode("cro", values: data)
+        } else if (chain == ChainType.SIF_MAIN) {
+            result = bech32.encode("sif", values: data)
         }
         return result
     }
