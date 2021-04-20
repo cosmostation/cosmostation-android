@@ -170,6 +170,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_CRYTO
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsifchain")
+            titleChainName.text = "(SifChain Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_SIF
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {

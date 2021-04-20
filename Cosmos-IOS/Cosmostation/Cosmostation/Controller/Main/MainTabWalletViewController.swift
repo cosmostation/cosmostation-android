@@ -150,6 +150,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "chaincrypto")
             titleChainName.text = "(Cryto.org Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsifchain")
+            titleChainName.text = "(SifChain Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -241,39 +245,14 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN) {
-            return 5;
-        } else if  (chainType == ChainType.IRIS_MAIN) {
-            return 5;
-        } else if  (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            return 5;
-        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+        if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 4;
-        } else if (chainType == ChainType.BAND_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.IOV_MAIN  || chainType == ChainType.IOV_TEST ) {
-            return 5;
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return 4;
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            return 5;
-        } else if (chainType == ChainType.AKASH_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.PERSIS_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.CRYTO_MAIN) {
-            return 5;
-        } else if (chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST) {
-            return 5;
-        } else {
-            return 0;
+        } else if (chainType == ChainType.SIF_MAIN) {
+            return 4;
         }
+        return 5;
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

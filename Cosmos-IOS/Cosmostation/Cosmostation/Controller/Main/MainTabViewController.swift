@@ -388,6 +388,18 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            self.mFetchCnt = 9
+            onFetchNodeInfo()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
+            onFetchStakingPool()
+            
         }
 
         
@@ -595,6 +607,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_NODE_INFO
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_NODE_INFO
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_NODE_INFO
         }
         else if (mChainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_NODE_INFO
@@ -639,6 +653,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_VALIDATORS
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_VALIDATORS
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_VALIDATORS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -683,6 +699,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_VALIDATORS
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_VALIDATORS
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_VALIDATORS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -727,6 +745,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_VALIDATORS
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_VALIDATORS
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_VALIDATORS
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS
@@ -803,6 +823,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_ACCOUNT_INFO + account.account_address
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_ACCOUNT_INFO + account.account_address
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_ACCOUNT_INFO + account.account_address
         }
         else if (mChainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_ACCOUNT_INFO + account.account_address
@@ -897,6 +919,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_BONDING + account.account_address + FETCH_BONDING_TAIL
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_BONDING + account.account_address + SIF_BONDING_TAIL
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL
@@ -942,6 +966,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_UNBONDING + account.account_address + FETCH_UNBONDING_TAIL
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_UNBONDING + account.account_address + SIF_UNBONDING_TAIL
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL
@@ -988,6 +1014,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_REWARD_FROM_VAL + account.account_address + "/rewards"
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_REWARD_FROM_VAL + account.account_address + "/rewards"
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_FROM_VAL + account.account_address + "/rewards"
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
@@ -1165,6 +1193,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = SENTINEL_STAKING_POOL
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = FETCH_STAKING_POOL
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = SIF_STAKING_POOL
         }
         else if (mChainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_STAKING_POOL

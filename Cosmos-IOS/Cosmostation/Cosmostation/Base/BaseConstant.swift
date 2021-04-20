@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -529,9 +529,9 @@ let SIF_REWARD_FROM_VAL_TAIL            = "/rewards/";
 let SIF_REWARD_ADDRESS                  = SIF_URL + "distribution/delegators/";
 let SIF_REWARD_ADDRESS_TAIL             = "/withdraw_address";
 let SIF_REDELEGATION                    = SIF_URL + "staking/redelegations";
-let SIF_MINT_PARAM                      = SIF_URL + "minting/parameters";
-let SIF_INFLATION                       = SIF_URL + "minting/inflation";
-let SIF_PROVISIONS                      = SIF_URL + "minting/annual-provisions";
+//let SIF_MINT_PARAM                      = SIF_URL + "minting/parameters";
+//let SIF_INFLATION                       = SIF_URL + "minting/inflation";
+//let SIF_PROVISIONS                      = SIF_URL + "minting/annual-provisions";
 let SIF_STAKING_POOL                    = SIF_URL + "staking/pool";
 let SIF_BORAD_TX                        = SIF_URL + "txs";
 let SIF_PROPOSALS                       = SIF_URL + "gov/proposals";
