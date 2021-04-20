@@ -143,6 +143,8 @@
 "send_guide_msg_fetch" = "코스모스 SDK 기반, 개방형 및 분산형 머신 러닝 네트워크";
 "send_guide_title_cryto" = "CRYTO.ORG 체인";
 "send_guide_msg_cryto" = "결제, DeFi 및 NFT를위한 Cosmos SDK 기반 퍼블릭 블록 체인 네트워크.";
+"send_guide_title_sif" = "시프 체인";
+"send_guide_msg_sif" = "Cosmos SDK로 구축된 옴니체인 분산형 거래소.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -157,6 +159,7 @@
 "send_guide_btn1_sentinel" = "Home";
 "send_guide_btn1_fetch" = "Home";
 "send_guide_btn1_cryto" = "Home";
+"send_guide_btn1_sif" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -171,6 +174,7 @@
 "send_guide_btn2_sentinel" = "Blog";
 "send_guide_btn2_fetch" = "Blog";
 "send_guide_btn2_cryto" = "Communities";
+"send_guide_btn2_sif" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";

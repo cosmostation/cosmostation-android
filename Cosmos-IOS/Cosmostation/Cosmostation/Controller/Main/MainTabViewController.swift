@@ -1309,6 +1309,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "fetch-ai"
         } else if (mChainType == ChainType.CRYTO_MAIN) {
             url = CGC_PRICE_TIC + "crypto-com-chain"
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            url = CGC_PRICE_TIC + "sifchain"
         } else {
             BaseData.instance.setPriceTicCgc(nil)
             return

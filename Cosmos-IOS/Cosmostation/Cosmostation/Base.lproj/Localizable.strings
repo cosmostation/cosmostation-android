@@ -144,6 +144,8 @@
 "send_guide_msg_fetch" = "Open access, decentralized machine learning network built with the Cosmos SDK.";
 "send_guide_title_cryto" = "CRYTO.ORG CHAIN";
 "send_guide_msg_cryto" = "Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.";
+"send_guide_title_sif" = "SIF CHAIN";
+"send_guide_msg_sif" = "Omni-chain decentralized exchange built with the Cosmos SDK.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -158,6 +160,7 @@
 "send_guide_btn1_sentinel" = "Home";
 "send_guide_btn1_fetch" = "Home";
 "send_guide_btn1_cryto" = "Home";
+"send_guide_btn1_sif" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -172,6 +175,7 @@
 "send_guide_btn2_sentinel" = "Blog";
 "send_guide_btn2_fetch" = "Blog";
 "send_guide_btn2_cryto" = "Communities";
+"send_guide_btn2_sif" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";

@@ -131,6 +131,12 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cryto", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cryto", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.SIF_MAIN) {
+            guideImg.image = UIImage(named: "sifchainImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_sif", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_sif", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_sif", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_sif", comment: ""), for: .normal)
         }
         
     }

@@ -54,6 +54,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletSentinelCell", bundle: nil), forCellReuseIdentifier: "WalletSentinelCell")
         self.walletTableView.register(UINib(nibName: "WalletFetchCell", bundle: nil), forCellReuseIdentifier: "WalletFetchCell")
         self.walletTableView.register(UINib(nibName: "WalletCrytoCell", bundle: nil), forCellReuseIdentifier: "WalletCrytoCell")
+        self.walletTableView.register(UINib(nibName: "WalletSifCell", bundle: nil), forCellReuseIdentifier: "WalletSifCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -284,7 +285,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetFetchItems(tableView, indexPath);
         } else if (chainType == ChainType.CRYTO_MAIN) {
             return onSetCrytoItems(tableView, indexPath);
-        } else if (chainType == ChainType.COSMOS_TEST) {
+        } else if (chainType == ChainType.SIF_MAIN) {
+            return onSetSifItems(tableView, indexPath);
+        }
+        
+        else if (chainType == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath);
         } else if (chainType == ChainType.IRIS_TEST) {
             return onSetIrisTestItems(tableView, indexPath);
@@ -814,6 +819,39 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSifCell") as? WalletSifCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            cell?.actionBuy = { self.onClickBuyCoin() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+            
+        }
+    }
+    
+    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
@@ -1162,6 +1200,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.CRYTO_MAIN) {
             guard let url = URL(string: "https://crypto.org/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            guard let url = URL(string: "https://sifchain.finance/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1227,7 +1269,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.CRYTO_MAIN) {
             guard let url = URL(string: "https://crypto.org/community") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            guard let url = URL(string: "https://medium.com/sifchain-finance") else { return }
+            self.onShowSafariWeb(url)
         }
+        
     }
     
     func onClickMarketInfo() {
@@ -1301,6 +1348,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.CRYTO_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/crypto-com-chain") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/sifchain") else { return }
             self.onShowSafariWeb(url)
         }
         
