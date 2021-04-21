@@ -3218,6 +3218,8 @@ class WUtils {
             return FETCH_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.CRYTO_MAIN) {
             return CRYTO_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -3275,6 +3277,9 @@ class WUtils {
         } else if (chain == ChainType.FETCH_MAIN) {
             return EXPLORER_FETCH_MAIN + "txs/" + hash
             
+        } else if (chain == ChainType.SIF_MAIN) {
+            return EXPLORER_SIF_MAIN + "txs/" + hash
+            
         }
         
         return ""
@@ -3322,6 +3327,9 @@ class WUtils {
             
         } else if (chain == ChainType.CRYTO_MAIN) {
             return EXPLORER_CRYTO_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return EXPLORER_SIF_MAIN + "account/" + address
             
         }
         
@@ -3384,6 +3392,9 @@ class WUtils {
         } else if (chain == ChainType.CRYTO_MAIN) {
             return EXPLORER_CRYTO_MAIN + "proposals/" + proposalId
             
+        } else if (chain == ChainType.SIF_MAIN) {
+            return EXPLORER_SIF_MAIN + "proposals/" + proposalId
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3402,7 +3413,8 @@ class WUtils {
         if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
         } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
-                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYTO_MAIN) {
+                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYTO_MAIN ||
+                    chain == ChainType.SIF_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.4")

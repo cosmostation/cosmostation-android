@@ -179,6 +179,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            chainImg.image = UIImage(named: "chainsifchain")
+            keyPath.text = CRYTO_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         }
         
         
@@ -536,6 +543,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
         }
 //        else if (chainType == ChainType.FETCH_MAIN) {
 //            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
@@ -616,6 +625,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = SENTINEL_NODE_INFO
         } else if (self.chainType == ChainType.FETCH_MAIN) {
             url = FETCH_NODE_INFO
+        } else if (self.chainType == ChainType.SIF_MAIN) {
+            url = SIF_NODE_INFO
         }
         else if (self.chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_NODE_INFO

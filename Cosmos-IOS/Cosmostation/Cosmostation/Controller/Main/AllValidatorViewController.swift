@@ -187,6 +187,10 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
         }
+        //temp hide apr for sifchain
+        if (chainType == ChainType.SIF_MAIN) {
+            cell.commissionLabel.text = "--"
+        }
     }
     
     @objc func onStartSort() {

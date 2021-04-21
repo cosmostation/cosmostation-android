@@ -559,6 +559,7 @@ let SENTINEL_VAL_URL                    = "https://raw.githubusercontent.com/cos
 let OKEX_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
 let FETCH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
 let CRYTO_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
+let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -1248,6 +1249,7 @@ let EXPLORER_PERSIS_MAIN    = "https://www.mintscan.io/persistence/";
 let EXPLORER_SENTINEL_MAIN  = "https://www.mintscan.io/sentinel/";
 let EXPLORER_FETCH_MAIN     = "https://www.mintscan.io/fetchai/";
 let EXPLORER_CRYTO_MAIN     = "https://www.mintscan.io/crypto-org/";
+let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
