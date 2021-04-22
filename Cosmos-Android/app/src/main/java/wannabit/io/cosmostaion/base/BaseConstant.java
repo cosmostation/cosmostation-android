@@ -3,7 +3,7 @@ package wannabit.io.cosmostaion.base;
 import java.math.BigDecimal;
 
 public class BaseConstant {
-    public final static boolean IS_SHOWLOG              = false;
+    public final static boolean IS_SHOWLOG              = true;
     public final static boolean SUPPORT_MOONPAY         = true;
     public final static boolean SUPPORT_BEP3_SWAP       = true;
     public final static String LOG_TAG                  = "Cosmostation";
@@ -462,6 +462,7 @@ public class BaseConstant {
     public final static String TOKEN_DVPN           = "udvpn";
     public final static String TOKEN_FET            = "afet";
     public final static String TOKEN_CRO            = "basecro";
+    public final static String TOKEN_SIF            = "rowan";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -656,6 +657,7 @@ public class BaseConstant {
     public final static String OKEX_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
     public final static String FETCH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
     public final static String CRYTO_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
+    public final static String SIF_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";

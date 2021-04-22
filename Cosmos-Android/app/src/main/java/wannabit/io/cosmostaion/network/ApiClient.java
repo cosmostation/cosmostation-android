@@ -444,7 +444,7 @@ public class ApiClient {
 
 
 
-    //Services for fCryto.org mainnet api
+    //Services for Cryto.org mainnet api
     private static HistoryApi api_cryto = null;
     public static HistoryApi getCrytoApi(Context c) {
         if (api_cryto == null) {
@@ -457,6 +457,36 @@ public class ApiClient {
             }
         }
         return api_cryto;
+    }
+
+    //Services for sifChain mainnet
+    private static SifChain service_sif = null;
+    public static SifChain getSifChain(Context c) {
+        if (service_sif == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_sif))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_sif = retrofit.create(SifChain.class);
+            }
+        }
+        return service_sif;
+    }
+
+    //Services for sifChain mainnet api
+    private static HistoryApi api_sif = null;
+    public static HistoryApi getSifApi(Context c) {
+        if (api_sif == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_sif))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_sif = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_sif;
     }
 
 

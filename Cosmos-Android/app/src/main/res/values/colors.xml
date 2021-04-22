@@ -27,6 +27,7 @@
     <color name="colorTransBgSentinel">#245b8ed7</color>
     <color name="colorTransBgFetch">#2457b5a8</color>
     <color name="colorTransBgCryto">#241199fa</color>
+    <color name="colorTransBgSif">#24c19f33</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -90,6 +91,9 @@
 
     <color name="colorCryto">#1199fa</color>
     <color name="colorCryto2">#032d74</color>
+
+    <color name="colorSif">#c19f33</color>
+    <color name="colorSif2">#5e4d19</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

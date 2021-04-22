@@ -17,6 +17,7 @@
     <string name="str_sentinel_main_net">센티넬 메인넷</string>
     <string name="str_fetch_main_net">페치 에이아이 메인넷</string>
     <string name="str_cryto_main_net">크립토 오알지 메인넷</string>
+    <string name="str_sif_main_net">시프체인 메인넷</string>
     <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
     <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>

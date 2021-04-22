@@ -52,6 +52,7 @@ public enum BaseChain {
     SENTINEL_MAIN("sentinel-mainnet"),
     FETCHAI_MAIN("fetchai-mainnet"),
     CRYTO_MAIN("crytoorg-mainnet"),
+    SIF_MAIN("sif-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -153,6 +154,9 @@ public enum BaseChain {
         if (chainName.equals(CRYTO_MAIN.chainName)) {
             return CRYTO_MAIN;
         }
+        if (chainName.equals(SIF_MAIN.chainName)) {
+            return SIF_MAIN;
+        }
 
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -212,6 +216,7 @@ public enum BaseChain {
         result.add(SENTINEL_MAIN);
         result.add(FETCHAI_MAIN);
         result.add(CRYTO_MAIN);
+        result.add(SIF_MAIN);
         result.add(SECRET_MAIN);
 
 //        result.add(COSMOS_TEST);

@@ -76,6 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -363,6 +364,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_cryto_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCryto));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCryto2));
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsifchain));
+            mToolbarChainName.setText(getString(R.string.str_sif_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorSif));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorSif));
 
         }
 
@@ -802,6 +809,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
                     holder.chainName.setText(getString(R.string.str_cryto_main));
+
+                } else if (chain.equals(SIF_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsifchain));
+                    holder.chainName.setText(getString(R.string.str_sif_main));
 
                 }
 
