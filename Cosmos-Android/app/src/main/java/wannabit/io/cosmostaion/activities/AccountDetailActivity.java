@@ -66,6 +66,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
@@ -368,6 +369,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCryto));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSif));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSif));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSif));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSif));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsifchain));
 
         }
 

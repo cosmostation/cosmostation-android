@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -281,6 +282,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
                     holder.chainName.setText(getString(R.string.str_fetch_main));
+
+                } else if (chain.equals(CRYTO_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
+                    holder.chainName.setText(getString(R.string.str_cryto_main));
 
                 } else if (chain.equals(SIF_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
