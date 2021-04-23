@@ -2109,6 +2109,34 @@ public class WUtil {
 
             }
 
+        } else if (basechain.equals(SIF_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(SIF_GAS_AMOUNT_SEND);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_REDELEGATE);
+
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(SIF_GAS_AMOUNT_REINVEST);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
+
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(SIF_GAS_AMOUNT_VOTE);
+
+            }
+
         }
         return result;
     }
@@ -2149,6 +2177,11 @@ public class WUtil {
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             BigDecimal gasRate = new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(SIF_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(SIF_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 

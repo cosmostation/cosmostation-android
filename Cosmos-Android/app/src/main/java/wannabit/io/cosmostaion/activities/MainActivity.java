@@ -585,6 +585,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     hasbalance  = true;
                 }
                 intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+
+            } else if (mBaseChain.equals(SIF_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
             }
 
             if (!hasbalance) {

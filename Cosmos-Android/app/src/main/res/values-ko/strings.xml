@@ -328,6 +328,7 @@
     <string name="str_fee_speed_title_secret">현재 시크릿 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_sentinel">현재 센티넬 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_fetch">현재 페치 에이아이 체인은 고정 전송 수수료를 지원합니다.</string>
+    <string name="str_fee_speed_title_sif">현재 시프 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_stargate">현재 스타게이트 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_bifrost">현재 비프로스트 체인은 고정 전송 수수료를 지원합니다.</string>
     <string name="str_fee_speed_title_cosmos">현재 코스모스 체인은 고정 전송 수수료를 지원합니다.</string>

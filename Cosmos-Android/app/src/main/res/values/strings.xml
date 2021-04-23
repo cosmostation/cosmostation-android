@@ -529,6 +529,7 @@
     <string name="str_fee_speed_title_secret">Support fixed transfer fee for Secret Chain.</string>
     <string name="str_fee_speed_title_sentinel">Support fixed transfer fee for Sentinel Chain.</string>
     <string name="str_fee_speed_title_fetch">Support fixed transfer fee for Fetch.ai Chain.</string>
+    <string name="str_fee_speed_title_sif">Support fixed transfer fee for Sif Chain.</string>
     <string name="str_fee_speed_title_stargate">Support fixed transfer fee for Cosmos Testnet.</string>
     <string name="str_fee_speed_title_bifrost">Support fixed transfer fee for Iris Testnet.</string>
     <string name="str_fee_speed_title_cosmos">Support fixed transfer fee for Cosmos Mainnet.</string>
