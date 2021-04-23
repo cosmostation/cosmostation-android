@@ -12,6 +12,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class MyVoteCheckTask extends CommonTask {
 
@@ -123,6 +124,19 @@ public class MyVoteCheckTask extends CommonTask {
 
             } else if (mChain.equals(FETCHAI_MAIN)) {
                 Response<ResMyVote> response = ApiClient.getFetchChain(mApp).getMyVote(mProposalId, mAddress).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(SIF_MAIN)) {
+                Response<ResMyVote> response = ApiClient.getSifChain(mApp).getMyVote(mProposalId, mAddress).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

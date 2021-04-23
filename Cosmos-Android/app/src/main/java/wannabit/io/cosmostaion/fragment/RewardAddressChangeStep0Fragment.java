@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class RewardAddressChangeStep0Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -158,6 +159,14 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
 
             } else if (getSActivity().mBaseChain.equals(CRYTO_MAIN)) {
                 if (targetAddress.startsWith("cro1") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
+                if (targetAddress.startsWith("sif1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {

@@ -52,7 +52,9 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MY_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_PROPOSAL_DETAIL;
@@ -270,6 +272,24 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
+            } else if (mBaseChain.equals(SIF_MAIN)) {
+                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
             }
 
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
@@ -304,8 +324,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
             new ProposalVoterListGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalMyVoteGrpcTask(getBaseApplication(), this, mBaseChain, mProposalId, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else  if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) ||
-                mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN) || mBaseChain.equals(BaseChain.SENTINEL_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+        } else {
             this.mTaskCount = 5;
             new ProposalDetailTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ProposalTallyTask(getBaseApplication(), this, mProposalId, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
