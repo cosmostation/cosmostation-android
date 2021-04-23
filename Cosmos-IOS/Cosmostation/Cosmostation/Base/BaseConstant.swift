@@ -920,6 +920,14 @@ let FETCH_GAS_AMOUNT_REINVEST               = "350000"
 let FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000"
 let FETCH_GAS_AMOUNT_VOTE                   = "100000"
 
+let SIF_GAS_FEE_RATE_AVERAGE                = "0.5"
+let SIF_GAS_AMOUNT_SEND                     = "100000"
+let SIF_GAS_AMOUNT_STAKE                    = "200000"
+let SIF_GAS_AMOUNT_REDELEGATE               = "300000"
+let SIF_GAS_AMOUNT_REINVEST                 = "350000"
+let SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000"
+let SIF_GAS_AMOUNT_VOTE                     = "100000"
+
 
 // Constant for BEP3-Swap
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"

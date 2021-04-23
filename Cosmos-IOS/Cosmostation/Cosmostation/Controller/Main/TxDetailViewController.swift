@@ -1076,6 +1076,10 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             url = FETCH_TX + txHash
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
             
+        } else if (self.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_TX + txHash
+            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+            
         }
         
         else if (self.chainType! == ChainType.BINANCE_TEST) {
