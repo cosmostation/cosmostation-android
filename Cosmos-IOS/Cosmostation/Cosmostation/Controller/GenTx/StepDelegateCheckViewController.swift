@@ -116,6 +116,8 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             url = SENTINEL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -235,6 +237,8 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                         url = SENTINEL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
                         url = FETCH_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+                        url = SIF_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

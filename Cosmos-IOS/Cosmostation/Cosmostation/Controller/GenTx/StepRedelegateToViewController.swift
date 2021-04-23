@@ -226,6 +226,8 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
             url = SENTINEL_REDELEGATION;
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_REDELEGATION;
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_REDELEGATION;
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;
