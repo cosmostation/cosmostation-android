@@ -19,7 +19,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
@@ -188,7 +188,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCryto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((BaseActivity)getActivity()).onChoiceNet(CRYTO_MAIN);
+                ((BaseActivity)getActivity()).onChoiceNet(CRYPTO_MAIN);
                 getDialog().dismiss();
             }
         });

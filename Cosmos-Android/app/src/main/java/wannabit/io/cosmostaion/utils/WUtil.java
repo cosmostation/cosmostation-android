@@ -84,7 +84,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -1329,8 +1329,8 @@ public class WUtil {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return CGC_FETCH;
 
-        } else if (chain.equals(CRYTO_MAIN)) {
-            return CGC_CRYTO;
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            return CGC_CRYPTO;
 
         } else if (chain.equals(SIF_MAIN)) {
             return CGC_SIF;
@@ -1926,7 +1926,7 @@ public class WUtil {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://fetch.ai/"));
 
-        } else if (chain.equals(CRYTO_MAIN)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crypto.org/"));
 
         } else if (chain.equals(SIF_MAIN)) {
@@ -1980,7 +1980,7 @@ public class WUtil {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://fetch.ai/blog/"));
 
-        } else if (chain.equals(CRYTO_MAIN)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crypto.org/community/"));
 
         } else if (chain.equals(SIF_MAIN)) {
@@ -1997,7 +1997,7 @@ public class WUtil {
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) ||
-                basechain.equals(CRYTO_MAIN) || basechain.equals(COSMOS_TEST)) {
+                basechain.equals(CRYPTO_MAIN) || basechain.equals(COSMOS_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
 
@@ -2162,8 +2162,8 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(CRYTO_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(CRYTO_GAS_RATE_TINY);
+        } else if (basechain.equals(CRYPTO_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(CRYPTO_GAS_RATE_TINY);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2206,13 +2206,13 @@ public class WUtil {
             }
             return new BigDecimal(PERSIS_GAS_RATE_AVERAGE);
 
-        } else if (basechain.equals(CRYTO_MAIN)) {
+        } else if (basechain.equals(CRYPTO_MAIN)) {
             if (position == 0) {
-                return new BigDecimal(CRYTO_GAS_RATE_TINY);
+                return new BigDecimal(CRYPTO_GAS_RATE_TINY);
             } else if (position == 1) {
-                return new BigDecimal(CRYTO_GAS_RATE_LOW);
+                return new BigDecimal(CRYPTO_GAS_RATE_LOW);
             }
-            return new BigDecimal(CRYTO_GAS_RATE_AVERAGE);
+            return new BigDecimal(CRYPTO_GAS_RATE_AVERAGE);
 
         } else {
             if (position == 0) {
@@ -2543,8 +2543,8 @@ public class WUtil {
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN;
 
-        } else if (basechain.equals(CRYTO_MAIN)) {
-            return EXPLORER_CRYTOORG_MAIN;
+        } else if (basechain.equals(CRYPTO_MAIN)) {
+            return EXPLORER_CRYPTOORG_MAIN;
 
         }
 
@@ -2606,8 +2606,8 @@ public class WUtil {
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN + "txs/" + hash;
 
-        } else if (basechain.equals(CRYTO_MAIN)) {
-            return EXPLORER_CRYTOORG_MAIN + "txs/" + hash;
+        } else if (basechain.equals(CRYPTO_MAIN)) {
+            return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
 
         }
 

@@ -45,7 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -191,7 +191,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_PERSIS            = 11;
         private static final int TYPE_SENTINEL          = 12;
         private static final int TYPE_FETCH             = 13;
-        private static final int TYPE_CRYTO             = 14;
+        private static final int TYPE_CRYPTO            = 14;
         private static final int TYPE_SIF               = 15;
 
         private static final int TYPE_STAKE_DROP        = 30;
@@ -245,7 +245,7 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_FETCH) {
                 return new WalletFetchHolder(getLayoutInflater().inflate(R.layout.item_wallet_fetch, viewGroup, false));
 
-            } else if (viewType == TYPE_CRYTO) {
+            } else if (viewType == TYPE_CRYPTO) {
                 return new WalletCrytoHolder(getLayoutInflater().inflate(R.layout.item_wallet_cryto, viewGroup, false));
 
             } else if (viewType == TYPE_SIF) {
@@ -312,7 +312,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
                     else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
                     else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) { return TYPE_PERSIS; }
-                    else if (getMainActivity().mBaseChain.equals(CRYTO_MAIN)) { return TYPE_CRYTO; }
+                    else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) { return TYPE_CRYPTO; }
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {

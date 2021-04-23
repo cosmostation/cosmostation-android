@@ -34,7 +34,6 @@ import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
@@ -48,7 +47,7 @@ import wannabit.io.cosmostaion.widget.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
@@ -206,7 +205,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         private static final int TYPE_IRIS              = 1;
         private static final int TYPE_AKASH             = 2;
         private static final int TYPE_PERSISTENCE       = 3;
-        private static final int TYPE_CRYTO             = 4;
+        private static final int TYPE_CRYPTO            = 4;
 
 
         private static final int TYPE_KAVA              = 40;
@@ -229,7 +228,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             } else if (viewType == TYPE_PERSISTENCE) {
                 return new TokenPersisHolder(getLayoutInflater().inflate(R.layout.layout_card_persistence, viewGroup, false));
 
-            } else if (viewType == TYPE_CRYTO) {
+            } else if (viewType == TYPE_CRYPTO) {
                 return new TokenCrytoHolder(getLayoutInflater().inflate(R.layout.layout_card_cryto, viewGroup, false));
 
             }
@@ -304,8 +303,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 } else if (mBaseChain.equals(PERSIS_MAIN)) {
                     return TYPE_PERSISTENCE;
 
-                } else if (mBaseChain.equals(CRYTO_MAIN)) {
-                    return TYPE_CRYTO;
+                } else if (mBaseChain.equals(CRYPTO_MAIN)) {
+                    return TYPE_CRYPTO;
 
                 }
 

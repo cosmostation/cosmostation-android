@@ -49,8 +49,8 @@ public class BaseConstant {
     public final static String PRE_PERSISTENCE_UP_DOWN_24   = "PRE_PERSISTENCE_UP_DOWN_24";
     public final static String PRE_FETCH_TIC                = "PRE_FETCH_TIC";
     public final static String PRE_FETCH_UP_DOWN_24         = "PRE_FETCH_UP_DOWN_24";
-    public final static String PRE_CRYTO_TIC                = "PRE_CRYTO_TIC";
-    public final static String PRE_CRYTO_UP_DOWN_24         = "PRE_CRYTO_UP_DOWN_24";
+    public final static String PRE_CRYPTO_TIC               = "PRE_CRYTO_TIC";
+    public final static String PRE_CRYPTO_UP_DOWN_24        = "PRE_CRYTO_UP_DOWN_24";
     public final static String PRE_SIF_TIC                  = "PRE_SIF_TIC";
     public final static String PRE_SIF_UP_DOWN_24           = "PRE_SIF_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
@@ -500,7 +500,7 @@ public class BaseConstant {
     public final static String KEY_NEW_OK_PATH      = "44'/996'/0'/0/";
     public final static String KEY_NEW_SECRET_PATH  = "44'/529'/0'/0/";
     public final static String KEY_PERSIS_PATH      = "44'/750'/0'/0/";
-    public final static String KEY_CRYTO_PATH       = "44'/394'/0'/0/";
+    public final static String KEY_CRYPTO_PATH      = "44'/394'/0'/0/";
     public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -612,9 +612,9 @@ public class BaseConstant {
     public final static String PERSIS_GAS_RATE_LOW                      = "0.000";
     public final static String PERSIS_GAS_RATE_AVERAGE                  = "0.000";
 
-    public final static String CRYTO_GAS_RATE_TINY                      = "0.025";
-    public final static String CRYTO_GAS_RATE_LOW                       = "0.05";
-    public final static String CRYTO_GAS_RATE_AVERAGE                   = "0.075";
+    public final static String CRYPTO_GAS_RATE_TINY                     = "0.025";
+    public final static String CRYPTO_GAS_RATE_LOW                      = "0.05";
+    public final static String CRYPTO_GAS_RATE_AVERAGE                  = "0.075";
 
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
@@ -633,7 +633,7 @@ public class BaseConstant {
     public final static String CGC_SENTINEL = "sentinel-group";
     public final static String CGC_PERSISTENCE = "persistence";
     public final static String CGC_FETCH = "fetch-ai";
-    public final static String CGC_CRYTO = "crypto-com-chain";
+    public final static String CGC_CRYPTO = "crypto-com-chain";
     public final static String CGC_SIF = "sifchain";
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
@@ -667,7 +667,7 @@ public class BaseConstant {
     public final static String SENTINEL_VAL_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
     public final static String OKEX_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
     public final static String FETCH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
-    public final static String CRYTO_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
+    public final static String CRYPTO_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
     public final static String SIF_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -689,7 +689,7 @@ public class BaseConstant {
     public final static String EXPLORER_PERSIS_MAIN     = "https://www.mintscan.io/persistence/";
     public final static String EXPLORER_SENTINEL_MAIN   = "https://www.mintscan.io/sentinel/";
     public final static String EXPLORER_FETCHAI_MAIN    = "https://www.mintscan.io/fetchai/";
-    public final static String EXPLORER_CRYTOORG_MAIN   = "https://www.mintscan.io/crypto-org/";
+    public final static String EXPLORER_CRYPTOORG_MAIN  = "https://www.mintscan.io/crypto-org/";
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";

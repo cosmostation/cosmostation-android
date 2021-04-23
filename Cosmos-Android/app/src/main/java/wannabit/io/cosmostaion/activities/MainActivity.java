@@ -63,7 +63,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -359,9 +359,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorFetch));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorFetch));
 
-        } else if (mBaseChain.equals(CRYTO_MAIN)) {
+        } else if (mBaseChain.equals(CRYPTO_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
-            mToolbarChainName.setText(getString(R.string.str_cryto_net));
+            mToolbarChainName.setText(getString(R.string.str_crypto_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCryto));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCryto2));
 
@@ -811,11 +811,11 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
                     holder.chainName.setText(getString(R.string.str_fetch_main));
 
-                } else if (chain.equals(CRYTO_MAIN)) {
+                } else if (chain.equals(CRYPTO_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
-                    holder.chainName.setText(getString(R.string.str_cryto_main));
+                    holder.chainName.setText(getString(R.string.str_crypto_main));
 
                 } else if (chain.equals(SIF_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);

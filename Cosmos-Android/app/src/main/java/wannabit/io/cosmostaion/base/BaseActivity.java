@@ -29,8 +29,6 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.protobuf2.Any;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -83,7 +81,6 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBandOracleStatus;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
 import wannabit.io.cosmostaion.network.res.ResCgcTic;
-import wannabit.io.cosmostaion.network.res.ResCmcTic;
 import wannabit.io.cosmostaion.network.res.ResIovConfig;
 import wannabit.io.cosmostaion.network.res.ResIovFee;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
@@ -151,7 +148,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -723,7 +720,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         }
 
-        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(PERSIS_MAIN) || mBaseChain.equals(CRYTO_MAIN) || mBaseChain.equals(COSMOS_TEST)) {
+        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(PERSIS_MAIN) || mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(COSMOS_TEST)) {
             mTaskCount = 13;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -1178,9 +1175,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastFetchTic(0d);
                         getBaseDao().setLastFetchUpDown(0d);
 
-                    } else if (chain.equals(CRYTO_MAIN)) {
-                        getBaseDao().setLastCrytoTic(0d);
-                        getBaseDao().setLastCrytoUpDown(0d);
+                    } else if (chain.equals(CRYPTO_MAIN)) {
+                        getBaseDao().setLastCryptoTic(0d);
+                        getBaseDao().setLastCryptoUpDown(0d);
 
                     } else if (chain.equals(SIF_MAIN)) {
                         getBaseDao().setLastSifTic(0d);

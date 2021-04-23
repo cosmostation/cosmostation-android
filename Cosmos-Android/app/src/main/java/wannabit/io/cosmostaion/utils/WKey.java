@@ -40,7 +40,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -145,7 +145,7 @@ public class WKey {
         } else if (chain.equals(PERSIS_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(750, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
-        } else if (chain.equals(CRYTO_MAIN)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         }
@@ -288,7 +288,7 @@ public class WKey {
                 result = bech32Encode("sent".getBytes(), converted);
             } else if (chain.equals(FETCHAI_MAIN)){
                 result = bech32Encode("fetch".getBytes(), converted);
-            } else if (chain.equals(CRYTO_MAIN)){
+            } else if (chain.equals(CRYPTO_MAIN)){
                 result = bech32Encode("cro".getBytes(), converted);
             } else if (chain.equals(SIF_MAIN)){
                 result = bech32Encode("sif".getBytes(), converted);
@@ -325,7 +325,7 @@ public class WKey {
             return bech32Encode("sent".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(FETCHAI_MAIN)) {
             return bech32Encode("fetch".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CRYTO_MAIN)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return bech32Encode("cro".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SIF_MAIN)) {
             return bech32Encode("sif".getBytes(), bech32Decode(dpOpAddress).data);
@@ -359,7 +359,7 @@ public class WKey {
             return bech32Encode("sentvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(FETCHAI_MAIN)) {
             return bech32Encode("fetchvaloper".getBytes(), bech32Decode(dpOpAddress).data);
-        } else if (chain.equals(CRYTO_MAIN)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             return bech32Encode("crocncl".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SIF_MAIN)) {
             return bech32Encode("sifvaloper".getBytes(), bech32Decode(dpOpAddress).data);

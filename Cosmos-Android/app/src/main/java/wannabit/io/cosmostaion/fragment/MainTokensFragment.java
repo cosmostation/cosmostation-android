@@ -55,7 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -281,7 +281,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgFetch));
             onUpdateTotalCard();
 
-        } else if (getMainActivity().mBaseChain.equals(CRYTO_MAIN)) {
+        } else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCryto));
             onUpdateTotalCard();
 
@@ -539,7 +539,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindSentinelItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
                 onBindFetchItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(CRYTO_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 onBindCrytoItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 onBindSifItem(viewHolder, position);
@@ -1027,9 +1027,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         final Coin coin = getBaseDao().mGrpcBalance.get(position);
         if (coin.denom.equals(TOKEN_CRO)) {
             holder.itemSymbol.setText(getString(R.string.str_cro_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRYTO_MAIN));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CRYPTO_MAIN));
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
-            holder.itemFullName.setText("Cryto.org Staking Token");
+            holder.itemFullName.setText("Crypto.org Staking Token");
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokencrypto));
 

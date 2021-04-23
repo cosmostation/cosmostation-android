@@ -444,19 +444,19 @@ public class ApiClient {
 
 
 
-    //Services for Cryto.org mainnet api
-    private static HistoryApi api_cryto = null;
-    public static HistoryApi getCrytoApi(Context c) {
-        if (api_cryto == null) {
+    //Services for Crypto.org mainnet api
+    private static HistoryApi api_crypto = null;
+    public static HistoryApi getCryptoApi(Context c) {
+        if (api_crypto == null) {
             synchronized (ApiClient.class) {
                 Retrofit retrofit = new Retrofit.Builder()
-                        .baseUrl(c.getString(R.string.url_api_cryto))
+                        .baseUrl(c.getString(R.string.url_api_crypto))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                api_cryto = retrofit.create(HistoryApi.class);
+                api_crypto = retrofit.create(HistoryApi.class);
             }
         }
-        return api_cryto;
+        return api_crypto;
     }
 
     //Services for sifChain mainnet

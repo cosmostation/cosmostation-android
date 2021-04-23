@@ -46,7 +46,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -258,7 +258,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                     Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
                 }
 
-            } else if (getSActivity().mBaseChain.equals(CRYTO_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(CRYPTO_MAIN)) {
                 if (userInput.startsWith("cro1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
