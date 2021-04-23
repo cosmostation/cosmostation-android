@@ -101,6 +101,7 @@
     <string name="str_dvpn_c" translatable="false">DVPN</string>
     <string name="str_fet_c" translatable="false">FET</string>
     <string name="str_cro_c" translatable="false">CRO</string>
+    <string name="str_sif_c" translatable="false">ROWAN</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
