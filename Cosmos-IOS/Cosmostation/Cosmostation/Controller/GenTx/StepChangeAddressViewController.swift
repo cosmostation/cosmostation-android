@@ -140,6 +140,12 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            if (!userInput!.starts(with: "sif1") || !WKey.isValidateBech32(userInput!)) {
+                self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address", comment: ""))
             return;
@@ -166,6 +172,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
         }
         else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL

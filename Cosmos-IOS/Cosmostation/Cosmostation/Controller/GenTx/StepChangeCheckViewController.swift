@@ -118,6 +118,8 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
             url = SENTINEL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_ACCOUNT_INFO + account.account_address
         }
         if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
             url = IOV_TEST_ACCOUNT_INFO + account.account_address
@@ -218,8 +220,10 @@ class StepChangeCheckViewController: BaseViewController, PasswordViewDelegate {
                         url = SENTINEL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
                         url = FETCH_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+                        url = SIF_BORAD_TX
                     }
-                    if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
+                    else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
                         url = IOV_TEST_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
                         url = CERTIK_TEST_BORAD_TX
