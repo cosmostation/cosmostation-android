@@ -24,6 +24,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -36,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -131,6 +133,12 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             mMaxAvailable = getSActivity().mAccount.getTokenDelegable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+
+        } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+            mMaxAvailable = getSActivity().mAccount.getTokenDelegable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);
+            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, mDpDecimal, mDpDecimal));
+
         }
 
         else if (isGRPC(getSActivity().mBaseChain)) {
@@ -176,15 +184,16 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                             return;
                         }
+
                         BigDecimal checkPosition = inputAmount.movePointRight(mDpDecimal);
-                        try {
-                            Long.parseLong(checkPosition.toPlainString());
-                        } catch (Exception e) {
+                        BigDecimal checkMax = checkPosition.setScale(0, RoundingMode.DOWN);
+                        if (checkPosition.compareTo(checkMax) != 0) {
                             String recover = es.substring(0, es.length() - 1);
                             mAmountInput.setText(recover);
                             mAmountInput.setSelection(recover.length());
                             return;
                         }
+
                         if (inputAmount.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) {
                             mAmountInput.setBackground(getResources().getDrawable(R.drawable.edittext_box_error));
                         } else {
@@ -228,9 +237,12 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mAdd10)) {
             BigDecimal existed = BigDecimal.ZERO;
             String es = mAmountInput.getText().toString().trim();
+            WLog.w("es "  + es);
             if(es.length() > 0) {
                 existed = new BigDecimal(es);
             }
+            WLog.w("existed "  + existed);
+            WLog.w("add "  + existed.add(new BigDecimal("10")).toPlainString());
             mAmountInput.setText(existed.add(new BigDecimal("10")).toPlainString());
 
         } else if (v.equals(mAdd100)) {
