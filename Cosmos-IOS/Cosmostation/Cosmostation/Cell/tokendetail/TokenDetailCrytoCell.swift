@@ -34,14 +34,14 @@ class TokenDetailCrytoCell: TokenDetailCell {
     }
     
     override func onBindToken() {
-        let totalToken = WUtils.getAllMainAsset(CRYTO_MAIN_DENOM)
+        let totalToken = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
         totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 8, 8)
         totalValue.attributedText = WUtils.dpTokenValue(totalToken, BaseData.instance.getLastPrice(), 8, totalValue.font)
-        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(CRYTO_MAIN_DENOM), availableAmount.font!, 8, 8)
+        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(CRYPTO_MAIN_DENOM), availableAmount.font!, 8, 8)
         delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 8, 8)
         unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 8, 8)
-        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(CRYTO_MAIN_DENOM), rewardAmount.font, 8, 8)
-        let vesting = BaseData.instance.getVestingAmount(CRYTO_MAIN_DENOM)
+        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(CRYPTO_MAIN_DENOM), rewardAmount.font, 8, 8)
+        let vesting = BaseData.instance.getVestingAmount(CRYPTO_MAIN_DENOM)
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false
             vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting(PERSIS_MAIN_DENOM), availableAmount.font!, 8, 8)

@@ -403,7 +403,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
 
         
-        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYTO_MAIN) {
+        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN) {
             self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
@@ -1307,7 +1307,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             url = CGC_PRICE_TIC + "persistence"
         } else if (mChainType == ChainType.FETCH_MAIN) {
             url = CGC_PRICE_TIC + "fetch-ai"
-        } else if (mChainType == ChainType.CRYTO_MAIN) {
+        } else if (mChainType == ChainType.CRYPTO_MAIN) {
             url = CGC_PRICE_TIC + "crypto-com-chain"
         } else if (mChainType == ChainType.SIF_MAIN) {
             url = CGC_PRICE_TIC + "sifchain"

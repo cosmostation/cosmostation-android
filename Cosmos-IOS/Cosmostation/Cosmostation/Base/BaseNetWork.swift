@@ -391,7 +391,7 @@ class BaseNetWork {
             result = AKASH_MAIN_HISTORY + address
         } else if (chain == ChainType.PERSIS_MAIN) {
             result = PERSIS_MAIN_HISTORY + address
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_MAIN_HISTORY + address
         }
         
@@ -413,7 +413,7 @@ class BaseNetWork {
             result = AKASH_MAIN_HISTORY + address + "/" + valAddress
         } else if (chain == ChainType.PERSIS_MAIN) {
             result = PERSIS_MAIN_HISTORY + address + "/" + valAddress
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_MAIN_HISTORY + address + "/" + valAddress
         }
         
@@ -444,7 +444,7 @@ class BaseNetWork {
         } else if (chain == ChainType.PERSIS_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-persistence-app.cosmostation.io", port: 9090)
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-cryptocom.cosmostation.io", port: 9090)
         }
         

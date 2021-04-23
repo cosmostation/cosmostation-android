@@ -79,7 +79,7 @@ class WKey {
         } else if (chainType == ChainType.PERSIS_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 750, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
             
-        } else if (chainType == ChainType.CRYTO_MAIN) {
+        } else if (chainType == ChainType.CRYPTO_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 394, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
         } else {
@@ -119,7 +119,7 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "sent", program: ripemd160)
         } else if (chain == ChainType.FETCH_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "fetch", program: ripemd160)
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "cro", program: ripemd160)
         } else if (chain == ChainType.SIF_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "sif", program: ripemd160)
@@ -164,7 +164,7 @@ class WKey {
             } else if (chain == ChainType.PERSIS_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 750, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
-            } else if (chain == ChainType.CRYTO_MAIN) {
+            } else if (chain == ChainType.CRYPTO_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 394, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else {
@@ -240,7 +240,7 @@ class WKey {
             result = bech32.encode("sent", values: data)
         } else if (chain == ChainType.FETCH_MAIN) {
             result = bech32.encode("fetch", values: data)
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             result = bech32.encode("cro", values: data)
         } else if (chain == ChainType.SIF_MAIN) {
             result = bech32.encode("sif", values: data)

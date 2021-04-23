@@ -194,12 +194,12 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainImg.image = UIImage(named: "chainfetchai")
                     cell?.chainName.text = "FETCH.AI"
                     
-                } else if (selectedChain == ChainType.CRYTO_MAIN) {
+                } else if (selectedChain == ChainType.CRYPTO_MAIN) {
                     cell?.chainImg.isHidden = false
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "chaincrypto")
-                    cell?.chainName.text = "CRYTO.ORG"
+                    cell?.chainName.text = "CRYPTO.ORG"
                     
                 } else if (selectedChain == ChainType.SIF_MAIN) {
                     cell?.chainImg.isHidden = false

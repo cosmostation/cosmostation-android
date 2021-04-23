@@ -147,9 +147,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "chainfetchai")
             titleChainName.text = "(Fetch.ai Mainnet)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             titleChainImg.image = UIImage(named: "chaincrypto")
-            titleChainName.text = "(Cryto.org Mainnet)"
+            titleChainName.text = "(Crypto.org Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SIF_MAIN) {
             titleChainImg.image = UIImage(named: "chainsifchain")
@@ -212,9 +212,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = COLOR_SENTINEL_DARK2
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             floaty.buttonImage = UIImage.init(named: "sendImg")
-            floaty.buttonColor = COLOR_CRYTO_DARK
+            floaty.buttonColor = COLOR_CRYPTO_DARK
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = WUtils.getChainColor(chainType)
@@ -283,7 +283,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetSentinelItems(tableView, indexPath);
         } else if (chainType == ChainType.FETCH_MAIN) {
             return onSetFetchItems(tableView, indexPath);
-        } else if (chainType == ChainType.CRYTO_MAIN) {
+        } else if (chainType == ChainType.CRYPTO_MAIN) {
             return onSetCrytoItems(tableView, indexPath);
         } else if (chainType == ChainType.SIF_MAIN) {
             return onSetSifItems(tableView, indexPath);
@@ -1197,7 +1197,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://fetch.ai/") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             guard let url = URL(string: "https://crypto.org/") else { return }
             self.onShowSafariWeb(url)
             
@@ -1266,7 +1266,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://fetch.ai/blog/") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             guard let url = URL(string: "https://crypto.org/community") else { return }
             self.onShowSafariWeb(url)
             
@@ -1346,7 +1346,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             guard let url = URL(string: "https://www.coingecko.com/en/coins/fetch-ai") else { return }
             self.onShowSafariWeb(url)
             
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/crypto-com-chain") else { return }
             self.onShowSafariWeb(url)
             

@@ -71,8 +71,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             }
         } else if (userChain == ChainType.PERSIS_MAIN) {
             cell?.pathLabel.text = PERSIS_BASE_PATH.appending(String(indexPath.row))
-        } else if (userChain == ChainType.CRYTO_MAIN) {
-            cell?.pathLabel.text = CRYTO_BASE_PATH.appending(String(indexPath.row))
+        } else if (userChain == ChainType.CRYPTO_MAIN) {
+            cell?.pathLabel.text = CRYPTO_BASE_PATH.appending(String(indexPath.row))
         } else {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         }

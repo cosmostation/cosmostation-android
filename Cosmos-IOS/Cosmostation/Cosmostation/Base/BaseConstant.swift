@@ -558,7 +558,7 @@ let PERSIS_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let SENTINEL_VAL_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
 let OKEX_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
 let FETCH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
-let CRYTO_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
+let CRYPTO_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
 let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
@@ -774,7 +774,7 @@ let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
-let CRYTO_BASE_PATH                         = "m/44'/394'/0'/0/"
+let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -794,9 +794,9 @@ let GAS_FEE_RATE_TINY_PERSIS                = 0.000
 let GAS_FEE_RATE_LOW_PERSIS                 = 0.000
 let GAS_FEE_RATE_AVERAGE_PERSIS             = 0.000
 
-let GAS_FEE_RATE_TINY_CRYTO                 = 0.025
-let GAS_FEE_RATE_LOW_CRYTO                  = 0.05
-let GAS_FEE_RATE_AVERAGE_CRYTO              = 0.075
+let GAS_FEE_RATE_TINY_CRYPTO                 = 0.025
+let GAS_FEE_RATE_LOW_CRYPTO                  = 0.05
+let GAS_FEE_RATE_AVERAGE_CRYPTO              = 0.075
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
@@ -1041,10 +1041,10 @@ let COLOR_FETCH                             = UIColor.init(hexString: "57b5a8")
 let COLOR_FETCH_DARK                        = UIColor.init(hexString: "265750")
 let COLOR_FETCH_DARK2                       = UIColor.init(hexString: "1d284c")
 
-let TRANS_BG_COLOR_CRYTO                    = UIColor.init(hexString: "1199fa", alpha: 0.15)
-let TRANS_BG_COLOR_CRYTO2                   = UIColor.init(hexString: "1199fa", alpha: 0.4)
-let COLOR_CRYTO                             = UIColor.init(hexString: "1199fa")
-let COLOR_CRYTO_DARK                        = UIColor.init(hexString: "032d74")
+let TRANS_BG_COLOR_CRYPTO                   = UIColor.init(hexString: "1199fa", alpha: 0.15)
+let TRANS_BG_COLOR_CRYPTO2                  = UIColor.init(hexString: "1199fa", alpha: 0.4)
+let COLOR_CRYPTO                            = UIColor.init(hexString: "1199fa")
+let COLOR_CRYPTO_DARK                       = UIColor.init(hexString: "032d74")
 
 let TRANS_BG_COLOR_SIF                      = UIColor.init(hexString: "c19f33", alpha: 0.15)
 let TRANS_BG_COLOR_SIF2                     = UIColor.init(hexString: "c19f33", alpha: 0.4)
@@ -1077,7 +1077,7 @@ enum ChainType: String {
     case PERSIS_MAIN
     case SENTINEL_MAIN
     case FETCH_MAIN
-    case CRYTO_MAIN
+    case CRYPTO_MAIN
     case SIF_MAIN
     
     case COSMOS_TEST
@@ -1102,7 +1102,7 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SENTINEL_MAIN)
         result.append(FETCH_MAIN)
-        result.append(CRYTO_MAIN)
+        result.append(CRYPTO_MAIN)
         result.append(SIF_MAIN)
         result.append(SECRET_MAIN)
 
@@ -1181,7 +1181,7 @@ let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
 let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
 let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
-let CHAIN_CRYTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
+let CHAIN_CRYPTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
 let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
@@ -1206,7 +1206,7 @@ let OKEX_MAIN_OKB = "okb"
 let PERSIS_MAIN_DENOM = "uxprt"
 let SENTINEL_MAIN_DENOM = "udvpn"
 let FETCH_MAIN_DENOM = "afet"
-let CRYTO_MAIN_DENOM = "basecro"
+let CRYPTO_MAIN_DENOM = "basecro"
 let SIF_MAIN_DENOM = "rowan"
 
 let COSMOS_TEST_DENOM = "umuon"
@@ -1256,7 +1256,7 @@ let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_PERSIS_MAIN    = "https://www.mintscan.io/persistence/";
 let EXPLORER_SENTINEL_MAIN  = "https://www.mintscan.io/sentinel/";
 let EXPLORER_FETCH_MAIN     = "https://www.mintscan.io/fetchai/";
-let EXPLORER_CRYTO_MAIN     = "https://www.mintscan.io/crypto-org/";
+let EXPLORER_CRYPTO_MAIN     = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
