@@ -434,6 +434,12 @@
         <item name="android:textSize">@dimen/text_size_14</item>
     </style>
 
+    <style name="font_ss_14_sif" parent="@android:style/TextAppearance">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textColor">@color/colorSif</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
+    </style>
+
     <style name="font_ss_14_sentinel" parent="@android:style/TextAppearance">
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:textColor">@color/colorSentinel</item>

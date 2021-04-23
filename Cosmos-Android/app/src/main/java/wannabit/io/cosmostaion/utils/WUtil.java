@@ -97,6 +97,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.*;
 
 public class WUtil {
@@ -1331,6 +1332,9 @@ public class WUtil {
         } else if (chain.equals(CRYTO_MAIN)) {
             return CGC_CRYTO;
 
+        } else if (chain.equals(SIF_MAIN)) {
+            return CGC_SIF;
+
         }
         return BaseConstant.CGC_ATOM;
     }
@@ -1925,6 +1929,9 @@ public class WUtil {
         } else if (chain.equals(CRYTO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crypto.org/"));
 
+        } else if (chain.equals(SIF_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://sifchain.finance/"));
+
         }
         return null;
     }
@@ -1975,6 +1982,9 @@ public class WUtil {
 
         } else if (chain.equals(CRYTO_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://crypto.org/community/"));
+
+        } else if (chain.equals(SIF_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/sifchain-finance"));
 
         }
         return null;

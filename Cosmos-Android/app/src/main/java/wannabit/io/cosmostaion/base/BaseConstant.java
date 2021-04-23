@@ -51,6 +51,8 @@ public class BaseConstant {
     public final static String PRE_FETCH_UP_DOWN_24         = "PRE_FETCH_UP_DOWN_24";
     public final static String PRE_CRYTO_TIC                = "PRE_CRYTO_TIC";
     public final static String PRE_CRYTO_UP_DOWN_24         = "PRE_CRYTO_UP_DOWN_24";
+    public final static String PRE_SIF_TIC                  = "PRE_SIF_TIC";
+    public final static String PRE_SIF_UP_DOWN_24           = "PRE_SIF_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -624,6 +626,7 @@ public class BaseConstant {
     public final static String CGC_PERSISTENCE = "persistence";
     public final static String CGC_FETCH = "fetch-ai";
     public final static String CGC_CRYTO = "crypto-com-chain";
+    public final static String CGC_SIF = "sifchain";
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";

@@ -35,6 +35,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class WalletGuideHolder extends BaseHolder {
     public CardView     itemRoot;
@@ -152,6 +153,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_cryto);
             itemBtnGuide1.setText(R.string.str_faq_cryto);
             itemBtnGuide2.setText(R.string.str_guide_cryto);
+
+        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_sif);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_sif);
+            itemBtnGuide1.setText(R.string.str_guide_cryto);
+            itemBtnGuide2.setText(R.string.str_faq_sif);
 
         }
 
