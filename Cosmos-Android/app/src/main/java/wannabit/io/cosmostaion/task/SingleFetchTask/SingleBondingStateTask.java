@@ -21,6 +21,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class SingleBondingStateTask extends CommonTask {
@@ -108,7 +109,15 @@ public class SingleBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
+            } else if (getChain(mAccount.baseChain).equals(SIF_MAIN)) {
+                Response<ResLcdSingleBonding> response = ApiClient.getSifChain(mApp).getBonding(mAccount.address, mValidatorAddr).execute();
+                if (response.isSuccessful() && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
             }
+
 
 
         } catch (Exception e) {

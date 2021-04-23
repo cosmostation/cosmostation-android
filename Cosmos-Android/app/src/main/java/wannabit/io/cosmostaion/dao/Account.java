@@ -20,6 +20,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
@@ -235,7 +236,7 @@ public class Account {
             } else if (chain.equals(BaseChain.OKEX_MAIN) || chain.equals(BaseChain.OK_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
-            } else if (chain.equals(FETCHAI_MAIN)) {
+            } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
 
             } else if (chain.equals(CRYTO_MAIN)) {

@@ -81,6 +81,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
@@ -848,7 +849,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
+        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SIF_MAIN)) {
             return;
         }
         mTaskCount++;
@@ -1086,6 +1087,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
                 holder.itemBandOracleOff.setVisibility(View.VISIBLE);
             }
+            if (mBaseChain.equals(SIF_MAIN)) {
+                holder.itemTvYieldRate.setText("--");
+            }
 
             if (!TextUtils.isEmpty(mSelfBondingRate)) {
                 holder.itemTvSelfBondRate.setText(mSelfBondingRate);
@@ -1150,6 +1154,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
                 holder.itemBandOracleOff.setVisibility(View.VISIBLE);
             }
+            if (mBaseChain.equals(SIF_MAIN)) {
+                holder.itemTvYieldRate.setText("--");
+            }
 
             if (!TextUtils.isEmpty(mSelfBondingRate)){
                 holder.itemTvSelfBondRate.setText(mSelfBondingRate);
@@ -1202,6 +1209,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 holder.itemMonthlyReturn.setText(WDp.getMonthlyReward(getBaseContext(), getBaseDao(), BigDecimal.ONE, delegatedAmount, mBaseChain));
                 holder.itemDailyReturn.setTextColor(getResources().getColor(R.color.colorRed));
                 holder.itemMonthlyReturn.setTextColor(getResources().getColor(R.color.colorRed));
+            }
+            if (mBaseChain.equals(SIF_MAIN)) {
+                holder.itemDailyReturn.setText("--");
+                holder.itemMonthlyReturn.setText("--");
             }
 
             holder.itemBtnDelegate.setOnClickListener(new View.OnClickListener() {

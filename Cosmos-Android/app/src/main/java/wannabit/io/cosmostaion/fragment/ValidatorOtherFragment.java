@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class ValidatorOtherFragment extends BaseFragment {
@@ -177,6 +178,9 @@ public class ValidatorOtherFragment extends BaseFragment {
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                     }
+                }
+                if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                    holder.itemTvCommission.setText("--");
                 }
             }
         }

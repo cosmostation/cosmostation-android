@@ -25,6 +25,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 
 public class SingleRedelegateStateTask extends CommonTask {
@@ -152,6 +153,18 @@ public class SingleRedelegateStateTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
                 Response<ResLcdRedelegate> response = ApiClient.getFetchChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
+                if (response.isSuccessful()) {
+                    if(response.body() != null && response.body().result != null) {
+                        mResult.resultData = response.body().result;
+                        mResult.isSuccess = true;
+                    } else {
+                        mResult.resultData = new ArrayList<Redelegate>();
+                        mResult.isSuccess = true;
+                    }
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(SIF_MAIN)) {
+                Response<ResLcdRedelegate> response = ApiClient.getSifChain(mApp).getRedelegateHistory(mAccount.address, mToValidtor.operator_address).execute();
                 if (response.isSuccessful()) {
                     if(response.body() != null && response.body().result != null) {
                         mResult.resultData = response.body().result;
