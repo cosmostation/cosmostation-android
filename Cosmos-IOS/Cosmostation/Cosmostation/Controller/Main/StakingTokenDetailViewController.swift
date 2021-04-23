@@ -130,7 +130,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 cell?.onBindToken()
                 return cell!
                 
-            } else if (chainType == ChainType.CRYTO_MAIN) {
+            } else if (chainType == ChainType.CRYPTO_MAIN) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailCrytoCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!

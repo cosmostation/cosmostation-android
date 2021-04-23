@@ -75,7 +75,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
         memoLabel.text = pageHolderVC.mMemo
         if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(3) + " (3days after)"
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN || pageHolderVC.chainType! == ChainType.CRYTO_MAIN) {
+        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN || pageHolderVC.chainType! == ChainType.CRYPTO_MAIN) {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(28) + " (28days after)"
         } else {
             expectedDateLabel.text = WUtils.unbondingDateFromNow(21) + " (21days after)"
@@ -109,6 +109,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
             url = SENTINEL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -228,6 +230,8 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                         url = SENTINEL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
                         url = FETCH_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+                        url = SIF_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

@@ -172,9 +172,16 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             chainImg.image = UIImage(named: "chaincrypto")
-            keyPath.text = CRYTO_BASE_PATH.appending(account!.account_path)
+            keyPath.text = CRYPTO_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            chainImg.image = UIImage(named: "chainsifchain")
+            keyPath.text = CRYPTO_BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
@@ -425,6 +432,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                     return
                 }
                 
+            } else if (chainType! == ChainType.SIF_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
             } else {
                 self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
                 return
@@ -536,6 +550,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.SENTINEL_MAIN) {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
         }
 //        else if (chainType == ChainType.FETCH_MAIN) {
 //            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
@@ -616,6 +632,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             url = SENTINEL_NODE_INFO
         } else if (self.chainType == ChainType.FETCH_MAIN) {
             url = FETCH_NODE_INFO
+        } else if (self.chainType == ChainType.SIF_MAIN) {
+            url = SIF_NODE_INFO
         }
         else if (self.chainType == ChainType.BINANCE_TEST) {
             url = BNB_TEST_URL_NODE_INFO

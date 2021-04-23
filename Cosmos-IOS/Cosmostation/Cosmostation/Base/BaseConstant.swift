@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -99,6 +99,10 @@ let FETCH_API                           = "https://api-fetchai.cosmostation.io/"
 
 
 let CRYTO_API                           = "https://api-cryptocom.cosmostation.io/";
+
+
+let SIF_URL                             = "https://api.sifchain.finance/";
+let SIF_API                             = "";
 
 
 let CGC_URL                             = "https://api.coingecko.com/";
@@ -511,6 +515,32 @@ let CRYTO_MAIN_HISTORY                  = CRYTO_API + "v1/account/txs/";
 let CRYTO_MAIN_TRANS_HISTORY            = CRYTO_API + "v1/account/transfer_txs/";
 
 
+//SIF_URL
+let SIF_NODE_INFO                       = SIF_URL + "node_info";
+let SIF_TX                              = SIF_URL + "txs/";
+let SIF_VALIDATORS                      = SIF_URL + "staking/validators";
+let SIF_ACCOUNT_INFO                    = SIF_URL + "auth/accounts/";
+let SIF_BONDING                         = SIF_URL + "staking/delegators/";
+let SIF_BONDING_TAIL                    = "/delegations";
+let SIF_UNBONDING                       = SIF_URL + "staking/delegators/";
+let SIF_UNBONDING_TAIL                  = "/unbonding_delegations";
+let SIF_REWARD_FROM_VAL                 = SIF_URL + "distribution/delegators/";
+let SIF_REWARD_FROM_VAL_TAIL            = "/rewards/";
+let SIF_REWARD_ADDRESS                  = SIF_URL + "distribution/delegators/";
+let SIF_REWARD_ADDRESS_TAIL             = "/withdraw_address";
+let SIF_REDELEGATION                    = SIF_URL + "staking/redelegations";
+//let SIF_MINT_PARAM                      = SIF_URL + "minting/parameters";
+//let SIF_INFLATION                       = SIF_URL + "minting/inflation";
+//let SIF_PROVISIONS                      = SIF_URL + "minting/annual-provisions";
+let SIF_STAKING_POOL                    = SIF_URL + "staking/pool";
+let SIF_BORAD_TX                        = SIF_URL + "txs";
+let SIF_PROPOSALS                       = SIF_URL + "gov/proposals";
+let SIF_PROPOSALS_TALLY_TAIL            = "/tally";
+
+let SIF_API_HISTORY                     = SIF_API + "v1/account/txs/";
+let SIF_API_TRANS_HISTORY               = SIF_API + "v1/account/transfer_txs/";
+
+
 
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
@@ -528,7 +558,8 @@ let PERSIS_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let SENTINEL_VAL_URL                    = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sentinel/";
 let OKEX_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/okex/";
 let FETCH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
-let CRYTO_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
+let CRYPTO_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
+let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -743,7 +774,7 @@ let BAND_BASE_PATH                          = "m/44'/494'/0'/0/"
 let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
-let CRYTO_BASE_PATH                         = "m/44'/394'/0'/0/"
+let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let FEE_ATOM_TINY                           = "500";
 let FEE_ATOM_LOW                            = "1000";
 let FEE_ATOM_MID                            = "2000";
@@ -763,9 +794,9 @@ let GAS_FEE_RATE_TINY_PERSIS                = 0.000
 let GAS_FEE_RATE_LOW_PERSIS                 = 0.000
 let GAS_FEE_RATE_AVERAGE_PERSIS             = 0.000
 
-let GAS_FEE_RATE_TINY_CRYTO                 = 0.025
-let GAS_FEE_RATE_LOW_CRYTO                  = 0.05
-let GAS_FEE_RATE_AVERAGE_CRYTO              = 0.075
+let GAS_FEE_RATE_TINY_CRYPTO                 = 0.025
+let GAS_FEE_RATE_LOW_CRYPTO                  = 0.05
+let GAS_FEE_RATE_AVERAGE_CRYPTO              = 0.075
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
@@ -889,6 +920,14 @@ let FETCH_GAS_AMOUNT_REINVEST               = "350000"
 let FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000"
 let FETCH_GAS_AMOUNT_VOTE                   = "100000"
 
+let SIF_GAS_FEE_RATE_AVERAGE                = "0.5"
+let SIF_GAS_AMOUNT_SEND                     = "100000"
+let SIF_GAS_AMOUNT_STAKE                    = "200000"
+let SIF_GAS_AMOUNT_REDELEGATE               = "300000"
+let SIF_GAS_AMOUNT_REINVEST                 = "350000"
+let SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000"
+let SIF_GAS_AMOUNT_VOTE                     = "100000"
+
 
 // Constant for BEP3-Swap
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
@@ -1002,10 +1041,15 @@ let COLOR_FETCH                             = UIColor.init(hexString: "57b5a8")
 let COLOR_FETCH_DARK                        = UIColor.init(hexString: "265750")
 let COLOR_FETCH_DARK2                       = UIColor.init(hexString: "1d284c")
 
-let TRANS_BG_COLOR_CRYTO                    = UIColor.init(hexString: "1199fa", alpha: 0.15)
-let TRANS_BG_COLOR_CRYTO2                   = UIColor.init(hexString: "1199fa", alpha: 0.4)
-let COLOR_CRYTO                             = UIColor.init(hexString: "1199fa")
-let COLOR_CRYTO_DARK                        = UIColor.init(hexString: "032d74")
+let TRANS_BG_COLOR_CRYPTO                   = UIColor.init(hexString: "1199fa", alpha: 0.15)
+let TRANS_BG_COLOR_CRYPTO2                  = UIColor.init(hexString: "1199fa", alpha: 0.4)
+let COLOR_CRYPTO                            = UIColor.init(hexString: "1199fa")
+let COLOR_CRYPTO_DARK                       = UIColor.init(hexString: "032d74")
+
+let TRANS_BG_COLOR_SIF                      = UIColor.init(hexString: "c19f33", alpha: 0.15)
+let TRANS_BG_COLOR_SIF2                     = UIColor.init(hexString: "c19f33", alpha: 0.4)
+let COLOR_SIF                               = UIColor.init(hexString: "c19f33")
+let COLOR_SIF_DARK                          = UIColor.init(hexString: "5e4d19")
 
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
@@ -1033,7 +1077,8 @@ enum ChainType: String {
     case PERSIS_MAIN
     case SENTINEL_MAIN
     case FETCH_MAIN
-    case CRYTO_MAIN
+    case CRYPTO_MAIN
+    case SIF_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -1057,7 +1102,8 @@ enum ChainType: String {
         result.append(AKASH_MAIN)
         result.append(SENTINEL_MAIN)
         result.append(FETCH_MAIN)
-        result.append(CRYTO_MAIN)
+        result.append(CRYPTO_MAIN)
+        result.append(SIF_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -1135,7 +1181,8 @@ let CHAIN_OKEX_S = "SUPPORT_CHAIN_OKEX_MAIN"
 let CHAIN_PERSIS_S = "SUPPORT_CHAIN_PERSISTENCE_MAIN"
 let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
 let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
-let CHAIN_CRYTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
+let CHAIN_CRYPTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
+let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -1159,7 +1206,8 @@ let OKEX_MAIN_OKB = "okb"
 let PERSIS_MAIN_DENOM = "uxprt"
 let SENTINEL_MAIN_DENOM = "udvpn"
 let FETCH_MAIN_DENOM = "afet"
-let CRYTO_MAIN_DENOM = "basecro"
+let CRYPTO_MAIN_DENOM = "basecro"
+let SIF_MAIN_DENOM = "rowan"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -1208,7 +1256,8 @@ let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_PERSIS_MAIN    = "https://www.mintscan.io/persistence/";
 let EXPLORER_SENTINEL_MAIN  = "https://www.mintscan.io/sentinel/";
 let EXPLORER_FETCH_MAIN     = "https://www.mintscan.io/fetchai/";
-let EXPLORER_CRYTO_MAIN     = "https://www.mintscan.io/crypto-org/";
+let EXPLORER_CRYPTO_MAIN     = "https://www.mintscan.io/crypto-org/";
+let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";

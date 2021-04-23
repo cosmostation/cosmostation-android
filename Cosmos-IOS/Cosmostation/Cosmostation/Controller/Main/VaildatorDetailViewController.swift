@@ -135,7 +135,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN) {
             mRewardCoins.removeAll()
             mFetchCnt = 5
             onFetchValidatorInfo(mValidator!)
@@ -298,6 +298,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell?.bandOracleImg.isHidden = false
             }
         }
+        //temp hide apr for sifchain
+        if (chainType == ChainType.SIF_MAIN) {
+            cell!.avergaeYield.text = "--"
+        }
+        
         return cell!
     }
     
@@ -351,6 +356,10 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 cell?.bandOracleImg.isHidden = false
             }
+        }
+        //temp hide apr for sifchain
+        if (chainType == ChainType.SIF_MAIN) {
+            cell!.avergaeYield.text = "--"
         }
         
         cell?.actionDelegate = {
@@ -416,6 +425,12 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         cell?.actionReinvest = {
             self.onCheckReinvest()
+        }
+        
+        //temp hide apr for sifchain
+        if (chainType == ChainType.SIF_MAIN) {
+            cell!.myDailyReturns.text = "--"
+            cell!.myMonthlyReturns.text = "--"
         }
         return cell!
     }
@@ -570,6 +585,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_VALIDATORS + "/" + validator.operator_address
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_VALIDATORS + "/" + validator.operator_address
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_VALIDATORS + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
@@ -612,6 +629,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_BONDING + account.account_address + FETCH_BONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_BONDING + account.account_address + SIF_BONDING_TAIL + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
@@ -659,6 +678,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_UNBONDING + account.account_address + FETCH_UNBONDING_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_UNBONDING + account.account_address + SIF_UNBONDING_TAIL + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
@@ -701,6 +722,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_REWARD_FROM_VAL + account.account_address + SENTINEL_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_REWARD_FROM_VAL + account.account_address + FETCH_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_FROM_VAL + account.account_address + SIF_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + KAVA_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
@@ -746,6 +769,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_BONDING + address + SENTINEL_BONDING_TAIL + "/" + vAddress
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_BONDING + address + FETCH_BONDING_TAIL + "/" + vAddress
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_BONDING + address + SIF_BONDING_TAIL + "/" + vAddress
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
@@ -788,6 +813,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_REDELEGATION;
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_REDELEGATION;
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_REDELEGATION;
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REDELEGATION;
@@ -834,6 +861,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
@@ -899,6 +928,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             url = SENTINEL_API_HISTORY + account.account_address + "/" + validator.operator_address
         } else if (chainType == ChainType.FETCH_MAIN) {
             url = FETCH_API_HISTORY + account.account_address + "/" + validator.operator_address
+        } else if (chainType == ChainType.SIF_MAIN) {
+            url = SIF_API_HISTORY + account.account_address + "/" + validator.operator_address
         }
         else if (chainType == ChainType.KAVA_TEST) {
             url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
@@ -1199,6 +1230,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.SIF_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1338,6 +1376,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.SIF_MAIN) {
+            if (mBonding == nil || mBonding!.getAmount() == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+            if let entries = mUnbonding?.entries.count, entries > 7 {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_UNDELEGATE2, 0)
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1440,6 +1493,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
                 
             } else if (chainType == ChainType.FETCH_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+                
+            } else if (chainType == ChainType.SIF_MAIN) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
                 if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
@@ -1574,6 +1635,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.FETCH_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
+            if (rewardSum == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if (rewardSum.compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.SIF_MAIN) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
             let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
             if (rewardSum == NSDecimalNumber.zero) {
@@ -1743,6 +1820,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
                 
             } else if (chainType == ChainType.FETCH_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
+                let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType == ChainType.SIF_MAIN) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
                 let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
                 if (rewardSum == NSDecimalNumber.zero) {

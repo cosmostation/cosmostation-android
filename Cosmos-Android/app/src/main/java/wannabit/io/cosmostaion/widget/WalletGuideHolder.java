@@ -22,7 +22,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -35,6 +35,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class WalletGuideHolder extends BaseHolder {
     public CardView     itemRoot;
@@ -146,12 +147,19 @@ public class WalletGuideHolder extends BaseHolder {
             itemBtnGuide1.setText(R.string.str_faq_fetch);
             itemBtnGuide2.setText(R.string.str_guide_fetch);
 
-        } else if (mainActivity.mBaseChain.equals(CRYTO_MAIN)) {
+        } else if (mainActivity.mBaseChain.equals(CRYPTO_MAIN)) {
             itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.cryptochain_img));
-            itemGuideTitle.setText(R.string.str_front_guide_title_cryto);
-            itemGuideMsg.setText(R.string.str_front_guide_msg_cryto);
-            itemBtnGuide1.setText(R.string.str_faq_cryto);
-            itemBtnGuide2.setText(R.string.str_guide_cryto);
+            itemGuideTitle.setText(R.string.str_front_guide_title_crypto);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_crypto);
+            itemBtnGuide1.setText(R.string.str_faq_crypto);
+            itemBtnGuide2.setText(R.string.str_guide_crypto);
+
+        } else if (mainActivity.mBaseChain.equals(SIF_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_sif);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_sif);
+            itemBtnGuide1.setText(R.string.str_guide_crypto);
+            itemBtnGuide2.setText(R.string.str_faq_sif);
 
         }
 

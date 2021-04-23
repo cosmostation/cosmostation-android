@@ -63,7 +63,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -76,6 +76,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_SIMPLE_CHECK;
@@ -358,11 +359,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorFetch));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorFetch));
 
-        } else if (mBaseChain.equals(CRYTO_MAIN)) {
+        } else if (mBaseChain.equals(CRYPTO_MAIN)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
-            mToolbarChainName.setText(getString(R.string.str_cryto_net));
+            mToolbarChainName.setText(getString(R.string.str_crypto_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCryto));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCryto2));
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsifchain));
+            mToolbarChainName.setText(getString(R.string.str_sif_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorSif));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorSif));
 
         }
 
@@ -573,6 +580,13 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
 
             } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+
+            } else if (mBaseChain.equals(SIF_MAIN)) {
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
                 if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
                     hasbalance  = true;
@@ -797,11 +811,17 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainfetchai));
                     holder.chainName.setText(getString(R.string.str_fetch_main));
 
-                } else if (chain.equals(CRYTO_MAIN)) {
+                } else if (chain.equals(CRYPTO_MAIN)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chaincrypto));
-                    holder.chainName.setText(getString(R.string.str_cryto_main));
+                    holder.chainName.setText(getString(R.string.str_crypto_main));
+
+                } else if (chain.equals(SIF_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsifchain));
+                    holder.chainName.setText(getString(R.string.str_sif_main));
 
                 }
 

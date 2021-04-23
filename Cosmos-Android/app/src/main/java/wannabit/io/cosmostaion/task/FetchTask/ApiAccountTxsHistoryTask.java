@@ -146,9 +146,9 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.CRYTO_MAIN)) {
+            } else if (mChain.equals(BaseChain.CRYPTO_MAIN)) {
 //                WLog.w("CRYTO_MAIN " + ApiClient.getCrytoApi(mApp).getAccountTxsCustom(mAddress, "50").request().url());
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCrytoApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCryptoApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;

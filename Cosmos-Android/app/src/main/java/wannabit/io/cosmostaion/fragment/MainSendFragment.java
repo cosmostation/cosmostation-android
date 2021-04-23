@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.widget.WalletPersisHolder;
 import wannabit.io.cosmostaion.widget.WalletPriceHolder;
 import wannabit.io.cosmostaion.widget.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.WalletSentinelHolder;
+import wannabit.io.cosmostaion.widget.WalletSifHolder;
 import wannabit.io.cosmostaion.widget.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.WalletUndelegationHolder;
 
@@ -44,7 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
@@ -56,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
 public class MainSendFragment extends BaseFragment {
@@ -189,7 +191,8 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_PERSIS            = 11;
         private static final int TYPE_SENTINEL          = 12;
         private static final int TYPE_FETCH             = 13;
-        private static final int TYPE_CRYTO             = 14;
+        private static final int TYPE_CRYPTO            = 14;
+        private static final int TYPE_SIF               = 15;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
@@ -242,8 +245,11 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_FETCH) {
                 return new WalletFetchHolder(getLayoutInflater().inflate(R.layout.item_wallet_fetch, viewGroup, false));
 
-            } else if (viewType == TYPE_CRYTO) {
+            } else if (viewType == TYPE_CRYPTO) {
                 return new WalletCrytoHolder(getLayoutInflater().inflate(R.layout.item_wallet_cryto, viewGroup, false));
+
+            } else if (viewType == TYPE_SIF) {
+                return new WalletSifHolder(getLayoutInflater().inflate(R.layout.item_wallet_sif, viewGroup, false));
 
             }
 
@@ -279,6 +285,13 @@ public class MainSendFragment extends BaseFragment {
                 if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain .equals(BNB_TEST) ||
                         getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
                     return 4;
+                } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                    if (getBaseDao().mMyUnbondings.size() > 0) {
+                        return 5;
+                    } else {
+                        return 4;
+                    }
+
                 } else {
                     if (getBaseDao().mMyUnbondings.size() > 0) {
                         return 6;
@@ -299,7 +312,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
                     else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
                     else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) { return TYPE_PERSIS; }
-                    else if (getMainActivity().mBaseChain.equals(CRYTO_MAIN)) { return TYPE_CRYTO; }
+                    else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) { return TYPE_CRYPTO; }
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {
@@ -319,6 +332,21 @@ public class MainSendFragment extends BaseFragment {
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {
+                    return TYPE_GIUDE;
+                }
+
+            } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                if (position == 0) {
+                    return TYPE_ADDRESS;
+                } else if (position == 1) {
+                    return TYPE_SIF;
+                } else if (position == 2) {
+                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
+                    else { return TYPE_PRICE; }
+                } else if (position == 3) {
+                    if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_PRICE; }
+                    else { return TYPE_GIUDE; }
+                } else if (position == 4) {
                     return TYPE_GIUDE;
                 }
 

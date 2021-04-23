@@ -33,6 +33,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
@@ -285,7 +286,7 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                     mExpectedLayer.setVisibility(View.GONE);
                 }
 
-            } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
+            } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN) || getSActivity().mBaseChain.equals(SIF_MAIN)) {
                 for (Coin coin:getSActivity().mRewards) {
                     rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }

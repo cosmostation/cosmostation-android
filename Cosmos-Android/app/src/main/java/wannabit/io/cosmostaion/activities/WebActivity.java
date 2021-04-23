@@ -14,9 +14,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.utils.WLog;
 
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
@@ -25,7 +24,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CRYTOORG_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_CRYPTOORG_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_IRIS_MAIN;
@@ -247,16 +246,16 @@ public class WebActivity extends BaseActivity {
             else
                 mWebview.loadUrl(EXPLORER_FETCHAI_MAIN);
 
-        } else if (mBasechain.equals(CRYTO_MAIN)) {
+        } else if (mBasechain.equals(CRYPTO_MAIN)) {
             mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel));
             if (!TextUtils.isEmpty(mTxid))
-                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN + "txs/" + mTxid);
+                mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
-                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN + "proposals/" + mVoteId);
+                mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN + "proposals/" + mVoteId);
             else if (!TextUtils.isEmpty(mAddress))
-                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN + "account/" + mAddress);
+                mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN + "account/" + mAddress);
             else
-                mWebview.loadUrl(EXPLORER_CRYTOORG_MAIN);
+                mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN);
 
         }
 

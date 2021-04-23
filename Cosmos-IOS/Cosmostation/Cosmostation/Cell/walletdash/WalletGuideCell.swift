@@ -124,13 +124,19 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_fetch", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_fetch", comment: ""), for: .normal)
             
-        } else if (chainType == ChainType.CRYTO_MAIN) {
+        } else if (chainType == ChainType.CRYPTO_MAIN) {
             guideImg.image = UIImage(named: "cryptochainImg")
-            guideTitle.text = NSLocalizedString("send_guide_title_cryto", comment: "")
-            guideMsg.text = NSLocalizedString("send_guide_msg_cryto", comment: "")
-            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_cryto", comment: ""), for: .normal)
-            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_cryto", comment: ""), for: .normal)
+            guideTitle.text = NSLocalizedString("send_guide_title_crypto", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_crypto", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_crypto", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_crypto", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.SIF_MAIN) {
+            guideImg.image = UIImage(named: "sifchainImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_sif", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_sif", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_sif", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_sif", comment: ""), for: .normal)
         }
         
     }

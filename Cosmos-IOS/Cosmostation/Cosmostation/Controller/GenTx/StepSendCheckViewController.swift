@@ -260,6 +260,20 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+            
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            mDpDecimal = 18
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
+            
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
+            
+            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+            
         }
         
         
@@ -337,6 +351,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             url = SENTINEL_ACCOUNT_INFO + account.account_address
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_ACCOUNT_INFO + account.account_address
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_ACCOUNT_INFO + account.account_address
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_ACCOUNT_INFO + account.account_address
@@ -514,6 +530,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                         url = SENTINEL_BORAD_TX
                     } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
                         url = FETCH_BORAD_TX
+                    } else if (self.pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+                        url = SIF_BORAD_TX
                     }
                     else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
                         url = KAVA_TEST_BORAD_TX

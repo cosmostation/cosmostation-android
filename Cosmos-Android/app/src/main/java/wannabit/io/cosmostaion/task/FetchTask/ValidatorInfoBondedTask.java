@@ -29,6 +29,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class ValidatorInfoBondedTask extends CommonTask {
     private BaseChain   mChain;
@@ -187,6 +188,19 @@ public class ValidatorInfoBondedTask extends CommonTask {
 
             } else if (mChain.equals(FETCHAI_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getFetchChain(mApp).getBondedValidatorDetailList().execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(SIF_MAIN)) {
+                Response<ResLcdValidators> response = ApiClient.getSifChain(mApp).getBondedValidatorDetailList().execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

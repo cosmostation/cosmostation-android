@@ -4,8 +4,6 @@ import android.content.Context;
 import android.text.SpannableString;
 import android.text.TextUtils;
 
-import org.bitcoinj.crypto.DeterministicKey;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.UUID;
@@ -13,14 +11,10 @@ import java.util.UUID;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
@@ -235,10 +229,10 @@ public class Account {
             } else if (chain.equals(BaseChain.OKEX_MAIN) || chain.equals(BaseChain.OK_TEST)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 0, 6);
 
-            } else if (chain.equals(FETCHAI_MAIN)) {
+            } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 18, 6);
 
-            } else if (chain.equals(CRYTO_MAIN)) {
+            } else if (chain.equals(CRYPTO_MAIN)) {
                 return WDp.getDpAmount2(c, new BigDecimal(lastTotal), 8, 6);
 
             } else {

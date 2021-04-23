@@ -39,6 +39,8 @@
 		280E1F2B254AD3A80007BA7D /* ResourceChainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1F29254AD3A80007BA7D /* ResourceChainCell.xib */; };
 		280E6CDD2605D78900B3BCBB /* WalletPersisCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */; };
 		280E6CDE2605D78900B3BCBB /* WalletPersisCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */; };
+		28105894262EE638009244B8 /* WalletSifCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28105892262EE638009244B8 /* WalletSifCell.swift */; };
+		28105895262EE638009244B8 /* WalletSifCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28105893262EE638009244B8 /* WalletSifCell.xib */; };
 		28129567250F5072007B217E /* KavaSwapParam2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28129566250F5072007B217E /* KavaSwapParam2.swift */; };
 		2812956B250F52C8007B217E /* KavaSwapSupply2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956A250F52C8007B217E /* KavaSwapSupply2.swift */; };
 		2812956E250F81C3007B217E /* SelectCoinCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2812956C250F81C3007B217E /* SelectCoinCell.swift */; };
@@ -821,6 +823,8 @@
 		280E1F29254AD3A80007BA7D /* ResourceChainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResourceChainCell.xib; sourceTree = "<group>"; };
 		280E6CDB2605D78900B3BCBB /* WalletPersisCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletPersisCell.swift; sourceTree = "<group>"; };
 		280E6CDC2605D78900B3BCBB /* WalletPersisCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletPersisCell.xib; sourceTree = "<group>"; };
+		28105892262EE638009244B8 /* WalletSifCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSifCell.swift; sourceTree = "<group>"; };
+		28105893262EE638009244B8 /* WalletSifCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSifCell.xib; sourceTree = "<group>"; };
 		28129566250F5072007B217E /* KavaSwapParam2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapParam2.swift; sourceTree = "<group>"; };
 		2812956A250F52C8007B217E /* KavaSwapSupply2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSwapSupply2.swift; sourceTree = "<group>"; };
 		2812956C250F81C3007B217E /* SelectCoinCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCoinCell.swift; sourceTree = "<group>"; };
@@ -1926,6 +1930,8 @@
 				289652602624715E0006FC2E /* WalletFetchCell.xib */,
 				2829CEA52627080C0048B52A /* WalletCrytoCell.swift */,
 				2829CEA62627080C0048B52A /* WalletCrytoCell.xib */,
+				28105892262EE638009244B8 /* WalletSifCell.swift */,
+				28105893262EE638009244B8 /* WalletSifCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -2765,6 +2771,7 @@
 				28663BF0248A4FB000080311 /* WalletBandCell.xib in Resources */,
 				E126CF9B2387A60D002A546F /* WalletPriceCell.xib in Resources */,
 				282A9613260DE054000F4CE6 /* StepFeeGrpcViewController.xib in Resources */,
+				28105895262EE638009244B8 /* WalletSifCell.xib in Resources */,
 				E1945E32222E7C0800A1436F /* LaunchScreen.storyboard in Resources */,
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */,
@@ -3238,6 +3245,7 @@
 				287AC5DE25FDF7260070837E /* htlc_tx.pb.swift in Sources */,
 				287AC5C125FDF7250070837E /* coinswap_tx.pb.swift in Sources */,
 				E151B658224873640026B8C0 /* SettingTableViewController.swift in Sources */,
+				28105894262EE638009244B8 /* WalletSifCell.swift in Sources */,
 				2868558F24989A8F0099D18F /* Bep3SupplyPopup.swift in Sources */,
 				287AC63225FDF7260070837E /* cosmos_base_reflection_v1beta1_reflection.grpc.swift in Sources */,
 				28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */,

@@ -164,12 +164,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
             totalCard.backgroundColor = TRANS_BG_COLOR_FETCH
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             titleChainImg.image = UIImage(named: "chaincrypto")
-            titleChainName.text = "(Cryto.org Mainnet)"
+            titleChainName.text = "(Crypto.org Mainnet)"
             titleAlarmBtn.isHidden = true
             kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_CRYTO
+            totalCard.backgroundColor = TRANS_BG_COLOR_CRYPTO
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsifchain")
+            titleChainName.text = "(SifChain Mainnet)"
+            titleAlarmBtn.isHidden = true
+            kavaOracle.isHidden = true
+            totalCard.backgroundColor = TRANS_BG_COLOR_SIF
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -245,60 +251,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         self.onUpdateTotalCard();
         self.tokenTableView.reloadData()
-        if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
-            onFetchCosmosTokenPrice()
-            
-        } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
-            onFetchIrisTokenPrice()
-            
-        } else if (chainType! == ChainType.BINANCE_MAIN) {
+         if (chainType! == ChainType.BINANCE_MAIN) {
             onFetchBnbTokenPrice()
-            
-        } else if (chainType! == ChainType.KAVA_MAIN) {
-            onFetchKavaTokenPrice()
-            updateFloaty()
-            
-        } else if (chainType! == ChainType.BINANCE_TEST) {
-            updateFloaty()
-            
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            onFetchKavaTokenPrice()
-            updateFloaty()
-            
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            onFetchBandTokenPrice()
-            
-        } else if (chainType! == ChainType.SECRET_MAIN) {
-            onFetchSecretTokenPrice()
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            onFetchIovTokenPrice()
-            
-        } else if (chainType! == ChainType.IOV_TEST) {
-            onFetchIovTokenPrice()
-            updateFloaty()
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             onFetchOkTokenPrice()
             updateFloaty()
-            
-        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-            onFetchCertikTokenPrice()
-            
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            onFetchAkashTokenPrice()
-            
-        } else if (chainType! == ChainType.PERSIS_MAIN) {
-            onFetchPersisTokenPrice()
-            
-        } else if (chainType! == ChainType.SENTINEL_MAIN) {
-            onFetchSentinelTokenPrice()
-            
-        } else if (chainType! == ChainType.FETCH_MAIN) {
-            onFetchFetchaiTokenPrice()
-            
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
-            onFetchCrytoTokenPrice()
             
         }
         
@@ -433,6 +391,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, totalAmount.font, 18, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allFet, BaseData.instance.getLastPrice(), 18, totalValue.font)
             
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            self.tokenCnt.text = String(mainTabVC.mBalances.count)
+            let allRowan = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
+            totalAmount.attributedText = WUtils.displayAmount2(allRowan.stringValue, totalAmount.font, 18, 6)
+            totalValue.attributedText = WUtils.dpTokenValue(allRowan, BaseData.instance.getLastPrice(), 18, totalValue.font)
+            
         }
         
         else if (chainType! == ChainType.COSMOS_MAIN) {
@@ -459,9 +423,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             totalAmount.attributedText = WUtils.displayAmount2(allXprt.stringValue, totalAmount.font, 6, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allXprt, BaseData.instance.getLastPrice(), 6, totalValue.font)
             
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allCro = WUtils.getAllMainAsset(CRYTO_MAIN_DENOM)
+            let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, totalAmount.font, 8, 6)
             totalValue.attributedText = WUtils.dpTokenValue(allCro, BaseData.instance.getLastPrice(), 8, totalValue.font)
             
@@ -519,8 +483,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetSentinelItems(tableView, indexPath)
         } else if (chainType! == ChainType.FETCH_MAIN) {
             return onSetFetchItems(tableView, indexPath)
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             return onSetCrytoItems(tableView, indexPath)
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            return onSetSifItems(tableView, indexPath)
         } else if (chainType! == ChainType.COSMOS_TEST) {
             return onSetCosmosTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.IRIS_TEST) {
@@ -976,14 +942,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == CRYTO_MAIN_DENOM) {
+        if (balance.denom == CRYPTO_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokencrypto")
             cell?.tokenSymbol.text = "CRO"
-            cell?.tokenSymbol.textColor = COLOR_CRYTO
+            cell?.tokenSymbol.textColor = COLOR_CRYPTO
             cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Cryto.org Staking Token"
+            cell?.tokenDescription.text = "Crypto.org Staking Token"
             
-            let allCro = WUtils.getAllMainAsset(CRYTO_MAIN_DENOM)
+            let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(allCro, BaseData.instance.getLastPrice(), 8, cell!.tokenValue.font)
         } else {
@@ -994,15 +960,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
-    
-    
-    func onFetchCosmosTokenPrice() {
-        self.onUpdateTotalCard()
+    func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == SIF_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokensifchain")
+            cell?.tokenSymbol.text = "ROWAN"
+            cell?.tokenSymbol.textColor = COLOR_SIF
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Sif Chain Staking Token"
+            
+            let allFet = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allFet, BaseData.instance.getLastPrice(), 18, cell!.tokenValue.font)
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
     }
     
-    func onFetchIrisTokenPrice() {
-        self.onUpdateTotalCard()
-    }
     
     func onFetchBnbTokenPrice() {
         for i in 0..<mainTabVC.mBalances.count {
@@ -1028,21 +1006,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
-    func onFetchKavaTokenPrice() {
-    }
-    
-    func onFetchBandTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchSecretTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchIovTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
     func onFetchOkTokenPrice() {
         for i in 0..<mainTabVC.mBalances.count {
             if ((mainTabVC.mBalances[i].balance_denom == "okb-c4d")) {
@@ -1064,30 +1027,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
             }
         }
-    }
-    
-    func onFetchCertikTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchAkashTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchPersisTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchSentinelTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchFetchaiTokenPrice() {
-        self.onUpdateTotalCard()
-    }
-    
-    func onFetchCrytoTokenPrice() {
-        self.onUpdateTotalCard()
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {

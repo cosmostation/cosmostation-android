@@ -98,6 +98,7 @@
 "fee_speed_akash_title" = "Support fixed amount fee for Akash Chain.";
 "fee_speed_sentinel_title" = "Support fixed amount fee for Sentinel Chain.";
 "fee_speed_fetch_title" = "Support fixed amount fee for Fetch.ai Chain.";
+"fee_speed_sif_title" = "Support fixed amount fee for Sif Chain.";
 "fee_speed_stargate_title" = "Support fixed amount fee for Stargate Chain.";
 "fee_speed_cosmos_title" = "Support fixed amount fee for Cosmos Chain";
 "fee_speed_fixed_fee" = "Tx fees are for transactions on the network, distributed to the community pool, delegators, and validators. It safeguards the network and prevents congestion due to excessive spamming.";
@@ -142,8 +143,10 @@
 "send_guide_msg_sentinel" = "Cosmos SDK based PoS network hosting open-source distributed and decentralized VPN service, providing users ensured privacy and security.";
 "send_guide_title_fetch" = "FETCH AI NETWORK";
 "send_guide_msg_fetch" = "Open access, decentralized machine learning network built with the Cosmos SDK.";
-"send_guide_title_cryto" = "CRYTO.ORG CHAIN";
-"send_guide_msg_cryto" = "Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.";
+"send_guide_title_crypto" = "CRYPTO.ORG CHAIN";
+"send_guide_msg_crypto" = "Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.";
+"send_guide_title_sif" = "SIF CHAIN";
+"send_guide_msg_sif" = "Omni-chain decentralized exchange built with the Cosmos SDK.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -157,7 +160,8 @@
 "send_guide_btn1_persis" = "Home";
 "send_guide_btn1_sentinel" = "Home";
 "send_guide_btn1_fetch" = "Home";
-"send_guide_btn1_cryto" = "Home";
+"send_guide_btn1_crypto" = "Home";
+"send_guide_btn1_sif" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -171,7 +175,8 @@
 "send_guide_btn2_persis" = "Blog";
 "send_guide_btn2_sentinel" = "Blog";
 "send_guide_btn2_fetch" = "Blog";
-"send_guide_btn2_cryto" = "Communities";
+"send_guide_btn2_crypto" = "Communities";
+"send_guide_btn2_sif" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -668,7 +673,8 @@
 "chain_title_okex" = "Okex Mainnet";
 "chain_title_sentinel" = "Sentinel Mainnet";
 "chain_title_fetch" = "Fetch.ai Mainnet";
-"chain_title_cryto" = "Cryto.org Mainnet";
+"chain_title_crypto" = "Crypto.org Mainnet";
+"chain_title_sif" = "Sifchain Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";

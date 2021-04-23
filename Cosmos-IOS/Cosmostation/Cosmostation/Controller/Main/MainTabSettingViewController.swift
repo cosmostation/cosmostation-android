@@ -101,9 +101,13 @@ class MainTabSettingViewController: BaseViewController {
             titleChainImg.image = UIImage(named: "chainfetchai")
             titleChainName.text = "(Fetch.ai Mainnet)"
             titleAlarmBtn.isHidden = true
-        } else if (chainType! == ChainType.CRYTO_MAIN) {
+        } else if (chainType! == ChainType.CRYPTO_MAIN) {
             titleChainImg.image = UIImage(named: "chaincrypto")
-            titleChainName.text = "(Cryto.org Mainnet)"
+            titleChainName.text = "(Crypto.org Mainnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            titleChainImg.image = UIImage(named: "chainsifchain")
+            titleChainName.text = "(SifChain Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         

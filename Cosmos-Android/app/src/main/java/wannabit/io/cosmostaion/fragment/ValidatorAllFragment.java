@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
@@ -215,6 +216,9 @@ public class ValidatorAllFragment extends BaseFragment implements View.OnClickLi
                     } else {
                         holder.itemBandOracleOff.setVisibility(View.INVISIBLE);
                     }
+                }
+                if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
+                    holder.itemTvCommission.setText("--");
                 }
             }
         }

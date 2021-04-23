@@ -51,7 +51,8 @@ public enum BaseChain {
     PERSIS_MAIN("persistence-mainnet"),
     SENTINEL_MAIN("sentinel-mainnet"),
     FETCHAI_MAIN("fetchai-mainnet"),
-    CRYTO_MAIN("crytoorg-mainnet"),
+    CRYPTO_MAIN("crytoorg-mainnet"),
+    SIF_MAIN("sif-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -150,8 +151,11 @@ public enum BaseChain {
         if (chainName.equals(FETCHAI_MAIN.chainName)) {
             return FETCHAI_MAIN;
         }
-        if (chainName.equals(CRYTO_MAIN.chainName)) {
-            return CRYTO_MAIN;
+        if (chainName.equals(CRYPTO_MAIN.chainName)) {
+            return CRYPTO_MAIN;
+        }
+        if (chainName.equals(SIF_MAIN.chainName)) {
+            return SIF_MAIN;
         }
 
 
@@ -211,7 +215,8 @@ public enum BaseChain {
         result.add(AKASH_MAIN);
         result.add(SENTINEL_MAIN);
         result.add(FETCHAI_MAIN);
-        result.add(CRYTO_MAIN);
+        result.add(CRYPTO_MAIN);
+        result.add(SIF_MAIN);
         result.add(SECRET_MAIN);
 
 //        result.add(COSMOS_TEST);
@@ -280,7 +285,7 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(PERSIS_MAIN)) {
             return true;
-        } else if (baseChain.equals(CRYTO_MAIN)) {
+        } else if (baseChain.equals(CRYPTO_MAIN)) {
             return true;
         }
 

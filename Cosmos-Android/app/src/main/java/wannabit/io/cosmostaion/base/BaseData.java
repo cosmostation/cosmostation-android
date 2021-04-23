@@ -72,7 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -85,9 +85,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_CRYTO_TIC;
-import static wannabit.io.cosmostaion.base.BaseConstant.PRE_CRYTO_UP_DOWN_24;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_CRYPTO_TIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_CRYPTO_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_FETCH_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_FETCH_UP_DOWN_24;
@@ -99,6 +100,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SECRET_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SENTINEL_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SENTINEL_UP_DOWN_24;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SIF_TIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SIF_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class BaseData {
@@ -806,25 +809,46 @@ public class BaseData {
                 getSharedPreferences().edit().putString(PRE_FETCH_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
-        } else if (chain.equals(CRYTO_MAIN)) {
+        } else if (chain.equals(CRYPTO_MAIN)) {
             if (getCurrency() == 0) {
-                getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+tic.market_data.current_price.usd).commit();
-                getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
             } else if (getCurrency() == 1) {
-                getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+tic.market_data.current_price.eur).commit();
-                getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
             } else if (getCurrency() == 2) {
-                getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+tic.market_data.current_price.krw).commit();
-                getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
             } else if (getCurrency() == 3) {
-                getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+tic.market_data.current_price.jpy).commit();
-                getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
             } else if (getCurrency() == 4) {
-                getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+tic.market_data.current_price.cny).commit();
-                getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
             } else if (getCurrency() == 5) {
-                getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+tic.market_data.current_price.btc).commit();
-                getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
+        } else if (chain.equals(SIF_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
         }
@@ -872,8 +896,11 @@ public class BaseData {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return BigDecimal.valueOf(getLastFetchTic());
 
-        } else if (chain.equals(CRYTO_MAIN)) {
-            return BigDecimal.valueOf(getLastCrytoTic());
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            return BigDecimal.valueOf(getLastCryptoTic());
+
+        } else if (chain.equals(SIF_MAIN)) {
+            return BigDecimal.valueOf(getLastSifTic());
 
         }
         return BigDecimal.ZERO;
@@ -919,8 +946,11 @@ public class BaseData {
         } else if (chain.equals(FETCHAI_MAIN)) {
             return BigDecimal.valueOf(getLastFetchUpDown());
 
-        } else if (chain.equals(CRYTO_MAIN)) {
-            return BigDecimal.valueOf(getLastCrytoUpDown());
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            return BigDecimal.valueOf(getLastCryptoUpDown());
+
+        } else if (chain.equals(SIF_MAIN)) {
+            return BigDecimal.valueOf(getLastSifUpDown());
         }
         return BigDecimal.ZERO;
 
@@ -1286,12 +1316,12 @@ public class BaseData {
         }
     }
 
-    public void setLastCrytoTic(Double price) {
-        getSharedPreferences().edit().putString(PRE_CRYTO_TIC, ""+price).commit();
+    public void setLastCryptoTic(Double price) {
+        getSharedPreferences().edit().putString(PRE_CRYPTO_TIC, ""+price).commit();
     }
 
-    public double getLastCrytoTic() {
-        String priceS = getSharedPreferences().getString(PRE_CRYTO_TIC, "0");
+    public double getLastCryptoTic() {
+        String priceS = getSharedPreferences().getString(PRE_CRYPTO_TIC, "0");
         try {
             return Double.parseDouble(priceS);
         } catch (Exception e) {
@@ -1299,12 +1329,38 @@ public class BaseData {
         }
     }
 
-    public void setLastCrytoUpDown(Double price) {
-        getSharedPreferences().edit().putString(PRE_CRYTO_UP_DOWN_24, ""+price).commit();
+    public void setLastCryptoUpDown(Double price) {
+        getSharedPreferences().edit().putString(PRE_CRYPTO_UP_DOWN_24, ""+price).commit();
     }
 
-    public double getLastCrytoUpDown() {
-        String priceS = getSharedPreferences().getString(PRE_CRYTO_UP_DOWN_24, "0");
+    public double getLastCryptoUpDown() {
+        String priceS = getSharedPreferences().getString(PRE_CRYPTO_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastSifTic(Double price) {
+        getSharedPreferences().edit().putString(PRE_SIF_TIC, ""+price).commit();
+    }
+
+    public double getLastSifTic() {
+        String priceS = getSharedPreferences().getString(PRE_SIF_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        } catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastSifUpDown(Double price) {
+        getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastSifUpDown() {
+        String priceS = getSharedPreferences().getString(PRE_SIF_UP_DOWN_24, "0");
         try {
             return Double.parseDouble(priceS);
         }catch (Exception e) {

@@ -1241,7 +1241,7 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYTO_MAIN
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN
                 || chain == ChainType.COSMOS_TEST) {
             if (data.mStakingPool_gRPC == nil || data.mProvision_gRPC == nil || data.mMintParam_gRPC == nil) {
                 return NSDecimalNumber.zero
@@ -1710,14 +1710,23 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 6)
             
-        } else if (chainType == ChainType.CRYTO_MAIN) {
-            if (coin.denom == CRYTO_MAIN_DENOM) {
+        } else if (chainType == ChainType.CRYPTO_MAIN) {
+            if (coin.denom == CRYPTO_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 6)
+            
+        } else if (chainType == ChainType.SIF_MAIN) {
+            if (coin.denom == SIF_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 6)
             
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
@@ -1870,14 +1879,23 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 6)
             
-        } else if (chainType == ChainType.CRYTO_MAIN) {
-            if (denom == CRYTO_MAIN_DENOM) {
+        } else if (chainType == ChainType.CRYPTO_MAIN) {
+            if (denom == CRYPTO_MAIN_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
             } else {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 8, 6)
+            
+        } else if (chainType == ChainType.SIF_MAIN) {
+            if (denom == SIF_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 6)
             
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
@@ -1969,8 +1987,10 @@ class WUtils {
             return COLOR_SENTINEL
         } else if (chain == ChainType.FETCH_MAIN) {
             return COLOR_FETCH
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return COLOR_CRYTO
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return COLOR_CRYPTO
+        } else if (chain == ChainType.SIF_MAIN) {
+            return COLOR_SIF
         }
         return COLOR_ATOM
     }
@@ -2002,8 +2022,10 @@ class WUtils {
             return COLOR_SENTINEL_DARK
         } else if (chain == ChainType.FETCH_MAIN) {
             return COLOR_FETCH_DARK
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return COLOR_CRYTO_DARK
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return COLOR_CRYPTO_DARK
+        } else if (chain == ChainType.SIF_MAIN) {
+            return COLOR_SIF_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2035,8 +2057,10 @@ class WUtils {
             return TRANS_BG_COLOR_SENTINEL
         } else if (chain == ChainType.FETCH_MAIN) {
             return TRANS_BG_COLOR_FETCH
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return TRANS_BG_COLOR_CRYTO
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return TRANS_BG_COLOR_CRYPTO
+        } else if (chain == ChainType.SIF_MAIN) {
+            return TRANS_BG_COLOR_SIF
         }
         return COLOR_BG_GRAY
     }
@@ -2068,8 +2092,10 @@ class WUtils {
             return "DVPN"
         } else if (chain == ChainType.FETCH_MAIN) {
             return "FET"
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             return "CRO"
+        } else if (chain == ChainType.SIF_MAIN) {
+            return "ROWAN"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2105,8 +2131,10 @@ class WUtils {
             return SENTINEL_MAIN_DENOM
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_MAIN_DENOM
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return CRYTO_MAIN_DENOM
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return CRYPTO_MAIN_DENOM
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2125,9 +2153,9 @@ class WUtils {
             return 0
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return 0
-        } else if (chain == ChainType.FETCH_MAIN) {
+        } else if (chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN) {
             return 18
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             return 8
         } else {
             return 6
@@ -2174,9 +2202,12 @@ class WUtils {
         } else if (chain == ChainType.FETCH_MAIN) {
             label.text = "FET"
             label.textColor = COLOR_FETCH
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             label.text = "CRO"
-            label.textColor = COLOR_CRYTO
+            label.textColor = COLOR_CRYPTO
+        } else if (chain == ChainType.SIF_MAIN) {
+            label.text = "ROWAN"
+            label.textColor = COLOR_SIF
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2213,8 +2244,10 @@ class WUtils {
             return ChainType.SENTINEL_MAIN
         } else if (chainS == CHAIN_FETCH_S) {
             return ChainType.FETCH_MAIN
-        } else if (chainS == CHAIN_CRYTO_S) {
-            return ChainType.CRYTO_MAIN
+        } else if (chainS == CHAIN_CRYPTO_S) {
+            return ChainType.CRYPTO_MAIN
+        } else if (chainS == CHAIN_SIF_S) {
+            return ChainType.SIF_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2262,8 +2295,10 @@ class WUtils {
             return CHAIN_SENTINEL_S
         } else if (chain == ChainType.FETCH_MAIN) {
             return CHAIN_FETCH_S
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return CHAIN_CRYTO_S
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return CHAIN_CRYPTO_S
+        } else if (chain == ChainType.SIF_MAIN) {
+            return CHAIN_SIF_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2585,7 +2620,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(FETCH_GAS_AMOUNT_VOTE))
             }
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             if (type == COSMOS_MSG_TYPE_DELEGATE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
@@ -2603,6 +2638,26 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_HIGH))
             } else if (type == TASK_TYPE_VOTE) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
+            }
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_STAKE))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_VOTE))
             }
             
         }
@@ -2626,8 +2681,8 @@ class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_CRYTO)
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            let gasRate = NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_CRYPTO)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -2640,6 +2695,11 @@ class WUtils {
             
         } else if (chain == ChainType.FETCH_MAIN) {
             let gasRate = NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: SIF_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -2666,13 +2726,13 @@ class WUtils {
                 return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_PERSIS)
             }
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
+        } else if (chain == ChainType.CRYPTO_MAIN) {
             if (position == 0) {
-                return NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_CRYTO)
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_TINY_CRYPTO)
             } else if (position == 1) {
-                return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_CRYTO)
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_LOW_CRYPTO)
             } else {
-                return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_CRYTO)
+                return NSDecimalNumber.init(value: GAS_FEE_RATE_AVERAGE_CRYPTO)
             }
             
         } else {
@@ -3181,8 +3241,10 @@ class WUtils {
             return OKEX_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_VAL_URL + opAddress + ".png";
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return CRYTO_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return CRYPTO_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -3200,8 +3262,8 @@ class WUtils {
         } else if (chain == ChainType.PERSIS_MAIN) {
             return EXPLORER_PERSIS_MAIN + "txs/" + hash
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return EXPLORER_CRYTO_MAIN + "txs/" + hash
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return EXPLORER_CRYPTO_MAIN + "txs/" + hash
             
         }
         
@@ -3239,6 +3301,9 @@ class WUtils {
             
         } else if (chain == ChainType.FETCH_MAIN) {
             return EXPLORER_FETCH_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return EXPLORER_SIF_MAIN + "txs/" + hash
             
         }
         
@@ -3285,8 +3350,11 @@ class WUtils {
         } else if (chain == ChainType.FETCH_MAIN) {
             return EXPLORER_FETCH_MAIN + "account/" + address
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return EXPLORER_CRYTO_MAIN + "account/" + address
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return EXPLORER_CRYPTO_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return EXPLORER_SIF_MAIN + "account/" + address
             
         }
         
@@ -3346,8 +3414,11 @@ class WUtils {
         } else if (chain == ChainType.FETCH_MAIN) {
             return EXPLORER_FETCH_MAIN + "proposals/" + proposalId
             
-        } else if (chain == ChainType.CRYTO_MAIN) {
-            return EXPLORER_CRYTO_MAIN + "proposals/" + proposalId
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return EXPLORER_CRYPTO_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return EXPLORER_SIF_MAIN + "proposals/" + proposalId
             
         }
         
@@ -3367,7 +3438,8 @@ class WUtils {
         if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
             return NSDecimalNumber.init(string: "0.5")
         } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
-                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYTO_MAIN) {
+                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYPTO_MAIN ||
+                    chain == ChainType.SIF_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.4")
@@ -4075,7 +4147,7 @@ class WUtils {
     
     static func isGRPC(_ chain: ChainType) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYTO_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             return true
         }
         return false
