@@ -159,6 +159,8 @@ class StepRewardViewController: BaseViewController {
             url = SENTINEL_REWARD_FROM_VAL + accountAddr + SENTINEL_REWARD_FROM_VAL_TAIL + validatorAddr
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_REWARD_FROM_VAL + accountAddr + FETCH_REWARD_FROM_VAL_TAIL + validatorAddr
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_FROM_VAL + accountAddr + SIF_REWARD_FROM_VAL_TAIL + validatorAddr
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
@@ -204,6 +206,8 @@ class StepRewardViewController: BaseViewController {
             url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
+        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
         }
         else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
