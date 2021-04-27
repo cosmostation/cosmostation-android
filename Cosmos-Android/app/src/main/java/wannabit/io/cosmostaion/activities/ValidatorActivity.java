@@ -897,7 +897,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
     }
 
     private void onFetchValHistory() {
-        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SIF_MAIN)) {
+        if (mBaseChain.equals(IOV_TEST) || mBaseChain.equals(SECRET_MAIN)) {
             return;
         }
         mTaskCount++;
@@ -917,6 +917,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
