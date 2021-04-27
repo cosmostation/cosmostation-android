@@ -440,7 +440,23 @@ class WKey {
         return result
     }
     
-    
+    static func isMemohasMnemonic(_ memo: String) -> Bool {
+        var matchedCnt = 0;
+        var allMnemonicWords = [String]()
+        english.forEach { word in
+            allMnemonicWords.append(String(word))
+        }
+        let userMemo = memo.replacingOccurrences(of: " ", with: "")
+        for word in allMnemonicWords {
+            if (userMemo.contains(word)) {
+                matchedCnt = matchedCnt + 1
+            }
+        }
+        if (matchedCnt > 10) {
+            return true
+        }
+        return false
+    }
     
     
     

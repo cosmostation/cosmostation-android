@@ -9,7 +9,7 @@
 import UIKit
 
 
-class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerDelegate {
+class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerDelegate, SBCardPopupDelegate {
 
     @IBOutlet weak var memoInputTextView: MemoTextView!
     @IBOutlet weak var memoCntLabel: UILabel!
@@ -58,15 +58,19 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
     
     @IBAction func onClickNext(_ sender: Any) {
         if (isValiadMemoSize()) {
-            if (memoInputTextView.text != nil && memoInputTextView.text.count > 0) {
-                pageHolderVC.mMemo = memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            if (WKey.isMemohasMnemonic(memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))) {
+                showMemoMnemonicWarn()
             } else {
-                pageHolderVC.mMemo = ""
+                if (memoInputTextView.text != nil && memoInputTextView.text.count > 0) {
+                    pageHolderVC.mMemo = memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+                } else {
+                    pageHolderVC.mMemo = ""
+                }
+                self.beforeBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
             }
-            self.beforeBtn.isUserInteractionEnabled = false
-            self.nextBtn.isUserInteractionEnabled = false
-            pageHolderVC.onNextPage()
-            
+
         } else {
             self.onShowToast(NSLocalizedString("error_memo", comment: ""))
         }
@@ -144,5 +148,35 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
             result = false
         }
         return result
+    }
+    
+    func showMemoMnemonicWarn() {
+        let popupVC = MemoMnemonicPopup(nibName: "MemoMnemonicPopup", bundle: nil)
+        let cardPopup = SBCardPopupViewController(contentViewController: popupVC)
+        cardPopup.resultDelegate = self
+        cardPopup.show(onViewController: self)
+        
+    }
+    
+    func SBCardPopupResponse(type:Int, result: Int) {
+        if (result == -1) {
+            self.memoInputTextView.text = ""
+            if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+                memoCntLabel.text = "0/100 byte"
+            } else {
+                memoCntLabel.text = "0/255 byte"
+            }
+            
+        } else {
+            if (memoInputTextView.text != nil && memoInputTextView.text.count > 0) {
+                pageHolderVC.mMemo = memoInputTextView.text.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)
+            } else {
+                pageHolderVC.mMemo = ""
+            }
+            self.beforeBtn.isUserInteractionEnabled = false
+            self.nextBtn.isUserInteractionEnabled = false
+            pageHolderVC.onNextPage()
+        }
+        
     }
 }

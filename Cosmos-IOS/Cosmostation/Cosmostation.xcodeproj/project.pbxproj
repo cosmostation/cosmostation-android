@@ -495,6 +495,8 @@
 		28AABEC825F8CBBA0019091F /* HardModuleAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */; };
 		28AABECB25F8CBDB0019091F /* HardAccountValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABECA25F8CBDB0019091F /* HardAccountValue.swift */; };
 		28AABECE25F8CDAA0019091F /* KavaHardReserves.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28AABECD25F8CDAA0019091F /* KavaHardReserves.swift */; };
+		28B3251F2637F80500275AED /* MemoMnemonicPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */; };
+		28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */; };
 		28B4302A24F76AD500BD7BB2 /* OkTransfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4302924F76AD500BD7BB2 /* OkTransfer.swift */; };
 		28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */; };
 		28B4303624F7766200BD7BB2 /* TxOkDirectVoteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28B4303424F7766200BD7BB2 /* TxOkDirectVoteCell.xib */; };
@@ -1290,6 +1292,9 @@
 		28AABEC725F8CBBA0019091F /* HardModuleAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardModuleAccount.swift; sourceTree = "<group>"; };
 		28AABECA25F8CBDB0019091F /* HardAccountValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardAccountValue.swift; sourceTree = "<group>"; };
 		28AABECD25F8CDAA0019091F /* KavaHardReserves.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaHardReserves.swift; sourceTree = "<group>"; };
+		28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoMnemonicPopup.swift; sourceTree = "<group>"; };
+		28B325232637FDDD00275AED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MemoMnemonicPopup.xib; sourceTree = "<group>"; };
+		28B325272637FDE400275AED /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/MemoMnemonicPopup.strings; sourceTree = "<group>"; };
 		28B4302924F76AD500BD7BB2 /* OkTransfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkTransfer.swift; sourceTree = "<group>"; };
 		28B4303324F7766200BD7BB2 /* TxOkDirectVoteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxOkDirectVoteCell.swift; sourceTree = "<group>"; };
 		28B4303424F7766200BD7BB2 /* TxOkDirectVoteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxOkDirectVoteCell.xib; sourceTree = "<group>"; };
@@ -2152,6 +2157,8 @@
 				282BDFE524A5BCCB00D3A5D4 /* WcCancelPopup.xib */,
 				282BDFE824A5BCE000D3A5D4 /* WcTransferPopup.swift */,
 				282BDFE924A5BCE000D3A5D4 /* WcTransferPopup.xib */,
+				28B3251D2637F80500275AED /* MemoMnemonicPopup.swift */,
+				28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */,
 			);
 			path = PopUp;
 			sourceTree = "<group>";
@@ -2851,6 +2858,7 @@
 				2889FD882603485200CA9896 /* TxIncentiveMintingCell.xib in Resources */,
 				288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */,
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
+				28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */,
 				2889FD832603484000CA9896 /* TxIncentiveHardCell.xib in Resources */,
 				28D7BE7E25F10636006EECD7 /* HardListMyStatusCell.xib in Resources */,
 				283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */,
@@ -3010,6 +3018,7 @@
 				280E1F2A254AD3A80007BA7D /* ResourceChainCell.swift in Sources */,
 				28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */,
 				287AC5D525FDF7250070837E /* cosmos_crisis_v1beta1_genesis.pb.swift in Sources */,
+				28B3251F2637F80500275AED /* MemoMnemonicPopup.swift in Sources */,
 				287AC5CC25FDF7250070837E /* cosmos_mint_v1beta1_query.grpc.swift in Sources */,
 				E17B214023470941001743D6 /* TokenDetailIrisCell.swift in Sources */,
 				287AC62E25FDF7260070837E /* htlc_htlc.pb.swift in Sources */,
@@ -3710,6 +3719,15 @@
 				288A14E725199C6500E17808 /* ko */,
 			);
 			name = WalletCertikCell.xib;
+			sourceTree = "<group>";
+		};
+		28B325242637FDDD00275AED /* MemoMnemonicPopup.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				28B325232637FDDD00275AED /* Base */,
+				28B325272637FDE400275AED /* ko */,
+			);
+			name = MemoMnemonicPopup.xib;
 			sourceTree = "<group>";
 		};
 		E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */ = {
