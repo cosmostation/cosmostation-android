@@ -302,6 +302,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
+            self.onShowToast(NSLocalizedString("Using Figment's Data Hub API for Secret Network.", comment: ""))
+            
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
             self.mFetchCnt = 14
             onFetchNodeInfo()
