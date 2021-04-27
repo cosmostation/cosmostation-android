@@ -108,7 +108,7 @@ class WKey {
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "star", program: ripemd160)
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
-            result = try! SegwitAddrCoder.shared.encode2(hrp: "okexchain", program: ripemd160)
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "ex", program: ripemd160)
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST ) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "certik", program: ripemd160)
         } else if (chain == ChainType.AKASH_MAIN) {
@@ -182,7 +182,7 @@ class WKey {
         let masterKey = getMasterKeyFromWords(mnemonic)
         if ((chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) && newbip) {
             let pKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 996, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-            return generateAddressFromPriv("okexchain", pKey.privateKey())
+            return generateAddressFromPriv("ex", pKey.privateKey())
             
         } else {
             return WKey.getHDKeyDpAddressWithPath(masterKey, path: path, chain: chain, newbip)
@@ -210,7 +210,7 @@ class WKey {
         return true
     }
     
-    static func getAddressFromOpAddress(_ opAddress:String, _ chain:ChainType) -> String{
+    static func getAddressFromOpAddress(_ opAddress:String, _ chain:ChainType) -> String {
         var result = ""
         let bech32 = Bech32()
         guard let (_, data) = try? bech32.decode(opAddress) else {
@@ -229,7 +229,7 @@ class WKey {
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
             result = bech32.encode("star", values: data)
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
-            result = bech32.encode("okexchain", values: data)
+            result = bech32.encode("ex", values: data)
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
             result = bech32.encode("certik", values: data)
         } else if (chain == ChainType.AKASH_MAIN) {
@@ -245,6 +245,16 @@ class WKey {
         } else if (chain == ChainType.SIF_MAIN) {
             result = bech32.encode("sif", values: data)
         }
+        return result
+    }
+    
+    static func getUpgradeOKAddress(_ oldAddress: String) -> String {
+        var result = ""
+        let bech32 = Bech32()
+        guard let (_, data) = try? bech32.decode(oldAddress) else {
+            return result
+        }
+        result = bech32.encode("ex", values: data)
         return result
     }
     
@@ -425,7 +435,7 @@ class WKey {
         
         var result = ""
         let convert = try? WKey.convertBits(from: 8, to: 5, pad: true, idata: address)
-        result = Bech32().encode("okexchain", values: convert!)
+        result = Bech32().encode("ex", values: convert!)
 //        print("OKexAddress ", result)
         return result
     }

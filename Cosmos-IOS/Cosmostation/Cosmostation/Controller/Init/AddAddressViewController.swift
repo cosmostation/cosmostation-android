@@ -161,7 +161,7 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
-        } else if (userInput.starts(with: "okexchain1")) {
+        } else if (userInput.starts(with: "ex1")) {
             if (WKey.isValidateBech32(userInput)) {
                 if (ChainType.SUPPRT_CHAIN().contains(ChainType.OKEX_TEST)) {
                     self.onShowOkChainSelect(userInput)

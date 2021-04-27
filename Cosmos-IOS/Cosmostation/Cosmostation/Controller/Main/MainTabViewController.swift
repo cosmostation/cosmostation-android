@@ -162,10 +162,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (self.mFetchCnt > 0)  {
             return false
         }
-//        self.mAllValidator.removeAll()
-//        self.mTopValidators.removeAll()
-//        self.mOtherValidators.removeAll()
-//        self.mMyValidators.removeAll()
         
         BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()

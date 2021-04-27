@@ -897,6 +897,35 @@ final class BaseData : NSObject{
         }
     }
     
+    
+    public func upgradeAaccountAddressforOk() {
+        let allOkAccount = BaseData.instance.selectAllAccountsByChain(ChainType.OKEX_MAIN)
+        for account in allOkAccount {
+            if (account.account_address.starts(with: "okexchain")) {
+                account.account_address = WKey.getUpgradeOKAddress(account.account_address)
+                updateAccountAddress(account)
+            }
+        }
+        let allOkTestAccount = BaseData.instance.selectAllAccountsByChain(ChainType.OKEX_TEST)
+        for account in allOkTestAccount {
+            if (account.account_address.starts(with: "okexchain")) {
+                account.account_address = WKey.getUpgradeOKAddress(account.account_address)
+                updateAccountAddress(account)
+            }
+        }
+    }
+    
+    //for okchain display address
+    public func updateAccountAddress(_ account: Account) -> Int64 {
+        let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account.account_id)
+        do {
+            return try Int64(database.run(target.update(DB_ACCOUNT_ADDRESS <- account.account_address)))
+        } catch {
+            if(SHOW_LOG) { print(error) }
+            return -1
+        }
+    }
+    
     public func updateLastTotal(_ account: Account?, _ amount: String) {
         if (account == nil) { return}
         let target = DB_ACCOUNT.filter(DB_ACCOUNT_ID == account!.account_id)
