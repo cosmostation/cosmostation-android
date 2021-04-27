@@ -630,7 +630,7 @@ public class BaseConstant {
     public final static String CGC_AKASH = "akash-network";
     public final static String CGC_SECRET = "secret";
     public final static String CGC_OKEX = "okexchain";
-    public final static String CGC_SENTINEL = "sentinel-group";
+    public final static String CGC_SENTINEL = "sentinel";
     public final static String CGC_PERSISTENCE = "persistence";
     public final static String CGC_FETCH = "fetch-ai";
     public final static String CGC_CRYPTO = "crypto-com-chain";

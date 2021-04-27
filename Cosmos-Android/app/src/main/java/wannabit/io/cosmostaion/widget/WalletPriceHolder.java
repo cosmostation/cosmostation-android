@@ -136,7 +136,7 @@ public class WalletPriceHolder extends BaseHolder {
                     mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/okexchain")));
 
                 } else if (mainActivity.mBaseChain.equals(SENTINEL_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sentinel-group")));
+                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sentinel")));
 
                 } else if (mainActivity.mBaseChain.equals(PERSIS_MAIN)) {
                     mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/persistence")));
