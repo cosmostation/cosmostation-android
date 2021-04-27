@@ -1298,7 +1298,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         } else if (mChainType == ChainType.AKASH_MAIN) {
             url = CGC_PRICE_TIC + "akash-network"
         } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = CGC_PRICE_TIC + "sentinel-group"
+            url = CGC_PRICE_TIC + "sentinel"
         } else if (mChainType == ChainType.PERSIS_MAIN) {
             url = CGC_PRICE_TIC + "persistence"
         } else if (mChainType == ChainType.FETCH_MAIN) {

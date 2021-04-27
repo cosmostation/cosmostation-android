@@ -1335,7 +1335,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
-            guard let url = URL(string: "https://www.coingecko.com/en/coins/sentinel-group") else { return }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/sentinel") else { return }
             self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.PERSIS_MAIN) {
