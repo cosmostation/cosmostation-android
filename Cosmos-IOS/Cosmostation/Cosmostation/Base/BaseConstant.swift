@@ -101,8 +101,8 @@ let FETCH_API                           = "https://api-fetchai.cosmostation.io/"
 let CRYTO_API                           = "https://api-cryptocom.cosmostation.io/";
 
 
-let SIF_URL                             = "https://api.sifchain.finance/";
-let SIF_API                             = "";
+let SIF_URL                             = "https://lcd-sifchain.cosmostation.io/";
+let SIF_API                             = "https://api-sifchain.cosmostation.io/";
 
 
 let CGC_URL                             = "https://api.coingecko.com/";
