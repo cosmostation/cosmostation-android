@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = true;
+let SHOW_LOG                            = false;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -81,7 +81,6 @@ let CERTIK_TEST_URL                     = "https://lcd-certik-testnet3.cosmostat
 let CERTIK_TEST_API                     = "https://api-certik-testnet3.cosmostation.io/";
 
 
-//let SECRET_URL                          = "https://api.secretnodes.org/";
 let SECRET_URL                          = "https://secret-2--lcd--full.datahub.figment.io/apikey/290520481df876316ee7664924c0a1df/";
 let SECRET_API                          = "";
 
