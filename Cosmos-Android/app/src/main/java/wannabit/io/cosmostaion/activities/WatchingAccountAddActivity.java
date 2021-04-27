@@ -211,7 +211,7 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     return;
                 }
 
-            } else if (mUserInput.startsWith("okexchain1")) {
+            } else if (mUserInput.startsWith("ex1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     if (SUPPORT_CHAINS().contains(OK_TEST)) {
                         Dialog_Choice_Okex dialog = Dialog_Choice_Okex.newInstance(null);

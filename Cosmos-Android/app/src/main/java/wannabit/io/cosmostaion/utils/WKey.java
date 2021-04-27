@@ -275,7 +275,7 @@ public class WKey {
             } else if (chain.equals(IOV_MAIN) ||chain.equals(IOV_TEST)){
                 result = bech32Encode("star".getBytes(), converted);
             } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)){
-                result = bech32Encode("okexchain".getBytes(), converted);
+                result = bech32Encode("ex".getBytes(), converted);
             } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)){
                 result = bech32Encode("certik".getBytes(), converted);
             } else if (chain.equals(SECRET_MAIN)){
@@ -300,6 +300,10 @@ public class WKey {
         return result;
     }
 
+    public static String getUpgradeOKAddress(String oldAddress) {
+        return bech32Encode("ex".getBytes(), bech32Decode(oldAddress).data);
+    }
+
     public static String convertDpOpAddressToDpAddress(String dpOpAddress, BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return bech32Encode("cosmos".getBytes(), bech32Decode(dpOpAddress).data);
@@ -312,7 +316,7 @@ public class WKey {
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("star".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return bech32Encode("okexchain".getBytes(), bech32Decode(dpOpAddress).data);
+            return bech32Encode("ex".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return bech32Encode("certik".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SECRET_MAIN)) {
@@ -346,7 +350,7 @@ public class WKey {
         } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
             return bech32Encode("starvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-            return bech32Encode("okexchainvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+            return bech32Encode("exvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
             return bech32Encode("certikvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SECRET_MAIN)) {
@@ -376,7 +380,7 @@ public class WKey {
     public static String getDpAddressWithPath(String seed, BaseChain chain, int path, Boolean newBip) {
         DeterministicKey childKey   = new DeterministicHierarchy(HDKeyDerivation.createMasterPrivateKey(WUtil.HexStringToByteArray(seed))).deriveChild(WKey.getParentPath(chain, newBip), true, true,  new ChildNumber(path));
         if ((chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) && newBip) {
-            return generateAddressFromPriv("okexchain", childKey.getPrivateKeyAsHex());
+            return generateAddressFromPriv("ex", childKey.getPrivateKeyAsHex());
         }
         return getDpAddress(chain, childKey.getPublicKeyAsHex());
     }

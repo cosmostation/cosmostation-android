@@ -203,7 +203,7 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                if (userInput.startsWith("okexchain1") && WKey.isValidBech32(userInput)) {
+                if (userInput.startsWith("ex1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {

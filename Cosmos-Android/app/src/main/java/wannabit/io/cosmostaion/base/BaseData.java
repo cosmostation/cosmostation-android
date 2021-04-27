@@ -61,6 +61,7 @@ import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
@@ -1967,6 +1968,32 @@ public class BaseData {
         //TODO delete Tx or else data with this account
         onDeleteBalance(id);
         return getBaseDB().delete(BaseConstant.DB_TABLE_ACCOUNT, "id = ?", new String[]{id}) > 0;
+    }
+
+
+
+    public void upgradeAaccountAddressforOk() {
+        ArrayList<Account> allOKAccounts =  onSelectAccountsByChain(OKEX_MAIN);
+        for (Account account : allOKAccounts) {
+            if (account.address.startsWith("okexchain")) {
+                account.address = WKey.getUpgradeOKAddress(account.address);
+                updateAccountAddress(account);
+            }
+        }
+        ArrayList<Account> allOKTestAccounts =  onSelectAccountsByChain(OK_TEST);
+        for (Account account : allOKTestAccounts) {
+            if (account.address.startsWith("okexchain")) {
+                account.address = WKey.getUpgradeOKAddress(account.address);
+                updateAccountAddress(account);
+            }
+        }
+    }
+
+    //for okchain display address
+    public long updateAccountAddress(Account account) {
+        ContentValues values = new ContentValues();
+        values.put("address",      account.address);
+        return getBaseDB().update(BaseConstant.DB_TABLE_ACCOUNT, values, "id = ?", new String[]{""+account.id} );
     }
 
 
