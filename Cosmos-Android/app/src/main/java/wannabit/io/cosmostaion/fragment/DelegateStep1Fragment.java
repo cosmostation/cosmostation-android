@@ -1,5 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -13,12 +15,22 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+
+import org.bitcoinj.crypto.MnemonicCode;
+
+import java.util.ArrayList;
+
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.DelegateActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.dialog.Dialog_Mnemonics_Warning;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 public class DelegateStep1Fragment extends BaseFragment implements View.OnClickListener {
+
+    public final static int AGAIN_MEMO = 9500;
 
     private EditText    mMemo;
     private TextView    mMemoCnt;
@@ -90,16 +102,56 @@ public class DelegateStep1Fragment extends BaseFragment implements View.OnClickL
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
             if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                getSActivity().mTxMemo = mMemo.getText().toString().trim();
-                getSActivity().onNextStep();
+                if (!isMemohasMenomic(memo)) {
+                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                    getSActivity().onNextStep();
+                } else {
+                    Dialog_Mnemonics_Warning warning = Dialog_Mnemonics_Warning.newInstance();
+                    warning.setCancelable(true);
+                    warning.setTargetFragment(this, AGAIN_MEMO);
+                    getFragmentManager().beginTransaction().add(warning, "dialog").commitNowAllowingStateLoss();
+                }
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();
             }
+
         }
 
     }
 
     private DelegateActivity getSActivity() {
         return (DelegateActivity)getBaseActivity();
+    }
+
+    public boolean isMemohasMenomic(String memo) {
+        Boolean result = false;
+        int matchedCnt = 0;
+        ArrayList<String> mAllMnemonic = new ArrayList<String>(MnemonicCode.INSTANCE.getWordList());
+        String userMemo = memo.replace(" ", "");
+
+        for (int i = 0; i < mAllMnemonic.size(); i++) {
+            if (userMemo.contains(mAllMnemonic.get(i))) {
+                matchedCnt++;
+            }
+        }
+        if (matchedCnt > 10) {
+            result = true;
+        }
+
+        return result;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+         if(requestCode == AGAIN_MEMO && resultCode == Activity.RESULT_OK) {
+            if(data.getIntExtra("memo" , -1) ==0 ){
+                mMemo.setText("");
+            }else if(data.getIntExtra("memo" , -1) == 1){
+                getSActivity().mTxMemo = mMemo.getText().toString().trim();
+                getSActivity().onNextStep();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }
