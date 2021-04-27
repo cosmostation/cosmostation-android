@@ -17,6 +17,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BINANCE_MAIN;
@@ -36,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SENTINEL_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SIF_MAIN;
 
 public class WebActivity extends BaseActivity {
 
@@ -236,7 +238,7 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_SENTINEL_MAIN);
 
         } else if (mBasechain.equals(FETCHAI_MAIN)) {
-            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel));
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorFetch));
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl(EXPLORER_FETCHAI_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
@@ -247,7 +249,7 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_FETCHAI_MAIN);
 
         } else if (mBasechain.equals(CRYPTO_MAIN)) {
-            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSentinel));
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorCryto));
             if (!TextUtils.isEmpty(mTxid))
                 mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN + "txs/" + mTxid);
             else if (!TextUtils.isEmpty(mVoteId))
@@ -256,6 +258,17 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN + "account/" + mAddress);
             else
                 mWebview.loadUrl(EXPLORER_CRYPTOORG_MAIN);
+
+        } else if (mBasechain.equals(SIF_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorSif));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_SIF_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_SIF_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_SIF_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_SIF_MAIN);
 
         }
 
