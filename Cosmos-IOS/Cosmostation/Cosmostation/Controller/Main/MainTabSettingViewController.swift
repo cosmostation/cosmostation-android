@@ -107,7 +107,7 @@ class MainTabSettingViewController: BaseViewController {
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SIF_MAIN) {
             titleChainImg.image = UIImage(named: "chainsifchain")
-            titleChainName.text = "(SifChain Mainnet)"
+            titleChainName.text = "(Sifchain Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
