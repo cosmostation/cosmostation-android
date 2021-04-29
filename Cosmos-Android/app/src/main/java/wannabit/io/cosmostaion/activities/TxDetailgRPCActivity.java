@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.widget.TxSetAddressHolder;
 import wannabit.io.cosmostaion.widget.TxStakingRewardHolder;
 import wannabit.io.cosmostaion.widget.TxTransferHolder;
 import wannabit.io.cosmostaion.widget.TxUnDelegateHolder;
+import wannabit.io.cosmostaion.widget.TxUnjailHolder;
 import wannabit.io.cosmostaion.widget.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.TxVoterHolder;
 
@@ -167,6 +168,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_ADDRESS_CHANGE = 6;
         private static final int TYPE_TX_VOTE = 7;
         private static final int TYPE_TX_COMMISSION = 8;
+        private static final int TYPE_TX_UNJAIL = 9;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -198,6 +200,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_COMMISSION) {
                 return new TxCommissionHolder(getLayoutInflater().inflate(R.layout.item_tx_commission, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_UNJAIL) {
+                return new TxUnjailHolder(getLayoutInflater().inflate(R.layout.item_tx_unjail, viewGroup, false));
 
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -247,6 +252,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_VOTE;
                 } else if (msg.getTypeUrl().contains(cosmos.distribution.v1beta1.Tx.MsgWithdrawValidatorCommission.getDescriptor().getFullName())) {
                     return TYPE_TX_COMMISSION;
+                } else if (msg.getTypeUrl().contains(cosmos.slashing.v1beta1.Tx.MsgUnjail.getDescriptor().getFullName())) {
+                    return TYPE_TX_UNJAIL;
                 }
                 return TYPE_TX_UNKNOWN;
             }

@@ -104,7 +104,7 @@ public class ResApiTxListCustom {
                     result = c.getString(R.string.tx_edit_validator);
 
                 } else if (msgType.contains("MsgUnjail")) {
-                    result = "Unjail Val";
+                    result = c.getString(R.string.tx_unjail);
 
                 } else if (msgType.contains("MsgSubmitProposal")) {
                     result = c.getString(R.string.tx_submit_proposal);
