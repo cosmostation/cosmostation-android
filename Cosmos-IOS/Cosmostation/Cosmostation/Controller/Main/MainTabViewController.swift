@@ -537,6 +537,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             }
+            BaseData.instance.mBalances = mBalances
             
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -563,7 +564,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.mMyValidator.append(validator)
                 }
             }
-            
             BaseData.instance.mBalances = mBalances
             
             print("BaseData.instance.mMyDelegations ", BaseData.instance.mMyDelegations.count)
