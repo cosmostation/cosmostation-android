@@ -20,5 +20,7 @@ target 'Cosmostation' do
     pod 'Firebase/Core'
     pod 'Firebase/Messaging'
     pod 'NotificationBannerSwift', '2.0.1'
+    pod 'gRPC-Swift', '~> 1.0.0'
+    pod 'gRPC-Swift-Plugins'
 
 end
