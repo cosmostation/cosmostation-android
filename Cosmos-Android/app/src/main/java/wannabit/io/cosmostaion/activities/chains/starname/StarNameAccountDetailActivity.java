@@ -259,7 +259,7 @@ public class StarNameAccountDetailActivity extends BaseActivity implements View.
                     holder.itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse(mMyNameAccount.name + "*" + mMyNameAccount.domain));
+                            Intent guideIntent = new Intent(Intent.ACTION_VIEW , Uri.parse("https://starname.me/" + mMyNameAccount.name + "*" + mMyNameAccount.domain));
                             startActivity(guideIntent);
                         }
                     });
