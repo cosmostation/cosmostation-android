@@ -47,6 +47,10 @@ public class Msg {
         public String to_address;
 
         @JsonInclude(JsonInclude.Include.NON_NULL)
+        @SerializedName("address")
+        public String address;
+
+        @JsonInclude(JsonInclude.Include.NON_NULL)
         @SerializedName("withdraw_addr")
         public String withdraw_addr;
 

@@ -43,7 +43,7 @@
     <string name="str_confirm">확인</string>
     <string name="str_warning">경고</string>
     <string name="str_enter_again">다시 입력</string>
-    <string name="str_Ignore">확인</string>
+    <string name="str_Ignore">무시하고 진행하기</string>
     <string name="str_show_mnemonic">니모닉 확인하기</string>
     <string name="str_create_wallet">지갑 생성하기</string>
     <string name="str_start_wallet">Start Wallet</string>
@@ -1045,7 +1045,7 @@
     <string name="str_check_estimate_gas_amount">예상 가스량 확인</string>
     <string name="str_apply_estimate_gas_amount">예상 가스량을 사용합니다.</string>
     <string name="str_mnemonics_warning_title">니모닉을 넣지마세요.</string>
-    <string name="str_mnemonics_warning_msg">메모에 니모닉을 입력하면\n 당신의 자산을 잃어버리게 됩니다.\n니모닉 문구를 절대로 공유하지 마십시오.\n노출 또는 분실에 대한 책임은 소유자에게 있습니다.</string>
+    <string name="str_mnemonics_warning_msg"><b>메모에 니모닉을 입력하면\n 당신의 자산을 잃어버리게 됩니다.</b>\n니모닉 문구를 절대로 공유하지 마십시오.\n노출 또는 분실에 대한 책임은 소유자에게 있습니다.</string>
 
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
@@ -1169,6 +1169,7 @@
     <string name="tx_deposit">디파짓</string>
     <string name="tx_create_validator">검증인 생성</string>
     <string name="tx_edit_validator">검증인 편집</string>
+    <string name="tx_unjail">검증인 재 활성</string>
     <string name="tx_reinvest">이자 즉시 위임</string>
     <string name="tx_new_order">새 주문</string>
     <string name="tx_Cancel_order">주문 취소</string>
