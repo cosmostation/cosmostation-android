@@ -73,6 +73,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER2;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_TRANSFER3;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_UNDELEGATE2;
+import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_UNJAIL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_DEL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_MSG_TYPE_WITHDRAW_MIDIFY;
@@ -312,6 +313,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         private static final int TYPE_TX_VOTE               = 7;
         private static final int TYPE_TX_COMMISSION         = 8;
         private static final int TYPE_TX_MULTI_SEND         = 9;
+        private static final int TYPE_TX_UNJAIL             = 10;
 
         // kava msg types
         private static final int TYPE_TX_POST_PRICE         = 200;
@@ -372,6 +374,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 return new TxMultiSendHolder(getLayoutInflater().inflate(R.layout.item_tx_multisend, viewGroup, false));
             } else if (viewType == TYPE_TX_REWARD_ALL) {
                 return new TxRewardAllHolder(getLayoutInflater().inflate(R.layout.item_tx_reward_all, viewGroup, false));
+            } else if (viewType == TYPE_TX_UNJAIL) {
+                return new TxUnjailHolder(getLayoutInflater().inflate(R.layout.item_tx_unjail, viewGroup, false));
             }
 
             else if (viewType == TYPE_TX_POST_PRICE) {
@@ -455,6 +459,8 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 onBindMultiSend(viewHolder, position);
             } else if (getItemViewType(position) == TYPE_TX_REWARD_ALL) {
                 onBindRewardAll(viewHolder, position);
+            } else if (getItemViewType(position) == TYPE_TX_UNJAIL) {
+                onBindUnjail(viewHolder, position);
             }
 
             else if (getItemViewType(position) == TYPE_TX_POST_PRICE) {
@@ -595,6 +601,9 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
                     } else if (mResTxInfo.getMsgType(position - 1) .equals(IRIS_MSG_TYPE_WITHDRAW_ALL)) {
                         return TYPE_TX_REWARD_ALL;
+
+                    } else if (mResTxInfo.getMsgType(position - 1) .equals(COSMOS_MSG_TYPE_UNJAIL)) {
+                        return TYPE_TX_UNJAIL;
 
                     }
 
@@ -984,6 +993,14 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         private void onBindRewardAll(RecyclerView.ViewHolder viewHolder, int position) {
             final TxRewardAllHolder holder = (TxRewardAllHolder)viewHolder;
+        }
+
+        private void onBindUnjail(RecyclerView.ViewHolder viewHolder, int position) {
+            final TxUnjailHolder holder = (TxUnjailHolder)viewHolder;
+            holder.itemUnjailImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+            final Msg msg = mResTxInfo.getMsg(position - 1);
+            holder.itemMoniker.setText(WUtil.getMonikerName(msg.value.address, getBaseDao().mAllValidators, true));
+            holder.itemValidator.setText(msg.value.address);
         }
 
         private void onBindAddress(RecyclerView.ViewHolder viewHolder, int position) {
@@ -1671,6 +1688,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemRewardMoniker7 = itemView.findViewById(R.id.tx_reward_moniker7);
                 itemRewardAllAmount = itemView.findViewById(R.id.tx_reward_all_sum_amount);
                 itemRewardAllAmountDenom = itemView.findViewById(R.id.tx_reward_all_sum_symbol);
+            }
+        }
+
+        public class TxUnjailHolder extends RecyclerView.ViewHolder {
+            ImageView itemUnjailImg;
+            TextView itemUnjailTitle;
+            TextView itemValidator, itemMoniker;
+
+
+            public TxUnjailHolder(@NonNull View itemView) {
+                super(itemView);
+                itemUnjailImg = itemView.findViewById(R.id.tx_unjail_icon);
+                itemUnjailTitle = itemView.findViewById(R.id.tx_unjail_text);
+                itemValidator = itemView.findViewById(R.id.tx_unjail_validator);
+                itemMoniker = itemView.findViewById(R.id.tx_unjail_moniker);
             }
         }
 

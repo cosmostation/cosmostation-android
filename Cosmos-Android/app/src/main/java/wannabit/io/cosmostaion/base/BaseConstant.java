@@ -273,6 +273,7 @@ public class BaseConstant {
     public final static String COSMOS_MSG_TYPE_DEPOSIT                      = "cosmos-sdk/MsgDeposit";
     public final static String COSMOS_MSG_TYPE_CREATE_VALIDATOR             = "cosmos-sdk/MsgCreateValidator";
     public final static String COSMOS_MSG_TYPE_EDIT_VALIDATOR               = "cosmos-sdk/MsgEditValidator";
+    public final static String COSMOS_MSG_TYPE_UNJAIL                       = "cosmos-sdk/MsgUnjail";
 
     public final static String COSMOS_BANK_TYPE_STDTX                       = "irishub/bank/StdTx";
     public final static String IRIS_BANK_TYPE_ACCOUNT                       = "irishub/bank/Account";
@@ -438,6 +439,7 @@ public class BaseConstant {
     public final static int TX_TYPE_KAVA_REPAY_HARD             = 3039;
     public final static int TX_TYPE_KAVA_LIQUIDATE_CDP          = 3040;
     public final static int TX_TYPE_KAVA_LIQUIDATE_HARD         = 3041;
+    public final static int TX_TYPE_UNJAIL                      = 3042;
 
 
     public final static int ERROR_CODE_UNKNOWN              = 8000;
