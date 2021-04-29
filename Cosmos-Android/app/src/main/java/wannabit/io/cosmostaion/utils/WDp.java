@@ -892,6 +892,9 @@ public class WDp {
         } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_EDIT_VALIDATOR)) {
             result = BaseConstant.TX_TYPE_EDIT_VALIDATOR;
 
+        } else if (msg.type.equals(BaseConstant.COSMOS_MSG_TYPE_UNJAIL)) {
+            result = BaseConstant.TX_TYPE_UNJAIL;
+
         } else if (msg.type.equals(BaseConstant.IRIS_MSG_TYPE_WITHDRAW_ALL)) {
             result = BaseConstant.TX_TYPE_IRIS_GET_REWARD_ALL;
 
@@ -1038,6 +1041,10 @@ public class WDp {
 
             case BaseConstant.TX_TYPE_EDIT_VALIDATOR:
                 result = c.getString(R.string.tx_edit_validator);
+                break;
+
+            case BaseConstant.TX_TYPE_UNJAIL:
+                result = c.getString(R.string.tx_unjail);
                 break;
 
             case BaseConstant.TX_TYPE_REINVEST:
