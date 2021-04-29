@@ -30,9 +30,9 @@ public class TxUnjailHolder extends TxHolder{
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {
         itemUnjailImg.setColorFilter(WDp.getChainColor(c, baseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         try {
-            cosmos.staking.v1beta1.Tx.MsgUndelegate msg = cosmos.staking.v1beta1.Tx.MsgUndelegate.parseFrom(response.getTx().getBody().getMessages(position).getValue());
-            itemValidator.setText(msg.getValidatorAddress());
-            itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddress()).getDescription().getMoniker() + ")");
+            cosmos.slashing.v1beta1.Tx.MsgUnjail msg = cosmos.slashing.v1beta1.Tx.MsgUnjail.parseFrom(response.getTx().getBody().getMessages(position).getValue());
+            itemValidator.setText(msg.getValidatorAddr());
+            itemMoniker.setText("(" + baseData.getValidatorInfo(msg.getValidatorAddr()).getDescription().getMoniker() + ")");
         } catch (Exception e) {}
     }
 }
