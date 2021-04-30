@@ -28,6 +28,7 @@
     <color name="colorTransBgFetch">#2457b5a8</color>
     <color name="colorTransBgCryto">#241199fa</color>
     <color name="colorTransBgSif">#24c19f33</color>
+    <color name="colorTransBgKi">#243756fc</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -94,6 +95,9 @@
 
     <color name="colorSif">#c19f33</color>
     <color name="colorSif2">#5e4d19</color>
+
+    <color name="colorKi">#3756fc</color>
+    <color name="colorKi2">#02188d</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

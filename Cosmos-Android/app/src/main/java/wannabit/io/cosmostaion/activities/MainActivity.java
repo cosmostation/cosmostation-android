@@ -71,6 +71,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -370,6 +371,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_sif_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorSif));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorSif));
+
+        } else if (mBaseChain.equals(KI_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_kifoundation));
+            mToolbarChainName.setText(getString(R.string.str_ki_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKi));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKi));
 
         }
 
@@ -822,6 +829,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chainsifchain));
                     holder.chainName.setText(getString(R.string.str_sif_main));
+
+                } else if (chain.equals(KI_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_kifoundation));
+                    holder.chainName.setText(getString(R.string.str_ki_main));
 
                 }
 

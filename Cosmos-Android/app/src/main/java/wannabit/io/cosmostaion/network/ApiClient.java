@@ -489,6 +489,21 @@ public class ApiClient {
         return api_sif;
     }
 
+    //Services for kifoundation mainnet
+    private static KiChain service_ki = null;
+    public static KiChain getKiChain(Context c) {
+        if (service_ki == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_ki))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_sif = retrofit.create(SifChain.class);
+            }
+        }
+        return service_ki;
+    }
+
 
 
 

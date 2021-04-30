@@ -30,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -160,6 +161,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_sif);
             itemBtnGuide1.setText(R.string.str_guide_crypto);
             itemBtnGuide2.setText(R.string.str_faq_sif);
+
+        } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.kifoundation_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_ki);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_ki);
+            itemBtnGuide1.setText(R.string.str_faq_ki);
+            itemBtnGuide2.setText(R.string.str_guide_ki);
 
         }
 

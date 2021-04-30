@@ -48,6 +48,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -113,7 +114,7 @@ public class WKey {
 
     public static List<ChildNumber> getParentPath(BaseChain chain, boolean newBip) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(IRIS_MAIN) || chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) ||
-                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST)) {
+                chain.equals(COSMOS_TEST) || chain.equals(IRIS_TEST) || chain.equals(KI_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
@@ -292,6 +293,8 @@ public class WKey {
                 result = bech32Encode("cro".getBytes(), converted);
             } else if (chain.equals(SIF_MAIN)){
                 result = bech32Encode("sif".getBytes(), converted);
+            } else if (chain.equals(KI_MAIN)){
+                result = bech32Encode("ki".getBytes(), converted);
             }
 
         } catch (Exception e) {

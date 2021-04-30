@@ -296,6 +296,13 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }
 
+            } else if (mUserInput.startsWith("ki1")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(SIF_MAIN, mUserInput);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 return;
