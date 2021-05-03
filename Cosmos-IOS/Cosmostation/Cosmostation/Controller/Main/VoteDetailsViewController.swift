@@ -342,28 +342,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onFetchProposalDetail(_ id: String) {
-        var url = ""
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_PROPOSALS + "/" + id
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_PROPOSALS + "/" + id
-        }
-        else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.proposalUrl(chainType, id), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -382,28 +361,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onFetchTally(_ id: String) {
-        var url = ""
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PROPOSALS + "/" + id + "/" + KAVA_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_PROPOSALS + "/" + id + "/" + BAND_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_PROPOSALS + "/" + id + "/" + SECRET_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_PROPOSALS + "/" + id + "/" + CERTIK_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_PROPOSALS + "/" + id + "/" + IOV_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_PROPOSALS + "/" + id + "/" + SENTINEL_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_PROPOSALS + "/" + id + "/" + FETCH_PROPOSALS_TALLY_TAIL
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_PROPOSALS + "/" + id + "/" + SIF_PROPOSALS_TALLY_TAIL
-        }
-        else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id + "/" + CERTIK_TEST_PROPOSALS_TALLY_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.tallyUrl(chainType, id), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -422,28 +380,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onFetchMyVote(_ id: String, _ address: String) {
-        var url = ""
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_PROPOSALS + "/" + id +  "/votes/" + address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_PROPOSALS + "/" + id +  "/votes/" + address
-        }
-        else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes/" + address
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.voteUrl(chainType, id, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -462,28 +399,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onFetchProposer(_ id: String) {
-        var url = ""
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_PROPOSALS + "/" + id +  "/proposer"
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_PROPOSALS + "/" + id +  "/proposer"
-        }
-        else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/proposer"
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.proposerUrl(chainType, id), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -502,28 +418,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onFetchVoteList(_ id: String) {
-        var url = ""
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_PROPOSALS + "/" + id +  "/votes"
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_PROPOSALS + "/" + id +  "/votes"
-        }
-        else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROPOSALS + "/" + id +  "/votes"
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.votesUrl(chainType, id), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
