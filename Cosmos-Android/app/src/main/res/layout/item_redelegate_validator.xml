@@ -124,11 +124,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/delegate_commission_validator"
+                        android:layout_alignBaseline="@+id/delegate_yield_commission"
                         style="@style/font_ss_11_gray1"
                         android:text="@string/str_average_yield"/>
                     <TextView
-                        android:id="@+id/delegate_commission_validator"
+                        android:id="@+id/delegate_yield_commission"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
