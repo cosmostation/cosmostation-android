@@ -2162,6 +2162,20 @@ class WUtils {
         }
     }
     
+    static func mainDisplayDecimal(_ chain:ChainType?) -> Int16 {
+        if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return 8
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return 18
+        } else if (chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN) {
+            return 18
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return 8
+        } else {
+            return 6
+        }
+    }
+    
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
         if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"

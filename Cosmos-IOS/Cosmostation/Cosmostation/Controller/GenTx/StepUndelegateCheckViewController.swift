@@ -94,32 +94,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        var url: String?
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            url = BAND_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            url = SECRET_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            url = IOV_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            url = FETCH_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            url = SIF_ACCOUNT_INFO + account.account_address
-        }
-        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

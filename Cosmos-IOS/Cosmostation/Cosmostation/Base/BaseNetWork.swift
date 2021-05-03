@@ -13,7 +13,7 @@ import NIO
 
 class BaseNetWork {
     
-    static func nodeInfoUrl(_ chain: ChainType) -> String {
+    static func nodeInfoUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.BINANCE_MAIN) {
             return BNB_URL + "api/v1/node-info"
         } else if (chain == ChainType.OKEX_MAIN) {
@@ -46,6 +46,43 @@ class BaseNetWork {
             return IOV_TEST_URL + "node_info"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "node_info"
+        }
+        return ""
+    }
+    
+    static func accountInfoUrl(_ chain: ChainType?, _ address: String) -> String {
+        if (chain == ChainType.BINANCE_MAIN) {
+            return BNB_URL + "api/v1/account/" + address
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return OKEX_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "auth/accounts/" + address
+        }
+        
+        else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/account/" + address
+        } else if (chain == ChainType.OKEX_TEST) {
+            return OKEX_TEST_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "auth/accounts/" + address
         }
         return ""
     }
@@ -112,43 +149,6 @@ class BaseNetWork {
         return ""
     }
     
-    static func accountUrl(_ chain: ChainType, _ address: String) -> String {
-        if (chain == ChainType.BINANCE_MAIN) {
-            return BNB_URL + "api/v1/account/" + address
-        } else if (chain == ChainType.OKEX_MAIN) {
-            return OKEX_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.BAND_MAIN) {
-            return BAND_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.CERTIK_MAIN) {
-            return CERTIK_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.SECRET_MAIN) {
-            return SECRET_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.SIF_MAIN) {
-            return SIF_URL + "auth/accounts/" + address
-        }
-        
-        else if (chain == ChainType.BINANCE_TEST) {
-            return BNB_TEST_URL + "api/v1/account/" + address
-        } else if (chain == ChainType.OKEX_TEST) {
-            return OKEX_TEST_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.CERTIK_TEST) {
-            return CERTIK_TEST_URL + "auth/accounts/" + address
-        }
-        return ""
-    }
-    
     static func bondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/delegations"
@@ -180,7 +180,7 @@ class BaseNetWork {
     
     static func bondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "staking/delegators/" + address + "delegations/" + opAddress
+            return KAVA_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.BAND_MAIN) {
             return BAND_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.IOV_MAIN) {
@@ -716,7 +716,7 @@ class BaseNetWork {
     
     
     //for Okex
-    static func balanceOkUrl(_ chain: ChainType, _ address: String) -> String {
+    static func balanceOkUrl(_ chain: ChainType?, _ address: String) -> String {
         if (chain == ChainType.OKEX_MAIN ) {
             return OKEX_URL + "accounts/" + address
         } else if (chain == ChainType.OKEX_TEST) {

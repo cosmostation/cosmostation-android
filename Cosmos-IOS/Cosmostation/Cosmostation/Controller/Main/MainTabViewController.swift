@@ -702,7 +702,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchAccountInfo(_ account: Account) {
-        let request = Alamofire.request(BaseNetWork.accountUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

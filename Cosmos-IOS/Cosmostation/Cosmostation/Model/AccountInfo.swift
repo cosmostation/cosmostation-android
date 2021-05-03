@@ -19,6 +19,11 @@ public class AccountInfo {
         self.value = Value.init(dictionary["value"] as! [String : Any])
     }
     
+    init(_ dictionary: NSDictionary?) {
+        self.type = dictionary?["type"] as? String ?? ""
+        self.value = Value.init(dictionary?["value"] as! [String : Any])
+    }
+    
     public class Value {
         var address: String = ""
         var coins: Array<Coin> = Array<Coin>()
