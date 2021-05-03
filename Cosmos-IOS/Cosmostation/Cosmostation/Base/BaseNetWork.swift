@@ -50,7 +50,7 @@ class BaseNetWork {
         return ""
     }
     
-    static func validatorUrl(_ chain: ChainType) -> String {
+    static func validatorsUrl(_ chain: ChainType) -> String {
         if (chain == ChainType.OKEX_MAIN) {
             return OKEX_URL + "staking/validators"
         } else if (chain == ChainType.KAVA_MAIN) {
@@ -79,6 +79,35 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/validators"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/validators"
+        }
+        return ""
+    }
+    
+    static func validatorUrl(_ chain: ChainType?, _ opAddress: String) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "staking/validators" + "/" + opAddress
+        }
+        
+        if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "staking/validators" + "/" + opAddress
         }
         return ""
     }
@@ -120,7 +149,7 @@ class BaseNetWork {
         return ""
     }
     
-    static func bondingUrl(_ chain: ChainType, _ address: String) -> String {
+    static func bondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.BAND_MAIN) {
@@ -146,16 +175,39 @@ class BaseNetWork {
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/delegations"
         }
+        return ""
+    }
+    
+    static func bondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "staking/delegators/" + address + "delegations/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        }
         
-        if (chain == ChainType.OKEX_MAIN ) {
-            return OKEX_URL + "staking/delegators/" + address
-        } else if (chain == ChainType.OKEX_TEST) {
-            return OKEX_TEST_URL + "staking/delegators/" + address
+        else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         }
         return ""
     }
     
-    static func unbondingUrl(_ chain: ChainType, _ address: String) -> String {
+    static func unbondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.BAND_MAIN) {
@@ -184,7 +236,65 @@ class BaseNetWork {
         return ""
     }
     
-    static func allrewardsUrl(_ chain: ChainType, _ address: String) -> String {
+    static func unbondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        }
+        
+        else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        }
+        return ""
+    }
+    
+    static func redelegationsUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "staking/redelegations"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "staking/redelegations"
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "staking/redelegations"
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "staking/redelegations"
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "staking/redelegations"
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "staking/redelegations"
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "staking/redelegations"
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "staking/redelegations"
+        }
+        
+        else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "staking/redelegations"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "staking/redelegations"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "staking/redelegations"
+        }
+        return ""
+    }
+    
+    static func rewardsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.BAND_MAIN) {
@@ -209,6 +319,64 @@ class BaseNetWork {
             return IOV_TEST_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/rewards"
+        }
+        return ""
+    }
+    
+    static func rewardUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        }
+        
+        else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        }
+        return ""
+    }
+    
+    static func rewardAddressUrl(_ chain: ChainType?, _ address: String) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "distribution/delegators/" + address + "/withdraw_address"
+        }
+        
+        else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
         }
         return ""
     }

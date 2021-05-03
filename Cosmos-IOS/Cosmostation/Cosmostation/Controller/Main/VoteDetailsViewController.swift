@@ -437,7 +437,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
         }
         
     }
-    
+
     
     func onFetchProposalDetail_gRPC(_ proposal_id: String) {
         DispatchQueue.global().async {

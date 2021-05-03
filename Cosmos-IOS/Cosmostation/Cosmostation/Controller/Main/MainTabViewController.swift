@@ -617,7 +617,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchTopValidatorsInfo() {
-        let request = Alamofire.request(BaseNetWork.validatorUrl(mChainType), method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -638,7 +638,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondedValidatorsInfo() {
-        let request = Alamofire.request(BaseNetWork.validatorUrl(mChainType), method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -659,7 +659,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondingValidatorsInfo() {
-        let request = Alamofire.request(BaseNetWork.validatorUrl(mChainType), method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -680,7 +680,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchAllValidatorsInfo() {
-        let request = Alamofire.request(BaseNetWork.validatorUrl(mChainType), method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -768,7 +768,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBondingInfo(_ account: Account) {
-        let request = Alamofire.request(BaseNetWork.bondingUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.bondingsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -789,7 +789,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondingInfo(_ account: Account) {
-        let request = Alamofire.request(BaseNetWork.unbondingUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.unbondingsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -811,7 +811,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchAllReward(_ account: Account) {
-        let request = Alamofire.request(BaseNetWork.allrewardsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.rewardsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
