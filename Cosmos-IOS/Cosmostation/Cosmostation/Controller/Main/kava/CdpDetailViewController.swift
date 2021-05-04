@@ -487,13 +487,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onFetchOwenCdp(_ address: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_OWEN
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_OWEN
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.owenCdpUrl(chainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
@@ -513,13 +507,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onFetchCdpDeposit(_ account:Account, _ collateralType: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + collateralType
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + collateralType
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.depositCdpUrl(chainType, account.account_address, collateralType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -541,13 +529,7 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
     }
 
     func onFetchTotalSupply() {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CHECK_SUPPLY
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CHECK_SUPPLY
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.supplyUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -566,37 +548,4 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
             self.onFetchFinished()
         }
     }
-    
-//    func onFetchKavaPrice(_ market:String) {
-//        var url: String?
-//        if (chainType == ChainType.KAVA_MAIN) {
-//            url = KAVA_PRICE_FEED_PRICE + market
-//        } else if (chainType == ChainType.KAVA_TEST) {
-//            url = KAVA_TEST_PRICE_FEED_PRICE + market
-//        }
-//        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-//        request.responseJSON { (response) in
-//            switch response.result {
-//            case .success(let res):
-//                guard let responseData = res as? NSDictionary,
-//                      let _ = responseData.object(forKey: "height") as? String else {
-//                    self.onFetchFinished()
-//                    return
-//                }
-//                self.mPrice = KavaPriceFeedPrice.init(responseData)
-//
-//            case .failure(let error):
-//                if (SHOW_LOG) { print("onFetchKavaPrice ", market , " ", error) }
-//            }
-//            self.onFetchFinished()
-//        }
-//    }
-//
-//
-//    func onCheckSupply() -> Bool {
-//        if (mCdpParam!.getGlobalDebtAmount().compare(mKavaTotalSupply!.getDebtAmount()).rawValue <= 0 ) {
-//            return false;
-//        }
-//        return true
-//    }
 }

@@ -173,9 +173,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyUnbondings.removeAll()
         BaseData.instance.mMyReward.removeAll()
         
+        BaseData.instance.mMintParam = nil
+        BaseData.instance.mStakingPool = nil
+        BaseData.instance.mInflation = nil
+        BaseData.instance.mProvision = nil
+        
+        BaseData.instance.mBnbTokenList.removeAll()
+        
+        BaseData.instance.mKavaPrice.removeAll()
+        BaseData.instance.mIncentiveParam = nil
+        
         BaseData.instance.mOkStaking = nil
         BaseData.instance.mOkUnbonding = nil
         BaseData.instance.mOkTokenList = nil
+        BaseData.instance.mOkTickerList = nil
+        
+        BaseData.instance.mStarNameFee = nil
+        BaseData.instance.mStarNameConfig = nil
+        
+        BaseData.instance.mBandOracleStatus = nil
         
         
         
@@ -240,7 +256,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 4
-            BaseData.instance.mBnbTokenList.removeAll()
             onFetchNodeInfo()
             onFetchAccountInfo(mAccount)
             onFetchBnbTokens()
@@ -248,7 +263,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
             self.mFetchCnt = 14
-            BaseData.instance.mCdpParam = nil
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -537,6 +551,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             }
+            BaseData.instance.mBalances = mBalances
             
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -563,7 +578,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     BaseData.instance.mMyValidator.append(validator)
                 }
             }
-            
             BaseData.instance.mBalances = mBalances
             
             print("BaseData.instance.mMyDelegations ", BaseData.instance.mMyDelegations.count)
@@ -586,40 +600,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchNodeInfo() {
-        var url: String?
-        if (mChainType == ChainType.BINANCE_MAIN ) {
-            url = BNB_URL_NODE_INFO
-        } else if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_NODE_INFO
-        } else if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_NODE_INFO
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_NODE_INFO
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_NODE_INFO
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_NODE_INFO
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_NODE_INFO
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_NODE_INFO
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_NODE_INFO
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_NODE_INFO
-        }
-        else if (mChainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_NODE_INFO
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_NODE_INFO
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_NODE_INFO
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_NODE_INFO
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_NODE_INFO
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.nodeInfoUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -636,32 +617,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchTopValidatorsInfo() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_VALIDATORS
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_VALIDATORS
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_VALIDATORS
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_VALIDATORS
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_VALIDATORS
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_VALIDATORS
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_VALIDATORS
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_VALIDATORS
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_VALIDATORS
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_VALIDATORS
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -682,32 +638,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondedValidatorsInfo() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_VALIDATORS
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_VALIDATORS
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_VALIDATORS
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_VALIDATORS
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_VALIDATORS
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_VALIDATORS
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_VALIDATORS
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_VALIDATORS
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_VALIDATORS
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_VALIDATORS
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"unbonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -728,32 +659,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondingValidatorsInfo() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_VALIDATORS
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_VALIDATORS
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_VALIDATORS
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_VALIDATORS
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_VALIDATORS
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_VALIDATORS
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_VALIDATORS
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_VALIDATORS
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_VALIDATORS
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_VALIDATORS
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"unbonding"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -774,13 +680,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchAllValidatorsInfo() {
-        var url: String?
-        if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_VALIDATORS
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_VALIDATORS
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(mChainType), method: .get, parameters: ["status":"all"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -802,41 +702,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchAccountInfo(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.BINANCE_MAIN ) {
-            url = BNB_URL_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_ACCOUNT_INFO + account.account_address
-        }  else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_ACCOUNT_INFO + account.account_address
-        }
-        else if (mChainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.KAVA_TEST) {
-           url = KAVA_TEST_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_ACCOUNT_INFO + account.account_address
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
-        }
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -902,33 +768,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBondingInfo(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_BONDING + account.account_address + KAVA_BONDING_TAIL
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_BONDING + account.account_address + BAND_BONDING_TAIL
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_BONDING + account.account_address + SECRET_BONDING_TAIL
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_BONDING + account.account_address + IOV_BONDING_TAIL
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_BONDING + account.account_address + CERTIK_BONDING_TAIL
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_BONDING + account.account_address + FETCH_BONDING_TAIL
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_BONDING + account.account_address + SIF_BONDING_TAIL
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL
-        }
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.bondingsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -949,33 +789,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchUnbondingInfo(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_UNBONDING + account.account_address + KAVA_UNBONDING_TAIL
-        }  else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_UNBONDING + account.account_address + BAND_UNBONDING_TAIL
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_UNBONDING + account.account_address + SECRET_UNBONDING_TAIL
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_UNBONDING + account.account_address + IOV_UNBONDING_TAIL
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_UNBONDING + account.account_address + CERTIK_UNBONDING_TAIL
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_UNBONDING + account.account_address + FETCH_UNBONDING_TAIL
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_UNBONDING + account.account_address + SIF_UNBONDING_TAIL
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_UNBONDING + account.account_address + CERTIK_TEST_UNBONDING_TAIL
-        }
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.unbondingsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -997,33 +811,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchAllReward(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_REWARD_FROM_VAL + account.account_address + "/rewards"
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_FROM_VAL + account.account_address + "/rewards"
-        }
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.rewardsUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1044,32 +832,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchMintParam() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_MINT_PARAM
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_MINT_PARAM
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_MINT_PARAM
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_MINT_PARAM
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_MINT_PARAM
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_MINT_PARAM
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_MINT_PARAM
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_MINT_PARAM
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_MINT_PARAM
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_MINT_PARAM
-        }
-        BaseData.instance.mMintParam = nil
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.paramMintUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1088,32 +851,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchInflation() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_INFLATION
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_INFLATION
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_INFLATION
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_INFLATION
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_INFLATION
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_INFLATION
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_INFLATION
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_INFLATION
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_INFLATION
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_INFLATION
-        }
-        BaseData.instance.mInflation = nil
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.inflationUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1132,32 +870,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchProvision() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PROVISIONS
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_PROVISIONS
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_PROVISIONS
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_PROVISIONS
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_PROVISIONS
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_PROVISIONS
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_PROVISIONS
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_PROVISIONS
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_PROVISIONS
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_PROVISIONS
-        }
-        BaseData.instance.mProvision = nil
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.provisionUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1176,34 +889,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchStakingPool() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_STAKING_POOL
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = BAND_STAKING_POOL
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = SECRET_STAKING_POOL
-        } else if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_STAKING_POOL
-        } else if (mChainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_STAKING_POOL
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_STAKING_POOL
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = FETCH_STAKING_POOL
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = SIF_STAKING_POOL
-        }
-        else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_STAKING_POOL
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_STAKING_POOL
-        } else if (mChainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_STAKING_POOL
-        }
-        BaseData.instance.mStakingPool = nil
-        
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.stakingPoolUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1228,13 +914,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBnbTokens() {
-        var url = ""
-        if (mChainType == ChainType.BINANCE_MAIN ) {
-            url = BNB_URL_TOKENS
-        } else if (mChainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_TOKENS
-        }
-        let request = Alamofire.request(url, method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.bnbTokenUrl(mChainType), method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1253,13 +933,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBnbMiniTokens() {
-        var url = ""
-        if (mChainType == ChainType.BINANCE_MAIN ) {
-            url = BNB_URL_MINI_TOKENS
-        } else if (mChainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_MINI_TOKENS
-        }
-        let request = Alamofire.request(url, method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.bnbMiniTokenUrl(mChainType), method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1271,7 +945,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBnbTokens ", error) }
+                if (SHOW_LOG) { print("onFetchBnbMiniTokens ", error) }
             }
             self.onFetchFinished()
         }
@@ -1334,13 +1008,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     
     
     func onFetchPriceFeedParam() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PRICE_FEED_PARAM
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_PRICE_FEED_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.paramPriceFeedUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1351,7 +1019,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 let priceParam = KavaPriceFeedParam.init(responseData)
-                BaseData.instance.mKavaPrice.removeAll()
                 self.mFetchCnt = self.mFetchCnt + (priceParam.result.markets.count / 2)
                 for market in priceParam.result.markets {
                     if (market.market_id.contains(":30")) {
@@ -1365,14 +1032,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchPriceFeedPrice(_ market:String) {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PRICE_FEED_PRICE + market
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_PRICE_FEED_PRICE + market
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+    func onFetchPriceFeedPrice(_ market: String) {
+        let request = Alamofire.request(BaseNetWork.priceFeedUrl(mChainType, market), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1393,13 +1054,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchIncentiveParam() {
-        var url: String?
-        if (mChainType == ChainType.KAVA_MAIN) {
-            url = KAVA_INCENTIVE_PARAM
-        } else if (mChainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_INCENTIVE_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.paramIncentiveUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
@@ -1421,13 +1076,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchOkAccountBalance(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_ACCOUNT_BALANCE  + account.account_address
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_ACCOUNT_BALANCE  + account.account_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.balanceOkUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1447,13 +1096,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchOkStakingInfo(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_STAKING  + account.account_address
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_STAKING  + account.account_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.stakingOkUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1472,13 +1115,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchOkUnbondingInfo(_ account: Account) {
-        var url: String?
-        if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_UNBONDING  + account.account_address + OKEX_UNBONDING_TAIL
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_UNBONDING  + account.account_address + OKEX_TEST_UNBONDING_TAIL
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.unbondingOkUrl(mChainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1497,13 +1134,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchOkTokenList() {
-        var url: String?
-        if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_TOKEN_LIST
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_TOKEN_LIST
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.tokenListOkUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1521,13 +1152,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchOkDexTicker() {
-        var url: String?
-        if (mChainType == ChainType.OKEX_MAIN) {
-            url = OKEX_TICKER_LIST
-        } else if (mChainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_TICKER_LIST
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.tickerListOkUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1546,13 +1171,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchStarNameFees() {
-        var url: String?
-        if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_STARNAME_FEE
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_STARNAME_FEE
-        }
-        let request = Alamofire.request(url!, method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.feesStarnameUrl(mChainType), method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1570,13 +1189,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchStarNameConfig() {
-        var url: String?
-        if (mChainType == ChainType.IOV_MAIN) {
-            url = IOV_STARNAME_CONFIG
-        } else if (mChainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_STARNAME_CONFIG
-        }
-        let request = Alamofire.request(url!, method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.configStarnameUrl(mChainType), method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1594,8 +1207,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBandOracleStatus() {
-        let url = BAND_ORACLE_STATUS
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.oracleBandUrl(), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

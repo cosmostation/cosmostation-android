@@ -291,13 +291,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     }
     
     func onFetchKavaPrice(_ market:String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_PRICE_FEED_PRICE + market
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_PRICE_FEED_PRICE + market
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.priceFeedUrl(chainType, market), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
@@ -317,13 +311,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     }
     
     func onFetchOwenCdp(_ address: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_OWEN
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_OWEN
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.owenCdpUrl(chainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
@@ -343,13 +331,7 @@ class StepWithdrawCdpAmountViewController: BaseViewController, UITextFieldDelega
     }
     
     func onFetchCdpDeposit(_ account:Account, _ collateralType: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_DEPOSIT + account.account_address + "/" + collateralType
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_DEPOSIT + account.account_address + "/" + collateralType
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.depositCdpUrl(chainType, account.account_address, collateralType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

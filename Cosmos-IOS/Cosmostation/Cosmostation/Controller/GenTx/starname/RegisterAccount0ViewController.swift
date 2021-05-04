@@ -93,13 +93,7 @@ class RegisterAccount0ViewController: BaseViewController {
     
     func onFetchResolve(_ account: String, _ doamin: String) {
         self.showWaittingAlert()
-        var url: String?
-        if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_CHECK_WITH_STARNAME;
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_CHECK_WITH_STARNAME;
-        }
-        let request = Alamofire.request(url!, method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

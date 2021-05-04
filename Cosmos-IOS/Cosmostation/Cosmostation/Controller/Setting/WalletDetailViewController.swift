@@ -395,7 +395,11 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else {
             let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (chainType == ChainType.IOV_MAIN) {
+            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+                self.onShowToast("Disabled")
+                return
+                
+            } else if (chainType == ChainType.IOV_MAIN) {
                 if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                     return
@@ -426,11 +430,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 }
                 
             } else if (chainType! == ChainType.FETCH_MAIN) {
-                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
+                self.onShowToast("Disabled")
+                return
                 
             } else if (chainType! == ChainType.SIF_MAIN) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
@@ -538,30 +539,8 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func onFetchRewardAddress(_ accountAddr: String) {
-        var url = ""
-        if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
-        }
-//        else if (chainType == ChainType.FETCH_MAIN) {
-//            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
-//        }
-        else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+    func onFetchRewardAddress(_ address: String) {
+        let request = Alamofire.request(BaseNetWork.rewardAddressUrl(chainType, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -571,7 +550,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 self.rewardCard.isHidden = false
                 let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                 self.rewardAddress.text = trimAddress
-                if (trimAddress != accountAddr) {
+                if (trimAddress != address) {
                     self.rewardAddress.textColor = UIColor.init(hexString: "f31963")
                 }
                 self.rewardAddress.adjustsFontSizeToFitWidth = true
@@ -613,40 +592,7 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
     
     
     func onFetchNodeInfo() {
-        var url: String?
-        if (self.chainType == ChainType.BINANCE_MAIN ) {
-            url = BNB_URL_NODE_INFO
-        } else if (self.chainType == ChainType.OKEX_MAIN) {
-            url = OKEX_NODE_INFO
-        } else if (self.chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_NODE_INFO
-        } else if (self.chainType == ChainType.BAND_MAIN) {
-            url = BAND_NODE_INFO
-        } else if (self.chainType == ChainType.IOV_MAIN) {
-            url = IOV_NODE_INFO
-        } else if (self.chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_NODE_INFO
-        } else if (self.chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_NODE_INFO
-        } else if (self.chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_NODE_INFO
-        } else if (self.chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_NODE_INFO
-        } else if (self.chainType == ChainType.SIF_MAIN) {
-            url = SIF_NODE_INFO
-        }
-        else if (self.chainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_NODE_INFO
-        } else if (self.chainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_NODE_INFO
-        } else if (self.chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_NODE_INFO
-        } else if (self.chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_NODE_INFO
-        } else if (self.chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_NODE_INFO
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.nodeInfoUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

@@ -2162,6 +2162,20 @@ class WUtils {
         }
     }
     
+    static func mainDisplayDecimal(_ chain:ChainType?) -> Int16 {
+        if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return 8
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return 18
+        } else if (chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN) {
+            return 18
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return 8
+        } else {
+            return 6
+        }
+    }
+    
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
         if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"
@@ -2824,17 +2838,16 @@ class WUtils {
         return 100;
     }
     
-//    static func getQuotient(_ value:String) -> NSDecimalNumber {
-//        let dividend = WUtils.localeStringToDecimal(value)
-//        return dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
-//    }
-//
-//    static func getRemainder(_ value:String) -> NSDecimalNumber {
-//        let dividend = WUtils.localeStringToDecimal(value)
-//        let quotient = dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
-//        return dividend.subtracting(quotient)
-//    }
-    
+    static func getSifCoinDecimal(_ denom:String) -> Int16 {
+        if (denom.caseInsensitiveCompare(SIF_MAIN_DENOM) == .orderedSame) { return 18; }
+        else if (denom.caseInsensitiveCompare("cusdt") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("cusdc") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("csrm") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("cwscrt") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("ccro") == .orderedSame) { return 8; }
+        else if (denom.caseInsensitiveCompare("cwbtc") == .orderedSame) { return 8; }
+        return 18;
+    }
     
     static func getVoterTypeCnt(_ votes: Array<Vote>, _ type: String) -> String {
         var result = 0
@@ -4169,6 +4182,28 @@ extension Date {
     
     init(milliseconds:Int) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+}
+
+extension String {
+    func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+
+    func substring(from: Int) -> String {
+        let fromIndex = index(from: from)
+        return String(self[fromIndex...])
+    }
+
+    func substring(to: Int) -> String {
+        let toIndex = index(from: to)
+        return String(self[..<toIndex])
+    }
+
+    func substring(with r: Range<Int>) -> String {
+        let startIndex = index(from: r.lowerBound)
+        let endIndex = index(from: r.upperBound)
+        return String(self[startIndex..<endIndex])
     }
 }
 

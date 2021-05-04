@@ -103,14 +103,8 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     
     var mAccountOffset = 1
     func onFetchMyAccount(_ account:Account) {
-        var url: String?
-        if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_CHECK_MY_ACCOUNT;
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_CHECK_MY_ACCOUNT;
-        }
         let param = ["owner":account.account_address, "results_per_page": 100, "offset":mAccountOffset] as [String : Any]
-        let request = Alamofire.request(url!, method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.checkAccountStarnameUrl(chainType), method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

@@ -30,6 +30,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailPersistenceCell", bundle: nil), forCellReuseIdentifier: "TokenDetailPersistenceCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCrytoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCrytoCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSifCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSifCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -132,6 +133,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 
             } else if (chainType == ChainType.CRYPTO_MAIN) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailCrytoCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
+                
+            } else if (chainType == ChainType.SIF_MAIN) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailSifCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
             }

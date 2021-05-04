@@ -170,7 +170,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SIF_MAIN) {
             titleChainImg.image = UIImage(named: "chainsifchain")
-            titleChainName.text = "(SifChain Mainnet)"
+            titleChainName.text = "(Sifchain Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -517,13 +517,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchBnbHistory(_ address:String) {
-        var url = ""
-        if (chainType == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_HISTORY
-        } else if (chainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_HISTORY
-        }
-        let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.bnbHistoryUrl(chainType), method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):
@@ -551,13 +545,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchOkHistory(_ address:String) {
-        var url = ""
-        if (chainType == ChainType.OKEX_MAIN) {
-            url = OKEX_HISTORY
-        } else if (chainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_HISTORY
-        }
-        let request = Alamofire.request(url, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.historyOkUrl(chainType), method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):
@@ -583,28 +571,9 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchApiHistory(_ address:String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_API_HISTORY + address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_API_HISTORY + address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_API_HISTORY + address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_API_HISTORY + address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_API_HISTORY + address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_API_HISTORY + address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_API_HISTORY + address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_API_HISTORY + address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_API_HISTORY + address
-        }
+        let url = BaseNetWork.accountHistory(chainType!, address)
         print("url ", url)
-        let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

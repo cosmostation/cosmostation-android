@@ -203,13 +203,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchDomainInfo(_ domain: String) {
-        var url: String?
-        if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_STARNAME_DOMAIN_INFO;
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_STARNAME_DOMAIN_INFO;
-        }
-        let request = Alamofire.request(url!, method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.domainInfoStarnameUrl(chainType), method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -229,13 +223,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     func onFetchResolve(_ starname: String) {
-        var url: String?
-        if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_CHECK_WITH_STARNAME;
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_CHECK_WITH_STARNAME;
-        }
-        let request = Alamofire.request(url!, method: .post, parameters: ["starname" : "*" + starname], encoding: JSONEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : "*" + starname], encoding: JSONEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

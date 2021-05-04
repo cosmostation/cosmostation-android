@@ -121,307 +121,55 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                     }
                 }
                 
-                else if (self.userChain == ChainType.BINANCE_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
-                    let request = Alamofire.request(BNB_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                else {
+                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
+                    let request = Alamofire.request(BaseNetWork.accountInfoUrl(self.userChain, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                     request.responseJSON { (response) in
                         switch response.result {
                         case .success(let res):
-                            guard let info = res as? [String : Any] else {
-                                return
-                            }
-                            let bnbAccountInfo = BnbAccountInfo.init(info)
-                            for bnbBalance in bnbAccountInfo.balances {
-                                if (bnbBalance.symbol == BNB_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(bnbBalance.free, cell!.denomAmount.font!, 0, 8)
-                                }
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.KAVA_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(KAVA_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let info = res as? [String : Any] else {
-                                return
-                            }
-                            let tempAccount = Account.init(isNew: true)
-                            tempAccount.account_id = -1
-                            let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
-                            cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.KAVA_MAIN)
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.IOV_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(IOV_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.BAND_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(BAND_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.SECRET_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(SECRET_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.CERTIK_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(CERTIK_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                  let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.OKEX_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 18)
-                    let request = Alamofire.request(OKEX_ACCOUNT_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let okAccountBalancesInfo = res as? [String : Any] else {
-                                return
-                            }
-                            let okAccountBalances = OkAccountToken.init(okAccountBalancesInfo)
-                            for currency in okAccountBalances.data.currencies {
-                                if (currency.symbol == OKEX_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(currency.available, cell!.denomAmount.font!, 0, 18)
-                                    return
-                                }
-                            }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                } else if (self.userChain == ChainType.SENTINEL_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(SENTINEL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
-                                if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, 6, 6)
-                                }
-                            }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                } else if (self.userChain == ChainType.FETCH_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 18, 6)
-                    let request = Alamofire.request(FETCH_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
-                                if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, 18, 6)
-                                }
-                            }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                } else if (self.userChain == ChainType.SIF_MAIN) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 18, 6)
-                    let request = Alamofire.request(SIF_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
-                                if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, 18, 6)
-                                }
-                            }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                }
-                
-                else if (self.userChain == ChainType.BINANCE_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 8)
-                    let request = Alamofire.request(BNB_TEST_URL_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                            case .success(let res):
-                                guard let info = res as? [String : Any] else {
-                                    return
-                                }
-                                let bnbAccountInfo = BnbAccountInfo.init(info)
-                                for bnbBalance in bnbAccountInfo.balances {
-                                    if (bnbBalance.symbol == BNB_MAIN_DENOM) {
-                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(bnbBalance.free, cell!.denomAmount.font!, 0, 8)
+                            if (self.userChain == ChainType.BINANCE_MAIN || self.userChain == ChainType.BINANCE_TEST) {
+                                if let responseData = res as? NSDictionary {
+                                    let bnbAccountInfo = BnbAccountInfo.init(responseData)
+                                    if let coin = bnbAccountInfo.balances.filter({$0.symbol == WUtils.getMainDenom(self.userChain)}).first {
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.free , cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
                                     }
                                 }
-                            case .failure(let error):
-                                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                            }
-                    }
-                    
-                } else if (self.userChain == ChainType.KAVA_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(KAVA_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                            case .success(let res):
-                                guard let info = res as? [String : Any] else {
-                                    return
-                                }
-                                let tempAccount = Account.init(isNew: true)
-                                tempAccount.account_id = -1
-                                let balances = WUtils.getBalancesWithKavaAccountInfo(tempAccount, KavaAccountInfo.init(info))
-                                cell?.denomAmount.attributedText = WUtils.dpTokenAvailable(balances, cell!.denomAmount.font!, 6, KAVA_MAIN_DENOM, ChainType.KAVA_TEST)
                                 
-                            case .failure(let error):
-                                if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                            }
-                    }
-                    
-                } else if (self.userChain == ChainType.IOV_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(IOV_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                    return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.OKEX_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 0, 18)
-                    let request = Alamofire.request(OKEX_TEST_ACCOUNT_BALANCE + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let okAccountBalancesInfo = res as? [String : Any] else {
-                                return
-                            }
-                            let okAccountBalances = OkAccountToken.init(okAccountBalancesInfo)
-                            for currency in okAccountBalances.data.currencies {
-                                if (currency.symbol == OKEX_MAIN_DENOM) {
-                                    cell?.denomAmount.attributedText = WUtils.displayAmount2(currency.available, cell!.denomAmount.font!, 0, 18)
-                                    return
+                            } else if (self.userChain == ChainType.OKEX_MAIN || self.userChain == ChainType.OKEX_TEST) {
+                                if let responseData = res as? NSDictionary {
+                                    let okAccountInfo = OkAccountInfo.init(responseData)
+                                    if let coin = okAccountInfo.value?.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
+                                    }
+                                }
+                                
+                            } else if (self.userChain == ChainType.KAVA_MAIN || self.userChain == ChainType.KAVA_TEST) {
+                                if let responseData = res as? NSDictionary {
+                                    let kavaAccountInfo = KavaAccountInfo.init(responseData)
+                                    if let coin = kavaAccountInfo.result.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
+                                        cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
+                                    }
+                                }
+                                
+                            } else {
+                                if let responseData = res as? NSDictionary, let info = responseData.object(forKey: "result") as? NSDictionary {
+                                    let accountInfo = AccountInfo.init(info)
+                                    if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count > 0) {
+                                        if let coin = accountInfo.value.coins.filter({$0.denom == WUtils.getMainDenom(self.userChain)}).first {
+                                            cell?.denomAmount.attributedText = WUtils.displayAmount2(coin.amount , cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
+                                        }
+                                    }
                                 }
                             }
-                            
-                        case .failure(let error):
-                            if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
-                        }
-                    }
-                    
-                } else if (self.userChain == ChainType.CERTIK_TEST) {
-                    cell?.denomAmount.attributedText = WUtils.displayAmount2(NSDecimalNumber.zero.stringValue, cell!.denomAmount.font!, 6, 6)
-                    let request = Alamofire.request(CERTIK_TEST_ACCOUNT_INFO + address, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-                    request.responseJSON { (response) in
-                        switch response.result {
-                        case .success(let res):
-                            guard let responseData = res as? NSDictionary,
-                                  let info = responseData.object(forKey: "result") as? [String : Any] else {
-                                return
-                            }
-                            let accountInfo = AccountInfo.init(info)
-                            if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT && accountInfo.value.coins.count != 0) {
-                                cell?.denomAmount.attributedText = WUtils.displayAmount2(accountInfo.value.coins[0].amount, cell!.denomAmount.font!, 6, 6)
-                            }
+                        
+                        
                         case .failure(let error):
                             if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
                         }
                     }
                     
                 }
+
             });
         }
         return cell!
