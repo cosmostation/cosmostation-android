@@ -201,6 +201,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         sifAction.setValue(UIImage(named: "chainsifchain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let kiAction = UIAlertAction(title: NSLocalizedString("chain_title_ki", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.KI_MAIN
+            self.onGenNewKey()
+        })
+        kiAction.setValue(UIImage(named: "chainKifoundation")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SECRET_MAIN
             self.onGenNewKey()
@@ -263,6 +269,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(fetchAction)
         showAlert.addAction(cryptoAction)
         showAlert.addAction(sifAction)
+        showAlert.addAction(kiAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {
