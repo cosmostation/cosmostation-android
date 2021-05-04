@@ -211,32 +211,7 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     
     func onFetchRedelegateState(_ address: String, _ from: String, _ to: String) {
-        var url: String?
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            url = BAND_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            url = SECRET_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            url = IOV_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            url = FETCH_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            url = SIF_REDELEGATION;
-        }
-        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_REDELEGATION;
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REDELEGATION;
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_from":from, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.redelegationsUrl(pageHolderVC.chainType), method: .get, parameters: ["delegator":address, "validator_from":from, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

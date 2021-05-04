@@ -158,29 +158,8 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
         
     }
     
-    func onFetchRewardAddress(_ accountAddr: String) {
-        var url = ""
-        if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
-        }
-        else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+    func onFetchRewardAddress(_ address: String) {
+        let request = Alamofire.request(BaseNetWork.rewardAddressUrl(pageHolderVC.chainType, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -192,7 +171,7 @@ class StepChangeAddressViewController: BaseViewController, QrScannerDelegate {
                 }
                 let trimAddress = address.replacingOccurrences(of: "\"", with: "")
                 self.currentRewardAddressLabel.text = trimAddress
-                if (trimAddress != accountAddr) {
+                if (trimAddress != address) {
                     self.currentRewardAddressLabel.textColor = UIColor.init(hexString: "f31963")
                 }
                 self.currentRewardAddressLabel.adjustsFontSizeToFitWidth = true

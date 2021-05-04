@@ -190,32 +190,7 @@ class StepUndelegateCheckViewController: BaseViewController, PasswordViewDelegat
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        url = KAVA_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-                        url = BAND_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-                        url = SECRET_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-                        url = IOV_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-                        url = CERTIK_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-                        url = SENTINEL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-                        url = FETCH_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-                        url = SIF_BORAD_TX
-                    }
-                    else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        url = KAVA_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                        url = IOV_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                        url = CERTIK_TEST_BORAD_TX
-                    }
-                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {

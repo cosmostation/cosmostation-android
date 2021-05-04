@@ -499,32 +499,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     }
     
     func onFetchTopValidatorsInfo() {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_VALIDATORS
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_VALIDATORS
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_VALIDATORS
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_VALIDATORS
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_VALIDATORS
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_VALIDATORS
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_VALIDATORS
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_VALIDATORS
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_VALIDATORS
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_VALIDATORS
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.validatorsUrl(chainType), method: .get, parameters: ["status":"bonded"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

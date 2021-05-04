@@ -85,33 +85,8 @@ class ReInvestAmountViewController: BaseViewController {
         }
     }
 
-    func onFetchReward(_ accountAddr: String, _ validatorAddr:String) {
-        var url: String?
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_REWARD_FROM_VAL + accountAddr + KAVA_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_FROM_VAL + accountAddr + BAND_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_FROM_VAL + accountAddr + SECRET_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_FROM_VAL + accountAddr + IOV_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_FROM_VAL + accountAddr + CERTIK_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_FROM_VAL + accountAddr + SENTINEL_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            url = FETCH_REWARD_FROM_VAL + accountAddr + FETCH_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            url = SIF_REWARD_FROM_VAL + accountAddr + SIF_REWARD_FROM_VAL_TAIL + validatorAddr
-        }
-        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_FROM_VAL + accountAddr + KAVA_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_FROM_VAL + accountAddr + IOV_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_FROM_VAL + accountAddr + CERTIK_TEST_REWARD_FROM_VAL_TAIL + validatorAddr
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+    func onFetchReward(_ address: String, _ opAddress: String) {
+        let request = Alamofire.request(BaseNetWork.rewardUrl(pageHolderVC.chainType, address, opAddress), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

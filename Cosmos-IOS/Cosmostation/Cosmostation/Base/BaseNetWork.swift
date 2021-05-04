@@ -87,7 +87,7 @@ class BaseNetWork {
         return ""
     }
     
-    static func validatorsUrl(_ chain: ChainType) -> String {
+    static func validatorsUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.OKEX_MAIN) {
             return OKEX_URL + "staking/validators"
         } else if (chain == ChainType.KAVA_MAIN) {
@@ -666,6 +666,77 @@ class BaseNetWork {
     }
     
     
+    static func txUrl(_ chain: ChainType?, _ txhash: String) -> String {
+        if (chain == ChainType.BINANCE_MAIN) {
+            return BNB_URL + "api/v1/tx/" + txhash
+        } else if (chain == ChainType.OKEX_MAIN) {
+            return OKEX_URL + "txs/" + txhash
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "txs/" + txhash
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "txs/" + txhash
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "txs/" + txhash
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "txs/" + txhash
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "txs/" + txhash
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "txs/" + txhash
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "txs/" + txhash
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "txs/" + txhash
+        }
+        
+        else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/tx/" + txhash
+        } else if (chain == ChainType.OKEX_TEST) {
+            return OKEX_TEST_URL + "txs/" + txhash
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "txs/" + txhash
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "txs/" + txhash
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "txs/" + txhash
+        }
+        return ""
+    }
+    
+    static func broadcastUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.OKEX_MAIN) {
+            return OKEX_URL + "txs"
+        } else if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "txs"
+        } else if (chain == ChainType.BAND_MAIN) {
+            return BAND_URL + "txs"
+        } else if (chain == ChainType.IOV_MAIN) {
+            return IOV_URL + "txs"
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            return CERTIK_URL + "txs"
+        } else if (chain == ChainType.SECRET_MAIN) {
+            return SECRET_URL + "txs"
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return SENTINEL_URL + "txs"
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return FETCH_URL + "txs"
+        } else if (chain == ChainType.SIF_MAIN) {
+            return SIF_URL + "txs"
+        }
+        
+        if (chain == ChainType.OKEX_TEST) {
+            return OKEX_TEST_URL + "txs"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "txs"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "txs"
+        } else if (chain == ChainType.CERTIK_TEST) {
+            return CERTIK_TEST_URL + "txs"
+        }
+        return ""
+    }
+    
+    
     //for Binance
     static func bnbTokenUrl(_ chain: ChainType) -> String {
         if (chain == ChainType.BINANCE_MAIN ) {
@@ -739,6 +810,15 @@ class BaseNetWork {
             return OKEX_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.OKEX_TEST) {
             return OKEX_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
+        }
+        return ""
+    }
+    
+    static func historyOkUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.OKEX_MAIN ) {
+            return OKEX_URL + "transactions"
+        } else if (chain == ChainType.OKEX_TEST) {
+            return OKEX_TEST_URL + "transactions"
         }
         return ""
     }

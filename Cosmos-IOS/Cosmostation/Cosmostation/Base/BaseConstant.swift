@@ -256,27 +256,27 @@ let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_t
 
 
 //BAND_URL
-let BAND_NODE_INFO                      = BAND_URL + "node_info";
-let BAND_TX                             = BAND_URL + "txs/";
-let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
-let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
-let BAND_BONDING                        = BAND_URL + "staking/delegators/";
-let BAND_BONDING_TAIL                   = "/delegations";
-let BAND_UNBONDING                      = BAND_URL + "staking/delegators/";
-let BAND_UNBONDING_TAIL                 = "/unbonding_delegations";
-let BAND_REWARD_FROM_VAL                = BAND_URL + "distribution/delegators/";
-let BAND_REWARD_FROM_VAL_TAIL           = "/rewards/";
-let BAND_REWARD_ADDRESS                 = BAND_URL + "distribution/delegators/";
-let BAND_REWARD_ADDRESS_TAIL            = "/withdraw_address";
-let BAND_REDELEGATION                   = BAND_URL + "staking/redelegations";
-let BAND_MINT_PARAM                     = BAND_URL + "minting/parameters";
-let BAND_INFLATION                      = BAND_URL + "minting/inflation";
-let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions";
-let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
-let BAND_BORAD_TX                       = BAND_URL + "txs";
-let BAND_PROPOSALS                      = BAND_URL + "gov/proposals";
-let BAND_PROPOSALS_TALLY_TAIL           = "/tally";
-let BAND_ORACLE_STATUS                  = BAND_URL + "oracle/active_validators";
+//let BAND_NODE_INFO                      = BAND_URL + "node_info";
+//let BAND_TX                             = BAND_URL + "txs/";
+//let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
+//let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
+//let BAND_BONDING                        = BAND_URL + "staking/delegators/";
+//let BAND_BONDING_TAIL                   = "/delegations";
+//let BAND_UNBONDING                      = BAND_URL + "staking/delegators/";
+//let BAND_UNBONDING_TAIL                 = "/unbonding_delegations";
+//let BAND_REWARD_FROM_VAL                = BAND_URL + "distribution/delegators/";
+//let BAND_REWARD_FROM_VAL_TAIL           = "/rewards/";
+//let BAND_REWARD_ADDRESS                 = BAND_URL + "distribution/delegators/";
+//let BAND_REWARD_ADDRESS_TAIL            = "/withdraw_address";
+//let BAND_REDELEGATION                   = BAND_URL + "staking/redelegations";
+//let BAND_MINT_PARAM                     = BAND_URL + "minting/parameters";
+//let BAND_INFLATION                      = BAND_URL + "minting/inflation";
+//let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions";
+//let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
+//let BAND_BORAD_TX                       = BAND_URL + "txs";
+//let BAND_PROPOSALS                      = BAND_URL + "gov/proposals";
+//let BAND_PROPOSALS_TALLY_TAIL           = "/tally";
+//let BAND_ORACLE_STATUS                  = BAND_URL + "oracle/active_validators";
 
 let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
@@ -342,108 +342,45 @@ let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainI
 
 
 //OKEX_URL
-let OKEX_NODE_INFO                          = OKEX_URL + "node_info";
-let OKEX_TX                                 = OKEX_URL + "txs/";
-let OKEX_VALIDATORS                         = OKEX_URL + "staking/validators";
-let OKEX_ACCOUNT_INFO                       = OKEX_URL + "auth/accounts/";
-let OKEX_ACCOUNT_BALANCE                    = OKEX_URL + "accounts/";
-let OKEX_TOKEN_LIST                         = OKEX_URL + "tokens";
-let OKEX_TICKER_LIST                        = OKEX_URL + "tickers";
-let OKEX_STAKING                            = OKEX_URL + "staking/delegators/";
-let OKEX_UNBONDING                          = OKEX_URL + "staking/delegators/";
-let OKEX_UNBONDING_TAIL                     = "/unbonding_delegations";
-let OKEX_HISTORY                            = OKEX_URL + "transactions";
-let OKEX_BORAD_TX                           = OKEX_URL + "txs";
+//let OKEX_NODE_INFO                          = OKEX_URL + "node_info";
+//let OKEX_TX                                 = OKEX_URL + "txs/";
+//let OKEX_VALIDATORS                         = OKEX_URL + "staking/validators";
+//let OKEX_ACCOUNT_INFO                       = OKEX_URL + "auth/accounts/";
+//let OKEX_ACCOUNT_BALANCE                    = OKEX_URL + "accounts/";
+//let OKEX_TOKEN_LIST                         = OKEX_URL + "tokens";
+//let OKEX_TICKER_LIST                        = OKEX_URL + "tickers";
+//let OKEX_STAKING                            = OKEX_URL + "staking/delegators/";
+//let OKEX_UNBONDING                          = OKEX_URL + "staking/delegators/";
+//let OKEX_UNBONDING_TAIL                     = "/unbonding_delegations";
+//let OKEX_HISTORY                            = OKEX_URL + "transactions";
+//let OKEX_BORAD_TX                           = OKEX_URL + "txs";
 
 //OKEX_TEST_URL
-let OKEX_TEST_NODE_INFO                     = OKEX_TEST_URL + "node_info";
-let OKEX_TEST_TX                            = OKEX_TEST_URL + "txs/";
-let OKEX_TEST_VALIDATORS                    = OKEX_TEST_URL + "staking/validators";
-let OKEX_TEST_ACCOUNT_INFO                  = OKEX_TEST_URL + "auth/accounts/";
-let OKEX_TEST_ACCOUNT_BALANCE               = OKEX_TEST_URL + "accounts/";
-let OKEX_TEST_TOKEN_LIST                    = OKEX_TEST_URL + "tokens";
-let OKEX_TEST_TICKER_LIST                   = OKEX_TEST_URL + "tickers";
-let OKEX_TEST_STAKING                       = OKEX_TEST_URL + "staking/delegators/";
-let OKEX_TEST_UNBONDING                     = OKEX_TEST_URL + "staking/delegators/";
-let OKEX_TEST_UNBONDING_TAIL                = "/unbonding_delegations";
-let OKEX_TEST_HISTORY                       = OKEX_TEST_URL + "transactions";
-let OKEX_TEST_BORAD_TX                      = OKEX_TEST_URL + "txs";
+//let OKEX_TEST_NODE_INFO                     = OKEX_TEST_URL + "node_info";
+//let OKEX_TEST_TX                            = OKEX_TEST_URL + "txs/";
+//let OKEX_TEST_VALIDATORS                    = OKEX_TEST_URL + "staking/validators";
+//let OKEX_TEST_ACCOUNT_INFO                  = OKEX_TEST_URL + "auth/accounts/";
+//let OKEX_TEST_ACCOUNT_BALANCE               = OKEX_TEST_URL + "accounts/";
+//let OKEX_TEST_TOKEN_LIST                    = OKEX_TEST_URL + "tokens";
+//let OKEX_TEST_TICKER_LIST                   = OKEX_TEST_URL + "tickers";
+//let OKEX_TEST_STAKING                       = OKEX_TEST_URL + "staking/delegators/";
+//let OKEX_TEST_UNBONDING                     = OKEX_TEST_URL + "staking/delegators/";
+//let OKEX_TEST_UNBONDING_TAIL                = "/unbonding_delegations";
+//let OKEX_TEST_HISTORY                       = OKEX_TEST_URL + "transactions";
+//let OKEX_TEST_BORAD_TX                      = OKEX_TEST_URL + "txs";
 
 
 //SECRET_URL
-let SECRET_NODE_INFO                        = SECRET_URL + "node_info";
-let SECRET_TX                               = SECRET_URL + "txs/";
-let SECRET_VALIDATORS                       = SECRET_URL + "staking/validators";
-let SECRET_ACCOUNT_INFO                     = SECRET_URL + "auth/accounts/";
-let SECRET_BONDING                          = SECRET_URL + "staking/delegators/";
-let SECRET_BONDING_TAIL                     = "/delegations";
-let SECRET_UNBONDING                        = SECRET_URL + "staking/delegators/";
-let SECRET_UNBONDING_TAIL                   = "/unbonding_delegations";
-let SECRET_REWARD_FROM_VAL                  = SECRET_URL + "distribution/delegators/";
-let SECRET_REWARD_FROM_VAL_TAIL             = "/rewards/";
-let SECRET_REWARD_ADDRESS                   = SECRET_URL + "distribution/delegators/";
-let SECRET_REWARD_ADDRESS_TAIL              = "/withdraw_address";
-let SECRET_REDELEGATION                     = SECRET_URL + "staking/redelegations";
-let SECRET_MINT_PARAM                       = SECRET_URL + "minting/parameters";
-let SECRET_INFLATION                        = SECRET_URL + "minting/inflation";
-let SECRET_PROVISIONS                       = SECRET_URL + "minting/annual-provisions";
-let SECRET_STAKING_POOL                     = SECRET_URL + "staking/pool";
-let SECRET_BORAD_TX                         = SECRET_URL + "txs";
-let SECRET_PROPOSALS                        = SECRET_URL + "gov/proposals";
-let SECRET_PROPOSALS_TALLY_TAIL             = "/tally";
-
 let SECRET_API_HISTORY                      = SECRET_API + "v1/account/txs/";
 let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_txs/";
 
 
 //CERTIC_URL
-let CERTIK_NODE_INFO                        = CERTIK_URL + "node_info";
-let CERTIK_TX                               = CERTIK_URL + "txs/";
-let CERTIK_VALIDATORS                       = CERTIK_URL + "staking/validators";
-let CERTIK_ACCOUNT_INFO                     = CERTIK_URL + "auth/accounts/";
-let CERTIK_BONDING                          = CERTIK_URL + "staking/delegators/";
-let CERTIK_BONDING_TAIL                     = "/delegations";
-let CERTIK_UNBONDING                        = CERTIK_URL + "staking/delegators/";
-let CERTIK_UNBONDING_TAIL                   = "/unbonding_delegations";
-let CERTIK_REWARD_FROM_VAL                  = CERTIK_URL + "distribution/delegators/";
-let CERTIK_REWARD_FROM_VAL_TAIL             = "/rewards/";
-let CERTIK_MINT_PARAM                       = CERTIK_URL + "minting/parameters";
-let CERTIK_INFLATION                        = CERTIK_URL + "minting/inflation";
-let CERTIK_PROVISIONS                       = CERTIK_URL + "minting/annual-provisions";
-let CERTIK_STAKING_POOL                     = CERTIK_URL + "staking/pool";
-let CERTIK_REWARD_ADDRESS                   = CERTIK_URL + "distribution/delegators/";
-let CERTIK_REWARD_ADDRESS_TAIL              = "/withdraw_address";
-let CERTIK_REDELEGATION                     = CERTIK_URL + "staking/redelegations";
-let CERTIK_BORAD_TX                         = CERTIK_URL + "txs";
-let CERTIK_PROPOSALS                        = CERTIK_URL + "gov/proposals";
-let CERTIK_PROPOSALS_TALLY_TAIL             = "/tally";
-
 let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
 let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
 
 
 //CERTIC_TEST_URL
-let CERTIK_TEST_NODE_INFO                   = CERTIK_TEST_URL + "node_info";
-let CERTIK_TEST_TX                          = CERTIK_TEST_URL + "txs/";
-let CERTIK_TEST_VALIDATORS                  = CERTIK_TEST_URL + "staking/validators";
-let CERTIK_TEST_ACCOUNT_INFO                = CERTIK_TEST_URL + "auth/accounts/";
-let CERTIK_TEST_BONDING                     = CERTIK_TEST_URL + "staking/delegators/";
-let CERTIK_TEST_BONDING_TAIL                = "/delegations";
-let CERTIK_TEST_UNBONDING                   = CERTIK_TEST_URL + "staking/delegators/";
-let CERTIK_TEST_UNBONDING_TAIL              = "/unbonding_delegations";
-let CERTIK_TEST_REWARD_FROM_VAL             = CERTIK_TEST_URL + "distribution/delegators/";
-let CERTIK_TEST_REWARD_FROM_VAL_TAIL        = "/rewards/";
-let CERTIK_TEST_MINT_PARAM                  = CERTIK_TEST_URL + "minting/parameters";
-let CERTIK_TEST_INFLATION                   = CERTIK_TEST_URL + "minting/inflation";
-let CERTIK_TEST_PROVISIONS                  = CERTIK_TEST_URL + "minting/annual-provisions";
-let CERTIK_TEST_STAKING_POOL                = CERTIK_TEST_URL + "staking/pool";
-let CERTIK_TEST_REWARD_ADDRESS              = CERTIK_TEST_URL + "distribution/delegators/";
-let CERTIK_TEST_REWARD_ADDRESS_TAIL         = "/withdraw_address";
-let CERTIK_TEST_REDELEGATION                = CERTIK_TEST_URL + "staking/redelegations";
-let CERTIK_TEST_BORAD_TX                    = CERTIK_TEST_URL + "txs";
-let CERTIK_TEST_PROPOSALS                   = CERTIK_TEST_URL + "gov/proposals";
-let CERTIK_TEST_PROPOSALS_TALLY_TAIL        = "/tally";
-
 let CERTIK_TEST_API_HISTORY                 = CERTIK_TEST_API + "v1/account/txs/";
 let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/transfer_txs/";
 
@@ -460,83 +397,20 @@ let PERSIS_MAIN_TRANS_HISTORY               = PERSIS_API + "v1/account/transfer_
 
 
 //SENTINEL_URL
-let SENTINEL_NODE_INFO                  = SENTINEL_URL + "node_info";
-let SENTINEL_TX                         = SENTINEL_URL + "txs/";
-let SENTINEL_VALIDATORS                 = SENTINEL_URL + "staking/validators";
-let SENTINEL_ACCOUNT_INFO               = SENTINEL_URL + "auth/accounts/";
-let SENTINEL_BONDING                    = SENTINEL_URL + "staking/delegators/";
-let SENTINEL_BONDING_TAIL               = "/delegations";
-let SENTINEL_UNBONDING                  = SENTINEL_URL + "staking/delegators/";
-let SENTINEL_UNBONDING_TAIL             = "/unbonding_delegations";
-let SENTINEL_REWARD_FROM_VAL            = SENTINEL_URL + "distribution/delegators/";
-let SENTINEL_REWARD_FROM_VAL_TAIL       = "/rewards/";
-let SENTINEL_REWARD_ADDRESS             = SENTINEL_URL + "distribution/delegators/";
-let SENTINEL_REWARD_ADDRESS_TAIL        = "/withdraw_address";
-let SENTINEL_REDELEGATION               = SENTINEL_URL + "staking/redelegations";
-let SENTINEL_MINT_PARAM                 = SENTINEL_URL + "minting/parameters";
-let SENTINEL_INFLATION                  = SENTINEL_URL + "minting/inflation";
-let SENTINEL_PROVISIONS                 = SENTINEL_URL + "minting/annual-provisions";
-let SENTINEL_STAKING_POOL               = SENTINEL_URL + "staking/pool";
-let SENTINEL_BORAD_TX                   = SENTINEL_URL + "txs";
-let SENTINEL_PROPOSALS                  = SENTINEL_URL + "gov/proposals";
-let SENTINEL_PROPOSALS_TALLY_TAIL       = "/tally";
-
 let SENTINEL_API_HISTORY                = SENTINEL_API + "v1/account/txs/";
 let SENTINEL_API_TRANS_HISTORY          = SENTINEL_API + "v1/account/transfer_txs/";
 
 
 //FETCH_URL
-let FETCH_NODE_INFO                     = FETCH_URL + "node_info";
-let FETCH_TX                            = FETCH_URL + "txs/";
-let FETCH_VALIDATORS                    = FETCH_URL + "staking/validators";
-let FETCH_ACCOUNT_INFO                  = FETCH_URL + "auth/accounts/";
-let FETCH_BONDING                       = FETCH_URL + "staking/delegators/";
-let FETCH_BONDING_TAIL                  = "/delegations";
-let FETCH_UNBONDING                     = FETCH_URL + "staking/delegators/";
-let FETCH_UNBONDING_TAIL                = "/unbonding_delegations";
-let FETCH_REWARD_FROM_VAL               = FETCH_URL + "distribution/delegators/";
-let FETCH_REWARD_FROM_VAL_TAIL          = "/rewards/";
-let FETCH_REWARD_ADDRESS                = FETCH_URL + "distribution/delegators/";
-let FETCH_REWARD_ADDRESS_TAIL           = "/withdraw_address";
-let FETCH_REDELEGATION                  = FETCH_URL + "staking/redelegations";
-let FETCH_MINT_PARAM                    = FETCH_URL + "minting/parameters";
-let FETCH_INFLATION                     = FETCH_URL + "minting/inflation";
-let FETCH_PROVISIONS                    = FETCH_URL + "minting/annual-provisions";
-let FETCH_STAKING_POOL                  = FETCH_URL + "staking/pool";
-let FETCH_BORAD_TX                      = FETCH_URL + "txs";
-let FETCH_PROPOSALS                     = FETCH_URL + "gov/proposals";
-let FETCH_PROPOSALS_TALLY_TAIL          = "/tally";
-
 let FETCH_API_HISTORY                   = FETCH_API + "v1/account/txs/";
 let FETCH_API_TRANS_HISTORY             = FETCH_API + "v1/account/transfer_txs/";
 
-
+//CRYPTO_URL
 let CRYTO_MAIN_HISTORY                  = CRYTO_API + "v1/account/txs/";
 let CRYTO_MAIN_TRANS_HISTORY            = CRYTO_API + "v1/account/transfer_txs/";
 
 
 //SIF_URL
-let SIF_NODE_INFO                       = SIF_URL + "node_info";
-let SIF_TX                              = SIF_URL + "txs/";
-let SIF_VALIDATORS                      = SIF_URL + "staking/validators";
-let SIF_ACCOUNT_INFO                    = SIF_URL + "auth/accounts/";
-let SIF_BONDING                         = SIF_URL + "staking/delegators/";
-let SIF_BONDING_TAIL                    = "/delegations";
-let SIF_UNBONDING                       = SIF_URL + "staking/delegators/";
-let SIF_UNBONDING_TAIL                  = "/unbonding_delegations";
-let SIF_REWARD_FROM_VAL                 = SIF_URL + "distribution/delegators/";
-let SIF_REWARD_FROM_VAL_TAIL            = "/rewards/";
-let SIF_REWARD_ADDRESS                  = SIF_URL + "distribution/delegators/";
-let SIF_REWARD_ADDRESS_TAIL             = "/withdraw_address";
-let SIF_REDELEGATION                    = SIF_URL + "staking/redelegations";
-//let SIF_MINT_PARAM                      = SIF_URL + "minting/parameters";
-//let SIF_INFLATION                       = SIF_URL + "minting/inflation";
-//let SIF_PROVISIONS                      = SIF_URL + "minting/annual-provisions";
-let SIF_STAKING_POOL                    = SIF_URL + "staking/pool";
-let SIF_BORAD_TX                        = SIF_URL + "txs";
-let SIF_PROPOSALS                       = SIF_URL + "gov/proposals";
-let SIF_PROPOSALS_TALLY_TAIL            = "/tally";
-
 let SIF_API_HISTORY                     = SIF_API + "v1/account/txs/";
 let SIF_API_TRANS_HISTORY               = SIF_API + "v1/account/transfer_txs/";
 

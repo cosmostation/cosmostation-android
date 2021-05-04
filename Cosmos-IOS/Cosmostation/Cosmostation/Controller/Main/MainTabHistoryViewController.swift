@@ -551,13 +551,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchOkHistory(_ address:String) {
-        var url = ""
-        if (chainType == ChainType.OKEX_MAIN) {
-            url = OKEX_HISTORY
-        } else if (chainType == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_HISTORY
-        }
-        let request = Alamofire.request(url, method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.historyOkUrl(chainType), method: .get, parameters: ["address":address], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):
