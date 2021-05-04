@@ -861,6 +861,42 @@ class BaseNetWork {
         return ""
     }
     
+    static func resolveStarnameUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.IOV_MAIN ) {
+            return IOV_URL + "starname/query/resolve"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "starname/query/resolve"
+        }
+        return ""
+    }
+    
+    static func checkDomainStarnameUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.IOV_MAIN ) {
+            return IOV_URL + "starname/query/domainsWithOwner"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "starname/query/domainsWithOwner"
+        }
+        return ""
+    }
+    
+    static func checkAccountStarnameUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.IOV_MAIN ) {
+            return IOV_URL + "starname/query/accountsWithOwner"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "starname/query/accountsWithOwner"
+        }
+        return ""
+    }
+    
+    static func domainInfoStarnameUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.IOV_MAIN ) {
+            return IOV_URL + "starname/query/domainInfo"
+        } else if (chain == ChainType.IOV_TEST) {
+            return IOV_TEST_URL + "starname/query/domainInfo"
+        }
+        return ""
+    }
+    
     
     //band
     static func oracleBandUrl() -> String {

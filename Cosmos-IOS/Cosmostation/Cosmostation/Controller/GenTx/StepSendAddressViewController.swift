@@ -198,7 +198,7 @@ class StepSendAddressViewController: BaseViewController, QrScannerDelegate {
     }
     
     func onCheckNameservice(_ userInput: String) {
-        let request = Alamofire.request(IOV_CHECK_WITH_STARNAME, method: .post, parameters: ["starname" : userInput], encoding: JSONEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(pageHolderVC.chainType), method: .post, parameters: ["starname" : userInput], encoding: JSONEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
