@@ -432,28 +432,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     func onFetchSwapId() {
         onUpdateProgress(1)
 //        print("onFetchSwapId ", mSwapFetchCnt)
-        var url = ""
-        if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = BNB_URL_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
-            
-        } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = BNB_TEST_URL_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("BINANCE_TEST swapId url ", url) }
-            
-        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = KAVA_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
-            
-        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = KAVA_TEST_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("KAVA_TEST swapId url ", url) }
-        }
-
+        let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
+        let url = BaseNetWork.swapIdBep3Url(self.mHtlcToChain, swapId)
+        if (SHOW_LOG) { print("swapId url ", url) }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {

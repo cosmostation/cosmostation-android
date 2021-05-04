@@ -54,7 +54,6 @@ let KAVA_API                            = "https://api-kava.cosmostation.io/";
 
 let KAVA_TEST_URL                       = "https://lcd-office.cosmostation.io/kava-testnet-12000/";
 let KAVA_TEST_API                       = "https://api-office.cosmostation.io/kava-testnet-12000/";
-let KAVA_TEST_FAUCET                    = "";
 
 
 let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
@@ -62,7 +61,6 @@ let IOV_API                             = "https://api-iov.cosmostation.io/";
 
 let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
 let IOV_TEST_API                        = "";
-let IOV_TEST_FAUCET                     = "https://faucet.cluster-galaxynet.iov.one/credit?address=";
 
 
 let BAND_URL                            = "https://lcd-band.cosmostation.io/";
@@ -133,241 +131,25 @@ let IRIS_TEST_HISTORY                   = IRIS_TEST_API + "v1/account/txs/";
 let IRIS_TEST_TRANS_HISTORY             = IRIS_TEST_API + "v1/account/transfer_txs/";
 
 
-//BNB_URL
-let BNB_URL_NODE_INFO                   = BNB_URL + "api/v1/node-info";
-let BNB_URL_ACCOUNT_INFO                = BNB_URL + "api/v1/account/";
-let BNB_URL_TOKENS                      = BNB_URL + "api/v1/tokens";
-let BNB_URL_MINI_TOKENS                 = BNB_URL + "api/v1/mini/tokens";
-let BNB_URL_TIC                         = BNB_URL + "api/v1/ticker/24hr";
-let BNB_URL_HISTORY                     = BNB_URL + "api/v1/transactions";
-let BNB_URL_TX                          = BNB_URL + "api/v1/tx/";
-let BNB_URL_CHECK_SWAPID                = BNB_URL + "api/v1/atomic-swaps/";
-
-
-//BNB_TEST_URL
-let BNB_TEST_URL_NODE_INFO              = BNB_TEST_URL + "api/v1/node-info";
-let BNB_TEST_URL_ACCOUNT_INFO           = BNB_TEST_URL + "api/v1/account/";
-let BNB_TEST_URL_TOKENS                 = BNB_TEST_URL + "api/v1/tokens";
-let BNB_TEST_URL_MINI_TOKENS            = BNB_TEST_URL + "api/v1/mini/tokens";
-let BNB_TEST_URL_TIC                    = BNB_TEST_URL + "api/v1/ticker/24hr";
-let BNB_TEST_URL_HISTORY                = BNB_TEST_URL + "api/v1/transactions";
-let BNB_TEST_URL_TX                     = BNB_TEST_URL + "api/v1/tx/";
-let BNB_TEST_URL_CHECK_SWAPID           = BNB_TEST_URL + "api/v1/atomic-swaps/";
-let BNB_TEST_FAUCET                     = "https://faucet-binance.cosmostation.io/claim/";
-
 
 //KAVA_URL
-//let KAVA_NODE_INFO                      = KAVA_URL + "node_info";
-//let KAVA_ACCOUNT_INFO                   = KAVA_URL + "auth/accounts/";
-//let KAVA_VALIDATORS                     = KAVA_URL + "staking/validators";
-//let KAVA_BONDING                        = KAVA_URL + "staking/delegators/";
-//let KAVA_BONDING_TAIL                   = "/delegations";
-//let KAVA_UNBONDING                      = KAVA_URL + "staking/delegators/";
-//let KAVA_UNBONDING_TAIL                 = "/unbonding_delegations";
-//let KAVA_REWARD_FROM_VAL                = KAVA_URL + "distribution/delegators/";
-//let KAVA_REWARD_FROM_VAL_TAIL           = "/rewards/";
-//let KAVA_MINT_PARAM                     = KAVA_URL + "minting/parameters";
-//let KAVA_INFLATION                      = KAVA_URL + "minting/inflation";
-//let KAVA_PROVISIONS                     = KAVA_URL + "minting/annual-provisions";
-//let KAVA_STAKING_POOL                   = KAVA_URL + "staking/pool";
-//let KAVA_BORAD_TX                       = KAVA_URL + "txs";
-//let KAVA_TX                             = KAVA_URL + "txs/";
-//let KAVA_REDELEGATION                   = KAVA_URL + "staking/redelegations";
-//let KAVA_REWARD_ADDRESS                 = KAVA_URL + "distribution/delegators/";
-//let KAVA_REWARD_ADDRESS_TAIL            = "/withdraw_address";
-//let KAVA_PROPOSALS                      = KAVA_URL + "gov/proposals";
-//let KAVA_PROPOSALS_TALLY_TAIL           = "/tally";
-let KAVA_CDP_PARAM                      = KAVA_URL + "cdp/parameters";
-let KAVA_CDP_OWEN                       = KAVA_URL + "cdp/cdps";
-let KAVA_CDP_DEPOSIT                    = KAVA_URL + "cdp/cdps/cdp/deposits/";
-let KAVA_PRICE_FEED_PARAM               = KAVA_URL + "pricefeed/parameters";
-let KAVA_PRICE_FEED_PRICE               = KAVA_URL + "pricefeed/price/";
-let KAVA_CHECK_SWAPID                   = KAVA_URL + "bep3/swap/";
-let KAVA_CHECK_SWAP_PARAM               = KAVA_URL + "bep3/parameters";
-let KAVA_CHECK_SWAP_SUPPLY              = KAVA_URL + "bep3/supplies";
-let KAVA_INCENTIVE_PARAM                = KAVA_URL + "incentive/parameters";
-let KAVA_MY_INCENTIVE                   = KAVA_URL + "incentive/claims/";
-let KAVA_CHECK_SUPPLY                   = KAVA_URL + "supply/total";
-let KAVA_HAVEST_PARAM                   = KAVA_URL + "harvest/parameters";
-let KAVA_HAVEST_DEPOSIT                 = KAVA_URL + "harvest/deposits";
-let KAVA_HAVEST_REWARD                  = KAVA_URL + "harvest/claims";
-let KAVA_HAVEST_ACCOUNT                 = KAVA_URL + "harvest/accounts";
-let KAVA_INCENTIVE_REWARD               = KAVA_URL + "incentive/rewards";
-let KAVA_HARD_PARAM                     = KAVA_URL + "hard/parameters";
-let KAVA_HARD_TOTAL_DEPOIST             = KAVA_URL + "hard/total-deposited";
-let KAVA_HARD_TOTAL_BORROW              = KAVA_URL + "hard/total-borrowed";
-let KAVA_HARD_MY_DEPOSIT                = KAVA_URL + "hard/deposits";
-let KAVA_HARD_MY_BORROW                 = KAVA_URL + "hard/borrows";
-let KAVA_HARD_INTERESTRATE              = KAVA_URL + "hard/interest-rate";
-let KAVA_HARD_RESERVE                   = KAVA_URL + "hard/reserves";
-let KAVA_HARD_ACCOUNT                   = KAVA_URL + "hard/accounts";
-
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
 
 
 //KAVA_TEST_URL
-let KAVA_TEST_NODE_INFO                 = KAVA_TEST_URL + "node_info";
-let KAVA_TEST_ACCOUNT_INFO              = KAVA_TEST_URL + "auth/accounts/";
-let KAVA_TEST_VALIDATORS                = KAVA_TEST_URL + "staking/validators";
-let KAVA_TEST_BONDING                   = KAVA_TEST_URL + "staking/delegators/";
-let KAVA_TEST_BONDING_TAIL              = "/delegations";
-let KAVA_TEST_UNBONDING                 = KAVA_TEST_URL + "staking/delegators/";
-let KAVA_TEST_UNBONDING_TAIL            = "/unbonding_delegations";
-let KAVA_TEST_REWARD_FROM_VAL           = KAVA_TEST_URL + "distribution/delegators/";
-let KAVA_TEST_REWARD_FROM_VAL_TAIL      = "/rewards/";
-let KAVA_TEST_MINT_PARAM                = KAVA_TEST_URL + "minting/parameters";
-let KAVA_TEST_INFLATION                 = KAVA_TEST_URL + "minting/inflation";
-let KAVA_TEST_PROVISIONS                = KAVA_TEST_URL + "minting/annual-provisions";
-let KAVA_TEST_STAKING_POOL              = KAVA_TEST_URL + "staking/pool";
-let KAVA_TEST_BORAD_TX                  = KAVA_TEST_URL + "txs";
-let KAVA_TEST_TX                        = KAVA_TEST_URL + "txs/";
-let KAVA_TEST_REDELEGATION              = KAVA_TEST_URL + "staking/redelegations";
-let KAVA_TEST_REWARD_ADDRESS            = KAVA_TEST_URL + "distribution/delegators/";
-let KAVA_TEST_REWARD_ADDRESS_TAIL       = "/withdraw_address";
-let KAVA_TEST_PROPOSALS                 = KAVA_TEST_URL + "gov/proposals";
-let KAVA_TEST_CDP_PARAM                 = KAVA_TEST_URL + "cdp/parameters";
-let KAVA_TEST_CDP_OWEN                  = KAVA_TEST_URL + "cdp/cdps";
-let KAVA_TEST_CDP_DEPOSIT               = KAVA_TEST_URL + "cdp/cdps/cdp/deposits/";
-let KAVA_TEST_PRICE_FEED_PARAM          = KAVA_TEST_URL + "pricefeed/parameters";
-let KAVA_TEST_PRICE_FEED_PRICE          = KAVA_TEST_URL + "pricefeed/price/";
-let KAVA_TEST_CHECK_SWAPID              = KAVA_TEST_URL + "bep3/swap/";
-let KAVA_TEST_CHECK_SWAP_PARAM          = KAVA_TEST_URL + "bep3/parameters";
-let KAVA_TEST_CHECK_SWAP_SUPPLY         = KAVA_TEST_URL + "bep3/supplies";
-let KAVA_TEST_INCENTIVE_PARAM           = KAVA_TEST_URL + "incentive/parameters";
-let KAVA_TEST_MY_INCENTIVE              = KAVA_TEST_URL + "incentive/claims/";
-let KAVA_TEST_CHECK_SUPPLY              = KAVA_TEST_URL + "supply/total";
-let KAVA_TEST_HAVEST_PARAM              = KAVA_TEST_URL + "harvest/parameters";
-let KAVA_TEST_HAVEST_DEPOSIT            = KAVA_TEST_URL + "harvest/deposits";
-let KAVA_TEST_HAVEST_REWARD             = KAVA_TEST_URL + "harvest/claims";
-let KAVA_TEST_HAVEST_ACCOUNT            = KAVA_TEST_URL + "harvest/accounts";
-let KAVA_TEST_INCENTIVE_REWARD          = KAVA_TEST_URL + "incentive/rewards";
-let KAVA_TEST_HARD_PARAM                = KAVA_TEST_URL + "hard/parameters";
-let KAVA_TEST_HARD_TOTAL_DEPOIST        = KAVA_TEST_URL + "hard/total-deposited";
-let KAVA_TEST_HARD_TOTAL_BORROW         = KAVA_TEST_URL + "hard/total-borrowed";
-let KAVA_TEST_HARD_MY_DEPOSIT           = KAVA_TEST_URL + "hard/deposits";
-let KAVA_TEST_HARD_MY_BORROW            = KAVA_TEST_URL + "hard/borrows";
-let KAVA_TEST_HARD_INTERESTRATE         = KAVA_TEST_URL + "hard/interest-rate";
-let KAVA_TEST_HARD_RESERVE              = KAVA_TEST_URL + "hard/reserves";
-let KAVA_TEST_HARD_ACCOUNT              = KAVA_TEST_URL + "hard/accounts";
-
 let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
 let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
 
 
 //BAND_URL
-//let BAND_NODE_INFO                      = BAND_URL + "node_info";
-//let BAND_TX                             = BAND_URL + "txs/";
-//let BAND_VALIDATORS                     = BAND_URL + "staking/validators";
-//let BAND_ACCOUNT_INFO                   = BAND_URL + "auth/accounts/";
-//let BAND_BONDING                        = BAND_URL + "staking/delegators/";
-//let BAND_BONDING_TAIL                   = "/delegations";
-//let BAND_UNBONDING                      = BAND_URL + "staking/delegators/";
-//let BAND_UNBONDING_TAIL                 = "/unbonding_delegations";
-//let BAND_REWARD_FROM_VAL                = BAND_URL + "distribution/delegators/";
-//let BAND_REWARD_FROM_VAL_TAIL           = "/rewards/";
-//let BAND_REWARD_ADDRESS                 = BAND_URL + "distribution/delegators/";
-//let BAND_REWARD_ADDRESS_TAIL            = "/withdraw_address";
-//let BAND_REDELEGATION                   = BAND_URL + "staking/redelegations";
-//let BAND_MINT_PARAM                     = BAND_URL + "minting/parameters";
-//let BAND_INFLATION                      = BAND_URL + "minting/inflation";
-//let BAND_PROVISIONS                     = BAND_URL + "minting/annual-provisions";
-//let BAND_STAKING_POOL                   = BAND_URL + "staking/pool";
-//let BAND_BORAD_TX                       = BAND_URL + "txs";
-//let BAND_PROPOSALS                      = BAND_URL + "gov/proposals";
-//let BAND_PROPOSALS_TALLY_TAIL           = "/tally";
-//let BAND_ORACLE_STATUS                  = BAND_URL + "oracle/active_validators";
-
 let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
 let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
 
 
 //IOV_URL
-//let IOV_NODE_INFO                       = IOV_URL + "node_info";
-//let IOV_TX                              = IOV_URL + "txs/";
-//let IOV_VALIDATORS                      = IOV_URL + "staking/validators";
-//let IOV_ACCOUNT_INFO                    = IOV_URL + "auth/accounts/";
-//let IOV_BONDING                         = IOV_URL + "staking/delegators/";
-//let IOV_BONDING_TAIL                    = "/delegations";
-//let IOV_UNBONDING                       = IOV_URL + "staking/delegators/";
-//let IOV_UNBONDING_TAIL                  = "/unbonding_delegations";
-//let IOV_REWARD_FROM_VAL                 = IOV_URL + "distribution/delegators/";
-//let IOV_REWARD_FROM_VAL_TAIL            = "/rewards/";
-//let IOV_REWARD_ADDRESS                  = IOV_URL + "distribution/delegators/";
-//let IOV_REWARD_ADDRESS_TAIL             = "/withdraw_address";
-//let IOV_REDELEGATION                    = IOV_URL + "staking/redelegations";
-//let IOV_MINT_PARAM                      = IOV_URL + "minting/parameters";
-//let IOV_INFLATION                       = IOV_URL + "minting/inflation";
-//let IOV_PROVISIONS                      = IOV_URL + "minting/annual-provisions";
-//let IOV_STAKING_POOL                    = IOV_URL + "staking/pool";
-//let IOV_BORAD_TX                        = IOV_URL + "txs";
-//let IOV_STARNAME_FEE                    = IOV_URL + "configuration/query/fees";
-//let IOV_STARNAME_CONFIG                 = IOV_URL + "configuration/query/configuration";
-//let IOV_CHECK_WITH_STARNAME             = IOV_URL + "starname/query/resolve";
-//let IOV_CHECK_MY_DOMAIN                 = IOV_URL + "starname/query/domainsWithOwner";
-//let IOV_CHECK_MY_ACCOUNT                = IOV_URL + "starname/query/accountsWithOwner";
-//let IOV_STARNAME_DOMAIN_INFO            = IOV_URL + "starname/query/domainInfo";
-//let IOV_PROPOSALS                       = IOV_URL + "gov/proposals";
-//let IOV_PROPOSALS_TALLY_TAIL            = "/tally";
-
 let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
 let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
-
-//IOV_TEST_URL
-//let IOV_TEST_NODE_INFO                  = IOV_TEST_URL + "node_info";
-//let IOV_TEST_TX                         = IOV_TEST_URL + "txs/";
-//let IOV_TEST_VALIDATORS                 = IOV_TEST_URL + "staking/validators";
-//let IOV_TEST_ACCOUNT_INFO               = IOV_TEST_URL + "auth/accounts/";
-//let IOV_TEST_BONDING                    = IOV_TEST_URL + "staking/delegators/";
-//let IOV_TEST_BONDING_TAIL               = "/delegations";
-//let IOV_TEST_UNBONDING                  = IOV_TEST_URL + "staking/delegators/";
-//let IOV_TEST_UNBONDING_TAIL             = "/unbonding_delegations";
-//let IOV_TEST_REWARD_FROM_VAL            = IOV_TEST_URL + "distribution/delegators/";
-//let IOV_TEST_REWARD_FROM_VAL_TAIL       = "/rewards/";
-//let IOV_TEST_REWARD_ADDRESS             = IOV_TEST_URL + "distribution/delegators/";
-//let IOV_TEST_REWARD_ADDRESS_TAIL        = "/withdraw_address";
-//let IOV_TEST_REDELEGATION               = IOV_TEST_URL + "staking/redelegations";
-//let IOV_TEST_MINT_PARAM                 = IOV_TEST_URL + "minting/parameters";
-//let IOV_TEST_INFLATION                  = IOV_TEST_URL + "minting/inflation";
-//let IOV_TEST_PROVISIONS                 = IOV_TEST_URL + "minting/annual-provisions";
-//let IOV_TEST_STAKING_POOL               = IOV_TEST_URL + "staking/pool";
-//let IOV_TEST_BORAD_TX                   = IOV_TEST_URL + "txs";
-//let IOV_TEST_STARNAME_FEE               = IOV_TEST_URL + "configuration/query/fees";
-//let IOV_TEST_STARNAME_CONFIG            = IOV_TEST_URL + "configuration/query/configuration";
-//let IOV_TEST_CHECK_WITH_STARNAME        = IOV_TEST_URL + "starname/query/resolve";
-//let IOV_TEST_CHECK_MY_DOMAIN            = IOV_TEST_URL + "starname/query/domainsWithOwner";
-//let IOV_TEST_CHECK_MY_ACCOUNT           = IOV_TEST_URL + "starname/query/accountsWithOwner";
-//let IOV_TEST_STARNAME_DOMAIN_INFO       = IOV_TEST_URL + "starname/query/domainInfo";
-
-
-
-//OKEX_URL
-//let OKEX_NODE_INFO                          = OKEX_URL + "node_info";
-//let OKEX_TX                                 = OKEX_URL + "txs/";
-//let OKEX_VALIDATORS                         = OKEX_URL + "staking/validators";
-//let OKEX_ACCOUNT_INFO                       = OKEX_URL + "auth/accounts/";
-//let OKEX_ACCOUNT_BALANCE                    = OKEX_URL + "accounts/";
-//let OKEX_TOKEN_LIST                         = OKEX_URL + "tokens";
-//let OKEX_TICKER_LIST                        = OKEX_URL + "tickers";
-//let OKEX_STAKING                            = OKEX_URL + "staking/delegators/";
-//let OKEX_UNBONDING                          = OKEX_URL + "staking/delegators/";
-//let OKEX_UNBONDING_TAIL                     = "/unbonding_delegations";
-//let OKEX_HISTORY                            = OKEX_URL + "transactions";
-//let OKEX_BORAD_TX                           = OKEX_URL + "txs";
-
-//OKEX_TEST_URL
-//let OKEX_TEST_NODE_INFO                     = OKEX_TEST_URL + "node_info";
-//let OKEX_TEST_TX                            = OKEX_TEST_URL + "txs/";
-//let OKEX_TEST_VALIDATORS                    = OKEX_TEST_URL + "staking/validators";
-//let OKEX_TEST_ACCOUNT_INFO                  = OKEX_TEST_URL + "auth/accounts/";
-//let OKEX_TEST_ACCOUNT_BALANCE               = OKEX_TEST_URL + "accounts/";
-//let OKEX_TEST_TOKEN_LIST                    = OKEX_TEST_URL + "tokens";
-//let OKEX_TEST_TICKER_LIST                   = OKEX_TEST_URL + "tickers";
-//let OKEX_TEST_STAKING                       = OKEX_TEST_URL + "staking/delegators/";
-//let OKEX_TEST_UNBONDING                     = OKEX_TEST_URL + "staking/delegators/";
-//let OKEX_TEST_UNBONDING_TAIL                = "/unbonding_delegations";
-//let OKEX_TEST_HISTORY                       = OKEX_TEST_URL + "transactions";
-//let OKEX_TEST_BORAD_TX                      = OKEX_TEST_URL + "txs";
 
 
 //SECRET_URL

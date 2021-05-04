@@ -1128,19 +1128,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onUpdateView()
             return
         }
-        var url = ""
-        if (self.chainType! == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_CHECK_SWAPID + swapId!
-            
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_CHECK_SWAPID + swapId!
-            
-        } else if (self.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_CHECK_SWAPID + swapId!
-            
-        } else if (self.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CHECK_SWAPID + swapId!
-        }
+        let url = BaseNetWork.swapIdBep3Url(self.chainType, swapId!)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -1169,15 +1157,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onFetchBnbNodeInfo() {
-        var url = ""
-        if (self.chainType! == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_NODE_INFO
-            
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_NODE_INFO
-            
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.nodeInfoUrl(self.chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

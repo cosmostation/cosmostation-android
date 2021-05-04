@@ -381,6 +381,16 @@ class BaseNetWork {
         return ""
     }
     
+    static func supplyUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "supply/total"
+        }
+        else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "supply/total"
+        }
+        return ""
+    }
+    
     static func paramMintUrl(_ chain: ChainType) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "minting/parameters"
@@ -756,9 +766,27 @@ class BaseNetWork {
         return ""
     }
     
+    static func bnbTicUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.BINANCE_MAIN ) {
+            return BNB_URL + "api/v1/ticker/24hr"
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/ticker/24hr"
+        }
+        return ""
+    }
+    
+    static func bnbHistoryUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.BINANCE_MAIN ) {
+            return BNB_URL + "api/v1/transactions"
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/transactions"
+        }
+        return ""
+    }
+    
     
     //for Kava
-    static func paramPriceFeedUrl(_ chain: ChainType) -> String {
+    static func paramPriceFeedUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN ) {
             return KAVA_URL + "pricefeed/parameters"
         } else if (chain == ChainType.KAVA_TEST) {
@@ -767,7 +795,7 @@ class BaseNetWork {
         return ""
     }
     
-    static func priceFeedUrl(_ chain: ChainType, _ market: String) -> String {
+    static func priceFeedUrl(_ chain: ChainType?, _ market: String) -> String {
         if (chain == ChainType.KAVA_MAIN ) {
             return KAVA_URL + "pricefeed/price/" + market
         } else if (chain == ChainType.KAVA_TEST) {
@@ -781,6 +809,145 @@ class BaseNetWork {
             return KAVA_URL + "incentive/parameters"
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "incentive/parameters"
+        }
+        return ""
+    }
+    
+    static func paramCdpUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "cdp/parameters"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "cdp/parameters"
+        }
+        return ""
+    }
+    
+    static func owenCdpUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "cdp/cdps"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "cdp/cdps"
+        }
+        return ""
+    }
+    
+    static func depositCdpUrl(_ chain: ChainType?, _ address: String, _ collateralType: String) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "cdp/cdps/cdp/deposits/" + address + "/" + collateralType
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "cdp/cdps/cdp/deposits/" + address + "/" + collateralType
+        }
+        return ""
+    }
+    
+    static func paramHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/parameters"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/parameters"
+        }
+        return ""
+    }
+    
+    static func interestRateHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/interest-rate"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/interest-rate"
+        }
+        return ""
+    }
+    
+    static func totalDepositHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/total-deposited"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/total-deposited"
+        }
+        return ""
+    }
+    
+    static func totalBorrowHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/total-borrowed"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/total-borrowed"
+        }
+        return ""
+    }
+    
+    static func depositHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/deposits"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/deposits"
+        }
+        return ""
+    }
+    
+    static func borrowHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/borrows"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/borrows"
+        }
+        return ""
+    }
+    
+    static func reservesHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/reserves"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/reserves"
+        }
+        return ""
+    }
+    
+    static func managerHardPoolUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "hard/accounts"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "hard/accounts"
+        }
+        return ""
+    }
+    
+    static func incentiveUrl(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "incentive/rewards"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "incentive/rewards"
+        }
+        return ""
+    }
+    
+    static func paramBep3Url(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN ) {
+            return KAVA_URL + "bep3/parameters"
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "bep3/parameters"
+        }
+        return ""
+    }
+    
+    static func supplyBep3Url(_ chain: ChainType?) -> String {
+        if (chain == ChainType.KAVA_MAIN || chain == ChainType.BINANCE_MAIN) {
+            return KAVA_URL + "bep3/supplies"
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
+            return KAVA_TEST_URL + "bep3/supplies"
+        }
+        return ""
+    }
+    
+    static func swapIdBep3Url(_ chain: ChainType?, _ id: String) -> String {
+        if (chain == ChainType.KAVA_MAIN) {
+            return KAVA_URL + "bep3/swap/" + id
+        } else if (chain == ChainType.KAVA_TEST) {
+            return KAVA_TEST_URL + "bep3/swap/" + id
+        } else if (chain == ChainType.BINANCE_MAIN) {
+            return BNB_URL + "api/v1/atomic-swaps/" + id
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/atomic-swaps/" + id
         }
         return ""
     }

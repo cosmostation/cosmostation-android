@@ -517,13 +517,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func onFetchBnbHistory(_ address:String) {
-        var url = ""
-        if (chainType == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_HISTORY
-        } else if (chainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_HISTORY
-        }
-        let request = Alamofire.request(url, method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.bnbHistoryUrl(chainType), method: .get, parameters: ["address":address, "startTime":Date().Stringmilli3MonthAgo, "endTime":Date().millisecondsSince1970], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { response in
             switch response.result {
             case .success(let res):

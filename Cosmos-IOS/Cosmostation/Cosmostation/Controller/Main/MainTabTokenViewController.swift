@@ -1009,7 +1009,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         for i in 0..<mainTabVC.mBalances.count {
             if (!(mainTabVC.mBalances[i].balance_denom == BNB_MAIN_DENOM)) {
                 let ticSymbol = WUtils.getBnbTicSymbol(mainTabVC.mBalances[i].balance_denom)
-                let request = Alamofire.request(BNB_URL_TIC, method: .get, parameters: ["symbol":ticSymbol], encoding: URLEncoding.default, headers: [:])
+                let request = Alamofire.request(BaseNetWork.bnbTicUrl(chainType), method: .get, parameters: ["symbol":ticSymbol], encoding: URLEncoding.default, headers: [:])
                 request.responseJSON { (response) in
                     switch response.result {
                     case .success(let res):
