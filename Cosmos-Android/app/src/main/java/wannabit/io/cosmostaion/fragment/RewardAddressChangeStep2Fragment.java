@@ -278,6 +278,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 18, 18));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
         } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);

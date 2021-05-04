@@ -296,6 +296,7 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 18, 18));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
         } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
             mFeeLayer1.setVisibility(View.GONE);
             mFeeLayer2.setVisibility(View.VISIBLE);
@@ -308,7 +309,7 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 2));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
 
-            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 18, 18));
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
         }
 
