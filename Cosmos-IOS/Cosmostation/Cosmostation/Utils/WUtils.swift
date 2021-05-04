@@ -330,7 +330,7 @@ class WUtils {
                     remainVesting = NSDecimalNumber.zero
                 } else if (cTime < vestingEnd) {
                     let progress = ((Float)(cTime - vestingStart)) / ((Float)(vestingEnd - vestingStart))
-                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0)
+                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
                 }
 //                print("C_VESTING_ACCOUNT remainVesting ", denom, "  ", remainVesting)
                 
@@ -3709,7 +3709,7 @@ class WUtils {
                     remainVesting = NSDecimalNumber.zero
                 } else {
                     let progress = ((Float)(cTime - vestingStart)) / ((Float)(vestingEnd - vestingStart))
-                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0)
+                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
                 }
 //                print("remainVesting ", denom, "  ", remainVesting)
                 
