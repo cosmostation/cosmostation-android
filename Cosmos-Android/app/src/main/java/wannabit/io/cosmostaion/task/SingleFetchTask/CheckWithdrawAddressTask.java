@@ -21,6 +21,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -163,6 +164,18 @@ public class CheckWithdrawAddressTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(SIF_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getSifChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
+                Response<ResLcdWithDrawAddress> response = ApiClient.getKiChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = ERROR_CODE_NETWORK;
