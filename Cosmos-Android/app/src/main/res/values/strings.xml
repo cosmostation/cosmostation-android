@@ -83,8 +83,8 @@
     <string name="url_lcd_sif" translatable="false">https://lcd-sifchain.cosmostation.io/</string>
     <string name="url_api_sif" translatable="false">https://api-sifchain.cosmostation.io/</string>
 
-    <string name="url_lcd_ki" translatable="false">https://lcd-sifchain.cosmostation.io/</string>
-    <string name="url_api_ki" translatable="false">https://api-sifchain.cosmostation.io/</string>
+    <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
+    <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
 
 
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
@@ -106,6 +106,7 @@
     <string name="str_fet_c" translatable="false">FET</string>
     <string name="str_cro_c" translatable="false">CRO</string>
     <string name="str_sif_c" translatable="false">ROWAN</string>
+    <string name="str_ki_c" translatable="false">XKI</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -544,6 +545,7 @@
     <string name="str_fee_speed_title_sentinel">Support fixed transfer fee for Sentinel Chain.</string>
     <string name="str_fee_speed_title_fetch">Support fixed transfer fee for Fetch.ai Chain.</string>
     <string name="str_fee_speed_title_sif">Support fixed transfer fee for Sif Chain.</string>
+    <string name="str_fee_speed_title_ki">Support fixed transfer fee for Ki Foundation Chain.</string>
     <string name="str_fee_speed_title_stargate">Support fixed transfer fee for Cosmos Testnet.</string>
     <string name="str_fee_speed_title_bifrost">Support fixed transfer fee for Iris Testnet.</string>
     <string name="str_fee_speed_title_cosmos">Support fixed transfer fee for Cosmos Mainnet.</string>
@@ -1389,6 +1391,7 @@
     <string name="s_fet" translatable="false">FET</string>
     <string name="s_cro" translatable="false">CRO</string>
     <string name="s_sif" translatable="false">ROWAN</string>
+    <string name="s_ki" translatable="false">XKI</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

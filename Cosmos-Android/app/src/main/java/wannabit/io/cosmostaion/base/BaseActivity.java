@@ -1202,6 +1202,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                         getBaseDao().setLastSifTic(0d);
                         getBaseDao().setLastSifUpDown(0d);
 
+                    } else if (chain.equals(KI_MAIN)) {
+                        getBaseDao().setLastSifTic(0d);
+                        getBaseDao().setLastSifUpDown(0d);
+
                     }
                 }
             }

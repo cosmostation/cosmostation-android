@@ -51,11 +51,11 @@ public class WalletKiHolder extends BaseHolder{
         final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_KI);
         final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_KI);
 
-        mTvKiTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
-        mTvKiAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 18, 6));
-        mTvKiDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
-        mTvKiUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
-        mTvKiRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
+        mTvKiTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
+        mTvKiAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvKiDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
+        mTvKiUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
+        mTvKiRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvKiValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

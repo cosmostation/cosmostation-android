@@ -19,6 +19,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -109,6 +110,13 @@ public class UnBondingStateTask extends CommonTask {
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SIF_MAIN)) {
                 Response<ResLcdUnBondings> response = ApiClient.getSifChain(mApp).getUnBondingList(mAccount.address).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (BaseChain.getChain(mAccount.baseChain).equals(KI_MAIN)) {
+                Response<ResLcdUnBondings> response = ApiClient.getKiChain(mApp).getUnBondingList(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body().result;
                     mResult.isSuccess = true;
