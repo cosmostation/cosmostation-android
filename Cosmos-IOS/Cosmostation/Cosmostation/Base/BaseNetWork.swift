@@ -1077,21 +1077,42 @@ class BaseNetWork {
     static func accountHistory(_ chain: ChainType, _ address: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
-            result = COSMOS_MAIN_HISTORY + address
+            result = COSMOS_API + "v1/account/txs/" + address
         } else if (chain == ChainType.IRIS_MAIN) {
-            result = IRIS_MAIN_HISTORY + address
+            result = IRIS_API + "v1/account/txs/" + address
         } else if (chain == ChainType.AKASH_MAIN) {
-            result = AKASH_MAIN_HISTORY + address
+            result = AKASH_API + "v1/account/txs/" + address
         } else if (chain == ChainType.PERSIS_MAIN) {
-            result = PERSIS_MAIN_HISTORY + address
+            result = PERSIS_API + "v1/account/txs/" + address
         } else if (chain == ChainType.CRYPTO_MAIN) {
-            result = CRYTO_MAIN_HISTORY + address
+            result = CRYTO_API + "v1/account/txs/" + address
+        }
+        else if (chain == ChainType.KAVA_MAIN) {
+            result = KAVA_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.BAND_MAIN) {
+            result = BAND_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            result = CERTIK_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.IOV_MAIN) {
+            result = IOV_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            result = SENTINEL_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = FETCH_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.SIF_MAIN) {
+            result = SIF_API + "v1/account/txs/" + address
         }
         
+        
         else if (chain == ChainType.COSMOS_TEST) {
-            result = COSMOS_TEST_HISTORY + address
+            result = COSMOS_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.IRIS_TEST) {
-            result = IRIS_TEST_HISTORY + address
+            result = IRIS_TEST_API + "v1/account/txs/" + address
+        }
+        else if (chain == ChainType.KAVA_TEST) {
+            result = KAVA_TEST_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.CERTIK_TEST) {
+            result = CERTIK_TEST_API + "v1/account/txs/" + address
         }
         return result
     }
@@ -1099,21 +1120,41 @@ class BaseNetWork {
     static func accountStakingHistory(_ chain: ChainType, _ address: String, _ valAddress: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
-            result = COSMOS_MAIN_HISTORY + address + "/" + valAddress
+            result = COSMOS_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_MAIN) {
-            result = IRIS_MAIN_HISTORY + address + "/" + valAddress
+            result = IRIS_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.AKASH_MAIN) {
-            result = AKASH_MAIN_HISTORY + address + "/" + valAddress
+            result = AKASH_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.PERSIS_MAIN) {
-            result = PERSIS_MAIN_HISTORY + address + "/" + valAddress
+            result = PERSIS_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CRYPTO_MAIN) {
-            result = CRYTO_MAIN_HISTORY + address + "/" + valAddress
+            result = CRYTO_API + "v1/account/txs/" + address + "/" + valAddress
+        }
+        else if (chain == ChainType.KAVA_MAIN) {
+            result = KAVA_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            result = BAND_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            result = CERTIK_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.IOV_MAIN) {
+            result = IOV_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            result = SENTINEL_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = FETCH_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.SIF_MAIN) {
+            result = SIF_API + "v1/account/txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
-            result = COSMOS_TEST_HISTORY + address + "/" + valAddress
+            result = COSMOS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_TEST) {
-            result = IRIS_TEST_HISTORY + address + "/" + valAddress
+            result = IRIS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        }
+        else if (chain == ChainType.KAVA_TEST) {
+            result = KAVA_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.CERTIK_TEST) {
+            result = CERTIK_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         }
         return result
     }

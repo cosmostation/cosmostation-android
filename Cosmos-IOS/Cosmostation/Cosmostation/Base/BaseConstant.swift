@@ -113,90 +113,9 @@ let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
 let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 
 
-//COSMOS_MAIN_URL
-let COSMOS_MAIN_HISTORY                 = COSMOS_API + "v1/account/txs/";
-let COSMOS_MAIN_TRANS_HISTORY           = COSMOS_API + "v1/account/transfer_txs/";
-
-//COSMOS_TEST_URL
-let COSMOS_TEST_HISTORY                 = COSMOS_TEST_API + "v1/account/txs/";
-let COSMOS_TEST_TRANS_HISTORY           = COSMOS_TEST_API + "v1/account/transfer_txs/";
-
-
-//IRIS_MAIN_URL
-let IRIS_MAIN_HISTORY                   = IRIS_API + "v1/account/txs/";
-let IRIS_MAIN_TRANS_HISTORY             = IRIS_API + "v1/account/transfer_txs/";
-
-//IRIS_TEST_URL
-let IRIS_TEST_HISTORY                   = IRIS_TEST_API + "v1/account/txs/";
-let IRIS_TEST_TRANS_HISTORY             = IRIS_TEST_API + "v1/account/transfer_txs/";
-
-
-
 //KAVA_URL
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
-
-
-//KAVA_TEST_URL
-let KAVA_TEST_API_HISTORY               = KAVA_TEST_API + "v1/account/txs/";
-let KAVA_TEST_API_TRANS_HISTORY         = KAVA_TEST_API + "v1/account/transfer_txs/";
-
-
-//BAND_URL
-let BAND_API_HISTORY                    = BAND_API + "v1/account/txs/";
-let BAND_API_TRANS_HISTORY              = BAND_API + "v1/account/transfer_txs/";
-
-
-//IOV_URL
-let IOV_API_HISTORY                     = IOV_API + "v1/account/txs/";
-let IOV_API_TRANS_HISTORY               = IOV_API + "v1/account/transfer_txs/";
-
-
-//SECRET_URL
-let SECRET_API_HISTORY                      = SECRET_API + "v1/account/txs/";
-let SECRET_API_TRANS_HISTORY                = SECRET_API + "v1/account/transfer_txs/";
-
-
-//CERTIC_URL
-let CERTIK_API_HISTORY                      = CERTIK_API + "v1/account/txs/";
-let CERTIK_API_TRANS_HISTORY                = CERTIK_API + "v1/account/transfer_txs/";
-
-
-//CERTIC_TEST_URL
-let CERTIK_TEST_API_HISTORY                 = CERTIK_TEST_API + "v1/account/txs/";
-let CERTIK_TEST_API_TRANS_HISTORY           = CERTIK_TEST_API + "v1/account/transfer_txs/";
-
-
-
-//AKASH Mainnet
-let AKASH_MAIN_HISTORY                      = AKASH_API + "v1/account/txs/";
-let AKASH_MAIN_TRANS_HISTORY                = AKASH_API + "v1/account/transfer_txs/";
-
-
-//PERSISTENCE Mainnet
-let PERSIS_MAIN_HISTORY                     = PERSIS_API + "v1/account/txs/";
-let PERSIS_MAIN_TRANS_HISTORY               = PERSIS_API + "v1/account/transfer_txs/";
-
-
-//SENTINEL_URL
-let SENTINEL_API_HISTORY                = SENTINEL_API + "v1/account/txs/";
-let SENTINEL_API_TRANS_HISTORY          = SENTINEL_API + "v1/account/transfer_txs/";
-
-
-//FETCH_URL
-let FETCH_API_HISTORY                   = FETCH_API + "v1/account/txs/";
-let FETCH_API_TRANS_HISTORY             = FETCH_API + "v1/account/transfer_txs/";
-
-//CRYPTO_URL
-let CRYTO_MAIN_HISTORY                  = CRYTO_API + "v1/account/txs/";
-let CRYTO_MAIN_TRANS_HISTORY            = CRYTO_API + "v1/account/transfer_txs/";
-
-
-//SIF_URL
-let SIF_API_HISTORY                     = SIF_API + "v1/account/txs/";
-let SIF_API_TRANS_HISTORY               = SIF_API + "v1/account/transfer_txs/";
-
-
 
 let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
 let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";

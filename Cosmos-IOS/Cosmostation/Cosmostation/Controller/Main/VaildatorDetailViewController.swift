@@ -737,30 +737,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchApiHistory(_ account: Account, _ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_API_HISTORY + account.account_address + "/" + validator.operator_address
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
+        let url = BaseNetWork.accountStakingHistory(chainType!, account.account_address, validator.operator_address)
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

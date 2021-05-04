@@ -495,32 +495,32 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func onFetchApiHistory(_ address:String, _ symbol:String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_API_TRANS_HISTORY + address
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_API_TRANS_HISTORY + address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["denom":balance!.balance_denom], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                self.mApiHistories.removeAll()
-                guard let histories = res as? Array<NSDictionary> else {
-                    print("no history!!")
-                    return;
-                }
-                for rawHistory in histories {
-                    self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
-                }
-                if (self.mApiHistories.count > 0) {
-                    self.tokenDetailTableView.reloadData()
-                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
-            }
-        }
+//        var url: String?
+//        if (chainType == ChainType.KAVA_MAIN) {
+//            url = KAVA_API_TRANS_HISTORY + address
+//        } else if (chainType == ChainType.KAVA_TEST) {
+//            url = KAVA_TEST_API_TRANS_HISTORY + address
+//        }
+//        let request = Alamofire.request(url!, method: .get, parameters: ["denom":balance!.balance_denom], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+//                self.mApiHistories.removeAll()
+//                guard let histories = res as? Array<NSDictionary> else {
+//                    print("no history!!")
+//                    return;
+//                }
+//                for rawHistory in histories {
+//                    self.mApiHistories.append(ApiHistory.HistoryData.init(rawHistory))
+//                }
+//                if (self.mApiHistories.count > 0) {
+//                    self.tokenDetailTableView.reloadData()
+//                }
+//                
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchApiHistory ", error) }
+//            }
+//        }
         self.refresher.endRefreshing()
     }
     
