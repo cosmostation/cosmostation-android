@@ -176,7 +176,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             if (isGRPC(getSActivity().mBaseChain)) {
                 final Staking.Validator mGrpcValidator  = mGRpcTopValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(mGrpcValidator.getTokens()), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
-                holder.itemTvCommission.setText(WDp.getDpCommissionGrpcRate(mGrpcValidator));
+                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, new BigDecimal(mGrpcValidator.getCommission().getCommissionRates().getRate()).movePointLeft(18)));
                 try {
                     Picasso.get().load(WDp.getMonikerImgUrl(getSActivity().mBaseChain, mGrpcValidator.getOperatorAddress())).fit().placeholder(R.drawable.validator_none_img).error(R.drawable.validator_none_img).into(holder.itemAvatar);
                 } catch (Exception e){}
@@ -209,7 +209,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             } else {
                 final Validator validator  = mToValidators.get(position);
                 holder.itemTvVotingPower.setText(WDp.getDpAmount2(getContext(), new BigDecimal(validator.tokens), WDp.mainDivideDecimal(getSActivity().mBaseChain), 6));
-                holder.itemTvCommission.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
+                holder.itemTvYieldRate.setText(WDp.getDpEstAprCommission(getBaseDao(), getSActivity().mBaseChain, validator.getCommission()));
                 holder.itemTvMoniker.setText(validator.description.moniker);
                 holder.itemFree.setVisibility(View.GONE);
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
@@ -264,7 +264,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
             ImageView       itemChecked;
             TextView        itemTvMoniker;
             TextView        itemTvVotingPower;
-            TextView        itemTvCommission;
+            TextView        itemTvYieldRate;
             View            itemCheckedBorder;
 
             public ToValidatorHolder(@NonNull View itemView) {
@@ -276,7 +276,7 @@ public class RedelegateStep1Fragment extends BaseFragment implements View.OnClic
                 itemChecked         = itemView.findViewById(R.id.checked_validator);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+                itemTvYieldRate    = itemView.findViewById(R.id.delegate_yield_commission);
                 itemCheckedBorder   = itemView.findViewById(R.id.check_border);
             }
         }
