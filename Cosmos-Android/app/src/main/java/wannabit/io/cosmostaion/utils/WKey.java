@@ -336,6 +336,8 @@ public class WKey {
             return bech32Encode("cro".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SIF_MAIN)) {
             return bech32Encode("sif".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(KI_MAIN)) {
+            return bech32Encode("ki".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -370,6 +372,8 @@ public class WKey {
             return bech32Encode("crocncl".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(SIF_MAIN)) {
             return bech32Encode("sifvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(KI_MAIN)) {
+            return bech32Encode("kivaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

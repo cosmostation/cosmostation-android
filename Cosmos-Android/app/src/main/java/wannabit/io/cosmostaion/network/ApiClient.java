@@ -498,10 +498,25 @@ public class ApiClient {
                         .baseUrl(c.getString(R.string.url_lcd_ki))
                         .addConverterFactory(GsonConverterFactory.create())
                         .build();
-                service_sif = retrofit.create(SifChain.class);
+                service_ki = retrofit.create(KiChain.class);
             }
         }
         return service_ki;
+    }
+
+    //Services for kifoundation mainnet api
+    private static HistoryApi api_ki = null;
+    public static HistoryApi getKiApi(Context c) {
+        if (api_ki == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_ki))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_ki = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_ki;
     }
 
 

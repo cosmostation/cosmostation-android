@@ -245,6 +245,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
+        } else if (chain.equals(KI_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -352,6 +356,10 @@ public class WDp {
         } else if (chain.equals(SIF_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+
+        } else if (chain.equals(KI_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
@@ -1724,8 +1732,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cryto);
         } else if (chain.equals(SIF_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
-        } else if (chain.equals(SIF_MAIN)) {
-            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
+        } else if (chain.equals(KI_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ki);
         }
         return null;
     }
@@ -1832,7 +1840,7 @@ public class WDp {
 
         } else if (BaseChain.getChain(chain).equals(KI_MAIN)) {
             textview.setTextColor(c.getResources().getColor(R.color.colorKi));
-            textview.setText(c.getString(R.string.s_sif));
+            textview.setText(c.getString(R.string.s_ki));
 
         }
 

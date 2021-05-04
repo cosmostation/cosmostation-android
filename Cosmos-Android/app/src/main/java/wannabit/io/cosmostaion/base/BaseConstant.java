@@ -53,6 +53,8 @@ public class BaseConstant {
     public final static String PRE_CRYPTO_UP_DOWN_24        = "PRE_CRYTO_UP_DOWN_24";
     public final static String PRE_SIF_TIC                  = "PRE_SIF_TIC";
     public final static String PRE_SIF_UP_DOWN_24           = "PRE_SIF_UP_DOWN_24";
+    public final static String PRE_KI_TIC                   = "PRE_KI_TIC";
+    public final static String PRE_KI_UP_DOWN_24            = "PRE_KI_UP_DOWN_24";
     public final static String PRE_CURRENCY                 = "PRE_CURRENCY";
     public final static String PRE_MARKET                   = "PRE_MARKET";
     public final static String PRE_USING_APP_LOCK           = "PRE_USING_APP_LOCK";
@@ -602,6 +604,14 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
     public final static String SIF_GAS_AMOUNT_VOTE                      = "100000";
 
+    public final static String KI_GAS_FEE_RATE_AVERAGE                 = "0.025";
+    public final static String KI_GAS_AMOUNT_SEND                      = "100000";
+    public final static String KI_GAS_AMOUNT_STAKE                     = "200000";
+    public final static String KI_GAS_AMOUNT_REDELEGATE                = "300000";
+    public final static String KI_GAS_AMOUNT_REINVEST                  = "350000";
+    public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
+    public final static String KI_GAS_AMOUNT_VOTE                      = "100000";
+
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -638,6 +648,7 @@ public class BaseConstant {
     public final static String CGC_FETCH = "fetch-ai";
     public final static String CGC_CRYPTO = "crypto-com-chain";
     public final static String CGC_SIF = "sifchain";
+    public final static String CGC_KI = "ki-foundation-chain";
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
@@ -695,6 +706,7 @@ public class BaseConstant {
     public final static String EXPLORER_FETCHAI_MAIN    = "https://www.mintscan.io/fetchai/";
     public final static String EXPLORER_CRYPTOORG_MAIN  = "https://www.mintscan.io/crypto-org/";
     public final static String EXPLORER_SIF_MAIN        = "https://www.mintscan.io/sifchain/";
+    public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
