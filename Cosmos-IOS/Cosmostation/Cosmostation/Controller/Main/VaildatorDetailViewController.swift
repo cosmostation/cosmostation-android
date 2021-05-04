@@ -659,11 +659,11 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                    let rawData = responseData.object(forKey: "result") as? NSDictionary else {
                     self.onFetchFinished()
-                    return;
+                    return
                 }
-                self.mSelfBondingShare = BondingInfo(rawData).shares
+                self.mSelfBondingShare = BondingInfo.init(rawData).shares
 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchSelfBondRate ", error) }

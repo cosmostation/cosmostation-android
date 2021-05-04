@@ -86,7 +86,7 @@ final class BaseData : NSObject{
     func delegatedSumAmount() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for bonding in mMyDelegations {
-            amount = amount.adding(NSDecimalNumber.init(string: bonding.balance.amount))
+            amount = amount.adding(bonding.getAmount())
         }
         return amount
     }
@@ -95,7 +95,7 @@ final class BaseData : NSObject{
         var amount = NSDecimalNumber.zero
         for bonding in mMyDelegations {
             if (bonding.validator_address == opAddress) {
-                amount = amount.adding(NSDecimalNumber.init(string: bonding.balance.amount))
+                amount = amount.adding(bonding.getAmount())
             }
         }
         return amount

@@ -55,6 +55,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletFetchCell", bundle: nil), forCellReuseIdentifier: "WalletFetchCell")
         self.walletTableView.register(UINib(nibName: "WalletCrytoCell", bundle: nil), forCellReuseIdentifier: "WalletCrytoCell")
         self.walletTableView.register(UINib(nibName: "WalletSifCell", bundle: nil), forCellReuseIdentifier: "WalletSifCell")
+        self.walletTableView.register(UINib(nibName: "WalletKiCell", bundle: nil), forCellReuseIdentifier: "WalletKiCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -291,6 +292,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetCrytoItems(tableView, indexPath);
         } else if (chainType == ChainType.SIF_MAIN) {
             return onSetSifItems(tableView, indexPath);
+        } else if (chainType == ChainType.KI_MAIN) {
+            return onSetkiItems(tableView, indexPath);
         }
         
         else if (chainType == ChainType.COSMOS_TEST) {
@@ -855,6 +858,42 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         }
     }
     
+    func onSetkiItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            cell?.actionWebLink = { self.onClickActionLink() }
+            return cell!
+            
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletKiCell") as? WalletKiCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+            
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            return cell!
+            
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+            
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+    }
+    
     
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
@@ -1208,6 +1247,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SIF_MAIN) {
             guard let url = URL(string: "https://sifchain.finance/") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.KI_MAIN) {
+            guard let url = URL(string: "https://foundation.ki/") else { return }
+            self.onShowSafariWeb(url)
         }
         
     }
@@ -1276,6 +1319,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             
         } else if (chainType! == ChainType.SIF_MAIN) {
             guard let url = URL(string: "https://medium.com/sifchain-finance") else { return }
+            self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.KI_MAIN) {
+            guard let url = URL(string: "https://medium.com/ki-foundation") else { return }
             self.onShowSafariWeb(url)
         }
         

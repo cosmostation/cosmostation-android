@@ -3293,6 +3293,8 @@ class WUtils {
             return CRYPTO_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.SIF_MAIN) {
             return SIF_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.KI_MAIN) {
+            return KI_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -3353,6 +3355,9 @@ class WUtils {
         } else if (chain == ChainType.SIF_MAIN) {
             return EXPLORER_SIF_MAIN + "txs/" + hash
             
+        } else if (chain == ChainType.KI_MAIN) {
+            return EXPLORER_KI_MAIN + "txs/" + hash
+            
         }
         
         return ""
@@ -3403,6 +3408,9 @@ class WUtils {
             
         } else if (chain == ChainType.SIF_MAIN) {
             return EXPLORER_SIF_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return EXPLORER_KI_MAIN + "account/" + address
             
         }
         
@@ -3467,6 +3475,9 @@ class WUtils {
             
         } else if (chain == ChainType.SIF_MAIN) {
             return EXPLORER_SIF_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return EXPLORER_KI_MAIN + "proposals/" + proposalId
             
         }
         

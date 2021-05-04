@@ -147,6 +147,8 @@
 "send_guide_msg_crypto" = "Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.";
 "send_guide_title_sif" = "SIFCHAIN";
 "send_guide_msg_sif" = "Omni-chain decentralized exchange built with the Cosmos SDK.";
+"send_guide_title_ki" = "KI FOUNDATION";
+"send_guide_msg_ki" = "Open-source blockchain platform for decentralized applications. ";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -162,6 +164,7 @@
 "send_guide_btn1_fetch" = "Home";
 "send_guide_btn1_crypto" = "Home";
 "send_guide_btn1_sif" = "Home";
+"send_guide_btn1_ki" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -177,6 +180,7 @@
 "send_guide_btn2_fetch" = "Blog";
 "send_guide_btn2_crypto" = "Communities";
 "send_guide_btn2_sif" = "Blog";
+"send_guide_btn2_ki" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
