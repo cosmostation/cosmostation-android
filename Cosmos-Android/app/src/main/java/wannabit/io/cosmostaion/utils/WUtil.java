@@ -1882,6 +1882,21 @@ public class WUtil {
         } else if (chain.equals(AKASH_MAIN)) {
             return BLOCK_TIME_AKASH;
 
+        } else if (chain.equals(PERSIS_MAIN)) {
+            return BLOCK_TIME_PERSISTENCE;
+
+        } else if (chain.equals(FETCHAI_MAIN)) {
+            return BLOCK_TIME_FETCH;
+
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            return BLOCK_TIME_CRYPTO;
+
+        } else if (chain.equals(SIF_MAIN)) {
+            return BLOCK_TIME_SIF;
+
+        } else if (chain.equals(KI_MAIN)) {
+            return BLOCK_TIME_KI;
+
         }
         return new BigDecimal("6");
     }
