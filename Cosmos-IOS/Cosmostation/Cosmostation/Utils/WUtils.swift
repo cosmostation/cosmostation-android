@@ -3921,14 +3921,14 @@ class WUtils {
             let vestingAccount = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: account.value)
             sBalace.forEach({ (coin) in
                 let denom = coin.denom
+                var bankBalance = NSDecimalNumber.zero
                 var dpBalance = NSDecimalNumber.zero
                 var dpVesting = NSDecimalNumber.zero
                 var originalVesting = NSDecimalNumber.zero
                 var remainVesting = NSDecimalNumber.zero
-                var delegatedVesting = NSDecimalNumber.zero
                 
-                dpBalance = NSDecimalNumber.init(string: coin.amount)
-//                print("dpBalance ", denom, "  ", dpBalance)
+                bankBalance = NSDecimalNumber.init(string: coin.amount)
+//                print("bankBalance ", denom, "  ", bankBalance)
                 
                 vestingAccount.baseVestingAccount.originalVesting.forEach({ (coin) in
                     if (coin.denom == denom) {
@@ -3936,13 +3936,6 @@ class WUtils {
                     }
                 })
 //                print("originalVesting ", denom, "  ", originalVesting)
-                
-                vestingAccount.baseVestingAccount.delegatedVesting.forEach({ (coin) in
-                    if (coin.denom == denom) {
-                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                    }
-                })
-//                print("delegatedVesting ", denom, "  ", delegatedVesting)
                 
                 let cTime = Date().millisecondsSince1970
                 let vestingStart = vestingAccount.startTime * 1000
@@ -3957,14 +3950,15 @@ class WUtils {
                     remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
                 }
                 
-                dpVesting = remainVesting.subtracting(delegatedVesting);
-                dpVesting = dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0 ? NSDecimalNumber.zero : dpVesting
-//                print("dpVestingB ", denom, "  ", dpVesting)
-                
-                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
-                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                if (remainVesting.compare(NSDecimalNumber.zero).rawValue > 0) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = bankBalance
+                    
+                } else {
+                    dpBalance = bankBalance
+                    dpVesting = NSDecimalNumber.zero
+                    
                 }
-//                print("final dpBalance ", denom, "  ", dpBalance)
                 
                 if (dpVesting.compare(NSDecimalNumber.zero).rawValue > 0) {
                     let vestingCoin = Coin.init(denom, dpVesting.stringValue)
