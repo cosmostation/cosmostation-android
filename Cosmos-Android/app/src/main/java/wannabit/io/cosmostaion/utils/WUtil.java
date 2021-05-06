@@ -2891,13 +2891,14 @@ public class WUtil {
             }
             for (Coin coin: sBalace) {
                 String denom = coin.denom;
+                BigDecimal bankBalance = BigDecimal.ZERO;
+                BigDecimal originalVesting = BigDecimal.ZERO;
                 BigDecimal dpBalance = BigDecimal.ZERO;
                 BigDecimal dpVesting = BigDecimal.ZERO;
-                BigDecimal originalVesting = BigDecimal.ZERO;
                 BigDecimal remainVesting = BigDecimal.ZERO;
-                BigDecimal delegatedVesting = BigDecimal.ZERO;
-                dpBalance = new BigDecimal(coin.amount);
-                WLog.w("dpBalance " +  denom + "  " +  dpBalance);
+
+                bankBalance = new BigDecimal(coin.amount);
+                WLog.w("bankBalance " +  denom + "  " +  bankBalance);
 
                 for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                     if (vesting.getDenom().equals(denom)) {
@@ -2905,13 +2906,6 @@ public class WUtil {
                     }
                 }
                 WLog.w("originalVesting " +  denom + "  " +  originalVesting);
-
-                for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getDelegatedVestingList()) {
-                    if (vesting.getDenom().equals(denom)) {
-                        delegatedVesting = delegatedVesting.add(new BigDecimal(vesting.getAmount()));
-                    }
-                }
-                WLog.w("delegatedVesting " +  denom + "  " +  delegatedVesting);
 
                 long cTime = Calendar.getInstance().getTime().getTime();
                 long vestingStart = vestingAccount.getStartTime()  * 1000;
@@ -2926,16 +2920,13 @@ public class WUtil {
                 }
                 WLog.w("remainVesting " +  denom + "  " +  remainVesting);
 
-                dpVesting = remainVesting.subtract(delegatedVesting);
-                WLog.w("dpVestingA " +  denom + "  " +  dpVesting);
-
-                dpVesting = dpVesting.compareTo(BigDecimal.ZERO) <= 0 ? BigDecimal.ZERO : dpVesting;
-                WLog.w("dpVestingB " +  denom + "  " +  dpVesting);
-
-                if (remainVesting.compareTo(delegatedVesting)> 0) {
-                    dpBalance = dpBalance.subtract(remainVesting).add(delegatedVesting);
+                if (remainVesting.compareTo(BigDecimal.ZERO) > 0) {
+                    dpBalance = BigDecimal.ZERO;
+                    dpVesting = bankBalance;
+                } else {
+                    dpBalance = bankBalance;
+                    dpVesting = BigDecimal.ZERO;
                 }
-                WLog.w("final dpBalance  " +  denom + "  " +  dpBalance);
 
                 if (dpVesting.compareTo(BigDecimal.ZERO) > 0) {
                     Coin vestingCoin = new Coin(denom, dpVesting.toPlainString());
