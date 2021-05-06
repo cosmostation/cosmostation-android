@@ -1023,7 +1023,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let balance = mainTabVC.mBalances[indexPath.row]
         if (balance.balance_denom == KI_MAIN_DENOM) {
             cell?.tokenImg.image = UIImage(named: "tokenKifoundation")
-            cell?.tokenSymbol.text = "KI"
+            cell?.tokenSymbol.text = "XKI"
             cell?.tokenSymbol.textColor = COLOR_KI
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "KiChain Staking Token"

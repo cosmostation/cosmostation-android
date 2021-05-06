@@ -181,7 +181,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType! == ChainType.SIF_MAIN) {
             chainImg.image = UIImage(named: "chainsifchain")
-            keyPath.text = CRYPTO_BASE_PATH.appending(account!.account_path)
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        } else if (chainType! == ChainType.KI_MAIN) {
+            chainImg.image = UIImage(named: "chainKifoundation")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow

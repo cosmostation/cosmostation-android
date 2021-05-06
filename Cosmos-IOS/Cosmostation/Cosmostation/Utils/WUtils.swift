@@ -2121,7 +2121,7 @@ class WUtils {
         } else if (chain == ChainType.SIF_MAIN) {
             return "ROWAN"
         } else if (chain == ChainType.KI_MAIN) {
-            return "KI"
+            return "XKI"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2251,7 +2251,7 @@ class WUtils {
             label.text = "ROWAN"
             label.textColor = COLOR_SIF
         } else if (chain == ChainType.KI_MAIN) {
-            label.text = "KI"
+            label.text = "XKI"
             label.textColor = COLOR_KI
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
