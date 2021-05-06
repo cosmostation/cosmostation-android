@@ -1149,6 +1149,8 @@ class BaseNetWork {
             result = FETCH_API + "v1/account/txs/" + address
         } else if (chain == ChainType.SIF_MAIN) {
             result = SIF_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.KI_MAIN) {
+            result = KI_API + "v1/account/txs/" + address
         }
         
         
@@ -1192,6 +1194,8 @@ class BaseNetWork {
             result = FETCH_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.SIF_MAIN) {
             result = SIF_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.KI_MAIN) {
+            result = KI_API + "v1/account/txs/" + address + "/" + valAddress
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

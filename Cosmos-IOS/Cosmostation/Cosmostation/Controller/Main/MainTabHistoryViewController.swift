@@ -77,6 +77,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SIF_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.KI_MAIN) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
         
         self.comingLabel.isUserInteractionEnabled = true
@@ -250,6 +252,8 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SIF_MAIN) {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
+        } else if (chainType == ChainType.KI_MAIN) {
+            onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
 
@@ -284,7 +288,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             return onSetCertikItem(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return onSetOkItem(tableView, indexPath);
-        } else if (chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN) {
+        } else if (chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN) {
             return onSetDefaultItem(tableView, indexPath);
         }
         return onSetEmptyItem(tableView, indexPath);
