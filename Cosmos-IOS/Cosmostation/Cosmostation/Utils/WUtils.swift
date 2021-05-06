@@ -1728,6 +1728,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 18, 6)
             
+        } else if (chainType == ChainType.KI_MAIN) {
+            if (coin.denom == KI_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1897,6 +1906,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 18, 6)
             
+        } else if (chainType == ChainType.KI_MAIN) {
+            if (denom == KI_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -1991,6 +2009,8 @@ class WUtils {
             return COLOR_CRYPTO
         } else if (chain == ChainType.SIF_MAIN) {
             return COLOR_SIF
+        } else if (chain == ChainType.KI_MAIN) {
+            return COLOR_KI
         }
         return COLOR_ATOM
     }
@@ -2026,6 +2046,8 @@ class WUtils {
             return COLOR_CRYPTO_DARK
         } else if (chain == ChainType.SIF_MAIN) {
             return COLOR_SIF_DARK
+        } else if (chain == ChainType.KI_MAIN) {
+            return COLOR_KI_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2061,6 +2083,8 @@ class WUtils {
             return TRANS_BG_COLOR_CRYPTO
         } else if (chain == ChainType.SIF_MAIN) {
             return TRANS_BG_COLOR_SIF
+        } else if (chain == ChainType.KI_MAIN) {
+            return TRANS_BG_COLOR_KI
         }
         return COLOR_BG_GRAY
     }
@@ -2096,6 +2120,8 @@ class WUtils {
             return "CRO"
         } else if (chain == ChainType.SIF_MAIN) {
             return "ROWAN"
+        } else if (chain == ChainType.KI_MAIN) {
+            return "XKI"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2135,6 +2161,8 @@ class WUtils {
             return CRYPTO_MAIN_DENOM
         } else if (chain == ChainType.SIF_MAIN) {
             return SIF_MAIN_DENOM
+        } else if (chain == ChainType.KI_MAIN) {
+            return KI_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2153,6 +2181,20 @@ class WUtils {
             return 0
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
             return 0
+        } else if (chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN) {
+            return 18
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return 8
+        } else {
+            return 6
+        }
+    }
+    
+    static func mainDisplayDecimal(_ chain:ChainType?) -> Int16 {
+        if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            return 8
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            return 18
         } else if (chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN) {
             return 18
         } else if (chain == ChainType.CRYPTO_MAIN) {
@@ -2208,6 +2250,9 @@ class WUtils {
         } else if (chain == ChainType.SIF_MAIN) {
             label.text = "ROWAN"
             label.textColor = COLOR_SIF
+        } else if (chain == ChainType.KI_MAIN) {
+            label.text = "XKI"
+            label.textColor = COLOR_KI
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2248,6 +2293,8 @@ class WUtils {
             return ChainType.CRYPTO_MAIN
         } else if (chainS == CHAIN_SIF_S) {
             return ChainType.SIF_MAIN
+        } else if (chainS == CHAIN_KI_S) {
+            return ChainType.KI_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2299,6 +2346,8 @@ class WUtils {
             return CHAIN_CRYPTO_S
         } else if (chain == ChainType.SIF_MAIN) {
             return CHAIN_SIF_S
+        } else if (chain == ChainType.KI_MAIN) {
+            return CHAIN_KI_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2660,6 +2709,26 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(SIF_GAS_AMOUNT_VOTE))
             }
             
+        } else if (chain == ChainType.KI_MAIN) {
+            result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_STAKE))
+            if (type == COSMOS_MSG_TYPE_DELEGATE) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_UNDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_STAKE))
+            } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_REDELEGATE))
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_SEND))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE))
+            } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
+                result = getGasAmountForKavaRewards()[valCnt - 1]
+            } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_REINVEST))
+            } else if (type == TASK_TYPE_VOTE) {
+                result = NSDecimalNumber.init(string: String(KI_GAS_AMOUNT_VOTE))
+            }
+            
         }
         
         return result
@@ -2700,6 +2769,11 @@ class WUtils {
             
         } else if (chain == ChainType.SIF_MAIN) {
             let gasRate = NSDecimalNumber.init(string: SIF_GAS_FEE_RATE_AVERAGE)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: KI_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -2824,17 +2898,16 @@ class WUtils {
         return 100;
     }
     
-//    static func getQuotient(_ value:String) -> NSDecimalNumber {
-//        let dividend = WUtils.localeStringToDecimal(value)
-//        return dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
-//    }
-//
-//    static func getRemainder(_ value:String) -> NSDecimalNumber {
-//        let dividend = WUtils.localeStringToDecimal(value)
-//        let quotient = dividend.dividing(by: NSDecimalNumber.one, withBehavior: getDivideHandler(0))
-//        return dividend.subtracting(quotient)
-//    }
-    
+    static func getSifCoinDecimal(_ denom:String) -> Int16 {
+        if (denom.caseInsensitiveCompare(SIF_MAIN_DENOM) == .orderedSame) { return 18; }
+        else if (denom.caseInsensitiveCompare("cusdt") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("cusdc") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("csrm") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("cwscrt") == .orderedSame) { return 6; }
+        else if (denom.caseInsensitiveCompare("ccro") == .orderedSame) { return 8; }
+        else if (denom.caseInsensitiveCompare("cwbtc") == .orderedSame) { return 8; }
+        return 18;
+    }
     
     static func getVoterTypeCnt(_ votes: Array<Vote>, _ type: String) -> String {
         var result = 0
@@ -3245,6 +3318,8 @@ class WUtils {
             return CRYPTO_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.SIF_MAIN) {
             return SIF_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.KI_MAIN) {
+            return KI_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -3305,6 +3380,9 @@ class WUtils {
         } else if (chain == ChainType.SIF_MAIN) {
             return EXPLORER_SIF_MAIN + "txs/" + hash
             
+        } else if (chain == ChainType.KI_MAIN) {
+            return EXPLORER_KI_MAIN + "txs/" + hash
+            
         }
         
         return ""
@@ -3355,6 +3433,9 @@ class WUtils {
             
         } else if (chain == ChainType.SIF_MAIN) {
             return EXPLORER_SIF_MAIN + "account/" + address
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return EXPLORER_KI_MAIN + "account/" + address
             
         }
         
@@ -3420,6 +3501,9 @@ class WUtils {
         } else if (chain == ChainType.SIF_MAIN) {
             return EXPLORER_SIF_MAIN + "proposals/" + proposalId
             
+        } else if (chain == ChainType.KI_MAIN) {
+            return EXPLORER_KI_MAIN + "proposals/" + proposalId
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3439,7 +3523,7 @@ class WUtils {
             return NSDecimalNumber.init(string: "0.5")
         } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
                     chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                    chain == ChainType.SIF_MAIN) {
+                    chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.4")
@@ -3837,14 +3921,14 @@ class WUtils {
             let vestingAccount = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: account.value)
             sBalace.forEach({ (coin) in
                 let denom = coin.denom
+                var bankBalance = NSDecimalNumber.zero
                 var dpBalance = NSDecimalNumber.zero
                 var dpVesting = NSDecimalNumber.zero
                 var originalVesting = NSDecimalNumber.zero
                 var remainVesting = NSDecimalNumber.zero
-                var delegatedVesting = NSDecimalNumber.zero
                 
-                dpBalance = NSDecimalNumber.init(string: coin.amount)
-//                print("dpBalance ", denom, "  ", dpBalance)
+                bankBalance = NSDecimalNumber.init(string: coin.amount)
+//                print("bankBalance ", denom, "  ", bankBalance)
                 
                 vestingAccount.baseVestingAccount.originalVesting.forEach({ (coin) in
                     if (coin.denom == denom) {
@@ -3852,13 +3936,6 @@ class WUtils {
                     }
                 })
 //                print("originalVesting ", denom, "  ", originalVesting)
-                
-                vestingAccount.baseVestingAccount.delegatedVesting.forEach({ (coin) in
-                    if (coin.denom == denom) {
-                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
-                    }
-                })
-//                print("delegatedVesting ", denom, "  ", delegatedVesting)
                 
                 let cTime = Date().millisecondsSince1970
                 let vestingStart = vestingAccount.startTime * 1000
@@ -3873,14 +3950,15 @@ class WUtils {
                     remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
                 }
                 
-                dpVesting = remainVesting.subtracting(delegatedVesting);
-                dpVesting = dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0 ? NSDecimalNumber.zero : dpVesting
-//                print("dpVestingB ", denom, "  ", dpVesting)
-                
-                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
-                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                if (remainVesting.compare(NSDecimalNumber.zero).rawValue > 0) {
+                    dpBalance = NSDecimalNumber.zero
+                    dpVesting = bankBalance
+                    
+                } else {
+                    dpBalance = bankBalance
+                    dpVesting = NSDecimalNumber.zero
+                    
                 }
-//                print("final dpBalance ", denom, "  ", dpBalance)
                 
                 if (dpVesting.compare(NSDecimalNumber.zero).rawValue > 0) {
                     let vestingCoin = Coin.init(denom, dpVesting.stringValue)
@@ -4218,7 +4296,9 @@ class WUtils {
 
 extension Date {
     var millisecondsSince1970:Int64 {
-        return Int64((self.timeIntervalSince1970 * 1000.0).rounded())
+        return Int64((self.
+                      
+                      timeIntervalSince1970 * 1000.0).rounded())
     }
     
     var StringmillisecondsSince1970:String {
@@ -4231,6 +4311,28 @@ extension Date {
     
     init(milliseconds:Int) {
         self = Date(timeIntervalSince1970: TimeInterval(milliseconds) / 1000)
+    }
+}
+
+extension String {
+    func index(from: Int) -> Index {
+        return self.index(startIndex, offsetBy: from)
+    }
+
+    func substring(from: Int) -> String {
+        let fromIndex = index(from: from)
+        return String(self[fromIndex...])
+    }
+
+    func substring(to: Int) -> String {
+        let toIndex = index(from: to)
+        return String(self[..<toIndex])
+    }
+
+    func substring(with r: Range<Int>) -> String {
+        let startIndex = index(from: r.lowerBound)
+        let endIndex = index(from: r.upperBound)
+        return String(self[startIndex..<endIndex])
     }
 }
 

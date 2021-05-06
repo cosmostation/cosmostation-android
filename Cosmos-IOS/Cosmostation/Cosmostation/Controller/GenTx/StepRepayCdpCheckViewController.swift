@@ -102,13 +102,7 @@ class StepRepayCdpCheckViewController: BaseViewController, PasswordViewDelegate 
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        var url: String?
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -192,13 +186,7 @@ class StepRepayCdpCheckViewController: BaseViewController, PasswordViewDelegate 
                 let data = try? encoder.encode(postTx)
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                    var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        url = KAVA_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        url = KAVA_TEST_BORAD_TX
-                    }
-                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.validate().responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {

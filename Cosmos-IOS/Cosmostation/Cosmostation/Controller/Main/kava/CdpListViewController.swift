@@ -226,13 +226,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     
     
     func onFetchCdpParam() {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_PARAM
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_PARAM
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.paramCdpUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -253,13 +247,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func onFetchIncentiveReward(_ address: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_INCENTIVE_REWARD
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_INCENTIVE_REWARD
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.incentiveUrl(chainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):
@@ -278,13 +266,7 @@ class CdpListViewController: BaseViewController, UITableViewDelegate, UITableVie
     }
     
     func onFetchOwenCdp(_ address: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_CDP_OWEN
-        } else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CDP_OWEN
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.owenCdpUrl(chainType), method: .get, parameters: ["owner":address], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
                 case .success(let res):

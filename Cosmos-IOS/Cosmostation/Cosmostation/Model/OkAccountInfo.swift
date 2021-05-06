@@ -23,6 +23,7 @@ public struct OkAccountInfo {
     public struct OkAccountValue {
         var address: String?
         var eth_address: String?
+        var coins: Array<Coin> = Array<Coin>()
         var account_number: String?
         var sequence: String?
         var code_hash: String?
@@ -30,6 +31,11 @@ public struct OkAccountInfo {
         init(_ dictionary: NSDictionary?) {
             self.address = dictionary?["address"] as? String
             self.eth_address = dictionary?["eth_address"] as? String
+            if let rawCoins = dictionary?["coins"] as? Array<NSDictionary> {
+                for coin in rawCoins {
+                    self.coins.append(Coin(coin as! [String : Any]))
+                }
+            }
             if let accountNumber = dictionary?["account_number"] as? String {
                 self.account_number = accountNumber
             }

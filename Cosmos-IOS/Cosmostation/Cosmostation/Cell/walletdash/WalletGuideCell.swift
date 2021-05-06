@@ -137,6 +137,13 @@ class WalletGuideCell: UITableViewCell {
             guideMsg.text = NSLocalizedString("send_guide_msg_sif", comment: "")
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_sif", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_sif", comment: ""), for: .normal)
+            
+        } else if (chainType == ChainType.KI_MAIN) {
+            guideImg.image = UIImage(named: "kifoundationImg")
+            guideTitle.text = NSLocalizedString("send_guide_title_ki", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_ki", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_ki", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_ki", comment: ""), for: .normal)
         }
         
     }

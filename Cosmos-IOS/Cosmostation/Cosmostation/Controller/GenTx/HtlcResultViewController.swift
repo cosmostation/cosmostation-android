@@ -231,14 +231,13 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     func onCheckCreateHtlcSwap() {
 //        print("onCheckCreateHtlcSwap")
         var url: String?
-        if (self.chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_ACCOUNT_INFO + account!.account_address
-        } else if (self.chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account!.account_address
+        if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
+            url = BaseNetWork.accountInfoUrl(self.chainType, account!.account_address)
         } else {
             onCreateHtlcSwap()
             return;
         }
+        
         let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -400,13 +399,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let data = try? encoder.encode(postTx)
                     do {
                         let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                        var url: String?
-                        if (self.chainType! == ChainType.KAVA_MAIN) {
-                            url = KAVA_BORAD_TX
-                        } else if (self.chainType! == ChainType.KAVA_TEST) {
-                            url = KAVA_TEST_BORAD_TX
-                        }
-                        let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                        let request = Alamofire.request(BaseNetWork.broadcastUrl(self.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                         request.validate().responseJSON { response in
                             switch response.result {
                             case .success(let res):
@@ -439,28 +432,9 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     func onFetchSwapId() {
         onUpdateProgress(1)
 //        print("onFetchSwapId ", mSwapFetchCnt)
-        var url = ""
-        if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = BNB_URL_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("BINANCE_MAIN swapId url ", url) }
-            
-        } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = BNB_TEST_URL_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("BINANCE_TEST swapId url ", url) }
-            
-        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = KAVA_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("KAVA_MAIN swapId url ", url) }
-            
-        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-            let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-            url = KAVA_TEST_CHECK_SWAPID + swapId
-            if (SHOW_LOG) { print("KAVA_TEST swapId url ", url) }
-        }
-
+        let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
+        let url = BaseNetWork.swapIdBep3Url(self.mHtlcToChain, swapId)
+        if (SHOW_LOG) { print("swapId url ", url) }
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -498,10 +472,8 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
         onUpdateProgress(2)
 //        print("onCheckClaimHtlcSwap")
         var url: String?
-        if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-            url = KAVA_ACCOUNT_INFO + mHtlcToAccount!.account_address
-        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + mHtlcToAccount!.account_address
+        if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
+            url = BaseNetWork.accountInfoUrl(self.mHtlcToChain, mHtlcToAccount!.account_address)
         } else {
             onClaimHtlcSwap()
             return
@@ -613,13 +585,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             } else if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
                 let group = DispatchGroup() 
                 var mHtlcToChainId = ""
-                var url: String?
-                if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-                    url = KAVA_NODE_INFO
-                } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-                    url = KAVA_TEST_NODE_INFO
-                }
-                let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+                let request = Alamofire.request(BaseNetWork.nodeInfoUrl(self.mHtlcToChain), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
                 group.enter()
                 request.responseJSON { (response) in
                     switch response.result {
@@ -689,13 +655,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let data = try? encoder.encode(postTx)
                     do {
                         let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
-                        var url: String?
-                        if (self.mHtlcToChain! == ChainType.KAVA_MAIN) {
-                            url = KAVA_BORAD_TX
-                        } else if (self.mHtlcToChain! == ChainType.KAVA_TEST) {
-                            url = KAVA_TEST_BORAD_TX
-                        }
-                        let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                        let request = Alamofire.request(BaseNetWork.broadcastUrl(self.mHtlcToChain), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                         request.validate().responseJSON { response in
                             switch response.result {
                             case .success(let res):
@@ -736,20 +696,11 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     
     func onFetchSendTx() {
 //        print("onFetchSendTx")
-        var url = ""
         var request:DataRequest?
-        if (self.chainType == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_TX + mSendHash!
-            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.chainType == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_TX + mSendHash!
-            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_TX + mSendHash!
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (self.chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_TX + mSendHash!
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        if (self.chainType == ChainType.BINANCE_MAIN || self.chainType == ChainType.BINANCE_TEST) {
+            request = Alamofire.request(BaseNetWork.txUrl(self.chainType, mSendHash!), method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
+        } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
+            request = Alamofire.request(BaseNetWork.txUrl(self.chainType, mSendHash!), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
         request!.responseJSON { (response) in
             switch response.result {
@@ -776,20 +727,11 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
     func onFetchClaimTx() {
         onUpdateProgress(3)
 //        print("onFetchClaimTx")
-        var url = ""
         var request:DataRequest?
-        if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_TX + mClaimHash!
-            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_TX + mClaimHash!
-            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN) {
-            url = KAVA_TX + mClaimHash!
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-        } else if (self.mHtlcToChain == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_TX + mClaimHash!
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        if (self.mHtlcToChain == ChainType.BINANCE_MAIN || self.mHtlcToChain == ChainType.BINANCE_TEST) {
+            request = Alamofire.request(BaseNetWork.txUrl(self.mHtlcToChain, mClaimHash!), method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
+        } else if (self.mHtlcToChain == ChainType.KAVA_MAIN || self.mHtlcToChain == ChainType.KAVA_TEST) {
+            request = Alamofire.request(BaseNetWork.txUrl(self.mHtlcToChain, mClaimHash!), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         }
         request!.responseJSON { (response) in
             switch response.result {

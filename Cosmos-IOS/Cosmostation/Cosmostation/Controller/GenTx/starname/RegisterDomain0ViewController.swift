@@ -114,13 +114,7 @@ class RegisterDomain0ViewController: BaseViewController {
     
     func onFetchDomainInfo(_ domain: String) {
         self.showWaittingAlert()
-        var url: String?
-        if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_STARNAME_DOMAIN_INFO;
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_STARNAME_DOMAIN_INFO;
-        }
-        let request = Alamofire.request(url!, method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.domainInfoStarnameUrl(chainType), method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

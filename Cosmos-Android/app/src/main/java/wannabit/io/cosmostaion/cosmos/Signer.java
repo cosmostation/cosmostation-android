@@ -342,6 +342,10 @@ public class Signer {
             } else if (auth.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
                 Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getAddress();
+
+            } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseVestingAccount().getBaseAccount().getAddress();
             }
 
         }catch (Exception e) {}
@@ -357,6 +361,11 @@ public class Signer {
             } else if (auth.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
                 Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
+
+            } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseVestingAccount().getBaseAccount().getAccountNumber();
+
             }
 
         }catch (Exception e) {}
@@ -372,6 +381,11 @@ public class Signer {
             } else if (auth.getAccount().getTypeUrl().contains(Vesting.PeriodicVestingAccount.getDescriptor().getFullName())) {
                 Vesting.PeriodicVestingAccount account = Vesting.PeriodicVestingAccount.parseFrom(auth.getAccount().getValue());
                 return account.getBaseVestingAccount().getBaseAccount().getSequence();
+
+            } else if (auth.getAccount().getTypeUrl().contains(Vesting.ContinuousVestingAccount.getDescriptor().getFullName())) {
+                Vesting.ContinuousVestingAccount account = Vesting.ContinuousVestingAccount.parseFrom(auth.getAccount().getValue());
+                return account.getBaseVestingAccount().getBaseAccount().getSequence();
+
             }
 
         }catch (Exception e) {}

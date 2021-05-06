@@ -135,7 +135,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchSignleUnBondingInfo(account!, mValidator!)
             onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
             
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN) {
+        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN ||
+                    chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN) {
             mRewardCoins.removeAll()
             mFetchCnt = 5
             onFetchValidatorInfo(mValidator!)
@@ -570,32 +571,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchValidatorInfo(_ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_VALIDATORS + "/" + validator.operator_address
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_VALIDATORS + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_VALIDATORS + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.validatorUrl(chainType, validator.operator_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -614,32 +590,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchSignleBondingInfo(_ account: Account, _ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_BONDING + account.account_address + KAVA_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_BONDING + account.account_address + BAND_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_BONDING + account.account_address + SECRET_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_BONDING + account.account_address + IOV_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_BONDING + account.account_address + CERTIK_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_BONDING + account.account_address + SENTINEL_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_BONDING + account.account_address + FETCH_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_BONDING + account.account_address + SIF_BONDING_TAIL + "/" + validator.operator_address
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_BONDING + account.account_address + KAVA_TEST_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_BONDING + account.account_address + IOV_TEST_BONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_BONDING + account.account_address + CERTIK_TEST_BONDING_TAIL + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.bondingUrl(chainType, account.account_address, validator.operator_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -663,32 +614,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchSignleUnBondingInfo(_ account: Account, _ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_UNBONDING + account.account_address + KAVA_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_UNBONDING + account.account_address + BAND_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_UNBONDING + account.account_address + SECRET_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_UNBONDING + account.account_address + IOV_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_UNBONDING + account.account_address + CERTIK_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_UNBONDING + account.account_address + SENTINEL_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_UNBONDING + account.account_address + FETCH_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_UNBONDING + account.account_address + SIF_UNBONDING_TAIL + "/" + validator.operator_address
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_UNBONDING + account.account_address + KAVA_TEST_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_UNBONDING + account.account_address + IOV_TEST_UNBONDING_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_UNBONDING + account.account_address + CERTIK_TEST_UNBONDING_TAIL + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.unbondingUrl(chainType, account.account_address, validator.operator_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -707,32 +633,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchRewardInfo(_ account: Account, _ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_REWARD_FROM_VAL + account.account_address + KAVA_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_FROM_VAL + account.account_address + BAND_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_FROM_VAL + account.account_address + SECRET_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_FROM_VAL + account.account_address + IOV_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_FROM_VAL + account.account_address + CERTIK_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_FROM_VAL + account.account_address + SENTINEL_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_REWARD_FROM_VAL + account.account_address + FETCH_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_REWARD_FROM_VAL + account.account_address + SIF_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_FROM_VAL + account.account_address + KAVA_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_FROM_VAL + account.account_address + IOV_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_FROM_VAL + account.account_address + CERTIK_TEST_REWARD_FROM_VAL_TAIL + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.rewardUrl(chainType, account.account_address, validator.operator_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -754,41 +655,16 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchSelfBondRate(_ address: String, _ vAddress: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_BONDING + address + KAVA_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_BONDING + address + BAND_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_BONDING + address + SECRET_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_BONDING + address + IOV_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_BONDING + address + CERTIK_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_BONDING + address + SENTINEL_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_BONDING + address + FETCH_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_BONDING + address + SIF_BONDING_TAIL + "/" + vAddress
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_BONDING + address + KAVA_TEST_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_BONDING + address + IOV_TEST_BONDING_TAIL + "/" + vAddress
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_BONDING + address + CERTIK_TEST_BONDING_TAIL + "/" + vAddress
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.bondingUrl(chainType, address, vAddress), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 guard let responseData = res as? NSDictionary,
-                    let rawData = responseData.object(forKey: "result") as? [String : Any] else {
+                    let rawData = responseData.object(forKey: "result") as? NSDictionary else {
                     self.onFetchFinished()
-                    return;
+                    return
                 }
-                self.mSelfBondingShare = BondingInfo(rawData).shares
+                self.mSelfBondingShare = BondingInfo.init(rawData).shares
 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchSelfBondRate ", error) }
@@ -798,32 +674,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchRedelegatedState(_ address: String, _ to: String) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_REDELEGATION;
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_REDELEGATION;
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_REDELEGATION;
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_REDELEGATION;
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REDELEGATION;
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REDELEGATION;
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_REDELEGATION;
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_REDELEGATION;
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REDELEGATION;
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_REDELEGATION;
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REDELEGATION;
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.redelegationsUrl(chainType), method: .get, parameters: ["delegator":address, "validator_to":to], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -845,33 +696,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
     }
     
-    func onFetchRewardAddress(_ accountAddr: String) {
-        var url = ""
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_REWARD_ADDRESS + accountAddr + KAVA_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_REWARD_ADDRESS + accountAddr + BAND_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_REWARD_ADDRESS + accountAddr + SECRET_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_REWARD_ADDRESS + accountAddr + IOV_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_REWARD_ADDRESS + accountAddr + CERTIK_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_REWARD_ADDRESS + accountAddr + SENTINEL_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_REWARD_ADDRESS + accountAddr + FETCH_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_REWARD_ADDRESS + accountAddr + SIF_REWARD_ADDRESS_TAIL
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_REWARD_ADDRESS + accountAddr + KAVA_TEST_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.IOV_TEST) {
-            url = IOV_TEST_REWARD_ADDRESS + accountAddr + IOV_TEST_REWARD_ADDRESS_TAIL
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_REWARD_ADDRESS + accountAddr + CERTIK_TEST_REWARD_ADDRESS_TAIL
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+    func onFetchRewardAddress(_ address: String) {
+        let request = Alamofire.request(BaseNetWork.rewardAddressUrl(chainType, address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -881,7 +707,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return;
                 }
                 let trimAddress = address.replacingOccurrences(of: "\"", with: "")
-                if (trimAddress == accountAddr) {
+                if (trimAddress == address) {
                     self.onStartReInvest()
                 } else {
                     self.onShowReInvsetFailDialog()
@@ -894,8 +720,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchBandOracleStatus() {
-        let url = BAND_ORACLE_STATUS
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.oracleBandUrl(), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -913,30 +738,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onFetchApiHistory(_ account: Account, _ validator: Validator) {
-        var url: String?
-        if (chainType == ChainType.KAVA_MAIN) {
-            url = KAVA_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.BAND_MAIN) {
-            url = BAND_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.IOV_MAIN) {
-            url = IOV_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            url = SECRET_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            url = CERTIK_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            url = FETCH_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.SIF_MAIN) {
-            url = SIF_API_HISTORY + account.account_address + "/" + validator.operator_address
-        }
-        else if (chainType == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_API_HISTORY + account.account_address + "/" + validator.operator_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
+        let url = BaseNetWork.accountStakingHistory(chainType!, account.account_address, validator.operator_address)
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -1237,6 +1040,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
+            
+        } else if (chainType == ChainType.KI_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
+                return
+            }
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1391,6 +1201,21 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             
+        } else if (chainType == ChainType.KI_MAIN) {
+            if (mBonding == nil || mBonding!.getAmount() == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_undelegate", comment: ""))
+                return
+            }
+            if let entries = mUnbonding?.entries.count, entries > 7 {
+                self.onShowToast(NSLocalizedString("error_unbonding_count_over", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_UNDELEGATE2, 0)
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         }
         
         else if (WUtils.isGRPC(chainType!)) {
@@ -1501,6 +1326,14 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
                 
             } else if (chainType == ChainType.SIF_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                self.onFetchRedelegatedState(account!.account_address, mValidator!.operator_address)
+                
+            } else if (chainType == ChainType.KI_MAIN) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
                 if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
@@ -1651,6 +1484,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
         } else if (chainType == ChainType.SIF_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
+            if (rewardSum == NSDecimalNumber.zero) {
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            if (rewardSum.compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.KI_MAIN) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
             let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
             if (rewardSum == NSDecimalNumber.zero) {
@@ -1851,7 +1700,25 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                     return
                 }
                 
-            } else {
+            } else if (chainType == ChainType.KI_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
+                let rewardSum = WUtils.plainStringToDecimal(mRewardCoins.filter { $0.denom == WUtils.getMainDenom(chainType)}.first?.amount)
+                if (rewardSum == NSDecimalNumber.zero) {
+                    self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                    return
+                }
+                if (rewardSum.compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                    return
+                }
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            }
+            
+            else {
                 self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
                 return
             }

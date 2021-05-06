@@ -185,7 +185,7 @@ final class HTTP2StreamChannel: Channel, ChannelCore {
         // 2. Calling the initializer, if provided.
         // 3. Activating when complete.
         // 4. Catching errors if they occur.
-        self.getAutoReadFromParent().whenComplete { autoReadResult in
+        self.getAutoReadFromParent { autoReadResult in
             switch autoReadResult {
             case .success(let autoRead):
                 self.autoRead = autoRead
@@ -216,7 +216,7 @@ final class HTTP2StreamChannel: Channel, ChannelCore {
         // 2. Calling the initializer, if provided.
         // 3. Activating when complete.
         // 4. Catching errors if they occur.
-        self.getAutoReadFromParent().whenComplete { autoReadResult in
+        self.getAutoReadFromParent { autoReadResult in
             switch autoReadResult {
             case .success(let autoRead):
                 self.autoRead = autoRead
@@ -238,12 +238,20 @@ final class HTTP2StreamChannel: Channel, ChannelCore {
         }
     }
 
-    /// Gets the 'autoRead' option from the parent channel.
-    private func getAutoReadFromParent() -> EventLoopFuture<Bool> {
+    /// Gets the 'autoRead' option from the parent channel and invokes the `body` closure with the
+    /// result. This may be done synchronously if the parent `Channel` supports synchronous options.
+    private func getAutoReadFromParent(_ body: @escaping (Result<Bool, Error>) -> Void) {
         // This force unwrap is safe as parent is assigned in the initializer, and never unassigned.
         // Note we also don't set the value here: the additional `map` causes an extra allocation
         // when using a Swift 5.0 compiler.
-        return self.parent!.getOption(ChannelOptions.autoRead)
+        if let syncOptions = self.parent!.syncOptions {
+            let autoRead = Result(catching: { try syncOptions.getOption(ChannelOptions.autoRead) })
+            body(autoRead)
+        } else {
+            self.parent!.getOption(ChannelOptions.autoRead).whenComplete { autoRead in
+                body(autoRead)
+            }
+        }
     }
 
     /// Activates the channel if the parent channel is active and succeeds the given `promise`.
@@ -344,31 +352,31 @@ final class HTTP2StreamChannel: Channel, ChannelCore {
     }
 
     func setOption<Option: ChannelOption>(_ option: Option, value: Option.Value) -> EventLoopFuture<Void> {
-        if eventLoop.inEventLoop {
+        if self.eventLoop.inEventLoop {
             do {
-                return eventLoop.makeSucceededFuture(try setOption0(option, value: value))
+                return self.eventLoop.makeSucceededFuture(try self.setOption0(option, value: value))
             } catch {
-                return eventLoop.makeFailedFuture(error)
+                return self.eventLoop.makeFailedFuture(error)
             }
         } else {
-            return eventLoop.submit { try self.setOption0(option, value: value) }
+            return self.eventLoop.submit { try self.setOption0(option, value: value) }
         }
     }
 
     public func getOption<Option: ChannelOption>(_ option: Option) -> EventLoopFuture<Option.Value> {
-        if eventLoop.inEventLoop {
+        if self.eventLoop.inEventLoop {
             do {
-                return eventLoop.makeSucceededFuture(try getOption0(option))
+                return self.eventLoop.makeSucceededFuture(try self.getOption0(option))
             } catch {
-                return eventLoop.makeFailedFuture(error)
+                return self.eventLoop.makeFailedFuture(error)
             }
         } else {
-            return eventLoop.submit { try self.getOption0(option) }
+            return self.eventLoop.submit { try self.getOption0(option) }
         }
     }
 
     private func setOption0<Option: ChannelOption>(_ option: Option, value: Option.Value) throws {
-        assert(eventLoop.inEventLoop)
+        self.eventLoop.preconditionInEventLoop()
 
         switch option {
         case _ as ChannelOptions.Types.AutoReadOption:
@@ -379,7 +387,7 @@ final class HTTP2StreamChannel: Channel, ChannelCore {
     }
 
     private func getOption0<Option: ChannelOption>(_ option: Option) throws -> Option.Value {
-        assert(eventLoop.inEventLoop)
+        self.eventLoop.preconditionInEventLoop()
 
         switch option {
         case _ as HTTP2StreamChannelOptions.Types.StreamIDOption:
@@ -876,5 +884,34 @@ extension HTTP2StreamChannel {
 extension HTTP2StreamChannel {
     public var description: String {
         return "HTTP2StreamChannel(streamID: \(String(describing: self.streamID)), isActive: \(self.isActive), isWritable: \(self.isWritable))"
+    }
+}
+
+extension HTTP2StreamChannel {
+    internal struct SynchronousOptions: NIOSynchronousChannelOptions {
+        private let channel: HTTP2StreamChannel
+
+        fileprivate init(channel: HTTP2StreamChannel) {
+            self.channel = channel
+        }
+
+        /// Set `option` to `value` on this `Channel`.
+        ///
+        /// - Important: Must be called on the `EventLoop` the `Channel` is running on.
+        public func setOption<Option: ChannelOption>(_ option: Option, value: Option.Value) throws {
+            try self.channel.setOption0(option, value: value)
+        }
+
+        /// Get the value of `option` for this `Channel`.
+        ///
+        /// - Important: Must be called on the `EventLoop` the `Channel` is running on.
+        public func getOption<Option: ChannelOption>(_ option: Option) throws -> Option.Value {
+            return try self.channel.getOption0(option)
+        }
+    }
+
+    /// Returns a view of the `Channel` exposing synchronous versions of `setOption` and `getOption`.
+    public var syncOptions: NIOSynchronousChannelOptions? {
+        return SynchronousOptions(channel: self)
     }
 }

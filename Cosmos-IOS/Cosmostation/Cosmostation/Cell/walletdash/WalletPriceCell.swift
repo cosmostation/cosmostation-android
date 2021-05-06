@@ -68,7 +68,15 @@ class WalletPriceCell: UITableViewCell {
                 updownImg.image = nil
                 updownPercent.text = ""
             }
-            buyBtn.setTitle(NSLocalizedString("buy_atom", comment: ""), for: .normal)
+            if (chainType == ChainType.COSMOS_MAIN) {
+                buyBtn.setTitle(NSLocalizedString("buy_atom", comment: ""), for: .normal)
+            }
+            if (chainType == ChainType.BINANCE_MAIN) {
+                buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
+            }
+            if (chainType == ChainType.KAVA_MAIN) {
+                buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
+            }
             buySeparator.isHidden = false
             buyBtn.isHidden = false
             buyConstraint.priority = .defaultHigh

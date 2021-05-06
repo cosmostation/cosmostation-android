@@ -152,191 +152,23 @@ class VoteListViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     @objc func onFetchProposals() {
-        if (chainType == ChainType.KAVA_MAIN) {
-            let url = KAVA_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+        let request = Alamofire.request(BaseNetWork.proposalsUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let responseData = res as? NSDictionary,
+                    let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
+                        self.onUpdateViews()
+                        return
                 }
-                self.onUpdateViews()
-            }
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            let url = BAND_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
+                self.mProposals.removeAll()
+                for proposal in proposals {
+                    self.mProposals.append(Proposal(proposal as! [String : Any]))
                 }
-                self.onUpdateViews()
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchProposals ", error) }
             }
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            let url = SECRET_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-        } else if (chainType == ChainType.CERTIK_MAIN) {
-            let url = CERTIK_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-        } else if (chainType == ChainType.CERTIK_TEST) {
-            let url = CERTIK_TEST_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            let url = IOV_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-            
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            let url = SENTINEL_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-            
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            let url = FETCH_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
-            
-        } else if (chainType == ChainType.SIF_MAIN) {
-            let url = SIF_PROPOSALS;
-            let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-            request.responseJSON { (response) in
-                switch response.result {
-                case .success(let res):
-                    guard let responseData = res as? NSDictionary,
-                        let proposals = responseData.object(forKey: "result") as? Array<NSDictionary> else {
-                            self.onUpdateViews()
-                            return
-                    }
-                    self.mProposals.removeAll()
-                    for proposal in proposals {
-                        self.mProposals.append(Proposal(proposal as! [String : Any]))
-                    }
-                case .failure(let error):
-                    if (SHOW_LOG) { print("onFetchProposals ", error) }
-                }
-                self.onUpdateViews()
-            }
+            self.onUpdateViews()
         }
     }
     

@@ -20,6 +20,11 @@ public class KavaAccountInfo {
         self.result = KavaAccountResult.init(dictionary["result"] as! [String : Any])
     }
     
+    init(_ dictionary: NSDictionary?) {
+        self.height = dictionary?["height"] as? String ?? ""
+        self.result = KavaAccountResult.init(dictionary?["result"] as! [String : Any])
+    }
+    
     public class KavaAccountResult {
         var type: String = ""
         var value: KavaAccountValue = KavaAccountValue.init()
@@ -116,9 +121,9 @@ public class KavaAccountInfo {
         var coins: Array<Coin> = Array<Coin>()
         var account_number: String = ""
         var sequence: String = ""
-        var PeriodicVestingAccount: KavaPeriodicVestingAccount = KavaPeriodicVestingAccount.init()
-        var vesting_period_progress: Array<VestingPeriodProgress> = Array<VestingPeriodProgress>()
-        var BaseVestingAccount: KavaBaseVestingAccount = KavaBaseVestingAccount.init()
+//        var PeriodicVestingAccount: KavaPeriodicVestingAccount = KavaPeriodicVestingAccount.init()
+//        var vesting_period_progress: Array<VestingPeriodProgress> = Array<VestingPeriodProgress>()
+//        var BaseVestingAccount: KavaBaseVestingAccount = KavaBaseVestingAccount.init()
         var vesting_periods: Array<VestingPeriod> = Array<VestingPeriod>()
         
         var original_vesting: Array<Coin> = Array<Coin>()
@@ -152,20 +157,20 @@ public class KavaAccountInfo {
                 }
             }
             
-            if let pva = dictionary["PeriodicVestingAccount"] as? [String : Any] {
-                self.PeriodicVestingAccount = KavaPeriodicVestingAccount.init(pva)
-            }
-
-            self.vesting_period_progress.removeAll()
-            if let vpps = dictionary["vesting_period_progress"] as? Array<NSDictionary> {
-                for vpp in vpps {
-                    self.vesting_period_progress.append(VestingPeriodProgress(vpp as! [String : Any]))
-                }
-            }
-            
-            if let kba = dictionary["BaseVestingAccount"] as? [String : Any] {
-                self.BaseVestingAccount = KavaBaseVestingAccount.init(kba)
-            }
+//            if let pva = dictionary["PeriodicVestingAccount"] as? [String : Any] {
+//                self.PeriodicVestingAccount = KavaPeriodicVestingAccount.init(pva)
+//            }
+//
+//            self.vesting_period_progress.removeAll()
+//            if let vpps = dictionary["vesting_period_progress"] as? Array<NSDictionary> {
+//                for vpp in vpps {
+//                    self.vesting_period_progress.append(VestingPeriodProgress(vpp as! [String : Any]))
+//                }
+//            }
+//
+//            if let kba = dictionary["BaseVestingAccount"] as? [String : Any] {
+//                self.BaseVestingAccount = KavaBaseVestingAccount.init(kba)
+//            }
             
             self.vesting_periods.removeAll()
             if let vps = dictionary["vesting_periods"] as? Array<NSDictionary> {
@@ -204,7 +209,7 @@ public class KavaAccountInfo {
         }
     }
     
-    
+    /*
     public class KavaPeriodicVestingAccount {
         var BaseVestingAccount: KavaBaseVestingAccount = KavaBaseVestingAccount.init()
         var vesting_periods: Array<VestingPeriod> = Array<VestingPeriod>()
@@ -222,6 +227,7 @@ public class KavaAccountInfo {
         }
     }
 
+   
     public class KavaBaseVestingAccount {
         var BaseAccount: KavaBaseAccount = KavaBaseAccount.init()
         var original_vesting: Array<Coin> = Array<Coin>()
@@ -280,6 +286,7 @@ public class KavaAccountInfo {
             }
         }
     }
+     */
 
     public class VestingPeriod {
         var length: Int64 = 0

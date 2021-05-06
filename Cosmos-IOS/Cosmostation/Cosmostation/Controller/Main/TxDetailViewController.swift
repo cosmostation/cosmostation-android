@@ -1038,70 +1038,12 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     
     func onFetchTx(_ txHash: String) {
-        var url = ""
+        var url = BaseNetWork.txUrl(chainType, txHash)
         var request:DataRequest?
-        if (self.chainType! == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_TX + txHash
+        if (self.chainType! == ChainType.BINANCE_MAIN || self.chainType! == ChainType.BINANCE_TEST) {
             request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_TX + txHash
+        } else {
             request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.BAND_MAIN) {
-            url = BAND_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.SECRET_MAIN) {
-            url = SECRET_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.IOV_MAIN) {
-            url = IOV_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.OKEX_MAIN) {
-            url = OKEX_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.FETCH_MAIN) {
-            url = FETCH_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.SIF_MAIN) {
-            url = SIF_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        }
-        
-        else if (self.chainType! == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: ["format":"json"], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
-        } else if (self.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_TX + txHash
-            request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
-            
         }
         print("url ", url)
         request!.responseJSON { (response) in
@@ -1186,19 +1128,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             self.onUpdateView()
             return
         }
-        var url = ""
-        if (self.chainType! == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_CHECK_SWAPID + swapId!
-            
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_CHECK_SWAPID + swapId!
-            
-        } else if (self.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_CHECK_SWAPID + swapId!
-            
-        } else if (self.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_CHECK_SWAPID + swapId!
-        }
+        let url = BaseNetWork.swapIdBep3Url(self.chainType, swapId!)
         let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -1227,15 +1157,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onFetchBnbNodeInfo() {
-        var url = ""
-        if (self.chainType! == ChainType.BINANCE_MAIN) {
-            url = BNB_URL_NODE_INFO
-            
-        } else if (self.chainType! == ChainType.BINANCE_TEST) {
-            url = BNB_TEST_URL_NODE_INFO
-            
-        }
-        let request = Alamofire.request(url, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        let request = Alamofire.request(BaseNetWork.nodeInfoUrl(self.chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):

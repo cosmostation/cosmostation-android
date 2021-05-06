@@ -223,6 +223,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         sifAction.setValue(UIImage(named: "chainsifchain")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let kiAction = UIAlertAction(title: NSLocalizedString("chain_title_ki", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.KI_MAIN
+            self.initViewUpdate()
+        })
+        kiAction.setValue(UIImage(named: "chainKifoundation")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         
         let cosmosTestAction = UIAlertAction(title: NSLocalizedString("chain_title_test_cosmos", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.COSMOS_TEST
@@ -280,6 +286,7 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         showAlert.addAction(fetchAction)
         showAlert.addAction(cryptoAction)
         showAlert.addAction(sifAction)
+        showAlert.addAction(kiAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

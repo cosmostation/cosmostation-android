@@ -274,6 +274,19 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
             mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
             
+        } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
+            mDpDecimal = 6
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
+            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
+            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
+            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
+            
+            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
+            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
+            
+            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+            
         }
         
         
@@ -334,36 +347,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     
     func onFetchAccountInfo(_ account: Account) {
         self.showWaittingAlert()
-        var url: String?
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-            url = KAVA_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            url = IOV_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            url = BAND_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            url = SECRET_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-            url = CERTIK_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
-            url = OKEX_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            url = SENTINEL_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            url = FETCH_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            url = SIF_ACCOUNT_INFO + account.account_address
-        }
-        else if (pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            url = KAVA_TEST_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            url = IOV_TEST_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            url = OKEX_TEST_ACCOUNT_INFO + account.account_address
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            url = CERTIK_TEST_ACCOUNT_INFO + account.account_address
-        }
-        let request = Alamofire.request(url!, method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.accountInfoUrl(pageHolderVC.chainType, account.account_address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -513,36 +497,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 do {
                     let params = try JSONSerialization.jsonObject(with: data!, options: .allowFragments) as? [String: Any]
 //                    print("params ", params)
-                    var url: String?
-                    if (self.pageHolderVC.chainType! == ChainType.KAVA_MAIN) {
-                        url = KAVA_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-                        url = BAND_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-                        url = SECRET_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-                        url = IOV_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_MAIN) {
-                        url = CERTIK_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.OKEX_MAIN) {
-                        url = OKEX_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-                        url = SENTINEL_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-                        url = FETCH_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-                        url = SIF_BORAD_TX
-                    }
-                    else if (self.pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-                        url = KAVA_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.IOV_TEST) {
-                        url = IOV_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-                        url = OKEX_TEST_BORAD_TX
-                    } else if (self.pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-                        url = CERTIK_TEST_BORAD_TX
-                    }
-                    let request = Alamofire.request(url!, method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
+                    let request = Alamofire.request(BaseNetWork.broadcastUrl(self.pageHolderVC.chainType), method: .post, parameters: params, encoding: JSONEncoding.default, headers: [:])
                     request.responseJSON { response in
                         var txResult = [String:Any]()
                         switch response.result {
