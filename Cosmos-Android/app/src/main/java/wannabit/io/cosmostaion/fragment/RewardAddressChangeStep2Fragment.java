@@ -288,7 +288,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ki));
 
             mGasAmount.setText(KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 2));
+            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));

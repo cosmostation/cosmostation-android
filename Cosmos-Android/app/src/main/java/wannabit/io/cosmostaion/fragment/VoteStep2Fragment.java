@@ -285,7 +285,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ki));
 
             mGasAmount.setText(KI_GAS_AMOUNT_VOTE);
-            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 2));
+            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_VOTE, 0);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));

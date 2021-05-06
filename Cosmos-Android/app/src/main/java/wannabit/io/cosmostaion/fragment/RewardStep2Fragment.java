@@ -325,7 +325,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 
             mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, getSActivity().mValidators.size());
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 2));
+            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, getSActivity().mValidators.size());
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));

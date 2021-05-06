@@ -176,8 +176,8 @@
     <string name="str_guide_crypto">Communities</string>
     <string name="str_faq_sif">Home</string>
     <string name="str_guide_sif">Blog</string>
-    <string name="str_faq_ki">Guide</string>
-    <string name="str_guide_ki">FAQ</string>
+    <string name="str_faq_ki">Home</string>
+    <string name="str_guide_ki">Blog</string>
     <string name="str_telegram">텔레그램</string>
     <string name="str_explore">익스플로러</string>
     <string name="str_explore_bnb">바이낸스 익스플로러</string>

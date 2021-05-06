@@ -306,7 +306,7 @@ public class UndelegateStep2Fragment extends BaseFragment implements View.OnClic
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ki));
 
             mGasAmount.setText(KI_GAS_AMOUNT_STAKE);
-            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 2));
+            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 3));
             mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
