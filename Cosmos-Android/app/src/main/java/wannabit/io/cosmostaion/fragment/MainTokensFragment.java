@@ -63,6 +63,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -88,6 +89,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -289,6 +291,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSif));
             onUpdateTotalCard();
 
+        } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
+            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKi));
+            onUpdateTotalCard();
+
         }
 
         else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
@@ -480,6 +486,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
+        } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            for (Balance balance:mBalances) {
+                if (balance.symbol.equals(TOKEN_KI) ) {
+                    totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
+                }
+            }
+            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
         }
 
         if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
@@ -543,6 +559,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindCrytoItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
                 onBindSifItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
+                onBindKiItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -1058,6 +1076,23 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+        }
+
+    }
+
+    private void onBindKiItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_KI)) {
+            holder.itemSymbol.setText(getString(R.string.str_ki_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Ki Foundation Chain Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         }

@@ -78,6 +78,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -94,6 +95,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
@@ -115,6 +117,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -242,6 +245,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
 
+        } else if (chain.equals(KI_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -349,6 +356,10 @@ public class WDp {
         } else if (chain.equals(SIF_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+
+        } else if (chain.equals(KI_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
             if (symbol.equals(TOKEN_COSMOS_TEST)) {
@@ -1646,6 +1657,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorCryto);
         } else if (chain.equals(SIF_MAIN)) {
             return c.getResources().getColor(R.color.colorSif);
+        } else if (chain.equals(KI_MAIN)) {
+            return c.getResources().getColor(R.color.colorKi);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1682,6 +1695,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgCryto);
         } else if (chain.equals(SIF_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgSif);
+        } else if (chain.equals(KI_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgKi);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1717,6 +1732,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_cryto);
         } else if (chain.equals(SIF_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
+        } else if (chain.equals(KI_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ki);
         }
         return null;
     }
@@ -1750,6 +1767,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorCryto);
         } else if (chain.equals(SIF_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorSif);
+        } else if (chain.equals(KI_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorKi);
         }
         return null;
     }
@@ -1819,6 +1838,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorSif));
             textview.setText(c.getString(R.string.s_sif));
 
+        } else if (BaseChain.getChain(chain).equals(KI_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorKi));
+            textview.setText(c.getString(R.string.s_ki));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -1861,6 +1884,8 @@ public class WDp {
             return TOKEN_CRO;
         } else if (chain.equals(SIF_MAIN)) {
             return TOKEN_SIF;
+        } else if (chain.equals(KI_MAIN)) {
+            return TOKEN_KI;
         } else if (chain.equals(COSMOS_TEST)) {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {
@@ -2208,6 +2233,8 @@ public class WDp {
             return FETCH_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(SIF_MAIN)) {
             return SIF_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(KI_MAIN)) {
+            return KI_VAL_URL + opAddress + ".png";
         }
         return "";
     }
@@ -2234,7 +2261,7 @@ public class WDp {
         if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             result = new BigDecimal("0.5");
         } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(IOV_MAIN) ||
-                basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(SIF_MAIN)) {
+                basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(SIF_MAIN) || basechain.equals(KI_MAIN)) {
             result = new BigDecimal("0.334");
         }
         return result.movePointRight(2).setScale(2);

@@ -20,6 +20,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -132,6 +133,16 @@ public class NodeInfoTask extends CommonTask {
 
             } else if (mChain.equals(SIF_MAIN)) {
                 Response<ResNodeInfo> response = ApiClient.getSifChain(mApp).getNodeInfo().execute();
+                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
+                    mResult.resultData = response.body().node_info;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("NodeInfoTask : NOk");
+                }
+
+            } else if (mChain.equals(KI_MAIN)) {
+                Response<ResNodeInfo> response = ApiClient.getKiChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;
                     mResult.isSuccess = true;

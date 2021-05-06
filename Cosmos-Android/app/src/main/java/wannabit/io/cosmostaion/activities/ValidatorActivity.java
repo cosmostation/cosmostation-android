@@ -79,6 +79,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -302,6 +303,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
 
+            } else if (mBaseChain.equals(KI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+                if (WDp.getDelegableAmount(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
                 return;
@@ -373,7 +380,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else {
-            if (mBondingInfo == null || mBondingInfo.balance == null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
+            if (mBondingInfo == null || mBondingInfo.balance == null || (mBondingInfo.getBalance() == BigDecimal.ZERO)) {
                 Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -466,6 +473,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
                     return;
                 }
+            } else if (mBaseChain.equals(KI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                if (mRedelegates == null || mRedelegates.size() > 0) {
+                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                    add.setCancelable(true);
+                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                    return;
+                }
             }
 
             else {
@@ -521,7 +539,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             startActivity(toDelegate);
 
         } else {
-            if (mBondingInfo == null || mBondingInfo.balance == null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
+            if (mBondingInfo == null || mBondingInfo.balance == null || (mBondingInfo.getBalance() == BigDecimal.ZERO)) {
                 Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -568,6 +586,12 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 }
 
             } else if (mBaseChain.equals(SIF_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(KI_MAIN)) {
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
                 if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
                     hasbalance  = true;
@@ -730,6 +754,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
 
+            } else if (mBaseChain.equals(KI_MAIN)) {
+                if (rewardSum == BigDecimal.ZERO) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
+                if (rewardSum.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
+                    hasbalance  = true;
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
                 return;
@@ -867,6 +905,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     hasbalance  = true;
                 }
 
+            } else if (mBaseChain.equals(KI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
+                if (rewardSum.compareTo(feeAmount) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
+                    hasbalance  = true;
+                }
+
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
                 return;
@@ -920,6 +968,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(SIF_MAIN)) {
+            new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(KI_MAIN)) {
             new ApiStakeTxsHistoryTask(getBaseApplication(), this, mAccount.address, mValidator.operator_address, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
@@ -1233,7 +1284,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             BigDecimal unBondingAmount = BigDecimal.ZERO;
             BigDecimal rewardAmount = BigDecimal.ZERO;
             if (mBondingInfo != null && mBondingInfo.balance != null) {
-                delegatedAmount = new BigDecimal(mBondingInfo.balance.amount);
+                delegatedAmount = mBondingInfo.getBalance();
             }
             if (mUnbondingInfo != null && mUnbondingInfo.entries != null) {
                 for (UnbondingInfo.Entry entry: mUnbondingInfo.entries) {

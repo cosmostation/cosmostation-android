@@ -31,6 +31,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -287,6 +288,26 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
 
             } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN) || getSActivity().mBaseChain.equals(SIF_MAIN)) {
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
+                }
+                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+                if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                    mTvGoalLayer.setVisibility(View.GONE);
+                    mExpectedLayer.setVisibility(View.VISIBLE);
+
+                    BigDecimal currentAmount = getSActivity().mAccount.getTokenBalance(WDp.mainDenom(getSActivity().mBaseChain));
+                    BigDecimal expectedAmount = currentAmount.add(rewardSum).subtract(feeAmount);
+                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
+                    mExpectedPrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), expectedAmount, getSActivity().mBaseChain));
+
+                } else {
+                    mTvGoalLayer.setVisibility(View.VISIBLE);
+                    mExpectedLayer.setVisibility(View.GONE);
+                }
+
+            } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
                 for (Coin coin:getSActivity().mRewards) {
                     rewardSum = rewardSum.add(new BigDecimal(coin.amount));
                 }

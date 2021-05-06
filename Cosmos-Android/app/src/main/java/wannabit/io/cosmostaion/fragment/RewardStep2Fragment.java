@@ -45,6 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -61,6 +62,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_STAKE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KI_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_AMOUNT_SEND;
@@ -312,6 +314,22 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 18, 18));
             mGasFeePrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
+
+        } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
+            mFeeLayer1.setVisibility(View.GONE);
+            mFeeLayer2.setVisibility(View.VISIBLE);
+            mFeeLayer3.setVisibility(View.GONE);
+
+            mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
+            mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ki));
+
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, getSActivity().mValidators.size());
+            mGasAmount.setText(mEstimateGasAmount.toPlainString());
+            mGasRate.setText(WDp.getDpString(KI_GAS_FEE_RATE_AVERAGE, 3));
+            mFeeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_REWARD, getSActivity().mValidators.size());
+
+            mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
+            mGasFeePrice.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), mFeeAmount, getSActivity().mBaseChain));
         }
 
         return rootView;
@@ -430,6 +448,17 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
+                Fee fee = new Fee();
+                Coin gasCoin = new Coin();
+                gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);
+                gasCoin.amount = mFeeAmount.toPlainString();
+                ArrayList<Coin> amount = new ArrayList<>();
+                amount.add(gasCoin);
+                fee.amount = amount;
+                fee.gas = mEstimateGasAmount.toPlainString();
+                getSActivity().mTxFee = fee;
+
+            } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = WDp.mainDenom(getSActivity().mBaseChain);

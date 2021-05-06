@@ -52,6 +52,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
@@ -273,6 +274,24 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 }
 
             } else if (mBaseChain.equals(SIF_MAIN)) {
+                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
+                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+            } else if (mBaseChain.equals(KI_MAIN)) {
                 if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;

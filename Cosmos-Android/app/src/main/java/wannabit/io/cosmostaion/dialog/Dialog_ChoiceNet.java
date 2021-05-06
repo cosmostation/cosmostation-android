@@ -24,6 +24,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -34,7 +35,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mSecret, mCosmosTest, mIrisTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -85,6 +86,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mFetch = view.findViewById(R.id.fetch_chain);
         mCryto = view.findViewById(R.id.cryto_chain);
         mSifchain = view.findViewById(R.id.sif_chain);
+        mKichain = view.findViewById(R.id.ki_chain);
 
 
 
@@ -197,6 +199,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(SIF_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mKichain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(KI_MAIN);
                 getDialog().dismiss();
             }
         });

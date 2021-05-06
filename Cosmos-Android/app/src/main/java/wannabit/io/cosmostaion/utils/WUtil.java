@@ -92,6 +92,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -1335,6 +1336,9 @@ public class WUtil {
         } else if (chain.equals(SIF_MAIN)) {
             return CGC_SIF;
 
+        } else if (chain.equals(KI_MAIN)) {
+            return CGC_KI;
+
         }
         return BaseConstant.CGC_ATOM;
     }
@@ -1932,6 +1936,9 @@ public class WUtil {
         } else if (chain.equals(SIF_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://sifchain.finance/"));
 
+        } else if (chain.equals(KI_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://foundation.ki/en"));
+
         }
         return null;
     }
@@ -1985,6 +1992,9 @@ public class WUtil {
 
         } else if (chain.equals(SIF_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/sifchain-finance"));
+
+        } else if (chain.equals(KI_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/ki-foundation"));
 
         }
         return null;
@@ -2137,6 +2147,34 @@ public class WUtil {
 
             }
 
+        } else if (basechain.equals(KI_MAIN)) {
+            if (txType == CONST_PW_TX_SIMPLE_SEND) {
+                return new BigDecimal(KI_GAS_AMOUNT_SEND);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                return new BigDecimal(KI_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
+                return new BigDecimal(KI_GAS_AMOUNT_STAKE);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
+                return new BigDecimal(KI_GAS_AMOUNT_REDELEGATE);
+
+            } else if (txType == CONST_PW_TX_REINVEST) {
+                return new BigDecimal(KI_GAS_AMOUNT_REINVEST);
+
+            } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                return new BigDecimal(rewardGasFees.get(valCnt - 1));
+
+            } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
+                return new BigDecimal(KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
+
+            } else if (txType == CONST_PW_TX_VOTE) {
+                return new BigDecimal(KI_GAS_AMOUNT_VOTE);
+
+            }
+
         }
         return result;
     }
@@ -2182,6 +2220,11 @@ public class WUtil {
 
         } else if (basechain.equals(SIF_MAIN)) {
             BigDecimal gasRate = new BigDecimal(SIF_GAS_FEE_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(KI_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2532,6 +2575,12 @@ public class WUtil {
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN;
 
+        } else if (basechain.equals(SIF_MAIN)) {
+            return EXPLORER_SIF_MAIN;
+
+        } else if (basechain.equals(KI_MAIN)) {
+            return EXPLORER_KI_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_MAIN)) {
@@ -2594,6 +2643,12 @@ public class WUtil {
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(SIF_MAIN)) {
+            return EXPLORER_SIF_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(KI_MAIN)) {
+            return EXPLORER_KI_MAIN + "txs/" + hash;
 
         }
 
@@ -2899,7 +2954,6 @@ public class WUtil {
 
                 bankBalance = new BigDecimal(coin.amount);
                 WLog.w("bankBalance " +  denom + "  " +  bankBalance);
-
                 for (CoinOuterClass.Coin vesting : vestingAccount.getBaseVestingAccount().getOriginalVestingList()) {
                     if (vesting.getDenom().equals(denom)) {
                         originalVesting = originalVesting.add(new BigDecimal(vesting.getAmount()));

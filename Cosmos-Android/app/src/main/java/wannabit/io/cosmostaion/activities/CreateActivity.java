@@ -44,6 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -175,6 +176,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_cryto));
             } else if (mChain.equals(SIF_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sif));
+            } else if (mChain.equals(KI_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_ki));
             }
         }
 

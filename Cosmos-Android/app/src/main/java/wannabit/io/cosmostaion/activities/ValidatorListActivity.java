@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -404,6 +405,38 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
 
         } else if (mBaseChain.equals(SIF_MAIN)) {
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(singlefeeAmount) > 0) {
+                    toClaimValidators.add(validator);
+                }
+            }
+
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
+            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
+
+            if (available.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+        } else if (mBaseChain.equals(KI_MAIN)) {
             if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;

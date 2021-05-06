@@ -81,6 +81,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -93,6 +94,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PRE_CRYPTO_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_EVENT_HIDE;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_FETCH_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_FETCH_UP_DOWN_24;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_KI_TIC;
+import static wannabit.io.cosmostaion.base.BaseConstant.PRE_KI_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_OKEX_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_OKEX_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_PERSISTENCE_TIC;
@@ -186,7 +189,8 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo: mMyDelegations) {
             if (bondingInfo.balance != null) {
-                result = result.add(new BigDecimal(bondingInfo.balance.amount));
+//                result = result.add(new BigDecimal(bondingInfo.getBalance()));
+                result = result.add(bondingInfo.getBalance());
             }
         }
         return result;
@@ -196,7 +200,8 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo: mMyDelegations) {
             if (bondingInfo.validator_address.equals(opAddress) && bondingInfo.balance != null) {
-                result = result.add(new BigDecimal(bondingInfo.balance.amount));
+//                result = result.add(new BigDecimal(bondingInfo.getBalance()));
+                result = result.add(bondingInfo.getBalance());
             }
         }
         return result;
@@ -852,6 +857,27 @@ public class BaseData {
                 getSharedPreferences().edit().putString(PRE_SIF_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
             }
 
+        } else if (chain.equals(KI_MAIN)) {
+            if (getCurrency() == 0) {
+                getSharedPreferences().edit().putString(PRE_KI_TIC, ""+tic.market_data.current_price.usd).commit();
+                getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+tic.market_data.price_change_24h.usd).commit();
+            } else if (getCurrency() == 1) {
+                getSharedPreferences().edit().putString(PRE_KI_TIC, ""+tic.market_data.current_price.eur).commit();
+                getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+tic.market_data.price_change_24h.eur).commit();
+            } else if (getCurrency() == 2) {
+                getSharedPreferences().edit().putString(PRE_KI_TIC, ""+tic.market_data.current_price.krw).commit();
+                getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+tic.market_data.price_change_24h.krw).commit();
+            } else if (getCurrency() == 3) {
+                getSharedPreferences().edit().putString(PRE_KI_TIC, ""+tic.market_data.current_price.jpy).commit();
+                getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+tic.market_data.price_change_24h.jpy).commit();
+            } else if (getCurrency() == 4) {
+                getSharedPreferences().edit().putString(PRE_KI_TIC, ""+tic.market_data.current_price.cny).commit();
+                getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+tic.market_data.price_change_24h.cny).commit();
+            } else if (getCurrency() == 5) {
+                getSharedPreferences().edit().putString(PRE_KI_TIC, ""+tic.market_data.current_price.btc).commit();
+                getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+tic.market_data.price_change_24h.btc).commit();
+            }
+
         }
 
 
@@ -903,6 +929,9 @@ public class BaseData {
         } else if (chain.equals(SIF_MAIN)) {
             return BigDecimal.valueOf(getLastSifTic());
 
+        } else if (chain.equals(KI_MAIN)) {
+            return BigDecimal.valueOf(getLastKiTic());
+
         }
         return BigDecimal.ZERO;
     }
@@ -952,6 +981,9 @@ public class BaseData {
 
         } else if (chain.equals(SIF_MAIN)) {
             return BigDecimal.valueOf(getLastSifUpDown());
+
+        } else if (chain.equals(KI_MAIN)) {
+            return BigDecimal.valueOf(getLastKiUpDown());
         }
         return BigDecimal.ZERO;
 
@@ -1362,6 +1394,32 @@ public class BaseData {
 
     public double getLastSifUpDown() {
         String priceS = getSharedPreferences().getString(PRE_SIF_UP_DOWN_24, "0");
+        try {
+            return Double.parseDouble(priceS);
+        }catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastKiTic(Double price) {
+        getSharedPreferences().edit().putString(PRE_KI_TIC, ""+price).commit();
+    }
+
+    public double getLastKiTic() {
+        String priceS = getSharedPreferences().getString(PRE_KI_TIC, "0");
+        try {
+            return Double.parseDouble(priceS);
+        } catch (Exception e) {
+            return Double.parseDouble("0");
+        }
+    }
+
+    public void setLastKiUpDown(Double price) {
+        getSharedPreferences().edit().putString(PRE_KI_UP_DOWN_24, ""+price).commit();
+    }
+
+    public double getLastKiUpDown() {
+        String priceS = getSharedPreferences().getString(PRE_KI_UP_DOWN_24, "0");
         try {
             return Double.parseDouble(priceS);
         }catch (Exception e) {

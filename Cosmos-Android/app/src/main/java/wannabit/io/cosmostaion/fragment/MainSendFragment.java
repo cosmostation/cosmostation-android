@@ -28,6 +28,7 @@ import wannabit.io.cosmostaion.widget.WalletFetchHolder;
 import wannabit.io.cosmostaion.widget.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.WalletKavaHolder;
+import wannabit.io.cosmostaion.widget.WalletKiHolder;
 import wannabit.io.cosmostaion.widget.WalletMintHolder;
 import wannabit.io.cosmostaion.widget.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.WalletPersisHolder;
@@ -52,6 +53,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
@@ -193,6 +195,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_FETCH             = 13;
         private static final int TYPE_CRYPTO            = 14;
         private static final int TYPE_SIF               = 15;
+        private static final int TYPE_KI                = 16;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
@@ -250,6 +253,9 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_SIF) {
                 return new WalletSifHolder(getLayoutInflater().inflate(R.layout.item_wallet_sif, viewGroup, false));
+
+            } else if (viewType == TYPE_KI) {
+                return new WalletKiHolder(getLayoutInflater().inflate(R.layout.item_wallet_ki, viewGroup, false));
 
             }
 
@@ -361,6 +367,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
+                    else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
                 } else if (position == 2) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }

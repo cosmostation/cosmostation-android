@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class ProposalTallyTask extends CommonTask {
@@ -138,6 +139,19 @@ public class ProposalTallyTask extends CommonTask {
 
             } else if (mChain.equals(SIF_MAIN)) {
                 Response<ResLcdProposalTally> response = ApiClient.getSifChain(mApp).getTally(mProposalId).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(KI_MAIN)) {
+                Response<ResLcdProposalTally> response = ApiClient.getKiChain(mApp).getTally(mProposalId).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
