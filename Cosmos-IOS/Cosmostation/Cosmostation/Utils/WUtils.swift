@@ -3523,7 +3523,7 @@ class WUtils {
             return NSDecimalNumber.init(string: "0.5")
         } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
                     chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                    chain == ChainType.SIF_MAIN) {
+                    chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN) {
             return NSDecimalNumber.init(string: "0.334")
         }
         return NSDecimalNumber.init(string: "0.4")

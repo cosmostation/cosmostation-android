@@ -517,7 +517,42 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
             
             let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
-            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler18)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: SIF_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler18)
+            let available = WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType))
+            if (available.compare(estimatedFeeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
+        } else if (chainType == ChainType.KI_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
+            if (BaseData.instance.rewardAmount(WUtils.getMainDenom(chainType)).compare(NSDecimalNumber.zero).rawValue <= 0 ){
+                self.onShowToast(NSLocalizedString("error_not_reward", comment: ""))
+                return
+            }
+            var myBondedValidator = Array<Validator>()
+            BaseData.instance.mAllValidator.forEach { validator in
+                if (BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), validator.operator_address).compare(feeAmount).rawValue > 0) {
+                    myBondedValidator.append(validator)
+                }
+            }
+            myBondedValidator.sort {
+                let reward0 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $0.operator_address)
+                let reward1 = BaseData.instance.rewardAmountByValidator(WUtils.getMainDenom(chainType), $1.operator_address)
+                return reward0.compare(reward1).rawValue > 0 ? true : false
+            }
+            if (myBondedValidator.count > 16) {
+                toClaimValidator = Array(myBondedValidator[0..<16])
+            } else {
+                toClaimValidator = myBondedValidator
+            }
+            if (toClaimValidator.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
+                return
+            }
+            
+            let estimatedGasAmount = WUtils.getEstimateGasAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidator.count)
+            let estimatedFeeAmount = estimatedGasAmount.multiplying(by: NSDecimalNumber.init(string: KI_GAS_FEE_RATE_AVERAGE), withBehavior: WUtils.handler18)
             let available = WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType))
             if (available.compare(estimatedFeeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
