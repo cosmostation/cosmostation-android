@@ -380,7 +380,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else {
-            if (mBondingInfo == null || mBondingInfo.balance == null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
+            if (mBondingInfo == null || mBondingInfo.balance == null || (mBondingInfo.getBalance() == BigDecimal.ZERO)) {
                 Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -539,7 +539,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             startActivity(toDelegate);
 
         } else {
-            if (mBondingInfo == null || mBondingInfo.balance == null || (new BigDecimal(mBondingInfo.balance.amount) == BigDecimal.ZERO)) {
+            if (mBondingInfo == null || mBondingInfo.balance == null || (mBondingInfo.getBalance() == BigDecimal.ZERO)) {
                 Toast.makeText(getBaseContext(), R.string.error_no_undelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -1284,7 +1284,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             BigDecimal unBondingAmount = BigDecimal.ZERO;
             BigDecimal rewardAmount = BigDecimal.ZERO;
             if (mBondingInfo != null && mBondingInfo.balance != null) {
-                delegatedAmount = new BigDecimal(mBondingInfo.balance.amount);
+                delegatedAmount = mBondingInfo.getBalance();
             }
             if (mUnbondingInfo != null && mUnbondingInfo.entries != null) {
                 for (UnbondingInfo.Entry entry: mUnbondingInfo.entries) {

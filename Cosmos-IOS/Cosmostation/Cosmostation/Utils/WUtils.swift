@@ -330,7 +330,7 @@ class WUtils {
                     remainVesting = NSDecimalNumber.zero
                 } else if (cTime < vestingEnd) {
                     let progress = ((Float)(cTime - vestingStart)) / ((Float)(vestingEnd - vestingStart))
-                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: progress), withBehavior: handler0)
+                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
                 }
 //                print("C_VESTING_ACCOUNT remainVesting ", denom, "  ", remainVesting)
                 
@@ -3696,7 +3696,7 @@ class WUtils {
                     remainVesting = NSDecimalNumber.zero
                 } else {
                     let progress = ((Float)(cTime - vestingStart)) / ((Float)(vestingEnd - vestingStart))
-                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: progress), withBehavior: handler0)
+                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
                 }
 //                print("remainVesting ", denom, "  ", remainVesting)
                 
@@ -3833,8 +3833,70 @@ class WUtils {
                 }
             })
             
+        } else if (account.typeURL.contains(Cosmos_Vesting_V1beta1_ContinuousVestingAccount.protoMessageName)) {
+            let vestingAccount = try! Cosmos_Vesting_V1beta1_ContinuousVestingAccount.init(serializedData: account.value)
+            sBalace.forEach({ (coin) in
+                let denom = coin.denom
+                var dpBalance = NSDecimalNumber.zero
+                var dpVesting = NSDecimalNumber.zero
+                var originalVesting = NSDecimalNumber.zero
+                var remainVesting = NSDecimalNumber.zero
+                var delegatedVesting = NSDecimalNumber.zero
+                
+                dpBalance = NSDecimalNumber.init(string: coin.amount)
+//                print("dpBalance ", denom, "  ", dpBalance)
+                
+                vestingAccount.baseVestingAccount.originalVesting.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        originalVesting = originalVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+//                print("originalVesting ", denom, "  ", originalVesting)
+                
+                vestingAccount.baseVestingAccount.delegatedVesting.forEach({ (coin) in
+                    if (coin.denom == denom) {
+                        delegatedVesting = delegatedVesting.adding(NSDecimalNumber.init(string: coin.amount))
+                    }
+                })
+//                print("delegatedVesting ", denom, "  ", delegatedVesting)
+                
+                let cTime = Date().millisecondsSince1970
+                let vestingStart = vestingAccount.startTime * 1000
+                let vestingEnd = vestingAccount.baseVestingAccount.endTime * 1000
+                
+                if (cTime < vestingStart) {
+                    remainVesting = originalVesting
+                } else if (cTime > vestingEnd) {
+                    remainVesting = NSDecimalNumber.zero
+                } else {
+                    let progress = ((Float)(cTime - vestingStart)) / ((Float)(vestingEnd - vestingStart))
+                    remainVesting = originalVesting.multiplying(by: NSDecimalNumber.init(value: 1 - progress), withBehavior: handler0Up)
+                }
+                
+                dpVesting = remainVesting.subtracting(delegatedVesting);
+                dpVesting = dpVesting.compare(NSDecimalNumber.zero).rawValue <= 0 ? NSDecimalNumber.zero : dpVesting
+//                print("dpVestingB ", denom, "  ", dpVesting)
+                
+                if (remainVesting.compare(delegatedVesting).rawValue > 0) {
+                    dpBalance = dpBalance.subtracting(remainVesting).adding(delegatedVesting);
+                }
+//                print("final dpBalance ", denom, "  ", dpBalance)
+                
+                if (dpVesting.compare(NSDecimalNumber.zero).rawValue > 0) {
+                    let vestingCoin = Coin.init(denom, dpVesting.stringValue)
+                    BaseData.instance.mMyVestings_gRPC.append(vestingCoin)
+                    var replace = -1
+                    for i in 0..<BaseData.instance.mMyBalances_gRPC.count {
+                        if (BaseData.instance.mMyBalances_gRPC[i].denom == denom) {
+                            replace = i
+                        }
+                    }
+                    if (replace >= 0) {
+                        BaseData.instance.mMyBalances_gRPC[replace] = Coin.init(denom, dpBalance.stringValue)
+                    }
+                }
+            })
         }
-        
     }
     
     static func onParsePeriodicUnLockTime(_ vestingAccount: Cosmos_Vesting_V1beta1_PeriodicVestingAccount, _ position: Int) -> Int64 {
