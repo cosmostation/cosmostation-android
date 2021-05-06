@@ -95,6 +95,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
             maxAvailable = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
             mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, mDpDecimal, mDpDecimal)
+            
+        } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
+            mDpDecimal = 6
+            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            maxAvailable = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
+            mAvailableAmountLabel.attributedText = WUtils.displayAmount2(maxAvailable.stringValue, mAvailableAmountLabel.font, mDpDecimal, mDpDecimal)
         }
         
         else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
@@ -271,6 +277,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
                 
             } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
                 toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
+            } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
+                toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDpDecimal).stringValue)
+                
             }
             
             else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
@@ -424,6 +434,13 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             
         } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
+            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
+            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
+                self.showMaxWarnning()
+            }
+            
+        } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
             let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
             mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
             if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {

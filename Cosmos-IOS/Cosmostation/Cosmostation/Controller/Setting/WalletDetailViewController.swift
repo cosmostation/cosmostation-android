@@ -181,7 +181,14 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             
         } else if (chainType! == ChainType.SIF_MAIN) {
             chainImg.image = UIImage(named: "chainsifchain")
-            keyPath.text = CRYPTO_BASE_PATH.appending(account!.account_path)
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
+        } else if (chainType! == ChainType.KI_MAIN) {
+            chainImg.image = UIImage(named: "chainKifoundation")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
             cardPush.isHidden = true
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
@@ -434,6 +441,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
                 return
                 
             } else if (chainType! == ChainType.SIF_MAIN) {
+                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                    return
+                }
+                
+            } else if (chainType! == ChainType.KI_MAIN) {
                 let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
                 if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))

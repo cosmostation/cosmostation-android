@@ -103,6 +103,10 @@ let SIF_URL                             = "https://lcd-sifchain.cosmostation.io/
 let SIF_API                             = "https://api-sifchain.cosmostation.io/";
 
 
+let KI_URL                              = "https://lcd-kichain.cosmostation.io/";
+let KI_API                              = "https://api-kichain.cosmostation.io/";
+
+
 let CGC_URL                             = "https://api.coingecko.com/";
 let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
@@ -135,6 +139,7 @@ let OKEX_VAL_URL                        = "https://raw.githubusercontent.com/cos
 let FETCH_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
 let CRYPTO_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
 let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
+let KI_VAL_URL                          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -504,6 +509,14 @@ let SIF_GAS_AMOUNT_REINVEST                 = "350000"
 let SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000"
 let SIF_GAS_AMOUNT_VOTE                     = "100000"
 
+let KI_GAS_FEE_RATE_AVERAGE                 = "0.025"
+let KI_GAS_AMOUNT_SEND                      = "100000"
+let KI_GAS_AMOUNT_STAKE                     = "200000"
+let KI_GAS_AMOUNT_REDELEGATE                = "300000"
+let KI_GAS_AMOUNT_REINVEST                  = "350000"
+let KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000"
+let KI_GAS_AMOUNT_VOTE                      = "100000"
+
 
 // Constant for BEP3-Swap
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
@@ -627,6 +640,11 @@ let TRANS_BG_COLOR_SIF2                     = UIColor.init(hexString: "c19f33", 
 let COLOR_SIF                               = UIColor.init(hexString: "c19f33")
 let COLOR_SIF_DARK                          = UIColor.init(hexString: "5e4d19")
 
+let TRANS_BG_COLOR_KI                       = UIColor.init(hexString: "3756fc", alpha: 0.15)
+let TRANS_BG_COLOR_KI2                      = UIColor.init(hexString: "3756fc", alpha: 0.4)
+let COLOR_KI                                = UIColor.init(hexString: "3756fc")
+let COLOR_KI_DARK                           = UIColor.init(hexString: "02188d")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -655,6 +673,7 @@ enum ChainType: String {
     case FETCH_MAIN
     case CRYPTO_MAIN
     case SIF_MAIN
+    case KI_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -680,6 +699,7 @@ enum ChainType: String {
         result.append(FETCH_MAIN)
         result.append(CRYPTO_MAIN)
         result.append(SIF_MAIN)
+        result.append(KI_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -759,6 +779,7 @@ let CHAIN_SENTINEL_S = "SUPPORT_CHAIN_SENTINEL_MAIN"
 let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
 let CHAIN_CRYPTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
 let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
+let CHAIN_KI_S = "SUPPORT_CHAIN_KI_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -784,6 +805,7 @@ let SENTINEL_MAIN_DENOM = "udvpn"
 let FETCH_MAIN_DENOM = "afet"
 let CRYPTO_MAIN_DENOM = "basecro"
 let SIF_MAIN_DENOM = "rowan"
+let KI_MAIN_DENOM = "uxki"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -832,8 +854,9 @@ let EXPLORER_OKEX_MAIN      = "https://www.oklink.com/okexchain/";
 let EXPLORER_PERSIS_MAIN    = "https://www.mintscan.io/persistence/";
 let EXPLORER_SENTINEL_MAIN  = "https://www.mintscan.io/sentinel/";
 let EXPLORER_FETCH_MAIN     = "https://www.mintscan.io/fetchai/";
-let EXPLORER_CRYPTO_MAIN     = "https://www.mintscan.io/crypto-org/";
+let EXPLORER_CRYPTO_MAIN    = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
+let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";

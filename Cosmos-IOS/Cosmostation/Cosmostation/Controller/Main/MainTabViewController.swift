@@ -412,6 +412,22 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAllReward(mAccount)
             onFetchStakingPool()
             
+        } else if (mChainType == ChainType.KI_MAIN) {
+            self.mFetchCnt = 12
+            onFetchNodeInfo()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
+            
+            onFetchMintParam()
+            onFetchInflation()
+            onFetchProvision()
+            onFetchStakingPool()
+            
         }
 
         

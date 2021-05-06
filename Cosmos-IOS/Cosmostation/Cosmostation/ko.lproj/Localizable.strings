@@ -98,6 +98,7 @@
 "fee_speed_sentinel_title" = "현재 센티넬 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_fetch_title" = "현재 페치에이아이 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_sif_title" = "현재 시프 체인은 고정 전송 수수료를 지원합니다.";
+"fee_speed_ki_title" = "현재 키 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_stargate_title" = "현재 스타게이트 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_cosmos_title" = "현재 코스모스 체인은 고정 전송 수수료를 지원합니다.";
 "fee_speed_fixed_fee" = "거래 수수료는 네트워크를 안전하게 유지하고 스팸 공격 등을 방지하기 위해 존재합니다. \n지불하시는 Tx 수수료는, 모든 검증인과 위임자들 그리고 커뮤니티 풀에 분배됩니다.";
@@ -146,6 +147,8 @@
 "send_guide_msg_crypto" = "결제, DeFi 및 NFT를위한 Cosmos SDK 기반 퍼블릭 블록 체인 네트워크.";
 "send_guide_title_sif" = "시프 체인";
 "send_guide_msg_sif" = "Cosmos SDK로 구축된 옴니체인 분산형 거래소.";
+"send_guide_title_ki" = "키 파운데이션";
+"send_guide_msg_ki" = "Cosmos SDK로 구축된 오픈 소스 블록 체인  분산 응용 프로그램 플랫폼.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -161,6 +164,7 @@
 "send_guide_btn1_fetch" = "Home";
 "send_guide_btn1_crypto" = "Home";
 "send_guide_btn1_sif" = "Home";
+"send_guide_btn1_ki" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -176,6 +180,7 @@
 "send_guide_btn2_fetch" = "Blog";
 "send_guide_btn2_crypto" = "Communities";
 "send_guide_btn2_sif" = "Blog";
+"send_guide_btn2_ki" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";
@@ -678,6 +683,7 @@
 "chain_title_fetch" = "Fetch.ai Mainnet";
 "chain_title_crypto" = "Crypto.org Mainnet";
 "chain_title_sif" = "Sifchain Mainnet";
+"chain_title_ki" = "Ki Chain Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";
