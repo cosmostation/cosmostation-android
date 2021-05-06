@@ -3284,6 +3284,24 @@ class WUtils {
         } else if (chain == ChainType.AKASH_MAIN) {
             return BLOCK_TIME_AKASH
             
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return BLOCK_TIME_SENTINEL
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return BLOCK_TIME_PERSISTENCE
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return BLOCK_TIME_FETCH
+            
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return BLOCK_TIME_CRYPTO
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return BLOCK_TIME_SIF
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return BLOCK_TIME_KI
+            
         }
         return NSDecimalNumber.init(string: "6")
     }
