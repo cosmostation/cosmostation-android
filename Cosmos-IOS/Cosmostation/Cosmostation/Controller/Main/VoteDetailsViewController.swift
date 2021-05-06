@@ -216,6 +216,24 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             
+        } else if (chainType == ChainType.KI_MAIN) {
+            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
+            let bondingList = BaseData.instance.mMyDelegations
+            if (bondingList.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
+                return
+            }
+            
+            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
             return
