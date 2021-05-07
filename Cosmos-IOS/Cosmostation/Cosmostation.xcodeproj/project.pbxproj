@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -692,7 +692,6 @@
 		E16D9B24224A083E0019B7BB /* KeyboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B23224A083E0019B7BB /* KeyboardViewController.swift */; };
 		E16D9B26224A08510019B7BB /* DecimalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B25224A08510019B7BB /* DecimalViewController.swift */; };
 		E16D9B28224A08660019B7BB /* AlphabetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16D9B27224A08660019B7BB /* AlphabetViewController.swift */; };
-		E16FACAF2361AC0F00372052 /* ed25519swift in Frameworks */ = {isa = PBXBuildFile; productRef = E16FACAE2361AC0F00372052 /* ed25519swift */; };
 		E16FACB12361ADFA00372052 /* Bytes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16FACB02361ADFA00372052 /* Bytes.swift */; };
 		E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06A225B04BD00C5756C /* TransactionViewController.swift */; };
 		E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */; };
@@ -1646,7 +1645,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E16FACAF2361AC0F00372052 /* ed25519swift in Frameworks */,
 				C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2729,7 +2727,6 @@
 			);
 			name = Cosmostation;
 			packageProductDependencies = (
-				E16FACAE2361AC0F00372052 /* ed25519swift */,
 			);
 			productName = Cosmostation;
 			productReference = E1945E24222E7C0600A1436F /* Cosmostation.app */;
@@ -2770,7 +2767,6 @@
 			);
 			mainGroup = E1945E1B222E7C0600A1436F;
 			packageReferences = (
-				E16FACAD2361AC0F00372052 /* XCRemoteSwiftPackageReference "ed25519swift" */,
 			);
 			productRefGroup = E1945E25222E7C0600A1436F /* Products */;
 			projectDirPath = "";
@@ -4259,25 +4255,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		E16FACAD2361AC0F00372052 /* XCRemoteSwiftPackageReference "ed25519swift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/pebble8888/ed25519swift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.2;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		E16FACAE2361AC0F00372052 /* ed25519swift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = E16FACAD2361AC0F00372052 /* XCRemoteSwiftPackageReference "ed25519swift" */;
-			productName = ed25519swift;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = E1945E1C222E7C0600A1436F /* Project object */;
 }
