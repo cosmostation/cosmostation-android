@@ -29,6 +29,7 @@ let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
 let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 
+let STATION_URL                         = "https://api-utility.cosmostation.io/";
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
 let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";

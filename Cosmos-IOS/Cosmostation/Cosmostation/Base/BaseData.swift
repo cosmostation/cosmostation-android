@@ -17,6 +17,11 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var copySalt: String?
+    var mPrices = NSMutableDictionary.init()
+    
+    func updatePrice(_ denom: String?, _ priceInfo: Array<NSDictionary>?) {
+        mPrices[denom] = priceInfo
+    }
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()

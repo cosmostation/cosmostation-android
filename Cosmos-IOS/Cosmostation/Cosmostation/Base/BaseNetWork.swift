@@ -1213,8 +1213,17 @@ class BaseNetWork {
     
     
     
+    static func getPriceList() -> String {
+        return STATION_URL + "v1/market/prices"
+    }
     
+    static func getPrices() -> String {
+        return STATION_URL + "v1/market/prices"
+    }
     
+    static func getPrice(_ denoms: String) -> String {
+        return STATION_URL + "v1/market/price?id=" + denoms
+    }
     
     
     static func getConnection(_ chain: ChainType, _ group: MultiThreadedEventLoopGroup) -> ClientConnection? {
