@@ -528,6 +528,8 @@
 		28BB2AA3253417CE00CFF097 /* StarNameResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AA2253417CE00CFF097 /* StarNameResource.swift */; };
 		28BB2AA825341A4C00CFF097 /* IovStarNameAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AA725341A4C00CFF097 /* IovStarNameAccount.swift */; };
 		28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */; };
+		28BBAAC6264945890013A555 /* WalletOkAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */; };
+		28BBAAC7264945890013A555 /* WalletOkAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */; };
 		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CAAB6B25AC414A00416AA5 /* OkHistory.swift */; };
@@ -1329,6 +1331,8 @@
 		28BB2AA2253417CE00CFF097 /* StarNameResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameResource.swift; sourceTree = "<group>"; };
 		28BB2AA725341A4C00CFF097 /* IovStarNameAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameAccount.swift; sourceTree = "<group>"; };
 		28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameDomain.swift; sourceTree = "<group>"; };
+		28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletOkAddressCell.swift; sourceTree = "<group>"; };
+		28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOkAddressCell.xib; sourceTree = "<group>"; };
 		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28CAAB6B25AC414A00416AA5 /* OkHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkHistory.swift; sourceTree = "<group>"; };
@@ -1917,6 +1921,8 @@
 			children = (
 				E1FD231E233E1B8E009327FE /* WalletAddressCell.swift */,
 				E126CF842387A48F002A546F /* WalletAddressCell.xib */,
+				28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */,
+				28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */,
 				E1FD232A233E1BDB009327FE /* WalletCosmosCell.swift */,
 				E126CF7F2387A3E1002A546F /* WalletCosmosCell.xib */,
 				E1FD2326233E1BC4009327FE /* WalletIrisCell.swift */,
@@ -2791,6 +2797,7 @@
 				E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */,
 				2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */,
 				283E9464254902BA007A9291 /* TxRegisterDomainCell.xib in Resources */,
+				28BBAAC7264945890013A555 /* WalletOkAddressCell.xib in Resources */,
 				283A80C824513FF7008FF813 /* CdpDetailTopCell.xib in Resources */,
 				2827F4CB255B93240029AE1C /* WalletAkashCell.xib in Resources */,
 				280524B5255CDA7D004D6172 /* StarnameWalletConnectViewController.xib in Resources */,
@@ -3030,6 +3037,7 @@
 				287AC5D525FDF7250070837E /* cosmos_crisis_v1beta1_genesis.pb.swift in Sources */,
 				28B3251F2637F80500275AED /* MemoMnemonicPopup.swift in Sources */,
 				287AC5CC25FDF7250070837E /* cosmos_mint_v1beta1_query.grpc.swift in Sources */,
+				28BBAAC6264945890013A555 /* WalletOkAddressCell.swift in Sources */,
 				E17B214023470941001743D6 /* TokenDetailIrisCell.swift in Sources */,
 				287AC62E25FDF7260070837E /* htlc_htlc.pb.swift in Sources */,
 				287AC60225FDF7260070837E /* service_query.pb.swift in Sources */,

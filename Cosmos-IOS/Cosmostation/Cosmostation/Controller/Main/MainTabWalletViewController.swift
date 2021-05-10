@@ -40,6 +40,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.dataSource = self
         self.walletTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.walletTableView.register(UINib(nibName: "WalletAddressCell", bundle: nil), forCellReuseIdentifier: "WalletAddressCell")
+        self.walletTableView.register(UINib(nibName: "WalletOkAddressCell", bundle: nil), forCellReuseIdentifier: "WalletOkAddressCell")
         self.walletTableView.register(UINib(nibName: "WalletCosmosCell", bundle: nil), forCellReuseIdentifier: "WalletCosmosCell")
         self.walletTableView.register(UINib(nibName: "WalletIrisCell", bundle: nil), forCellReuseIdentifier: "WalletIrisCell")
         self.walletTableView.register(UINib(nibName: "WalletBnbCell", bundle: nil), forCellReuseIdentifier: "WalletBnbCell")
@@ -561,7 +562,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetOKexItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOkAddressCell") as? WalletOkAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             return cell!
@@ -1013,7 +1014,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else {
             nickName = mainTabVC.mAccount.account_nick_name
         }
-        self.shareAddress(mainTabVC.mAccount.account_address, nickName!)
+        var address = mainTabVC.mAccount.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
     }
     
     func onClickValidatorList() {
