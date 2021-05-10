@@ -18,13 +18,7 @@ class WalletAddressCell: UITableViewCell {
         self.selectionStyle = .none
     }
     
-    
-    var actionWebLink: (() -> Void)? = nil
     var actionShare: (() -> Void)? = nil
-    
-    @IBAction func onClickWebLink(_ sender: Any) {
-        actionWebLink?()
-    }
     @IBAction func onClickShare(_ sender: Any) {
         actionShare?()
     }

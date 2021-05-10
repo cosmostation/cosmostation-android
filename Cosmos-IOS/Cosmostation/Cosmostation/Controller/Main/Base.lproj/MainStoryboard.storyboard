@@ -50,13 +50,13 @@
                                             <constraint firstAttribute="width" constant="24" id="HDP-FP-riL"/>
                                             <constraint firstAttribute="height" constant="24" id="TYX-eU-5RM"/>
                                         </constraints>
-                                        <state key="normal" image="accout_btn"/>
+                                        <state key="normal" image="btnSwitch24"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="G92-8m-qqM" eventType="touchUpInside" id="hZS-b0-XjI"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="joi-O1-5vn">
-                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <rect key="frame" x="300" y="13" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="JbD-93-gjA"/>
                                             <constraint firstAttribute="height" constant="24" id="xbv-57-qCe"/>
@@ -66,17 +66,30 @@
                                             <action selector="onClickAlaram:" destination="G92-8m-qqM" eventType="touchUpInside" id="KW8-pl-Zna"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Whz-T8-65p">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="bxG-Je-2xW"/>
+                                            <constraint firstAttribute="height" constant="24" id="rcf-97-2T8"/>
+                                        </constraints>
+                                        <state key="normal" image="btnExplorer"/>
+                                        <connections>
+                                            <action selector="onClickExplorer:" destination="G92-8m-qqM" eventType="touchUpInside" id="WIg-L6-oIv"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="fK9-Jn-bGz" firstAttribute="firstBaseline" secondItem="isK-gg-3xf" secondAttribute="firstBaseline" id="14h-Ev-HpC"/>
                                     <constraint firstItem="joi-O1-5vn" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="6Ms-5Z-Pwu"/>
                                     <constraint firstItem="cYo-Wr-QV9" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="7Hs-Iy-hUY"/>
+                                    <constraint firstItem="s5Q-iv-Wwg" firstAttribute="leading" secondItem="Whz-T8-65p" secondAttribute="trailing" constant="10" id="EDl-Ly-Sor"/>
                                     <constraint firstAttribute="height" constant="50" id="H3O-sR-Rf9"/>
                                     <constraint firstItem="fK9-Jn-bGz" firstAttribute="leading" secondItem="isK-gg-3xf" secondAttribute="trailing" constant="4" id="LQ7-7V-7bY"/>
-                                    <constraint firstItem="s5Q-iv-Wwg" firstAttribute="leading" secondItem="joi-O1-5vn" secondAttribute="trailing" constant="10" id="Lsp-en-VaL"/>
                                     <constraint firstItem="isK-gg-3xf" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="Pxm-5n-i83"/>
                                     <constraint firstAttribute="trailing" secondItem="s5Q-iv-Wwg" secondAttribute="trailing" constant="22" id="Twv-7e-3IW"/>
+                                    <constraint firstItem="Whz-T8-65p" firstAttribute="leading" secondItem="joi-O1-5vn" secondAttribute="trailing" constant="10" id="Y5u-FU-LQO"/>
+                                    <constraint firstItem="Whz-T8-65p" firstAttribute="centerY" secondItem="s5Q-iv-Wwg" secondAttribute="centerY" id="eA6-bp-Yir"/>
                                     <constraint firstItem="s5Q-iv-Wwg" firstAttribute="centerY" secondItem="vgm-58-EwV" secondAttribute="centerY" id="gcd-rG-ATC"/>
                                     <constraint firstItem="isK-gg-3xf" firstAttribute="leading" secondItem="cYo-Wr-QV9" secondAttribute="trailing" id="lUk-vd-LtE"/>
                                     <constraint firstItem="cYo-Wr-QV9" firstAttribute="leading" secondItem="vgm-58-EwV" secondAttribute="leading" constant="8" id="tT3-dc-auh"/>
@@ -236,13 +249,13 @@
                                             <constraint firstAttribute="width" constant="24" id="O2a-Ee-X89"/>
                                             <constraint firstAttribute="height" constant="24" id="e4f-gt-Frp"/>
                                         </constraints>
-                                        <state key="normal" image="accout_btn"/>
+                                        <state key="normal" image="btnSwitch24"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="t07-dn-E46" eventType="touchUpInside" id="99d-Kg-Qh6"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zcu-1U-k6P">
-                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <rect key="frame" x="300" y="13" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="aC3-t7-mYN"/>
                                             <constraint firstAttribute="height" constant="24" id="e0j-jX-O2V"/>
@@ -252,15 +265,28 @@
                                             <action selector="onClickAlaram:" destination="t07-dn-E46" eventType="touchUpInside" id="z7h-DH-CZ9"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="552-ZV-WU3">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="TJ0-xI-qkR"/>
+                                            <constraint firstAttribute="width" constant="24" id="WEX-oj-UOJ"/>
+                                        </constraints>
+                                        <state key="normal" image="btnExplorer"/>
+                                        <connections>
+                                            <action selector="onClickExplorer:" destination="t07-dn-E46" eventType="touchUpInside" id="UTH-s4-GoU"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="L12-Fw-3v9" firstAttribute="leading" secondItem="zcu-1U-k6P" secondAttribute="trailing" constant="10" id="93X-wU-tQV"/>
+                                    <constraint firstItem="552-ZV-WU3" firstAttribute="centerY" secondItem="L12-Fw-3v9" secondAttribute="centerY" id="8O1-AO-7qh"/>
                                     <constraint firstItem="D4N-0h-U3Y" firstAttribute="leading" secondItem="MeZ-yr-C1Y" secondAttribute="trailing" id="Jpu-Wc-Asq"/>
                                     <constraint firstItem="MeZ-yr-C1Y" firstAttribute="leading" secondItem="qFY-lo-0IC" secondAttribute="leading" constant="8" id="LsW-Mj-qKc"/>
+                                    <constraint firstItem="L12-Fw-3v9" firstAttribute="leading" secondItem="552-ZV-WU3" secondAttribute="trailing" constant="10" id="Nup-mE-MSA"/>
                                     <constraint firstItem="zcu-1U-k6P" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="P8O-vp-F2P"/>
                                     <constraint firstItem="MeZ-yr-C1Y" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="aMs-VY-dy8"/>
                                     <constraint firstItem="NCH-6t-2hM" firstAttribute="firstBaseline" secondItem="D4N-0h-U3Y" secondAttribute="firstBaseline" id="kgu-5H-lIV"/>
+                                    <constraint firstItem="552-ZV-WU3" firstAttribute="leading" secondItem="zcu-1U-k6P" secondAttribute="trailing" constant="10" id="oeY-4S-HQk"/>
                                     <constraint firstItem="L12-Fw-3v9" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="pU2-rg-1oy"/>
                                     <constraint firstItem="D4N-0h-U3Y" firstAttribute="centerY" secondItem="qFY-lo-0IC" secondAttribute="centerY" id="ro8-kP-K0l"/>
                                     <constraint firstAttribute="trailing" secondItem="L12-Fw-3v9" secondAttribute="trailing" constant="22" id="ut1-Bk-CAA"/>
@@ -363,13 +389,13 @@
                                             <constraint firstAttribute="width" constant="24" id="vsG-Qd-zEk"/>
                                             <constraint firstAttribute="height" constant="24" id="wUz-wh-P4f"/>
                                         </constraints>
-                                        <state key="normal" image="accout_btn"/>
+                                        <state key="normal" image="btnSwitch24"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="oOd-o8-Sem" eventType="touchUpInside" id="BUn-3R-fTc"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yab-cK-eWf">
-                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <rect key="frame" x="300" y="13" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="24" id="Wd3-Op-lSl"/>
                                             <constraint firstAttribute="height" constant="24" id="sXd-sh-hkm"/>
@@ -379,17 +405,30 @@
                                             <action selector="onClickAlaram:" destination="oOd-o8-Sem" eventType="touchUpInside" id="Jn8-6n-i9e"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CEL-sa-h7I">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="24" id="H92-DK-5LX"/>
+                                            <constraint firstAttribute="width" constant="24" id="MNi-Mc-Pzv"/>
+                                        </constraints>
+                                        <state key="normal" image="btnExplorer"/>
+                                        <connections>
+                                            <action selector="onClickExplorer:" destination="oOd-o8-Sem" eventType="touchUpInside" id="Djz-3v-lIL"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="qWl-YX-k4d" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="10L-X4-qRq"/>
                                     <constraint firstItem="Yab-cK-eWf" firstAttribute="centerY" secondItem="qin-kp-r78" secondAttribute="centerY" id="5Rc-eO-hZf"/>
+                                    <constraint firstItem="qin-kp-r78" firstAttribute="leading" secondItem="CEL-sa-h7I" secondAttribute="trailing" constant="10" id="B2j-Bj-fnn"/>
                                     <constraint firstAttribute="height" constant="50" id="EOd-bo-sb6"/>
-                                    <constraint firstItem="qin-kp-r78" firstAttribute="leading" secondItem="Yab-cK-eWf" secondAttribute="trailing" constant="10" id="GQI-Og-0RA"/>
                                     <constraint firstItem="qin-kp-r78" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="MIk-Wf-IZQ"/>
                                     <constraint firstItem="qWl-YX-k4d" firstAttribute="leading" secondItem="Dfj-wA-gmt" secondAttribute="trailing" id="RiQ-ev-IV8"/>
+                                    <constraint firstItem="CEL-sa-h7I" firstAttribute="centerY" secondItem="qin-kp-r78" secondAttribute="centerY" id="SlW-WZ-QD9"/>
                                     <constraint firstAttribute="trailing" secondItem="qin-kp-r78" secondAttribute="trailing" constant="22" id="Yyo-4r-5d6"/>
                                     <constraint firstItem="Roh-LO-TJo" firstAttribute="leading" secondItem="qWl-YX-k4d" secondAttribute="trailing" constant="4" id="iLV-HQ-Aff"/>
+                                    <constraint firstItem="CEL-sa-h7I" firstAttribute="leading" secondItem="Yab-cK-eWf" secondAttribute="trailing" constant="10" id="odJ-Tl-Xt8"/>
                                     <constraint firstItem="Roh-LO-TJo" firstAttribute="firstBaseline" secondItem="qWl-YX-k4d" secondAttribute="firstBaseline" id="w8d-Ci-xyH"/>
                                     <constraint firstItem="Dfj-wA-gmt" firstAttribute="centerY" secondItem="Al7-NK-Got" secondAttribute="centerY" id="xuV-if-Yoq"/>
                                     <constraint firstItem="Dfj-wA-gmt" firstAttribute="leading" secondItem="Al7-NK-Got" secondAttribute="leading" constant="8" id="xz5-Yf-NWe"/>
@@ -970,13 +1009,13 @@ Kava oracle</string>
                                             <constraint firstAttribute="width" constant="24" id="hfr-7B-ozd"/>
                                             <constraint firstAttribute="height" constant="24" id="oL2-dT-kJr"/>
                                         </constraints>
-                                        <state key="normal" image="accout_btn"/>
+                                        <state key="normal" image="btnSwitch24"/>
                                         <connections>
                                             <action selector="onClickSwitchAccount:" destination="1zF-Vz-4uW" eventType="touchUpInside" id="Ud8-2u-LU4"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N58-4J-qWv">
-                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <rect key="frame" x="300" y="13" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="9hL-nK-dKZ"/>
                                             <constraint firstAttribute="width" constant="24" id="NRo-V6-8qg"/>
@@ -986,18 +1025,31 @@ Kava oracle</string>
                                             <action selector="onClickAlaram:" destination="1zF-Vz-4uW" eventType="touchUpInside" id="e9M-Tr-vcu"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9xk-no-QlA">
+                                        <rect key="frame" x="334" y="13" width="24" height="24"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="24" id="1fF-CR-BFA"/>
+                                            <constraint firstAttribute="height" constant="24" id="3HA-g4-yDS"/>
+                                        </constraints>
+                                        <state key="normal" image="btnExplorer"/>
+                                        <connections>
+                                            <action selector="onClickExplorer:" destination="1zF-Vz-4uW" eventType="touchUpInside" id="1x6-iO-Gtl"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="TB1-BC-2Oc" firstAttribute="firstBaseline" secondItem="imU-di-2sz" secondAttribute="firstBaseline" id="6Q3-zV-flv"/>
                                     <constraint firstAttribute="trailing" secondItem="4XV-sy-kce" secondAttribute="trailing" constant="22" id="G4q-7K-uRh"/>
+                                    <constraint firstItem="9xk-no-QlA" firstAttribute="centerY" secondItem="4XV-sy-kce" secondAttribute="centerY" id="Mf8-tl-WAt"/>
                                     <constraint firstItem="rUb-xK-flr" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="PMr-q4-rk9"/>
                                     <constraint firstItem="imU-di-2sz" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="SIV-Sb-wam"/>
                                     <constraint firstItem="TB1-BC-2Oc" firstAttribute="leading" secondItem="imU-di-2sz" secondAttribute="trailing" constant="4" id="Y8i-rm-W68"/>
-                                    <constraint firstItem="4XV-sy-kce" firstAttribute="leading" secondItem="N58-4J-qWv" secondAttribute="trailing" constant="10" id="a4l-PD-c6O"/>
                                     <constraint firstItem="4XV-sy-kce" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="b3I-Hc-cGv"/>
+                                    <constraint firstItem="4XV-sy-kce" firstAttribute="leading" secondItem="9xk-no-QlA" secondAttribute="trailing" constant="10" id="bxY-HM-wwt"/>
                                     <constraint firstAttribute="height" constant="50" id="d61-q2-OeP"/>
                                     <constraint firstItem="rUb-xK-flr" firstAttribute="leading" secondItem="Bms-CG-fww" secondAttribute="leading" constant="8" id="elQ-Lt-3Gg"/>
+                                    <constraint firstItem="9xk-no-QlA" firstAttribute="leading" secondItem="N58-4J-qWv" secondAttribute="trailing" constant="10" id="qxf-jR-dUf"/>
                                     <constraint firstItem="imU-di-2sz" firstAttribute="leading" secondItem="rUb-xK-flr" secondAttribute="trailing" id="srX-0G-FsO"/>
                                     <constraint firstItem="N58-4J-qWv" firstAttribute="centerY" secondItem="Bms-CG-fww" secondAttribute="centerY" id="xkd-XP-IYZ"/>
                                 </constraints>
@@ -2903,10 +2955,11 @@ Kava oracle</string>
         </scene>
     </scenes>
     <resources>
-        <image name="accout_btn" width="24" height="24"/>
         <image name="arrowNextGr" width="24" height="24"/>
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="bnbDex" width="40" height="46"/>
+        <image name="btnExplorer" width="24" height="24"/>
+        <image name="btnSwitch24" width="24" height="24"/>
         <image name="close_btn" width="24" height="24"/>
         <image name="connectImg1" width="180.5" height="47"/>
         <image name="cosmosWhMain" width="42" height="42"/>
