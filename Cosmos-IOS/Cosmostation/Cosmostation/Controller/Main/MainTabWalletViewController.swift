@@ -315,7 +315,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -352,7 +351,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -389,7 +387,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -421,7 +418,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -459,7 +455,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -497,7 +492,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -534,7 +528,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -571,7 +564,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -604,7 +596,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -641,7 +632,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -679,7 +669,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -717,7 +706,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -755,7 +743,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -793,7 +780,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -831,7 +817,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -863,7 +848,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -900,7 +884,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -936,7 +919,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
-            cell?.actionWebLink = { self.onClickActionLink() }
             return cell!
             
         } else if (indexPath.row == 1) {
@@ -970,6 +952,12 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
+    }
+    
+    @IBAction func onClickExplorer(_ sender: UIButton) {
+        let link = WUtils.getAccountExplorer(chainType!, mainTabVC.mAccount.account_address)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
     }
     
     
@@ -1026,12 +1014,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             nickName = mainTabVC.mAccount.account_nick_name
         }
         self.shareAddress(mainTabVC.mAccount.account_address, nickName!)
-    }
-    
-    func onClickActionLink() {
-        let link = WUtils.getAccountExplorer(chainType!, mainTabVC.mAccount.account_address)
-        guard let url = URL(string: link) else { return }
-        self.onShowSafariWeb(url)
     }
     
     func onClickValidatorList() {

@@ -779,6 +779,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
+            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             self.onFetchFinished()
         }
     }
@@ -1412,6 +1413,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("onFetchgRPCBalance failed: \(error)")
             }
             DispatchQueue.main.async(execute: {
+                self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
                 self.onFetchFinished()
             });
         }
@@ -1650,6 +1652,26 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
+    func onFetchPriceInfo(_ denoms: String) {
+//        print("onFetchPriceInfo ", BaseNetWork.getPrice(denoms))
+        let request = Alamofire.request(BaseNetWork.getPrice(denoms), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let priceInfos = res as? Array<NSDictionary> {
+                    priceInfos.forEach { priceInfo in
+                        if let denom = priceInfo.object(forKey: "denom") as? String, let prices = priceInfo.object(forKey: "prices") as? Array<NSDictionary> {
+                            BaseData.instance.updatePriceInfo(denom, prices)
+                        }
+                    }
+                }
+//                print("all price ", BaseData.instance.mPrices)
+            
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchPriceInfo ", error) }
+            }
+        }
+    }
     
     
     func onShowToast(_ text:String) {

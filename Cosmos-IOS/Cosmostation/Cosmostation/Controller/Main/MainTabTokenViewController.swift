@@ -1088,6 +1088,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.mainTabVC.onShowAccountSwicth()
     }
     
+    @IBAction func onClickExplorer(_ sender: UIButton) {
+        let link = WUtils.getAccountExplorer(chainType!, mainTabVC.mAccount.account_address)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
+    }
+    
     @IBAction func onClickAlaram(_ sender: UIButton) {
         if (sender.imageView?.image == UIImage(named: "notificationsIcOff")) {
             UNUserNotificationCenter.current().getNotificationSettings { (settings) in

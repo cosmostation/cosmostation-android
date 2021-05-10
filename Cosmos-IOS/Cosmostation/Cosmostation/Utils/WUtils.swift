@@ -1417,6 +1417,81 @@ class WUtils {
         
         return available.adding(lock).adding(delegated).adding(unbonding).adding(reward)
     }
+    
+    static func marketPrice(_ chain: ChainType) -> String {
+        var result = "usdt"
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
+            result = result + ",uatom"
+            for balance in BaseData.instance.mMyBalances_gRPC {
+                if (balance.denom != COSMOS_MAIN_DENOM) {
+                }
+            }
+            
+        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
+            result = result + ",uiris"
+            for balance in BaseData.instance.mMyBalances_gRPC {
+                if (balance.denom != IRIS_MAIN_DENOM) {
+                }
+            }
+            
+        } else if (chain == ChainType.AKASH_MAIN) {
+            result = result + ",uakt"
+            for balance in BaseData.instance.mMyBalances_gRPC {
+                if (balance.denom != getMainDenom(chain)) {
+                }
+            }
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            result = result + ",uxprt"
+            for balance in BaseData.instance.mMyBalances_gRPC {
+                if (balance.denom != getMainDenom(chain)) {
+                }
+            }
+            
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            result = result + ",basecro"
+            for balance in BaseData.instance.mMyBalances_gRPC {
+                if (balance.denom != getMainDenom(chain)) {
+                }
+            }
+        }
+        
+        else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            result = result + ",bnb"
+            
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            result = result + ",okb,okt"
+            
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
+            result = result + ",ukava,hard"
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            result = result + ",uband"
+            
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            result = result + ",uiov"
+            
+        } else if (chain == ChainType.CERTIK_MAIN) {
+            result = result + ",uctk"
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            result = result + ",udvpn"
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            result = result + ",afet"
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            result = result + ",rowan"
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            result = result + ",uxki"
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            result = result + ",uscrt"
+            
+        }
+        return result
+    }
      
     static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking?, _ withdraw: OkUnbonding?) -> NSDecimalNumber {
         var sum = NSDecimalNumber.zero
@@ -3283,6 +3358,24 @@ class WUtils {
             
         } else if (chain == ChainType.AKASH_MAIN) {
             return BLOCK_TIME_AKASH
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return BLOCK_TIME_SENTINEL
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            return BLOCK_TIME_PERSISTENCE
+            
+        } else if (chain == ChainType.FETCH_MAIN) {
+            return BLOCK_TIME_FETCH
+            
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            return BLOCK_TIME_CRYPTO
+            
+        } else if (chain == ChainType.SIF_MAIN) {
+            return BLOCK_TIME_SIF
+            
+        } else if (chain == ChainType.KI_MAIN) {
+            return BLOCK_TIME_KI
             
         }
         return NSDecimalNumber.init(string: "6")

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import ed25519swift
 import CryptoSwift
 import BinanceChain
 

@@ -732,12 +732,17 @@ public class BaseConstant {
     public final static BigDecimal MONTH_SEC = DAY_SEC.multiply(new BigDecimal("30"));
     public final static BigDecimal YEAR_SEC = DAY_SEC.multiply(new BigDecimal("365"));
 
-    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.11");
-    public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.93");
-    public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.21");
-    public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("8.01");
+    public final static BigDecimal BLOCK_TIME_COSMOS = new BigDecimal("7.3266");
+    public final static BigDecimal BLOCK_TIME_IRIS = new BigDecimal("6.6094");
+    public final static BigDecimal BLOCK_TIME_IOV = new BigDecimal("6.1838");
+    public final static BigDecimal BLOCK_TIME_KAVA = new BigDecimal("6.5700");
     public final static BigDecimal BLOCK_TIME_BAND = new BigDecimal("3.01");
     public final static BigDecimal BLOCK_TIME_CERTIK = new BigDecimal("5.75");
     public final static BigDecimal BLOCK_TIME_SECRET = new BigDecimal("5.96");
-    public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.21");
+    public final static BigDecimal BLOCK_TIME_AKASH = new BigDecimal("6.1908");
+    public final static BigDecimal BLOCK_TIME_PERSISTENCE = new BigDecimal("5.6381");
+    public final static BigDecimal BLOCK_TIME_FETCH = new BigDecimal("5.8956");
+    public final static BigDecimal BLOCK_TIME_CRYPTO = new BigDecimal("6.4383");
+    public final static BigDecimal BLOCK_TIME_SIF = new BigDecimal("5.6577");
+    public final static BigDecimal BLOCK_TIME_KI = new BigDecimal("5.6524");
 }

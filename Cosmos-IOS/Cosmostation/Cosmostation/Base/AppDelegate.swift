@@ -161,13 +161,13 @@ extension AppDelegate : UNUserNotificationCenterDelegate {
 // [END ios_10_message_handling]
 
 extension AppDelegate : MessagingDelegate {
-    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
-        print("msg didReceive \(remoteMessage.appData)")
-    }
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("msg didReceiveRegistrationToken : ", fcmToken)
-    }
+//    func messaging(_ messaging: Messaging, didReceive remoteMessage: MessagingRemoteMessage) {
+//        print("msg didReceive \(remoteMessage.appData)")
+//    }
+//    
+//    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
+//        print("msg didReceiveRegistrationToken : ", fcmToken)
+//    }
     
 }
 

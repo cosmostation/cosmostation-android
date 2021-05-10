@@ -29,6 +29,7 @@ let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
 let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 
+let STATION_URL                         = "https://api-utility.cosmostation.io/";
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
 let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
@@ -881,14 +882,20 @@ let DAY_SEC     = NSDecimalNumber.init(string: "86400")
 let MONTH_SEC   = DAY_SEC.multiplying(by: NSDecimalNumber.init(string: "30"))
 let YEAR_SEC    = DAY_SEC.multiplying(by: NSDecimalNumber.init(string: "365"))
 
-let BLOCK_TIME_COSMOS   = NSDecimalNumber.init(string: "7.11")
-let BLOCK_TIME_IRIS     = NSDecimalNumber.init(string: "6.93")
-let BLOCK_TIME_IOV      = NSDecimalNumber.init(string: "6.21")
-let BLOCK_TIME_KAVA     = NSDecimalNumber.init(string: "8.01")
-let BLOCK_TIME_BAND     = NSDecimalNumber.init(string: "3.01")
-let BLOCK_TIME_CERTIK   = NSDecimalNumber.init(string: "5.75")
-let BLOCK_TIME_SECRET   = NSDecimalNumber.init(string: "5.96")
-let BLOCK_TIME_AKASH    = NSDecimalNumber.init(string: "6.21")
+let BLOCK_TIME_COSMOS       = NSDecimalNumber.init(string: "7.3266")
+let BLOCK_TIME_IRIS         = NSDecimalNumber.init(string: "6.6094")
+let BLOCK_TIME_IOV          = NSDecimalNumber.init(string: "6.1838")
+let BLOCK_TIME_KAVA         = NSDecimalNumber.init(string: "6.5700")
+let BLOCK_TIME_BAND         = NSDecimalNumber.init(string: "3.01")
+let BLOCK_TIME_CERTIK       = NSDecimalNumber.init(string: "5.75")
+let BLOCK_TIME_SECRET       = NSDecimalNumber.init(string: "5.96")
+let BLOCK_TIME_AKASH        = NSDecimalNumber.init(string: "6.1908")
+let BLOCK_TIME_SENTINEL     = NSDecimalNumber.init(string: "6.0418")
+let BLOCK_TIME_PERSISTENCE  = NSDecimalNumber.init(string: "5.6381")
+let BLOCK_TIME_FETCH        = NSDecimalNumber.init(string: "5.8956")
+let BLOCK_TIME_CRYPTO       = NSDecimalNumber.init(string: "6.4383")
+let BLOCK_TIME_SIF          = NSDecimalNumber.init(string: "5.6577")
+let BLOCK_TIME_KI           = NSDecimalNumber.init(string: "5.6524")
 
 
 let OK_TX_TYPE_TRANSFER        = 1;

@@ -9,37 +9,36 @@
 import Foundation
 import BitcoinKit
 import BinanceChain
-import ed25519swift
 import CryptoSwift
 import HDWalletKit
 
 class WKey {
     
-    public struct Ed25519Key {
-        var key: [UInt8]
-        var chainCode: [UInt8]
-
-        public func derive(index: UInt32) -> Ed25519Key? {
-            var bigEndian = index.bigEndian
-            let data = Data(bytes: &bigEndian, count: MemoryLayout.size(ofValue: bigEndian))
-            var bytes = [UInt8](data)
-            bytes = [0] + key + bytes
-
-            let hmac = HMAC(key: chainCode, variant: .sha512)
-            guard let sum = try? hmac.authenticate(bytes) else { return nil }
-            return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
-        }
-    }
+//    public struct Ed25519Key {
+//        var key: [UInt8]
+//        var chainCode: [UInt8]
+//
+//        public func derive(index: UInt32) -> Ed25519Key? {
+//            var bigEndian = index.bigEndian
+//            let data = Data(bytes: &bigEndian, count: MemoryLayout.size(ofValue: bigEndian))
+//            var bytes = [UInt8](data)
+//            bytes = [0] + key + bytes
+//
+//            let hmac = HMAC(key: chainCode, variant: .sha512)
+//            guard let sum = try? hmac.authenticate(bytes) else { return nil }
+//            return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
+//        }
+//    }
     
     static func getMasterKeyFromWords(_ m: [String]) -> HDPrivateKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
     
-    static func getMasterEd25519KeyFromWord(_ m: [String]) -> Ed25519Key? {
-        let hmac = HMAC(key: Array("ed25519 seed".utf8), variant: .sha512)
-        guard let sum = try? hmac.authenticate(Mnemonic.seed(mnemonic: m).dataToHexString().hex2Bytes) else { return nil}
-        return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
-    }
+//    static func getMasterEd25519KeyFromWord(_ m: [String]) -> Ed25519Key? {
+//        let hmac = HMAC(key: Array("ed25519 seed".utf8), variant: .sha512)
+//        guard let sum = try? hmac.authenticate(Mnemonic.seed(mnemonic: m).dataToHexString().hex2Bytes) else { return nil}
+//        return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
+//    }
     
     static func getHDKeyFromWords(_ m: [String], _ account:Account) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(m)
@@ -443,6 +442,12 @@ class WKey {
 //        print("OKexAddress ", result)
         return result
     }
+    
+    static func convertAddressOkexToEth(_ exAddress: String) -> String {
+        let data = getDatafromDpAddress(exAddress)
+        return EthereumAddress.init(data: data!).string
+    }
+    
     
     static func isMemohasMnemonic(_ memo: String) -> Bool {
         var matchedCnt = 0;

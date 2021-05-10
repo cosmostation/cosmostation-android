@@ -16,6 +16,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 
@@ -41,7 +43,7 @@ public class WalletAddressHolder extends BaseHolder {
         if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
             itemSwiAddressTv.setVisibility(View.VISIBLE);
             itemSwiAddressTv.setText(mainActivity.mAccount.address);
-        }else {
+        } else {
             itemSwiAddressTv.setVisibility(View.GONE);
             itemAddressTv.setText(mainActivity.mAccount.address);
         }
@@ -64,5 +66,14 @@ public class WalletAddressHolder extends BaseHolder {
                 mainActivity.getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
             }
         });
+
+        try {
+            WLog.w("eth Address " + WKey.convertAddressOkexToEth(mainActivity.mAccount.address));
+        }catch (Exception e) {}
+
+        WLog.w("Check ETH Address 1 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA3"));
+        WLog.w("Check ETH Address 2 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA6"));
+        WLog.w("Check ETH Address 3 " + WKey.isValidEthAddress("0xf433e2d92fc15739E443E526EF595F8B021fA2"));
+        WLog.w("Check ETH Address 4 " + WKey.isValidEthAddress("f433e2d92fc1574839E443E526EF595F8B021fA3"));
     }
 }

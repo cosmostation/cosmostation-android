@@ -116,7 +116,7 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
                             }
                         } catch { }
                         DispatchQueue.main.async(execute: {
-                            cell?.denomAmount.attributedText = WUtils.displayAmount2(amount, cell!.denomAmount.font!, 6, 6)
+                            cell?.denomAmount.attributedText = WUtils.displayAmount2(amount, cell!.denomAmount.font!, WUtils.mainDivideDecimal(self.userChain), WUtils.mainDisplayDecimal(self.userChain))
                         });
                     }
                 }

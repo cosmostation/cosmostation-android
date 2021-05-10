@@ -17,6 +17,25 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var copySalt: String?
+    var mPrices = NSMutableDictionary.init()
+    
+    func updatePriceInfo(_ denom: String?, _ priceInfo: Array<NSDictionary>?) {
+        mPrices[denom] = priceInfo
+    }
+    
+    func getPriceInfo(_ denom: String) -> Array<NSDictionary>?{
+        return mPrices.object(forKey: denom) as? Array<NSDictionary>
+    }
+    
+    func getPrice(_ denom: String, _ currency: String) -> NSDecimalNumber {
+        var result = NSDecimalNumber.zero
+        getPriceInfo(denom)?.forEach({ body in
+            if (body.object(forKey: "currency") as! String == currency) {
+                result = NSDecimalNumber.init(value: body.object(forKey: "current_price") as? Double ?? 0)
+            }
+        })
+        return result
+    }
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()
