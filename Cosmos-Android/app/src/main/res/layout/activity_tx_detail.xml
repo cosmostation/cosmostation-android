@@ -33,39 +33,55 @@
         android:layout_marginLeft="@dimen/space_16"
         android:layout_marginRight="@dimen/space_16"
         android:layout_marginBottom="@dimen/space_24">
+
         <LinearLayout
             android:id="@+id/control_after"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <Button
                     android:id="@+id/btn_share"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/space_45"
-                    android:layout_weight="1"
-                    android:minHeight="@dimen/space_45"
-                    android:layout_marginRight="@dimen/space_4"
-                    android:background="@drawable/btn_trans_with_border"
                     style="@style/font_ss_14_white"
-                    android:textAllCaps="false"
-                    android:text="@string/str_share"/>
-                <Button
-                    android:id="@+id/btn_dismiss"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/space_45"
+                    android:layout_marginRight="@dimen/space_4"
                     android:layout_weight="1"
-                    android:minHeight="@dimen/space_45"
-                    android:layout_marginLeft="@dimen/space_4"
                     android:background="@drawable/btn_trans_with_border"
-                    style="@style/font_ss_14_photon"
-                    android:textAllCaps="false"
-                    android:text="@string/str_done"/>
+                    android:minHeight="@dimen/space_45"
+                    android:text="@string/str_share"
+                    android:textAllCaps="false" />
+
+                <Button
+                    android:id="@+id/btn_explorer"
+                    style="@style/font_ss_14_white"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/space_45"
+                    android:layout_marginLeft="@dimen/space_4"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_trans_with_border"
+                    android:minHeight="@dimen/space_45"
+                    android:text="@string/str_explorer"
+                    android:textAllCaps="false" />
             </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_dismiss"
+                style="@style/font_ss_14_photon"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space_45"
+                android:layout_marginTop="@dimen/space_6"
+                android:layout_weight="1"
+                android:background="@drawable/btn_trans_with_border"
+                android:text="@string/str_done"
+                android:textAllCaps="false" />
+
         </LinearLayout>
         <RelativeLayout
             android:id="@+id/btn_refund"

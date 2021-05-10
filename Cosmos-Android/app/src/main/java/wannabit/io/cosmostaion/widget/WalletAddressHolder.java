@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -15,47 +14,42 @@ import org.jetbrains.annotations.NotNull;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+
 
 public class WalletAddressHolder extends BaseHolder {
     public CardView     itemRoot;
     public ImageView    itemKeyStatus;
-    public ImageView    itemBtnWebLink;
     public ImageView    itemBtnCopy;
     public TextView     itemAddressTv;
+    public TextView     itemSwiAddressTv;
 
     public WalletAddressHolder(@NonNull View itemView) {
         super(itemView);
         itemRoot            = itemView.findViewById(R.id.card_root);
         itemKeyStatus       = itemView.findViewById(R.id.img_account);
-        itemBtnWebLink      = itemView.findViewById(R.id.web_detail);
         itemBtnCopy         = itemView.findViewById(R.id.address_detail);
         itemAddressTv       = itemView.findViewById(R.id.account_Address);
+        itemSwiAddressTv    = itemView.findViewById(R.id.switch_Address);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         if (mainActivity == null) return;
-        itemAddressTv.setText(mainActivity.mAccount.address);
+        if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
+            itemSwiAddressTv.setVisibility(View.VISIBLE);
+            itemSwiAddressTv.setText(mainActivity.mAccount.address);
+        }else {
+            itemSwiAddressTv.setVisibility(View.GONE);
+            itemAddressTv.setText(mainActivity.mAccount.address);
+        }
         if (mainActivity.mAccount.hasPrivateKey) {
             itemKeyStatus.setColorFilter(WDp.getChainColor(mainActivity, mainActivity.mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
             itemKeyStatus.setColorFilter(ContextCompat.getColor(mainActivity, R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        itemBtnWebLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mainActivity.mBaseChain.equals(IOV_TEST)) { return; }
-                Intent webintent = new Intent(mainActivity, WebActivity.class);
-                webintent.putExtra("address", mainActivity.mAccount.address);
-                webintent.putExtra("chain", mainActivity.mBaseChain.getChain());
-                webintent.putExtra("goMain", false);
-                mainActivity.startActivity(webintent);
-            }
-        });
         itemBtnCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

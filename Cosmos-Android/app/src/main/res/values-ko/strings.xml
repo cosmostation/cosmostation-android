@@ -78,6 +78,7 @@
     <string name="str_claim_address">수신 요청 주소</string>
     <string name="str_done">완료</string>
     <string name="str_dismiss">닫기</string>
+    <string name="str_explorer">익스플로러</string>
     <string name="str_memo">메모</string>
     <string name="str_fees">Tx 수수료</string>
     <string name="str_fees_c">Tx 수수료</string>
@@ -127,6 +128,7 @@
     <string name="str_no_coin">자산이 없습니다.</string>
     <string name="str_no_proposal">의제가 없습니다.</string>
     <string name="str_accounts">accounts</string>
+    <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">지갑</string>
