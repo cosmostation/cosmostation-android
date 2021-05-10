@@ -232,6 +232,22 @@ public class WKey {
         return "0x" + WUtil.ByteArrayToHexString(pub);
     }
 
+    public static String convertAddressEthToOkex(String esAddress) throws Exception {
+        String cosmoTypeAddress = esAddress;
+        if (cosmoTypeAddress.startsWith("0x")) {
+            cosmoTypeAddress = cosmoTypeAddress.replace("0x", "");
+        }
+        byte[] pub = WUtil.HexStringToByteArray(cosmoTypeAddress);
+        String addressResult = null;
+        try {
+            byte[] bytes = convertBits(pub, 8, 5, true);
+            addressResult = Bech32.encode("ex", bytes);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return addressResult;
+    }
+
     public static boolean isValidEthAddress(String exAddress) {
         return org.web3j.crypto.WalletUtils.isValidAddress(exAddress);
     }
