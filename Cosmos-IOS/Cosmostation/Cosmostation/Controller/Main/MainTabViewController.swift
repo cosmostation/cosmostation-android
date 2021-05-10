@@ -1661,7 +1661,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if let priceInfos = res as? Array<NSDictionary> {
                     priceInfos.forEach { priceInfo in
                         if let denom = priceInfo.object(forKey: "denom") as? String, let prices = priceInfo.object(forKey: "prices") as? Array<NSDictionary> {
-                            BaseData.instance.updatePrice(denom, prices)
+                            BaseData.instance.updatePriceInfo(denom, prices)
                         }
                     }
                 }

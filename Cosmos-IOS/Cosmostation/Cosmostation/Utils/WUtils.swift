@@ -1419,7 +1419,7 @@ class WUtils {
     }
     
     static func marketPrice(_ chain: ChainType) -> String {
-        var result = "usdt,btc"
+        var result = "usdt"
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             result = result + ",uatom"
             for balance in BaseData.instance.mMyBalances_gRPC {

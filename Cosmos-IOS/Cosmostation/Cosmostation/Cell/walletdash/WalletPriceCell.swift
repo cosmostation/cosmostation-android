@@ -103,5 +103,8 @@ class WalletPriceCell: UITableViewCell {
             
         }
         
+//        print("atom ", BaseData.instance.getPriceInfo(COSMOS_MAIN_DENOM))
+//        print("atom usd", BaseData.instance.getPrice(COSMOS_MAIN_DENOM, "usd"))
+        
     }
 }
