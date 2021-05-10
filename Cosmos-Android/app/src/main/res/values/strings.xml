@@ -219,6 +219,7 @@
     <string name="str_claim_address">Claim Address</string>
     <string name="str_done">Done</string>
     <string name="str_dismiss">Dismiss</string>
+    <string name="str_explorer">Explorer</string>
     <string name="str_memo">Memo</string>
     <string name="str_fees">Fee</string>
     <string name="str_fees_c">FEE</string>
@@ -268,6 +269,7 @@
     <string name="str_no_coin">No Assets</string>
     <string name="str_no_proposal">No Proposals</string>
     <string name="str_accounts">accounts</string>
+    <string name="str_web">web</string>
     <string name="str_manage">Manage</string>
     <string name="str_detail">Detail</string>
     <string name="str_wallet">Wallet</string>

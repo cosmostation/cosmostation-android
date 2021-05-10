@@ -184,6 +184,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             case R.id.menu_accounts :
                 getMainActivity().onShowTopAccountsView();
                 break;
+            case R.id.menu_explorer :
+                getMainActivity().onExplorerView();
+                break;
             case R.id.menu_notification_off:
                 getMainActivity().onUpdateUserAlarm(getMainActivity().mAccount, true);
                 break;
