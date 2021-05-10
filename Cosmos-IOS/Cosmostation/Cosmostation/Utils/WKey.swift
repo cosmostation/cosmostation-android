@@ -443,6 +443,12 @@ class WKey {
         return result
     }
     
+    static func convertAddressOkexToEth(_ exAddress: String) -> String {
+        let data = getDatafromDpAddress(exAddress)
+        return EthereumAddress.init(data: data!).string
+    }
+    
+    
     static func isMemohasMnemonic(_ memo: String) -> Bool {
         var matchedCnt = 0;
         var allMnemonicWords = [String]()

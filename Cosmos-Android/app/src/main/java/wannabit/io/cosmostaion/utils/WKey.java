@@ -227,6 +227,16 @@ public class WKey {
         return addressResult;
     }
 
+    public static String convertAddressOkexToEth(String exAddress)  throws Exception {
+        byte[] pub = convertBits(bech32Decode(exAddress).data, 5, 8, false);
+        return "0x" + WUtil.ByteArrayToHexString(pub);
+    }
+
+    public static boolean isValidEthAddress(String exAddress) {
+        return org.web3j.crypto.WalletUtils.isValidAddress(exAddress);
+    }
+
+
     public static String generatePubKeyHexFromPriv(String privateKey) {
         ECKey k = ECKey.fromPrivate(new BigInteger(privateKey, 16));
         return k.getPublicKeyAsHex();

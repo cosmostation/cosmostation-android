@@ -66,7 +66,7 @@ public class GenerateAccountTask extends CommonTask {
 
         //OKex using ethermint style account
         if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mNewPath) {
-            newAccount.address       = WKey.generateAddressFromPriv("okexchain", dKey.getPrivateKeyAsHex());
+            newAccount.address       = WKey.generateAddressFromPriv("ex", dKey.getPrivateKeyAsHex());
         } else {
             newAccount.address      = WKey.getDpAddress(mBaseChain, dKey.getPublicKeyAsHex());
         }
