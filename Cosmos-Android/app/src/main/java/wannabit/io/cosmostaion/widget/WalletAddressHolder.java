@@ -71,9 +71,16 @@ public class WalletAddressHolder extends BaseHolder {
             WLog.w("eth Address " + WKey.convertAddressOkexToEth(mainActivity.mAccount.address));
         }catch (Exception e) {}
 
-        WLog.w("Check ETH Address 1 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA3"));
-        WLog.w("Check ETH Address 2 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA6"));
-        WLog.w("Check ETH Address 3 " + WKey.isValidEthAddress("0xf433e2d92fc15739E443E526EF595F8B021fA2"));
-        WLog.w("Check ETH Address 4 " + WKey.isValidEthAddress("f433e2d92fc1574839E443E526EF595F8B021fA3"));
+//        WLog.w("Check ETH Address 1 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA3"));
+//        WLog.w("Check ETH Address 2 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA6"));
+//        WLog.w("Check ETH Address 3 " + WKey.isValidEthAddress("0xf433e2d92fc15739E443E526EF595F8B021fA2"));
+//        WLog.w("Check ETH Address 4 " + WKey.isValidEthAddress("f433e2d92fc1574839E443E526EF595F8B021fA3"));
+
+
+
+        try {
+            WLog.w("es Address " + WKey.convertAddressEthToOkex("0xf433e2d92fc1574839e443e526ef595f8b021fa3"));
+            WLog.w("es Address " + WKey.convertAddressEthToOkex("f433e2d92fc1574839e443e526ef595f8b021fa3"));
+        }catch (Exception e) {}
     }
 }
