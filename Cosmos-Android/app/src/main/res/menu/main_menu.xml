@@ -3,8 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/menu_explorer"
+        android:icon="@drawable/btn_explorer"
+        app:showAsAction="always"
+        android:title="@string/str_web" />
+
+    <item
         android:id="@+id/menu_accounts"
-        android:icon="@drawable/accout_ic"
+        android:icon="@drawable/btn_switch_24"
         app:showAsAction="always"
         android:title="@string/str_accounts" />
 
