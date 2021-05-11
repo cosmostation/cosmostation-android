@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -18,9 +17,9 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 
 
 public class WalletAddressHolder extends BaseHolder {
@@ -28,8 +27,8 @@ public class WalletAddressHolder extends BaseHolder {
     public ImageView    itemKeyStatus;
     public ImageView    itemBtnCopy;
     public TextView     itemAddressTv;
-    public TextView     itemSwiAddressTv;
-    private String      newAddress;
+    public TextView     itemOKAddressTv;
+    private String      shareAddress;
 
     public WalletAddressHolder(@NonNull View itemView) {
         super(itemView);
@@ -37,30 +36,24 @@ public class WalletAddressHolder extends BaseHolder {
         itemKeyStatus       = itemView.findViewById(R.id.img_account);
         itemBtnCopy         = itemView.findViewById(R.id.address_detail);
         itemAddressTv       = itemView.findViewById(R.id.account_Address);
-        itemSwiAddressTv    = itemView.findViewById(R.id.switch_Address);
+        itemOKAddressTv     = itemView.findViewById(R.id.switch_Address);
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
-        try {
-            newAddress = WKey.convertAddressOkexToEth(mainActivity.mAccount.address);
-            if(newAddress.startsWith("0x")) {
-
-            }else {
-                Toast.makeText(mainActivity , "유효한 주소가 아닙니다." , Toast.LENGTH_SHORT).show();
-                return;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         if (mainActivity == null) return;
-        if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-            itemAddressTv.setText(newAddress);
-            itemSwiAddressTv.setVisibility(View.VISIBLE);
-            itemSwiAddressTv.setText(mainActivity.mAccount.address);
-        } else {
-            itemSwiAddressTv.setVisibility(View.GONE);
-            itemAddressTv.setText(mainActivity.mAccount.address);
-        }
+        try {
+            if (mainActivity.mBaseChain.equals(OKEX_MAIN) || mainActivity.mBaseChain.equals(OK_TEST)) {
+                shareAddress = WKey.convertAddressOkexToEth(mainActivity.mAccount.address);
+                itemAddressTv.setText(shareAddress);
+                itemOKAddressTv.setText(mainActivity.mAccount.address);
+                itemOKAddressTv.setVisibility(View.VISIBLE);
+            } else {
+                shareAddress = mainActivity.mAccount.address;
+                itemAddressTv.setText(mainActivity.mAccount.address);
+                itemOKAddressTv.setVisibility(View.GONE);
+            }
+        } catch (Exception e) {}
+
         if (mainActivity.mAccount.hasPrivateKey) {
             itemKeyStatus.setColorFilter(WDp.getChainColor(mainActivity, mainActivity.mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
         } else {
@@ -70,11 +63,7 @@ public class WalletAddressHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                if(mainActivity.mBaseChain.equals(OKEX_MAIN)) {
-                    bundle.putString("address", newAddress);
-                }else {
-                    bundle.putString("address", mainActivity.mAccount.address);
-                }
+                bundle.putString("address", shareAddress);
                 if (TextUtils.isEmpty(mainActivity.mAccount.nickName))
                     bundle.putString("title", mainActivity.getString(R.string.str_my_wallet) + mainActivity.mAccount.id);
                 else
@@ -84,21 +73,5 @@ public class WalletAddressHolder extends BaseHolder {
                 mainActivity.getSupportFragmentManager().beginTransaction().add(show, "dialog").commitNowAllowingStateLoss();
             }
         });
-
-        try {
-            WLog.w("eth Address " + WKey.convertAddressOkexToEth(mainActivity.mAccount.address));
-        }catch (Exception e) {}
-
-        WLog.w("Check ETH Address 1 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA3"));
-        WLog.w("Check ETH Address 2 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA6"));
-        WLog.w("Check ETH Address 3 " + WKey.isValidEthAddress("0xf433e2d92fc15739E443E526EF595F8B021fA2"));
-        WLog.w("Check ETH Address 4 " + WKey.isValidEthAddress("f433e2d92fc1574839E443E526EF595F8B021fA3"));
-
-
-
-        try {
-            WLog.w("es Address " + WKey.convertAddressEthToOkex("0xf433e2d92fc1574839e443e526ef595f8b021fa3"));
-            WLog.w("es Address " + WKey.convertAddressEthToOkex("f433e2d92fc1574839e443e526ef595f8b021fa3"));
-        }catch (Exception e) {}
     }
 }
