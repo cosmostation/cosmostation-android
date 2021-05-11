@@ -211,21 +211,21 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:TokenDetailHeaderBnbCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderBnbCell") as? TokenDetailHeaderBnbCell
-        let totalAmount = WUtils.getAllBnb(balance)
-        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
-        cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-        cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, 0, 6)
-        cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance?.balance_locked, cell!.lockedAmount.font, 0, 6)
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
-        cell?.actionRecieve = {
-            self.onRecieveToken()
-        }
-        cell?.BtnSendBep3.isHidden = false;
-        cell?.actionSendBep3 = {
-            self.onClickBep3Send(self.balance?.balance_denom)
-        }
+//        let totalAmount = WUtils.getAllBnb(balance)
+//        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
+//        cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+//        cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, 0, 6)
+//        cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance?.balance_locked, cell!.lockedAmount.font, 0, 6)
+//        cell?.actionSend  = {
+//            self.onSendToken()
+//        }
+//        cell?.actionRecieve = {
+//            self.onRecieveToken()
+//        }
+//        cell?.BtnSendBep3.isHidden = false;
+//        cell?.actionSendBep3 = {
+//            self.onClickBep3Send(self.balance?.balance_denom)
+//        }
         return cell!
     }
     
@@ -343,7 +343,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && okDenom != nil) {
             cell?.tokenInfoBtn.isHidden = false
             cell?.lockedLayer.isHidden = false
-            okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, okDenom!)
+            okToken = WUtils.getOkToken(okDenom!)
             let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
             cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
             cell?.tokenImg.af_setImage(withURL: URL(string: url)!)

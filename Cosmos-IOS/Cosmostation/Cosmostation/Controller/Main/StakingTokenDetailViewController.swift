@@ -32,6 +32,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCrytoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCrytoCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSifCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSifCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailExCell", bundle: nil), forCellReuseIdentifier: "TokenDetailExCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBnbCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -150,9 +151,12 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 cell?.onBindTokens(account!)
                 return cell!
                 
-            }
-            
-            else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ) {
+            } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailBnbCell") as? TokenDetailBnbCell
+                cell?.onBindTokens(account!)
+                return cell!
+                
+            } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailKavaCell") as? TokenDetailKavaCell
                 cell?.onBindTokens(account!)
                 return cell!

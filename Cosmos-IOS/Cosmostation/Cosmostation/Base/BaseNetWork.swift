@@ -823,6 +823,15 @@ class BaseNetWork {
         return ""
     }
     
+    static func bnbMiniTicUrl(_ chain: ChainType) -> String {
+        if (chain == ChainType.BINANCE_MAIN ) {
+            return BNB_URL + "api/v1/mini/ticker/24hr"
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/mini/ticker/24hr"
+        }
+        return ""
+    }
+    
     static func bnbHistoryUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.BINANCE_MAIN ) {
             return BNB_URL + "api/v1/transactions"

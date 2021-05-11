@@ -313,10 +313,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             self.tokenCnt.text = String(mainTabVC.mBalances.count)
             var allBnb = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
+                let amount = WUtils.getAllBnbToken(balance.balance_denom)
                 if (balance.balance_denom == BNB_MAIN_DENOM) {
-                    allBnb = allBnb.adding(WUtils.getAllBnb(balance))
+                    allBnb = allBnb.adding(amount)
                 } else {
-                    allBnb = allBnb.adding(balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics)))
+                    allBnb = allBnb.adding(WUtils.getBnbConvertAmount(balance.balance_denom, amount))
                 }
             }
             totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
@@ -369,7 +370,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 if (balance.balance_denom == OKEX_MAIN_DENOM) {
                     allOKT = allOKT.adding(WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding))
                 } else {
-                    let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
+                    let okToken = WUtils.getOkToken(balance.balance_denom)
                     let totalTokenAmount = balance.getAllAmountOKToken()
                     let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
                     let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
@@ -545,13 +546,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 }
                 
             } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-                let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
-                tokenDetailVC.hidesBottomBarWhenPushed = true
-                tokenDetailVC.balance = balance
-                tokenDetailVC.bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, mainTabVC.mBalances[indexPath.row])
-                tokenDetailVC.bnbTic = WUtils.getTicData(WUtils.getBnbTicSymbol(mainTabVC.mBalances[indexPath.row].balance_denom), mBnbTics)
-                self.navigationItem.title = ""
-                self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+                if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
+                    let sTokenDetailVC = StakingTokenDetailViewController(nibName: "StakingTokenDetailViewController", bundle: nil)
+                    sTokenDetailVC.hidesBottomBarWhenPushed = true
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
+                    
+                } else {
+                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+                    nTokenDetailVC.hidesBottomBarWhenPushed = true
+                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
+                    self.navigationItem.title = ""
+                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
+                }
                 
             } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
                 if (balance.balance_denom == WUtils.getMainDenom(chainType)) {
@@ -561,11 +568,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
                     
                 } else {
-                    let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
-                    tokenDetailVC.hidesBottomBarWhenPushed = true
+                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+                    nTokenDetailVC.hidesBottomBarWhenPushed = true
+                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
-                    tokenDetailVC.balance = balance
-                    self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
                 }
                 
                 
@@ -667,26 +674,26 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     func onSetBnbItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if let bnbToken = WUtils.getBnbToken(BaseData.instance.mBnbTokenList, balance) {
-            cell?.tokenSymbol.text = bnbToken.original_symbol.uppercased()
-            cell?.tokenTitle.text = "(" + bnbToken.symbol + ")"
-            cell?.tokenDescription.text = bnbToken.name
-            let totalAmount = WUtils.getAllBnb(balance)
-            if (balance.balance_denom == BNB_MAIN_DENOM) {
+        let denom = mainTabVC.mBalances[indexPath.row].balance_denom
+        let amount = WUtils.getAllBnbToken(denom)
+        let bnbToken = WUtils.getBnbToken(denom)
+        if (bnbToken != nil) {
+            cell?.tokenSymbol.text = bnbToken!.original_symbol.uppercased()
+            cell?.tokenTitle.text = "(" + bnbToken!.symbol + ")"
+            cell?.tokenDescription.text = bnbToken!.name
+            if (denom == BNB_MAIN_DENOM) {
                 cell?.tokenSymbol.textColor = COLOR_BNB
                 cell?.tokenImg.image = UIImage(named: "bnbTokenImg")
-                cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.tokenAmount.font, 0, 6)
-                cell?.tokenValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(amount.stringValue, cell!.tokenAmount.font, 0, 6)
+                cell?.tokenValue.attributedText = WUtils.dpBnbValue(amount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
             } else {
                 cell?.tokenSymbol.textColor = UIColor.white
-                cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.tokenAmount.font, 0, 6)
-                let convertAmount = balance.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol(balance.balance_denom), mBnbTics))
+                cell?.tokenImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + bnbToken!.original_symbol + ".png")!)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(amount.stringValue, cell!.tokenAmount.font, 0, 6)
+                let convertAmount = WUtils.getBnbConvertAmount(denom, amount)
                 cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
                 
-                let url = TOKEN_IMG_URL + bnbToken.original_symbol + ".png"
-                cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
             }
         }
         return cell!
@@ -833,7 +840,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func onSetOkItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
-        let okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList, balance.balance_denom)
+        let okToken = WUtils.getOkToken(balance.balance_denom)
         if (okToken == nil) {
             cell?.tokenSymbol.textColor = UIColor.white
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
@@ -1047,27 +1054,28 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     func onFetchBnbTokenPrice() {
-        for i in 0..<mainTabVC.mBalances.count {
-            if (!(mainTabVC.mBalances[i].balance_denom == BNB_MAIN_DENOM)) {
-                let ticSymbol = WUtils.getBnbTicSymbol(mainTabVC.mBalances[i].balance_denom)
-                let request = Alamofire.request(BaseNetWork.bnbTicUrl(chainType), method: .get, parameters: ["symbol":ticSymbol], encoding: URLEncoding.default, headers: [:])
-                request.responseJSON { (response) in
-                    switch response.result {
-                    case .success(let res):
-                        if let tics = res as? Array<NSDictionary> {
-                            if (tics.count > 0) {
-                                self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
-                                self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
-                            }
-                        }
-                        self.onUpdateTotalCard()
-
-                    case .failure(let error):
-                        if (SHOW_LOG) { print("onFetchBnbTokenPrice ", ticSymbol, " ", error) }
-                    }
-                }
-            }
-        }
+//        for i in 0..<mainTabVC.mBalances.count {
+//            if (!(mainTabVC.mBalances[i].balance_denom == BNB_MAIN_DENOM)) {
+//                let ticSymbol = WUtils.getBnbTicSymbol(mainTabVC.mBalances[i].balance_denom)
+//                let request = Alamofire.request(BaseNetWork.bnbTicUrl(chainType), method: .get, parameters: ["symbol":ticSymbol], encoding: URLEncoding.default, headers: [:])
+//                print("request ", request.request?.url)
+//                request.responseJSON { (response) in
+//                    switch response.result {
+//                    case .success(let res):
+//                        if let tics = res as? Array<NSDictionary> {
+//                            if (tics.count > 0) {
+//                                self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
+//                                self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
+//                            }
+//                        }
+//                        self.onUpdateTotalCard()
+//
+//                    case .failure(let error):
+//                        if (SHOW_LOG) { print("onFetchBnbTokenPrice ", ticSymbol, " ", error) }
+//                    }
+//                }
+//            }
+//        }
     }
     
     func onFetchOkTokenPrice() {

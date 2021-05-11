@@ -68,6 +68,7 @@ final class BaseData : NSObject{
     var mReserveCoins: Array<Coin>?
     
     var mBnbTokenList = Array<BnbToken>()
+    var mBnbTokenTicker = Array<BnbTicker>()
     
     var mOkAccountInfo: OkAccountInfo?
     var mOkTokenList: OkTokenList?
@@ -82,11 +83,25 @@ final class BaseData : NSObject{
     var mBandOracleStatus: BandOracleStatus?
     
     
+    func getBalance(_ symbol:String?) -> Balance? {
+        return mBalances.filter {$0.balance_denom == symbol}.first
+    }
+    
     func availableAmount(_ symbol:String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in mBalances {
             if (balance.balance_denom == symbol) {
                 amount = WUtils.plainStringToDecimal(balance.balance_amount)
+            }
+        }
+        return amount;
+    }
+    
+    func frozenAmount(_ symbol:String) -> NSDecimalNumber {
+        var amount = NSDecimalNumber.zero
+        for balance in mBalances {
+            if (balance.balance_denom == symbol) {
+                amount = WUtils.plainStringToDecimal(balance.balance_frozen)
             }
         }
         return amount;

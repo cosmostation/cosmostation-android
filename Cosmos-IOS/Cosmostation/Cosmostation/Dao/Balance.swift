@@ -18,6 +18,7 @@ public class Balance {
     var balance_frozen:String?
     var balance_locked:String?
     
+    //binance amount = available, frozen == frozen amount, locked == locked amount
     init(_ id:Int64, _ accout_id:Int64, _ demon:String, _ amount:String, _ fetch_time:Int64, _ frozen:String?, _ locked:String?) {
         self.balance_id = id;
         self.balance_account_id = accout_id;
@@ -72,7 +73,7 @@ public class Balance {
         if (tic == nil || tic!.object(forKey: "lastPrice") == nil) {
             return NSDecimalNumber.zero
         }
-        if (WUtils.isBnbMArketToken(self.balance_denom)) {
+        if (WUtils.isBnbMarketToken(self.balance_denom)) {
             return getAllAmountBnbToken().dividing(by: NSDecimalNumber(string: tic!.object(forKey: "lastPrice") as? String), withBehavior: WUtils.handler8)
         } else {
             return getAllAmountBnbToken().multiplying(by: NSDecimalNumber(string: tic!.object(forKey: "lastPrice") as? String), withBehavior: WUtils.handler8)

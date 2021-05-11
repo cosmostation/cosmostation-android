@@ -1506,11 +1506,12 @@ class WUtils {
         return sum
     }
     
-    static func getAllBnb(_ balance:Balance?) ->  NSDecimalNumber {
-        if (balance == nil) {
-            return NSDecimalNumber.zero
-        }
-        return plainStringToDecimal(balance!.balance_amount).adding(plainStringToDecimal(balance!.balance_locked))
+    static func getAllBnb() -> NSDecimalNumber {
+        return BaseData.instance.availableAmount(BNB_MAIN_DENOM).adding(BaseData.instance.frozenAmount(BNB_MAIN_DENOM)).adding(BaseData.instance.lockedAmount(BNB_MAIN_DENOM))
+    }
+    
+    static func getAllBnbToken(_ symbol: String) -> NSDecimalNumber {
+        return BaseData.instance.availableAmount(symbol).adding(BaseData.instance.frozenAmount(symbol)).adding(BaseData.instance.lockedAmount(symbol))
     }
     
     
@@ -1584,22 +1585,23 @@ class WUtils {
         return NSDecimalNumber.zero
     }
     
-    static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ balance:Balance) -> BnbToken? {
-        for bnbToken in bnbTokens {
-            if (bnbToken.symbol == balance.balance_denom) {
-                return bnbToken
-            }
-        }
-        return nil
+    static func getBnbToken(_ symbol: String?) -> BnbToken? {
+        return BaseData.instance.mBnbTokenList.filter{ $0.symbol == symbol }.first
     }
     
-    static func getBnbToken(_ bnbTokens:Array<BnbToken>, _ denom:String) -> BnbToken? {
-        for bnbToken in bnbTokens {
-            if (bnbToken.symbol == denom) {
-                return bnbToken
+    static func getBnbTokenTic(_ symbol: String?) -> BnbTicker? {
+        return BaseData.instance.mBnbTokenTicker.filter { $0.symbol == getBnbTicSymbol(symbol!)}.first
+    }
+    
+    static func getBnbConvertAmount(_ symbol: String?, _ amount: NSDecimalNumber) -> NSDecimalNumber {
+        if let ticker = getBnbTokenTic(symbol) {
+            if (isBnbMarketToken(symbol)) {
+                return amount.dividing(by: ticker.getLastPrice(), withBehavior: WUtils.handler8)
+            } else {
+                return amount.multiplying(by: ticker.getLastPrice(), withBehavior: WUtils.handler8)
             }
         }
-        return nil
+        return NSDecimalNumber.zero
     }
     
     static func getBnbMainToken(_ bnbTokens:Array<BnbToken>) -> BnbToken? {
@@ -1611,14 +1613,8 @@ class WUtils {
         return nil
     }
     
-    static func getOkToken(_ okTokenList: OkTokenList?, _ symbol:String) -> OkToken? {
-        if (okTokenList == nil || okTokenList?.data == nil) { return nil}
-        for okToken in okTokenList!.data! {
-            if (okToken.symbol == symbol) {
-                return okToken
-            }
-        }
-        return nil
+    static func getOkToken(_ symbol:String?) -> OkToken? {
+        return BaseData.instance.mOkTokenList?.data?.filter { $0.symbol == symbol}.first
     }
     
     static func getTokenAmount(_ balances:Array<Balance>?, _ symbol:String) -> NSDecimalNumber {
@@ -2002,7 +1998,7 @@ class WUtils {
             
     }
     
-    static func isBnbMArketToken(_ symbol:String) ->Bool {
+    static func isBnbMarketToken(_ symbol:String?) ->Bool {
         switch symbol {
         case "USDT.B-B7C":
             return true
@@ -2034,7 +2030,7 @@ class WUtils {
     }
     
     static func getBnbTicSymbol(_ symbol:String) -> String {
-        if (isBnbMArketToken(symbol)) {
+        if (isBnbMarketToken(symbol)) {
             return BNB_MAIN_DENOM + "_" + symbol
         } else {
             return  "" + symbol + "_" + BNB_MAIN_DENOM
@@ -4378,7 +4374,7 @@ class WUtils {
         return String(result)
     }
     
-    static func isGRPC(_ chain: ChainType) -> Bool {
+    static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
             return true
