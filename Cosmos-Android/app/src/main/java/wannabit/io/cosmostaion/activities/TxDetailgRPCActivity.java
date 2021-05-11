@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,6 +44,8 @@ import wannabit.io.cosmostaion.widget.TxUnjailHolder;
 import wannabit.io.cosmostaion.widget.TxUnknownHolder;
 import wannabit.io.cosmostaion.widget.TxVoterHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.ERROR_CODE_UNKNOWN;
 
@@ -56,6 +59,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
     private LinearLayout    mControlLayer;
     private Button          mDismissBtn;
     private Button          mShareBtn;
+    private Button          mExplorerBtn;
 
     private boolean         mIsGen;
     private boolean         mIsSuccess;
@@ -79,6 +83,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         mControlLayer = findViewById(R.id.control_layer);
         mShareBtn = findViewById(R.id.btn_share);
         mDismissBtn = findViewById(R.id.btn_dismiss);
+        mExplorerBtn = findViewById(R.id.btn_explorer);
 
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -94,6 +99,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
         mShareBtn.setOnClickListener(this);
         mDismissBtn.setOnClickListener(this);
+        mExplorerBtn.setOnClickListener(this);
 
         mTxRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mTxRecyclerView.setHasFixedSize(true);
@@ -153,6 +159,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
             shareIntent.putExtra(Intent.EXTRA_TEXT, WUtil.getTxExplorer(mBaseChain, mResponse.getTxResponse().getTxhash()));
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
+
+        } else if (v.equals(mExplorerBtn)) {
+                String url  = WUtil.getExplorer(mBaseChain) + "txs/" + mResponse.getTxResponse().getTxhash();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
         }
 
     }

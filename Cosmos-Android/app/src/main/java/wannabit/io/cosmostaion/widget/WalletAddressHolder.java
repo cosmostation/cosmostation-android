@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -28,6 +29,7 @@ public class WalletAddressHolder extends BaseHolder {
     public ImageView    itemBtnCopy;
     public TextView     itemAddressTv;
     public TextView     itemSwiAddressTv;
+    private String      newAddress;
 
     public WalletAddressHolder(@NonNull View itemView) {
         super(itemView);
@@ -39,8 +41,20 @@ public class WalletAddressHolder extends BaseHolder {
     }
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
+        try {
+            newAddress = WKey.convertAddressOkexToEth(mainActivity.mAccount.address);
+            if(newAddress.startsWith("0x")) {
+
+            }else {
+                Toast.makeText(mainActivity , "유효한 주소가 아닙니다." , Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         if (mainActivity == null) return;
         if (mainActivity.mBaseChain.equals(OKEX_MAIN)) {
+            itemAddressTv.setText(newAddress);
             itemSwiAddressTv.setVisibility(View.VISIBLE);
             itemSwiAddressTv.setText(mainActivity.mAccount.address);
         } else {
@@ -56,7 +70,11 @@ public class WalletAddressHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("address", mainActivity.mAccount.address);
+                if(mainActivity.mBaseChain.equals(OKEX_MAIN)) {
+                    bundle.putString("address", newAddress);
+                }else {
+                    bundle.putString("address", mainActivity.mAccount.address);
+                }
                 if (TextUtils.isEmpty(mainActivity.mAccount.nickName))
                     bundle.putString("title", mainActivity.getString(R.string.str_my_wallet) + mainActivity.mAccount.id);
                 else
@@ -71,10 +89,10 @@ public class WalletAddressHolder extends BaseHolder {
             WLog.w("eth Address " + WKey.convertAddressOkexToEth(mainActivity.mAccount.address));
         }catch (Exception e) {}
 
-//        WLog.w("Check ETH Address 1 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA3"));
-//        WLog.w("Check ETH Address 2 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA6"));
-//        WLog.w("Check ETH Address 3 " + WKey.isValidEthAddress("0xf433e2d92fc15739E443E526EF595F8B021fA2"));
-//        WLog.w("Check ETH Address 4 " + WKey.isValidEthAddress("f433e2d92fc1574839E443E526EF595F8B021fA3"));
+        WLog.w("Check ETH Address 1 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA3"));
+        WLog.w("Check ETH Address 2 " + WKey.isValidEthAddress("0xf433e2d92fc1574839E443E526EF595F8B021fA6"));
+        WLog.w("Check ETH Address 3 " + WKey.isValidEthAddress("0xf433e2d92fc15739E443E526EF595F8B021fA2"));
+        WLog.w("Check ETH Address 4 " + WKey.isValidEthAddress("f433e2d92fc1574839E443E526EF595F8B021fA3"));
 
 
 

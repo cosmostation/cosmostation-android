@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -483,7 +484,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mAccountName.setText(mAccount.nickName);
         }
 
-        mAccountAddress.setText(mAccount.address);
+        if (mBaseChain.equals(OKEX_MAIN)) {
+            try {
+                mAccountAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            mAccountAddress.setText(mAccount.address);
+        }
         mAccountGenTime.setText(WDp.getDpTime(getBaseContext(), mAccount.importTime));
 
         if (mAccount.hasPrivateKey) {
@@ -568,7 +577,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
         } else if (v.equals(mBtnQr)) {
             Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
+            if (mBaseChain.equals(OKEX_MAIN)) {
+                try {
+                    bundle.putString("address", WKey.convertAddressOkexToEth(mAccount.address));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                bundle.putString("address", mAccount.address);
+            }
             bundle.putString("title", mAccountName.getText().toString());
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
             show.setCancelable(true);

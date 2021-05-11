@@ -142,6 +142,17 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
                 return;
             }
 
+            if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+                if(userInput.startsWith("0x")) {
+                    try {
+                        userInput = WKey.convertAddressEthToOkex(userInput);
+                        WKey.isValidBech32(userInput);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
             if (getSActivity().mAccount.address.equals(userInput)) {
                 Toast.makeText(getContext(), R.string.error_self_sending, Toast.LENGTH_SHORT).show();
                 return;

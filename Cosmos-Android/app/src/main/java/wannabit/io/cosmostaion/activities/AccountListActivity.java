@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dialog.Dialog_AddAccount;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -407,7 +408,15 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                 final Account account = mAccounts.get(position);
 
                 WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
-                holder.accountAddress.setText(account.address);
+                if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
+                    try {
+                        holder.accountAddress.setText(WKey.convertAddressOkexToEth(account.address));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    holder.accountAddress.setText(account.address);
+                }
                 holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
                 holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
                 if (account.hasPrivateKey) {
