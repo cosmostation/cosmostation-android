@@ -51,6 +51,7 @@ import wannabit.io.cosmostaion.fragment.MainSettingFragment;
 import wannabit.io.cosmostaion.fragment.MainTokensFragment;
 import wannabit.io.cosmostaion.utils.FetchCallBack;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.FadePageTransformer;
 import wannabit.io.cosmostaion.widget.StopViewPager;
@@ -960,7 +961,15 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
 
                 WDp.DpMainDenom(getBaseContext(), account.baseChain, holder.accountDenom);
-                holder.accountAddress.setText(account.address);
+                if (BaseChain.getChain(account.baseChain).equals(OKEX_MAIN)) {
+                    try {
+                        holder.accountAddress.setText(WKey.convertAddressOkexToEth(account.address));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    holder.accountAddress.setText(account.address);
+                }
                 holder.accountAvailable.setText(account.getLastTotal(getBaseContext(), BaseChain.getChain(account.baseChain)));
                 holder.accountKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
                 if (account.hasPrivateKey) {

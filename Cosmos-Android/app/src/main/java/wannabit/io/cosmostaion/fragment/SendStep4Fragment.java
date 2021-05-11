@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,8 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -347,7 +350,15 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
             }
         }
 
-        mRecipientAddress.setText(getSActivity().mToAddress);
+        if(getSActivity().mBaseChain.equals(OKEX_MAIN)) {
+            try {
+                mRecipientAddress.setText(WKey.convertAddressOkexToEth(getSActivity().mToAddress));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            mRecipientAddress.setText(getSActivity().mToAddress);
+        }
         mRecipientStartName.setVisibility(View.GONE);
 //        if (TextUtils.isEmpty(getSActivity().mStarName)) {
 //            mRecipientStartName.setVisibility(View.GONE);

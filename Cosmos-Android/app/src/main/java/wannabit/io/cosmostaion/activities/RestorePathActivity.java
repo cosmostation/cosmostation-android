@@ -162,7 +162,15 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
         public void onBindViewHolder(@NonNull final NewWalletHolder holder, @SuppressLint("RecyclerView") final int position) {
             String address = WKey.getDpAddressWithPath(mHdSeed, mChain, position, mIsNewBip44);
             holder.newPath.setText(WDp.getPath(mChain, position, mIsNewBip44));
-            holder.newAddress.setText(address);
+            if (mChain.equals(OKEX_MAIN)) {
+                try {
+                    holder.newAddress.setText(WKey.convertAddressOkexToEth(address));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                holder.newAddress.setText(address);
+            }
             final Account temp = getBaseDao().onSelectExistAccount(address, mChain);
             if (temp == null) {
                 holder.newState.setText(getString(R.string.str_ready));

@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import cosmos.tx.v1beta1.ServiceOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
-import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -22,7 +20,6 @@ public class TxCommonHolder extends TxHolder {
             itemTime, itemTimeGap, itemMemo, itemFee, itemFeeDenom , itemFeeUsed, itemFeeUsedDenom,
             itemFeeLimit, itemFeeLimitDenom;
     RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemFeeLimitLayer;
-    ImageView itemBtnHashLink;
 
     public TxCommonHolder(@NonNull View itemView) {
         super(itemView);
@@ -36,7 +33,6 @@ public class TxCommonHolder extends TxHolder {
         itemTimeGap = itemView.findViewById(R.id.tx_block_time_gap);
         itemHash = itemView.findViewById(R.id.tx_hash);
         itemMemo = itemView.findViewById(R.id.str_tx_memo);
-        itemBtnHashLink = itemView.findViewById(R.id.tx_hash_link);
 
         itemFeeLayer = itemView.findViewById(R.id.tx_fee_layer);
         itemFee = itemView.findViewById(R.id.tx_fee);
@@ -71,16 +67,5 @@ public class TxCommonHolder extends TxHolder {
         itemTimeGap.setText(WDp.getTimeTxGap(c, response.getTxResponse().getTimestamp()));
         itemHash.setText(response.getTxResponse().getTxhash());
         itemMemo.setText(response.getTx().getBody().getMemo());
-
-        itemBtnHashLink.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent webintent = new Intent(c, WebActivity.class);
-                webintent.putExtra("txid", response.getTxResponse().getTxhash());
-                webintent.putExtra("chain", baseChain.getChain());
-                webintent.putExtra("goMain", isGen);
-                c.startActivity(webintent);
-            }
-        });
     }
 }
