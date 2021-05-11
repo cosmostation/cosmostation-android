@@ -135,7 +135,16 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
     private void onGenWords() {
         mEntropy = WKey.getEntropy();
         mWords = new ArrayList<String>(WKey.getRandomMnemonic(mEntropy));
-        mAddress.setText(WKey.getDpAddressFromEntropy(mChain, mEntropy, true));
+        if (mChain.equals(OKEX_MAIN)) {
+            try {
+                mAddress.setText(WKey.convertAddressOkexToEth(WKey.getDpAddressFromEntropy(mChain, mEntropy, true)));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            mAddress.setText(WKey.getDpAddressFromEntropy(mChain, mEntropy, true));
+        }
+
     }
 
 

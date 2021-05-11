@@ -255,20 +255,9 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                <ImageView
-                    android:id="@+id/tx_hash_link"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="@dimen/space_8"
-                    android:paddingTop="@dimen/space_8"
-                    android:paddingBottom="@dimen/space_8"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/wallet_detail_btn"/>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/tx_hash_link"
                     android:orientation="vertical">
                     <TextView
                         android:layout_width="wrap_content"

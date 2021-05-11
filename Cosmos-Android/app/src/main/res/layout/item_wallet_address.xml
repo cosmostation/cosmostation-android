@@ -68,7 +68,7 @@
                 android:layout_marginTop="@dimen/space_2"
                 style="@style/font_ss_12_white"
                 android:singleLine="true"
-                android:text="dsafdsfadsfadfafafasdfadfadfasdfsdf"/>
+                android:text=""/>
             <TextView
                 android:id="@+id/switch_Address"
                 android:layout_width="wrap_content"
@@ -78,7 +78,7 @@
                 style="@style/font_ss_12_gray1"
                 android:singleLine="true"
                 android:visibility="gone"
-                android:text="dsafdsfadsfadfafafasdfadfadfasdfsdf"/>
+                android:text=""/>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
