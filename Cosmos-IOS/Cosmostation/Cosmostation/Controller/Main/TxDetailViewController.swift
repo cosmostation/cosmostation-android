@@ -13,9 +13,8 @@ import SafariServices
 class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var txTableView: UITableView!
-    @IBOutlet weak var htlcRefundBtn: UIButton!
-    @IBOutlet weak var dismissBtn: UIButton!
     @IBOutlet weak var controlLayer: UIStackView!
+    @IBOutlet weak var htlcRefundBtn: UIButton!
     @IBOutlet weak var errorLayer: CardView!
     @IBOutlet weak var errorCode: UILabel!
     @IBOutlet weak var loadingLayer: UIView!
@@ -355,9 +354,9 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(mTxInfo?.simpleFee().stringValue, cell!.feeAmountLabel.font!, decimal, decimal)
             
         }
-        cell?.actionHashCheck = {
-            self.onClickExplorer()
-        }
+//        cell?.actionHashCheck = {
+//            self.onClickExplorer()
+//        }
         
         return cell!
     }
@@ -976,7 +975,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         
     }
     
-    func onClickExplorer() {
+    @IBAction func onClickExplorer(_ sender: UIButton) {
         var hash = ""
         if (mTxInfo?.hash != nil) {
             hash = mTxInfo!.hash!
