@@ -42,6 +42,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.TxCdpLiquidate;
@@ -222,6 +223,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
         mDismissBtn.setOnClickListener(this);
         mRefundBtn.setOnClickListener(this);
         mShareBtn.setOnClickListener(this);
+        mExplorerBtn.setOnClickListener(this);
     }
 
     @Override
@@ -284,9 +286,13 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             shareIntent.setType("text/plain");
             startActivity(Intent.createChooser(shareIntent, "send"));
 
-        } else if (v.equals(mExplorerBtn)) {
+        } else if(v.equals(mExplorerBtn)) {
             if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
                 String url  = WUtil.getExplorer(mBaseChain) + "txs/" + mResBnbTxInfo.hash;
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                String url  = WUtil.getExplorer(mBaseChain) + "tx/" + "0x" + mResTxInfo.txhash;
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)){
@@ -733,7 +739,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 holder.itemFeeLayer.setVisibility(View.VISIBLE);
                 holder.itemTime.setText(WDp.getTimeTxformat(getBaseContext(), mResTxInfo.timestamp));
                 holder.itemTimeGap.setText(WDp.getTimeTxGap(getBaseContext(), mResTxInfo.timestamp));
-                holder.itemHash.setText(mResTxInfo.txhash);
+                holder.itemHash.setText("0x"+mResTxInfo.txhash);
                 holder.itemMemo.setText(mResTxInfo.tx.value.memo);
 
             } else {
@@ -763,41 +769,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
             }
 
-//            holder.itemBtnHashLink.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-//                        String url  = WUtil.getExplorer(mBaseChain) + "txs/" + mResBnbTxInfo.hash;
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//                        startActivity(intent);
-//                    } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
-//                        String url  = WUtil.getExplorer(mBaseChain) + "txs/" + mResTxInfo.txhash;
-//                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-//                        startActivity(intent);
-//                    } else {
-//                        return;
-//                    }
-//                }
-//            });
-
-            holder.itemBtnHashLink.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                    if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                        webintent.putExtra("txid", mResBnbTxInfo.hash);
-                    } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)) {
-                        webintent.putExtra("txid", mResTxInfo.txhash);
-                    } else {
-                        return;
-                    }
-                    webintent.putExtra("chain", mBaseChain.getChain());
-                    webintent.putExtra("goMain", mIsGen);
-                    startActivity(webintent);
-                }
-            });
-
-
         }
 
         private void onBindTransfer(RecyclerView.ViewHolder viewHolder, int position) {
@@ -820,7 +791,7 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             } else {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
                 ArrayList<Coin> toDpCoin = new ArrayList<>();
-                if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER2) || msg.type.equals(OK_MSG_TYPE_TRANSFER) || msg.type.equals(CERTIK_MSG_TYPE_TRANSFER)) {
+                if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER2) || msg.type.equals(CERTIK_MSG_TYPE_TRANSFER)) {
                     holder.itemFromAddress.setText(msg.value.from_address);
                     holder.itemToAddress.setText(msg.value.to_address);
                     if (mAccount.address.equals(msg.value.from_address)) {
@@ -832,6 +803,21 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     toDpCoin = WDp.getCoins(msg.value.amount);
                     WUtil.onSortingCoins(toDpCoin, mBaseChain);
 
+                } else if (msg.type.equals(OK_MSG_TYPE_TRANSFER)) {
+                    try {
+                        holder.itemFromAddress.setText(WKey.convertAddressOkexToEth(msg.value.from_address));
+                        holder.itemToAddress.setText(WKey.convertAddressOkexToEth(msg.value.to_address));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    if (mAccount.address.equals(msg.value.from_address)) {
+                        holder.itemSendRecieveTv.setText(R.string.tx_send);
+                    }
+                    if (mAccount.address.equals(msg.value.to_address)) {
+                        holder.itemSendRecieveTv.setText(R.string.tx_receive);
+                    }
+                    toDpCoin = WDp.getCoins(msg.value.amount);
+                    WUtil.onSortingCoins(toDpCoin, mBaseChain);
 
                 } else if (msg.type.equals(COSMOS_MSG_TYPE_TRANSFER3) && (msg.value.inputs != null && msg.value.outputs != null)) {
                     holder.itemFromAddress.setText(msg.value.inputs.get(0).address);
@@ -845,8 +831,12 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     toDpCoin = msg.value.inputs.get(0).coins;
 
                 } else if (msg.type.equals(OK_MSG_TYPE_MULTI_TRANSFER)) {
-                    holder.itemFromAddress.setText(msg.value.from);
-                    holder.itemToAddress.setText(msg.value.transfers.get(0).to);
+                    try {
+                        holder.itemFromAddress.setText(WKey.convertAddressOkexToEth(msg.value.from));
+                        holder.itemToAddress.setText(WKey.convertAddressOkexToEth(msg.value.transfers.get(0).to));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     if (mAccount.address.equals(msg.value.from)) {
                         holder.itemSendRecieveTv.setText(R.string.tx_send);
                     }
@@ -1472,7 +1462,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     itemTime, itemTimeGap, itemMemo, itemFee, itemFeeDenom, itemFeeUsed, itemFeeUsedDenom,
                     itemFeeLimit, itemFeeLimitDenom;
             RelativeLayout itemFeeLayer, itemFeeUsedLayer, itemFeeLimitLayer;
-            ImageView itemBtnHashLink;
 
             public TxCommonHolder(@NonNull View itemView) {
                 super(itemView);
@@ -1486,7 +1475,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                 itemTimeGap = itemView.findViewById(R.id.tx_block_time_gap);
                 itemHash = itemView.findViewById(R.id.tx_hash);
                 itemMemo = itemView.findViewById(R.id.str_tx_memo);
-                itemBtnHashLink = itemView.findViewById(R.id.tx_hash_link);
 
                 itemFeeLayer = itemView.findViewById(R.id.tx_fee_layer);
                 itemFee = itemView.findViewById(R.id.tx_fee);
