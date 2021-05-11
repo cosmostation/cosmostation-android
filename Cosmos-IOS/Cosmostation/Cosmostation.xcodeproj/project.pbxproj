@@ -530,6 +530,8 @@
 		28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */; };
 		28BBAAC6264945890013A555 /* WalletOkAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */; };
 		28BBAAC7264945890013A555 /* WalletOkAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */; };
+		28BBAACA264A2C1B0013A555 /* TokenDetailExCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */; };
+		28BBAACB264A2C1B0013A555 /* TokenDetailExCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */; };
 		28C41FEC24A1FF60007C5072 /* TxRewardAllCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */; };
 		28C41FED24A1FF60007C5072 /* TxRewardAllCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */; };
 		28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28CAAB6B25AC414A00416AA5 /* OkHistory.swift */; };
@@ -1333,6 +1335,8 @@
 		28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameDomain.swift; sourceTree = "<group>"; };
 		28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletOkAddressCell.swift; sourceTree = "<group>"; };
 		28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOkAddressCell.xib; sourceTree = "<group>"; };
+		28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailExCell.swift; sourceTree = "<group>"; };
+		28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailExCell.xib; sourceTree = "<group>"; };
 		28C41FEA24A1FF60007C5072 /* TxRewardAllCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxRewardAllCell.swift; sourceTree = "<group>"; };
 		28C41FEB24A1FF60007C5072 /* TxRewardAllCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxRewardAllCell.xib; sourceTree = "<group>"; };
 		28CAAB6B25AC414A00416AA5 /* OkHistory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkHistory.swift; sourceTree = "<group>"; };
@@ -1902,6 +1906,8 @@
 				283D2EB224F6250F00247424 /* TokenDetailHeaderOkCell.xib */,
 				28CFB6AB2613422200A18634 /* TokenDetailAkashCell.swift */,
 				28CFB6AC2613422200A18634 /* TokenDetailAkashCell.xib */,
+				28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */,
+				28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */,
 				28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */,
 				28CFB6B62613594D00A18634 /* TokenDetailPersistenceCell.xib */,
 				288E1744262812620017322E /* TokenDetailCrytoCell.swift */,
@@ -2875,6 +2881,7 @@
 				282FF35223F5172E0028CC66 /* TxTransferCell.xib in Resources */,
 				28B325222637FDDD00275AED /* MemoMnemonicPopup.xib in Resources */,
 				2889FD832603484000CA9896 /* TxIncentiveHardCell.xib in Resources */,
+				28BBAACB264A2C1B0013A555 /* TokenDetailExCell.xib in Resources */,
 				28D7BE7E25F10636006EECD7 /* HardListMyStatusCell.xib in Resources */,
 				283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
@@ -3024,6 +3031,7 @@
 				28D7BDA125F0B707006EECD7 /* KavaIncentiveParam.swift in Sources */,
 				287AC5B025FDF7250070837E /* cosmos_evidence_v1beta1_query.grpc.swift in Sources */,
 				282FF34523F5062A0028CC66 /* TxDelegateCell.swift in Sources */,
+				28BBAACA264A2C1B0013A555 /* TokenDetailExCell.swift in Sources */,
 				E1069B14229698CB007517DC /* StepChangeCheckViewController.swift in Sources */,
 				E1A82DEA2244A20B0097CAEE /* BondingInfo.swift in Sources */,
 				287AC5D725FDF7260070837E /* akash_cert_v1beta1_cert.pb.swift in Sources */,

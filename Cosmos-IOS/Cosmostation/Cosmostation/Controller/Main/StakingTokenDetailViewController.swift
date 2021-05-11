@@ -31,14 +31,20 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCrytoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCrytoCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSifCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSifCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailExCell", bundle: nil), forCellReuseIdentifier: "TokenDetailExCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
         self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
         self.tokenDetailTableView.estimatedRowHeight = UITableView.automaticDimension
         
-        dpAddress.text = account?.account_address
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        dpAddress.text = address
         dpAddress.adjustsFontSizeToFitWidth = true
+        
         if (account?.account_has_private == true) {
             keyState.image = keyState.image?.withRenderingMode(.alwaysTemplate)
             keyState.tintColor = WUtils.getChainColor(chainType)
@@ -59,13 +65,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
     }
-
     
-    @IBAction func onClickWebLink(_ sender: UIButton) {
-        let link = WUtils.getAccountExplorer(chainType!, account!.account_address)
-        guard let url = URL(string: link) else { return }
-        self.onShowSafariWeb(url)
-    }
     
     @IBAction func onClickShare(_ sender: UIButton) {
         var nickName:String?
@@ -74,7 +74,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         } else {
             nickName = account!.account_nick_name
         }
-        self.shareAddress(account!.account_address, nickName!)
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {
@@ -140,6 +144,12 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailSifCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
+                
+            } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailExCell") as? TokenDetailExCell
+                cell?.onBindTokens(account!)
+                return cell!
+                
             }
             
             else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST ) {

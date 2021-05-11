@@ -102,12 +102,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         }
     }
-
-    @IBAction func onClickWebLink(_ sender: UIButton) {
-        let link = WUtils.getAccountExplorer(chainType!, account!.account_address)
-        guard let url = URL(string: link) else { return }
-        self.onShowSafariWeb(url)
-    }
+    
     
     @IBAction func onClickShare(_ sender: UIButton) {
         var nickName:String?

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -26,17 +26,17 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FrB-WI-DO7" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                    <rect key="frame" x="12" y="52" width="390" height="76"/>
+                    <rect key="frame" x="12" y="52" width="390" height="73.5"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_off" translatesAutoresizingMaskIntoConstraints="NO" id="hNd-uN-dtn">
-                            <rect key="frame" x="12" y="13" width="22" height="22"/>
+                            <rect key="frame" x="12" y="12.5" width="22" height="22"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="22" id="Ro5-ej-WaC"/>
                                 <constraint firstAttribute="width" constant="22" id="dUP-ch-v1Y"/>
                             </constraints>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aje-cc-eDf">
-                            <rect key="frame" x="38" y="16" width="49.5" height="16"/>
+                            <rect key="frame" x="38" y="16" width="46.5" height="14.5"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="enX-fG-dtF"/>
                             </constraints>
@@ -44,30 +44,19 @@
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jX9-aA-4c8">
-                            <rect key="frame" x="322" y="12" width="24" height="24"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="24" id="JTK-fN-ZAu"/>
-                                <constraint firstAttribute="height" constant="24" id="cXo-hx-2xH"/>
-                            </constraints>
-                            <state key="normal" image="walletDetailBtn"/>
-                            <connections>
-                                <action selector="onClickWebLink:" destination="-1" eventType="touchUpInside" id="Mfm-hE-cwi"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3SZ-5K-ZCk">
-                            <rect key="frame" x="356" y="12" width="24" height="24"/>
+                            <rect key="frame" x="356" y="11.5" width="24" height="24"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="24" id="3Vu-q0-mh3"/>
                                 <constraint firstAttribute="height" constant="24" id="aW2-yc-wuQ"/>
                             </constraints>
-                            <state key="normal" image="qrcodeIc"/>
+                            <state key="normal" image="btnCopy"/>
                             <connections>
                                 <action selector="onClickShare:" destination="-1" eventType="touchUpInside" id="f7S-Nz-aBC"/>
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HWa-tK-eIE">
-                            <rect key="frame" x="12" y="44" width="366" height="16"/>
+                            <rect key="frame" x="12" y="42.5" width="366" height="15"/>
                             <constraints>
                                 <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="BGi-Py-RIV"/>
                             </constraints>
@@ -78,14 +67,12 @@
                     </subviews>
                     <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
-                        <constraint firstItem="jX9-aA-4c8" firstAttribute="centerY" secondItem="Aje-cc-eDf" secondAttribute="centerY" id="9tf-pS-SMR"/>
                         <constraint firstAttribute="bottom" secondItem="HWa-tK-eIE" secondAttribute="bottom" constant="16" id="BuM-xq-Rbj"/>
                         <constraint firstItem="hNd-uN-dtn" firstAttribute="leading" secondItem="FrB-WI-DO7" secondAttribute="leading" constant="12" id="HqE-sm-sFm"/>
                         <constraint firstAttribute="trailing" secondItem="3SZ-5K-ZCk" secondAttribute="trailing" constant="10" id="LLN-mN-AJS"/>
                         <constraint firstItem="HWa-tK-eIE" firstAttribute="leading" secondItem="FrB-WI-DO7" secondAttribute="leading" constant="12" id="OPB-uw-kzH"/>
                         <constraint firstItem="Aje-cc-eDf" firstAttribute="leading" secondItem="hNd-uN-dtn" secondAttribute="trailing" constant="4" id="P5J-L2-ni5"/>
                         <constraint firstItem="Aje-cc-eDf" firstAttribute="top" secondItem="FrB-WI-DO7" secondAttribute="top" constant="16" id="UTK-MZ-JCv"/>
-                        <constraint firstItem="3SZ-5K-ZCk" firstAttribute="leading" secondItem="jX9-aA-4c8" secondAttribute="trailing" constant="10" id="Z0Z-ch-QeL"/>
                         <constraint firstItem="3SZ-5K-ZCk" firstAttribute="centerY" secondItem="Aje-cc-eDf" secondAttribute="centerY" id="iyE-RW-LkW"/>
                         <constraint firstAttribute="trailing" secondItem="HWa-tK-eIE" secondAttribute="trailing" constant="12" id="lZ4-LH-SXJ"/>
                         <constraint firstItem="hNd-uN-dtn" firstAttribute="centerY" secondItem="Aje-cc-eDf" secondAttribute="centerY" id="mBW-EP-YmO"/>
@@ -110,7 +97,7 @@
                     </userDefinedRuntimeAttributes>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="noj-Ou-VXb">
-                    <rect key="frame" x="0.0" y="136" width="414" height="660"/>
+                    <rect key="frame" x="0.0" y="133.5" width="414" height="662.5"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHm-wb-47O">
@@ -160,10 +147,9 @@
     </objects>
     <resources>
         <image name="bg_cosmos" width="360" height="740"/>
+        <image name="btnCopy" width="24" height="24"/>
         <image name="key_off" width="20" height="20"/>
-        <image name="qrcodeIc" width="24" height="24"/>
         <image name="txtransferblue" width="20" height="20"/>
-        <image name="walletDetailBtn" width="25" height="24"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
