@@ -179,6 +179,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mProvision = nil
         
         BaseData.instance.mBnbTokenList.removeAll()
+        BaseData.instance.mBnbTokenTicker.removeAll()
         
         BaseData.instance.mKavaPrice.removeAll()
         BaseData.instance.mIncentiveParam = nil
@@ -255,11 +256,13 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCIrisTokens()
             
         } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
-            self.mFetchCnt = 4
+            self.mFetchCnt = 6
             onFetchNodeInfo()
             onFetchAccountInfo(mAccount)
             onFetchBnbTokens()
             onFetchBnbMiniTokens()
+            onFetchBnbTokenTickers()
+            onFetchBnbMiniTokenTickers()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
             self.mFetchCnt = 14
@@ -779,7 +782,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
-            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
+//            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             self.onFetchFinished()
         }
     }
@@ -950,7 +953,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchBnbMiniTokens() {
-        let request = Alamofire.request(BaseNetWork.bnbMiniTokenUrl(mChainType), method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:]);
+        let request = Alamofire.request(BaseNetWork.bnbMiniTokenUrl(mChainType), method: .get, parameters: ["limit":"3000"], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
@@ -967,6 +970,43 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
+    
+    func onFetchBnbTokenTickers() {
+        let request = Alamofire.request(BaseNetWork.bnbTicUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let bnbTickers = res as? Array<NSDictionary> {
+//                    print("onFetchBnbTokenTickers ", bnbTickers.count)
+                    bnbTickers.forEach { bnbTicker in
+                        BaseData.instance.mBnbTokenTicker.append(BnbTicker.init(bnbTicker))
+                    }
+                }
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBnbTokenTickers ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchBnbMiniTokenTickers() {
+        let request = Alamofire.request(BaseNetWork.bnbMiniTicUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let bnbMiniTickers = res as? Array<NSDictionary> {
+//                    print("onFetchBnbMiniTokenTickers ", bnbMiniTickers.count)
+                    bnbMiniTickers.forEach { bnbMiniTicker in
+                        BaseData.instance.mBnbTokenTicker.append(BnbTicker.init(bnbMiniTicker))
+                    }
+                }
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchBnbMiniTokenTickers ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
     
     func onFetchPriceTic(_ showMsg:Bool) {
         var url: String?

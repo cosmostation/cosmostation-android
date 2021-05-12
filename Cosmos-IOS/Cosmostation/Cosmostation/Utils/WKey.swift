@@ -448,6 +448,28 @@ class WKey {
         return EthereumAddress.init(data: data!).string
     }
     
+    static func convertAddressEthToOkex(_ ethAddress: String) -> String {
+        var address = ethAddress
+        if (address.starts(with: "0x")) {
+            address = address.replacingOccurrences(of: "0x", with: "")
+        }
+        let convert = try? WKey.convertBits(from: 8, to: 5, pad: true, idata: Data.fromHex(address)!)
+        return Bech32().encode("ex", values: convert!)
+    }
+    
+    static func isValidEthAddress(_ input: String) -> Bool {
+        var address = input
+        if (address.starts(with: "0x")) {
+            address = address.replacingOccurrences(of: "0x", with: "")
+        } else {
+            return false
+        }
+        if (Data.fromHex(address)?.count == 20) {
+            return true
+        }
+        return false
+    }
+    
     
     static func isMemohasMnemonic(_ memo: String) -> Bool {
         var matchedCnt = 0;

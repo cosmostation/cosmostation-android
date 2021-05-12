@@ -17,6 +17,8 @@
 /* Class = "UILabel"; text = "Locked"; ObjectID = "f13-iu-ZgX"; */
 "f13-iu-ZgX.text" = "잠긴 수량";
 
+"r4E-Nj-R08.text" = "얼려진 수량";
+
 /* Class = "UILabel"; text = "--"; ObjectID = "fRg-DA-VLt"; */
 "fRg-DA-VLt.text" = "--";
 

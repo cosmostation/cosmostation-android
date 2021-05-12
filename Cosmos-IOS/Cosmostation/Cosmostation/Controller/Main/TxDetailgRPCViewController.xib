@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TxDetailgRPCViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
-                <outlet property="controlLayer" destination="7N2-t4-dQx" id="PqY-4x-9Fo"/>
+                <outlet property="controlLayer" destination="pLH-ah-hXu" id="FC6-q2-htc"/>
                 <outlet property="errorCode" destination="tiJ-ap-5Uh" id="dNY-RP-lTv"/>
                 <outlet property="errorLayer" destination="SFc-jI-1fz" id="o4C-Xe-CNJ"/>
                 <outlet property="loadingImg" destination="GeO-mN-zYh" id="vlx-cB-Quh"/>
@@ -27,7 +27,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                 </imageView>
                 <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="s9i-xJ-62U">
-                    <rect key="frame" x="0.0" y="102" width="414" height="686"/>
+                    <rect key="frame" x="0.0" y="102" width="414" height="640"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MFb-uh-hye">
@@ -96,37 +96,66 @@ Please check the error code and message.</string>
                         <constraint firstAttribute="height" constant="60" id="jWL-VW-oTb"/>
                     </constraints>
                 </imageView>
-                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7N2-t4-dQx">
-                    <rect key="frame" x="16" y="796" width="382" height="50"/>
+                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="pLH-ah-hXu">
+                    <rect key="frame" x="12" y="750" width="390" height="96"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z91-Pd-RPf">
-                            <rect key="frame" x="0.0" y="0.0" width="187" height="50"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="7N2-t4-dQx">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="45"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z91-Pd-RPf">
+                                    <rect key="frame" x="0.0" y="0.0" width="191" height="45"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="wjv-cS-Xy9"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                    <state key="normal" title="Share">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClickShare:" destination="-1" eventType="touchUpInside" id="zN7-PV-DhE"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOJ-pI-2MU">
+                                    <rect key="frame" x="199" y="0.0" width="191" height="45"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="45" id="OdY-nk-4pf"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                                    <state key="normal" title="Explorer">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </state>
+                                    <userDefinedRuntimeAttributes>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                            <real key="value" value="1"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                            <real key="value" value="8"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                            <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </userDefinedRuntimeAttribute>
+                                    </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="onClickExplorer:" destination="-1" eventType="touchUpInside" id="pGH-0w-JjR"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="02Z-nz-Wh6">
+                            <rect key="frame" x="0.0" y="51" width="390" height="45"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="wjv-cS-Xy9"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                            <state key="normal" title="Share">
-                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </state>
-                            <userDefinedRuntimeAttributes>
-                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                    <real key="value" value="1"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                    <real key="value" value="8"/>
-                                </userDefinedRuntimeAttribute>
-                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </userDefinedRuntimeAttribute>
-                            </userDefinedRuntimeAttributes>
-                            <connections>
-                                <action selector="onClickShare:" destination="-1" eventType="touchUpInside" id="zN7-PV-DhE"/>
-                            </connections>
-                        </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LOJ-pI-2MU">
-                            <rect key="frame" x="195" y="0.0" width="187" height="50"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="50" id="OdY-nk-4pf"/>
+                                <constraint firstAttribute="height" constant="45" id="Ldp-Ri-0dB"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                             <state key="normal" title="Done">
@@ -144,10 +173,16 @@ Please check the error code and message.</string>
                                 </userDefinedRuntimeAttribute>
                             </userDefinedRuntimeAttributes>
                             <connections>
-                                <action selector="onClickDismiss:" destination="-1" eventType="touchUpInside" id="cqQ-hG-ZH0"/>
+                                <action selector="onClickDismiss:" destination="-1" eventType="touchUpInside" id="1Oa-TK-25r"/>
                             </connections>
                         </button>
                     </subviews>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="02Z-nz-Wh6" secondAttribute="trailing" id="0xj-vd-fr0"/>
+                        <constraint firstItem="7N2-t4-dQx" firstAttribute="leading" secondItem="pLH-ah-hXu" secondAttribute="leading" id="IOe-nn-Ova"/>
+                        <constraint firstAttribute="trailing" secondItem="7N2-t4-dQx" secondAttribute="trailing" id="ZPJ-01-5dy"/>
+                        <constraint firstItem="02Z-nz-Wh6" firstAttribute="leading" secondItem="pLH-ah-hXu" secondAttribute="leading" id="iTJ-0W-0oh"/>
+                    </constraints>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -155,21 +190,21 @@ Please check the error code and message.</string>
             <constraints>
                 <constraint firstItem="s9i-xJ-62U" firstAttribute="top" secondItem="MFb-uh-hye" secondAttribute="bottom" constant="8" id="04z-le-ZtD"/>
                 <constraint firstItem="SFc-jI-1fz" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="52" id="1cB-e5-jXc"/>
-                <constraint firstItem="7N2-t4-dQx" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="51o-MF-sig"/>
                 <constraint firstItem="kbd-g8-6Ph" firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="9Yb-h8-CXR"/>
-                <constraint firstItem="7N2-t4-dQx" firstAttribute="top" secondItem="s9i-xJ-62U" secondAttribute="bottom" constant="8" id="Aiu-dx-jNu"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="s9i-xJ-62U" secondAttribute="trailing" id="FDJ-cZ-I8b"/>
                 <constraint firstItem="GeO-mN-zYh" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="KHp-IP-KXy"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="SFc-jI-1fz" secondAttribute="trailing" constant="52" id="KMe-D4-yAc"/>
                 <constraint firstItem="kbd-g8-6Ph" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Krd-Md-WWi"/>
                 <constraint firstItem="SFc-jI-1fz" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="M3w-XQ-vhV"/>
                 <constraint firstItem="MFb-uh-hye" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="QHA-zB-Cq5"/>
+                <constraint firstItem="pLH-ah-hXu" firstAttribute="top" secondItem="s9i-xJ-62U" secondAttribute="bottom" constant="8" id="Ur4-D4-c3t"/>
                 <constraint firstItem="MFb-uh-hye" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="VYS-91-15A"/>
                 <constraint firstItem="GeO-mN-zYh" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="XJb-xy-GgA"/>
                 <constraint firstItem="s9i-xJ-62U" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="e34-3E-9he"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="7N2-t4-dQx" secondAttribute="trailing" constant="16" id="nF4-em-3dR"/>
+                <constraint firstItem="pLH-ah-hXu" firstAttribute="bottom" secondItem="fnl-2z-Ty3" secondAttribute="bottom" constant="-16" id="hIT-ZX-fCD"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="pLH-ah-hXu" secondAttribute="trailing" constant="12" id="kIN-F3-kRl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="leading" secondItem="pLH-ah-hXu" secondAttribute="leading" constant="-12" id="p70-wy-5IP"/>
                 <constraint firstAttribute="top" secondItem="kbd-g8-6Ph" secondAttribute="top" id="pbH-zz-hlQ"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="7N2-t4-dQx" secondAttribute="bottom" constant="16" id="u10-Fs-Kmm"/>
                 <constraint firstItem="kbd-g8-6Ph" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" id="wEQ-rF-Cjx"/>
                 <constraint firstItem="SFc-jI-1fz" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" id="xwZ-6D-Egh"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="top" secondItem="MFb-uh-hye" secondAttribute="top" id="zWY-C3-M9x"/>

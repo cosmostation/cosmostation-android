@@ -144,7 +144,6 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
     func onBindTxCommon(_ tableView: UITableView) -> UITableViewCell {
         let cell:TxCommonCell? = tableView.dequeueReusableCell(withIdentifier:"TxCommonCell") as? TxCommonCell
         cell?.onBind(chainType!, mTxRespose!)
-        cell?.actionHashCheck = { self.onClickExplorer() }
         return cell!
     }
     
@@ -217,6 +216,12 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
+    @IBAction func onClickExplorer(_ sender: UIButton) {
+        let link = WUtils.getTxExplorer(self.chainType!, self.mTxHash!)
+        guard let url = URL(string: link) else { return }
+        self.onShowSafariWeb(url)
+    }
+    
     @IBAction func onClickDismiss(_ sender: UIButton) {
         self.mFetchCnt = -1
         if (mIsGen){
@@ -224,13 +229,6 @@ class TxDetailgRPCViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             self.navigationController?.popViewController(animated: true)
         }
-    }
-    
-    func onClickExplorer() {
-        print("onClickExplorer")
-        let link = WUtils.getTxExplorer(self.chainType!, self.mTxHash!)
-        guard let url = URL(string: link) else { return }
-        self.onShowSafariWeb(url)
     }
 
 }

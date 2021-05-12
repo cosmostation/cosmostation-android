@@ -36,13 +36,13 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
         self.tokenDetailTableView.dataSource = self
         self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCosmosCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIrisCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderBnbCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderOkCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderOkCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCustomCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCustomCell")
-        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailCosmosCell", bundle: nil), forCellReuseIdentifier: "TokenDetailCosmosCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailIrisCell", bundle: nil), forCellReuseIdentifier: "TokenDetailIrisCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderBnbCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailKavaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailKavaCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderOkCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderOkCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHeaderCustomCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHeaderCustomCell")
+//        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         
         self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
         self.tokenDetailTableView.estimatedRowHeight = UITableView.automaticDimension
@@ -102,12 +102,7 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
             
         }
     }
-
-    @IBAction func onClickWebLink(_ sender: UIButton) {
-        let link = WUtils.getAccountExplorer(chainType!, account!.account_address)
-        guard let url = URL(string: link) else { return }
-        self.onShowSafariWeb(url)
-    }
+    
     
     @IBAction func onClickShare(_ sender: UIButton) {
         var nickName:String?
@@ -144,21 +139,22 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) &&
-                    balance?.balance_denom == BNB_MAIN_DENOM) {
-                    return onSetBnbItem(tableView, indexPath);
-                    
-                } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && self.okDenom == OKEX_MAIN_DENOM) {
-                    return onSetOkItem(tableView, indexPath);
-                    
-                } else {
-                    return onSetCustomTokenItem(tableView, indexPath);
-                }
-                
-            } else {
-                return onSetKavaVestingItems(tableView, indexPath);
-            }
+//            if (indexPath.row == 0) {
+//                if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) &&
+//                    balance?.balance_denom == BNB_MAIN_DENOM) {
+//                    return onSetBnbItem(tableView, indexPath);
+//
+//                } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && self.okDenom == OKEX_MAIN_DENOM) {
+//                    return onSetOkItem(tableView, indexPath);
+//
+//                } else {
+//                    return onSetCustomTokenItem(tableView, indexPath);
+//                }
+//
+//            } else {
+//                return onSetKavaVestingItems(tableView, indexPath);
+//            }
+            return onSetCosmosHistoryItems(tableView, indexPath);
             
         } else {
             if (chainType == ChainType.COSMOS_MAIN) {
@@ -184,198 +180,198 @@ class TokenDetailViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if (indexPath.section == 1) {
-            if (chainType == ChainType.BINANCE_MAIN) {
-                let bnbHistory = mBnbHistories[indexPath.row]
-                if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
-                    let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-                    txDetailVC.mIsGen = false
-                    txDetailVC.mTxHash = bnbHistory.txHash
-                    txDetailVC.mBnbTime = bnbHistory.timeStamp
-                    txDetailVC.hidesBottomBarWhenPushed = true
-                    self.navigationItem.title = ""
-                    self.navigationController?.pushViewController(txDetailVC, animated: true)
-                    
-                } else {
-                    guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    present(safariViewController, animated: true, completion: nil)
-                }
-                           
-            } else if (chainType == ChainType.BINANCE_TEST) {
-                let bnbHistory = mBnbHistories[indexPath.row]
-                guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                present(safariViewController, animated: true, completion: nil)
-                
-            }
-        }
+//        if (indexPath.section == 1) {
+//            if (chainType == ChainType.BINANCE_MAIN) {
+//                let bnbHistory = mBnbHistories[indexPath.row]
+//                if (bnbHistory.txType == "HTL_TRANSFER" || bnbHistory.txType == "CLAIM_HTL" || bnbHistory.txType == "REFUND_HTL" || bnbHistory.txType == "TRANSFER") {
+//                    let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
+//                    txDetailVC.mIsGen = false
+//                    txDetailVC.mTxHash = bnbHistory.txHash
+//                    txDetailVC.mBnbTime = bnbHistory.timeStamp
+//                    txDetailVC.hidesBottomBarWhenPushed = true
+//                    self.navigationItem.title = ""
+//                    self.navigationController?.pushViewController(txDetailVC, animated: true)
+//
+//                } else {
+//                    guard let url = URL(string: "https://binance.mintscan.io/txs/" + bnbHistory.txHash) else { return }
+//                    let safariViewController = SFSafariViewController(url: url)
+//                    safariViewController.modalPresentationStyle = .popover
+//                    present(safariViewController, animated: true, completion: nil)
+//                }
+//
+//            } else if (chainType == ChainType.BINANCE_TEST) {
+//                let bnbHistory = mBnbHistories[indexPath.row]
+//                guard let url = URL(string: "https://testnet-explorer.binance.org/tx/" + bnbHistory.txHash) else { return }
+//                let safariViewController = SFSafariViewController(url: url)
+//                safariViewController.modalPresentationStyle = .popover
+//                present(safariViewController, animated: true, completion: nil)
+//
+//            }
+//        }
     }
     
-    func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailHeaderBnbCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderBnbCell") as? TokenDetailHeaderBnbCell
-        let totalAmount = WUtils.getAllBnb(balance)
-        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
-        cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
-        cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, 0, 6)
-        cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance?.balance_locked, cell!.lockedAmount.font, 0, 6)
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
-        cell?.actionRecieve = {
-            self.onRecieveToken()
-        }
-        cell?.BtnSendBep3.isHidden = false;
-        cell?.actionSendBep3 = {
-            self.onClickBep3Send(self.balance?.balance_denom)
-        }
-        return cell!
-    }
+//    func onSetBnbItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+//        let cell:TokenDetailHeaderBnbCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderBnbCell") as? TokenDetailHeaderBnbCell
+////        let totalAmount = WUtils.getAllBnb(balance)
+////        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 6)
+////        cell?.totalValue.attributedText = WUtils.dpBnbValue(totalAmount, BaseData.instance.getLastPrice(), cell!.totalValue.font)
+////        cell?.availableAmount.attributedText = WUtils.displayAmount2(balance?.balance_amount, cell!.availableAmount.font, 0, 6)
+////        cell?.lockedAmount.attributedText = WUtils.displayAmount2(balance?.balance_locked, cell!.lockedAmount.font, 0, 6)
+////        cell?.actionSend  = {
+////            self.onSendToken()
+////        }
+////        cell?.actionRecieve = {
+////            self.onRecieveToken()
+////        }
+////        cell?.BtnSendBep3.isHidden = false;
+////        cell?.actionSendBep3 = {
+////            self.onClickBep3Send(self.balance?.balance_denom)
+////        }
+//        return cell!
+//    }
     
-    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
-        let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
-        let availableAmount = WUtils.availableAmount(balances, OKEX_MAIN_DENOM)
-        let lockedAmount = WUtils.lockedAmount(balances, OKEX_MAIN_DENOM)
-        let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
-        let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
-        
-        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 18)
-        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 18)
-        cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 18)
-        cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 18)
-        cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 18)
-        cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
-        cell?.actionSend  = {
-            self.onSendToken()
-        }
-        cell?.actionReceive = {
-            self.onRecieveToken()
-        }
-        return cell!
-    }
+//    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+//        let cell:TokenDetailHeaderOkCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderOkCell") as? TokenDetailHeaderOkCell
+//        let totalAmount = WUtils.getAllOkt(balances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
+//        let availableAmount = WUtils.availableAmount(balances, OKEX_MAIN_DENOM)
+//        let lockedAmount = WUtils.lockedAmount(balances, OKEX_MAIN_DENOM)
+//        let depositAmount = WUtils.okDepositAmount(BaseData.instance.mOkStaking)
+//        let withdrawAmount = WUtils.okWithdrawAmount(BaseData.instance.mOkUnbonding)
+//
+//        cell?.totalAmount.attributedText = WUtils.displayAmount2(totalAmount.stringValue, cell!.totalAmount.font, 0, 18)
+//        cell?.availableAmount.attributedText = WUtils.displayAmount2(availableAmount.stringValue, cell!.availableAmount.font, 0, 18)
+//        cell?.lockedAmount.attributedText = WUtils.displayAmount2(lockedAmount.stringValue, cell!.lockedAmount.font, 0, 18)
+//        cell?.depositAmount.attributedText = WUtils.displayAmount2(depositAmount.stringValue, cell!.depositAmount.font, 0, 18)
+//        cell?.withdrawAmount.attributedText = WUtils.displayAmount2(withdrawAmount.stringValue, cell!.withdrawAmount.font, 0, 18)
+//        cell?.totalValue.attributedText = WUtils.dpTokenValue(totalAmount, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
+//        cell?.actionSend  = {
+//            self.onSendToken()
+//        }
+//        cell?.actionReceive = {
+//            self.onRecieveToken()
+//        }
+//        return cell!
+//    }
     
-    func onSetCustomTokenItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:TokenDetailHeaderCustomCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCustomCell") as? TokenDetailHeaderCustomCell
-        if (chainType == ChainType.COSMOS_MAIN) {
-            //TODO not this case yet!
-
-        } else if (chainType == ChainType.IRIS_MAIN) {
-            //TODO
-
-        } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) && bnbToken != nil) {
-            cell?.tokenInfoBtn.isHidden = false
-            cell?.tokenSymbol.text = bnbToken?.original_symbol.uppercased()
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(balance!.getAllAmountBnbToken().stringValue, cell!.totalAmount.font, 0, 8)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, 0, 8)
-            cell?.totalValue.attributedText = WUtils.dpBnbValue(balance!.exchangeBnbValue(bnbTic), BaseData.instance.getLastPrice(), cell!.totalValue.font)
-            let url = TOKEN_IMG_URL + bnbToken!.original_symbol + ".png"
-            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
-            cell?.actionTokenInfo = {
-                if (self.chainType == ChainType.BINANCE_MAIN) {
-                    guard let url = URL(string: EXPLORER_BINANCE_MAIN + "assets/" + self.bnbToken!.symbol) else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    self.present(safariViewController, animated: true, completion: nil)
-                } else {
-                    guard let url = URL(string: EXPLORER_BINANCE_TEST + "asset/" + self.bnbToken!.symbol) else { return }
-                    let safariViewController = SFSafariViewController(url: url)
-                    safariViewController.modalPresentationStyle = .popover
-                    self.present(safariViewController, animated: true, completion: nil)
-                }
-            }
-            cell?.actionSend  = {
-                self.onSendToken()
-            }
-            if (balance?.balance_denom == TOKEN_HTLC_BINANCE_BTCB || balance?.balance_denom == TOKEN_HTLC_BINANCE_XRPB || balance?.balance_denom == TOKEN_HTLC_BINANCE_BUSD || balance?.balance_denom == TOKEN_HTLC_BINANCE_TEST_BTC) {
-                cell?.btnBep3Send.isHidden = false
-                cell?.actionBep3Send  = {
-                    self.onClickBep3Send(self.balance?.balance_denom)
-                }
-            } else {
-                cell?.btnBep3Send.isHidden = true
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            let dpDecimal = WUtils.getKavaCoinDecimal(balance!.balance_denom)
-            let totalTokenAmount = WUtils.getKavaTokenAll(balance!.balance_denom, balances)
-            let availableTokenAmount = WUtils.getKavaTokenAvailable(balance!.balance_denom, balances)
-            let vestingTokenAmount = WUtils.getKavaTokenVesting(balance!.balance_denom, balances)
-            let totalTokenValue = WUtils.getKavaTokenDollorValue(balance!.balance_denom, totalTokenAmount)
-            let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
-                        
-            cell?.tokenInfoBtn.isHidden = true
-            cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.totalAmount.font, dpDecimal, dpDecimal)
-            cell?.totalValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.totalValue.font)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableTokenAmount.stringValue, cell!.availableAmount.font, dpDecimal, dpDecimal)
-            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingTokenAmount.stringValue, cell!.vestingAmount.font, dpDecimal, dpDecimal)
-            
-            if (vestingTokenAmount != NSDecimalNumber.zero) {
-                cell?.vestingLayer.isHidden = false
-            }
-            
-            let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
-            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
-            cell?.actionSend  = {
-                self.onSendToken()
-            }
-            if (chainType == ChainType.KAVA_MAIN) {
-                if (balance?.balance_denom == TOKEN_HTLC_KAVA_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_BTCB || balance?.balance_denom == TOKEN_HTLC_KAVA_XRPB ||
-                        balance?.balance_denom == TOKEN_HTLC_KAVA_BUSD) {
-                    cell?.btnBep3Send.isHidden = false
-                    cell?.actionBep3Send  = {
-                        self.onClickBep3Send(self.balance?.balance_denom)
-                    }
-                } else {
-                    cell?.btnBep3Send.isHidden = true
-                }
-                
-            } else if (chainType == ChainType.KAVA_TEST) {
-                if (balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BTC) {
-                    cell?.btnBep3Send.isHidden = false
-                    cell?.actionBep3Send  = {
-                        self.onClickBep3Send(self.balance?.balance_denom)
-                    }
-                } else {
-                    cell?.btnBep3Send.isHidden = true
-                }
-                
-            }
-            
-        } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && okDenom != nil) {
-            cell?.tokenInfoBtn.isHidden = false
-            cell?.lockedLayer.isHidden = false
-            okToken = WUtils.getOkToken(BaseData.instance.mOkTokenList!, okDenom!)
-            let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
-            cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
-            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
-            
-            let available = WUtils.availableAmount(balances, okToken!.symbol!)
-            let locked = WUtils.lockedAmount(balances, okToken!.symbol!)
-            let total = available.adding(locked)
-            cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 18)
-            cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 18)
-            cell?.lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, cell!.availableAmount.font, 0, 18)
-            cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
-            cell?.actionTokenInfo = {
-                let tokenInfoUrl = self.chainType == ChainType.OKEX_MAIN ? EXPLORER_OKEX_MAIN : EXPLORER_OKEX_TEST
-                guard let url = URL(string: tokenInfoUrl + "token/" + self.okToken!.symbol!) else { return }
-                let safariViewController = SFSafariViewController(url: url)
-                safariViewController.modalPresentationStyle = .popover
-                self.present(safariViewController, animated: true, completion: nil)
-            }
-            cell?.actionSend  = {
-                self.onSendToken()
-            }
-        }
-        cell?.actionReceive = {
-            self.onRecieveToken()
-        }
-        return cell!
-    }
+//    func onSetCustomTokenItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+//        let cell:TokenDetailHeaderCustomCell? = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHeaderCustomCell") as? TokenDetailHeaderCustomCell
+//        if (chainType == ChainType.COSMOS_MAIN) {
+//            //TODO not this case yet!
+//
+//        } else if (chainType == ChainType.IRIS_MAIN) {
+//            //TODO
+//
+//        } else if ((chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) && bnbToken != nil) {
+//            cell?.tokenInfoBtn.isHidden = false
+//            cell?.tokenSymbol.text = bnbToken?.original_symbol.uppercased()
+//            cell?.totalAmount.attributedText = WUtils.displayAmount2(balance!.getAllAmountBnbToken().stringValue, cell!.totalAmount.font, 0, 8)
+//            cell?.availableAmount.attributedText = WUtils.displayAmount2(balance!.balance_amount, cell!.availableAmount.font, 0, 8)
+//            cell?.totalValue.attributedText = WUtils.dpBnbValue(balance!.exchangeBnbValue(bnbTic), BaseData.instance.getLastPrice(), cell!.totalValue.font)
+//            let url = TOKEN_IMG_URL + bnbToken!.original_symbol + ".png"
+//            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+//            cell?.actionTokenInfo = {
+//                if (self.chainType == ChainType.BINANCE_MAIN) {
+//                    guard let url = URL(string: EXPLORER_BINANCE_MAIN + "assets/" + self.bnbToken!.symbol) else { return }
+//                    let safariViewController = SFSafariViewController(url: url)
+//                    safariViewController.modalPresentationStyle = .popover
+//                    self.present(safariViewController, animated: true, completion: nil)
+//                } else {
+//                    guard let url = URL(string: EXPLORER_BINANCE_TEST + "asset/" + self.bnbToken!.symbol) else { return }
+//                    let safariViewController = SFSafariViewController(url: url)
+//                    safariViewController.modalPresentationStyle = .popover
+//                    self.present(safariViewController, animated: true, completion: nil)
+//                }
+//            }
+//            cell?.actionSend  = {
+//                self.onSendToken()
+//            }
+//            if (balance?.balance_denom == TOKEN_HTLC_BINANCE_BTCB || balance?.balance_denom == TOKEN_HTLC_BINANCE_XRPB || balance?.balance_denom == TOKEN_HTLC_BINANCE_BUSD || balance?.balance_denom == TOKEN_HTLC_BINANCE_TEST_BTC) {
+//                cell?.btnBep3Send.isHidden = false
+//                cell?.actionBep3Send  = {
+//                    self.onClickBep3Send(self.balance?.balance_denom)
+//                }
+//            } else {
+//                cell?.btnBep3Send.isHidden = true
+//            }
+//
+//        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+//            let dpDecimal = WUtils.getKavaCoinDecimal(balance!.balance_denom)
+//            let totalTokenAmount = WUtils.getKavaTokenAll(balance!.balance_denom, balances)
+//            let availableTokenAmount = WUtils.getKavaTokenAvailable(balance!.balance_denom, balances)
+//            let vestingTokenAmount = WUtils.getKavaTokenVesting(balance!.balance_denom, balances)
+//            let totalTokenValue = WUtils.getKavaTokenDollorValue(balance!.balance_denom, totalTokenAmount)
+//            let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
+//
+//            cell?.tokenInfoBtn.isHidden = true
+//            cell?.tokenSymbol.text = balance!.balance_denom.uppercased()
+//            cell?.totalAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.totalAmount.font, dpDecimal, dpDecimal)
+//            cell?.totalValue.attributedText = WUtils.dpAtomValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), cell!.totalValue.font)
+//            cell?.availableAmount.attributedText = WUtils.displayAmount2(availableTokenAmount.stringValue, cell!.availableAmount.font, dpDecimal, dpDecimal)
+//            cell?.vestingAmount.attributedText = WUtils.displayAmount2(vestingTokenAmount.stringValue, cell!.vestingAmount.font, dpDecimal, dpDecimal)
+//
+//            if (vestingTokenAmount != NSDecimalNumber.zero) {
+//                cell?.vestingLayer.isHidden = false
+//            }
+//
+//            let url = KAVA_COIN_IMG_URL + balance!.balance_denom + ".png"
+//            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+//            cell?.actionSend  = {
+//                self.onSendToken()
+//            }
+//            if (chainType == ChainType.KAVA_MAIN) {
+//                if (balance?.balance_denom == TOKEN_HTLC_KAVA_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_BTCB || balance?.balance_denom == TOKEN_HTLC_KAVA_XRPB ||
+//                        balance?.balance_denom == TOKEN_HTLC_KAVA_BUSD) {
+//                    cell?.btnBep3Send.isHidden = false
+//                    cell?.actionBep3Send  = {
+//                        self.onClickBep3Send(self.balance?.balance_denom)
+//                    }
+//                } else {
+//                    cell?.btnBep3Send.isHidden = true
+//                }
+//
+//            } else if (chainType == ChainType.KAVA_TEST) {
+//                if (balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BNB || balance?.balance_denom == TOKEN_HTLC_KAVA_TEST_BTC) {
+//                    cell?.btnBep3Send.isHidden = false
+//                    cell?.actionBep3Send  = {
+//                        self.onClickBep3Send(self.balance?.balance_denom)
+//                    }
+//                } else {
+//                    cell?.btnBep3Send.isHidden = true
+//                }
+//
+//            }
+//
+//        } else if ((chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) && okDenom != nil) {
+//            cell?.tokenInfoBtn.isHidden = false
+//            cell?.lockedLayer.isHidden = false
+//            okToken = WUtils.getOkToken(okDenom!)
+//            let url = OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png"
+//            cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
+//            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+//
+//            let available = WUtils.availableAmount(balances, okToken!.symbol!)
+//            let locked = WUtils.lockedAmount(balances, okToken!.symbol!)
+//            let total = available.adding(locked)
+//            cell?.totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, cell!.totalAmount.font, 0, 18)
+//            cell?.availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.availableAmount.font, 0, 18)
+//            cell?.lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, cell!.availableAmount.font, 0, 18)
+//            cell?.totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, cell!.totalValue.font)
+//            cell?.actionTokenInfo = {
+//                let tokenInfoUrl = self.chainType == ChainType.OKEX_MAIN ? EXPLORER_OKEX_MAIN : EXPLORER_OKEX_TEST
+//                guard let url = URL(string: tokenInfoUrl + "token/" + self.okToken!.symbol!) else { return }
+//                let safariViewController = SFSafariViewController(url: url)
+//                safariViewController.modalPresentationStyle = .popover
+//                self.present(safariViewController, animated: true, completion: nil)
+//            }
+//            cell?.actionSend  = {
+//                self.onSendToken()
+//            }
+//        }
+//        cell?.actionReceive = {
+//            self.onRecieveToken()
+//        }
+//        return cell!
+//    }
     
     func onSetCosmosHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell

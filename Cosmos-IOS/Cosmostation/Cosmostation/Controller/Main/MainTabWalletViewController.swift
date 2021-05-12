@@ -40,6 +40,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.dataSource = self
         self.walletTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.walletTableView.register(UINib(nibName: "WalletAddressCell", bundle: nil), forCellReuseIdentifier: "WalletAddressCell")
+        self.walletTableView.register(UINib(nibName: "WalletOkAddressCell", bundle: nil), forCellReuseIdentifier: "WalletOkAddressCell")
         self.walletTableView.register(UINib(nibName: "WalletCosmosCell", bundle: nil), forCellReuseIdentifier: "WalletCosmosCell")
         self.walletTableView.register(UINib(nibName: "WalletIrisCell", bundle: nil), forCellReuseIdentifier: "WalletIrisCell")
         self.walletTableView.register(UINib(nibName: "WalletBnbCell", bundle: nil), forCellReuseIdentifier: "WalletBnbCell")
@@ -134,7 +135,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.OKEX_MAIN) {
             titleChainImg.image = UIImage(named: "okexChainImg")
-            titleChainName.text = "(OKex Mainnet)"
+            titleChainName.text = "(ExChain Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             titleChainImg.image = UIImage(named: "chainpersistence")
@@ -154,11 +155,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SIF_MAIN) {
             titleChainImg.image = UIImage(named: "chainsifchain")
-            titleChainName.text = "(Sifchain Mainnet)"
+            titleChainName.text = "(SifChain Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.KI_MAIN) {
             titleChainImg.image = UIImage(named: "chainKifoundation")
-            titleChainName.text = "(Ki Mainnet)"
+            titleChainName.text = "(KiChain Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -184,7 +185,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.OKEX_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(Okex Testnet)"
+            titleChainName.text = "(ExChain Testnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.CERTIK_TEST) {
             titleChainImg.image = UIImage(named: "certikTestnetImg")
@@ -561,7 +562,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onSetOKexItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
-            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOkAddressCell") as? WalletOkAddressCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionShare = { self.onClickActionShare() }
             return cell!
@@ -1013,7 +1014,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else {
             nickName = mainTabVC.mAccount.account_nick_name
         }
-        self.shareAddress(mainTabVC.mAccount.account_address, nickName!)
+        var address = mainTabVC.mAccount.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
     }
     
     func onClickValidatorList() {

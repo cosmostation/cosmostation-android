@@ -823,6 +823,15 @@ class BaseNetWork {
         return ""
     }
     
+    static func bnbMiniTicUrl(_ chain: ChainType) -> String {
+        if (chain == ChainType.BINANCE_MAIN ) {
+            return BNB_URL + "api/v1/mini/ticker/24hr"
+        } else if (chain == ChainType.BINANCE_TEST) {
+            return BNB_TEST_URL + "api/v1/mini/ticker/24hr"
+        }
+        return ""
+    }
+    
     static func bnbHistoryUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.BINANCE_MAIN ) {
             return BNB_URL + "api/v1/transactions"
@@ -970,9 +979,9 @@ class BaseNetWork {
     }
     
     static func paramBep3Url(_ chain: ChainType?) -> String {
-        if (chain == ChainType.KAVA_MAIN ) {
+        if (chain == ChainType.KAVA_MAIN || chain == ChainType.BINANCE_MAIN) {
             return KAVA_URL + "bep3/parameters"
-        } else if (chain == ChainType.KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
             return KAVA_TEST_URL + "bep3/parameters"
         }
         return ""

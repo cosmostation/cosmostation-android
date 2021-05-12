@@ -61,14 +61,16 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             self.onFetchNodeInfo()
         }
         
-        
         if (account!.account_nick_name == "") {
             walletName.text = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
         } else {
             walletName.text = account?.account_nick_name
         }
-        
-        walletAddress.text = account?.account_address
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        walletAddress.text = address
         walletAddress.adjustsFontSizeToFitWidth = true
         cardAddress.backgroundColor = WUtils.getChainBg(chainType!)
         cardPush.backgroundColor = WUtils.getChainBg(chainType!)
@@ -384,7 +386,11 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         } else {
             nickName = account?.account_nick_name
         }
-        self.shareAddress(account!.account_address, nickName!)
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
     }
     
     @IBAction func onClickRewardAddressChange(_ sender: UIButton) {

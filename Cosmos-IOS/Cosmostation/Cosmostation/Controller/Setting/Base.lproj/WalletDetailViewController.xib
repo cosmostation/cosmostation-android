@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -236,7 +236,7 @@ All services are available after mnemonics integration</string>
                                 <constraint firstAttribute="width" constant="24" id="ugU-8W-L9U"/>
                                 <constraint firstAttribute="height" constant="24" id="znr-KY-rex"/>
                             </constraints>
-                            <state key="normal" image="qrcodeIc"/>
+                            <state key="normal" image="btnCopy"/>
                             <connections>
                                 <action selector="onClickQrCode:" destination="-1" eventType="touchUpInside" id="fro-mT-XeD"/>
                             </connections>
@@ -295,7 +295,7 @@ All services are available after mnemonics integration</string>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ojd-Vn-gHM">
                     <rect key="frame" x="0.0" y="531" width="375" height="120"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkh-oe-cma">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lkh-oe-cma">
                             <rect key="frame" x="16" y="70" width="343" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="SFb-Hv-TjH"/>
@@ -319,7 +319,7 @@ All services are available after mnemonics integration</string>
                                 <action selector="onClickDelete:" destination="-1" eventType="touchUpInside" id="PrO-fj-O2J"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YT-6H-gLA">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7YT-6H-gLA">
                             <rect key="frame" x="16" y="10" width="343" height="50"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="MBH-Sq-8Wr"/>
@@ -414,6 +414,7 @@ All services are available after mnemonics integration</string>
                     </userDefinedRuntimeAttributes>
                 </view>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="gTP-Kl-Gz9" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1DI-eD-2q9"/>
@@ -437,14 +438,13 @@ All services are available after mnemonics integration</string>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="ojd-Vn-gHM" secondAttribute="bottom" constant="16" id="zjg-sx-I22"/>
                 <constraint firstItem="zYS-1C-cfR" firstAttribute="leading" secondItem="byL-PX-1ub" secondAttribute="leading" id="zlr-ve-KUa"/>
             </constraints>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="140" y="154"/>
         </view>
     </objects>
     <resources>
         <image name="bg_cosmos" width="360" height="740"/>
+        <image name="btnCopy" width="24" height="24"/>
         <image name="cosmosWhMain" width="42" height="42"/>
         <image name="editBtn" width="24" height="24"/>
-        <image name="qrcodeIc" width="24" height="24"/>
     </resources>
 </document>

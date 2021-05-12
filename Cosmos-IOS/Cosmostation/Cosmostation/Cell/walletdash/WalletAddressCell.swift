@@ -30,7 +30,5 @@ class WalletAddressCell: UITableViewCell {
         }
         dpAddress.text = account?.account_address
         dpAddress.adjustsFontSizeToFitWidth = true
-        
-        print("eth", WKey.convertAddressOkexToEth(account!.account_address))
     }
 }

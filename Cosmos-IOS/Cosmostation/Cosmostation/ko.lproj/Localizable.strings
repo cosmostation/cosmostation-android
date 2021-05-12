@@ -129,8 +129,8 @@
 "send_guide_msg_iov" = "Tendermint를 기반으로하는 Starname은 빠르고 안전하며 분산 된 범용 네이밍 서비스를 구축합니다.";
 "send_guide_title_band" = "밴드 프로토콜";
 "send_guide_msg_band" = "Tendermint를 기반으로 하는 크로스 체인 오라클 플랫폼입니다. 밴드 프로토콜은 실제 데이터와 API를 스마트 계약으로 통합하여 제공합니다.";
-"send_guide_title_ok" = "오케이이엑스 체인";
-"send_guide_msg_ok" = "Okex Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.";
+"send_guide_title_ok" = "이엑스 체인";
+"send_guide_msg_ok" = "Ex Chain은 Tendermint를 기반으로 하는 퍼블릭 탈 중앙화 거래소 플랫폼 입니다.";
 "send_guide_title_certik" = "써틱 체인";
 "send_guide_msg_certik" = "Certik Foundation의 고유 한 공식 검증 보안 시스템을 기반으로하는 공용 플랫폼입니다. Certik은 보안 중심 체인에서 스마트 계약 실행 및 상호 작용을 허용합니다.";
 "send_guide_title_secret" = "시크릿 네트워크";
@@ -678,18 +678,18 @@
 "chain_title_secret" = "Secret Mainnet";
 "chain_title_certik" = "Certik Mainnet";
 "chain_title_akash" = "Akash Mainnet";
-"chain_title_okex" = "Okex Mainnet";
+"chain_title_okex" = "ExChain Mainnet";
 "chain_title_sentinel" = "Sentinel Mainnet";
 "chain_title_fetch" = "Fetch.ai Mainnet";
 "chain_title_crypto" = "Crypto.org Mainnet";
-"chain_title_sif" = "Sifchain Mainnet";
-"chain_title_ki" = "Ki Chain Mainnet";
+"chain_title_sif" = "SifChain Mainnet";
+"chain_title_ki" = "KiChain Mainnet";
 "chain_title_test_cosmos" = "StarGate Testnet";
 "chain_title_test_iris" = "Bifrost Testnet";
 "chain_title_test_bnb" = "Binance Testnet";
 "chain_title_kava_test" = "Kava Testnet";
 "chain_title_iov_test" = "Starname Testnet";
-"chain_title_okex_test" = "Okex Testnet";
+"chain_title_okex_test" = "ExChain Testnet";
 "chain_title_certik_test" = "Certik Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";

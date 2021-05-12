@@ -15,6 +15,7 @@ class WalletBnbCell: UITableViewCell {
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var availableAmount: UILabel!
     @IBOutlet weak var lockedAmount: UILabel!
+    @IBOutlet weak var frozenAmount: UILabel!
     @IBOutlet weak var btnBep3: UIButton!
     
     override func awakeFromNib() {
@@ -22,6 +23,7 @@ class WalletBnbCell: UITableViewCell {
         self.selectionStyle = .none
         availableAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
         lockedAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
+        frozenAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
     var actionWC: (() -> Void)? = nil
@@ -38,11 +40,13 @@ class WalletBnbCell: UITableViewCell {
     func updateView(_ account: Account?, _ chainType: ChainType?) {
         let available = BaseData.instance.availableAmount(BNB_MAIN_DENOM)
         let locked = BaseData.instance.lockedAmount(BNB_MAIN_DENOM)
-        let total = available.adding(locked)
+        let frozen = BaseData.instance.frozenAmount(BNB_MAIN_DENOM)
+        let total = available.adding(locked).adding(frozen)
         
         totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 6)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 6)
         lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, lockedAmount.font, 0, 6)
+        frozenAmount.attributedText = WUtils.displayAmount2(frozen.stringValue, frozenAmount.font, 0, 6)
         totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, totalValue.font)
         BaseData.instance.updateLastTotal(account, total.stringValue)
     }

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TxDetailViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
-                <outlet property="controlLayer" destination="haP-FX-1BP" id="d4Q-hj-b7Y"/>
-                <outlet property="dismissBtn" destination="m4a-6Y-f1I" id="X0b-QU-TeQ"/>
+                <outlet property="controlLayer" destination="bTa-9h-KWo" id="s6z-PY-zgK"/>
                 <outlet property="errorCode" destination="G9v-QX-nXf" id="cn6-IO-Cut"/>
                 <outlet property="errorLayer" destination="N0K-ec-NhI" id="IOm-kP-qme"/>
                 <outlet property="htlcRefundBtn" destination="QFR-lD-uH1" id="wdX-EV-Lsc"/>
@@ -48,7 +47,7 @@
                     </constraints>
                 </view>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7Nr-oT-YCK">
-                    <rect key="frame" x="0.0" y="102" width="414" height="732"/>
+                    <rect key="frame" x="0.0" y="102" width="414" height="636"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </tableView>
                 <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="N0K-ec-NhI" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
@@ -125,16 +124,16 @@ After a few moments, the full results will be displayed.
                         <constraint firstItem="4FG-m6-2sk" firstAttribute="centerX" secondItem="vAt-Ci-Cas" secondAttribute="centerX" id="zJU-Rf-Aq0"/>
                     </constraints>
                 </view>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="bTa-9h-KWo">
-                    <rect key="frame" x="12" y="842" width="390" height="0.0"/>
+                <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="bTa-9h-KWo">
+                    <rect key="frame" x="12" y="746" width="390" height="96"/>
                     <subviews>
-                        <stackView hidden="YES" opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="haP-FX-1BP">
-                            <rect key="frame" x="0.0" y="0.0" width="155" height="50"/>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="haP-FX-1BP">
+                            <rect key="frame" x="0.0" y="0.0" width="390" height="45"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="502-rv-iQc">
-                                    <rect key="frame" x="0.0" y="0.0" width="73.5" height="50"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="191" height="45"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="I1P-P2-WP4"/>
+                                        <constraint firstAttribute="height" constant="45" id="I1P-P2-WP4"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                                     <state key="normal" title="Share">
@@ -156,13 +155,13 @@ After a few moments, the full results will be displayed.
                                     </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m4a-6Y-f1I">
-                                    <rect key="frame" x="81.5" y="0.0" width="73.5" height="50"/>
+                                    <rect key="frame" x="199" y="0.0" width="191" height="45"/>
                                     <constraints>
-                                        <constraint firstAttribute="height" constant="50" id="yYN-Zo-mbq"/>
+                                        <constraint firstAttribute="height" constant="45" id="yYN-Zo-mbq"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
-                                    <state key="normal" title="Done">
-                                        <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <state key="normal" title="Explorer">
+                                        <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
@@ -176,15 +175,39 @@ After a few moments, the full results will be displayed.
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
                                     <connections>
-                                        <action selector="onClickDismiss:" destination="-1" eventType="touchUpInside" id="ehj-ZM-gg9"/>
+                                        <action selector="onClickExplorer:" destination="-1" eventType="touchUpInside" id="dkj-s8-viM"/>
                                     </connections>
                                 </button>
                             </subviews>
                         </stackView>
-                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFR-lD-uH1">
-                            <rect key="frame" x="0.0" y="0.0" width="155" height="50"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yTa-fS-Pb4">
+                            <rect key="frame" x="0.0" y="51" width="390" height="45"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="50" id="RpZ-m7-pHR"/>
+                                <constraint firstAttribute="height" constant="45" id="vY3-xJ-Pp7"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
+                            <state key="normal" title="Done">
+                                <color key="titleColor" red="0.019607843140000001" green="0.82352941180000006" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                    <real key="value" value="1"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                    <real key="value" value="8"/>
+                                </userDefinedRuntimeAttribute>
+                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickDismiss:" destination="-1" eventType="touchUpInside" id="zha-ho-Gow"/>
+                            </connections>
+                        </button>
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QFR-lD-uH1">
+                            <rect key="frame" x="0.0" y="96" width="390" height="45"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="45" id="RpZ-m7-pHR"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="Helvetica" family="Helvetica" pointSize="15"/>
                             <state key="normal" title="   Interchain Refund" image="beprefundIc">

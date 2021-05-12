@@ -582,6 +582,7 @@ let TRANS_BG_COLOR_KAVA                     = UIColor.init(hexString: "ff554f", 
 let TRANS_BG_COLOR_KAVA2                    = UIColor.init(hexString: "ff554f", alpha: 0.4)
 let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
+let COLOR_BG_COLOR_HARD                     = UIColor.init(hexString: "8626E1", alpha: 0.15)
 let COLOR_HARD                              = UIColor.init(hexString: "8626E1")
 
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)
@@ -762,6 +763,27 @@ enum ChainType: String {
             
         }
         return result
+    }
+    
+    static func isHtlcSwappableCoin(_ chain: ChainType?, _ denom: String?) -> Bool {
+        if (chain == BINANCE_MAIN) {
+            if (denom == TOKEN_HTLC_BINANCE_BNB) { return true }
+            if (denom == TOKEN_HTLC_BINANCE_BTCB) { return true }
+            if (denom == TOKEN_HTLC_BINANCE_XRPB) { return true }
+            if (denom == TOKEN_HTLC_BINANCE_BUSD) { return true }
+        } else if (chain == KAVA_MAIN) {
+            if (denom == TOKEN_HTLC_KAVA_BNB) { return true }
+            if (denom == TOKEN_HTLC_KAVA_BTCB) { return true }
+            if (denom == TOKEN_HTLC_KAVA_XRPB) { return true }
+            if (denom == TOKEN_HTLC_KAVA_BUSD) { return true }
+        } else if (chain == BINANCE_TEST) {
+            if (denom == TOKEN_HTLC_BINANCE_TEST_BNB) { return true }
+            if (denom == TOKEN_HTLC_BINANCE_TEST_BTC) { return true }
+        } else if (chain == KAVA_TEST) {
+            if (denom == TOKEN_HTLC_KAVA_TEST_BNB) { return true }
+            if (denom == TOKEN_HTLC_KAVA_TEST_BTC) { return true }
+        }
+        return false
     }
 }
 
