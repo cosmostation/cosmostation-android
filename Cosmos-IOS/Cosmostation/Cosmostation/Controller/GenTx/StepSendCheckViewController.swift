@@ -325,6 +325,9 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         }
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
+        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            mToAddressLabel.text = WKey.convertAddressOkexToEth(pageHolderVC.mToSendRecipientAddress!)
+        }
         mToAddressLabel.adjustsFontSizeToFitWidth = true
         mMemoLabel.text = pageHolderVC.mMemo
         

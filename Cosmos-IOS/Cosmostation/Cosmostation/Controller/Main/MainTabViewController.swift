@@ -782,7 +782,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
-            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
+//            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             self.onFetchFinished()
         }
     }

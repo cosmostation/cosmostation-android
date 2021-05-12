@@ -1064,7 +1064,6 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
                     }
                     return
                 }
-                
                 self.mTxInfo = TxInfo.init(info)
                 
                 //Check swap status if Send HTLC Tx
