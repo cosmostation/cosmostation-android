@@ -1311,7 +1311,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
                     holder.itemMsgTitle.setText(R.string.str_to_unbonding);
                     holder.itemMsgImg.setImageDrawable(getResources().getDrawable(R.drawable.withdraw_ic));
                 }
-                holder.itemDeleagtor.setText(msg.value.delegator_address);
+                try {
+                    holder.itemDeleagtor.setText(WKey.convertAddressOkexToEth(msg.value.delegator_address));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 WDp.showCoinDp(getBaseContext(), msg.value.quantity, holder.itemAmountDenom, holder.itemAmount, mBaseChain);
             }
         }
@@ -1321,7 +1325,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
             holder.itemMsgImg.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
             if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
                 final Msg msg = mResTxInfo.getMsg(position - 1);
-                holder.itemVoter.setText(msg.value.delegator_address);
+                try {
+                    holder.itemVoter.setText(WKey.convertAddressOkexToEth(msg.value.delegator_address));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
                 ArrayList<String> toValAdd = msg.value.validator_addresses;
                 String monikers = "";
