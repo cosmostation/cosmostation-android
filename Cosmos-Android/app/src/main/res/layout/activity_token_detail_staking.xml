@@ -85,7 +85,7 @@
                         android:padding="@dimen/space_8"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/qrcode_ic"/>
+                        android:src="@drawable/copy_btn"/>
                 </LinearLayout>
             </RelativeLayout>
             <TextView
