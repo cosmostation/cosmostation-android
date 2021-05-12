@@ -27,10 +27,14 @@ import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
+import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
@@ -43,6 +47,7 @@ import wannabit.io.cosmostaion.widget.TokenCrytoHolder;
 import wannabit.io.cosmostaion.widget.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.TokenKavaHolder;
 import wannabit.io.cosmostaion.widget.TokenPersisHolder;
+import wannabit.io.cosmostaion.widget.TokenSifHolder;
 import wannabit.io.cosmostaion.widget.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -52,6 +57,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
@@ -64,7 +70,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private TextView            mAddress;
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
-
 
     private StakingTokenAdapter             mAdapter;
     private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
@@ -140,7 +145,10 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         if (isGRPC(mBaseChain)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else {
+        } else if (mBaseChain.equals(KAVA_MAIN)) {
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
 
@@ -150,6 +158,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     public void onTaskResponse(TaskResult result) {
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_FETCH_API_TOKEN_HISTORY) {
+            mApiTxHistory = (ArrayList<ResApiTxList.Data>)result.resultData;
+            mAdapter.notifyDataSetChanged();
+        } else if (result.taskType == BaseConstant.TASK_FETCH_API_ADDRESS_HISTORY) {
             mApiTxHistory = (ArrayList<ResApiTxList.Data>)result.resultData;
             mAdapter.notifyDataSetChanged();
         }
@@ -209,6 +220,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
 
         private static final int TYPE_KAVA              = 40;
+        private static final int TYPE_SIF               = 43;
 
         private static final int TYPE_VESTING           = 99;
         private static final int TYPE_HISTORY           = 100;
@@ -235,6 +247,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
             else if (viewType == TYPE_KAVA) {
                 return new TokenKavaHolder(getLayoutInflater().inflate(R.layout.layout_card_kava, viewGroup, false));
+
+            }
+
+            else if (viewType == TYPE_SIF) {
+                return new TokenSifHolder(getLayoutInflater().inflate(R.layout.layout_card_sif, viewGroup, false));
 
             }
 
@@ -310,6 +327,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
                 else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                     return TYPE_KAVA;
+
+                }
+
+                else if (mBaseChain.equals(SIF_MAIN)) {
+                    return TYPE_SIF;
 
                 }
                 return -1;

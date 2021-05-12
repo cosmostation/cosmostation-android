@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 
 public class TokenDetailBaseHolder extends BaseHolder {
     private ImageView   mIvToken;
@@ -46,6 +47,19 @@ public class TokenDetailBaseHolder extends BaseHolder {
         mTvTokenValue.setText(WDp.getValueOfKava(context, baseData, convertedToKava.movePointRight(6)));
         try {
             Picasso.get().load(KAVA_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
+
+        } catch (Exception e) { }
+    }
+
+    public void onBindSifToken(Context context, BaseChain chain, BaseData baseData, String denom) {
+        final BigDecimal availableTokenAmount   = BigDecimal.valueOf(0);
+
+        mTvTokenTitle.setText(denom.toUpperCase());
+        mTvTokenAvailable.setText(WDp.getDpAmount2(context, availableTokenAmount, 18, 6));
+        mTvTokenTotal.setText(WDp.getDpAmount2(context, availableTokenAmount, 18, 6));
+
+        try {
+            Picasso.get().load(SIF_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
 
         } catch (Exception e) { }
     }

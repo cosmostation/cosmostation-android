@@ -3,6 +3,7 @@ package wannabit.io.cosmostaion.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -73,6 +74,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -334,7 +336,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (isGRPC(getMainActivity().mBaseChain)) {
             mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
-//                mTokensAdapter.notifyDataSetChanged();
+                mTokensAdapter.notifyDataSetChanged();
                 mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -1080,6 +1082,39 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Sif Chain");
+
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            try {
+                Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+
+            } catch (Exception e) { }
+
+            BigDecimal totalAmount = BigDecimal.valueOf(0);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getMainActivity().getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
 
         }
 

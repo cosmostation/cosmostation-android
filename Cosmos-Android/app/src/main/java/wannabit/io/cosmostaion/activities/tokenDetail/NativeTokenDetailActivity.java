@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
@@ -149,6 +150,8 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
         } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mDenom, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, mDenom, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
         }
     }
 
@@ -199,6 +202,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         private static final int TYPE_BASE_COSMOS         = 0;
         private static final int TYPE_BASE_IRIS           = 1;
         private static final int TYPE_BASE_KAVA           = 2;
+        private static final int TYPE_BASE_SIF            = 3;
 
         private static final int TYPE_HARD                  = 98;
         private static final int TYPE_VESTING               = 99;
@@ -214,6 +218,9 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             } else if (viewType == TYPE_BASE_IRIS) {
 
             } else if (viewType == TYPE_BASE_KAVA) {
+                return new TokenDetailBaseHolder(getLayoutInflater().inflate(R.layout.item_token_base, viewGroup, false));
+
+            } else if (viewType == TYPE_BASE_SIF) {
                 return new TokenDetailBaseHolder(getLayoutInflater().inflate(R.layout.item_token_base, viewGroup, false));
 
             }
@@ -239,6 +246,9 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
             } else if (getItemViewType(position) == TYPE_BASE_KAVA) {
                 ((TokenDetailBaseHolder)viewHolder).onBindKavaToken(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
+
+            } else if (getItemViewType(position) == TYPE_BASE_SIF) {
+                ((TokenDetailBaseHolder)viewHolder).onBindSifToken(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
 
             } else if (getItemViewType(position) == TYPE_HARD) {
                 ((TokenDetailHardHolder)viewHolder).onBindHard(getBaseContext(), mBaseChain, getBaseDao());
@@ -306,6 +316,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                     if (position == 0) return TYPE_BASE_KAVA;
                     else return TYPE_HISTORY;
                 }
+
+            } else if (mBaseChain.equals(SIF_MAIN)) {
+                if (position == 0) return TYPE_BASE_SIF;
+                else return TYPE_HISTORY;
 
             }
             return TYPE_UNKNOWN;
