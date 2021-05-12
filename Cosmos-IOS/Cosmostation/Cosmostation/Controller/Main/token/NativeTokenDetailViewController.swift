@@ -49,13 +49,13 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
         
         if (WUtils.isGRPC(chainType!)) {
             
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+            if (ChainType.isHtlcSwappableCoin(chainType, denom)) { bntBep3Send.isHidden = false }
+            
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(denom!) > 0) { hasVesting = true }
+            if (ChainType.isHtlcSwappableCoin(chainType, denom)) { bntBep3Send.isHidden = false }
         }
-        
-//        print("mBnbTokenList ", BaseData.instance.mBnbTokenList.count)
-//        print("mBnbTokenTicker ", BaseData.instance.mBnbTokenTicker.count)
-//        print("KAVA_HARD_DENOM ", hasVesting)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -98,14 +98,101 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
     
     
     @IBAction func onClickShare(_ sender: UIButton) {
+        var nickName:String?
+        if (account!.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            nickName = account!.account_nick_name
+        }
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
     }
     
     @IBAction func onClickSend(_ sender: UIButton) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        let mainDenom = WUtils.getMainDenom(chainType)
+        if (WUtils.isGRPC(chainType!)) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mToSendDenom = self.denom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+        }
+        
+        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mBnbToken = WUtils.getBnbToken(self.denom)
+            txVC.mType = BNB_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+            txVC.mKavaSendDenom = self.denom
+            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
+            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mOkSendDenom = self.denom
+            txVC.mType = OK_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mToSendDenom = self.denom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+    
+        } else {
+            return
+        }
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickBep3Send(_ sender: UIButton) {
+        if (!SUPPORT_BEP3_SWAP || chainType == ChainType.BINANCE_TEST || chainType == ChainType.KAVA_TEST) {
+            self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
+            return
+        }
+        
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+            if (BaseData.instance.availableAmount(BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = TASK_TYPE_HTLC_SWAP
+        txVC.mHtlcDenom = denom!
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickIbcSend(_ sender: UIButton) {
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
 }

@@ -589,12 +589,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
                     self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
-                    
-//                    let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
-//                    tokenDetailVC.hidesBottomBarWhenPushed = true
-//                    self.navigationItem.title = ""
-//                    tokenDetailVC.balance = balance
-//                    self.navigationController?.pushViewController(tokenDetailVC, animated: true)
                 }
             }
         }
