@@ -31,7 +31,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
-import wannabit.io.cosmostaion.activities.TokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -73,6 +72,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
@@ -334,7 +334,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         if (isGRPC(getMainActivity().mBaseChain)) {
             mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
-//                mTokensAdapter.notifyDataSetChanged();
+                mTokensAdapter.notifyDataSetChanged();
                 mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -673,6 +673,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
 
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                        intent.putExtra("balance", balance);
+                        intent.putExtra("bnbToken", token);
+                        startActivity(intent);
+                    }
+                });
+
             } else {
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
                 ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(balance.symbol));
@@ -682,19 +692,22 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 try {
                     Picasso.get().load(TOKEN_IMG_URL+token.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
                 } catch (Exception e) {}
+
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                        intent.putExtra("balance", balance);
+                        intent.putExtra("bnbToken", token);
+                        intent.putExtra("bnbTics", mBnbTics);
+                        intent.putExtra("denom", balance.symbol);
+                        startActivity(intent);
+
+                    }
+                });
             }
             holder.itemValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), amount));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-                    intent.putExtra("balance", balance);
-                    intent.putExtra("bnbToken", token);
-                    intent.putExtra("bnbTics", mBnbTics);
-                    startActivity(intent);
 
-                }
-            });
         }
     }
 
@@ -891,6 +904,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                    startActivity(intent);
+                }
+            });
+
         }  else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             Picasso.get().load(OKEX_COIN_IMG_URL+  token.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
@@ -900,16 +921,16 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal tokenTotalValue = WDp.okExTokenDollorValue(getBaseDao(), token, totalAmount);
             BigDecimal convertedOKTAmount = tokenTotalValue.divide(getBaseDao().getLastOKexDollorTic(), 6, RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), convertedOKTAmount, getMainActivity().mBaseChain));
-        }
 
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-                intent.putExtra("okDenom", balance.symbol);
-                startActivity(intent);
-            }
-        });
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("okDenom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -1080,6 +1101,39 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Sif Chain");
+
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            try {
+                Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+
+            } catch (Exception e) { }
+
+            BigDecimal totalAmount = BigDecimal.valueOf(0);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getMainActivity().getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
 
         }
 

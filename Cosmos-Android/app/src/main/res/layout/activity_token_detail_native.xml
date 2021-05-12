@@ -85,7 +85,7 @@
                         android:padding="@dimen/space_8"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:src="@drawable/qrcode_ic"/>
+                        android:src="@drawable/copy_btn"/>
                 </LinearLayout>
             </RelativeLayout>
             <TextView
@@ -126,19 +126,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
+
         <RelativeLayout
             android:id="@+id/btn_send"
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
-            android:minHeight="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24"
             android:background="@drawable/btn_trans_with_border"
             android:clickable="true"
+            android:minHeight="@dimen/space_45"
             android:visibility="gone">
+
             <TextView
+                style="@style/font_ss_14_photon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
@@ -146,7 +149,6 @@
                 android:drawablePadding="@dimen/space_8"
                 android:drawableTint="@color/colorPhoton"
                 android:gravity="center"
-                style="@style/font_ss_14_photon"
                 android:text="@string/str_send" />
         </RelativeLayout>
 
@@ -155,41 +157,45 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/space_45"
             android:layout_marginLeft="@dimen/space_16"
-            android:layout_marginRight="@dimen/space_16"
             android:layout_marginTop="@dimen/space_16"
+            android:layout_marginRight="@dimen/space_16"
             android:layout_marginBottom="@dimen/space_24"
             android:orientation="horizontal"
             android:visibility="gone">
+
             <RelativeLayout
                 android:id="@+id/btn_bep3_send"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
                 android:layout_marginRight="@dimen/space_5"
+                android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_border"
-                android:clickable="true">
+                android:clickable="true"
+                android:minHeight="@dimen/space_45">
+
                 <TextView
+                    style="@style/font_ss_14_white"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_45"
                     android:layout_centerInParent="true"
                     android:drawableLeft="@drawable/bepsend_ic_s"
                     android:drawablePadding="@dimen/space_8"
                     android:gravity="center"
-                    style="@style/font_ss_14_white"
                     android:text="@string/str_bep3_send" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/btn_bep3_simple_send"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="@dimen/space_45"
-                android:minHeight="@dimen/space_45"
                 android:layout_marginLeft="@dimen/space_5"
+                android:layout_weight="1"
                 android:background="@drawable/btn_trans_with_border"
-                android:clickable="true">
+                android:clickable="true"
+                android:minHeight="@dimen/space_45">
+
                 <TextView
+                    style="@style/font_ss_14_photon"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/space_45"
                     android:layout_centerInParent="true"
@@ -197,7 +203,6 @@
                     android:drawablePadding="@dimen/space_8"
                     android:drawableTint="@color/colorPhoton"
                     android:gravity="center"
-                    style="@style/font_ss_14_photon"
                     android:text="@string/str_send" />
             </RelativeLayout>
         </LinearLayout>

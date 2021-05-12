@@ -683,13 +683,14 @@ public class BaseConstant {
     public final static String FETCH_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/fetchai/";
     public final static String CRYPTO_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
     public final static String SIF_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
-    public final static String KI_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
+    public final static String KI_VAL_URL               = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
     public final static String KAVA_HARD_POOL_IMG_URL   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/hard/";
     public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
+    public final static String SIF_COIN_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";

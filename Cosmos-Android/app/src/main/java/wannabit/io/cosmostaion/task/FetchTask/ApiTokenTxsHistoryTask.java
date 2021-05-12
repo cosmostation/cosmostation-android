@@ -68,6 +68,15 @@ public class ApiTokenTxsHistoryTask extends CommonTask {
                     WLog.w("ApiTokenTxsHistoryTask : NOk");
                 }
 
+            } else if (mChain.equals(BaseChain.SIF_MAIN)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getSifApi(mApp).getTokenTxs(mAddress, mDenom).execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiTokenTxsHistoryTask : NOk");
+                }
+
             }
 
         } catch (Exception e) {

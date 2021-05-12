@@ -1,7 +1,6 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -14,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -26,34 +26,31 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
+import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
-import wannabit.io.cosmostaion.task.FetchTask.ApiTokenTxsHistoryTask;
-import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
-import wannabit.io.cosmostaion.widget.TokenAkashHolder;
-import wannabit.io.cosmostaion.widget.TokenCosmosHolder;
-import wannabit.io.cosmostaion.widget.TokenCrytoHolder;
-import wannabit.io.cosmostaion.widget.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.TokenKavaHolder;
-import wannabit.io.cosmostaion.widget.TokenPersisHolder;
+import wannabit.io.cosmostaion.widget.TokenSifHolder;
 import wannabit.io.cosmostaion.widget.VestingHolder;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -65,6 +62,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private SwipeRefreshLayout  mSwipeRefreshLayout;
     private RecyclerView        mRecyclerView;
 
+    private Balance                         mBalance;
+    private BnbToken                        mBnbToken;
 
     private StakingTokenAdapter             mAdapter;
     private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
@@ -85,37 +84,27 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mSwipeRefreshLayout     = findViewById(R.id.layer_refresher);
         mRecyclerView           = findViewById(R.id.recycler);
 
+        mBalance = getIntent().getParcelableExtra("balance");
+        mBnbToken = getIntent().getParcelableExtra("bnbToken");
+
         setSupportActionBar(mToolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
-        if (isGRPC(mBaseChain) && getBaseDao().mGRpcAccount != null) {
-            if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) {
-                mHasVesting = true;
-            }
-
-        } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+        if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
             if (getBaseDao().mKavaAccount.value.getCalcurateVestingCntByDenom(WDp.mainDenom(mBaseChain)) > 0) {
                 mHasVesting = true;
             }
         }
 
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                onFetchTokenHistory();
-            }
-        });
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mRecyclerView.setHasFixedSize(true);
         mAdapter = new StakingTokenAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        onFetchTokenHistory();
-        mAddress.setText(mAccount.address);
-        mKeyState.setColorFilter(WDp.getChainColor(getBaseContext(), mBaseChain), android.graphics.PorterDuff.Mode.SRC_IN);
+        onUpdateView();
 
         mBtnExplorer.setOnClickListener(this);
         mBtnAddressPopup.setOnClickListener(this);
@@ -133,29 +122,30 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         }
     }
 
-
-    private void onFetchTokenHistory() {
-        if (mApiTxHistory != null) { mApiTxHistory.clear(); }
-        if (mApiTxCustomHistory != null) { mApiTxCustomHistory.clear(); }
-        if (isGRPC(mBaseChain)) {
-            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
+    private void onUpdateView() {
+        if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+            try {
+                mAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         } else {
-            new ApiTokenTxsHistoryTask(getBaseApplication(), this, mAccount.address, WDp.mainDenom(mBaseChain), mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            mAddress.setText(mAccount.address);
         }
+        mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
+        if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) && mAccount.hasPrivateKey) {
+            mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorBnb), android.graphics.PorterDuff.Mode.SRC_IN);
 
-    }
+        } else if ((mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) && mAccount.hasPrivateKey) {
+            mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorKava), android.graphics.PorterDuff.Mode.SRC_IN);
 
-    @Override
-    public void onTaskResponse(TaskResult result) {
-        if(isFinishing()) return;
-        if (result.taskType == BaseConstant.TASK_FETCH_API_TOKEN_HISTORY) {
-            mApiTxHistory = (ArrayList<ResApiTxList.Data>)result.resultData;
-            mAdapter.notifyDataSetChanged();
+        } else if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mAccount.hasPrivateKey) {
+            mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorOK), android.graphics.PorterDuff.Mode.SRC_IN);
+
+        } else if (mBaseChain.equals(SIF_MAIN) && mAccount.hasPrivateKey) {
+            mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorSif), android.graphics.PorterDuff.Mode.SRC_IN);
         }
-        mSwipeRefreshLayout.setRefreshing(false);
     }
-
 
     @Override
     public void onClick(View v) {
@@ -199,42 +189,31 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
     }
 
+    private static final int TYPE_BNB               = 0;
+    private static final int TYPE_KAVA              = 1;
+    private static final int TYPE_OKEX              = 2;
+    private static final int TYPE_SIF               = 3;
+
+    private static final int TYPE_VESTING           = 99;
+    private static final int TYPE_HISTORY           = 100;
+
 
     private class StakingTokenAdapter extends RecyclerView.Adapter<BaseHolder> {
-        private static final int TYPE_ATOM              = 0;
-        private static final int TYPE_IRIS              = 1;
-        private static final int TYPE_AKASH             = 2;
-        private static final int TYPE_PERSISTENCE       = 3;
-        private static final int TYPE_CRYPTO            = 4;
-
-
-        private static final int TYPE_KAVA              = 40;
-
-        private static final int TYPE_VESTING           = 99;
-        private static final int TYPE_HISTORY           = 100;
 
         @NonNull
         @Override
         public BaseHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-            if (viewType == TYPE_ATOM) {
-                return new TokenCosmosHolder(getLayoutInflater().inflate(R.layout.layout_card_atom, viewGroup, false));
+            if (viewType == TYPE_BNB) {
+                return new BnbHolder(getLayoutInflater().inflate(R.layout.layout_card_bnb, viewGroup, false));
 
-            } else if (viewType == TYPE_IRIS) {
-                return new TokenIrisHolder(getLayoutInflater().inflate(R.layout.layout_card_iris, viewGroup, false));
-
-            } else if (viewType == TYPE_AKASH) {
-                return new TokenAkashHolder(getLayoutInflater().inflate(R.layout.layout_card_akash, viewGroup, false));
-
-            } else if (viewType == TYPE_PERSISTENCE) {
-                return new TokenPersisHolder(getLayoutInflater().inflate(R.layout.layout_card_persistence, viewGroup, false));
-
-            } else if (viewType == TYPE_CRYPTO) {
-                return new TokenCrytoHolder(getLayoutInflater().inflate(R.layout.layout_card_cryto, viewGroup, false));
-
-            }
-
-            else if (viewType == TYPE_KAVA) {
+            } else if (viewType == TYPE_KAVA) {
                 return new TokenKavaHolder(getLayoutInflater().inflate(R.layout.layout_card_kava, viewGroup, false));
+
+            } else if (viewType == TYPE_OKEX) {
+                return new OktHolder(getLayoutInflater().inflate(R.layout.layout_card_ok, viewGroup, false));
+
+            } else if (viewType == TYPE_SIF) {
+                return new TokenSifHolder(getLayoutInflater().inflate(R.layout.layout_card_sif, viewGroup, false));
 
             }
 
@@ -262,6 +241,11 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     ((HistoryHolder)holder).onBindHistory(StakingTokenDetailActivity.this, tx, mAccount.address);
                 }
 
+            } else if (getItemViewType(position) == TYPE_OKEX) {
+                onBindOkt(holder, position);
+
+            } else if (getItemViewType(position) == TYPE_BNB) {
+                onBindBnb(holder, position);
             }
 //            else if (getItemViewType(position) == TYPE_VESTING) {
 //
@@ -269,8 +253,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             else {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
             }
-
-
         }
 
         @Override
@@ -291,25 +273,17 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         @Override
         public int getItemViewType(int position) {
             if (position == 0) {
-                if (mBaseChain.equals(COSMOS_MAIN)) {
-                    return TYPE_ATOM;
+                if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST))) {
+                    return TYPE_BNB;
 
-                } else if (mBaseChain.equals(IRIS_MAIN)) {
-                    return TYPE_IRIS;
-
-                } else if (mBaseChain.equals(AKASH_MAIN)) {
-                    return TYPE_AKASH;
-
-                } else if (mBaseChain.equals(PERSIS_MAIN)) {
-                    return TYPE_PERSISTENCE;
-
-                } else if (mBaseChain.equals(CRYPTO_MAIN)) {
-                    return TYPE_CRYPTO;
-
-                }
-
-                else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+                } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
                     return TYPE_KAVA;
+
+                } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                    return TYPE_OKEX;
+
+                } else if (mBaseChain.equals(SIF_MAIN)) {
+                    return TYPE_SIF;
 
                 }
                 return -1;
@@ -320,6 +294,67 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
             } else {
                 return TYPE_HISTORY;
             }
+        }
+    }
+
+    private void onBindBnb(RecyclerView.ViewHolder viewHolder, int position) {
+        final BnbHolder holder = (BnbHolder)viewHolder;
+        if (mBnbToken != null) {
+            BigDecimal totalAmount = mBalance.locked.add(mBalance.balance);
+            holder.mTvBnbBalance.setText(WDp.getDpAmount2(getBaseContext(), mBalance.balance, 0, 8));
+            holder.mTvBnbLocked.setText(WDp.getDpAmount2(getBaseContext(), mBalance.locked, 0, 8));
+            holder.mTvBnbTotal.setText(WDp.getDpAmount2(getBaseContext(), mBalance.locked.add(mBalance.balance), 0, 8));
+            holder.mTvBnbValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), totalAmount));
+        }
+    }
+
+    private void onBindOkt(RecyclerView.ViewHolder viewHolder, int position) {
+        final OktHolder holder = (OktHolder)viewHolder;
+        BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_OK);
+        BigDecimal lockedAmount = WDp.getLockedCoin(getBaseDao().mBalances, TOKEN_OK);
+        BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
+        BigDecimal withdrawAmount = WDp.getOkWithdrawingCoin(getBaseDao().mOkUnbonding);
+        BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
+
+        holder.mOkTotalAmount.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 18));
+        holder.mOkAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 0, 18));
+        holder.mOkLocked.setText(WDp.getDpAmount2(getBaseContext(), lockedAmount, 0, 18));
+        holder.mOkDeposit.setText(WDp.getDpAmount2(getBaseContext(), depositAmount, 0, 18));
+        holder.mOkWithdrawing.setText(WDp.getDpAmount2(getBaseContext(), withdrawAmount, 0, 18));
+        holder.mOkTotalValue.setText(WDp.getValueOfOk(getBaseContext(), getBaseDao(), totalAmount));
+
+    }
+
+    public class BnbHolder extends BaseHolder {
+        private RelativeLayout  mBtnSendBnb, mBtnReceiveBnb, mBtnInterChain;
+        private TextView        mTvBnbTotal, mTvBnbValue, mTvBnbBalance, mTvBnbLocked;
+
+        public BnbHolder(View v) {
+            super(v);
+            mTvBnbTotal             = itemView.findViewById(R.id.dash_bnb_amount);
+            mTvBnbValue             = itemView.findViewById(R.id.dash_bnb_value);
+            mTvBnbBalance           = itemView.findViewById(R.id.dash_bnb_balance);
+            mTvBnbLocked            = itemView.findViewById(R.id.dash_bnb_locked);
+            mBtnSendBnb             = itemView.findViewById(R.id.btn_bnb_send);
+            mBtnReceiveBnb          = itemView.findViewById(R.id.btn_bnb_receive);
+            mBtnInterChain          = itemView.findViewById(R.id.btn_bep3_send2);
+        }
+    }
+
+    public class OktHolder extends BaseHolder {
+        private RelativeLayout  mBtnOkSend, mBtnOkReceive;
+        private TextView        mOkTotalAmount, mOkTotalValue, mOkAvailable, mOkLocked, mOkDeposit, mOkWithdrawing;
+
+        public OktHolder(View v) {
+            super(v);
+            mOkTotalAmount          = itemView.findViewById(R.id.ok_total_amount);
+            mOkTotalValue           = itemView.findViewById(R.id.ok_total_value);
+            mOkAvailable            = itemView.findViewById(R.id.ok_available);
+            mOkLocked               = itemView.findViewById(R.id.ok_locked);
+            mOkDeposit              = itemView.findViewById(R.id.ok_deposit);
+            mOkWithdrawing          = itemView.findViewById(R.id.ok_withdrawing);
+            mBtnOkSend              = itemView.findViewById(R.id.btn_ok_send);
+            mBtnOkReceive           = itemView.findViewById(R.id.btn_ok_receive);
         }
     }
 }
