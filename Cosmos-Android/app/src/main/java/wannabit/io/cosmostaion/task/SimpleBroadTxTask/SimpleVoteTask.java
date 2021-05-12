@@ -285,7 +285,7 @@ public class SimpleVoteTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mFees, mMemo, deterministicKey, mApp.getBaseDao().getChainId());
-                Response<ResBroadTx> response = ApiClient.getSecretChain(mApp).broadTx(reqBroadCast).execute();
+                Response<ResBroadTx> response = ApiClient.getSentinelChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;
