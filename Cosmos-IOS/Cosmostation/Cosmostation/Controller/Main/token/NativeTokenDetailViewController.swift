@@ -150,13 +150,15 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SIF_MAIN) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = self.denom
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+//            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+//            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+//                return
+//            }
+//            txVC.mToSendDenom = self.denom
+//            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+            self.onShowToast(NSLocalizedString("prepare", comment: ""))
+            return
     
         } else {
             return
