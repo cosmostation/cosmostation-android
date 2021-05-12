@@ -177,7 +177,7 @@ public class DirectVoteFragment0 extends BaseFragment implements View.OnClickLis
                 itemChecked         = itemView.findViewById(R.id.checked_validator);
                 itemTvMoniker       = itemView.findViewById(R.id.moniker_validator);
                 itemTvVotingPower   = itemView.findViewById(R.id.delegate_power_validator);
-                itemTvCommission    = itemView.findViewById(R.id.delegate_commission_validator);
+                itemTvCommission    = itemView.findViewById(R.id.delegate_yield_commission);
                 itemCheckedBorder   = itemView.findViewById(R.id.check_border);
             }
         }
