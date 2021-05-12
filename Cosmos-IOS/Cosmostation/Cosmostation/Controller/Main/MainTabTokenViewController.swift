@@ -584,11 +584,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
                     
                 } else {
-                    let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
-                    tokenDetailVC.hidesBottomBarWhenPushed = true
+                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+                    nTokenDetailVC.hidesBottomBarWhenPushed = true
+                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
-                    tokenDetailVC.balance = balance
-                    self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
+                    
+//                    let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
+//                    tokenDetailVC.hidesBottomBarWhenPushed = true
+//                    self.navigationItem.title = ""
+//                    tokenDetailVC.balance = balance
+//                    self.navigationController?.pushViewController(tokenDetailVC, animated: true)
                 }
             }
         }
@@ -1015,9 +1021,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = "Sifchain Staking Token"
             
-            let allFet = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allFet, BaseData.instance.getLastPrice(), 18, cell!.tokenValue.font)
+            let allSif = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSif.stringValue, cell!.tokenAmount.font, 18, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allSif, BaseData.instance.getLastPrice(), 18, cell!.tokenValue.font)
             
         } else {
             cell?.tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + balance.balance_denom + ".png")!)
@@ -1029,6 +1035,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let available = balance.balance_amount
             let decimal = WUtils.getSifCoinDecimal(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(available, cell!.tokenAmount.font!, decimal, 6)
+            cell?.tokenValue.attributedText = WUtils.dpTokenValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), decimal, cell!.tokenValue.font)
             
         }
         return cell!

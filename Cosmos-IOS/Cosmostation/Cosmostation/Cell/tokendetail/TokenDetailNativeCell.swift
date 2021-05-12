@@ -55,6 +55,7 @@ class TokenDetailNativeCell: TokenDetailCell {
             onBindOKTokens(denom)
             
         } else if (chainType! == ChainType.SIF_MAIN) {
+            onBindSifTokens(denom)
             
         }
     }
@@ -119,5 +120,17 @@ class TokenDetailNativeCell: TokenDetailCell {
             totalValue.attributedText = WUtils.dpTokenValue(convertedOKTAmount, BaseData.instance.getLastPrice(), 0, totalValue.font)
             
         }
+    }
+    
+    func onBindSifTokens(_ denom: String?) {
+        tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + denom! + ".png")!)
+        tokenSymbol.text = denom!.substring(from: 1).uppercased()
+        tokenDenom.text = "(" + denom! + ")"
+        
+        let dpDecimal = WUtils.getSifCoinDecimal(denom!)
+        let available = BaseData.instance.availableAmount(denom!)
+        totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
+        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
+        totalValue.attributedText = WUtils.dpTokenValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), dpDecimal, totalValue.font)
     }
 }
