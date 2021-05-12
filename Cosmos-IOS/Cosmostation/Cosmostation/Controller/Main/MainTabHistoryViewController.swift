@@ -152,7 +152,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.OKEX_MAIN) {
             titleChainImg.image = UIImage(named: "okexChainImg")
-            titleChainName.text = "(OKex Mainnet)"
+            titleChainName.text = "(ExChain Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             titleChainImg.image = UIImage(named: "chainpersistence")
@@ -172,11 +172,11 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.SIF_MAIN) {
             titleChainImg.image = UIImage(named: "chainsifchain")
-            titleChainName.text = "(Sifchain Mainnet)"
+            titleChainName.text = "(SifChain Mainnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.KI_MAIN) {
             titleChainImg.image = UIImage(named: "chainKifoundation")
-            titleChainName.text = "(Ki Mainnet)"
+            titleChainName.text = "(KiChain Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -203,7 +203,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.OKEX_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
-            titleChainName.text = "(Okex Testnet)"
+            titleChainName.text = "(ExChain Testnet)"
             titleAlarmBtn.isHidden = true
         } else if (chainType! == ChainType.CERTIK_TEST) {
             titleChainImg.image = UIImage(named: "certikTestnetImg")
