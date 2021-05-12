@@ -979,9 +979,9 @@ class BaseNetWork {
     }
     
     static func paramBep3Url(_ chain: ChainType?) -> String {
-        if (chain == ChainType.KAVA_MAIN ) {
+        if (chain == ChainType.KAVA_MAIN || chain == ChainType.BINANCE_MAIN) {
             return KAVA_URL + "bep3/parameters"
-        } else if (chain == ChainType.KAVA_TEST) {
+        } else if (chain == ChainType.KAVA_TEST || chain == ChainType.BINANCE_TEST) {
             return KAVA_TEST_URL + "bep3/parameters"
         }
         return ""

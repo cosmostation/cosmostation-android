@@ -2027,6 +2027,17 @@
 			path = starname;
 			sourceTree = "<group>";
 		};
+		284291A6264BC2FF00130651 /* token */ = {
+			isa = PBXGroup;
+			children = (
+				28CFB6A526133C9700A18634 /* StakingTokenDetailViewController.swift */,
+				28CFB6A626133C9700A18634 /* StakingTokenDetailViewController.xib */,
+				28429194264A45FB00130651 /* NativeTokenDetailViewController.swift */,
+				28429195264A45FB00130651 /* NativeTokenDetailViewController.xib */,
+			);
+			path = token;
+			sourceTree = "<group>";
+		};
 		284D179D2535556800C364F9 /* kava */ = {
 			isa = PBXGroup;
 			children = (
@@ -2496,6 +2507,7 @@
 		E1945E40222E7FB000A1436F /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				284291A6264BC2FF00130651 /* token */,
 				284FF3EF25A6EDF900505E7A /* okex */,
 				284D179D2535556800C364F9 /* kava */,
 				283439992531D0E100CCFADE /* starname */,
@@ -2513,10 +2525,6 @@
 				E1945E4B222E81C200A1436F /* VoteListViewController.swift */,
 				2845D87C246FAE16007CD497 /* VoteDetailsViewController.swift */,
 				E17B213023470222001743D6 /* TokenDetailViewController.swift */,
-				28CFB6A526133C9700A18634 /* StakingTokenDetailViewController.swift */,
-				28CFB6A626133C9700A18634 /* StakingTokenDetailViewController.xib */,
-				28429194264A45FB00130651 /* NativeTokenDetailViewController.swift */,
-				28429195264A45FB00130651 /* NativeTokenDetailViewController.xib */,
 				E10492122347B41000A2980F /* WalletConnectViewController.swift */,
 				E19A321F22547EA100A05E41 /* AddViewController.swift */,
 				E11338FF235D95FD0011B61D /* AccountSelectViewController.swift */,

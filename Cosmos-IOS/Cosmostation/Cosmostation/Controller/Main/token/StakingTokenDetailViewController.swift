@@ -13,6 +13,8 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
     @IBOutlet weak var keyState: UIImageView!
     @IBOutlet weak var dpAddress: UILabel!
     @IBOutlet weak var tokenDetailTableView: UITableView!
+    @IBOutlet weak var btnIcbSend: UIButton!
+    @IBOutlet weak var btnBep3Send: UIButton!
     
     var hasVesting = false
     
@@ -53,8 +55,13 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         
         if (WUtils.isGRPC(chainType!)) {
             if (BaseData.instance.onParseRemainVestingsByDenom(WUtils.getMainDenom(chainType)).count > 0) { hasVesting = true }
+            btnIcbSend.isHidden = false
+            
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(KAVA_MAIN_DENOM) > 0) { hasVesting = true }
+            
+        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
+            btnBep3Send.isHidden = false
         }
     }
     
@@ -65,46 +72,6 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.navigationItem.title = NSLocalizedString("title_token_detail", comment: "");
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-    }
-    
-    
-    @IBAction func onClickShare(_ sender: UIButton) {
-        var nickName:String?
-        if (account!.account_nick_name == "") {
-            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
-        } else {
-            nickName = account!.account_nick_name
-        }
-        var address = account!.account_address
-        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            address = WKey.convertAddressOkexToEth(address)
-        }
-        self.shareAddress(address, nickName!)
-    }
-    
-    @IBAction func onClickSend(_ sender: UIButton) {
-        if (account!.account_has_private == false) {
-            self.onShowAddMenomicDialog()
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        if (WUtils.isGRPC(chainType!)) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else {
-            return
-            
-        }
-        txVC.hidesBottomBarWhenPushed = true
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -171,5 +138,109 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         
         let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         return cell!
+    }
+    
+    
+    
+    
+    @IBAction func onClickShare(_ sender: UIButton) {
+        var nickName:String?
+        if (account!.account_nick_name == "") {
+            nickName = NSLocalizedString("wallet_dash", comment: "") + String(account!.account_id)
+        } else {
+            nickName = account!.account_nick_name
+        }
+        var address = account!.account_address
+        if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
+            address = WKey.convertAddressOkexToEth(address)
+        }
+        self.shareAddress(address, nickName!)
+    }
+    
+    @IBAction func onClickSend(_ sender: UIButton) {
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        let mainDenom = WUtils.getMainDenom(chainType)
+        if (WUtils.isGRPC(chainType!)) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mToSendDenom = mainDenom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+        }
+        
+        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mBnbToken = WUtils.getBnbMainToken(BaseData.instance.mBnbTokenList)
+            txVC.mType = BNB_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.zero).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mKavaSendDenom = mainDenom
+            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
+            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mOkSendDenom = mainDenom
+            txVC.mType = OK_MSG_TYPE_TRANSFER
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mToSendDenom = mainDenom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
+            
+        }
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    @IBAction func onClickBep3Send(_ sender: UIButton) {
+        if (!SUPPORT_BEP3_SWAP || chainType == ChainType.BINANCE_TEST || chainType == ChainType.KAVA_TEST) {
+            self.onShowToast(NSLocalizedString("error_bep3_swap_temporary_disable", comment: ""))
+            return
+        }
+        
+        if (!account!.account_has_private) {
+            self.onShowAddMenomicDialog()
+            return
+        }
+        
+        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+            if (BaseData.instance.availableAmount(BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = TASK_TYPE_HTLC_SWAP
+        txVC.mHtlcDenom = WUtils.getMainDenom(chainType)
+        txVC.hidesBottomBarWhenPushed = true
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+    }
+    
+    @IBAction func onClickIbcSend(_ sender: UIButton) {
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
 }

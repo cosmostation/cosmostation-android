@@ -13,6 +13,8 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
     @IBOutlet weak var keyState: UIImageView!
     @IBOutlet weak var dpAddress: UILabel!
     @IBOutlet weak var tokenDetailTableView: UITableView!
+    @IBOutlet weak var btnIbcSend: UIButton!
+    @IBOutlet weak var bntBep3Send: UIButton!
     
     var denom: String?
     var hasVesting = false

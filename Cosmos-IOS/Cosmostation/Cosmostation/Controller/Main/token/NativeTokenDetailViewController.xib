@@ -10,6 +10,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NativeTokenDetailViewController" customModule="Cosmostation" customModuleProvider="target">
             <connections>
+                <outlet property="bntBep3Send" destination="Q1w-2i-7lI" id="lhy-gZ-FvC"/>
+                <outlet property="btnIbcSend" destination="T5v-Bx-Bov" id="N22-r3-Eh1"/>
                 <outlet property="dpAddress" destination="w00-ba-CbO" id="MOj-MS-pyN"/>
                 <outlet property="keyState" destination="UzG-eE-FoS" id="U2f-yz-70e"/>
                 <outlet property="tokenDetailTableView" destination="PFe-k1-Jot" id="8SV-hp-RiQ"/>
