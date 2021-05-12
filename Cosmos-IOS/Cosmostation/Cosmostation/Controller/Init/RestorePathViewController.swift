@@ -79,8 +79,12 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
         
         DispatchQueue.global().async {
             let address = WKey.getDpAddressPath(self.userInputWords!, indexPath.row, self.userChain!, self.usingBip44)
+            var dpAddress = address
+            if (self.userChain == ChainType.OKEX_MAIN || self.userChain == ChainType.OKEX_TEST) {
+                dpAddress = WKey.convertAddressOkexToEth(dpAddress)
+            }
             DispatchQueue.main.async(execute: {
-                cell?.addressLabel.text = address
+                cell?.addressLabel.text = dpAddress
                 let tempAccount = BaseData.instance.selectExistAccount(address: address, chain: WUtils.getChainDBName(self.userChain!))
                 if (tempAccount == nil) {
                     cell?.stateLabel.text = NSLocalizedString("ready", comment: "")

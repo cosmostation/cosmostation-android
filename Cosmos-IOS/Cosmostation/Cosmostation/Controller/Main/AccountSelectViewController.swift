@@ -171,7 +171,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "okexChainImg")
-                    cell?.chainName.text = "OKEX"
+                    cell?.chainName.text = "EX"
     
                 } else if (selectedChain == ChainType.PERSIS_MAIN) {
                     cell?.chainImg.isHidden = false
@@ -257,7 +257,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainName.isHidden = false
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "okexTestnetImg")
-                    cell?.chainName.text = "OKEX TEST"
+                    cell?.chainName.text = "EX TEST"
                     
                 } else if (selectedChain == ChainType.CERTIK_TEST) {
                     cell?.chainImg.isHidden = false
@@ -291,7 +291,11 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
             } else {
                 cell?.nameLabel.text = account.account_nick_name
             }
-            cell?.address.text = account.account_address
+            var address = account.account_address
+            if (userChain == ChainType.OKEX_MAIN || userChain == ChainType.OKEX_TEST) {
+                address = WKey.convertAddressOkexToEth(address)
+            }
+            cell?.address.text = address
             cell?.amount.attributedText = WUtils.displayAmount2(account.account_last_total, cell!.amount.font, 0, 6)
             WUtils.setDenomTitle(userChain, cell!.amountDenom)
             

@@ -317,7 +317,11 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 self.hideWaittingAlert()
-                self.addressLabel.text = self.dpAddress
+                var address = self.dpAddress
+                if (self.chainType == ChainType.OKEX_MAIN || self.chainType  == ChainType.OKEX_TEST) {
+                    address = WKey.convertAddressOkexToEth(address!)
+                }
+                self.addressLabel.text = address
                 self.mnemonicView.backgroundColor = WUtils.getChainBg(self.chainType!)
                 for i in 0 ... self.mnemonicLabels.count - 1{
                     self.mnemonicLayers[i].layer.borderWidth = 1
