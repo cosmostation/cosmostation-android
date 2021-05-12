@@ -15,6 +15,7 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
     @IBOutlet weak var tokenDetailTableView: UITableView!
     
     var denom: String?
+    var hasVesting = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +26,8 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
         self.tokenDetailTableView.dataSource = self
         self.tokenDetailTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailNativeCell", bundle: nil), forCellReuseIdentifier: "TokenDetailNativeCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailHardCell", bundle: nil), forCellReuseIdentifier: "TokenDetailHardCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
         self.tokenDetailTableView.rowHeight = UITableView.automaticDimension
@@ -44,12 +47,13 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
         
         if (WUtils.isGRPC(chainType!)) {
             
-        } else {
-            
+        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
+            if (BaseData.instance.mKavaAccountResult.getCalcurateVestingCntByDenom(denom!) > 0) { hasVesting = true }
         }
         
-        print("mBnbTokenList ", BaseData.instance.mBnbTokenList.count)
-        print("mBnbTokenTicker ", BaseData.instance.mBnbTokenTicker.count)
+//        print("mBnbTokenList ", BaseData.instance.mBnbTokenList.count)
+//        print("mBnbTokenTicker ", BaseData.instance.mBnbTokenTicker.count)
+//        print("KAVA_HARD_DENOM ", hasVesting)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -63,14 +67,28 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (hasVesting == true) {
+            return 2
+        }
         return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
+            if ((chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) && self.denom == KAVA_HARD_DENOM) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailHardCell") as? TokenDetailHardCell
+                cell?.onBindHardToken()
+                return cell!
+            }
             let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailNativeCell") as? TokenDetailNativeCell
             cell?.onBindNativeToken(chainType, denom)
             return cell!
+            
+        } else if (indexPath.row == 1 && hasVesting) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailVestingDetailCell") as? TokenDetailVestingDetailCell
+            cell?.onBindVesting(chainType!, denom!)
+            return cell!
+            
         }
         let cell = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
         return cell!

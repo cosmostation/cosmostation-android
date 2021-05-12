@@ -156,6 +156,8 @@
 		2842919E264A671700130651 /* TokenDetailBnbCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842919C264A671700130651 /* TokenDetailBnbCell.swift */; };
 		2842919F264A671700130651 /* TokenDetailBnbCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2842919D264A671700130651 /* TokenDetailBnbCell.xib */; };
 		284291A1264AA77C00130651 /* BnbTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284291A0264AA77C00130651 /* BnbTicker.swift */; };
+		284291A4264B9E3F00130651 /* TokenDetailHardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 284291A2264B9E3F00130651 /* TokenDetailHardCell.swift */; };
+		284291A5264B9E3F00130651 /* TokenDetailHardCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 284291A3264B9E3F00130651 /* TokenDetailHardCell.xib */; };
 		2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB5C242C2D4D00248EEB /* Cdp.swift */; };
 		2842AB61242C30AA00248EEB /* KavaCdpParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB60242C30AA00248EEB /* KavaCdpParam.swift */; };
 		2842AB65242C396700248EEB /* KavaPriceFeedPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2842AB64242C396700248EEB /* KavaPriceFeedPrice.swift */; };
@@ -964,6 +966,8 @@
 		2842919C264A671700130651 /* TokenDetailBnbCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailBnbCell.swift; sourceTree = "<group>"; };
 		2842919D264A671700130651 /* TokenDetailBnbCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailBnbCell.xib; sourceTree = "<group>"; };
 		284291A0264AA77C00130651 /* BnbTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BnbTicker.swift; sourceTree = "<group>"; };
+		284291A2264B9E3F00130651 /* TokenDetailHardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailHardCell.swift; sourceTree = "<group>"; };
+		284291A3264B9E3F00130651 /* TokenDetailHardCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailHardCell.xib; sourceTree = "<group>"; };
 		2842AB5C242C2D4D00248EEB /* Cdp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cdp.swift; sourceTree = "<group>"; };
 		2842AB60242C30AA00248EEB /* KavaCdpParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaCdpParam.swift; sourceTree = "<group>"; };
 		2842AB64242C396700248EEB /* KavaPriceFeedPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaPriceFeedPrice.swift; sourceTree = "<group>"; };
@@ -1918,6 +1922,8 @@
 				E126CFB12387A799002A546F /* TokenDetailHeaderBnbCell.xib */,
 				E191A57F2379091A002577BC /* TokenDetailKavaCell.swift */,
 				E126CFB62387A7BD002A546F /* TokenDetailKavaCell.xib */,
+				284291A2264B9E3F00130651 /* TokenDetailHardCell.swift */,
+				284291A3264B9E3F00130651 /* TokenDetailHardCell.xib */,
 				283D2EB124F6250F00247424 /* TokenDetailHeaderOkCell.swift */,
 				283D2EB224F6250F00247424 /* TokenDetailHeaderOkCell.xib */,
 				28CFB6AB2613422200A18634 /* TokenDetailAkashCell.swift */,
@@ -2896,6 +2902,7 @@
 				28474ECB241E06AF00AF5A81 /* TxCdpWithdrawCell.xib in Resources */,
 				2842AB6F242C5C7200248EEB /* CdpLisyMyCell.xib in Resources */,
 				E15DA48122F1738C000557FC /* PromotionCell.xib in Resources */,
+				284291A5264B9E3F00130651 /* TokenDetailHardCell.xib in Resources */,
 				E103DACE22813248006C2146 /* WalletDetailViewController.xib in Resources */,
 				2889FD882603485200CA9896 /* TxIncentiveMintingCell.xib in Resources */,
 				288A14E125199C6200E17808 /* WalletCertikCell.xib in Resources */,
@@ -3482,6 +3489,7 @@
 				E17B213123470222001743D6 /* TokenDetailViewController.swift in Sources */,
 				E151B64322484F490026B8C0 /* Fee.swift in Sources */,
 				280E1F20254AC6340007BA7D /* ReplaceSelectChainViewController.swift in Sources */,
+				284291A4264B9E3F00130651 /* TokenDetailHardCell.swift in Sources */,
 				280E1F07254A9B780007BA7D /* RenewStarname3ViewController.swift in Sources */,
 				287AC5FB25FDF7260070837E /* akash_escrow_v1beta1_query.grpc.swift in Sources */,
 				E14BDFFB224CCFE20007DD7D /* MnemonicCell.swift in Sources */,

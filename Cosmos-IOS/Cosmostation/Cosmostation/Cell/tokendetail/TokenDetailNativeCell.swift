@@ -41,10 +41,6 @@ class TokenDetailNativeCell: TokenDetailCell {
     }
     
     func onBindNativeToken(_ chainType: ChainType?, _ denom: String?) {
-        print("onBindNativeToken")
-        print("chainType ", chainType)
-        print("denom ", denom)
-        
         if (WUtils.isGRPC(chainType)) {
             return
         }
@@ -53,6 +49,7 @@ class TokenDetailNativeCell: TokenDetailCell {
             onBindBNBTokens(denom)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+            onBindKavaTokens(denom)
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             onBindOKTokens(denom)
@@ -84,6 +81,21 @@ class TokenDetailNativeCell: TokenDetailCell {
             fronzenAmount.attributedText = WUtils.displayAmount2(frozen.stringValue, availableAmount.font, 0, 8)
             totalValue.attributedText = WUtils.dpTokenValue(convertAmount, BaseData.instance.getLastPrice(), 0, totalValue.font)
         }
+    }
+    
+    func onBindKavaTokens(_ denom: String?) {
+        tokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + denom! + ".png")!)
+        tokenSymbol.text = denom!.uppercased()
+        tokenDenom.text = "(" + denom! + ")"
+        
+        let dpDecimal = WUtils.getKavaCoinDecimal(denom!)
+        let available = BaseData.instance.availableAmount(denom!)
+        let convertedDollorValue = WUtils.getKavaTokenDollorValue(denom!, available)
+        let convertedKavaAmount = convertedDollorValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
+        
+        totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
+        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
+        totalValue.attributedText = WUtils.dpTokenValue(convertedKavaAmount.multiplying(byPowerOf10: 6), BaseData.instance.getLastPrice(), 6, totalValue.font)
     }
     
     func onBindOKTokens(_ denom: String?) {

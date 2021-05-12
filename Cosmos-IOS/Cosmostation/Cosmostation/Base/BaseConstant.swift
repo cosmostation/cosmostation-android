@@ -582,6 +582,7 @@ let TRANS_BG_COLOR_KAVA                     = UIColor.init(hexString: "ff554f", 
 let TRANS_BG_COLOR_KAVA2                    = UIColor.init(hexString: "ff554f", alpha: 0.4)
 let COLOR_KAVA                              = UIColor.init(hexString: "FF564F")
 let COLOR_KAVA_DARK                         = UIColor.init(hexString: "631D1B")
+let COLOR_BG_COLOR_HARD                     = UIColor.init(hexString: "8626E1", alpha: 0.15)
 let COLOR_HARD                              = UIColor.init(hexString: "8626E1")
 
 let TRANS_BG_COLOR_IOV                      = UIColor.init(hexString: "6e7cde", alpha: 0.15)

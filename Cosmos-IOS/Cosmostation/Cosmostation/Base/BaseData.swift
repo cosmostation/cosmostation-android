@@ -107,6 +107,7 @@ final class BaseData : NSObject{
         return amount;
     }
     
+    //locked or vesting
     func lockedAmount(_ symbol:String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in mBalances {

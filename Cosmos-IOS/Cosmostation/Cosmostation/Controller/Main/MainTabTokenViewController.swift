@@ -538,11 +538,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                     self.navigationController?.pushViewController(sTokenDetailVC, animated: true)
                     
                 } else {
-                    let tokenDetailVC = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "TokenDetailViewController") as! TokenDetailViewController
-                    tokenDetailVC.hidesBottomBarWhenPushed = true
+                    let nTokenDetailVC = NativeTokenDetailViewController(nibName: "NativeTokenDetailViewController", bundle: nil)
+                    nTokenDetailVC.hidesBottomBarWhenPushed = true
+                    nTokenDetailVC.denom = mainTabVC.mBalances[indexPath.row].balance_denom
                     self.navigationItem.title = ""
-                    tokenDetailVC.balance = balance
-                    self.navigationController?.pushViewController(tokenDetailVC, animated: true)
+                    self.navigationController?.pushViewController(nTokenDetailVC, animated: true)
                 }
                 
             } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {

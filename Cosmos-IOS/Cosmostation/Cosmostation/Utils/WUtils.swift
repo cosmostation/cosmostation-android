@@ -222,7 +222,7 @@ class WUtils {
                     dpBalance = dpBalance.subtracting(remainVesting)
 //                    if (SHOW_LOG) { print("Hard dpBalance      ", dpBalance) }
                     
-                    result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, remainVesting.stringValue, "0"))
+                    result.append(Balance.init(account.account_id, coin.denom, dpBalance.stringValue, Date().millisecondsSince1970, "0", remainVesting.stringValue))
                     
                 } else {
                     result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
@@ -1529,7 +1529,7 @@ class WUtils {
         var amount = NSDecimalNumber.zero
         for balance in balances {
             if (balance.balance_denom == denom) {
-                amount = localeStringToDecimal(balance.balance_frozen)
+                amount = localeStringToDecimal(balance.balance_locked)
             }
         }
         return amount
@@ -1540,7 +1540,7 @@ class WUtils {
         for balance in balances {
             if (balance.balance_denom == denom) {
                 amount = localeStringToDecimal(balance.balance_amount)
-                amount = amount.adding(localeStringToDecimal(balance.balance_frozen))
+                amount = amount.adding(localeStringToDecimal(balance.balance_locked))
             }
         }
         return amount
