@@ -96,7 +96,7 @@
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/layer_refresher"
         android:layout_below="@+id/account_layer"
-        android:layout_above="@+id/btn_send"
+        android:layout_above="@+id/control_later"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
@@ -113,6 +113,7 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     <LinearLayout
+        android:id="@+id/control_later"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/space_12"

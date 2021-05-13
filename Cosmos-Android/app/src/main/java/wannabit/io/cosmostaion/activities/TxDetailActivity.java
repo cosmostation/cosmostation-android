@@ -45,9 +45,9 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
-import wannabit.io.cosmostaion.widget.TxCdpLiquidate;
-import wannabit.io.cosmostaion.widget.TxHardPoolIncentive;
-import wannabit.io.cosmostaion.widget.TxHardPoolLiquidate;
+import wannabit.io.cosmostaion.widget.txDetail.TxCdpLiquidate;
+import wannabit.io.cosmostaion.widget.txDetail.TxHardPoolIncentive;
+import wannabit.io.cosmostaion.widget.txDetail.TxHardPoolLiquidate;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;

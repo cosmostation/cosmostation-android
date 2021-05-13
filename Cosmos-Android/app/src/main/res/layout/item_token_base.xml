@@ -85,6 +85,48 @@
                     style="@style/font_ssl_12_white"/>
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/token_locked_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_locked"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/token_locked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="-"
+                    style="@style/font_ssl_12_white"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/token_frozen_layer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_12"
+                android:visibility="gone">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/str_frozen"
+                    style="@style/font_ss_12_gray1"/>
+                <TextView
+                    android:id="@+id/token_frozen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="right"
+                    android:text="-"
+                    style="@style/font_ssl_12_white"/>
+            </RelativeLayout>
+
 
 
         </LinearLayout>

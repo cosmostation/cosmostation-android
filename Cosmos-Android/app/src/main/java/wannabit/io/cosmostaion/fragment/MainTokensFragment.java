@@ -623,8 +623,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else {
 
         }
-
-
     }
 
     private void onBindIrisItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -691,9 +689,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                        intent.putExtra("balance", balance);
-                        intent.putExtra("bnbToken", token);
-                        intent.putExtra("bnbTics", mBnbTics);
                         intent.putExtra("denom", balance.symbol);
                         startActivity(intent);
 
@@ -782,7 +777,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             });
 
-
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
             holder.itemSymbol.setText(balance.symbol.toUpperCase());
@@ -799,7 +793,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
             try {
                 Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-
             } catch (Exception e) { }
 
             BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
@@ -819,8 +812,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         }
-
-
     }
 
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -835,16 +826,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_IOV);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
+
         } else {
-            //TODO no case yet
 
         }
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO no  yet
-            }
-        });
     }
 
     private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -859,17 +844,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalAmount));
+
         } else {
-            //TODO no case yet
+
         }
-        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                Intent intent = new Intent(getMainActivity(), TokenDetailActivity.class);
-//                intent.putExtra("balance", balance);
-//                startActivity(intent);
-            }
-        });
     }
 
     private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -917,7 +895,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("okDenom", balance.symbol);
+                    intent.putExtra("denom", balance.symbol);
                     startActivity(intent);
                 }
             });
@@ -936,16 +914,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+
         } else {
-            //TODO no case yet
 
         }
-//        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                //TODO no  yet
-//            }
-//        });
     }
 
     private void onBindSecretItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -962,13 +934,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         } else {
-            //TODO no case yet
+
         }
-//        holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//            }
-//        });
 
     }
 
@@ -1074,6 +1041,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             });
 
+        } else {
+
         }
     }
 
@@ -1123,7 +1092,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         }
-
     }
 
     private void onBindKiItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -1139,8 +1107,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
-        }
+        } else {
 
+        }
     }
 
     private void onBindCosmosTestItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -1157,9 +1126,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
-        } else {
-
-        }
+        } else { }
     }
 
     private void onBindIrisTestItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -1176,9 +1143,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
-        } else {
-
-        }
+        } else { }
 
     }
 

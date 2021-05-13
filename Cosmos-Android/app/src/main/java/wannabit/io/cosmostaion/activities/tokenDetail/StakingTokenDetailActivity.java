@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -18,32 +17,28 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
-import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
-import wannabit.io.cosmostaion.widget.TokenAkashHolder;
-import wannabit.io.cosmostaion.widget.TokenBnbHolder;
-import wannabit.io.cosmostaion.widget.TokenCosmosHolder;
-import wannabit.io.cosmostaion.widget.TokenCrytoHolder;
-import wannabit.io.cosmostaion.widget.TokenIrisHolder;
-import wannabit.io.cosmostaion.widget.TokenKavaHolder;
-import wannabit.io.cosmostaion.widget.TokenOKExHolder;
-import wannabit.io.cosmostaion.widget.TokenPersisHolder;
-import wannabit.io.cosmostaion.widget.TokenSifHolder;
-import wannabit.io.cosmostaion.widget.VestingHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenAkashHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenBnbHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenCosmosHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenCrytoHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenIrisHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenKavaHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenOKExHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenPersisHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenSifHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -60,7 +55,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
 public class StakingTokenDetailActivity extends BaseActivity implements View.OnClickListener {
 
@@ -127,7 +121,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         });
 
         onUpdateView();
-
         mBtnAddressPopup.setOnClickListener(this);
         mBtnIbcSend.setOnClickListener(this);
         mBtnBep3Send.setOnClickListener(this);
@@ -183,7 +176,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         } else if (v.equals(mBtnSend)) {
             onStartSendMainDenom();
         }
-
     }
 
 
@@ -218,7 +210,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenCrytoHolder(getLayoutInflater().inflate(R.layout.layout_card_cryto, viewGroup, false));
             }
 
-            if (viewType == TYPE_SIF) {
+            else if (viewType == TYPE_SIF) {
                 return new TokenSifHolder(getLayoutInflater().inflate(R.layout.layout_card_sif, viewGroup, false));
             } else if (viewType == TYPE_OKEX) {
                 return new TokenOKExHolder(getLayoutInflater().inflate(R.layout.layout_card_ok, viewGroup, false));
@@ -230,7 +222,6 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
 
             else if (viewType == TYPE_VESTING) {
                 return new VestingHolder(getLayoutInflater().inflate(R.layout.layout_vesting_schedule, viewGroup, false));
-
             } else if (viewType == TYPE_HISTORY) {
                 return new HistoryHolder(getLayoutInflater().inflate(R.layout.item_history, viewGroup, false));
             }
@@ -297,6 +288,17 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return 2;
             }
             return 1;
+//            int cnt = 1;
+//            if (mApiTxCustomHistory != null) {
+//                cnt = cnt + mApiTxCustomHistory.size();
+//            }
+//            if (mApiTxHistory != null) {
+//                cnt = cnt + mApiTxHistory.size();
+//            }
+//            if (mHasVesting) {
+//                cnt = cnt + 1;
+//            }
+//            return cnt;
         }
 
         @Override
