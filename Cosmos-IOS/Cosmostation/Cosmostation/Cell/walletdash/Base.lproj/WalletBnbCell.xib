@@ -111,7 +111,7 @@
                                             <constraint firstAttribute="height" constant="40" id="ZZr-uc-hHA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                        <state key="normal" title=" BEP3 Transfer" image="bepsendIc">
+                                        <state key="normal" title=" BEP3 Send" image="bepsendIc">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
