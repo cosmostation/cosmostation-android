@@ -64,6 +64,7 @@ import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
@@ -95,7 +96,9 @@ import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.task.FetchTask.AccountInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.AllRewardsTask;
 import wannabit.io.cosmostaion.task.FetchTask.BandOracleStatusTask;
+import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbMiniTokenListTask;
+import wannabit.io.cosmostaion.task.FetchTask.BnbTickerTask;
 import wannabit.io.cosmostaion.task.FetchTask.BnbTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.BondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -172,6 +175,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BAND_ORACLE_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_FEES;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_MINI_TICKER;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_BNB_TICKER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_PRICE_FEED_PARAM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_MINT_PARAM;
@@ -625,7 +630,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyUnbondings.clear();
         getBaseDao().mMyRewards.clear();
 
-
         getBaseDao().mStakingPool = null;
         getBaseDao().mInflation = BigDecimal.ZERO;
         getBaseDao().mProvisions = BigDecimal.ZERO;
@@ -660,13 +664,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mReserveCoins.clear();
 
 
+        //binance
+        getBaseDao().mBnbTokens.clear();
+        getBaseDao().mBnbTickers.clear();
+
+
         if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST) ) {
-            mTaskCount = 4;
-            getBaseDao().mBnbTokens.clear();
+            mTaskCount = 6;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BnbTokenListTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BnbMiniTokenListTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BnbTickerTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BnbMiniTickerTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 //            new BnbFeesTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
@@ -988,6 +998,18 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 }
             }
 
+        } else if (result.taskType == TASK_FETCH_BNB_TICKER) {
+            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>)result.resultData;
+            if (tempTickers!= null) {
+                getBaseDao().mBnbTickers.addAll(tempTickers);
+            }
+
+        } else if (result.taskType == TASK_FETCH_BNB_MINI_TICKER) {
+            ArrayList<BnbTicker> tempTickers = (ArrayList<BnbTicker>)result.resultData;
+            if (tempTickers!= null) {
+                getBaseDao().mBnbTickers.addAll(tempTickers);
+            }
+
         } else if (result.taskType == BaseConstant.TASK_FETCH_KAVA_CDP_PARAM) {
             if (result.isSuccess && result.resultData != null) {
                 final CdpParam cdpParam = (CdpParam)result.resultData;
@@ -1174,6 +1196,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 } else {
 //                    WLog.w("getBaseDao().mNodeInfo " + getBaseDao().mNodeInfo.network);
                 }
+//                WLog.w("mBnbTokens " + getBaseDao().mBnbTokens.size());
+//                WLog.w("mBnbTickers " + getBaseDao().mBnbTickers.size());
 
             } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
                 for (Validator all:getBaseDao().mAllValidators) {

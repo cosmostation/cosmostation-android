@@ -24,11 +24,7 @@ import com.squareup.picasso.Picasso;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
@@ -39,9 +35,6 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.network.ApiClient;
-import wannabit.io.cosmostaion.network.res.ResBnbTic;
-import wannabit.io.cosmostaion.network.res.ResCgcTic;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
@@ -113,7 +106,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private TokensAdapter               mTokensAdapter;
     private ArrayList<Balance>          mBalances = new ArrayList<>();
-    private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
+//    private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
     private int                         mOrder;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
@@ -201,9 +194,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     public void onRefreshTab() {
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
-        if (mBnbTics == null || mBnbTics.size() < 0) {
-            mOrder = ORDER_NAME;
-        }
         onUpdateView();
     }
 
@@ -223,113 +213,15 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
         } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST))) {
             mTokenSortType.setText(R.string.str_value);
-            WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
+//            WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
         } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST))) {
             mTokenSortType.setText(R.string.str_value);
             WUtil.onSortingKavaTokenByValue(getMainActivity().mBaseChain, getBaseDao(), mBalances);
         }
+
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
-        if (getMainActivity().mBaseChain.equals(COSMOS_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCosmos));
-            onUpdateTotalCard();
-            onFetchCosmosTokenPrice();
-
-        } else if (getMainActivity().mBaseChain.equals(IRIS_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgIris));
-            onUpdateTotalCard();
-            onFetchIrisTokenPrice();
-
-        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBinance));
-            onUpdateTotalCard();
-            onFetchBnbTokenPrice();
-
-        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKava));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgStarname));
-            onUpdateTotalCard();
-            onFetchIovTokenPrice();
-
-        } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgBand));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCertik));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSecret));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgAkash));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOkex));
-            onUpdateTotalCard();
-            onFetchOKexTokenPrice();
-
-        } else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgPersis));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSentinel));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgFetch));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgCryto));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgSif));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKi));
-            onUpdateTotalCard();
-
-        }
-
-        else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(BNB_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(IOV_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-
-        } else if (getMainActivity().mBaseChain.equals(OK_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-            onFetchOKexTokenPrice();
-
-        } else if (getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-            mCardTotal.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
-            onUpdateTotalCard();
-
-        }
+        mCardTotal.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getMainActivity().mBaseChain));
+        onUpdateTotalCard();
 
         if (isGRPC(getMainActivity().mBaseChain)) {
             mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
@@ -370,12 +262,11 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalBnbAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_BNB)) {
-                    totalBnbAmount = totalBnbAmount.add(balance.getAllBnbBalance());
+                    totalBnbAmount = totalBnbAmount.add(getBaseDao().getAllBnbTokenAmount(TOKEN_BNB));
                 } else {
-                    ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(balance.symbol));
-                    if (tic != null) {
-                        totalBnbAmount = totalBnbAmount.add(balance.exchangeToBnbAmount(tic));
-                    }
+                    BigDecimal tokenAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
+                    BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), balance.symbol, tokenAmount);
+                    totalBnbAmount = totalBnbAmount.add(convertAmount);
                 }
             }
             mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBnbAmount, 0, 6));
@@ -652,21 +543,18 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindBnbItem(TokensAdapter.AssetHolder holder, final int position) {
-        Balance balance = mBalances.get(position);
-        BnbToken token = WUtil.getBnbToken(getBaseDao().mBnbTokens, balance);
-
-        if (token != null) {
-            holder.itemSymbol.setText(token.original_symbol);
-            holder.itemInnerSymbol.setText("(" + token.symbol + ")");
-            holder.itemFullName.setText(token.name);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.getAllBnbBalance(), 0, 6));
-            Picasso.get().cancelRequest(holder.itemImg);
-
-            BigDecimal amount = BigDecimal.ZERO;
-            if (balance.symbol.equals(TOKEN_BNB)) {
-                amount = balance.getAllBnbBalance();
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+        final String denom      = mBalances.get(position).symbol;
+        final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
+        final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
+        if (bnbToken != null) {
+            holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
+            holder.itemFullName.setText(bnbToken.name);
+            if (denom.equals(TOKEN_BNB)) {
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+                holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), amount, getMainActivity().mBaseChain));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -677,26 +565,22 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             } else {
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(balance.symbol));
-                if (tic != null) {
-                    amount = balance.exchangeToBnbAmount(tic);
-                }
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
                 try {
-                    Picasso.get().load(TOKEN_IMG_URL+token.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+                    Picasso.get().load(TOKEN_IMG_URL+bnbToken.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
                 } catch (Exception e) {}
 
+                final BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), denom, amount);
+                holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), convertAmount, getMainActivity().mBaseChain));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                        intent.putExtra("denom", balance.symbol);
+                        intent.putExtra("denom", denom);
                         startActivity(intent);
-
                     }
                 });
             }
-            holder.itemValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), amount));
-
         }
     }
 
@@ -1148,7 +1032,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
 
-
+    /*
     private void onFetchCosmosTokenPrice() {
         onUpdateTotalCard();
     }
@@ -1158,34 +1042,34 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onFetchBnbTokenPrice() {
-        mBnbTics.clear();
-        for (int i = 0; i < mBalances.size(); i ++) {
-            final int position = i;
-            if (!mBalances.get(position).symbol.equals(TOKEN_BNB)) {
-                final String ticSymbol = WUtil.getBnbTicSymbol(mBalances.get(position).symbol);
-                ResBnbTic tic = mBnbTics.get(ticSymbol);
-                if (tic == null) {
-                    ApiClient.getBnbChain(getMainActivity()).getTic(ticSymbol).enqueue(new Callback<ArrayList<ResBnbTic>>() {
-                        @Override
-                        public void onResponse(Call<ArrayList<ResBnbTic>> call, Response<ArrayList<ResBnbTic>> response) {
-                            if (isAdded() && response.isSuccessful() && response.body().size() > 0) {
-                                mBnbTics.put(ticSymbol, response.body().get(0));
-                                mTokensAdapter.notifyItemChanged(position);
-                            } else {
-                                mBnbTics.remove(ticSymbol);
-                            }
-                            onUpdateTotalCard();
-                        }
-
-                        @Override
-                        public void onFailure(Call<ArrayList<ResBnbTic>> call, Throwable t) {
-                            mBnbTics.remove(ticSymbol);
-                            onUpdateTotalCard();
-                        }
-                    });
-                }
-            }
-        }
+//        mBnbTics.clear();
+//        for (int i = 0; i < mBalances.size(); i ++) {
+//            final int position = i;
+//            if (!mBalances.get(position).symbol.equals(TOKEN_BNB)) {
+//                final String ticSymbol = WUtil.getBnbTicSymbol(mBalances.get(position).symbol);
+//                ResBnbTic tic = mBnbTics.get(ticSymbol);
+//                if (tic == null) {
+//                    ApiClient.getBnbChain(getMainActivity()).getTic(ticSymbol).enqueue(new Callback<ArrayList<ResBnbTic>>() {
+//                        @Override
+//                        public void onResponse(Call<ArrayList<ResBnbTic>> call, Response<ArrayList<ResBnbTic>> response) {
+//                            if (isAdded() && response.isSuccessful() && response.body().size() > 0) {
+//                                mBnbTics.put(ticSymbol, response.body().get(0));
+//                                mTokensAdapter.notifyItemChanged(position);
+//                            } else {
+//                                mBnbTics.remove(ticSymbol);
+//                            }
+//                            onUpdateTotalCard();
+//                        }
+//
+//                        @Override
+//                        public void onFailure(Call<ArrayList<ResBnbTic>> call, Throwable t) {
+//                            mBnbTics.remove(ticSymbol);
+//                            onUpdateTotalCard();
+//                        }
+//                    });
+//                }
+//            }
+//        }
     }
 
     private void onFetchIovTokenPrice() {
@@ -1214,6 +1098,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
         }
     }
+    */
 
 
     public MainActivity getMainActivity() {

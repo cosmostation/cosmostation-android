@@ -109,8 +109,8 @@ public class BaseConstant {
 //    public final static int TASK_IRIS_REDELEGATE                        = 2040;
     public final static int TASK_FETCH_BNB_HISTORY                      = 2041;
     public final static int TASK_FETCH_BNB_TOKENS                       = 2042;
-//    public final static int TASK_FETCH_IRIS_TOKENS                      = 2043;
-//    public final static int TASK_FETCH_TOKEN_HISTORY                    = 2044;
+    public final static int TASK_FETCH_BNB_TICKER                       = 2043;
+    public final static int TASK_FETCH_BNB_MINI_TICKER                  = 2044;
     public final static int TASK_GEN_TX_BNB_SIMPLE_SEND                 = 2045;
     public final static int TASK_FETCH_PROPOSAL_DETAIL                  = 2046;
     public final static int TASK_FETCH_PROPOSAL_VOTED                   = 2047;

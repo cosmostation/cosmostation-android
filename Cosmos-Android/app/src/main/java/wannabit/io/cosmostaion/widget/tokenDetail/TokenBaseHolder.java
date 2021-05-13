@@ -16,18 +16,27 @@ import java.math.RoundingMode;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IMG_URL;
 
 public class TokenBaseHolder extends BaseHolder {
     private ImageView       mIvToken;
-    private TextView        mTvTokenTitle;
+    private TextView        mTvTokenTitle, mTvTokenDenom;
     private TextView        mTvTokenTotal, mTvTokenValue, mTvTokenAvailable;
-
     private RelativeLayout  mLayerLocked, mLayerFrozen;
     private TextView        mTvTokenLocked, mTvTokenFrozen;
 
@@ -35,6 +44,7 @@ public class TokenBaseHolder extends BaseHolder {
         super(itemView);
         mIvToken            = itemView.findViewById(R.id.token_icon);
         mTvTokenTitle       = itemView.findViewById(R.id.token_title);
+        mTvTokenDenom       = itemView.findViewById(R.id.token_denom);
         mTvTokenTotal       = itemView.findViewById(R.id.token_amount);
         mTvTokenValue       = itemView.findViewById(R.id.token_value);
         mTvTokenAvailable   = itemView.findViewById(R.id.token_available);
@@ -47,26 +57,71 @@ public class TokenBaseHolder extends BaseHolder {
 
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
+        if (isGRPC(chain)) {
+
+        } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            onBindBnbToken(c, chain, baseData, denom);
+
+        } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
+            onBindKavaToken(c, chain, baseData, denom);
+
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            onBindOkToken(c, chain, baseData, denom);
+
+        } else if (chain.equals(SIF_MAIN)) {
+            onBindSifToken(c, chain, baseData, denom);
+
+        }
+    }
+
+    public void onBindBnbToken(Context context, BaseChain chain, BaseData baseData, String denom) {
+        mLayerLocked.setVisibility(View.VISIBLE);
+        mLayerFrozen.setVisibility(View.VISIBLE);
+
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
+        final BigDecimal lockedAmount = baseData.lockedAmount(denom);
+        final BigDecimal frozenAmount = baseData.frozenAmount(denom);
+        final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(frozenAmount);
+        final BigDecimal convertAmount = WUtil.getBnbConvertAmount(baseData, denom, totalAmount);
+
+        mTvTokenAvailable.setText(WDp.getDpAmount2(context, availableAmount, 0, 8));
+        mTvTokenLocked.setText(WDp.getDpAmount2(context, lockedAmount, 0, 8));
+        mTvTokenFrozen.setText(WDp.getDpAmount2(context, frozenAmount, 0, 8));
+        mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, 0, 8));
+        mTvTokenValue.setText(WDp.getDpMainAssetValue(context, baseData, convertAmount, chain));
+
+        final BnbToken bnbToken = baseData.getBnbToken(denom);
+        if (bnbToken != null) {
+            mTvTokenTitle.setText(bnbToken.original_symbol.toUpperCase());
+            mTvTokenDenom.setText("(" + bnbToken.symbol + ")");
+            try {
+                Picasso.get().load(TOKEN_IMG_URL+bnbToken.original_symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
+            } catch (Exception e) { }
+        }
+    }
+
+    public void onBindKavaToken(Context context, BaseChain chain, BaseData baseData, String denom) {
+        final int dpDecimal                     = WUtil.getKavaCoinDecimal(denom);
+        final BigDecimal availableTokenAmount   = WDp.getAvailableCoin(baseData.mBalances, denom);
+        final BigDecimal tokenTotalValue        = WDp.kavaTokenDollorValue(chain, baseData, denom, availableTokenAmount);
+        final BigDecimal convertedToKava        = tokenTotalValue.divide(baseData.getLastKavaDollorTic(), 6, RoundingMode.DOWN);
+
+        mTvTokenTitle.setText(denom.toUpperCase());
+        mTvTokenDenom.setText("(" + denom + ")");
+        mTvTokenAvailable.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
+        mTvTokenTotal.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
+        mTvTokenValue.setText(WDp.getValueOfKava(context, baseData, convertedToKava.movePointRight(6)));
+
+        try {
+            Picasso.get().load(KAVA_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
+        } catch (Exception e) { }
+    }
+
+    public void onBindOkToken(Context context, BaseChain chain, BaseData baseData, String denom) {
 
     }
 
-//    public void onBindKavaToken(Context context, BaseChain chain, BaseData baseData, String denom) {
-//        final int dpDecimal                     = WUtil.getKavaCoinDecimal(denom);
-//        final BigDecimal availableTokenAmount   = WDp.getAvailableCoin(baseData.mBalances, denom);
-//        final BigDecimal tokenTotalValue        = WDp.kavaTokenDollorValue(chain, baseData, denom, availableTokenAmount);
-//        final BigDecimal convertedToKava        = tokenTotalValue.divide(baseData.getLastKavaDollorTic(), 6, RoundingMode.DOWN);
-//
-//        mTvTokenTitle.setText(denom.toUpperCase());
-//        mTvTokenAvailable.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
-//        mTvTokenTotal.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
-//        mTvTokenValue.setText(WDp.getValueOfKava(context, baseData, convertedToKava.movePointRight(6)));
-//        try {
-//            Picasso.get().load(KAVA_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
-//
-//        } catch (Exception e) { }
-//    }
-//
-//    public void onBindSifToken(Context context, BaseChain chain, BaseData baseData, String denom) {
+    public void onBindSifToken(Context context, BaseChain chain, BaseData baseData, String denom) {
 //        final BigDecimal availableTokenAmount   = BigDecimal.valueOf(0);
 //
 //        mTvTokenTitle.setText(denom.toUpperCase());
@@ -77,5 +132,5 @@ public class TokenBaseHolder extends BaseHolder {
 //            Picasso.get().load(SIF_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
 //
 //        } catch (Exception e) { }
-//    }
+    }
 }

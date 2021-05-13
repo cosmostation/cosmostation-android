@@ -77,7 +77,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_ATTO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
-
+/*
 public class TokenDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
     private Toolbar                         mToolbar;
@@ -1049,3 +1049,4 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
         }
     }
 }
+*/

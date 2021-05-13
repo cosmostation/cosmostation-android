@@ -80,17 +80,4 @@ public class Balance implements Parcelable {
             return new Balance[size];
         }
     };
-
-
-    public BigDecimal getAllBnbBalance() {
-        return balance.add(locked);
-    }
-
-    public BigDecimal exchangeToBnbAmount(ResBnbTic tic) {
-        if (WUtil.isBnbBaseMarketToken(symbol)) {
-            return getAllBnbBalance().divide(new BigDecimal(tic.lastPrice), 8, RoundingMode.DOWN);
-        } else {
-            return getAllBnbBalance().multiply(new BigDecimal(tic.lastPrice)).setScale(8, RoundingMode.DOWN);
-        }
-    }
 }

@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -148,6 +149,7 @@ public class BaseData {
 
     //COMMON DATA FOR BINANCE
     public ArrayList<BnbToken>      mBnbTokens = new ArrayList<>();
+    public ArrayList<BnbTicker>     mBnbTickers = new ArrayList<>();
     public ArrayList<ResBnbFee>     mBnbFees = new ArrayList<>();
 
     //COMMON DATA FOR OKEX
@@ -289,6 +291,19 @@ public class BaseData {
 
     public BigDecimal getAllMainAssetOld(String denom) {
         return availableAmount(denom).add(lockedAmount(denom)).add(delegatedSumAmount()).add(unbondingSumAmount()).add(rewardAmount(denom));
+    }
+
+    public BigDecimal getAllBnbTokenAmount(String denom) {
+        return availableAmount(denom).add(lockedAmount(denom)).add(frozenAmount(denom));
+    }
+
+    public BnbToken getBnbToken(String denom) {
+        for (BnbToken token: mBnbTokens) {
+            if (token.symbol.equals(denom)) {
+                return token;
+            }
+        }
+        return null;
     }
 
     //gRPC

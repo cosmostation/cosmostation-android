@@ -52,6 +52,7 @@ import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
@@ -164,6 +165,7 @@ public class WUtil {
         }
         return result;
     }
+
     public static Account getAccountFromOkLcd(long id, ResOkAccountInfo lcd) {
         Account result = new Account();
         result.id = id;
@@ -1202,25 +1204,25 @@ public class WUtil {
         });
     }
 
-    public static void onSortingBnbTokenByValue(ArrayList<Balance> balances, HashMap<String, ResBnbTic> tics) {
-        Collections.sort(balances, new Comparator<Balance>() {
-            @Override
-            public int compare(Balance o1, Balance o2) {
-                if(o1.symbol.equals(TOKEN_BNB)) return -1;
-                if(o2.symbol.equals(TOKEN_BNB)) return 1;
-
-                ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
-                ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
-                if (tic1 != null && tic2 != null) {
-                    BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
-                    BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
-                    return o2Amount.compareTo(o1Amount);
-                } else {
-                    return 0;
-                }
-            }
-        });
-    }
+//    public static void onSortingBnbTokenByValue(ArrayList<Balance> balances, HashMap<String, ResBnbTic> tics) {
+//        Collections.sort(balances, new Comparator<Balance>() {
+//            @Override
+//            public int compare(Balance o1, Balance o2) {
+//                if(o1.symbol.equals(TOKEN_BNB)) return -1;
+//                if(o2.symbol.equals(TOKEN_BNB)) return 1;
+//
+//                ResBnbTic tic1 = tics.get(WUtil.getBnbTicSymbol(o1.symbol));
+//                ResBnbTic tic2 = tics.get(WUtil.getBnbTicSymbol(o2.symbol));
+//                if (tic1 != null && tic2 != null) {
+//                    BigDecimal o1Amount = o1.exchangeToBnbAmount(tic1);
+//                    BigDecimal o2Amount = o2.exchangeToBnbAmount(tic2);
+//                    return o2Amount.compareTo(o1Amount);
+//                } else {
+//                    return 0;
+//                }
+//            }
+//        });
+//    }
 
     public static void onSortingKavaTokenByValue(BaseChain chain, BaseData baseData, ArrayList<Balance> balances) {
         Collections.sort(balances, new Comparator<Balance>() {
@@ -1435,27 +1437,6 @@ public class WUtil {
         return 100;
     }
 
-    public static BnbToken getBnbToken(ArrayList<BnbToken> all, Balance balance) {
-        if (all == null || balance == null) return null;
-        for (BnbToken token:all) {
-            if (token.symbol.equals(balance.symbol)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-    public static BnbToken getBnbToken(ArrayList<BnbToken> all, String symbol) {
-        if (all == null || symbol == null) return null;
-        for (BnbToken token:all) {
-            if (token.symbol.equals(symbol)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
         if (all == null) return null;
         for (BnbToken token:all) {
@@ -1466,27 +1447,19 @@ public class WUtil {
         return null;
     }
 
-    public static OkToken getOkToken(ResOkTokenList okTokenList, String denom) {
-        if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
-        for (OkToken token:okTokenList.data) {
-            if (token.symbol.equals(denom)) {
-                return token;
+    public static BigDecimal getBnbConvertAmount(BaseData baseData, String denom, BigDecimal amount) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (BnbTicker ticker: baseData.mBnbTickers) {
+            if (ticker.symbol.equals(getBnbTicSymbol(denom))) {
+                if (isBnbBaseMarketToken(denom)) {
+                    return amount.divide(new BigDecimal(ticker.lastPrice), 8, RoundingMode.DOWN);
+                } else {
+                    return amount.multiply(new BigDecimal(ticker.lastPrice)).setScale(8, RoundingMode.DOWN);
+                }
             }
         }
-        return null;
+        return result;
     }
-
-    public static BigDecimal getQuotient(String value) {
-        BigDecimal dividend = new BigDecimal(value);
-        return dividend.divide(BigDecimal.ONE, 0, RoundingMode.DOWN);
-    }
-
-    public static BigDecimal getRemainder(String value) {
-        BigDecimal dividend = new BigDecimal(value);
-        BigDecimal quotient = dividend.divide(BigDecimal.ONE, 0, RoundingMode.DOWN);
-        return  dividend.subtract(quotient);
-    }
-
 
     public static boolean isBnbBaseMarketToken(String symbol) {
         switch (symbol) {
@@ -1530,37 +1503,14 @@ public class WUtil {
         }
     }
 
-
-    public static String getIrisProposalType(Context c, String type) {
-        String result = c.getString(R.string.str_iris_proposal_type_BasicProposal);
-        if (type.equals(IRIS_PROPOAL_TYPE_BasicProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_BasicProposal);
-        } else if (type.equals(IRIS_PROPOAL_TYPE_ParameterProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_ParameterProposal);
-        } else if (type.equals(IRIS_PROPOAL_TYPE_PlainTextProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_PlainTextProposal);
-        } else if (type.equals(IRIS_PROPOAL_TYPE_TokenAdditionProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_TokenAdditionProposal);
-        } else if (type.equals(IRIS_PROPOAL_TYPE_SoftwareUpgradeProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_SoftwareUpgradeProposal);
-        } else if (type.equals(IRIS_PROPOAL_TYPE_SystemHaltProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_SystemHaltProposal);
-        } else if (type.equals(IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal)) {
-            result = c.getString(R.string.str_iris_proposal_type_CommunityTaxUsageProposal);
-        }
-        return result;
-    }
-
-
-    public static String getIrisMonikerName(ArrayList<Validator> validators, String address) {
-        String opAddress = WKey.convertDpAddressToDpOpAddress(address, IRIS_MAIN);
-        String result = address;
-        for (Validator v:validators) {
-            if (v.operator_address.equals(opAddress)) {
-                result = v.description.moniker;
+    public static OkToken getOkToken(ResOkTokenList okTokenList, String denom) {
+        if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
+        for (OkToken token:okTokenList.data) {
+            if (token.symbol.equals(denom)) {
+                return token;
             }
         }
-        return result;
+        return null;
     }
 
     public static int getVoterTypeCnt(ArrayList<Vote> votes, String option) {
