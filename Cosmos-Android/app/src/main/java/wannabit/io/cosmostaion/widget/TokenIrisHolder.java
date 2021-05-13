@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.widget;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -7,12 +8,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
+import java.math.BigDecimal;
+
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.base.BaseChain;
+import wannabit.io.cosmostaion.base.BaseData;
+import wannabit.io.cosmostaion.utils.WDp;
 
 public class TokenIrisHolder extends BaseHolder {
-
-    private LinearLayout    mIrisTransfer;
-    private RelativeLayout  mBtnSendIris, mBtnReceiveIris;
     private TextView        mTvIrisTotal, mTvIrisValue, mTvIrisAvailable,
                             mTvIrisDelegated, mTvIrisUnBonding, mTvIrisRewards;
 
@@ -25,10 +28,22 @@ public class TokenIrisHolder extends BaseHolder {
         mTvIrisUnBonding        = itemView.findViewById(R.id.dash_iris_unbonding);
         mTvIrisRewards          = itemView.findViewById(R.id.dash_iris_reward);
 
-        mIrisTransfer           = itemView.findViewById(R.id.layer_iris_transfer);
-        mBtnReceiveIris         = itemView.findViewById(R.id.btn_iris_receive);
-        mBtnSendIris            = itemView.findViewById(R.id.btn_iris_send);
-        mIrisTransfer.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal delegateAmount = baseData.getDelegationSum();
+        final BigDecimal unbondingAmount = baseData.getUndelegationSum();
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = availableAmount.add(delegateAmount).add(unbondingAmount).add(rewardAmount);
+
+        mTvIrisTotal.setText(WDp.getDpAmount2(c, totalAmount, 6, 6));
+        mTvIrisAvailable.setText(WDp.getDpAmount2(c, availableAmount, 6, 6));
+        mTvIrisDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
+        mTvIrisUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
+        mTvIrisRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
+        mTvIrisValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
 
     }
 }

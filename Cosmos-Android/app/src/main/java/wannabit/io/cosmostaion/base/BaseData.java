@@ -185,6 +185,16 @@ public class BaseData {
         return result;
     }
 
+    public BigDecimal frozenAmount(String denom) {
+        BigDecimal result = BigDecimal.ZERO;
+        for (Balance balance: mBalances) {
+            if (balance.symbol.equalsIgnoreCase(denom)) {
+                result = balance.frozen;
+            }
+        }
+        return result;
+    }
+
     public BigDecimal delegatedSumAmount() {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo: mMyDelegations) {

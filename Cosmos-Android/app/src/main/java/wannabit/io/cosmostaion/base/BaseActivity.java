@@ -60,8 +60,10 @@ import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
 import wannabit.io.cosmostaion.activities.PasswordSetActivity;
 import wannabit.io.cosmostaion.activities.RestoreActivity;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.crypto.CryptoHelper;
 import wannabit.io.cosmostaion.dao.Account;
+import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Select_Fiat;
 import wannabit.io.cosmostaion.dialog.Dialog_Buy_Without_Key;
@@ -164,6 +166,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.SUPPORT_BEP3_SWAP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_ALL_REWARDS;
@@ -196,7 +199,14 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STAKING_
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
 
@@ -300,6 +310,112 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
 
+    public void onStartSendMainDenom() {
+        if (mAccount == null) return;
+        if (!mAccount.hasPrivateKey) {
+            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+            add.setCancelable(true);
+            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+            return;
+        }
+
+        if (isGRPC(mBaseChain)) {
+            Intent intent = new Intent(getBaseContext(), SendActivity.class);
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            startActivity(intent);
+
+        } else {
+            Intent intent = new Intent(getBaseContext(), SendActivity.class);
+            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            boolean hasbalance = false;
+            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
+
+            } else if (mBaseChain.equals(IOV_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("iovDenom", TOKEN_IOV);
+
+            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", TOKEN_KAVA);
+
+            } else if (mBaseChain.equals(BAND_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
+                    hasbalance  = true;
+                }
+
+            } else if (mBaseChain.equals(IOV_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("iovDenom", TOKEN_IOV_TEST);
+
+            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.002")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("okDenom", TOKEN_OK);
+
+            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("certikDenom", TOKEN_CERTIK);
+
+            } else if (mBaseChain.equals(SECRET_MAIN)) {
+                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("secretDenom", TOKEN_SECRET);
+
+            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+
+            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+
+            } else if (mBaseChain.equals(SIF_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            } else if (mBaseChain.equals(KI_MAIN)) {
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
+                    hasbalance  = true;
+                }
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+            }
+
+            if (!hasbalance) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            startActivity(intent);
+        }
+
+    }
 
     public void onStartHTLCSendActivity(String sendDenom) {
 //        WLog.w("onStartHTLCSendActivity " + mBaseChain.getChain() + " " + sendDenom);
@@ -431,10 +547,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         new PushUpdateTask(getBaseApplication(), this, account, getBaseDao().getFCMToken(), useAlarm).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
+
+
+
+
+
+
+
     private CardView mPushBody;
     private ImageView mPushType, mPushClose;
     private TextView mPushTitle, mPushMsg;
-
 
     public void onDisplayNotification(Intent intent) {
         if (!(this instanceof PasswordSetActivity) && !(this instanceof PasswordCheckActivity) && !(this instanceof IntroActivity) && !(this instanceof AppLockActivity)) {

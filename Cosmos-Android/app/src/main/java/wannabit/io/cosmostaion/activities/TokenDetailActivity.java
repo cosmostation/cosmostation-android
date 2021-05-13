@@ -881,8 +881,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvAtomDelegated        = itemView.findViewById(R.id.dash_atom_delegate);
                 mTvAtomUnBonding        = itemView.findViewById(R.id.dash_atom_unbonding);
                 mTvAtomRewards          = itemView.findViewById(R.id.dash_atom_reward);
-                mBtnSendAtom            = itemView.findViewById(R.id.btn_atom_send);
-                mBtnReceiveAtom         = itemView.findViewById(R.id.btn_atom_receive);
             }
         }
 
@@ -898,8 +896,6 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvIrisDelegated        = itemView.findViewById(R.id.dash_iris_delegate);
                 mTvIrisUnBonding        = itemView.findViewById(R.id.dash_iris_unbonding);
                 mTvIrisRewards          = itemView.findViewById(R.id.dash_iris_reward);
-                mBtnReceiveIris         = itemView.findViewById(R.id.btn_iris_receive);
-                mBtnSendIris            = itemView.findViewById(R.id.btn_iris_send);
             }
         }
 
@@ -913,9 +909,9 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mTvBnbValue             = itemView.findViewById(R.id.dash_bnb_value);
                 mTvBnbBalance           = itemView.findViewById(R.id.dash_bnb_balance);
                 mTvBnbLocked            = itemView.findViewById(R.id.dash_bnb_locked);
-                mBtnSendBnb             = itemView.findViewById(R.id.btn_bnb_send);
-                mBtnReceiveBnb          = itemView.findViewById(R.id.btn_bnb_receive);
-                mBtnInterChain          = itemView.findViewById(R.id.btn_bep3_send2);
+//                mBtnSendBnb             = itemView.findViewById(R.id.btn_bnb_send);
+//                mBtnReceiveBnb          = itemView.findViewById(R.id.btn_bnb_receive);
+//                mBtnInterChain          = itemView.findViewById(R.id.btn_bep3_send2);
 
                 mTvBnbBalance.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
                 mTvBnbLocked.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 8));
@@ -960,8 +956,8 @@ public class TokenDetailActivity extends BaseActivity implements View.OnClickLis
                 mOkLocked               = itemView.findViewById(R.id.ok_locked);
                 mOkDeposit              = itemView.findViewById(R.id.ok_deposit);
                 mOkWithdrawing          = itemView.findViewById(R.id.ok_withdrawing);
-                mBtnOkSend              = itemView.findViewById(R.id.btn_ok_send);
-                mBtnOkReceive           = itemView.findViewById(R.id.btn_ok_receive);
+//                mBtnOkSend              = itemView.findViewById(R.id.btn_ok_send);
+//                mBtnOkReceive           = itemView.findViewById(R.id.btn_ok_receive);
             }
         }
 

@@ -172,7 +172,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
                                 android:padding="@dimen/space_8"
-                                android:src="@drawable/copy_btn"/>
+                                android:src="@drawable/btn_copy"/>
                             <TextView
                                 android:id="@+id/account_address"
                                 android:layout_width="match_parent"

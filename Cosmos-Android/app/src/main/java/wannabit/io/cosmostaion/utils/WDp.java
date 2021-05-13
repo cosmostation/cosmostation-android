@@ -1860,6 +1860,8 @@ public class WDp {
             return TOKEN_ATOM;
         } else if(chain.equals(IRIS_MAIN)) {
             return TOKEN_IRIS;
+        } else if(chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return TOKEN_BNB;
         } else if(chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
             return TOKEN_KAVA;
         } else if(chain.equals(BAND_MAIN)) {

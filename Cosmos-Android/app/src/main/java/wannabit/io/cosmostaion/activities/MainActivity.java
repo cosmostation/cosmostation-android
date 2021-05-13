@@ -146,23 +146,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         mFloatBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onStartSendActivity();
+                onStartSendMainDenom();
             }
         });
-
-//        mFaucetBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onGetFaucet();
-//            }
-//        });
-//
-//        mAirDropBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                onGetAirDrop();
-//            }
-//        });
 
         mChainRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mChainRecyclerView.setHasFixedSize(true);
@@ -235,19 +221,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                 }
                 if (position != 0) mFloatBtn.hide();
                 else if (!mFloatBtn.isShown()) mFloatBtn.show();
-
-//                if (position != 1 || !(mBaseChain.equals(IOV_TEST) || mBaseChain.equals(OK_TEST))) {
-//                    mFaucetBtn.hide();
-//                } else if (!mFaucetBtn.isShown()) {
-//                    mFaucetBtn.show();
-//                }
-
-//                if (position != 1 || !(mBaseChain.equals(KAVA_MAIN)) || mAccount.accountNumber > 0) {
-//                    mAirDropBtn.hide();
-//                } else {
-//                    mAirDropBtn.show();
-//                }
-
             }
         });
 
@@ -516,113 +489,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
     public void onFetchAllData() {
         onFetchAccountInfo(this);
-    }
-
-    public void onStartSendActivity() {
-        if (mAccount == null) return;
-        if (!mAccount.hasPrivateKey) {
-            Dialog_WatchMode add = Dialog_WatchMode.newInstance();
-            add.setCancelable(true);
-            getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-            return;
-        }
-
-        if (isGRPC(mBaseChain)) {
-            Intent intent = new Intent(MainActivity.this, SendActivity.class);
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-            startActivity(intent);
-
-        } else {
-            Intent intent = new Intent(MainActivity.this, SendActivity.class);
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
-
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("iovDenom", TOKEN_IOV);
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", TOKEN_KAVA);
-
-            } else if (mBaseChain.equals(BAND_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("iovDenom", TOKEN_IOV_TEST);
-
-            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_OK).compareTo(new BigDecimal("0.002")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("okDenom", TOKEN_OK);
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("certikDenom", TOKEN_CERTIK);
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("secretDenom", TOKEN_SECRET);
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-            }
-
-            if (!hasbalance) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
-            startActivity(intent);
-        }
-
     }
 
     public void onSetKavaWarn() {

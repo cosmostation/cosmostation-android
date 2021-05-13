@@ -59,12 +59,12 @@ public class TokenSifHolder extends BaseHolder{
         final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_SIF);
         final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_SIF);
 
-        mTvSifTotal.setText(WDp.getDpAmount2(c, totalAmount, 18, 6));
-        mTvSifAvailable.setText(WDp.getDpAmount2(c, availableAmount, 18, 6));
-        mTvSifDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 18, 6));
-        mTvSifUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 18, 6));
-        mTvSifRewards.setText(WDp.getDpAmount2(c, rewardAmount, 18, 6));
-        mTvSifVesting.setText(WDp.getDpAmount2(c, vestingAmount, 18, 6));
+        mTvSifTotal.setText(WDp.getDpAmount2(c, totalAmount, 18, 18));
+        mTvSifAvailable.setText(WDp.getDpAmount2(c, availableAmount, 18, 18));
+        mTvSifDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 18, 18));
+        mTvSifUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 18, 18));
+        mTvSifRewards.setText(WDp.getDpAmount2(c, rewardAmount, 18, 18));
+        mTvSifVesting.setText(WDp.getDpAmount2(c, vestingAmount, 18, 18));
         mTvSifValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
