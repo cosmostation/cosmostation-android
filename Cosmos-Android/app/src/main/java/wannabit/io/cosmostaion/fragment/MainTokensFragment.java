@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
+import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -104,10 +105,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private LinearLayout            mBtnSort;
     private TextView                mKavaOracle;
 
-    private TokensAdapter               mTokensAdapter;
-    private ArrayList<Balance>          mBalances = new ArrayList<>();
-//    private HashMap<String, ResBnbTic>  mBnbTics = new HashMap<>();
-    private int                         mOrder;
+    private TokensAdapter           mTokensAdapter;
+    private ArrayList<Balance>      mBalances = new ArrayList<>();
+    private int                     mOrder;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
         MainTokensFragment fragment = new MainTokensFragment();
@@ -611,7 +611,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             if (balance.symbol.equals("usdx")) {
                 holder.itemFullName.setText("USD Stable Asset");
             } else if (balance.symbol.equals(TOKEN_HARD)) {
-                holder.itemFullName.setText("Harvest Gov. Token");
+                holder.itemFullName.setText("HardPool Gov. Token");
             } else {
                 holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
             }
@@ -668,7 +668,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             if (balance.symbol.equals("usdx")) {
                 holder.itemFullName.setText("USD Stable Asset");
             } else if (balance.symbol.equals(TOKEN_HARD)) {
-                holder.itemFullName.setText("Harvest Gov. Token");
+                holder.itemFullName.setText("HardPool Gov. Token");
             } else {
                 holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
             }
@@ -932,6 +932,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     private void onBindSifItem(TokensAdapter.AssetHolder holder, final int position) {
         final Balance balance = mBalances.get(position);
+        final int dpDecimal = WUtil.getSifCoinDecimal(balance.symbol);
         if (balance.symbol.equals(TOKEN_SIF)) {
             holder.itemSymbol.setText(getString(R.string.str_sif_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
@@ -940,7 +941,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -951,9 +952,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemSymbol.setText(balance.symbol.substring(1).toUpperCase());
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Sif Chain");
+            holder.itemFullName.setText(balance.symbol.substring(1).toUpperCase() + " on Sif Chain");
 
             Picasso.get().cancelRequest(holder.itemImg);
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
@@ -962,9 +963,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             } catch (Exception e) { }
 
-            BigDecimal totalAmount = BigDecimal.valueOf(0);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getMainActivity().getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            BigDecimal totalAmount = getBaseDao().availableAmount(balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
+            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getMainActivity().getBaseDao(), BigDecimal.ZERO, getMainActivity().mBaseChain));
 
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1140,6 +1140,10 @@ public class WUtil {
                     if(o1.symbol.equals(TOKEN_XPRT)) return -1;
                     if(o2.symbol.equals(TOKEN_XPRT)) return 1;
 
+                } else if (chain.equals(SIF_MAIN)) {
+                    if(o1.symbol.equals(TOKEN_SIF)) return -1;
+                    if(o2.symbol.equals(TOKEN_SIF)) return 1;
+
                 }
                 return o2.balance.compareTo(o1.balance);
             }
@@ -1197,6 +1201,10 @@ public class WUtil {
                 } else if (chain.equals(PERSIS_MAIN)) {
                     if(o1.symbol.equals(TOKEN_XPRT)) return -1;
                     if(o2.symbol.equals(TOKEN_XPRT)) return 1;
+
+                } else if (chain.equals(SIF_MAIN)) {
+                    if(o1.symbol.equals(TOKEN_SIF)) return -1;
+                    if(o2.symbol.equals(TOKEN_SIF)) return 1;
 
                 }
                 return o1.symbol.compareTo(o2.symbol);
@@ -1435,6 +1443,17 @@ public class WUtil {
             return 8;
         }
         return 100;
+    }
+
+    public static int getSifCoinDecimal(String denom) {
+        if (denom.equalsIgnoreCase(TOKEN_SIF)) { return 18; }
+        else if (denom.equalsIgnoreCase("cusdt")) { return 6; }
+        else if (denom.equalsIgnoreCase("cusdc")) { return 6; }
+        else if (denom.equalsIgnoreCase("csrm")) { return 6; }
+        else if (denom.equalsIgnoreCase("cwscrt")) { return 6; }
+        else if (denom.equalsIgnoreCase("ccro")) { return 8; }
+        else if (denom.equalsIgnoreCase("cwbtc")) { return 8; }
+        return 18;
     }
 
     public static BnbToken getBnbMainToken(ArrayList<BnbToken> all) {
