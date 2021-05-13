@@ -1,5 +1,6 @@
 package wannabit.io.cosmostaion.activities.tokenDetail;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -18,16 +19,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.SendActivity;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
+import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
@@ -43,6 +48,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
+import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 
 public class NativeTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -164,9 +171,55 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
             return;
 
         } else if (v.equals(mBtnBep3Send)) {
-//            onStartHTLCSendActivity(WDp.mainDenom(mBaseChain));
+            onStartHTLCSendActivity(mDenom);
 
         } else if (v.equals(mBtnSend)) {
+            if (!mAccount.hasPrivateKey) {
+                Dialog_WatchMode add = Dialog_WatchMode.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
+
+            if (isGRPC(mBaseChain)) {
+                Intent intent = new Intent(getBaseContext(), SendActivity.class);
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                intent.putExtra("sendTokenDenom", mDenom);
+                startActivity(intent);
+
+            }
+
+            else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
+                if (getBaseDao().availableAmount(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(getBaseContext(), SendActivity.class);
+                intent.putExtra("bnbToken", getBaseDao().getBnbToken(mDenom));
+                startActivity(intent);
+
+            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
+                Intent intent = new Intent(getBaseContext(), SendActivity.class);
+                intent.putExtra("sendTokenDenom", mDenom);
+                startActivity(intent);
+
+            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
+                if (getBaseDao().availableAmount(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("0.002")) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(getBaseContext(), SendActivity.class);
+                intent.putExtra("okDenom", mDenom);
+                startActivity(intent);
+
+            } else if (mBaseChain.equals(SIF_MAIN)) {
+                Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
+                return;
+            }
 
         }
 
@@ -295,109 +348,6 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
             }
             return TYPE_UNKNOWN;
-        }
-    }
-
-    private void onBindToken(RecyclerView.ViewHolder viewHolder, int position) {
-//        final TokenHolder holder = (TokenHolder)viewHolder;
-//        if (mBaseChain.equals(BNB_MAIN) && mBnbToken != null) {
-//            holder.mTokenLink.setVisibility(View.VISIBLE);
-//            holder.mTvTokenSymbol.setText(mBnbToken.original_symbol);
-//            holder.mTvTokenDenom.setText(mBnbToken.symbol);
-//            holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), mBalance.getAllBnbBalance(), 0, 8));
-//
-//            BigDecimal amount = BigDecimal.ZERO;
-//            ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(mBalance.symbol));
-//            if (tic != null) { amount = mBalance.exchangeToBnbAmount(tic); }
-//            holder.mTvTokenValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), amount));
-//            holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), mBalance.balance, 0, 8));
-//            holder. mTokenRewardLayer.setVisibility(View.GONE);
-//            try {
-//                Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.mTokenImg);
-//            } catch (Exception e) {}
-//
-//            if (mBalance.symbol.equals(TOKEN_HTLC_BINANCE_BTCB) || mBalance.symbol.equals(TOKEN_HTLC_BINANCE_XRPB) || mBalance.symbol.equals(TOKEN_HTLC_BINANCE_BUSD)) {
-//                holder.mBtnBep3Send.setVisibility(View.VISIBLE);
-//            } else {
-//                holder.mBtnBep3Send.setVisibility(View.GONE);
-//            }
-//
-//        } else if (mBaseChain.equals(BNB_TEST) && mBnbToken != null) {
-//            holder.mTokenLink.setVisibility(View.VISIBLE);
-//            holder.mTvTokenSymbol.setText(mBnbToken.original_symbol);
-//            holder.mTvTokenDenom.setText(mBnbToken.symbol);
-//            holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), mBalance.getAllBnbBalance(), 0, 8));
-//
-//            BigDecimal amount = BigDecimal.ZERO;
-//            ResBnbTic tic = mBnbTics.get(WUtil.getBnbTicSymbol(mBalance.symbol));
-//            if (tic != null) {
-//                amount = mBalance.exchangeToBnbAmount(tic);
-//            }
-//
-//            holder.mTvTokenValue.setText(WDp.getValueOfBnb(getBaseContext(), getBaseDao(), amount));
-//            holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), mBalance.balance, 0, 8));
-//            holder.mTokenRewardLayer.setVisibility(View.GONE);
-//            try {
-//                Picasso.get().load(TOKEN_IMG_URL+mBnbToken.original_symbol+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(holder.mTokenImg);
-//            } catch (Exception e) {}
-//            if (mBalance.symbol.equals(TOKEN_HTLC_BINANCE_TEST_BTC)) {
-//                holder.mBtnBep3Send.setVisibility(View.VISIBLE);
-//            } else {
-//                holder.mBtnBep3Send.setVisibility(View.GONE);
-//            }
-//        } else if ((mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) && mOkToken != null) {
-//            holder.mTokenLink.setVisibility(View.VISIBLE);
-//            holder.mTokenLockedLayer.setVisibility(View.VISIBLE);
-//            holder.mTvTokenSymbol.setText(mOkToken.original_symbol.toUpperCase());
-//            holder.mTvTokenDenom.setText(mOkToken.description);
-//
-//            BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().mBalances, mOkToken.symbol);
-//            BigDecimal lockedAmount = WDp.getLockedCoin(getBaseDao().mBalances, mOkToken.symbol);
-//            BigDecimal totalAmount = availableAmount.add(lockedAmount);
-//
-//            holder.mTvTokenTotal.setText(WDp.getDpAmount2(getBaseContext(), totalAmount, 0, 18));
-//            holder.mTvTokenAvailable.setText(WDp.getDpAmount2(getBaseContext(), availableAmount, 0, 18));
-//            holder.mTvTokenLocked.setText(WDp.getDpAmount2(getBaseContext(), lockedAmount, 0, 18));
-//            holder.mTvTokenValue.setText(WDp.getValueOfOk(getBaseContext(), getBaseDao(), totalAmount));
-//            try {
-//                Picasso.get().load(OKEX_COIN_IMG_URL+  mOkToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.mTokenImg);
-//            } catch (Exception e) { }
-//        }
-    }
-
-    public class TokenHolder extends BaseHolder {
-        private LinearLayout            mBtnTokenDetail;
-        private RelativeLayout          mBtnSendToken, mBtnReceiveToken, mBtnBep3Send;
-        private RelativeLayout          mTokenRewardLayer, mTokenLockedLayer, mTokenFrozenLayer, mVestingLayer, mHarvestDepositLayer, mHarvestRewardLayer;
-        private ImageView               mTokenImg, mTokenLink;
-        private TextView                mTvTokenSymbol, mTvTokenTotal, mTvTokenValue, mTvTokenDenom, mTvTokenAvailable, mTvTokenReward, mTvTokenLocked,
-                mTvTokenFrozen, mTvTokenVesting, mTvTokenHarvestDeposit, mTvTokenHarvestReward;
-
-        public TokenHolder(View v) {
-            super(v);
-            mTokenImg               = itemView.findViewById(R.id.dash_token_icon);
-            mTokenLink              = itemView.findViewById(R.id.dash_token_link);
-            mTvTokenSymbol          = itemView.findViewById(R.id.dash_token_symbol);
-            mTvTokenTotal           = itemView.findViewById(R.id.dash_token_amount);
-            mTvTokenValue           = itemView.findViewById(R.id.dash_token_value);
-            mTvTokenDenom           = itemView.findViewById(R.id.dash_token_denom);
-            mTvTokenAvailable       = itemView.findViewById(R.id.dash_token_available);
-            mTokenLockedLayer       = itemView.findViewById(R.id.token_locked_layer);
-            mTvTokenLocked          = itemView.findViewById(R.id.dash_token_lock);
-            mTokenRewardLayer       = itemView.findViewById(R.id.token_reward_layer);
-            mTvTokenReward          = itemView.findViewById(R.id.dash_token_reward);
-            mTokenFrozenLayer       = itemView.findViewById(R.id.token_frozen_layer);
-            mTvTokenFrozen          = itemView.findViewById(R.id.token_frozen);
-            mVestingLayer           = itemView.findViewById(R.id.token_vesting_layer);
-            mTvTokenVesting         = itemView.findViewById(R.id.token_vesting);
-            mHarvestDepositLayer    = itemView.findViewById(R.id.token_harvest_deposit_layer);
-            mTvTokenHarvestDeposit  = itemView.findViewById(R.id.token_harvest_deposit);
-            mHarvestRewardLayer     = itemView.findViewById(R.id.token_harvest_reward_layer);
-            mTvTokenHarvestReward   = itemView.findViewById(R.id.token_harvest_reward);
-            mBtnSendToken           = itemView.findViewById(R.id.btn_token_send);
-            mBtnReceiveToken        = itemView.findViewById(R.id.btn_token_receive);
-            mBtnTokenDetail         = itemView.findViewById(R.id.btn_token_web);
-            mBtnBep3Send            = itemView.findViewById(R.id.btn_bep3_send);
         }
     }
 }

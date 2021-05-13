@@ -227,7 +227,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
-                mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
+//                mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
 
@@ -416,7 +416,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         @NonNull
         @Override
         public AssetHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-            return new AssetHolder(getLayoutInflater().inflate(R.layout.item_token, viewGroup, false));
+            View rowView = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_token, viewGroup,false);
+            AssetHolder viewHolder = new AssetHolder(rowView);
+            return viewHolder;
         }
 
         @Override
