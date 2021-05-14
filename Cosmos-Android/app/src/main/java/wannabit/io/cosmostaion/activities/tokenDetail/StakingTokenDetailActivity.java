@@ -73,6 +73,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private ArrayList<ResApiTxList.Data>    mApiTxHistory = new ArrayList<>();
     private ArrayList<ResApiTxListCustom>   mApiTxCustomHistory = new ArrayList<>();
     private Boolean                         mHasVesting = false;
+    private String                          shareAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +98,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
 
         if (isGRPC(mBaseChain)) {
+            if (getBaseDao().onParseRemainVestingsByDenom(WDp.mainDenom(mBaseChain)).size() > 0) { mHasVesting = true; }
             mBtnIbcSend.setVisibility(View.VISIBLE);
 
         } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
@@ -141,12 +143,14 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private void onUpdateView() {
         if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
             try {
-                mAddress.setText(WKey.convertAddressOkexToEth(mAccount.address));
+                shareAddress = WKey.convertAddressOkexToEth(mAccount.address);
+                mAddress.setText(shareAddress);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         } else {
-            mAddress.setText(mAccount.address);
+            shareAddress = mAccount.address;
+            mAddress.setText(shareAddress);
         }
         mKeyState.setColorFilter(ContextCompat.getColor(getBaseContext(), R.color.colorGray0), android.graphics.PorterDuff.Mode.SRC_IN);
         if (mAccount.hasPrivateKey) {
@@ -159,7 +163,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     public void onClick(View v) {
         if (v.equals(mBtnAddressPopup)) {
             Bundle bundle = new Bundle();
-            bundle.putString("address", mAccount.address);
+            bundle.putString("address", shareAddress);
             if (TextUtils.isEmpty(mAccount.nickName)) { bundle.putString("title", getString(R.string.str_my_wallet) + mAccount.id); }
             else { bundle.putString("title", mAccount.nickName); }
             Dialog_AccountShow show = Dialog_AccountShow.newInstance(bundle);
