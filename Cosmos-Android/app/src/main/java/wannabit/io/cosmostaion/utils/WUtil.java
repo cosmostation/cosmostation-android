@@ -2576,6 +2576,9 @@ public class WUtil {
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN;
 
+        } else if (basechain.equals(PERSIS_MAIN)) {
+            return EXPLORER_PERSIS_MAIN;
+
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return EXPLORER_CRYPTOORG_MAIN;
 
