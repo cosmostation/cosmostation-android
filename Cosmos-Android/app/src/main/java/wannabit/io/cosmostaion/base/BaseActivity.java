@@ -383,7 +383,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
                     hasbalance  = true;
                 }
-                intent.putExtra("secretDenom", TOKEN_SECRET);
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
 
             } else if (mBaseChain.equals(SENTINEL_MAIN)) {
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);

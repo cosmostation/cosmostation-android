@@ -201,7 +201,6 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo: mMyDelegations) {
             if (bondingInfo.balance != null) {
-//                result = result.add(new BigDecimal(bondingInfo.getBalance()));
                 result = result.add(bondingInfo.getBalance());
             }
         }
@@ -212,7 +211,6 @@ public class BaseData {
         BigDecimal result = BigDecimal.ZERO;
         for (BondingInfo bondingInfo: mMyDelegations) {
             if (bondingInfo.validator_address.equals(opAddress) && bondingInfo.balance != null) {
-//                result = result.add(new BigDecimal(bondingInfo.getBalance()));
                 result = result.add(bondingInfo.getBalance());
             }
         }
@@ -226,7 +224,6 @@ public class BaseData {
                 for (UnbondingInfo.Entry entry: unbondingInfo.entries) {
                     result = result.add(new BigDecimal(entry.balance));
                 }
-
             }
         }
         return result;

@@ -52,7 +52,6 @@ public class SendActivity extends BaseBroadCastActivity {
     public String                       mIovDenom;
     public String                       mOkDenom;
     public String                       mCertikDenom;
-    public String                       mSecretDenom;
 
     //V1 .40 version
     public TokenOuterClass.Token        mIrisToken_Grpc;
@@ -78,7 +77,6 @@ public class SendActivity extends BaseBroadCastActivity {
         mIovDenom = getIntent().getStringExtra("iovDenom");
         mOkDenom = getIntent().getStringExtra("okDenom");
         mCertikDenom = getIntent().getStringExtra("certikDenom");
-        mSecretDenom = getIntent().getStringExtra("secretDenom");
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
         mIrisToken_Grpc = getBaseDao().getIrisToken(mDenom);
@@ -98,11 +96,7 @@ public class SendActivity extends BaseBroadCastActivity {
             if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
         } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
             if (TextUtils.isEmpty(mCertikDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.SECRET_MAIN)) {
-            if (TextUtils.isEmpty(mSecretDenom)) onBackPressed();
         }
-
-
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
