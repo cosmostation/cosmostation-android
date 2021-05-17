@@ -29,7 +29,7 @@ class TokenDetailIrisCell: TokenDetailCell {
     override func onBindToken() {
         let totalToken = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
         totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
-        totalValue.attributedText = WUtils.dpTokenValue(totalToken, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        totalValue.attributedText = WUtils.dpAmountValue(IRIS_MAIN_DENOM, totalToken, 6, totalValue.font)
         availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(IRIS_MAIN_DENOM), availableAmount.font!, 6, 6)
         delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)

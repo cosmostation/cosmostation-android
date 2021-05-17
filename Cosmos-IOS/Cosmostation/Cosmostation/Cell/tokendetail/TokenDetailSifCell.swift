@@ -46,7 +46,7 @@ class TokenDetailSifCell: TokenDetailCell {
         delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 18, 18)
         unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 18, 18)
         rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 18, 18)
-        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 18, totalValue.font)
+        totalValue.attributedText = WUtils.dpAmountValue(SIF_MAIN_DENOM, total, 18, totalValue.font)
         
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false

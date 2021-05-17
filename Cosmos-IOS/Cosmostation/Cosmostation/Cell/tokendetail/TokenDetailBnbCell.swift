@@ -34,7 +34,7 @@ class TokenDetailBnbCell: TokenDetailCell {
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 8)
         lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, lockedAmount.font, 0, 8)
         frozenAmount.attributedText = WUtils.displayAmount2(frozen.stringValue, lockedAmount.font, 0, 8)
-        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 0, totalValue.font)
+        totalValue.attributedText = WUtils.dpAmountValue(BNB_MAIN_DENOM, total, 0, totalValue.font)
         BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
     }
     
