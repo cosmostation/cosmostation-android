@@ -288,15 +288,11 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         } else if(v.equals(mExplorerBtn)) {
             if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                String url  = WUtil.getExplorer(mBaseChain) + "txs/" + mResBnbTxInfo.hash;
-                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                startActivity(intent);
-            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                String url  = WUtil.getExplorer(mBaseChain) + "tx/" + "0x" + mResTxInfo.txhash;
+                String url  = WUtil.getTxExplorer(mBaseChain, mResBnbTxInfo.hash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else if (mResTxInfo != null && !TextUtils.isEmpty(mResTxInfo.txhash)){
-                String url  = WUtil.getExplorer(mBaseChain) + "txs/" + mResTxInfo.txhash;
+                String url  = WUtil.getTxExplorer(mBaseChain, mResTxInfo.txhash);
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                 startActivity(intent);
             } else {

@@ -2608,7 +2608,7 @@ public class WUtil {
             return EXPLORER_KAVA_TEST + "txs/" + hash;
 
         } else if (basechain.equals(OKEX_MAIN)) {
-            return EXPLORER_OKEX_MAIN + "tx/" + hash;
+            return EXPLORER_OKEX_MAIN + "tx/0x" + hash;
 
         } else if (basechain.equals(OK_TEST)) {
             return EXPLORER_OKEX_TEST + "tx/" + hash;
