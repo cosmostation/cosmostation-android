@@ -841,119 +841,6 @@ Kava oracle</string>
             </objects>
             <point key="canvasLocation" x="-4071" y="2556"/>
         </scene>
-        <!--Token Detail View Controller-->
-        <scene sceneID="ucM-U3-RRh">
-            <objects>
-                <viewController storyboardIdentifier="TokenDetailViewController" id="8R0-R1-hPF" customClass="TokenDetailViewController" customModule="Cosmostation" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zKC-u7-KJe">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_cosmos" translatesAutoresizingMaskIntoConstraints="NO" id="n71-aU-bJf">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eKW-T7-s72" customClass="CardView" customModule="Cosmostation" customModuleProvider="target">
-                                <rect key="frame" x="12" y="52" width="390" height="73.5"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="key_off" translatesAutoresizingMaskIntoConstraints="NO" id="cLX-ee-8Jj">
-                                        <rect key="frame" x="12" y="12.5" width="22" height="22"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="22" id="gqb-31-3Fs"/>
-                                            <constraint firstAttribute="width" constant="22" id="qgK-xR-5Ws"/>
-                                        </constraints>
-                                    </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vc7-iX-gd9">
-                                        <rect key="frame" x="38" y="16" width="46.5" height="14.5"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="Pni-0g-v4L"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jtX-2D-a1v">
-                                        <rect key="frame" x="356" y="11.5" width="24" height="24"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="24" id="1vI-Dv-xTJ"/>
-                                            <constraint firstAttribute="width" constant="24" id="yip-Ik-iMV"/>
-                                        </constraints>
-                                        <state key="normal" image="btnCopy"/>
-                                        <connections>
-                                            <action selector="onClickShare:" destination="8R0-R1-hPF" eventType="touchUpInside" id="I8M-Wq-3Kg"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2E-EJ-rCm">
-                                        <rect key="frame" x="12" y="42.5" width="366" height="15"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="15" id="7lz-ZG-5Pa"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" red="0.18039215689999999" green="0.18039215689999999" blue="0.18039215689999999" alpha="0.40287885270000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="cLX-ee-8Jj" firstAttribute="centerY" secondItem="Vc7-iX-gd9" secondAttribute="centerY" id="3IO-do-xaO"/>
-                                    <constraint firstItem="jtX-2D-a1v" firstAttribute="centerY" secondItem="Vc7-iX-gd9" secondAttribute="centerY" id="4J6-Wc-2UW"/>
-                                    <constraint firstItem="cLX-ee-8Jj" firstAttribute="leading" secondItem="eKW-T7-s72" secondAttribute="leading" constant="12" id="CBo-q5-xpo"/>
-                                    <constraint firstAttribute="trailing" secondItem="N2E-EJ-rCm" secondAttribute="trailing" constant="12" id="FZ4-SD-U0w"/>
-                                    <constraint firstItem="Vc7-iX-gd9" firstAttribute="leading" secondItem="cLX-ee-8Jj" secondAttribute="trailing" constant="4" id="Xc7-x9-0ej"/>
-                                    <constraint firstItem="N2E-EJ-rCm" firstAttribute="leading" secondItem="eKW-T7-s72" secondAttribute="leading" constant="12" id="fsk-xt-f8y"/>
-                                    <constraint firstAttribute="trailing" secondItem="jtX-2D-a1v" secondAttribute="trailing" constant="10" id="jW3-jX-oYk"/>
-                                    <constraint firstItem="Vc7-iX-gd9" firstAttribute="top" secondItem="eKW-T7-s72" secondAttribute="top" constant="16" id="mWE-Zm-Yrt"/>
-                                    <constraint firstItem="N2E-EJ-rCm" firstAttribute="top" secondItem="Vc7-iX-gd9" secondAttribute="bottom" constant="12" id="oP3-wQ-xrv"/>
-                                    <constraint firstAttribute="bottom" secondItem="N2E-EJ-rCm" secondAttribute="bottom" constant="16" id="pgi-3s-SOZ"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetHeight">
-                                        <integer key="value" value="2"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
-                                        <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <integer key="value" value="8"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
-                                        <real key="value" value="0.29999999999999999"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOffsetWidth">
-                                        <integer key="value" value="1"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G87-Xa-Mo8">
-                                <rect key="frame" x="0.0" y="129.5" width="414" height="766.5"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="0AM-1b-J6M"/>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="deviceRGB"/>
-                        <constraints>
-                            <constraint firstItem="G87-Xa-Mo8" firstAttribute="top" secondItem="eKW-T7-s72" secondAttribute="bottom" constant="4" id="0aJ-v5-rBF"/>
-                            <constraint firstItem="0AM-1b-J6M" firstAttribute="trailing" secondItem="n71-aU-bJf" secondAttribute="trailing" id="8tt-BK-G6z"/>
-                            <constraint firstItem="G87-Xa-Mo8" firstAttribute="leading" secondItem="0AM-1b-J6M" secondAttribute="leading" id="PD8-GD-6wW"/>
-                            <constraint firstItem="G87-Xa-Mo8" firstAttribute="bottom" secondItem="zKC-u7-KJe" secondAttribute="bottom" id="PKb-qE-Jws"/>
-                            <constraint firstItem="eKW-T7-s72" firstAttribute="leading" secondItem="0AM-1b-J6M" secondAttribute="leading" constant="12" id="WXa-YP-nE4"/>
-                            <constraint firstItem="eKW-T7-s72" firstAttribute="top" secondItem="0AM-1b-J6M" secondAttribute="top" constant="8" id="a0U-sm-rUm"/>
-                            <constraint firstAttribute="top" secondItem="n71-aU-bJf" secondAttribute="top" id="aYF-RG-POK"/>
-                            <constraint firstItem="0AM-1b-J6M" firstAttribute="trailing" secondItem="G87-Xa-Mo8" secondAttribute="trailing" id="flW-j6-nkG"/>
-                            <constraint firstItem="n71-aU-bJf" firstAttribute="bottom" secondItem="zKC-u7-KJe" secondAttribute="bottom" id="kvw-B5-rZs"/>
-                            <constraint firstItem="0AM-1b-J6M" firstAttribute="leading" secondItem="n71-aU-bJf" secondAttribute="leading" id="py3-t5-Y1c"/>
-                            <constraint firstItem="0AM-1b-J6M" firstAttribute="trailing" secondItem="eKW-T7-s72" secondAttribute="trailing" constant="12" id="zVk-HF-4ei"/>
-                        </constraints>
-                    </view>
-                    <connections>
-                        <outlet property="dpAddress" destination="N2E-EJ-rCm" id="2eb-23-eqR"/>
-                        <outlet property="keyState" destination="cLX-ee-8Jj" id="D9F-47-mKC"/>
-                        <outlet property="tokenDetailTableView" destination="G87-Xa-Mo8" id="4y7-v2-2gk"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hbA-M7-DEL" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-2660" y="2556"/>
-        </scene>
         <!--Main Tab Setting View Controller-->
         <scene sceneID="WvL-Uy-fK2">
             <objects>
@@ -2945,13 +2832,11 @@ Kava oracle</string>
         <image name="arrowNextGr" width="24" height="24"/>
         <image name="bg_cosmos" width="360" height="740"/>
         <image name="bnbDex" width="40" height="46"/>
-        <image name="btnCopy" width="24" height="24"/>
         <image name="btnExplorer" width="24" height="24"/>
         <image name="btnSwitch24" width="24" height="24"/>
         <image name="close_btn" width="24" height="24"/>
         <image name="connectImg1" width="180.5" height="47"/>
         <image name="cosmosWhMain" width="42" height="42"/>
-        <image name="key_off" width="20" height="20"/>
         <image name="notificationsIcOff" width="24" height="24"/>
         <image name="setting_ic" width="24" height="24"/>
         <image name="sortBtn" width="16" height="16"/>
