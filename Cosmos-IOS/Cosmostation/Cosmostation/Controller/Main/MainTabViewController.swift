@@ -162,6 +162,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         if (self.mFetchCnt > 0)  {
             return false
         }
+        BaseData.instance.mPrices.removeAll()
         
         BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()
@@ -540,6 +541,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     }
                 }
             }
+            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return
@@ -548,6 +550,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
             mBalances   = BaseData.instance.selectBalanceById(accountId: mAccount!.account_id)
             BaseData.instance.mBalances = mBalances
+            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
             self.hideWaittingAlert()
             return
@@ -571,6 +574,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             BaseData.instance.mBalances = mBalances
+            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             
         } else {
             mAccount    = BaseData.instance.selectAccountById(id: mAccount!.account_id)
@@ -598,6 +602,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 }
             }
             BaseData.instance.mBalances = mBalances
+            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             
             print("BaseData.instance.mMyDelegations ", BaseData.instance.mMyDelegations.count)
             print("BaseData.instance.mMyUnbondings ", BaseData.instance.mMyUnbondings.count)
@@ -615,7 +620,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
         NotificationCenter.default.post(name: Notification.Name("onFetchDone"), object: nil, userInfo: nil)
         self.hideWaittingAlert()
-
     }
     
     func onFetchNodeInfo() {
@@ -645,7 +649,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-//                    self.mTopValidators.append(Validator(validator as! [String : Any]))
                     BaseData.instance.mTopValidator.append(Validator(validator as! [String : Any]))
                 }
                 
@@ -666,7 +669,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-//                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
                     BaseData.instance.mOtherValidator.append(Validator(validator as! [String : Any]))
                 }
                 
@@ -687,7 +689,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 for validator in validators {
-//                    self.mOtherValidators.append(Validator(validator as! [String : Any]))
                     BaseData.instance.mOtherValidator.append(Validator(validator as! [String : Any]))
                 }
                 
@@ -782,7 +783,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchAccountInfo ", error) }
             }
-//            self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
             self.onFetchFinished()
         }
     }
@@ -1453,7 +1453,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("onFetchgRPCBalance failed: \(error)")
             }
             DispatchQueue.main.async(execute: {
-                self.onFetchPriceInfo(WUtils.marketPrice(self.mChainType))
                 self.onFetchFinished()
             });
         }
@@ -1693,19 +1692,21 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchPriceInfo(_ denoms: String) {
-//        print("onFetchPriceInfo ", BaseNetWork.getPrice(denoms))
+        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
         let request = Alamofire.request(BaseNetWork.getPrice(denoms), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
                 if let priceInfos = res as? Array<NSDictionary> {
                     priceInfos.forEach { priceInfo in
-                        if let denom = priceInfo.object(forKey: "denom") as? String, let prices = priceInfo.object(forKey: "prices") as? Array<NSDictionary> {
-                            BaseData.instance.updatePriceInfo(denom, prices)
-                        }
+                        BaseData.instance.mPrices.append(Price.init(priceInfo))
                     }
                 }
-//                print("all price ", BaseData.instance.mPrices)
+//                print("mPrices.count ", BaseData.instance.mPrices.count)
+//
+//                let kkk = WUtils.perValue(WUtils.getMainDenom(self.mChainType))
+//                print("kkk ", kkk)
+                NotificationCenter.default.post(name: Notification.Name("priceUpdate"), object: nil, userInfo: nil)
             
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceInfo ", error) }

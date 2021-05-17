@@ -9,10 +9,9 @@
 import UIKit
 import Alamofire
 import UserNotifications
-import Floaty
 import SafariServices
 
-class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource, FloatyDelegate {
+class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     let ORDER_BY_NAME = 0
     let ORDER_BY_AMOUNT = 1
@@ -257,22 +256,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         self.onUpdateTotalCard();
         self.tokenTableView.reloadData()
-         if (chainType! == ChainType.BINANCE_MAIN) {
-            onFetchBnbTokenPrice()
-            
-        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            onFetchOkTokenPrice()
-            updateFloaty()
-            
-        }
-        
-    }
-    
-    func updateFloaty() {
-    }
-    
-    func emptyFloatySelected(_ floaty: Floaty) {
-        floaty.fabDelegate = nil
     }
     
     @objc func onRequestFetch() {
@@ -368,10 +351,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             var allOKT = NSDecimalNumber.zero
             for balance in mainTabVC.mBalances {
                 if (balance.balance_denom == OKEX_MAIN_DENOM) {
-                    allOKT = allOKT.adding(WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding))
+                    allOKT = allOKT.adding(WUtils.getAllExToken(balance.balance_denom))
                 } else {
                     let okToken = WUtils.getOkToken(balance.balance_denom)
-                    let totalTokenAmount = balance.getAllAmountOKToken()
+                    let totalTokenAmount = WUtils.getAllExToken(balance.balance_denom)
                     let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
                     let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
                     allOKT = allOKT.adding(convertedOKTAmount)
@@ -858,12 +841,12 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.textColor = COLOR_OK
             cell?.tokenImg.image = UIImage(named: "okexTokenImg")
             
-            let tokenAmount = WUtils.getAllOkt(mainTabVC.mBalances, BaseData.instance.mOkStaking, BaseData.instance.mOkUnbonding)
+            let tokenAmount = WUtils.getAllExToken(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
             cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
             
         } else {
-            let totalTokenAmount = balance.getAllAmountOKToken()
+            let totalTokenAmount = WUtils.getAllExToken(balance.balance_denom)
             let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
             let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
             
@@ -1080,26 +1063,26 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onFetchOkTokenPrice() {
-        for i in 0..<mainTabVC.mBalances.count {
-            if ((mainTabVC.mBalances[i].balance_denom == "okb-c4d")) {
-//            if ((mainTabVC.mBalances[i].balance_denom == OKEX_MAIN_OKB)) {
-                let url = CGC_PRICE_TIC + "okb"
-                let request = Alamofire.request(url, method: .get, parameters: ["localization":"false", "tickers":"false", "community_data":"false", "developer_data":"false", "sparkline":"false"], encoding: URLEncoding.default, headers: [:]);
-                request.responseJSON { (response) in
-                    switch response.result {
-                    case .success(let res):
-                        if let tics = res as? NSDictionary, let priceUsd = tics.value(forKeyPath: "market_data.current_price.usd") as? Double {
-                            BaseData.instance.mOKBPrice = NSDecimalNumber.init(value: priceUsd)
-                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
-                        }
-                        self.onUpdateTotalCard()
-
-                    case .failure(let error):
-                        if (SHOW_LOG) { print("onFetchKavaTokenPrice ", error) }
-                    }
-                }
-            }
-        }
+//        for i in 0..<mainTabVC.mBalances.count {
+//            if ((mainTabVC.mBalances[i].balance_denom == "okb-c4d")) {
+////            if ((mainTabVC.mBalances[i].balance_denom == OKEX_MAIN_OKB)) {
+//                let url = CGC_PRICE_TIC + "okb"
+//                let request = Alamofire.request(url, method: .get, parameters: ["localization":"false", "tickers":"false", "community_data":"false", "developer_data":"false", "sparkline":"false"], encoding: URLEncoding.default, headers: [:]);
+//                request.responseJSON { (response) in
+//                    switch response.result {
+//                    case .success(let res):
+//                        if let tics = res as? NSDictionary, let priceUsd = tics.value(forKeyPath: "market_data.current_price.usd") as? Double {
+//                            BaseData.instance.mOKBPrice = NSDecimalNumber.init(value: priceUsd)
+//                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
+//                        }
+//                        self.onUpdateTotalCard()
+//
+//                    case .failure(let error):
+//                        if (SHOW_LOG) { print("onFetchKavaTokenPrice ", error) }
+//                    }
+//                }
+//            }
+//        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
@@ -1159,22 +1142,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func sortByName() {
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == BNB_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == BNB_MAIN_DENOM){
-                    return false
-                }
+                if ($0.balance_denom == BNB_MAIN_DENOM) { return true }
+                if ($1.balance_denom == BNB_MAIN_DENOM) { return false }
                 return $0.balance_denom < $1.balance_denom
             }
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == KAVA_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == KAVA_MAIN_DENOM){
-                    return false
-                }
+                if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
+                if ($1.balance_denom == KAVA_MAIN_DENOM) { return false }
                 return $0.balance_denom < $1.balance_denom
             }
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
@@ -1207,23 +1182,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func sortByAmount() {
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == BNB_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == BNB_MAIN_DENOM){
-                    return false
-                }
-                return $0.getAllAmountBnbToken().compare($1.getAllAmountBnbToken()).rawValue > 0 ? true : false
+                if ($0.balance_denom == BNB_MAIN_DENOM) { return true }
+                if ($1.balance_denom == BNB_MAIN_DENOM) { return false }
+                let totalTokenAmount0 = WUtils.getAllBnbToken($0.balance_denom)
+                let totalTokenAmount1 = WUtils.getAllBnbToken($1.balance_denom)
+                return totalTokenAmount0.compare(totalTokenAmount1).rawValue > 0 ? true : false
             }
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == KAVA_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == KAVA_MAIN_DENOM){
-                    return false
-                }
+                if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
+                if ($1.balance_denom == KAVA_MAIN_DENOM) { return false }
                 return WUtils.localeStringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.localeStringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
             
@@ -1257,23 +1226,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     func sortByValue() {
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             mainTabVC.mBalances.sort{
-                if ($0.balance_denom == BNB_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == BNB_MAIN_DENOM){
-                    return false
-                }
-                return $0.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($0.balance_denom), mBnbTics)).compare($1.exchangeBnbValue(WUtils.getTicData(WUtils.getBnbTicSymbol($1.balance_denom), mBnbTics))).rawValue > 0 ? true : false
+                if ($0.balance_denom == BNB_MAIN_DENOM) { return true }
+                if ($1.balance_denom == BNB_MAIN_DENOM) { return false }
+                let totalTokenAmount0 = WUtils.getAllBnbToken($0.balance_denom)
+                let totalTokenAmount1 = WUtils.getAllBnbToken($1.balance_denom)
+                let totalTokenValue0 = WUtils.getBnbConvertAmount($0.balance_denom, totalTokenAmount0)
+                let totalTokenValue1 = WUtils.getBnbConvertAmount($1.balance_denom, totalTokenAmount1)
+                return totalTokenValue0.compare(totalTokenValue1).rawValue > 0 ? true : false
             }
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             let balances = mainTabVC.mBalances
             mainTabVC.mBalances.sort {
-                if ($0.balance_denom == KAVA_MAIN_DENOM) {
-                    return true
-                }
-                if ($1.balance_denom == KAVA_MAIN_DENOM){
-                    return false
-                }
+                if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
+                if ($1.balance_denom == KAVA_MAIN_DENOM){ return false }
                 let totalTokenAmount0 = WUtils.getKavaTokenAll($0.balance_denom, balances)
                 let totalTokenAmount1 = WUtils.getKavaTokenAll($1.balance_denom, balances)
                 let totalTokenValue0 = WUtils.getKavaTokenDollorValue($0.balance_denom, totalTokenAmount0)

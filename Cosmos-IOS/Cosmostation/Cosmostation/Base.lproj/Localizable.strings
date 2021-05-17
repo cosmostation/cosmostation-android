@@ -595,12 +595,22 @@
 "currency_krw" = "KRW";
 "currency_jpy" = "JPY";
 "currency_cny" = "CNY";
+"currency_rub" = "RUB";
+"currency_gbp" = "GBP";
+"currency_inr" = "INR";
+"currency_brl" = "BRL";
+"currency_idr" = "IDR";
 "currency_btc" = "BTC";
 "currency_usd_symbol" = "$";
 "currency_eur_symbol" = "€";
 "currency_krw_symbol" = "₩";
 "currency_jpy_symbol" = "¥";
 "currency_cny_symbol" = "¥";
+"currency_rub_symbol" = "₽";
+"currency_gbp_symbol" = "£";
+"currency_inr_symbol" = "₹";
+"currency_brl_symbol" = "R$";
+"currency_idr_symbol" = "Rp";
 "currency_btc_symbol" = "₿";
 
 "currency_fetch_success" = "Currency updated";

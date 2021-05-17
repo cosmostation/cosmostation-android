@@ -17,25 +17,25 @@ final class BaseData : NSObject{
     
     var database: Connection!
     var copySalt: String?
-    var mPrices = NSMutableDictionary.init()
+    var mPrices = Array<Price>()
     
-    func updatePriceInfo(_ denom: String?, _ priceInfo: Array<NSDictionary>?) {
-        mPrices[denom] = priceInfo
+//    func updatePriceInfo(_ denom: String?, _ priceInfo: Array<NSDictionary>?) {
+//        mPrices[denom] = priceInfo
+//    }
+//
+    func getPrice(_ denom: String) -> Price? {
+        return mPrices.filter { $0.denom == denom.lowercased() }.first
     }
-    
-    func getPriceInfo(_ denom: String) -> Array<NSDictionary>?{
-        return mPrices.object(forKey: denom) as? Array<NSDictionary>
-    }
-    
-    func getPrice(_ denom: String, _ currency: String) -> NSDecimalNumber {
-        var result = NSDecimalNumber.zero
-        getPriceInfo(denom)?.forEach({ body in
-            if (body.object(forKey: "currency") as! String == currency) {
-                result = NSDecimalNumber.init(value: body.object(forKey: "current_price") as? Double ?? 0)
-            }
-        })
-        return result
-    }
+//
+//    func getPrice(_ denom: String, _ currency: String) -> NSDecimalNumber {
+//        var result = NSDecimalNumber.zero
+//        getPriceInfo(denom)?.forEach({ body in
+//            if (body.object(forKey: "currency") as! String == currency) {
+//                result = NSDecimalNumber.init(value: body.object(forKey: "current_price") as? Double ?? 0)
+//            }
+//        })
+//        return result
+//    }
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()
@@ -551,50 +551,51 @@ final class BaseData : NSObject{
     func getCurrencyString() -> String {
         if (getCurrency() == 0) {
             return NSLocalizedString("currency_usd", comment: "")
-            
         } else if (getCurrency() == 1) {
             return NSLocalizedString("currency_eur", comment: "")
-            
         } else if (getCurrency() == 2) {
             return NSLocalizedString("currency_krw", comment: "")
-            
         } else if (getCurrency() == 3) {
             return NSLocalizedString("currency_jpy", comment: "")
-            
         } else if (getCurrency() == 4) {
             return NSLocalizedString("currency_cny", comment: "")
-            
         } else if (getCurrency() == 5) {
-            return NSLocalizedString("currency_btc", comment: "")
-            
-        } else {
-            return NSLocalizedString("currency_usd", comment: "")
+            return NSLocalizedString("currency_rub", comment: "")
+        } else if (getCurrency() == 6) {
+            return NSLocalizedString("currency_gbp", comment: "")
+        } else if (getCurrency() == 7) {
+            return NSLocalizedString("currency_inr", comment: "")
+        } else if (getCurrency() == 8) {
+            return NSLocalizedString("currency_brl", comment: "")
+        } else if (getCurrency() == 9) {
+            return NSLocalizedString("currency_idr", comment: "")
         }
+        return ""
     }
     
     func getCurrencySymbol() -> String {
         if (getCurrency() == 0) {
             return NSLocalizedString("currency_usd_symbol", comment: "")
-            
         } else if (getCurrency() == 1) {
             return NSLocalizedString("currency_eur_symbol", comment: "")
-            
         } else if (getCurrency() == 2) {
             return NSLocalizedString("currency_krw_symbol", comment: "")
-            
         } else if (getCurrency() == 3) {
             return NSLocalizedString("currency_jpy_symbol", comment: "")
-            
         } else if (getCurrency() == 4) {
             return NSLocalizedString("currency_cny_symbol", comment: "")
-            
         } else if (getCurrency() == 5) {
-            return NSLocalizedString("currency_btc_symbol", comment: "")
-            
-        } else {
-            return NSLocalizedString("currency_usd_symbol", comment: "")
+            return NSLocalizedString("currency_rub_symbol", comment: "")
+        } else if (getCurrency() == 6) {
+            return NSLocalizedString("currency_gbp_symbol", comment: "")
+        } else if (getCurrency() == 7) {
+            return NSLocalizedString("currency_inr_symbol", comment: "")
+        } else if (getCurrency() == 8) {
+            return NSLocalizedString("currency_brl_symbol", comment: "")
+        } else if (getCurrency() == 9) {
+            return NSLocalizedString("currency_idr_symbol", comment: "")
         }
-        
+        return ""
     }
     
     func setUsingAppLock(_ using : Bool) {

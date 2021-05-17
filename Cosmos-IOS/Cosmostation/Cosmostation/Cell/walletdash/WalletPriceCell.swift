@@ -45,7 +45,6 @@ class WalletPriceCell: UITableViewCell {
         actionBuy?()
     }
     
-    
     override func prepareForReuse() {
         noBuyConstraint.priority = .defaultHigh
         buyConstraint.priority = .defaultLow
@@ -54,57 +53,40 @@ class WalletPriceCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.BINANCE_MAIN || chainType == ChainType.KAVA_MAIN) {
-            sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                updownImg.image = UIImage(named: "priceUp")
-                updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                updownImg.image = UIImage(named: "priceDown")
-                updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: updownPercent.font)
-            } else {
-                updownImg.image = nil
-                updownPercent.text = ""
-            }
-            if (chainType == ChainType.COSMOS_MAIN) {
-                buyBtn.setTitle(NSLocalizedString("buy_atom", comment: ""), for: .normal)
-            }
-            if (chainType == ChainType.BINANCE_MAIN) {
-                buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
-            }
-            if (chainType == ChainType.KAVA_MAIN) {
-                buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
-            }
+        sourceSite.text = "("+BaseData.instance.getMarketString()+")"
+        perPrice.attributedText = WUtils.dpPerValue(WUtils.getMainDenom(chainType), perPrice.font)
+        updownPercent.attributedText = WUtils.dpValueChange(WUtils.getMainDenom(chainType), font: updownPercent.font)
+        let changeValue = WUtils.valueChange(WUtils.getMainDenom(chainType))
+        if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) { updownImg.image = UIImage(named: "priceUp") }
+        else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) { updownImg.image = UIImage(named: "priceDown") }
+        else { updownImg.image = nil }
+        
+        if (chainType == ChainType.COSMOS_MAIN) {
+            buyBtn.setTitle(NSLocalizedString("buy_atom", comment: ""), for: .normal)
+            buySeparator.isHidden = false
+            buyBtn.isHidden = false
+            buyConstraint.priority = .defaultHigh
+            noBuyConstraint.priority = .defaultLow
+            
+        } else if (chainType == ChainType.BINANCE_MAIN) {
+            buyBtn.setTitle(NSLocalizedString("buy_bnb", comment: ""), for: .normal)
+            buySeparator.isHidden = false
+            buyBtn.isHidden = false
+            buyConstraint.priority = .defaultHigh
+            noBuyConstraint.priority = .defaultLow
+            
+        } else if (chainType == ChainType.KAVA_MAIN) {
+            buyBtn.setTitle(NSLocalizedString("buy_kava", comment: ""), for: .normal)
             buySeparator.isHidden = false
             buyBtn.isHidden = false
             buyConstraint.priority = .defaultHigh
             noBuyConstraint.priority = .defaultLow
             
         } else {
-            sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-            perPrice.attributedText = WUtils.dpPricePerUnit(BaseData.instance.getLastPrice(), perPrice.font)
-            let changeValue = WUtils.priceChanges(BaseData.instance.get24hPrice())
-            if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) {
-                updownImg.image = UIImage(named: "priceUp")
-                updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: updownPercent.font)
-            } else if (changeValue.compare(NSDecimalNumber.zero).rawValue < 0) {
-                updownImg.image = UIImage(named: "priceDown")
-                updownPercent.attributedText = WUtils.displayPriceUPdown(changeValue, font: updownPercent.font)
-            } else {
-                updownImg.image = nil
-                updownPercent.text = ""
-            }
             buySeparator.isHidden = true
             buyBtn.isHidden = true
             buyConstraint.priority = .defaultLow
             noBuyConstraint.priority = .defaultHigh
-            
         }
-        
-//        print("atom ", BaseData.instance.getPriceInfo(COSMOS_MAIN_DENOM))
-//        print("atom usd", BaseData.instance.getPrice(COSMOS_MAIN_DENOM, "usd"))
-        
     }
 }

@@ -262,25 +262,32 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         let usdAction = UIAlertAction(title: NSLocalizedString("currency_usd", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(0)
         })
-        
         let eurAction = UIAlertAction(title: NSLocalizedString("currency_eur", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(1)
         })
-        
         let krwAction = UIAlertAction(title: NSLocalizedString("currency_krw", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(2)
         })
-        
         let jpyAction = UIAlertAction(title: NSLocalizedString("currency_jpy", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(3)
         })
-        
         let cnyAction = UIAlertAction(title: NSLocalizedString("currency_cny", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(4)
         })
-        
-        let btcAction = UIAlertAction(title: NSLocalizedString("currency_btc", comment: ""), style: .default, handler: { _ in
+        let rubAction = UIAlertAction(title: NSLocalizedString("currency_rub", comment: ""), style: .default, handler: { _ in
             self.onSetCurrency(5)
+        })
+        let gbpAction = UIAlertAction(title: NSLocalizedString("currency_gbp", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(6)
+        })
+        let inrAction = UIAlertAction(title: NSLocalizedString("currency_inr", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(7)
+        })
+        let brlAction = UIAlertAction(title: NSLocalizedString("currency_brl", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(8)
+        })
+        let idrAction = UIAlertAction(title: NSLocalizedString("currency_idr", comment: ""), style: .default, handler: { _ in
+            self.onSetCurrency(9)
         })
         
         showAlert.addAction(usdAction)
@@ -288,7 +295,11 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         showAlert.addAction(krwAction)
         showAlert.addAction(jpyAction)
         showAlert.addAction(cnyAction)
-        showAlert.addAction(btcAction)
+        showAlert.addAction(rubAction)
+        showAlert.addAction(gbpAction)
+        showAlert.addAction(inrAction)
+        showAlert.addAction(brlAction)
+        showAlert.addAction(idrAction)
         
         self.present(showAlert, animated: true) {
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))

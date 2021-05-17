@@ -611,6 +611,7 @@
 		28ED4A59255112BA0073E164 /* MintParam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28ED4A58255112BA0073E164 /* MintParam.swift */; };
 		28F553492641790100590056 /* WalletKiCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28F553472641790100590056 /* WalletKiCell.swift */; };
 		28F5534A2641790200590056 /* WalletKiCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28F553482641790100590056 /* WalletKiCell.xib */; };
+		28FC030C2652662B001C0319 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28FC030B2652662B001C0319 /* Price.swift */; };
 		C10F8E8103FA540DE8D91196 /* Pods_Cosmostation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */; };
 		E103DAA32281266D006C2146 /* ValidatorDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAA52281266D006C2146 /* ValidatorDetailCell.xib */; };
 		E103DAAA2281274A006C2146 /* ValidatorDetailHistoryHeader.xib in Resources */ = {isa = PBXBuildFile; fileRef = E103DAAC2281274A006C2146 /* ValidatorDetailHistoryHeader.xib */; };
@@ -1419,6 +1420,7 @@
 		28ED4A58255112BA0073E164 /* MintParam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MintParam.swift; sourceTree = "<group>"; };
 		28F553472641790100590056 /* WalletKiCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletKiCell.swift; sourceTree = "<group>"; };
 		28F553482641790100590056 /* WalletKiCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletKiCell.xib; sourceTree = "<group>"; };
+		28FC030B2652662B001C0319 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		90C3507019D5FF972346F7F1 /* Pods-Cosmostation.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.debug.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.debug.xcconfig"; sourceTree = "<group>"; };
 		9EC4E60C313BD1F7C37E2232 /* Pods-Cosmostation.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cosmostation.release.xcconfig"; path = "Target Support Files/Pods-Cosmostation/Pods-Cosmostation.release.xcconfig"; sourceTree = "<group>"; };
 		BB20D291C0AF536BBDAE928C /* Pods_Cosmostation.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cosmostation.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -2546,6 +2548,7 @@
 				284291A0264AA77C00130651 /* BnbTicker.swift */,
 				283D2EA324F52FE700247424 /* OkToken.swift */,
 				285F8C8A25CFB21000317B30 /* OkTicker.swift */,
+				28FC030B2652662B001C0319 /* Price.swift */,
 			);
 			path = Dao;
 			sourceTree = "<group>";
@@ -3555,6 +3558,7 @@
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */,
 				287AC5F825FDF7260070837E /* token_tx.pb.swift in Sources */,
+				28FC030C2652662B001C0319 /* Price.swift in Sources */,
 				287AC65125FDF7260070837E /* nft_tx.grpc.swift in Sources */,
 				E16FACB12361ADFA00372052 /* Bytes.swift in Sources */,
 				E1F1CF06239F53C5004EF8A2 /* IrisProposal.swift in Sources */,

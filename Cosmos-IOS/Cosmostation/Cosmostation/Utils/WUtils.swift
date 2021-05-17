@@ -25,6 +25,8 @@ class WUtils {
     
     static let handler2Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 2, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
+    static let handler3Down = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: 3, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
+    
     static let handler0 = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.bankers, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
     
     static let handler0Up = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.up, scale: 0, raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
@@ -1021,12 +1023,13 @@ class WUtils {
         return dpValue(result, font)
     }
     
-    static func dpPricePerUnit(_ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        return dpValue(NSDecimalNumber(value: price!), font)
-    }
+    //old type price
+//    static func dpPricePerUnit(_ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
+//        if (price == nil) {
+//            return dpValue(NSDecimalNumber.zero, font)
+//        }
+//        return dpValue(NSDecimalNumber(value: price!), font)
+//    }
     
     static func dpTokenValue(_ amount: NSDecimalNumber, _ price:Double?, _ divide:Int16, _ font:UIFont) -> NSMutableAttributedString {
         if (price == nil) {
@@ -1073,15 +1076,13 @@ class WUtils {
         return attributedString1
     }
     
-    
-    static func priceChanges(_ price:Double?) -> NSDecimalNumber {
-        if (price == nil) {
-            return NSDecimalNumber.zero
-        } else {
-            return NSDecimalNumber(value: price!)
-        }
-    }
-    
+//    static func priceChanges(_ price:Double?) -> NSDecimalNumber {
+//        if (price == nil) {
+//            return NSDecimalNumber.zero
+//        } else {
+//            return NSDecimalNumber(value: price!)
+//        }
+//    }
     
     static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, _ font:UIFont) -> NSMutableAttributedString {
         let nf = NumberFormatter()
@@ -1115,6 +1116,73 @@ class WUtils {
         return attributedString1
         
     }
+    
+    //new type price
+    static func perValue(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        guard let coinPrice = baseData.getPrice(denom), let usdtPrice = baseData.getPrice("usdt") else {
+            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler3Down)
+        }
+        
+        let priceUSD = coinPrice.currencyPrice("usd")
+        if (baseData.getCurrency() == 0) {
+            return priceUSD.rounding(accordingToBehavior: handler3Down)
+        } else {
+            let currencyS = baseData.getCurrencyString().lowercased()
+            let priceUSDT = usdtPrice.currencyPrice(currencyS)
+            return priceUSD.multiplying(by: priceUSDT, withBehavior: handler3Down)
+        }
+    }
+    
+    static func dpPerValue(_ denom: String, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.minimumFractionDigits = 3
+        nf.maximumFractionDigits = 3
+        
+        let formatted   = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: perValue(denom))!
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        let preAttrs    = [NSAttributedString.Key.font : font]
+        let postAttrs   = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    static func valueChange(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        guard let coinPrice = baseData.getPrice(denom) else {
+            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler2Down)
+        }
+        return coinPrice.priceChange()
+    }
+    
+    static func dpValueChange(_ denom: String, font:UIFont ) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.minimumFractionDigits = 2
+        nf.maximumFractionDigits = 2
+        
+        let formatted   = nf.string(from: valueChange(denom))! + "% (24h)"
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -9)
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        let preAttrs    = [NSAttributedString.Key.font : font]
+        let postAttrs   = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
+    
+    
+    
+    
     
     
     static func displayGasRate(_ rate: NSDecimalNumber, font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {
@@ -1482,6 +1550,11 @@ class WUtils {
             
         } else if (chain == ChainType.SIF_MAIN) {
             result = result + ",rowan"
+            for balance in BaseData.instance.mBalances {
+                if (balance.balance_denom != getMainDenom(chain) && balance.balance_denom.starts(with: "c")) {
+                    result = result + "," + balance.balance_denom.substring(from: 1)
+                }
+            }
             
         } else if (chain == ChainType.KI_MAIN) {
             result = result + ",uxki"
@@ -1492,28 +1565,20 @@ class WUtils {
         }
         return result
     }
-     
-    static func getAllOkt(_ balances:Array<Balance>, _ deposit: OkStaking?, _ withdraw: OkUnbonding?) -> NSDecimalNumber {
-        var sum = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == OKEX_MAIN_DENOM) {
-                sum = sum.adding(plainStringToDecimal(balance.balance_amount))
-                sum = sum.adding(plainStringToDecimal(balance.balance_locked))
-            }
-        }
-        sum = sum.adding(plainStringToDecimal(deposit?.tokens))
-        sum = sum.adding(plainStringToDecimal(withdraw?.quantity))
-        return sum
-    }
     
-    static func getAllBnb() -> NSDecimalNumber {
-        return BaseData.instance.availableAmount(BNB_MAIN_DENOM).adding(BaseData.instance.frozenAmount(BNB_MAIN_DENOM)).adding(BaseData.instance.lockedAmount(BNB_MAIN_DENOM))
+    static func getAllExToken(_ symbol: String) -> NSDecimalNumber {
+        let dataBase = BaseData.instance
+        if (symbol == OKEX_MAIN_DENOM) {
+            return dataBase.availableAmount(symbol).adding(dataBase.lockedAmount(symbol)).adding(dataBase.okDepositAmount()).adding(dataBase.okWithdrawAmount())
+        } else {
+            return dataBase.availableAmount(symbol).adding(dataBase.lockedAmount(symbol))
+        }
     }
     
     static func getAllBnbToken(_ symbol: String) -> NSDecimalNumber {
-        return BaseData.instance.availableAmount(symbol).adding(BaseData.instance.frozenAmount(symbol)).adding(BaseData.instance.lockedAmount(symbol))
+        let dataBase = BaseData.instance
+        return dataBase.availableAmount(symbol).adding(dataBase.frozenAmount(symbol)).adding(dataBase.lockedAmount(symbol))
     }
-    
     
     static func getKavaTokenAvailable(_ denom: String, _ balances: Array<Balance>) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
