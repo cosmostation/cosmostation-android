@@ -182,7 +182,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
             mDpDecimal = 6;
             setDpDecimals(mDpDecimal);
             WDp.DpMainDenom(getContext(), getSActivity().mBaseChain.getChain(), mDenomTitle);
-            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mSecretDenom).subtract(new BigDecimal("20000"));
+            mMaxAvailable = getSActivity().mAccount.getTokenBalance(getSActivity().mDenom).subtract(new BigDecimal("20000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
         } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
@@ -447,7 +447,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal sendTemp = new BigDecimal(mAmountInput.getText().toString().trim());
                 if (sendTemp.compareTo(BigDecimal.ZERO) <= 0) return false;
                 if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
-                Coin certik = new Coin(getSActivity().mCertikDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
+                Coin certik = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
                 mToSendCoins.add(certik);
                 return true;
 
