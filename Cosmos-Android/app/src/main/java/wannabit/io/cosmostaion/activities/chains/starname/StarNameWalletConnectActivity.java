@@ -43,11 +43,12 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 public class StarNameWalletConnectActivity  extends BaseActivity implements View.OnClickListener {
 
-    private final static int        MSG_WC_CONNECTED  = 0;
-    private final static int        MSG_WC_DISCONNECTED  = 1;
-    private final static int        MSG_WC_APPROVED  = 2;
-    private final static int        MSG_WC_CLOSED  = 3;
-    private final static int        MSG_WC_SESSION_REQUESTED  = 4;
+    private final static int        MSG_WC_CONNECTED            = 0;
+    private final static int        MSG_WC_DISCONNECTED         = 1;
+    private final static int        MSG_WC_APPROVED             = 2;
+    private final static int        MSG_WC_CLOSED               = 3;
+    private final static int        MSG_WC_SESSION_REQUESTED    = 4;
+    private final static int        MSG_ACTIVITY_BACK           = 5;
 
     private Toolbar         mToolbar;
     private RelativeLayout  mWcLayer, mLoadingLayer;
@@ -78,6 +79,10 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
                 case MSG_WC_SESSION_REQUESTED:
                     Session.MethodCall.SessionRequest sessionRequest = (Session.MethodCall.SessionRequest)msg.obj;
                     onInitView(sessionRequest);
+                    break;
+
+                case MSG_ACTIVITY_BACK:
+                    onBackPressed();
                     break;
             }
             super.handleMessage(msg);
@@ -228,7 +233,9 @@ public class StarNameWalletConnectActivity  extends BaseActivity implements View
 
 
             } catch (Exception e) {
-                onBackPressed();
+                Message msg = mHandler.obtainMessage();
+                msg.what = MSG_ACTIVITY_BACK;
+                mHandler.sendMessage(msg);
                 return;
             }
         }
