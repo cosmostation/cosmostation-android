@@ -117,8 +117,14 @@ public class ResApiTxListCustom {
 
                 } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
                     result = c.getString(R.string.tx_get_commission);
-                }
 
+                } else if (msgType.contains("MsgCreateLease")) {
+                    result = c.getString(R.string.tx_create_lease);
+
+                } else if (msgType.contains("MsgWithdrawLease")) {
+                    result = c.getString(R.string.tx_withdraw_lease);
+
+                }
 
                 else if (msgType.contains("MsgMintNFT")) {
                     result = "NFT Mint";
