@@ -48,7 +48,7 @@ class WalletBandCell: UITableViewCell {
         delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
-        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 6, totalValue.font)
+        totalValue.attributedText = WUtils.dpAmountValue(BAND_MAIN_DENOM, total, 6, totalValue.font)
         BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
         
     }

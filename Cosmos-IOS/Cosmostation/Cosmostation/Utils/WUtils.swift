@@ -1180,7 +1180,29 @@ class WUtils {
         return attributedString1
     }
     
+    static func amountValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16) -> NSDecimalNumber {
+        let perValue = perValue(denom)
+        return perValue.multiplying(by: amount).multiplying(byPowerOf10: -divider, withBehavior: handler3Down)
+    }
     
+    static func dpAmountValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = NumberFormatter()
+        nf.numberStyle = .decimal
+        nf.minimumFractionDigits = 3
+        nf.maximumFractionDigits = 3
+        
+        let formatted   = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: amountValue(denom, amount, divider))!
+        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
+        let preString   = formatted[..<endIndex]
+        let postString  = formatted[endIndex...]
+        let preAttrs    = [NSAttributedString.Key.font : font]
+        let postAttrs   = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+        
+        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+        attributedString1.append(attributedString2)
+        return attributedString1
+    }
     
     
     

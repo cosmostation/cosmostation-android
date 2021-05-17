@@ -48,7 +48,7 @@ class WalletFetchCell: UITableViewCell {
         delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 18, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 18, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 18, 6)
-        totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 18, totalValue.font)
+        totalValue.attributedText = WUtils.dpAmountValue(FETCH_MAIN_DENOM, total, 18, totalValue.font)
         BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -18).stringValue)
         
     }

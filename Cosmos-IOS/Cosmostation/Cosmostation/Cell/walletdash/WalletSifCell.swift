@@ -57,6 +57,7 @@ class WalletSifCell: UITableViewCell {
         unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 18, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 18, 6)
         totalValue.attributedText = WUtils.dpTokenValue(total, BaseData.instance.getLastPrice(), 18, totalValue.font)
+        totalValue.attributedText = WUtils.dpAmountValue(SIF_MAIN_DENOM, total, 18, totalValue.font)
         
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false
