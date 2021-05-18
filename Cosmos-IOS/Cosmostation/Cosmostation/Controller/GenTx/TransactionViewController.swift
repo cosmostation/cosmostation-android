@@ -32,7 +32,6 @@ class TransactionViewController: UIViewController {
     var mKavaSendDenom: String?
     var mIovSendDenom: String?
     var mOkSendDenom: String?
-    var mCertikSendDenom: String?
     var mSecretSendDenom: String?
     
     var mProposeId: String?
@@ -43,8 +42,6 @@ class TransactionViewController: UIViewController {
     var mCDenom: String?
     var mMarketID: String?
     var mHardPoolDenom: String?
-//    var mHarvestDepositType: String? // lp or stake
-//    var mIncentiveType: String?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
     var mHtlcRefundSwapId: String?
@@ -273,7 +270,6 @@ class TransactionViewController: UIViewController {
             StepVc.mKavaSendDenom = self.mKavaSendDenom
             StepVc.mIovSendDenom = self.mIovSendDenom
             StepVc.mOkSendDenom = self.mOkSendDenom
-            StepVc.mCertikSendDenom = self.mCertikSendDenom
             StepVc.mSecretSendDenom = self.mSecretSendDenom
             StepVc.mToSendDenom = self.mToSendDenom
             
@@ -282,8 +278,6 @@ class TransactionViewController: UIViewController {
             StepVc.mHtlcDenom = self.mHtlcDenom
             StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId
             StepVc.mHardPoolDenom = self.mHardPoolDenom
-//            StepVc.mHarvestDepositType = self.mHarvestDepositType
-//            StepVc.mIncentiveType = self.mIncentiveType
             StepVc.mCollateralParamType = self.mCollateralParamType
             
             StepVc.mStarnameDomain = self.mStarnameDomain

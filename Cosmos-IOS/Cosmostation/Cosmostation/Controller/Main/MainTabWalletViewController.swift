@@ -1524,7 +1524,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mCertikSendDenom = CERTIK_MAIN_DENOM
+            txVC.mToSendDenom = CERTIK_MAIN_DENOM
             txVC.mType = CERTIK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
