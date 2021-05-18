@@ -18,13 +18,9 @@ let KEY_ALL_VAL_SORT                    = "KEY_ALL_VAL_SORT"
 let KEY_MY_VAL_SORT                     = "KEY_MY_VAL_SORT"
 let KEY_LAST_TAB                        = "KEY_LAST_TAB"
 let KEY_ACCOUNT_REFRESH_ALL             = "KEY_ACCOUNT_REFRESH_ALL"
-let KEY_ATOM_TIC_CMC                    = "KEY_ATOM_TIC_CMC"
 let KEY_CURRENCY                        = "KEY_CURRENCY"
-let KEY_MARKET                          = "KEY_MARKET"
 let KEY_USING_APP_LOCK                  = "KEY_USING_APP_LOCK"
 let KEY_USING_BIO_AUTH                  = "KEY_USING_BIO_AUTH"
-let KEY_PRICE_TIC_CGC                   = "KEY_PRICE_TIC_CGC"
-let KEY_PRICE_TIC_CMC                   = "KEY_PRICE_TIC_CMC"
 let KEY_FCM_TOKEN                       = "KEY_FCM_TOKEN"
 let KEY_KAVA_TESTNET_WARN               = "KEY_KAVA_TESTNET_WARN"
 let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
@@ -32,17 +28,13 @@ let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 let STATION_URL                         = "https://api-utility.cosmostation.io/";
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
-let COSMOS_URL                          = "https://lcd-cosmos-app.cosmostation.io/";
 let COSMOS_API                          = "https://api.cosmostation.io/";
 
-let COSMOS_TEST_URL                     = "https://lcd-office.cosmostation.io/stargate-final/";
 let COSMOS_TEST_API                     = "https://api-office.cosmostation.io/stargate-final/";
 
 
-let IRIS_LCD_URL                        = "https://lcd-iris-app.cosmostation.io/";
 let IRIS_API                            = "https://api-iris.cosmostation.io/";
 
-let IRIS_TEST_URL                       = "https://lcd-office.cosmostation.io/bifrost/";
 let IRIS_TEST_API                       = "https://api-office.cosmostation.io/bifrost/";
 
 
@@ -90,40 +82,30 @@ let AKASH_API                           = "https://api-akash.cosmostation.io/";
 let PERSIS_API                          = "https://api-persistence.cosmostation.io/";
 
 
-let SENTINEL_URL                        = "https://lcd-sentinel.cosmostation.io/";
+let SENTINEL_URL                        = "https://lcd-sentinel-app.cosmostation.io/";
 let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
 
-let FETCH_URL                           = "https://lcd-fetchai.cosmostation.io/";
+let FETCH_URL                           = "https://lcd-fetchai-app.cosmostation.io/";
 let FETCH_API                           = "https://api-fetchai.cosmostation.io/";
 
 
 let CRYTO_API                           = "https://api-cryptocom.cosmostation.io/";
 
 
-let SIF_URL                             = "https://lcd-sifchain.cosmostation.io/";
+let SIF_URL                             = "https://lcd-sifchain-app.cosmostation.io/";
 let SIF_API                             = "https://api-sifchain.cosmostation.io/";
 
 
-let KI_URL                              = "https://lcd-kichain.cosmostation.io/";
+let KI_URL                              = "https://lcd-kichain-app.cosmostation.io/";
 let KI_API                              = "https://api-kichain.cosmostation.io/";
 
 
-let CGC_URL                             = "https://api.coingecko.com/";
-let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
 let CSS_VERSION                         = CSS_URL + "v1/app/version/ios";
 let CSS_PUSH_UPDATE                     = CSS_URL + "v1/account/update";
 let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
-
-
-//KAVA_URL
-let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
-let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
-
-let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
-let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 
 
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";
@@ -254,7 +236,6 @@ let ETHERMINT_KEY_TYPE_PUBLIC               = "ethermint/PubKeyEthSecp256k1";
 let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 
 
-let IRIS_BANK_TYPE_ACCOUNT                  = "irishub/bank/Account";
 let IRIS_MSG_TYPE_TRANSFER                  = "irishub/bank/Send";
 let IRIS_MSG_TYPE_DELEGATE                  = "irishub/stake/MsgDelegate";
 let IRIS_MSG_TYPE_UNDELEGATE                = "irishub/stake/BeginUnbonding";
@@ -278,7 +259,6 @@ let IRIS_PROPOAL_TYPE_SystemHaltProposal        = "irishub/gov/SystemHaltProposa
 let IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal = "irishub/gov/CommunityTaxUsageProposal";
 
 
-let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
 let BNB_MSG_TYPE_HTLC                       = "tokens/HTLTMsg";
 let BNB_MSG_TYPE_HTLC_CLIAM                 = "tokens/ClaimHTLTMsg";
 let BNB_MSG_TYPE_HTLC_REFUND                = "tokens/RefundHTLTMsg";
@@ -287,7 +267,6 @@ let TASK_TYPE_VOTE                          = "vote_task";
 let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
 let TASK_TYPE_HTLC_REFUND                   = "htlc_refund";
 
-let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
 let KAVA_MSG_TYPE_POST_PRICE                = "pricefeed/MsgPostPrice";
 let KAVA_MSG_TYPE_CREATE_CDP                = "cdp/MsgCreateCDP";
 let KAVA_MSG_TYPE_DEPOSIT_CDP               = "cdp/MsgDeposit";
@@ -311,11 +290,7 @@ let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
 let KAVA_MSG_TYPE_LIQUIDATE_HARD            = "hard/MsgLiquidate";
 
 
-
-let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
-let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
-let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";

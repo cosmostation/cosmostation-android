@@ -28,11 +28,12 @@ class TokenDetailHardCell: TokenDetailCell {
         let available = BaseData.instance.availableAmount(KAVA_HARD_DENOM)
         let vesting = BaseData.instance.lockedAmount(KAVA_HARD_DENOM)
         let total = available.adding(vesting)
+        let convertedKavaAmount = WUtils.convertTokenToKava(KAVA_HARD_DENOM)
         
         totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 6, 6)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 6, 6)
         vestingAmount.attributedText = WUtils.displayAmount2(vesting.stringValue, vestingAmount.font, 6, 6)
-        totalValue.attributedText = WUtils.dpAmountValue(KAVA_HARD_DENOM, total, 6, totalValue.font)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, totalValue.font)
     }
     
 }

@@ -56,7 +56,7 @@ class WalletKiCell: UITableViewCell {
         delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
-        totalValue.attributedText = WUtils.dpAmountValue(KI_MAIN_DENOM, total, 6, totalValue.font)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(KI_MAIN_DENOM, total, 6, totalValue.font)
 
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false

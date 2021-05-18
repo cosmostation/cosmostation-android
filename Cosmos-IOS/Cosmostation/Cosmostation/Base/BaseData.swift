@@ -442,108 +442,10 @@ final class BaseData : NSObject{
         return UserDefaults.standard.bool(forKey: KEY_ACCOUNT_REFRESH_ALL)
     }
     
-    func setPriceTicCgc(_ tic :NSDictionary?) {
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
-        UserDefaults.standard.setValue(encodedData, forKey: KEY_PRICE_TIC_CGC)
-    }
-    
-    func getPriceTicCgc() -> NSDictionary? {
-        if let value = UserDefaults.standard.object(forKey: KEY_PRICE_TIC_CGC) {
-            let decoded = value as! Data
-            return NSKeyedUnarchiver.unarchiveObject(with: decoded) as? NSDictionary
-        }
-        return nil
-    }
-    
-    func setPriceTicCmc(_ tic :NSDictionary) {
-        let encodedData = NSKeyedArchiver.archivedData(withRootObject: tic)
-        UserDefaults.standard.setValue(encodedData, forKey: KEY_PRICE_TIC_CMC)
-    }
-    
-    func getPriceTicCmc() -> NSDictionary? {
-        if let value = UserDefaults.standard.object(forKey: KEY_PRICE_TIC_CMC) {
-            let decoded = value as! Data
-            return NSKeyedUnarchiver.unarchiveObject(with: decoded) as? NSDictionary
-        }
-        return nil
-    }
-    
-    
-    
-    func setMarket(_ market : Int) {
-        UserDefaults.standard.set(market, forKey: KEY_MARKET)
-    }
-    
-    func getMarket() -> Int {
-        //No more coinmarketcap
-//        return UserDefaults.standard.integer(forKey: KEY_MARKET)
-        return 0
-    }
-    
-    
-    func getMarketTic() -> NSDictionary? {
-        if (getMarket() == 0) {
-            return getPriceTicCgc()
-        } else {
-            return getPriceTicCmc()
-        }
-    }
-    
-    func getPricePath() -> String {
-        if (getMarket() == 0) {
-            return "market_data.current_price." + BaseData.instance.getCurrencyString().lowercased()
-        } else {
-            return "data.quotes." + BaseData.instance.getCurrencyString() + ".price"
-        }
-    }
-    
-    func getPriceDollorPath() -> String {
-        if (getMarket() == 0) {
-            return "market_data.current_price.usd"
-        } else {
-            return "data.quotes.usd.price"
-        }
-    }
-    
-    func getPrice24hPath() -> String {
-        if (BaseData.instance.getMarket() == 0) {
-            return "market_data.price_change_percentage_24h_in_currency." + BaseData.instance.getCurrencyString().lowercased()
-        } else {
-            return "data.quotes." + BaseData.instance.getCurrencyString() + ".percent_change_24h"
-        }
-    }
-    
-    func getLastPrice() -> Double? {
-        return getMarketTic()?.value(forKeyPath: getPricePath()) as? Double
-    }
-    
-    func getLastDollorPrice() -> NSDecimalNumber {
-        let doubleValue = getMarketTic()?.value(forKeyPath: getPriceDollorPath()) as? Double
-        if (doubleValue != nil) {
-            return NSDecimalNumber.init(string: String(doubleValue!))
-        } else {
-            return NSDecimalNumber.zero
-        }
-    }
-    
-    func get24hPrice() -> Double? {
-        return getMarketTic()?.value(forKeyPath: getPrice24hPath()) as? Double
-    }
-    
-    
-    func getMarketString() -> String {
-        if (getMarket() == 0) {
-            return "CoinGecko"
-        } else {
-            return "CoinMarket Cap"
-        }
-    }
-    
-    
     func setCurrency(_ currency : Int) {
         UserDefaults.standard.set(currency, forKey: KEY_CURRENCY)
     }
-    
+
     func getCurrency() -> Int {
         return UserDefaults.standard.integer(forKey: KEY_CURRENCY)
     }

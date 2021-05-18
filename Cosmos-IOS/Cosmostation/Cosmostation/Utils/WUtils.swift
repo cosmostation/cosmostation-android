@@ -44,7 +44,7 @@ class WUtils {
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
-        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
+        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
             result.account_address = accountInfo.value.address
             result.account_sequence_number = Int64(accountInfo.value.sequence) ?? 0
             result.account_account_numner = Int64(accountInfo.value.account_number) ?? 0
@@ -98,7 +98,7 @@ class WUtils {
     
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT ||
+        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
             accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
             for coin in accountInfo.value.coins {
                 result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
@@ -116,7 +116,6 @@ class WUtils {
         var result = Array<Balance>()
         if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
             accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
-            accountInfo.type == IRIS_BANK_TYPE_ACCOUNT ||
             accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
             for coin in accountInfo.value.coins {
                 result.append(Balance.init(-1, coin.denom, coin.amount, Date().millisecondsSince1970))
@@ -608,7 +607,7 @@ class WUtils {
             }
         }
         
-        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == IRIS_MSG_TYPE_TRANSFER || msgs[0].type == CERTIK_MSG_TYPE_TRANSFER) {
+        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == CERTIK_MSG_TYPE_TRANSFER) {
             if (msgs[0].value.from_address != nil && msgs[0].value.from_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_send", comment: "")
             } else if (msgs[0].value.to_address != nil && msgs[0].value.to_address == myaddress) {
@@ -997,160 +996,13 @@ class WUtils {
         return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
-    static func dpAtomValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        var result = NSDecimalNumber.zero
-        if (BaseData.instance.getCurrency() == 5) {
-            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler8)
+    //price displaying
+    static func tokenCnt(_ chainType: ChainType?) -> String {
+        if (isGRPC(chainType)) {
+            return String(BaseData.instance.mMyBalances_gRPC.count)
         } else {
-            result = NSDecimalNumber(value: price!).dividing(by: NSDecimalNumber(string: "1000000")).multiplying(by: amount, withBehavior: WUtils.handler2Down)
+            return String(BaseData.instance.mBalances.count)
         }
-        return dpValue(result, font)
-    }
-
-    static func dpBnbValue(_ amount:NSDecimalNumber, _ price:Double?, _ font:UIFont) ->  NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        var result = NSDecimalNumber.zero
-        if (BaseData.instance.getCurrency() == 5) {
-            result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler8)
-        } else {
-            result = NSDecimalNumber(value: price!).multiplying(by: amount, withBehavior: WUtils.handler2Down)
-        }
-        return dpValue(result, font)
-    }
-    
-    //old type price
-//    static func dpPricePerUnit(_ price:Double?, _ font:UIFont) -> NSMutableAttributedString {
-//        if (price == nil) {
-//            return dpValue(NSDecimalNumber.zero, font)
-//        }
-//        return dpValue(NSDecimalNumber(value: price!), font)
-//    }
-    
-    static func dpTokenValue(_ amount: NSDecimalNumber, _ price:Double?, _ divide:Int16, _ font:UIFont) -> NSMutableAttributedString {
-        if (price == nil) {
-            return dpValue(NSDecimalNumber.zero, font)
-        }
-        var result = NSDecimalNumber.zero
-        if (BaseData.instance.getCurrency() == 5) {
-            result = NSDecimalNumber(value: price!).multiplying(byPowerOf10: -divide).multiplying(by: amount, withBehavior: WUtils.handler8)
-        } else {
-            result = NSDecimalNumber(value: price!).multiplying(byPowerOf10: -divide).multiplying(by: amount, withBehavior: WUtils.handler2Down)
-        }
-        return dpValue(result, font)
-    }
-    
-    static func dpValue(_ amount: NSDecimalNumber, _ font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        
-        var formatted = ""
-        var endIndex:String.Index?
-        if (BaseData.instance.getCurrency() == 5) {
-            nf.minimumFractionDigits = 8
-            nf.maximumFractionDigits = 8
-            formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: amount)!
-            endIndex    = formatted.index(formatted.endIndex, offsetBy: -8)
-            
-        } else {
-            nf.minimumFractionDigits = 2
-            nf.maximumFractionDigits = 2
-            formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: amount)!
-            endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-//    static func priceChanges(_ price:Double?) -> NSDecimalNumber {
-//        if (price == nil) {
-//            return NSDecimalNumber.zero
-//        } else {
-//            return NSDecimalNumber(value: price!)
-//        }
-//    }
-    
-    static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, _ font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        
-        var formatted = ""
-        var endIndex:String.Index?
-        if(currency == 5) {
-            nf.minimumFractionDigits = 8
-            nf.maximumFractionDigits = 8
-            formatted = symbol + " " + nf.string(from: amount)!
-            endIndex    = formatted.index(formatted.endIndex, offsetBy: -8)
-    
-        } else {
-            nf.minimumFractionDigits = 2
-            nf.maximumFractionDigits = 2
-            formatted = symbol + " " + nf.string(from: amount)!
-            endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-        
-    }
-    
-    //new type price
-    static func perValue(_ denom: String) -> NSDecimalNumber {
-        let baseData = BaseData.instance
-        guard let coinPrice = baseData.getPrice(denom), let usdtPrice = baseData.getPrice("usdt") else {
-            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler3Down)
-        }
-        
-        let priceUSD = coinPrice.currencyPrice("usd")
-        if (baseData.getCurrency() == 0) {
-            return priceUSD.rounding(accordingToBehavior: handler3Down)
-        } else {
-            let currencyS = baseData.getCurrencyString().lowercased()
-            let priceUSDT = usdtPrice.currencyPrice(currencyS)
-            return priceUSD.multiplying(by: priceUSDT, withBehavior: handler3Down)
-        }
-    }
-    
-    static func dpPerValue(_ denom: String, _ font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        nf.minimumFractionDigits = 3
-        nf.maximumFractionDigits = 3
-        
-        let formatted   = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: perValue(denom))!
-        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
-        let preString   = formatted[..<endIndex]
-        let postString  = formatted[endIndex...]
-        let preAttrs    = [NSAttributedString.Key.font : font]
-        let postAttrs   = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        attributedString1.append(attributedString2)
-        return attributedString1
     }
     
     static func valueChange(_ denom: String) -> NSDecimalNumber {
@@ -1162,15 +1014,249 @@ class WUtils {
     }
     
     static func dpValueChange(_ denom: String, font:UIFont ) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(2)
+        let formatted = nf.string(from: valueChange(denom))! + "% (24h)"
+        return getDpAttributedString(formatted, 9, font)
+    }
+    
+    static func perUsdValue(_ denom: String) -> NSDecimalNumber? {
+        if let coinPrice = BaseData.instance.getPrice(denom) {
+            return coinPrice.currencyPrice("usd").rounding(accordingToBehavior: handler3Down)
+        }
+        return nil
+    }
+    
+    static func usdValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16) -> NSDecimalNumber {
+        if let perUsdValue = perUsdValue(denom) {
+            return perUsdValue.multiplying(by: amount).multiplying(byPowerOf10: -divider, withBehavior: handler3Down)
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    static func perUserCurrencyValue(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        guard let perUsdValue = perUsdValue(denom), let usdtPrice = baseData.getPrice("usdt") else {
+            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler3Down)
+        }
+        if (baseData.getCurrency() == 0) {
+            return perUsdValue
+        } else {
+            let priceUSDT = usdtPrice.currencyPrice(baseData.getCurrencyString().lowercased())
+            return perUsdValue.multiplying(by: priceUSDT, withBehavior: handler3Down)
+        }
+    }
+    
+    static func perBtcValue(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        guard let perUsdValue = perUsdValue(denom), let usdtPrice = baseData.getPrice("usdt") else {
+            return NSDecimalNumber.zero.rounding(accordingToBehavior: handler8)
+        }
+        let priceUSDT = usdtPrice.currencyPrice("btc")
+        return perUsdValue.multiplying(by: priceUSDT, withBehavior: handler8)
+    }
+    
+    
+    static func dpPerUserCurrencyValue(_ denom: String, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: perUserCurrencyValue(denom))!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    static func userCurrencyValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16) -> NSDecimalNumber {
+        return perUserCurrencyValue(denom).multiplying(by: amount).multiplying(byPowerOf10: -divider, withBehavior: handler3Down)
+    }
+    
+    static func dpUserCurrencyValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16, _ font:UIFont) -> NSMutableAttributedString {
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: userCurrencyValue(denom, amount, divider))!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    static func btcValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16) -> NSDecimalNumber {
+        return perBtcValue(denom).multiplying(by: amount).multiplying(byPowerOf10: -divider, withBehavior: handler8)
+    }
+    
+//    static func allAssetToUsd(_ chainType: ChainType?) -> NSDecimalNumber {
+//        let baseData = BaseData.instance
+//        var totalUsdValue = NSDecimalNumber.zero
+//        if (isGRPC(chainType)) {
+//            baseData.mMyBalances_gRPC.forEach { coin in
+//                if (coin.denom == getMainDenom(chainType)) {
+//                    let amount = getAllMainAsset(coin.denom)
+//                    let assetValue = usdValue(coin.denom, amount, 6)
+//                    totalUsdValue = totalUsdValue.adding(assetValue)
+//
+//                } else {
+//                    // not yet!
+//
+//                }
+//            }
+//        }
+//        return totalUsdValue
+//    }
+    
+    static func allAssetToUserCurrency(_ chainType: ChainType?) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        var totalValue = NSDecimalNumber.zero
+        if (isGRPC(chainType)) {
+            baseData.mMyBalances_gRPC.forEach { coin in
+                if (coin.denom == getMainDenom(chainType)) {
+                    let amount = getAllMainAsset(coin.denom)
+                    let assetValue = userCurrencyValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(assetValue)
+                } else {
+                    // not yet!
+                    
+                }
+            }
+        }
+        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+            baseData.mBalances.forEach { coin in
+                var allBnb = NSDecimalNumber.zero
+                let amount = WUtils.getAllBnbToken(coin.balance_denom)
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    allBnb = allBnb.adding(amount)
+                } else {
+                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom, amount))
+                }
+                let assetValue = userCurrencyValue(getMainDenom(chainType), allBnb, 0)
+                totalValue = totalValue.adding(assetValue)
+            }
+            
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+            baseData.mBalances.forEach { coin in
+                var allKava = NSDecimalNumber.zero
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    allKava = allKava.adding(getAllMainAssetOld(getMainDenom(chainType)))
+                } else {
+                    allKava = allKava.adding(convertTokenToKava(coin.balance_denom))
+                }
+                let assetValue = userCurrencyValue(getMainDenom(chainType), allKava, 6)
+                totalValue = totalValue.adding(assetValue)
+            }
+            
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
+            baseData.mBalances.forEach { coin in
+                var allOKT = NSDecimalNumber.zero
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    allOKT = allOKT.adding(getAllExToken(coin.balance_denom))
+                } else {
+                    allOKT = allOKT.adding(convertTokenToOkt(coin.balance_denom))
+                }
+                let assetValue = userCurrencyValue(getMainDenom(chainType), allOKT, 0)
+                totalValue = totalValue.adding(assetValue)
+            }
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            baseData.mBalances.forEach { coin in
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    let amount = getAllMainAssetOld(getMainDenom(chainType))
+                    totalValue = totalValue.adding(userCurrencyValue(coin.balance_denom, amount, 18))
+                } else {
+                    let available = baseData.availableAmount(coin.balance_denom)
+                    let decimal = getSifCoinDecimal(coin.balance_denom)
+                    totalValue = totalValue.adding(userCurrencyValue(coin.balance_denom.substring(from: 1), available, decimal))
+                }
+            }
+        }
+        return totalValue
+    }
+    
+    static func allAssetToBtc(_ chainType: ChainType?) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        var totalValue = NSDecimalNumber.zero
+        if (isGRPC(chainType)) {
+            baseData.mMyBalances_gRPC.forEach { coin in
+                if (coin.denom == getMainDenom(chainType)) {
+                    let amount = getAllMainAsset(coin.denom)
+                    let btcValue = btcValue(coin.denom, amount, 6)
+                    totalValue = totalValue.adding(btcValue)
+                    
+                } else {
+                    // not yet!
+                    
+                }
+            }
+        }
+        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
+            baseData.mBalances.forEach { coin in
+                var allBnb = NSDecimalNumber.zero
+                let amount = WUtils.getAllBnbToken(coin.balance_denom)
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    allBnb = allBnb.adding(amount)
+                } else {
+                    allBnb = allBnb.adding(getBnbConvertAmount(coin.balance_denom, amount))
+                }
+                let btcValue = btcValue(getMainDenom(chainType), allBnb, 0)
+                totalValue = totalValue.adding(btcValue)
+            }
+            
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
+            baseData.mBalances.forEach { coin in
+                var allKava = NSDecimalNumber.zero
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    allKava = allKava.adding(getAllMainAssetOld(getMainDenom(chainType)))
+                } else {
+                    allKava = allKava.adding(convertTokenToKava(coin.balance_denom))
+                }
+                let btcValue = btcValue(getMainDenom(chainType), allKava, 6)
+                totalValue = totalValue.adding(btcValue)
+            }
+            
+        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
+            baseData.mBalances.forEach { coin in
+                var allOKT = NSDecimalNumber.zero
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    allOKT = allOKT.adding(getAllExToken(coin.balance_denom))
+                } else {
+                    allOKT = allOKT.adding(convertTokenToOkt(coin.balance_denom))
+                }
+                let btcValue = btcValue(getMainDenom(chainType), allOKT, 0)
+                totalValue = totalValue.adding(btcValue)
+            }
+            
+        } else if (chainType! == ChainType.SIF_MAIN) {
+            baseData.mBalances.forEach { coin in
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    let amount = getAllMainAssetOld(getMainDenom(chainType))
+                    totalValue = totalValue.adding(btcValue(coin.balance_denom, amount, 18))
+                } else {
+                    let available = baseData.availableAmount(coin.balance_denom)
+                    let decimal = getSifCoinDecimal(coin.balance_denom)
+                    totalValue = totalValue.adding(btcValue(coin.balance_denom.substring(from: 1), available, decimal))
+                }
+            }
+        }
+        return totalValue
+    }
+    
+    static func dpAllAssetValueUserCurrency(_ chainType: ChainType?, _ font:UIFont) -> NSMutableAttributedString {
+        let totalValue = allAssetToUserCurrency(chainType)
+        let nf = getNumberFormatter(3)
+        let formatted = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: totalValue)!
+        return getDpAttributedString(formatted, 3, font)
+    }
+    
+    static func dpAllAssetValueBtc(_ chainType: ChainType?, _ font:UIFont) -> NSMutableAttributedString {
+        let totalValue = allAssetToBtc(chainType)
+        let nf = getNumberFormatter(8)
+        let formatted = nf.string(from: totalValue)!
+        return getDpAttributedString(formatted, 8, font)
+    }
+    
+    
+    static func getNumberFormatter(_ divider: Int) -> NumberFormatter {
         let nf = NumberFormatter()
         nf.numberStyle = .decimal
-        nf.minimumFractionDigits = 2
-        nf.maximumFractionDigits = 2
-        
-        let formatted   = nf.string(from: valueChange(denom))! + "% (24h)"
-        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -9)
-        let preString   = formatted[..<endIndex]
-        let postString  = formatted[endIndex...]
+        nf.minimumFractionDigits = divider
+        nf.maximumFractionDigits = divider
+        return nf
+    }
+    
+    static func getDpAttributedString(_ dpString: String, _ divider: Int, _ font:UIFont)  -> NSMutableAttributedString {
+        let endIndex    = dpString.index(dpString.endIndex, offsetBy: -divider)
+        let preString   = dpString[..<endIndex]
+        let postString  = dpString[endIndex...]
         let preAttrs    = [NSAttributedString.Key.font : font]
         let postAttrs   = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
         
@@ -1179,32 +1265,6 @@ class WUtils {
         attributedString1.append(attributedString2)
         return attributedString1
     }
-    
-    static func amountValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16) -> NSDecimalNumber {
-        let perValue = perValue(denom)
-        return perValue.multiplying(by: amount).multiplying(byPowerOf10: -divider, withBehavior: handler3Down)
-    }
-    
-    static func dpAmountValue(_ denom: String, _ amount: NSDecimalNumber, _ divider: Int16, _ font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        nf.minimumFractionDigits = 3
-        nf.maximumFractionDigits = 3
-        
-        let formatted   = BaseData.instance.getCurrencySymbol() + " " + nf.string(from: amountValue(denom, amount, divider))!
-        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
-        let preString   = formatted[..<endIndex]
-        let postString  = formatted[endIndex...]
-        let preAttrs    = [NSAttributedString.Key.font : font]
-        let postAttrs   = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-    
     
     
     static func displayGasRate(_ rate: NSDecimalNumber, font:UIFont, _ deciaml:Int) -> NSMutableAttributedString {
@@ -1656,6 +1716,16 @@ class WUtils {
         }
     }
     
+    static func convertTokenToKava(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        let tokenAmount = baseData.availableAmount(denom).adding(baseData.lockedAmount(denom))
+        let totalTokenValue = getKavaTokenDollorValue(denom, tokenAmount)
+        if let kavaUsd = perUsdValue(KAVA_MAIN_DENOM) {
+            return totalTokenValue.multiplying(byPowerOf10: 6).dividing(by: kavaUsd, withBehavior: WUtils.getDivideHandler(6))
+        }
+        return NSDecimalNumber.zero
+    }
+    
     static func getOkexTokenDollorValue(_ okToken: OkToken?, _ amount: NSDecimalNumber) -> NSDecimalNumber {
         if (okToken == nil) { return NSDecimalNumber.zero }
         if (okToken!.original_symbol == "usdt" || okToken!.original_symbol == "usdc" || okToken!.original_symbol == "usdk") {
@@ -1668,6 +1738,17 @@ class WUtils {
             //TODO display with ticker update!
             let okTickers = BaseData.instance.mOkTickerList?.data
             return NSDecimalNumber.zero
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    static func convertTokenToOkt(_ denom: String) -> NSDecimalNumber {
+        let baseData = BaseData.instance
+        let okToken = getOkToken(denom)
+        let tokenAmount = baseData.availableAmount(denom).adding(baseData.lockedAmount(denom))
+        let totalTokenValue = getOkexTokenDollorValue(okToken, tokenAmount)
+        if let okTUsd = perUsdValue(OKEX_MAIN_DENOM) {
+            return totalTokenValue.dividing(by: okTUsd, withBehavior: handler18)
         }
         return NSDecimalNumber.zero
     }
@@ -2648,7 +2729,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REDELEGATE))
-            } else if (type == KAVA_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 
@@ -2682,7 +2763,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
-            } else if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == KAVA_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
@@ -2702,7 +2783,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_STAKE))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REDELEGATE))
-            } else if (type == IOV_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 result = WUtils.getGasAmountForKavaRewards()[valCnt - 1]
@@ -2751,7 +2832,7 @@ class WUtils {
             
         } else if (chain == ChainType.SECRET_MAIN) {
             result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
-            if (type == SECRET_MSG_TYPE_TRANSFER) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))

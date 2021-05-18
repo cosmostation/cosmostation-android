@@ -65,21 +65,12 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var totalDepositAmount: NSDecimalNumber?
     var totalLoanAmount: NSDecimalNumber?
     
-    var mIrisRedelegate: Array<NSDictionary>?
-    
     var mBnbToken: BnbToken?
-    var mBnbTics = [String : NSMutableDictionary]()
     
     var mProposeId: String?
     var mProposalTitle: String?
     var mProposer: String?
     var mVoteOpinion: String?
-    
-    var mKavaSendDenom: String?
-    var mIovSendDenom: String?
-    var mOkSendDenom: String?
-    var mCertikSendDenom: String?
-    var mSecretSendDenom: String?
     
     var mCollateralParamType: String?
     var mCDenom: String?
@@ -119,7 +110,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
-    //after 40.0
     var mToSendDenom: String?
     
     lazy var orderedViewControllers: [UIViewController] = {
@@ -149,9 +139,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                         self.newVc(viewController: "StepUndelegateCheckViewController")]
             }
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                    mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                    mType == CERTIK_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
             if (WUtils.isGRPC(chainType!)) {
                 return [self.newVc(viewController: "StepSendAddressViewController"),
                         self.newVc(viewController: "StepSendAmountViewController"),
@@ -389,6 +377,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         mAccount        = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         mBalances       = mAccount!.account_balances
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
+        mBnbToken       = WUtils.getBnbToken(mToSendDenom)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             if (WUtils.isGRPC(chainType!)) {
@@ -451,8 +440,8 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     func onNextPage() {
         disableBounce = false
         if ((currentIndex <= 3 &&
-                (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == IRIS_MSG_TYPE_REDELEGATE || mType == BNB_MSG_TYPE_TRANSFER ||
-                    mType == KAVA_MSG_TYPE_TRANSFER || mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
+                (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE ||
+                    mType == OK_MSG_TYPE_TRANSFER ||
                     mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1

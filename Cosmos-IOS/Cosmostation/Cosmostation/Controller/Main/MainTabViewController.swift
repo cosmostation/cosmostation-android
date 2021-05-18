@@ -20,7 +20,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mChainType: ChainType!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
-    var mPriceTic: NSDictionary?
     var mFetchCnt = 0
         
     var waitAlert: UIAlertController?
@@ -489,7 +488,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCIrisTokens()
             
         }
-        onFetchPriceTic(false)
         return true
     }
     
@@ -1006,63 +1004,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             self.onFetchFinished()
         }
     }
-    
-    
-    func onFetchPriceTic(_ showMsg:Bool) {
-        var url: String?
-        if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.COSMOS_TEST) {
-            url = CGC_PRICE_TIC + "cosmos"
-        } else if (mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.IRIS_TEST) {
-            url = CGC_PRICE_TIC + "iris-network"
-        } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
-            url = CGC_PRICE_TIC + "binancecoin"
-        } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            url = CGC_PRICE_TIC + "kava"
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            url = CGC_PRICE_TIC + "band-protocol"
-        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
-            url = CGC_PRICE_TIC + "starname"
-        } else if (mChainType == ChainType.SECRET_MAIN) {
-            url = CGC_PRICE_TIC + "secret"
-        } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
-            url = CGC_PRICE_TIC + "okexchain"
-        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
-            url = CGC_PRICE_TIC + "certik"
-        } else if (mChainType == ChainType.AKASH_MAIN) {
-            url = CGC_PRICE_TIC + "akash-network"
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            url = CGC_PRICE_TIC + "sentinel"
-        } else if (mChainType == ChainType.PERSIS_MAIN) {
-            url = CGC_PRICE_TIC + "persistence"
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            url = CGC_PRICE_TIC + "fetch-ai"
-        } else if (mChainType == ChainType.CRYPTO_MAIN) {
-            url = CGC_PRICE_TIC + "crypto-com-chain"
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            url = CGC_PRICE_TIC + "sifchain"
-        } else {
-            BaseData.instance.setPriceTicCgc(nil)
-            return
-        }
-        let request = Alamofire.request(url!, method: .get,  parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                if let priceTic = res as? NSDictionary {
-                    BaseData.instance.setPriceTicCgc(priceTic)
-                    self.mPriceTic = priceTic
-                    if(showMsg) { self.onShowToast(NSLocalizedString("currency_fetch_success", comment: "")) }
-                }
-                
-            case .failure(let error):
-                if (showMsg) { self.onShowToast(NSLocalizedString("currency_fetch_failed", comment: "")) }
-                if (SHOW_LOG) { print("onFetchPriceTic ", error) }
-            }
-            NotificationCenter.default.post(name: Notification.Name("onPriceFetchDone"), object: nil, userInfo: nil)
-        }
-    }
-    
-    
     
     func onFetchPriceFeedParam() {
         let request = Alamofire.request(BaseNetWork.paramPriceFeedUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -1692,7 +1633,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchPriceInfo(_ denoms: String) {
-        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
+//        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
         let request = Alamofire.request(BaseNetWork.getPrice(denoms), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
@@ -1702,10 +1643,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                         BaseData.instance.mPrices.append(Price.init(priceInfo))
                     }
                 }
-//                print("mPrices.count ", BaseData.instance.mPrices.count)
-//
-//                let kkk = WUtils.perValue(WUtils.getMainDenom(self.mChainType))
-//                print("kkk ", kkk)
                 NotificationCenter.default.post(name: Notification.Name("priceUpdate"), object: nil, userInfo: nil)
             
             case .failure(let error):

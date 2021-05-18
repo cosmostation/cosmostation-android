@@ -134,19 +134,19 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mBnbToken = WUtils.getBnbToken(self.denom)
-            txVC.mType = BNB_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = self.denom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            txVC.mKavaSendDenom = self.denom
-            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = self.denom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mOkSendDenom = self.denom
+            txVC.mToSendDenom = self.denom
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SIF_MAIN) {

@@ -53,8 +53,8 @@ class WalletPriceCell: UITableViewCell {
     }
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        sourceSite.text = "("+BaseData.instance.getMarketString()+")"
-        perPrice.attributedText = WUtils.dpPerValue(WUtils.getMainDenom(chainType), perPrice.font)
+        sourceSite.text = "(CoinGecko)"
+        perPrice.attributedText = WUtils.dpPerUserCurrencyValue(WUtils.getMainDenom(chainType), perPrice.font)
         updownPercent.attributedText = WUtils.dpValueChange(WUtils.getMainDenom(chainType), font: updownPercent.font)
         let changeValue = WUtils.valueChange(WUtils.getMainDenom(chainType))
         if (changeValue.compare(NSDecimalNumber.zero).rawValue > 0) { updownImg.image = UIImage(named: "priceUp") }

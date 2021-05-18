@@ -42,7 +42,7 @@ class WalletIrisCell: UITableViewCell {
             denomTitle.text = "IRIS"
             let totalIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(totalIris.stringValue, totalAmount.font!, 6, 6)
-            totalValue.attributedText = WUtils.dpAmountValue(IRIS_MAIN_DENOM, totalIris, 6, totalValue.font)
+            totalValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, totalIris, 6, totalValue.font)
             availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(IRIS_MAIN_DENOM), availableAmount.font!, 6, 6)
             delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
             unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
@@ -53,7 +53,7 @@ class WalletIrisCell: UITableViewCell {
             denomTitle.text = "BIF"
             let totalBif = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(totalBif.stringValue, totalAmount.font!, 6, 6)
-            totalValue.attributedText = WUtils.dpAmountValue(IRIS_TEST_DENOM, totalBif, 6, totalValue.font)
+            totalValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, totalBif, 6, totalValue.font)
             availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(IRIS_TEST_DENOM), availableAmount.font!, 6, 6)
             delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
             unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)

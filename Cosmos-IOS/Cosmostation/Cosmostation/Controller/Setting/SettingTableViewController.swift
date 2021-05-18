@@ -77,12 +77,8 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
             }
             
         } else if (indexPath.section == 1) {
-            if(indexPath.row == 2) {
+            if (indexPath.row == 2) {
                 self.onShowCurrenyDialog()
-                
-            } else if(indexPath.row == 3) {
-                //NO more coinmarketcap always using coingecko
-//                self.onShowMarketDialog()
             }
             
         } else if (indexPath.section == 2) {
@@ -247,7 +243,7 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
     }
     
     func onUpdateMarket() {
-        marketLabel.text = BaseData.instance.getMarketString()
+        marketLabel.text = "CoinGecko"
     }
     
     
@@ -311,7 +307,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         if(BaseData.instance.getCurrency() != value) {
             BaseData.instance.setCurrency(value)
             self.onUpdateCurrency()
-            NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
     }
     
@@ -360,34 +355,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
     func passwordResponse(result: Int) {
         if (result == PASSWORD_RESUKT_OK) {
             BaseData.instance.setUsingAppLock(false)
-        }
-    }
-    
-    func onShowMarketDialog() {
-        let showAlert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-        let geckoAction = UIAlertAction(title: NSLocalizedString("coingecko", comment: ""), style: .default, handler: { _ in
-            self.onSetMarket(0)
-        })
-        geckoAction.setValue(UIImage(named: "coingeckoImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
-        let marketcapAction = UIAlertAction(title: NSLocalizedString("coinmarketcap", comment: ""), style: .default, handler: {_ in
-            self.onSetMarket(1)
-        })
-        marketcapAction.setValue(UIImage(named: "coinmarketcapImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
-        
-        showAlert.addAction(geckoAction)
-        showAlert.addAction(marketcapAction)
-        self.present(showAlert, animated: true) {
-            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.dismissAlertController))
-            showAlert.view.superview?.subviews[0].addGestureRecognizer(tapGesture)
-        }
-    }
-    
-    func onSetMarket(_ value:Int) {
-        if(BaseData.instance.getMarket() != value) {
-            BaseData.instance.setMarket(value)
-            self.onUpdateMarket()
-            NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
     }
     

@@ -79,7 +79,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceFetchDone(_:)), name: Notification.Name("onPriceFetchDone"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceUpdated(_:)), name: Notification.Name("priceUpdate"), object: nil)
         self.updateTitle()
         self.walletTableView.reloadData()
@@ -88,7 +87,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("onPriceFetchDone"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("priceUpdate"), object: nil)
     }
     
@@ -245,12 +243,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.refresher.endRefreshing()
     }
     
-    @objc func onPriceFetchDone(_ notification: NSNotification) {
-        self.walletTableView.reloadData()
-    }
-    
     @objc func onPriceUpdated(_ notification: NSNotification) {
-        print("onPriceUpdated")
         self.walletTableView.reloadData()
     }
     
@@ -1324,40 +1317,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickMarketInfo() {
         if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/cosmos/") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/irisnet") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/binance-coin") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/kava") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/band-protocol") else { return }
@@ -1496,54 +1469,55 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mBnbToken = WUtils.getBnbMainToken(BaseData.instance.mBnbTokenList)
-            txVC.mType = BNB_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = BNB_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mKavaSendDenom = KAVA_MAIN_DENOM
-            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = KAVA_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.IOV_MAIN) {
             if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mIovSendDenom = IOV_MAIN_DENOM
-            txVC.mType = IOV_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = IOV_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             if (WUtils.getTokenAmount(balances, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mType = BAND_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = BAND_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.SECRET_MAIN) {
             if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mSecretSendDenom = SECRET_MAIN_DENOM
-            txVC.mType = SECRET_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = SECRET_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.IOV_TEST) {
             if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mIovSendDenom = IOV_TEST_DENOM
-            txVC.mType = IOV_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = IOV_TEST_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mOkSendDenom = OKEX_MAIN_DENOM
+            txVC.mToSendDenom = OKEX_MAIN_DENOM
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
@@ -1551,7 +1525,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mCertikSendDenom = CERTIK_MAIN_DENOM
+            txVC.mToSendDenom = CERTIK_MAIN_DENOM
             txVC.mType = CERTIK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SENTINEL_MAIN) {

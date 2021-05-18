@@ -93,8 +93,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
                 mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
                 
-                mTotalSpendPrice.attributedText = WUtils.dpBnbValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpBnbValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 0, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 0, mReminaingPrice.font)
                 
             }  else {
                 mToSendDenomLabel.textColor = UIColor.white
@@ -117,7 +117,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!)
+            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mToSendDenom!)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             if (toSendDenom == KAVA_MAIN_DENOM) {
                 currentAva = pageHolderVC.mAccount!.getKavaBalance()
@@ -127,8 +127,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
                 mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
                 
-                mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
                 
             } else {
                 mTotalSpendTitle.isHidden = true
@@ -137,7 +137,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mTotalSpendPrice.isHidden = true
                 mReminaingPrice.isHidden = true
                 
-                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mKavaSendDenom!)
+                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
                 WUtils.showCoinDp(toSendDenom, toSendAmount.stringValue, mToSendDenomLabel, mToSendAmountLabel, pageHolderVC.chainType!)
                 WUtils.showCoinDp(toSendDenom, currentAva.stringValue, mCurrentBalanceDenomTitle, mCurrentAvailable, pageHolderVC.chainType!)
                 WUtils.showCoinDp(toSendDenom, currentAva.subtracting(toSendAmount).stringValue, mRemainBalanceTitle, mReminaingAvailable, pageHolderVC.chainType!)
@@ -154,8 +154,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
                 mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
                 
-                mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
                 
             } else {}
             
@@ -169,17 +169,17 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
             mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
             
-            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mDpDecimal = 18
-            mToSendDenomLabel.text = pageHolderVC.mOkSendDenom!.uppercased()
-            mCurrentBalanceDenomTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
-            mRemainBalanceTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mOkSendDenom!)
+            mToSendDenomLabel.text = pageHolderVC.mToSendDenom!.uppercased()
+            mCurrentBalanceDenomTitle.text = pageHolderVC.mToSendDenom!.uppercased()
+            mRemainBalanceTitle.text = pageHolderVC.mToSendDenom!.uppercased()
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
             
-            if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
+            if (pageHolderVC.mToSendDenom == OKEX_MAIN_DENOM) {
                 mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
                 mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
                 mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, mDpDecimal)
@@ -187,8 +187,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
                 mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
                 
-                mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 0, mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), 0, mReminaingPrice.font)
+                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 0, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 0, mReminaingPrice.font)
                 
             } else {
                 mToSendDenomLabel.textColor = UIColor.white
@@ -211,7 +211,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
             mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mCertikSendDenom!)
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
@@ -219,12 +219,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
             mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
             
-            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mSecretSendDenom!)
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
@@ -232,8 +232,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
             mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
             
-            mTotalSpendPrice.attributedText = WUtils.dpAtomValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpAtomValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mTotalSpendPrice.font)
+            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             mDpDecimal = 6
@@ -245,8 +245,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
             mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
             
-            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), 6, mReminaingPrice.font)
+            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
             mDpDecimal = 18
@@ -258,21 +258,26 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
             mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
             
-            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 18, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 18, mReminaingPrice.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            mDpDecimal = 18
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+            let mDpDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom!)
+            if (pageHolderVC.mToSendDenom == OKEX_MAIN_DENOM) {
+                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
+                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
+                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
+                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
+
+                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
+                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
+                
+                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 18, mTotalSpendPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 18, mReminaingPrice.font)
+                
+            } else {
+                //not yet
+            }
             
         } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
             mDpDecimal = 6
@@ -284,8 +289,8 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
             mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
             
-            mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
+            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
             
         }
         
@@ -298,11 +303,11 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
                 mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
                 mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
-                mTotalSpendPrice.attributedText = WUtils.dpTokenValue(feeAmount.adding(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mTotalSpendPrice.font)
+                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
                 
                 mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
                 mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal,mDpDecimal)
-                mReminaingPrice.attributedText = WUtils.dpTokenValue(currentAva.subtracting(feeAmount).subtracting(toSendAmount), BaseData.instance.getLastPrice(), mDpDecimal, mReminaingPrice.font)
+                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
                 
             } else {
                 //TODO need real test

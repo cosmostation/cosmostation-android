@@ -80,7 +80,7 @@ class TokenDetailNativeCell: TokenDetailCell {
             availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 8)
             lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, availableAmount.font, 0, 8)
             fronzenAmount.attributedText = WUtils.displayAmount2(frozen.stringValue, availableAmount.font, 0, 8)
-            totalValue.attributedText = WUtils.dpTokenValue(convertAmount, BaseData.instance.getLastPrice(), 0, totalValue.font)
+            totalValue.attributedText = WUtils.dpUserCurrencyValue(BNB_MAIN_DENOM, convertAmount, 0, totalValue.font)
         }
     }
     
@@ -91,12 +91,11 @@ class TokenDetailNativeCell: TokenDetailCell {
         
         let dpDecimal = WUtils.getKavaCoinDecimal(denom!)
         let available = BaseData.instance.availableAmount(denom!)
-        let convertedDollorValue = WUtils.getKavaTokenDollorValue(denom!, available)
-        let convertedKavaAmount = convertedDollorValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
+        let convertedKavaAmount = WUtils.convertTokenToKava(denom!)
         
         totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
-        totalValue.attributedText = WUtils.dpTokenValue(convertedKavaAmount.multiplying(byPowerOf10: 6), BaseData.instance.getLastPrice(), 6, totalValue.font)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, totalValue.font)
     }
     
     func onBindOKTokens(_ denom: String?) {
@@ -111,13 +110,12 @@ class TokenDetailNativeCell: TokenDetailCell {
             let available = BaseData.instance.availableAmount(denom!)
             let locked = BaseData.instance.lockedAmount(denom!)
             let total = available.adding(locked)
-            let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, total)
-            let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
+            let convertedAmount = WUtils.convertTokenToOkt(denom!)
             
             totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 0, 18)
             availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 0, 18)
             lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, availableAmount.font, 0, 18)
-            totalValue.attributedText = WUtils.dpTokenValue(convertedOKTAmount, BaseData.instance.getLastPrice(), 0, totalValue.font)
+            totalValue.attributedText = WUtils.dpUserCurrencyValue(OKEX_MAIN_DENOM, convertedAmount, 0, totalValue.font)
             
         }
     }
@@ -131,6 +129,6 @@ class TokenDetailNativeCell: TokenDetailCell {
         let available = BaseData.instance.availableAmount(denom!)
         totalAmount.attributedText = WUtils.displayAmount2(available.stringValue, totalAmount.font, dpDecimal, dpDecimal)
         availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, dpDecimal, dpDecimal)
-        totalValue.attributedText = WUtils.dpTokenValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), dpDecimal, totalValue.font)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(denom!.substring(from: 1), available, dpDecimal, totalValue.font)
     }
 }

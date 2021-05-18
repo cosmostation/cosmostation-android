@@ -24,16 +24,6 @@ class TransactionViewController: UIViewController {
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
     var mRewardTargetValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
-    var mIrisRedelegate: Array<NSDictionary>?
-    
-    var mBnbToken: BnbToken?
-    var mBnbTics = [String : NSMutableDictionary]()
-    
-    var mKavaSendDenom: String?
-    var mIovSendDenom: String?
-    var mOkSendDenom: String?
-    var mCertikSendDenom: String?
-    var mSecretSendDenom: String?
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -43,8 +33,6 @@ class TransactionViewController: UIViewController {
     var mCDenom: String?
     var mMarketID: String?
     var mHardPoolDenom: String?
-//    var mHarvestDepositType: String? // lp or stake
-//    var mIncentiveType: String?
     
     var mHtlcDenom: String = BNB_MAIN_DENOM     //now only support bnb bep3
     var mHtlcRefundSwapId: String?
@@ -55,7 +43,6 @@ class TransactionViewController: UIViewController {
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
-    //after 40.0
     var mToSendDenom: String?
     
     override func viewDidLoad() {
@@ -78,9 +65,7 @@ class TransactionViewController: UIViewController {
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_redelegate", comment: "")
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                    mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                    mType == CERTIK_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
             stepDescription.text = NSLocalizedString("send_step_1", comment: "")
             stepImg.image = UIImage.init(named: "step1Img")
             self.titleLabel.text =  NSLocalizedString("title_send", comment: "")
@@ -264,17 +249,9 @@ class TransactionViewController: UIViewController {
             StepVc.mTargetValidator_gRPC = self.mTargetValidator_gRPC
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
             StepVc.mRewardTargetValidators_gRPC = self.mRewardTargetValidators_gRPC
-            StepVc.mIrisRedelegate = self.mIrisRedelegate
-            StepVc.mBnbToken = self.mBnbToken
-            StepVc.mBnbTics = self.mBnbTics
             StepVc.mProposeId = self.mProposeId
             StepVc.mProposalTitle = self.mProposalTitle
             StepVc.mProposer = self.mProposer
-            StepVc.mKavaSendDenom = self.mKavaSendDenom
-            StepVc.mIovSendDenom = self.mIovSendDenom
-            StepVc.mOkSendDenom = self.mOkSendDenom
-            StepVc.mCertikSendDenom = self.mCertikSendDenom
-            StepVc.mSecretSendDenom = self.mSecretSendDenom
             StepVc.mToSendDenom = self.mToSendDenom
             
             StepVc.mCDenom = self.mCDenom
@@ -282,8 +259,6 @@ class TransactionViewController: UIViewController {
             StepVc.mHtlcDenom = self.mHtlcDenom
             StepVc.mHtlcRefundSwapId = self.mHtlcRefundSwapId
             StepVc.mHardPoolDenom = self.mHardPoolDenom
-//            StepVc.mHarvestDepositType = self.mHarvestDepositType
-//            StepVc.mIncentiveType = self.mIncentiveType
             StepVc.mCollateralParamType = self.mCollateralParamType
             
             StepVc.mStarnameDomain = self.mStarnameDomain
@@ -310,9 +285,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_1", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                            mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step1Img")
                     stepDescription.text = NSLocalizedString("send_step_1", comment: "")
                     
@@ -440,9 +413,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_2", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                            mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step2Img")
                     stepDescription.text = NSLocalizedString("send_step_2", comment: "")
                     
@@ -570,9 +541,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_3", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                            mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step3Img")
                     stepDescription.text = NSLocalizedString("send_step_3", comment: "")
                     
@@ -700,9 +669,7 @@ class TransactionViewController: UIViewController {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("redelegate_step_4", comment: "")
                     
-                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                            mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                            mType == CERTIK_MSG_TYPE_TRANSFER) {
+                } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step4Img")
                     stepDescription.text = NSLocalizedString("send_step_4", comment: "")
                     
@@ -817,9 +784,7 @@ class TransactionViewController: UIViewController {
                 }
                 
             } else if (step == 4) {
-                if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == IRIS_MSG_TYPE_TRANSFER || mType == BNB_MSG_TYPE_TRANSFER || mType == KAVA_MSG_TYPE_TRANSFER ||
-                        mType == IOV_MSG_TYPE_TRANSFER || mType == BAND_MSG_TYPE_TRANSFER || mType == SECRET_MSG_TYPE_TRANSFER || mType == OK_MSG_TYPE_TRANSFER ||
-                        mType == CERTIK_MSG_TYPE_TRANSFER) {
+                if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
                     stepImg.image = UIImage.init(named: "step5Img")
                     stepDescription.text = NSLocalizedString("send_step_5", comment: "")
                     

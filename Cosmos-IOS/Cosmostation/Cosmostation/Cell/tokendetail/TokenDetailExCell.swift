@@ -37,7 +37,7 @@ class TokenDetailExCell: UITableViewCell {
         lockedAmount.attributedText = WUtils.displayAmount2(locked.stringValue, lockedAmount.font, 0, 18)
         depositAmount.attributedText = WUtils.displayAmount2(deposit.stringValue, depositAmount.font, 0, 18)
         withdrawAmount.attributedText = WUtils.displayAmount2(withdraw.stringValue, withdrawAmount.font, 0, 18)
-        totalValue.attributedText = WUtils.dpAmountValue(OKEX_MAIN_DENOM, total, 0, totalValue.font)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(OKEX_MAIN_DENOM, total, 0, totalValue.font)
     }
     
 }

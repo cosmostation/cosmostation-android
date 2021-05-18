@@ -34,12 +34,10 @@ class MainTabSettingViewController: BaseViewController {
             mainTabVC.onUpdateAccountDB()
         }
         self.updateTitle()
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onRefreshPrice(_:)), name: Notification.Name("refreshPrice"), object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("refreshPrice"), object: nil)
     }
     
     func updateTitle() {
@@ -213,10 +211,5 @@ class MainTabSettingViewController: BaseViewController {
                 }
             }
         }
-    }
-    
-    @objc func onRefreshPrice(_ notification: NSNotification) {
-        print("onRefreshPrice")
-//        mainTabVC.onFetchPriceTic(true)
     }
 }
