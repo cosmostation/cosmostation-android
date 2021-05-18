@@ -1421,6 +1421,8 @@
     <string name="tx_create_deployment">Create Deployment</string>
     <string name="tx_close_deployment">Close Deployment</string>
     <string name="tx_update_deployment">Update Deployment</string>
+    <string name="tx_create_Certificate">Create Certificate</string>
+    <string name="tx_revoke_Certificate">Revoke Certificate</string>
     <string name="tx_reinvest">Re-Invest</string>
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>
@@ -1430,6 +1432,9 @@
     <string name="tx_dseq">dseq</string>
     <string name="tx_gseq">gseq</string>
     <string name="tx_oseq">oseq</string>
+    <string name="tx_deployment_id">Deployment ID</string>
+    <string name="tx_version_hash">Version Hash</string>
+    <string name="tx_deployment_deposit">Deposit</string>
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
     <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>

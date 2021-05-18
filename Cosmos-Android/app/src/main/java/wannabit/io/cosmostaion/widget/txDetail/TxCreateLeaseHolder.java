@@ -7,7 +7,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import java.text.DecimalFormat;
 
 import akash.market.v1beta1.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceOuterClass;
@@ -38,8 +37,7 @@ public class TxCreateLeaseHolder extends TxHolder{
             LeaseOuterClass.MsgCreateLease msg = LeaseOuterClass.MsgCreateLease.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemProvider.setText(msg.getBidId().getProvider());
             itemOwner.setText(msg.getBidId().getOwner());
-            DecimalFormat format = new DecimalFormat("###,###");
-            itemDseq.setText("" + format.format(msg.getBidId().getDseq()));
+            itemDseq.setText("" + WDp.getDecimalFormat(c,0).format(msg.getBidId().getDseq()));
             itemGseq.setText("" + msg.getBidId().getGseq());
             itemOseq.setText("" + msg.getBidId().getOseq());
         } catch (Exception e) {}

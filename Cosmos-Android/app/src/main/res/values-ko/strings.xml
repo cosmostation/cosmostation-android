@@ -355,7 +355,7 @@
     <string name="str_fee_over_msg">받을 이자량 보다 트랜잭션 수수료가 높습니다. 트랜잭션 수수료를 더 적게 설정하시거나, 나중에 이자가 더 쌓이면 요청해 주세요.</string>
     <string name="str_validator">검증인</string>
     <string name="str_provider">공급자</string>
-    <string name="str_order">주문</string>
+    <string name="str_order">주문인</string>
     <string name="str_price">가격</string>
     <string name="str_akash_deposit">보증금</string>
     <string name="str_current_delegation">현재 위임량</string>
@@ -1188,6 +1188,8 @@
     <string name="tx_create_deployment">배포 열기</string>
     <string name="tx_close_deployment">배포 닫기</string>
     <string name="tx_update_deployment">배포 업데이트</string>
+    <string name="tx_create_Certificate">인증서 생성</string>
+    <string name="tx_revoke_Certificate">인증서 해지</string>
     <string name="tx_reinvest">이자 즉시 위임</string>
     <string name="tx_new_order">새 주문</string>
     <string name="tx_Cancel_order">주문 취소</string>
@@ -1195,6 +1197,9 @@
     <string name="tx_dseq">dseq</string>
     <string name="tx_gseq">gseq</string>
     <string name="tx_oseq">oseq</string>
+    <string name="tx_deployment_id">배포 ID</string>
+    <string name="tx_version_hash">Version 해쉬</string>
+    <string name="tx_deployment_deposit">보상금</string>
     <string name="tx_known">알수없음</string>
 
     <string name="tx_kava_post_price">가격 정보 갱신</string>

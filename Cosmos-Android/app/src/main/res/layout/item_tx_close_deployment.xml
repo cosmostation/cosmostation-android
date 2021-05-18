@@ -26,17 +26,16 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:id="@+id/tx_create_lease_icon"
+                    android:id="@+id/tx_close_deployment_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/msgic_market"/>
+                    android:src="@drawable/msgic_deployment"/>
                 <TextView
-                    android:id="@+id/tx_create_lease_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_create_lease"
-                    style="@style/font_ss_15_white" />
+                    android:text="@string/tx_close_deployment"
+                    style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -46,25 +45,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_provider"
+                    android:text="@string/tx_deployment_id"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_create_lease_provider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:singleLine="true"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_owner"
-                    android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/tx_create_lease_owner"
+                    android:id="@+id/tx_close_deployment_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -79,37 +63,7 @@
                     android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_create_lease_dseq"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:singleLine="true"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tx_gseq"
-                    android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/tx_create_lease_gseq"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:singleLine="true"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/tx_oseq"
-                    android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/tx_create_lease_oseq"
+                    android:id="@+id/tx_close_deployment_dseq"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -118,7 +72,6 @@
                     android:text="-"
                     style="@style/font_ss_12_white"/>
             </LinearLayout>
-
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

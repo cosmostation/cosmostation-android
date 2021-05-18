@@ -26,16 +26,15 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical">
                 <ImageView
-                    android:id="@+id/tx_create_bid_icon"
+                    android:id="@+id/tx_create_deployment_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/msgic_market"/>
+                    android:src="@drawable/msgic_deployment"/>
                 <TextView
-                    android:id="@+id/tx_create_bid_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/space_4"
-                    android:text="@string/tx_create_bid"
+                    android:text="@string/tx_create_deployment"
                     style="@style/font_ss_15_white"/>
             </LinearLayout>
             <LinearLayout
@@ -46,10 +45,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_order"
+                    android:text="@string/tx_deployment_id"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
-                    android:id="@+id/tx_create_bid_owner"
+                    android:id="@+id/tx_create_deployment_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/space_4"
@@ -57,79 +56,48 @@
                     android:ellipsize="middle"
                     android:text="-"
                     style="@style/font_ss_12_white"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/str_provider"
-                    android:layout_marginTop="@dimen/space_4"
-                    style="@style/font_ss_12_gray1"/>
-                <TextView
-                    android:id="@+id/tx_create_bid_provider"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_4"
-                    android:singleLine="true"
-                    android:ellipsize="middle"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="@string/tx_version_hash"-->
+<!--                    android:layout_marginTop="@dimen/space_4"-->
+<!--                    style="@style/font_ss_12_gray1"/>-->
+<!--                <TextView-->
+<!--                    android:id="@+id/tx_deployment_version_hash"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/space_4"-->
+<!--                    android:singleLine="true"-->
+<!--                    android:ellipsize="middle"-->
+<!--                    android:text="-"-->
+<!--                    style="@style/font_ss_12_white"/>-->
             </LinearLayout>
-            <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_16">
-
-            <TextView
-                android:id="@+id/tx_create_bid_price_title"
-                style="@style/font_ss_12_gray1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/str_price" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tx_create_bid_price_title">
-                <TextView
-                    android:id="@+id/tx_create_bid_price_symbol"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true" />
-                <TextView
-                    android:id="@+id/tx_create_bid_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/tx_create_bid_price_symbol"
-                    android:layout_toLeftOf="@+id/tx_create_bid_price_symbol"
-                    android:layout_marginRight="@dimen/space_2"
-                    android:text="-"
-                    style="@style/font_ss_12_white"/>
-            </RelativeLayout>
-        </RelativeLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_16">
 
                 <TextView
-                    android:id="@+id/tx_create_bid_deposit_title"
+                    android:id="@+id/tx_create_deployment_deposit_title"
                     style="@style/font_ss_12_gray1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_akash_deposit" />
+                    android:text="@string/tx_deployment_deposit" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tx_create_bid_deposit_title">
+                    android:layout_toRightOf="@+id/tx_create_deployment_deposit_title">
                     <TextView
-                        android:id="@+id/tx_create_bid_deposit_symbol"
+                        android:id="@+id/tx_create_deployment_deposit_symbol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true" />
                     <TextView
-                        android:id="@+id/tx_create_bid_deposit"
+                        android:id="@+id/tx_create_deployment_deposit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/tx_create_bid_deposit_symbol"
-                        android:layout_toLeftOf="@+id/tx_create_bid_deposit_symbol"
+                        android:layout_alignBaseline="@+id/tx_create_deployment_deposit_symbol"
+                        android:layout_toLeftOf="@+id/tx_create_deployment_deposit_symbol"
                         android:layout_marginRight="@dimen/space_2"
                         android:text="-"
                         style="@style/font_ss_12_white"/>

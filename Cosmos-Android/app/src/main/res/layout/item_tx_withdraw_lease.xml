@@ -75,6 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tx_dseq"
+                    android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_withdraw_lease_dseq"
@@ -89,6 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tx_gseq"
+                    android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_withdraw_lease_gseq"
@@ -103,6 +105,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/tx_oseq"
+                    android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_withdraw_lease_oseq"
