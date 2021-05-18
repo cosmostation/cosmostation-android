@@ -54,6 +54,7 @@ public class TxCommonHolder extends TxHolder {
             itemStatusImg.setImageDrawable(c.getDrawable(R.drawable.fail_ic));
             itemStatusTxt.setText(R.string.str_failed_c);
             itemFailTxt.setVisibility(View.VISIBLE);
+            itemFailTxt.setText(response.getTxResponse().getRawLog());
         } else {
             itemStatusImg.setImageDrawable(c.getDrawable(R.drawable.success_ic));
             itemStatusTxt.setText(R.string.str_success_c);

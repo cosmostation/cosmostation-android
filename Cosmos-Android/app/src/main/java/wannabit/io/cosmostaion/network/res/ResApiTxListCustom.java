@@ -117,8 +117,32 @@ public class ResApiTxListCustom {
 
                 } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
                     result = c.getString(R.string.tx_get_commission);
-                }
 
+                } else if (msgType.contains("MsgCreateBid")) {
+                    result = c.getString(R.string.tx_create_bid);
+
+                } else if (msgType.contains("MsgCreateLease")) {
+                    result = c.getString(R.string.tx_create_lease);
+
+                } else if (msgType.contains("MsgWithdrawLease")) {
+                    result = c.getString(R.string.tx_withdraw_lease);
+
+                } else if (msgType.contains("MsgCreateDeployment")) {
+                    result = c.getString(R.string.tx_create_deployment);
+
+                } else if (msgType.contains("MsgUpdateDeployment")) {
+                    result = c.getString(R.string.tx_update_deployment);
+
+                } else if (msgType.contains("MsgCloseDeployment")) {
+                    result = c.getString(R.string.tx_close_deployment);
+
+                } else if (msgType.contains("MsgCreateCertificate")) {
+                    result = c.getString(R.string.tx_close_deployment);
+
+                } else if (msgType.contains("MsgRevokeCertificate")) {
+                    result = c.getString(R.string.tx_close_deployment);
+
+                }
 
                 else if (msgType.contains("MsgMintNFT")) {
                     result = "NFT Mint";
