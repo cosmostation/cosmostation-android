@@ -25,7 +25,7 @@ public class TxCreateDeploymentHolder extends TxHolder{
         super(itemView);
         itemCreateDeploymentImg             = itemView.findViewById(R.id.tx_create_deployment_icon);
         itemCreateDeploymentId              = itemView.findViewById(R.id.tx_create_deployment_id);
-        itemVersionHash                     = itemView.findViewById(R.id.tx_deployment_version_hash);
+//        itemVersionHash                     = itemView.findViewById(R.id.tx_deployment_version_hash);
         itemCreateDeploymentDeposit         = itemView.findViewById(R.id.tx_create_deployment_deposit);
         itemCreateDeploymentDepositDenom         = itemView.findViewById(R.id.tx_create_deployment_deposit_symbol);
     }
