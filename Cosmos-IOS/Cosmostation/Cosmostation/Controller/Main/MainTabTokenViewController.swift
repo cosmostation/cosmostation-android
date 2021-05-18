@@ -25,7 +25,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var totalCard: CardView!
     @IBOutlet weak var totalValue: UILabel!
     @IBOutlet weak var totalBtcValue: UILabel!
-    @IBOutlet weak var kavaOracle: UILabel!
     @IBOutlet weak var tokenCnt: UILabel!
     @IBOutlet weak var btnSort: UIView!
     @IBOutlet weak var sortType: UILabel!
@@ -84,145 +83,101 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             titleWalletName.text = mainTabVC.mAccount.account_nick_name
         }
+        
+        totalCard.backgroundColor = WUtils.getChainBg(chainType)
         if (chainType! == ChainType.COSMOS_MAIN) {
             titleChainImg.image = UIImage(named: "cosmosWhMain")
             titleChainName.text = "(Cosmos Mainnet)"
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_COSMOS
         } else if (chainType! == ChainType.IRIS_MAIN) {
             titleChainImg.image = UIImage(named: "irisWh")
             titleChainName.text = "(Iris Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_IRIS
         } else if (chainType! == ChainType.BINANCE_MAIN) {
             titleChainImg.image = UIImage(named: "binanceChImg")
             titleChainName.text = "(Binance Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_BNB
         } else if (chainType! == ChainType.KAVA_MAIN) {
             titleChainImg.image = UIImage(named: "kavaImg")
             titleChainName.text = "(Kava Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = false
-            totalCard.backgroundColor = TRANS_BG_COLOR_KAVA
         } else if (chainType! == ChainType.IOV_MAIN) {
             titleChainImg.image = UIImage(named: "iovChainImg")
             titleChainName.text = "(Starname Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_IOV
         }  else if (chainType! == ChainType.BAND_MAIN) {
             titleChainImg.image = UIImage(named: "bandChainImg")
             titleChainName.text = "(Band Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_BAND
         } else if (chainType! == ChainType.SECRET_MAIN) {
             titleChainImg.image = UIImage(named: "secretChainImg")
             titleChainName.text = "(Secret Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_SECRET
         } else if (chainType! == ChainType.CERTIK_MAIN) {
             titleChainImg.image = UIImage(named: "certikChainImg")
             titleChainName.text = "(Certik Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_CERTIK
         } else if (chainType! == ChainType.AKASH_MAIN) {
             titleChainImg.image = UIImage(named: "akashChainImg")
             titleChainName.text = "(Akash Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_AKASH
         } else if (chainType! == ChainType.OKEX_MAIN) {
             titleChainImg.image = UIImage(named: "okexChainImg")
             titleChainName.text = "(ExChain Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_OK
         } else if (chainType! == ChainType.PERSIS_MAIN) {
             titleChainImg.image = UIImage(named: "chainpersistence")
             titleChainName.text = "(Persistence Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_PERSIS
         } else if (chainType! == ChainType.SENTINEL_MAIN) {
             titleChainImg.image = UIImage(named: "chainsentinel")
             titleChainName.text = "(Sentinel Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_SENTINEL
         } else if (chainType! == ChainType.FETCH_MAIN) {
             titleChainImg.image = UIImage(named: "chainfetchai")
             titleChainName.text = "(Fetch.ai Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_FETCH
         } else if (chainType! == ChainType.CRYPTO_MAIN) {
             titleChainImg.image = UIImage(named: "chaincrypto")
             titleChainName.text = "(Crypto.org Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_CRYPTO
         } else if (chainType! == ChainType.SIF_MAIN) {
             titleChainImg.image = UIImage(named: "chainsifchain")
             titleChainName.text = "(SifChain Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_SIF
         } else if (chainType! == ChainType.KI_MAIN) {
             titleChainImg.image = UIImage(named: "chainKifoundation")
             titleChainName.text = "(KiChain Mainnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = TRANS_BG_COLOR_KI
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
             titleChainImg.image = UIImage(named: "cosmosTestChainImg")
             titleChainName.text = "(StarGate Testnet)"
-            kavaOracle.isHidden = true
             titleAlarmBtn.isHidden = true
-            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.IRIS_TEST) {
             titleChainImg.image = UIImage(named: "irisTestChainImg")
             titleChainName.text = "(Bifrost Testnet)"
-            kavaOracle.isHidden = true
             titleAlarmBtn.isHidden = true
-            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.BINANCE_TEST) {
             titleChainImg.image = UIImage(named: "binancetestnet")
             titleChainName.text = "(Binance Testnet)"
-            kavaOracle.isHidden = true
             titleAlarmBtn.isHidden = true
-            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.KAVA_TEST) {
             titleChainImg.image = UIImage(named: "kavaTestImg")
             titleChainName.text = "(Kava Testnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = false
-            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.IOV_TEST) {
             titleChainImg.image = UIImage(named: "iovTestnetImg")
             titleChainName.text = "(Starname Testnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.OKEX_TEST) {
             titleChainImg.image = UIImage(named: "okexTestnetImg")
             titleChainName.text = "(ExChain Testnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = COLOR_BG_GRAY
         } else if (chainType! == ChainType.CERTIK_TEST) {
             titleChainImg.image = UIImage(named: "certikTestnetImg")
             titleChainName.text = "(Certik Testnet)"
             titleAlarmBtn.isHidden = true
-            kavaOracle.isHidden = true
-            totalCard.backgroundColor = COLOR_BG_GRAY
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {

@@ -466,25 +466,15 @@
                                             </label>
                                         </subviews>
                                     </stackView>
-                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Suy-q6-a4G">
-                                        <rect key="frame" x="293.5" y="64.5" width="88.5" height="26.5"/>
-                                        <string key="text">Token price from
-Kava oracle</string>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                        <color key="textColor" red="0.47843137250000001" green="0.49803921569999998" blue="0.53333333329999999" alpha="1" colorSpace="deviceRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.61176470589999998" green="0.42352941179999998" blue="1" alpha="0.1524507705" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="Oeb-GH-haY" firstAttribute="centerX" secondItem="gsx-gt-Y38" secondAttribute="centerX" id="EFp-i6-gVD"/>
                                     <constraint firstAttribute="bottom" secondItem="acD-Ar-jva" secondAttribute="bottom" constant="18.5" id="EWY-BO-nsb"/>
-                                    <constraint firstAttribute="trailing" secondItem="Suy-q6-a4G" secondAttribute="trailing" constant="8" id="TJ7-oS-dHO"/>
                                     <constraint firstItem="6yh-hW-PNd" firstAttribute="centerX" secondItem="gsx-gt-Y38" secondAttribute="centerX" id="XUg-AP-m0e"/>
                                     <constraint firstItem="acD-Ar-jva" firstAttribute="top" secondItem="Oeb-GH-haY" secondAttribute="bottom" constant="6" id="f0C-hc-N4H"/>
                                     <constraint firstItem="6yh-hW-PNd" firstAttribute="top" secondItem="gsx-gt-Y38" secondAttribute="top" constant="12" id="fsq-da-hLf"/>
                                     <constraint firstItem="acD-Ar-jva" firstAttribute="centerX" secondItem="gsx-gt-Y38" secondAttribute="centerX" id="hAf-DL-UW6"/>
-                                    <constraint firstAttribute="bottom" secondItem="Suy-q6-a4G" secondAttribute="bottom" constant="8" id="v5R-3A-fDt"/>
                                     <constraint firstItem="Oeb-GH-haY" firstAttribute="top" secondItem="6yh-hW-PNd" secondAttribute="bottom" constant="8" id="xOy-7U-gMK"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
@@ -589,7 +579,6 @@ Kava oracle</string>
                     <navigationItem key="navigationItem" id="R7R-lj-gXN"/>
                     <connections>
                         <outlet property="btnSort" destination="PKh-vE-8L0" id="JgB-G3-Vih"/>
-                        <outlet property="kavaOracle" destination="Suy-q6-a4G" id="gEc-US-k6c"/>
                         <outlet property="sortType" destination="EgU-yb-3mw" id="nVL-EM-nqx"/>
                         <outlet property="titleAlarmBtn" destination="Yab-cK-eWf" id="jcY-xO-nZY"/>
                         <outlet property="titleChainImg" destination="Dfj-wA-gmt" id="yfl-VR-PQS"/>
