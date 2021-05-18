@@ -59,7 +59,7 @@ class StepFeeViewController: BaseViewController {
             
             feeAmount = WUtils.plainStringToDecimal(GAS_FEE_BNB_TRANSFER)
             self.minFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, minFeeAmountLabel.font, 0, 8)
-            self.minFeePriceLabel.attributedText  = WUtils.dpBnbValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
+            self.minFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 0, minFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
             self.minFeeCardView.isHidden = true
@@ -77,7 +77,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, rateFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             self.minFeeCardView.isHidden = true
@@ -102,7 +102,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 8)
             feeAmount = estimateGasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler8)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 0, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 0, self.rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 0, rateFeePriceLabel.font)
             
             
         } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
@@ -121,7 +121,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, rateFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             self.minFeeCardView.isHidden = true
@@ -139,7 +139,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, rateFeePriceLabel.font)
             
         }else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
             self.minFeeCardView.isHidden = true
@@ -157,7 +157,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 1)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, rateFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN){
             self.minFeeCardView.isHidden = true
@@ -175,7 +175,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 18, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 18, rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 18, rateFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
             self.minFeeCardView.isHidden = true
@@ -193,7 +193,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 2)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler18)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 18, 18)
-            self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 18, rateFeePriceLabel.font)
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 18, rateFeePriceLabel.font)
             
         } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
             self.minFeeCardView.isHidden = true
@@ -211,8 +211,7 @@ class StepFeeViewController: BaseViewController {
             self.rateFeeGasRateLabel.attributedText = WUtils.displayGasRate(gasRate, font: rateFeeGasRateLabel.font, 3)
             feeAmount = gasAmount.multiplying(by: gasRate, withBehavior: WUtils.handler6)
             self.rateFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, rateFeeAmountLabel.font, 6, 6)
-            self.rateFeePriceLabel.attributedText = WUtils.dpTokenValue(feeAmount, BaseData.instance.getLastPrice(), 6, rateFeePriceLabel.font)
-            
+            self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, rateFeePriceLabel.font)
         }
         
     }
@@ -354,8 +353,9 @@ class StepFeeViewController: BaseViewController {
             }
             
         }
-        self.minFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), minFeePriceLabel.font)
-        self.rateFeePriceLabel.attributedText = WUtils.dpAtomValue(feeAmount, BaseData.instance.getLastPrice(), rateFeePriceLabel.font)
+
+        self.minFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, minFeePriceLabel.font)
+        self.rateFeePriceLabel.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount, 6, rateFeePriceLabel.font)
         return true;
     }
     
