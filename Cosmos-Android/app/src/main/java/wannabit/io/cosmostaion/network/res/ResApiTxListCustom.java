@@ -118,6 +118,9 @@ public class ResApiTxListCustom {
                 } else if (msgType.contains("MsgWithdrawValidatorCommission")) {
                     result = c.getString(R.string.tx_get_commission);
 
+                } else if (msgType.contains("MsgCreateBid")) {
+                    result = c.getString(R.string.tx_create_bid);
+
                 } else if (msgType.contains("MsgCreateLease")) {
                     result = c.getString(R.string.tx_create_lease);
 
