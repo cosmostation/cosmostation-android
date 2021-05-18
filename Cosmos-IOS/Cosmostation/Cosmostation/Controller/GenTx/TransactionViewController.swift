@@ -24,10 +24,6 @@ class TransactionViewController: UIViewController {
     var mType: String?
     var mRewardTargetValidators = Array<Validator>()
     var mRewardTargetValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
-    var mIrisRedelegate: Array<NSDictionary>?
-    
-    var mBnbToken: BnbToken?
-    var mBnbTics = [String : NSMutableDictionary]()
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -47,7 +43,6 @@ class TransactionViewController: UIViewController {
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
-    //after 40.0
     var mToSendDenom: String?
     
     override func viewDidLoad() {
@@ -256,9 +251,6 @@ class TransactionViewController: UIViewController {
             StepVc.mTargetValidator_gRPC = self.mTargetValidator_gRPC
             StepVc.mRewardTargetValidators = self.mRewardTargetValidators
             StepVc.mRewardTargetValidators_gRPC = self.mRewardTargetValidators_gRPC
-            StepVc.mIrisRedelegate = self.mIrisRedelegate
-            StepVc.mBnbToken = self.mBnbToken
-            StepVc.mBnbTics = self.mBnbTics
             StepVc.mProposeId = self.mProposeId
             StepVc.mProposalTitle = self.mProposalTitle
             StepVc.mProposer = self.mProposer

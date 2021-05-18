@@ -65,10 +65,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var totalDepositAmount: NSDecimalNumber?
     var totalLoanAmount: NSDecimalNumber?
     
-    var mIrisRedelegate: Array<NSDictionary>?
-    
     var mBnbToken: BnbToken?
-    var mBnbTics = [String : NSMutableDictionary]()
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -113,7 +110,6 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     var mStarnameDomainType: String?
     var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
     
-    //after 40.0
     var mToSendDenom: String?
     
     lazy var orderedViewControllers: [UIViewController] = {
@@ -383,6 +379,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         mAccount        = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         mBalances       = mAccount!.account_balances
         chainType       = WUtils.getChainType(mAccount!.account_base_chain)
+        mBnbToken       = WUtils.getBnbToken(mToSendDenom)
         
         if (mType == COSMOS_MSG_TYPE_REDELEGATE2) {
             if (WUtils.isGRPC(chainType!)) {

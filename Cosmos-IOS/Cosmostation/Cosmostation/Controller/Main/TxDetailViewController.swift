@@ -450,6 +450,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             }
             let coins = msg?.value.inputs?[0].coins
             cell?.multiAmountStack.isHidden = false
+            cell?.multiAmountLayer0.isHidden = false
             WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
         } else {
             var coins :[Coin]?
