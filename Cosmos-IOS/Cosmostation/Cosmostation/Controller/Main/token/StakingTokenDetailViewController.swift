@@ -188,7 +188,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mKavaSendDenom = mainDenom
+            txVC.mToSendDenom = mainDenom
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
@@ -196,7 +196,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mOkSendDenom = mainDenom
+            txVC.mToSendDenom = mainDenom
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SIF_MAIN) {

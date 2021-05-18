@@ -1477,7 +1477,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mKavaSendDenom = KAVA_MAIN_DENOM
+            txVC.mToSendDenom = KAVA_MAIN_DENOM
             txVC.mType = KAVA_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.IOV_MAIN) {
@@ -1516,7 +1516,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mOkSendDenom = OKEX_MAIN_DENOM
+            txVC.mToSendDenom = OKEX_MAIN_DENOM
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {

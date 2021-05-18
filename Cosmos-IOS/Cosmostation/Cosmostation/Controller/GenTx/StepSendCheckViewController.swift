@@ -117,7 +117,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             }
             
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mKavaSendDenom!)
+            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mToSendDenom!)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             if (toSendDenom == KAVA_MAIN_DENOM) {
                 currentAva = pageHolderVC.mAccount!.getKavaBalance()
@@ -137,7 +137,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
                 mTotalSpendPrice.isHidden = true
                 mReminaingPrice.isHidden = true
                 
-                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mKavaSendDenom!)
+                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
                 WUtils.showCoinDp(toSendDenom, toSendAmount.stringValue, mToSendDenomLabel, mToSendAmountLabel, pageHolderVC.chainType!)
                 WUtils.showCoinDp(toSendDenom, currentAva.stringValue, mCurrentBalanceDenomTitle, mCurrentAvailable, pageHolderVC.chainType!)
                 WUtils.showCoinDp(toSendDenom, currentAva.subtracting(toSendAmount).stringValue, mRemainBalanceTitle, mReminaingAvailable, pageHolderVC.chainType!)
@@ -174,12 +174,12 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mDpDecimal = 18
-            mToSendDenomLabel.text = pageHolderVC.mOkSendDenom!.uppercased()
-            mCurrentBalanceDenomTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
-            mRemainBalanceTitle.text = pageHolderVC.mOkSendDenom!.uppercased()
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mOkSendDenom!)
+            mToSendDenomLabel.text = pageHolderVC.mToSendDenom!.uppercased()
+            mCurrentBalanceDenomTitle.text = pageHolderVC.mToSendDenom!.uppercased()
+            mRemainBalanceTitle.text = pageHolderVC.mToSendDenom!.uppercased()
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
             
-            if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
+            if (pageHolderVC.mToSendDenom == OKEX_MAIN_DENOM) {
                 mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
                 mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
                 mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, mDpDecimal)
@@ -263,7 +263,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
             let mDpDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom!)
-            if (pageHolderVC.mOkSendDenom == OKEX_MAIN_DENOM) {
+            if (pageHolderVC.mToSendDenom == OKEX_MAIN_DENOM) {
                 currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
                 mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
                 mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
