@@ -1083,39 +1083,39 @@ class WUtils {
 //            return NSDecimalNumber(value: price!)
 //        }
 //    }
-    
-    static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, _ font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.numberStyle = .decimal
-        
-        var formatted = ""
-        var endIndex:String.Index?
-        if(currency == 5) {
-            nf.minimumFractionDigits = 8
-            nf.maximumFractionDigits = 8
-            formatted = symbol + " " + nf.string(from: amount)!
-            endIndex    = formatted.index(formatted.endIndex, offsetBy: -8)
-    
-        } else {
-            nf.minimumFractionDigits = 2
-            nf.maximumFractionDigits = 2
-            formatted = symbol + " " + nf.string(from: amount)!
-            endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
-        }
-        
-        let preString   = formatted[..<endIndex!]
-        let postString  = formatted[endIndex!...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-        
-    }
+//    
+//    static func displayPrice(_ amount: NSDecimalNumber, _ currency:Int, _ symbol:String, _ font:UIFont) -> NSMutableAttributedString {
+//        let nf = NumberFormatter()
+//        nf.numberStyle = .decimal
+//
+//        var formatted = ""
+//        var endIndex:String.Index?
+//        if(currency == 5) {
+//            nf.minimumFractionDigits = 8
+//            nf.maximumFractionDigits = 8
+//            formatted = symbol + " " + nf.string(from: amount)!
+//            endIndex    = formatted.index(formatted.endIndex, offsetBy: -8)
+//
+//        } else {
+//            nf.minimumFractionDigits = 2
+//            nf.maximumFractionDigits = 2
+//            formatted = symbol + " " + nf.string(from: amount)!
+//            endIndex    = formatted.index(formatted.endIndex, offsetBy: -2)
+//        }
+//
+//        let preString   = formatted[..<endIndex!]
+//        let postString  = formatted[endIndex!...]
+//
+//        let preAttrs = [NSAttributedString.Key.font : font]
+//        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
+//
+//        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
+//        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
+//
+//        attributedString1.append(attributedString2)
+//        return attributedString1
+//
+//    }
     
     //new type price
     static func tokenCnt(_ chainType: ChainType?) -> String {
