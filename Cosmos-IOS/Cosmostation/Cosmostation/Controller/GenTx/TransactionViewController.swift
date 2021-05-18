@@ -30,9 +30,7 @@ class TransactionViewController: UIViewController {
     var mBnbTics = [String : NSMutableDictionary]()
     
     var mKavaSendDenom: String?
-    var mIovSendDenom: String?
     var mOkSendDenom: String?
-    var mSecretSendDenom: String?
     
     var mProposeId: String?
     var mProposalTitle: String?
@@ -268,9 +266,7 @@ class TransactionViewController: UIViewController {
             StepVc.mProposalTitle = self.mProposalTitle
             StepVc.mProposer = self.mProposer
             StepVc.mKavaSendDenom = self.mKavaSendDenom
-            StepVc.mIovSendDenom = self.mIovSendDenom
             StepVc.mOkSendDenom = self.mOkSendDenom
-            StepVc.mSecretSendDenom = self.mSecretSendDenom
             StepVc.mToSendDenom = self.mToSendDenom
             
             StepVc.mCDenom = self.mCDenom

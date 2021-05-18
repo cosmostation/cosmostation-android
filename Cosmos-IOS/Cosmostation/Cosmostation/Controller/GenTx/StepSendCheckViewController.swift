@@ -224,7 +224,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
             mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mSecretSendDenom!)
+            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
             mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
             mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
             mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)

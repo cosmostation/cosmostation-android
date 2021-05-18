@@ -1485,7 +1485,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mIovSendDenom = IOV_MAIN_DENOM
+            txVC.mToSendDenom = IOV_MAIN_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.BAND_MAIN) {
@@ -1500,7 +1500,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mSecretSendDenom = SECRET_MAIN_DENOM
+            txVC.mToSendDenom = SECRET_MAIN_DENOM
             txVC.mType = SECRET_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.IOV_TEST) {
@@ -1508,7 +1508,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mIovSendDenom = IOV_TEST_DENOM
+            txVC.mToSendDenom = IOV_TEST_DENOM
             txVC.mType = IOV_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
