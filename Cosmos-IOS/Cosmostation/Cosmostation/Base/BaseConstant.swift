@@ -108,8 +108,8 @@ let KI_URL                              = "https://lcd-kichain.cosmostation.io/"
 let KI_API                              = "https://api-kichain.cosmostation.io/";
 
 
-let CGC_URL                             = "https://api.coingecko.com/";
-let CMC_URL                             = "https://api.coinmarketcap.com/";
+//let CGC_URL                             = "https://api.coingecko.com/";
+//let CMC_URL                             = "https://api.coinmarketcap.com/";
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
@@ -122,8 +122,8 @@ let CSS_MOON_PAY                        = CSS_URL + "v1/sign/moonpay";
 let KAVA_API_HISTORY                    = KAVA_API + "v1/account/txs/";
 let KAVA_API_TRANS_HISTORY              = KAVA_API + "v1/account/transfer_txs/";
 
-let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
-let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
+//let CMC_PRICE_TIC                       = CMC_URL + "v2/ticker/";
+//let CGC_PRICE_TIC                       = CGC_URL + "api/v3/coins/";
 
 
 let COSMOS_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cosmoshub/";

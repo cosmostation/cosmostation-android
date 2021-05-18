@@ -1317,40 +1317,20 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     func onClickMarketInfo() {
         if (chainType! == ChainType.COSMOS_MAIN || chainType! == ChainType.COSMOS_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/cosmos/") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/cosmos") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.IRIS_MAIN || chainType! == ChainType.IRIS_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/irisnet") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/irisnet") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BINANCE_MAIN) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/binance-coin") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/binancecoin") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            if (BaseData.instance.getMarket() == 0) {
-                guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
-                self.onShowSafariWeb(url)
-            } else {
-                guard let url = URL(string: "https://coinmarketcap.com/currencies/kava") else { return }
-                self.onShowSafariWeb(url)
-            }
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/kava") else { return }
+            self.onShowSafariWeb(url)
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/band-protocol") else { return }

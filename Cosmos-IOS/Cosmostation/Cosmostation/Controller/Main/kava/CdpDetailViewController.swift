@@ -282,9 +282,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         cell?.principalValue.attributedText = WUtils.getDPRawDollor(principalValue.stringValue, 2, cell!.principalValue.font)
 
         cell?.kavaAmount.attributedText = WUtils.displayAmount2(kAvailable.stringValue, cell!.kavaAmount.font!, kDpDecimal, kDpDecimal)
-        let kavaValue = kAvailable.multiplying(byPowerOf10: -kDpDecimal).multiplying(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler2Down)
+        let kavaValue = kAvailable.multiplying(byPowerOf10: -kDpDecimal).multiplying(by: WUtils.perUsdValue(KAVA_MAIN_DENOM)!, withBehavior: WUtils.handler2Down)
         cell?.kavaValue.attributedText = WUtils.getDPRawDollor(kavaValue.stringValue, 2, cell!.kavaValue.font)
-
+        
         cell?.collateralImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mCDenom + ".png")!)
         cell?.principalImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + mPDenom + ".png")!)
         return cell!

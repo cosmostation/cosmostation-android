@@ -20,7 +20,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     var mChainType: ChainType!
     var mAccounts = Array<Account>()
     var mBalances = Array<Balance>()
-    var mPriceTic: NSDictionary?
     var mFetchCnt = 0
         
     var waitAlert: UIAlertController?
@@ -1634,7 +1633,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchPriceInfo(_ denoms: String) {
-        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
+//        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))
         let request = Alamofire.request(BaseNetWork.getPrice(denoms), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
         request.responseJSON { (response) in
             switch response.result {
