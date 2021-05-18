@@ -311,7 +311,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         if(BaseData.instance.getCurrency() != value) {
             BaseData.instance.setCurrency(value)
             self.onUpdateCurrency()
-            NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
     }
     
@@ -387,7 +386,6 @@ class SettingTableViewController: UITableViewController, PasswordViewDelegate, Q
         if(BaseData.instance.getMarket() != value) {
             BaseData.instance.setMarket(value)
             self.onUpdateMarket()
-            NotificationCenter.default.post(name: Notification.Name("refreshPrice"), object: nil, userInfo: nil)
         }
     }
     
