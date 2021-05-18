@@ -44,7 +44,7 @@ class WUtils {
     
     static func getAccountWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Account {
         let result = account
-        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
+        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
             result.account_address = accountInfo.value.address
             result.account_sequence_number = Int64(accountInfo.value.sequence) ?? 0
             result.account_account_numner = Int64(accountInfo.value.account_number) ?? 0
@@ -98,7 +98,7 @@ class WUtils {
     
     static func getBalancesWithAccountInfo(_ account: Account, _ accountInfo: AccountInfo) -> Array<Balance> {
         var result = Array<Balance>()
-        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY || accountInfo.type == IRIS_BANK_TYPE_ACCOUNT ||
+        if (accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT || accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
             accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
             for coin in accountInfo.value.coins {
                 result.append(Balance.init(account.account_id, coin.denom, coin.amount, Date().millisecondsSince1970))
@@ -116,7 +116,6 @@ class WUtils {
         var result = Array<Balance>()
         if(accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT ||
             accountInfo.type == COSMOS_AUTH_TYPE_ACCOUNT_LEGACY ||
-            accountInfo.type == IRIS_BANK_TYPE_ACCOUNT ||
             accountInfo.type == COSMOS_AUTH_TYPE_CERTIK_MANUAL) {
             for coin in accountInfo.value.coins {
                 result.append(Balance.init(-1, coin.denom, coin.amount, Date().millisecondsSince1970))
@@ -608,7 +607,7 @@ class WUtils {
             }
         }
         
-        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == IRIS_MSG_TYPE_TRANSFER || msgs[0].type == CERTIK_MSG_TYPE_TRANSFER) {
+        if (msgs[0].type == COSMOS_MSG_TYPE_TRANSFER || msgs[0].type == COSMOS_MSG_TYPE_TRANSFER2 || msgs[0].type == CERTIK_MSG_TYPE_TRANSFER) {
             if (msgs[0].value.from_address != nil && msgs[0].value.from_address == myaddress) {
                 resultMsg = NSLocalizedString("tx_send", comment: "")
             } else if (msgs[0].value.to_address != nil && msgs[0].value.to_address == myaddress) {
@@ -2730,7 +2729,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_AVERAGE))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_REDELEGATE))
-            } else if (type == KAVA_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_FEE_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 
@@ -2764,7 +2763,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_MID))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_REDELE))
-            } else if (type == COSMOS_MSG_TYPE_TRANSFER2 || type == KAVA_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_MIDIFY) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
@@ -2784,7 +2783,7 @@ class WUtils {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_STAKE))
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_REDELEGATE))
-            } else if (type == IOV_MSG_TYPE_TRANSFER) {
+            } else if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(IOV_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
                 result = WUtils.getGasAmountForKavaRewards()[valCnt - 1]
@@ -2833,7 +2832,7 @@ class WUtils {
             
         } else if (chain == ChainType.SECRET_MAIN) {
             result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
-            if (type == SECRET_MSG_TYPE_TRANSFER) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(SECRET_GAS_AMOUNT_STAKE))

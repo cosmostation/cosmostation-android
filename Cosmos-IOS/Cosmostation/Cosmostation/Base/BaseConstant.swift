@@ -254,7 +254,6 @@ let ETHERMINT_KEY_TYPE_PUBLIC               = "ethermint/PubKeyEthSecp256k1";
 let COSMOS_AUTH_TYPE_STDTX                  = "auth/StdTx";
 
 
-let IRIS_BANK_TYPE_ACCOUNT                  = "irishub/bank/Account";
 let IRIS_MSG_TYPE_TRANSFER                  = "irishub/bank/Send";
 let IRIS_MSG_TYPE_DELEGATE                  = "irishub/stake/MsgDelegate";
 let IRIS_MSG_TYPE_UNDELEGATE                = "irishub/stake/BeginUnbonding";
@@ -278,7 +277,6 @@ let IRIS_PROPOAL_TYPE_SystemHaltProposal        = "irishub/gov/SystemHaltProposa
 let IRIS_PROPOAL_TYPE_CommunityTaxUsageProposal = "irishub/gov/CommunityTaxUsageProposal";
 
 
-let BNB_MSG_TYPE_TRANSFER                   = "bnb_transfer";
 let BNB_MSG_TYPE_HTLC                       = "tokens/HTLTMsg";
 let BNB_MSG_TYPE_HTLC_CLIAM                 = "tokens/ClaimHTLTMsg";
 let BNB_MSG_TYPE_HTLC_REFUND                = "tokens/RefundHTLTMsg";
@@ -287,7 +285,6 @@ let TASK_TYPE_VOTE                          = "vote_task";
 let TASK_TYPE_HTLC_SWAP                     = "htlc_swap";
 let TASK_TYPE_HTLC_REFUND                   = "htlc_refund";
 
-let KAVA_MSG_TYPE_TRANSFER                  = "kava_transfer";
 let KAVA_MSG_TYPE_POST_PRICE                = "pricefeed/MsgPostPrice";
 let KAVA_MSG_TYPE_CREATE_CDP                = "cdp/MsgCreateCDP";
 let KAVA_MSG_TYPE_DEPOSIT_CDP               = "cdp/MsgDeposit";
@@ -311,11 +308,7 @@ let KAVA_MSG_TYPE_REPAY_HARD                = "hard/MsgRepay";
 let KAVA_MSG_TYPE_LIQUIDATE_HARD            = "hard/MsgLiquidate";
 
 
-
-let IOV_MSG_TYPE_TRANSFER                   = "iov_transfer";
-let BAND_MSG_TYPE_TRANSFER                  = "band_transfer";
 let CERTIK_MSG_TYPE_TRANSFER                = "bank/MsgSend";
-let SECRET_MSG_TYPE_TRANSFER                = "secret_transfer";
 
 let OK_MSG_TYPE_TRANSFER                    = "okexchain/token/MsgTransfer";
 let OK_MSG_TYPE_MULTI_TRANSFER              = "okexchain/token/MsgMultiTransfer";

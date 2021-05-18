@@ -177,7 +177,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else if (msg?.type == COSMOS_MSG_TYPE_WITHDRAW_VAL || msg?.type == IRIS_MSG_TYPE_COMMISSION) {
                 return onBindCommission(tableView, indexPath.row)
                 
-            } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == COSMOS_MSG_TYPE_TRANSFER3 || msg?.type == IRIS_MSG_TYPE_TRANSFER || msg?.type == OK_MSG_TYPE_TRANSFER || msg?.type == OK_MSG_TYPE_MULTI_TRANSFER || msg?.type == CERTIK_MSG_TYPE_TRANSFER) {
+            } else if (msg?.type == COSMOS_MSG_TYPE_TRANSFER || msg?.type == COSMOS_MSG_TYPE_TRANSFER2 || msg?.type == COSMOS_MSG_TYPE_TRANSFER3 || msg?.type == OK_MSG_TYPE_TRANSFER || msg?.type == OK_MSG_TYPE_MULTI_TRANSFER || msg?.type == CERTIK_MSG_TYPE_TRANSFER) {
                 if ((msg?.value.inputs != nil && (msg?.value.inputs!.count)! > 1) ||  (msg?.value.outputs != nil && (msg?.value.outputs!.count)! > 1)) {
                     //No case yet!
                     return onBindMultiTransfer(tableView, indexPath.row)

@@ -576,9 +576,7 @@ class StepFeeViewController: BaseViewController {
             result = WUtils.localeStringToDecimal(pageHolderVC.mToDelegateAmount!.amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_UNDELEGATE2) {
-        } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == KAVA_MSG_TYPE_TRANSFER || pageHolderVC.mType == BAND_MSG_TYPE_TRANSFER ||
-                    pageHolderVC.mType == IOV_MSG_TYPE_TRANSFER || pageHolderVC.mType == SECRET_MSG_TYPE_TRANSFER || pageHolderVC.mType == OK_MSG_TYPE_TRANSFER ||
-                    pageHolderVC.mType == CERTIK_MSG_TYPE_TRANSFER) {
+        } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2 || pageHolderVC.mType == OK_MSG_TYPE_TRANSFER || pageHolderVC.mType == CERTIK_MSG_TYPE_TRANSFER) {
             result = WUtils.localeStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
             
         } else if (pageHolderVC.mType == COSMOS_MSG_TYPE_WITHDRAW_DEL) {

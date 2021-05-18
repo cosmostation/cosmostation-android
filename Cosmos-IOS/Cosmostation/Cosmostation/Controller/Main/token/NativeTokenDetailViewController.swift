@@ -135,11 +135,11 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
                 return
             }
             txVC.mToSendDenom = self.denom
-            txVC.mType = BNB_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             txVC.mToSendDenom = self.denom
-            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {

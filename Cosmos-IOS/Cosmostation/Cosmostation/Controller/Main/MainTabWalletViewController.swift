@@ -1470,7 +1470,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mToSendDenom = BNB_MAIN_DENOM
-            txVC.mType = BNB_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
@@ -1478,7 +1478,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mToSendDenom = KAVA_MAIN_DENOM
-            txVC.mType = KAVA_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.IOV_MAIN) {
             if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
@@ -1486,14 +1486,15 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mToSendDenom = IOV_MAIN_DENOM
-            txVC.mType = IOV_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.BAND_MAIN) {
             if (WUtils.getTokenAmount(balances, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mType = BAND_MSG_TYPE_TRANSFER
+            txVC.mToSendDenom = BAND_MAIN_DENOM
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.SECRET_MAIN) {
             if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
@@ -1501,7 +1502,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mToSendDenom = SECRET_MAIN_DENOM
-            txVC.mType = SECRET_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.IOV_TEST) {
             if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
@@ -1509,7 +1510,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
                 return
             }
             txVC.mToSendDenom = IOV_TEST_DENOM
-            txVC.mType = IOV_MSG_TYPE_TRANSFER
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
