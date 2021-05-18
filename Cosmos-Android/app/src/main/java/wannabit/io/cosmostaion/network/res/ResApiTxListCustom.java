@@ -127,6 +127,15 @@ public class ResApiTxListCustom {
                 } else if (msgType.contains("MsgWithdrawLease")) {
                     result = c.getString(R.string.tx_withdraw_lease);
 
+                } else if (msgType.contains("MsgCreateDeployment")) {
+                    result = c.getString(R.string.tx_create_deployment);
+
+                } else if (msgType.contains("MsgUpdateDeployment")) {
+                    result = c.getString(R.string.tx_update_deployment);
+
+                } else if (msgType.contains("MsgCloseDeployment")) {
+                    result = c.getString(R.string.tx_close_deployment);
+
                 }
 
                 else if (msgType.contains("MsgMintNFT")) {

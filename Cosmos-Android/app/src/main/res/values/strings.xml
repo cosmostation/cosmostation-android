@@ -564,6 +564,7 @@
     <string name="str_fee_over_msg">Tx fee is higher than your unclaimed rewards. Set your fee to a lower amount or try again when you have more rewards accumulated.</string>
     <string name="str_validator">Validator</string>
     <string name="str_provider">Provider</string>
+    <string name="str_order">Order</string>
     <string name="str_price">Price</string>
     <string name="str_akash_deposit">Deposit</string>
     <string name="str_current_delegation">Current Delegation</string>
@@ -1419,6 +1420,7 @@
     <string name="tx_withdraw_lease">Withdraw Lease</string>
     <string name="tx_create_deployment">Create Deployment</string>
     <string name="tx_close_deployment">Close Deployment</string>
+    <string name="tx_update_deployment">Update Deployment</string>
     <string name="tx_reinvest">Re-Invest</string>
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>
