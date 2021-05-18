@@ -79,7 +79,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceFetchDone(_:)), name: Notification.Name("onPriceFetchDone"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceUpdated(_:)), name: Notification.Name("priceUpdate"), object: nil)
         self.updateTitle()
         self.walletTableView.reloadData()
@@ -88,7 +87,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("onPriceFetchDone"), object: nil)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("priceUpdate"), object: nil)
     }
     
@@ -245,12 +243,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.refresher.endRefreshing()
     }
     
-    @objc func onPriceFetchDone(_ notification: NSNotification) {
-        self.walletTableView.reloadData()
-    }
-    
     @objc func onPriceUpdated(_ notification: NSNotification) {
-        print("onPriceUpdated")
         self.walletTableView.reloadData()
     }
     

@@ -24,8 +24,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     @IBOutlet weak var totalCard: CardView!
     @IBOutlet weak var totalValue: UILabel!
-    @IBOutlet weak var totalAmount: UILabel!
-    @IBOutlet weak var totalDenom: UILabel!
+    @IBOutlet weak var totalBtcValue: UILabel!
     @IBOutlet weak var kavaOracle: UILabel!
     @IBOutlet weak var tokenCnt: UILabel!
     @IBOutlet weak var btnSort: UIView!
@@ -67,7 +66,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         self.navigationController?.navigationBar.topItem?.title = "";
         NotificationCenter.default.addObserver(self, selector: #selector(self.onFetchDone(_:)), name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceFetchDone(_:)), name: Notification.Name("onPriceFetchDone"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.onPriceUpdated(_:)), name: Notification.Name("priceUpdate"), object: nil)
         self.updateTitle()
         self.updateView()
     }
@@ -75,12 +74,11 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.removeObserver(self, name: Notification.Name("onFetchDone"), object: nil)
-        NotificationCenter.default.removeObserver(self, name: Notification.Name("onPriceFetchDone"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name("priceUpdate"), object: nil)
     }
     
     func updateTitle() {
         titleChainName.textColor = WUtils.getChainColor(chainType!)
-        WUtils.setDenomTitle(chainType!, totalDenom)
         if (mainTabVC.mAccount.account_nick_name == "") {
             titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)
         } else {
@@ -269,7 +267,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         self.refresher.endRefreshing()
     }
     
-    @objc func onPriceFetchDone(_ notification: NSNotification) {
+    @objc func onPriceUpdated(_ notification: NSNotification) {
         self.updateView()
     }
     
@@ -292,154 +290,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     }
     
     func onUpdateTotalCard() {
-        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            var allBnb = NSDecimalNumber.zero
-            for balance in mainTabVC.mBalances {
-                let amount = WUtils.getAllBnbToken(balance.balance_denom)
-                if (balance.balance_denom == BNB_MAIN_DENOM) {
-                    allBnb = allBnb.adding(amount)
-                } else {
-                    allBnb = allBnb.adding(WUtils.getBnbConvertAmount(balance.balance_denom, amount))
-                }
-            }
-            totalAmount.attributedText = WUtils.displayAmount2(allBnb.stringValue, totalAmount.font, 0, 6)
-            totalValue.attributedText = WUtils.dpBnbValue(allBnb, BaseData.instance.getLastPrice(), totalValue.font)
-            
-        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            var allKava = NSDecimalNumber.zero
-            for balance in mainTabVC.mBalances {
-                if (balance.balance_denom == KAVA_MAIN_DENOM) {
-                    allKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
-                } else {
-                    let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
-                    let totalTokenValue = WUtils.getKavaTokenDollorValue(balance.balance_denom, totalTokenAmount)
-                    let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(6))
-                    allKava = allKava.adding(convertedKavaAmount.multiplying(byPowerOf10: 6))
-                }
-            }
-            totalAmount.attributedText = WUtils.displayAmount2(allKava.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allKava, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allBand, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.SECRET_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allSecret, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allIov = WUtils.getAllMainAssetOld(IOV_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allIov, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.IOV_TEST) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allIov = WUtils.getAllMainAssetOld(IOV_TEST_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allIov, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            var allOKT = NSDecimalNumber.zero
-            for balance in mainTabVC.mBalances {
-                if (balance.balance_denom == OKEX_MAIN_DENOM) {
-                    allOKT = allOKT.adding(WUtils.getAllExToken(balance.balance_denom))
-                } else {
-                    let okToken = WUtils.getOkToken(balance.balance_denom)
-                    let totalTokenAmount = WUtils.getAllExToken(balance.balance_denom)
-                    let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
-                    let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
-                    allOKT = allOKT.adding(convertedOKTAmount)
-                }
-            }
-            totalAmount.attributedText = WUtils.displayAmount2(allOKT.stringValue, totalAmount.font, 0, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allOKT, BaseData.instance.getLastPrice(), 0, totalValue.font)
-            
-        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allCtk = WUtils.getAllMainAssetOld(CERTIK_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allCtk, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.SENTINEL_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allDvpn = WUtils.getAllMainAssetOld(SENTINEL_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allDvpn.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allDvpn, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.FETCH_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allFet = WUtils.getAllMainAssetOld(FETCH_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, totalAmount.font, 18, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allFet, BaseData.instance.getLastPrice(), 18, totalValue.font)
-            
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allRowan = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allRowan.stringValue, totalAmount.font, 18, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allRowan, BaseData.instance.getLastPrice(), 18, totalValue.font)
-            
-        } else if (chainType! == ChainType.KI_MAIN) {
-            self.tokenCnt.text = String(mainTabVC.mBalances.count)
-            let allKi = WUtils.getAllMainAssetOld(KI_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allKi.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allKi, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        }
-        
-        else if (chainType! == ChainType.COSMOS_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.IRIS_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.AKASH_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.PERSIS_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allXprt = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allXprt.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allXprt, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.CRYPTO_MAIN) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, totalAmount.font, 8, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allCro, BaseData.instance.getLastPrice(), 8, totalValue.font)
-            
-        }
-        
-        
-        else if (chainType! == ChainType.COSMOS_TEST) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, totalValue.font)
-            
-        } else if (chainType! == ChainType.IRIS_TEST) {
-            self.tokenCnt.text = String(BaseData.instance.mMyBalances_gRPC.count)
-            let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
-            totalAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, totalAmount.font, 6, 6)
-            totalValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, totalValue.font)
-        }
+        self.tokenCnt.text = WUtils.tokenCnt(chainType)
+        totalBtcValue.attributedText = WUtils.dpAllAssetValueBtc(chainType, totalBtcValue.font)
+        totalValue.attributedText = WUtils.dpAllAssetValueUserCurrency(chainType, totalValue.font)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -588,7 +441,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = "Cosmos Staking Token"
             let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_MAIN_DENOM, allAtom, 6, cell!.tokenValue.font)
 
         } else {
             // TODO no this case yet!
@@ -609,7 +462,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = "Stargate Staking Token"
             let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAtom, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_TEST_DENOM, allAtom, 6, cell!.tokenValue.font)
         }
         return cell!
     }
@@ -625,7 +478,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = "Iris Staking Token"
             let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, allIris, 6, cell!.tokenValue.font)
             
         } else {
             
@@ -644,7 +497,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenDescription.text = "Bifrost Staking Token"
             let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allIris, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, allIris, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
             cell?.tokenTitle.text = "(" + balance.denom + ")"
@@ -668,15 +521,14 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                 cell?.tokenSymbol.textColor = COLOR_BNB
                 cell?.tokenImg.image = UIImage(named: "bnbTokenImg")
                 cell?.tokenAmount.attributedText = WUtils.displayAmount2(amount.stringValue, cell!.tokenAmount.font, 0, 6)
-                cell?.tokenValue.attributedText = WUtils.dpBnbValue(amount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
+                cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BNB_MAIN_DENOM, amount, 0, cell!.tokenValue.font)
                 
             } else {
                 cell?.tokenSymbol.textColor = UIColor.white
                 cell?.tokenImg.af_setImage(withURL: URL(string: TOKEN_IMG_URL + bnbToken!.original_symbol + ".png")!)
                 cell?.tokenAmount.attributedText = WUtils.displayAmount2(amount.stringValue, cell!.tokenAmount.font, 0, 6)
                 let convertAmount = WUtils.getBnbConvertAmount(denom, amount)
-                cell?.tokenValue.attributedText = WUtils.dpBnbValue(convertAmount, BaseData.instance.getLastPrice(), cell!.tokenValue.font)
-                
+                cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BNB_MAIN_DENOM, convertAmount, 0, cell!.tokenValue.font)
             }
         }
         return cell!
@@ -694,28 +546,21 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(totalKava, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, totalKava, 6, cell!.tokenValue.font)
             
         } else {
-            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
-            let totalTokenValue = WUtils.getKavaTokenDollorValue(balance.balance_denom, totalTokenAmount)
-            let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
-            
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + balance.balance_denom + ".png")!)
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            if (balance.balance_denom == "usdx") {
-                cell?.tokenDescription.text = "USD Stable Asset"
-            } else if (balance.balance_denom == KAVA_HARD_DENOM) {
-                cell?.tokenDescription.text = "Harvest Gov. Token"
-            } else {
-                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain"
-            }
+            if (balance.balance_denom == "usdx") { cell?.tokenDescription.text = "USD Stable Asset" }
+            else if (balance.balance_denom == "hard") { cell?.tokenDescription.text = "HardPool Gov. Token" }
+            else { cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain" }
+            
+            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
+            let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
-            let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
-            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
         }
         return cell!
     }
@@ -732,28 +577,21 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(totalKava, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, totalKava, 6, cell!.tokenValue.font)
             
         } else {
-            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
-            let totalTokenValue = WUtils.getKavaTokenDollorValue(balance.balance_denom, totalTokenAmount)
-            let convertedKavaAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.getDivideHandler(WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)))
-            
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + balance.balance_denom + ".png")!)
             cell?.tokenSymbol.text = balance.balance_denom.uppercased()
             cell?.tokenSymbol.textColor = UIColor.white
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            if (balance.balance_denom == "usdx") {
-                cell?.tokenDescription.text = "USD Stable Asset"
-            } else if (balance.balance_denom == "hard") {
-                cell?.tokenDescription.text = "Harvest Gov. Token"
-            } else {
-                cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain"
-            }
+            if (balance.balance_denom == "usdx") { cell?.tokenDescription.text = "USD Stable Asset" }
+            else if (balance.balance_denom == "hard") { cell?.tokenDescription.text = "HardPool Gov. Token" }
+            else { cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain" }
+            
+            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
+            let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(convertedKavaAmount.multiplying(byPowerOf10: WUtils.getKavaCoinDecimal(KAVA_MAIN_DENOM)), BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
-            let url = KAVA_COIN_IMG_URL + balance.balance_denom + ".png"
-            cell?.tokenImg.af_setImage(withURL: URL(string: url)!)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
         }
         return cell!
     }
@@ -770,7 +608,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
                         
             let allIov = WUtils.getAllMainAssetOld(IOV_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allIov, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IOV_MAIN_DENOM, allIov, 6, cell!.tokenValue.font)
             
         } else { }
         return cell!
@@ -788,7 +626,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allBand, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
 
         } else {
             // TODO no this case yet!
@@ -810,7 +648,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allSecret, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SECRET_MAIN_DENOM, allSecret, 6, cell!.tokenValue.font)
 
         } else {
             // TODO no this case yet!
@@ -824,36 +662,27 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
         let okToken = WUtils.getOkToken(balance.balance_denom)
-        if (okToken == nil) {
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenSymbol.text = balance.balance_denom.uppercased()
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.balance_amount, cell!.tokenAmount.font, 0, 6)
-            cell?.tokenDescription.text = ""
-            return cell!
-            
-        }
-        cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
-        cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"
-        cell?.tokenDescription.text = okToken?.description
-        
-        if (balance.balance_denom == OKEX_MAIN_DENOM) {
-            cell?.tokenSymbol.textColor = COLOR_OK
-            cell?.tokenImg.image = UIImage(named: "okexTokenImg")
-            
-            let tokenAmount = WUtils.getAllExToken(balance.balance_denom)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(tokenAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
-            
-        } else {
-            let totalTokenAmount = WUtils.getAllExToken(balance.balance_denom)
-            let totalTokenValue = WUtils.getOkexTokenDollorValue(okToken, totalTokenAmount)
-            let convertedOKTAmount = totalTokenValue.dividing(by: BaseData.instance.getLastDollorPrice(), withBehavior: WUtils.handler6)
-            
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenImg.af_setImage(withURL: URL(string: OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png")!)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(convertedOKTAmount, BaseData.instance.getLastPrice(), 0, cell!.tokenValue.font)
+        if (okToken != nil) {
+            cell?.tokenSymbol.text = okToken?.original_symbol?.uppercased()
+            cell?.tokenTitle.text = "(" + okToken!.symbol! + ")"
+            cell?.tokenDescription.text = okToken?.description
+            if (balance.balance_denom == OKEX_MAIN_DENOM) {
+                cell?.tokenSymbol.textColor = COLOR_OK
+                cell?.tokenImg.image = UIImage(named: "okexTokenImg")
+                
+                let tokenAmount = WUtils.getAllExToken(balance.balance_denom)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
+                cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OKEX_MAIN_DENOM, tokenAmount, 0, cell!.tokenValue.font)
+                
+            } else {
+                cell?.tokenSymbol.textColor = UIColor.white
+                cell?.tokenImg.af_setImage(withURL: URL(string: OKEX_COIN_IMG_URL + okToken!.original_symbol! + ".png")!)
+                
+                let tokenAmount = WUtils.getAllExToken(balance.balance_denom)
+                let convertedAmount = WUtils.convertTokenToOkt(balance.balance_denom)
+                cell?.tokenAmount.attributedText = WUtils.displayAmount2(tokenAmount.stringValue, cell!.tokenAmount.font, 0, 6)
+                cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OKEX_MAIN_DENOM, convertedAmount, 0, cell!.tokenValue.font)
+            }
         }
         return cell!
     }
@@ -870,7 +699,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allCtk = WUtils.getAllMainAssetOld(CERTIK_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allCtk, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CERTIK_MAIN_DENOM, allCtk, 6, cell!.tokenValue.font)
             
         } else {
             // TODO no this case yet!
@@ -892,7 +721,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AKASH_MAIN_DENOM, allAkt, 6, cell!.tokenValue.font)
             
         } else {
             // TODO no this case yet!
@@ -912,9 +741,9 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.denom + ")"
             cell?.tokenDescription.text = "Persistence Staking Token"
             
-            let allAkt = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allAkt, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            let allPersis = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allPersis.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, allPersis, 6, cell!.tokenValue.font)
             
         } else {
             // TODO no this case yet!
@@ -936,7 +765,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allDvpn = WUtils.getAllMainAssetOld(SENTINEL_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allDvpn.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allDvpn, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SENTINEL_MAIN_DENOM, allDvpn, 6, cell!.tokenValue.font)
             
         } else {
             // TODO no this case yet!
@@ -958,7 +787,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allFet = WUtils.getAllMainAssetOld(FETCH_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allFet.stringValue, cell!.tokenAmount.font, 18, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allFet, BaseData.instance.getLastPrice(), 18, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(FETCH_MAIN_DENOM, allFet, 18, cell!.tokenValue.font)
         } else {
             // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -979,7 +808,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allCro, BaseData.instance.getLastPrice(), 8, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CRYPTO_MAIN_DENOM, allCro, 8, cell!.tokenValue.font)
         } else {
             // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
@@ -1000,7 +829,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allSif = WUtils.getAllMainAssetOld(SIF_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSif.stringValue, cell!.tokenAmount.font, 18, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allSif, BaseData.instance.getLastPrice(), 18, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SIF_MAIN_DENOM, allSif, 18, cell!.tokenValue.font)
             
         } else {
             cell?.tokenImg.af_setImage(withURL: URL(string: SIF_COIN_IMG_URL + balance.balance_denom + ".png")!)
@@ -1009,10 +838,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
             cell?.tokenDescription.text = balance.balance_denom.substring(from: 1).uppercased() + " on Sifchain"
             
-            let available = balance.balance_amount
+            let available = BaseData.instance.availableAmount(balance.balance_denom)
             let decimal = WUtils.getSifCoinDecimal(balance.balance_denom)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(available, cell!.tokenAmount.font!, decimal, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(NSDecimalNumber.zero, BaseData.instance.getLastPrice(), decimal, cell!.tokenValue.font)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(available.stringValue, cell!.tokenAmount.font!, decimal, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(balance.balance_denom.substring(from: 1), available, decimal, cell!.tokenValue.font)
             
         }
         return cell!
@@ -1030,59 +859,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             
             let allKi = WUtils.getAllMainAssetOld(KI_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allKi.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpTokenValue(allKi, BaseData.instance.getLastPrice(), 6, cell!.tokenValue.font)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KI_MAIN_DENOM, allKi, 6, cell!.tokenValue.font)
             
         }
         return cell!
-    }
-    
-    
-    func onFetchBnbTokenPrice() {
-//        for i in 0..<mainTabVC.mBalances.count {
-//            if (!(mainTabVC.mBalances[i].balance_denom == BNB_MAIN_DENOM)) {
-//                let ticSymbol = WUtils.getBnbTicSymbol(mainTabVC.mBalances[i].balance_denom)
-//                let request = Alamofire.request(BaseNetWork.bnbTicUrl(chainType), method: .get, parameters: ["symbol":ticSymbol], encoding: URLEncoding.default, headers: [:])
-//                print("request ", request.request?.url)
-//                request.responseJSON { (response) in
-//                    switch response.result {
-//                    case .success(let res):
-//                        if let tics = res as? Array<NSDictionary> {
-//                            if (tics.count > 0) {
-//                                self.mBnbTics[ticSymbol] = tics[0].mutableCopy() as? NSMutableDictionary
-//                                self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
-//                            }
-//                        }
-//                        self.onUpdateTotalCard()
-//
-//                    case .failure(let error):
-//                        if (SHOW_LOG) { print("onFetchBnbTokenPrice ", ticSymbol, " ", error) }
-//                    }
-//                }
-//            }
-//        }
-    }
-    
-    func onFetchOkTokenPrice() {
-//        for i in 0..<mainTabVC.mBalances.count {
-//            if ((mainTabVC.mBalances[i].balance_denom == "okb-c4d")) {
-////            if ((mainTabVC.mBalances[i].balance_denom == OKEX_MAIN_OKB)) {
-//                let url = CGC_PRICE_TIC + "okb"
-//                let request = Alamofire.request(url, method: .get, parameters: ["localization":"false", "tickers":"false", "community_data":"false", "developer_data":"false", "sparkline":"false"], encoding: URLEncoding.default, headers: [:]);
-//                request.responseJSON { (response) in
-//                    switch response.result {
-//                    case .success(let res):
-//                        if let tics = res as? NSDictionary, let priceUsd = tics.value(forKeyPath: "market_data.current_price.usd") as? Double {
-//                            BaseData.instance.mOKBPrice = NSDecimalNumber.init(value: priceUsd)
-//                            self.tokenTableView.reloadRows(at: [[0,i] as IndexPath], with: .none)
-//                        }
-//                        self.onUpdateTotalCard()
-//
-//                    case .failure(let error):
-//                        if (SHOW_LOG) { print("onFetchKavaTokenPrice ", error) }
-//                    }
-//                }
-//            }
-//        }
     }
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {

@@ -46,7 +46,7 @@ class WalletPersisCell: UITableViewCell {
     func updateView(_ account: Account?, _ chainType: ChainType?) {
         let totalToken = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
         totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
-        totalValue.attributedText = WUtils.dpAmountValue(PERSIS_MAIN_DENOM, totalToken, 6, totalValue.font)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, totalToken, 6, totalValue.font)
         availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
         delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
