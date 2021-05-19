@@ -357,7 +357,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
                 holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
-                holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), amount, getMainActivity().mBaseChain));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, amount, 0));
                 holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -424,7 +424,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                     Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
                     intent.putExtra("denom", balance.symbol);
                     startActivity(intent);
-
                 }
             });
         }
@@ -444,6 +443,13 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                    }
+                });
+
             } else {
                 holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
                 Picasso.get().load(OKEX_COIN_IMG_URL+  okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
@@ -452,6 +458,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 BigDecimal convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
                 holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
                 holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_OK, convertAmount, 0));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                        intent.putExtra("denom", balance.symbol);
+                        startActivity(intent);
+                    }
+                });
             }
         }
     }
@@ -586,13 +600,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setText(balance.symbol.substring(1).toUpperCase());
             holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
             holder.itemFullName.setText(balance.symbol.substring(1).toUpperCase() + " on Sif Chain");
-
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-            try {
-                Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-
-            } catch (Exception e) { }
+            Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().availableAmount(balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
