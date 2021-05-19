@@ -36,7 +36,7 @@ public class TokenBnbHolder extends BaseHolder {
         mTvBnbBalance.setText(WDp.getDpAmount2(c, availableAmount, 0, 8));
         mTvBnbLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 8));
         mTvBnbFrozen.setText(WDp.getDpAmount2(c, frozenAmount, 0, 8));
-        mTvBnbValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvBnbValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
     }
 }

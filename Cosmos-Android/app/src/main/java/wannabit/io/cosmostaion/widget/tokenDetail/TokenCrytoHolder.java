@@ -48,7 +48,7 @@ public class TokenCrytoHolder extends BaseHolder {
         mTvCroDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 8, 8));
         mTvCroUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 8, 8));
         mTvCroRewards.setText(WDp.getDpAmount2(c, rewardAmount, 8, 8));
-        mTvCroValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvCroValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 8));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mCroVestingLayer.setVisibility(View.VISIBLE);
         } else { mCroVestingLayer.setVisibility(View.GONE); }
 

@@ -375,7 +375,7 @@ public class WUtil {
                             temp.accountId = accountId;
                             temp.symbol = coin.denom;
                             temp.balance = dpBalance;
-                            temp.frozen = remainVesting;
+                            temp.locked = remainVesting;
                             temp.fetchTime = time;
                             result.add(temp);
 

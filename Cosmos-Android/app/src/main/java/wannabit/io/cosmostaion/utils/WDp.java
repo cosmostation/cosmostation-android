@@ -490,7 +490,7 @@ public class WDp {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
             if (balance.symbol.equalsIgnoreCase(denom)) {
-                sum = balance.frozen;
+                sum = balance.locked;
             }
         }
         return sum;
@@ -501,7 +501,7 @@ public class WDp {
         for (Balance balance : balances) {
             if (balance.symbol.equals(denom)) {
                 sum = sum.add(balance.balance);
-                sum = sum.add(balance.frozen);
+                sum = sum.add(balance.locked);
             }
         }
         return sum;

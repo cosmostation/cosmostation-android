@@ -48,7 +48,7 @@ public class TokenPersisHolder extends BaseHolder {
         mTvXprtDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvXprtUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvXprtRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvXprtValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvXprtValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mXprtVestingLayer.setVisibility(View.VISIBLE);
         } else { mXprtVestingLayer.setVisibility(View.GONE); }
 

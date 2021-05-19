@@ -43,7 +43,7 @@ public class TokenCosmosHolder extends BaseHolder {
         mTvAtomDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvAtomUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvAtomRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvAtomValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvAtomValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
     }
 }

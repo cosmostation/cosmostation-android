@@ -49,7 +49,7 @@ public class TokenAkashHolder extends BaseHolder {
         mTvAkashDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvAkashUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvAkashRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvAkashValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvAkashValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mAkashVestingLayer.setVisibility(View.VISIBLE);
         } else { mAkashVestingLayer.setVisibility(View.GONE); }
     }

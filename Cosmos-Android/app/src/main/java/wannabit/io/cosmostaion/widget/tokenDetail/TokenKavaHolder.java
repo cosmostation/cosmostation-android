@@ -65,7 +65,7 @@ public class TokenKavaHolder extends BaseHolder {
         mTvKavaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvKavaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
         mTvKavaVesting.setText(WDp.getDpAmount2(c, vestingAmount, 6, 6));
-        mTvKavaValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvKavaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
             mKavaVestingLayer.setVisibility(View.VISIBLE);

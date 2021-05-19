@@ -44,7 +44,7 @@ public class TokenIrisHolder extends BaseHolder {
         mTvIrisDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
         mTvIrisUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
         mTvIrisRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
-        mTvIrisValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvIrisValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
     }
 }

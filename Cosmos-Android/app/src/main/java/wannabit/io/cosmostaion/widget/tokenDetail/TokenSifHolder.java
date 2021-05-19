@@ -66,7 +66,7 @@ public class TokenSifHolder extends BaseHolder {
         mTvSifUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 18, 18));
         mTvSifRewards.setText(WDp.getDpAmount2(c, rewardAmount, 18, 18));
         mTvSifVesting.setText(WDp.getDpAmount2(c, vestingAmount, 18, 18));
-        mTvSifValue.setText(WDp.getDpMainAssetValue(c, baseData, totalAmount, chain));
+        mTvSifValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) {
             mSifVestingLayer.setVisibility(View.VISIBLE);

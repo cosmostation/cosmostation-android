@@ -38,7 +38,7 @@ public class TokenOKExHolder extends BaseHolder {
         mOkLocked.setText(WDp.getDpAmount2(c, lockedAmount, 0, 18));
         mOkDeposit.setText(WDp.getDpAmount2(c, depositAmount, 0, 18));
         mOkWithdrawing.setText(WDp.getDpAmount2(c, withdrawAmount, 0, 18));
-        mOkTotalValue.setText(WDp.getValueOfOk(c, baseData, totalAmount));
+        mOkTotalValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
     }
 }
