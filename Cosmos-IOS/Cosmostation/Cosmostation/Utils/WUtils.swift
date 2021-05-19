@@ -1159,6 +1159,15 @@ class WUtils {
                 }
             }
         }
+        
+        else {
+            baseData.mBalances.forEach { coin in
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    let amount = getAllMainAssetOld(getMainDenom(chainType))
+                    totalValue = totalValue.adding(userCurrencyValue(coin.balance_denom, amount, mainDivideDecimal(chainType)))
+                }
+            }
+        }
         return totalValue
     }
     
@@ -1224,6 +1233,15 @@ class WUtils {
                     let available = baseData.availableAmount(coin.balance_denom)
                     let decimal = getSifCoinDecimal(coin.balance_denom)
                     totalValue = totalValue.adding(btcValue(coin.balance_denom.substring(from: 1), available, decimal))
+                }
+            }
+        }
+        
+        else {
+            baseData.mBalances.forEach { coin in
+                if (coin.balance_denom == getMainDenom(chainType)) {
+                    let amount = getAllMainAssetOld(getMainDenom(chainType))
+                    totalValue = totalValue.adding(btcValue(coin.balance_denom, amount, mainDivideDecimal(chainType)))
                 }
             }
         }

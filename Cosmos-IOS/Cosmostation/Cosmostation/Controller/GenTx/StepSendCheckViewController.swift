@@ -263,7 +263,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
         } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
             let mDpDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom!)
-            if (pageHolderVC.mToSendDenom == OKEX_MAIN_DENOM) {
+            if (pageHolderVC.mToSendDenom == SIF_MAIN_DENOM) {
                 currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
                 mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
                 mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
