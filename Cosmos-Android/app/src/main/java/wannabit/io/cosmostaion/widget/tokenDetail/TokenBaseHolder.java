@@ -145,7 +145,6 @@ public class TokenBaseHolder extends BaseHolder {
 
         mTvTokenAvailable.setText(WDp.getDpAmount2(context, totalAmount, dpDecimal, dpDecimal));
         mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, dpDecimal, dpDecimal));
-        mTvTokenValue.setText(WDp.getDpMainAssetValue(context, baseData, BigDecimal.ZERO, chain));
         mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, denom.substring(1), totalAmount, dpDecimal));
         Picasso.get().load(SIF_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
     }
