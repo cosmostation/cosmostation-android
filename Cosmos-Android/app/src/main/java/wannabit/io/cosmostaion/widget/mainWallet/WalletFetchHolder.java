@@ -40,18 +40,19 @@ public class WalletFetchHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_FET);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
         final BigDecimal delegateAmount = baseData.delegatedSumAmount();
         final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_FET);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_FET);
+        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
 
         mTvFetTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
         mTvFetAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 18, 6));
         mTvFetDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
         mTvFetUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
         mTvFetRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
-        mTvFetValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvFetValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {

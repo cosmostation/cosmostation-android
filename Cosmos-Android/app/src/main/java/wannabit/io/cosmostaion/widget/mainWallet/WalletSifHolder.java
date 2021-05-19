@@ -45,18 +45,19 @@ public class WalletSifHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_SIF);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
         final BigDecimal delegateAmount = baseData.delegatedSumAmount();
         final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_SIF);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_SIF);
+        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
 
         mTvSifTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
         mTvSifAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 18, 6));
         mTvSifDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
         mTvSifUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
         mTvSifRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
-        mTvSifValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvSifValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {

@@ -123,7 +123,7 @@ public class BaseData {
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
-            if (price.denom == denom.toLowerCase()) {
+            if (price.denom.equals(denom.toLowerCase())) {
                 return price;
             }
         }
@@ -1551,7 +1551,7 @@ public class BaseData {
     }
 
     public String getCurrencySymbol() {
-        if (getCurrency() == 1) {
+        if (getCurrency() == 0) {
             return "$";
         } else if (getCurrency() == 1) {
             return "€";

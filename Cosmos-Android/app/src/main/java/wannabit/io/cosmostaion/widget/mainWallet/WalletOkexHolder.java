@@ -48,8 +48,9 @@ public class WalletOkexHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_OK);
-        final BigDecimal lockedAmount = baseData.lockedAmount(TOKEN_OK);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
+        final BigDecimal lockedAmount = baseData.lockedAmount(denom);
         final BigDecimal depositAmount = baseData.okDepositAmount();
         final BigDecimal withdrawAmount = baseData.okWithdrawAmount();
         final BigDecimal totalAmount = availableAmount.add(lockedAmount).add(depositAmount).add(withdrawAmount);
@@ -60,7 +61,7 @@ public class WalletOkexHolder extends BaseHolder {
         mOkLocked.setText(WDp.getDpAmount2(mainActivity, lockedAmount, 0, 6));
         mOkDeposit.setText(WDp.getDpAmount2(mainActivity, depositAmount, 0, 6));
         mOkWithdrawing.setText(WDp.getDpAmount2(mainActivity, withdrawAmount, 0, 6));
-        mOkTotalValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mOkTotalValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

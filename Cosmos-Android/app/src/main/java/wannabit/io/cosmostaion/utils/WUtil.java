@@ -1386,7 +1386,7 @@ public class WUtil {
             }
 
         } else if (basechain.equals(AKASH_MAIN)) {
-            result = result + ",uxprt";
+            result = result + ",uakt";
             for (Coin coin: basedata.mGrpcBalance) {
                 if (coin.denom != WDp.mainDenom(basechain)) {
                 }
@@ -1436,6 +1436,7 @@ public class WUtil {
             result = result + ",afet";
 
         } else if (basechain.equals(SIF_MAIN)) {
+            result = result + ",rowan";
             for (Balance balance: basedata.mBalances) {
                 if (balance.symbol != WDp.mainDenom(basechain) && balance.symbol.startsWith("c")) {
                     result = result + "," + balance.symbol.substring(1);

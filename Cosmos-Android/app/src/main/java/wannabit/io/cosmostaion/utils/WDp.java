@@ -138,7 +138,7 @@ public class WDp {
     public static SpannableString getDpAmount2(Context c, BigDecimal input, int divideDecimal, int displayDecimal) {
         SpannableString result;
         BigDecimal amount = input.movePointLeft(divideDecimal).setScale(displayDecimal, BigDecimal.ROUND_DOWN);
-        result = new SpannableString(getDecimalFormat(c, displayDecimal).format(amount));
+        result = new SpannableString(getDecimalFormat(displayDecimal).format(amount));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - displayDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
@@ -583,7 +583,7 @@ public class WDp {
 
     public static SpannableString getDpMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
         int dpDecimal = dao.getCurrency() == 5 ? 8 : 2;
-        SpannableString result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, dpDecimal).format(getMainAssetValue(c, dao, amount, chain)));
+        SpannableString result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(dpDecimal).format(getMainAssetValue(c, dao, amount, chain)));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - dpDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
@@ -591,13 +591,13 @@ public class WDp {
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
-            result = new SpannableString(symbol + " " + getDecimalFormat(c, 8).format(input));
+            result = new SpannableString(symbol + " " + getDecimalFormat(8).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             SpannableString result;
-            result = new SpannableString(symbol + " " + getDecimalFormat(c, 2).format(input));
+            result = new SpannableString(symbol + " " + getDecimalFormat(2).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -606,13 +606,13 @@ public class WDp {
     public static SpannableString getPriceApproximatelyDp(Context c, BigDecimal input, String symbol, int currency) {
         if (currency == 5) {
             SpannableString result;
-            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " + getDecimalFormat(c, 8).format(input));
+            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " + getDecimalFormat(8).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             SpannableString result;
-            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " + getDecimalFormat(c, 2).format(input));
+            result = new SpannableString(c.getString(R.string.str_approximately)+ " " + symbol + " " + getDecimalFormat(2).format(input));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
@@ -624,13 +624,13 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBnbTic())).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -641,14 +641,14 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastKavaTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -659,14 +659,14 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastBandTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -678,14 +678,14 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIovTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastIovTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -696,14 +696,14 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastOKexTic())).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastOKexTic())).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -714,14 +714,14 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastCertikTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastCertikTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -732,14 +732,14 @@ public class WDp {
         if(dao.getCurrency() == 5) {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastSecretTic())).movePointLeft(6).setScale(8, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 8).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(8).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 8, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
 
         } else {
             totalPrice = totalAmount.multiply(new BigDecimal(""+dao.getLastSecretTic())).movePointLeft(6).setScale(2, RoundingMode.DOWN);
             SpannableString result;
-            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, 2).format(totalPrice));
+            result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(2).format(totalPrice));
             result.setSpan(new RelativeSizeSpan(0.8f), result.length() - 2, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
             return result;
         }
@@ -748,14 +748,14 @@ public class WDp {
     public static SpannableString getDpRawDollor(Context c, String price, int scale) {
         BigDecimal mPrice = new BigDecimal(price);
         SpannableString result;
-        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(mPrice));
+        result = new SpannableString("$ " +getDecimalFormat(scale).format(mPrice));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
 
     public static SpannableString getDpRawDollor(Context c, BigDecimal price, int scale) {
         SpannableString result;
-        result = new SpannableString("$ " +getDecimalFormat(c, scale).format(price));
+        result = new SpannableString("$ " +getDecimalFormat(scale).format(price));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - scale, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
     }
@@ -786,7 +786,7 @@ public class WDp {
         if (baseData.getPrice(denom) != null) {
             return baseData.getPrice(denom).priceChange();
         }
-        return BigDecimal.ZERO.setScale(2, RoundingMode.DOWN);
+        return BigDecimal.ZERO.setScale(2, RoundingMode.FLOOR);
     }
 
     public static SpannableString dpValueChange(BaseData baseData, String denom) {
@@ -795,7 +795,7 @@ public class WDp {
 
     public static BigDecimal perUsdValue(BaseData baseData, String denom) {
         if (baseData.getPrice(denom) != null) {
-            return baseData.getPrice(denom).currencyPrice(denom).setScale(3, RoundingMode.DOWN);
+            return baseData.getPrice(denom).currencyPrice("usd").setScale(3, RoundingMode.DOWN);
         }
         return BigDecimal.ZERO.setScale(3, RoundingMode.DOWN);
     }
@@ -825,8 +825,7 @@ public class WDp {
     }
 
     public static SpannableString dpPerUserCurrencyValue(BaseData baseData, String denom) {
-        final String formatted = baseData.getCurrencySymbol() + " " + perUserCurrencyValue(baseData, denom).toPlainString();
-        return getDpString(formatted, 3);
+        return dpCurrencyValue(baseData, perUserCurrencyValue(baseData, denom), 3);
     }
 
     public static BigDecimal userCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
@@ -834,8 +833,7 @@ public class WDp {
     }
 
     public static SpannableString dpUserCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-        final String formatted = baseData.getCurrencySymbol() + " " + userCurrencyValue(baseData, denom, amount, divider).toPlainString();
-        return getDpString(formatted, 3);
+        return dpCurrencyValue(baseData, userCurrencyValue(baseData, denom, amount, divider), 3);
     }
 
     public static BigDecimal btcValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
@@ -1011,6 +1009,12 @@ public class WDp {
         }
         return totalValue;
     }
+
+    public static SpannableString dpCurrencyValue(BaseData baseData, BigDecimal amount, int dpPoint) {
+        final String formatted = baseData.getCurrencySymbol()  + " " + getDecimalFormat(dpPoint).format(amount);
+        return getDpString(formatted, dpPoint);
+    }
+
 
 
 
@@ -1523,71 +1527,71 @@ public class WDp {
     }
 
 
-    public static DecimalFormat getDecimalFormat(Context c, int cnt) {
+    public static DecimalFormat getDecimalFormat(int cnt) {
         NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
         DecimalFormat decimalformat = (DecimalFormat)formatter;
         decimalformat.setRoundingMode(RoundingMode.DOWN);
         switch (cnt) {
             case 0:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_0));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0");
                 break;
             case 1:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_1));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0");
                 break;
             case 2:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_2));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00");
                 break;
             case 3:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_3));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000");
                 break;
             case 4:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_4));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000");
                 break;
             case 5:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_5));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000");
                 break;
             case 6:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_6));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000");
                 break;
             case 7:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_7));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000");
                 break;
             case 8:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_8));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000");
                 break;
             case 9:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_9));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000");
                 break;
             case 10:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_10));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000000");
                 break;
             case 11:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_11));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000000");
                 break;
             case 12:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_12));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000000");
                 break;
             case 13:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_13));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000000000");
                 break;
             case 14:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_14));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000000000");
                 break;
             case 15:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_15));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000000000");
                 break;
             case 16:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_16));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.0000000000000000");
                 break;
             case 17:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_17));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.00000000000000000");
                 break;
             case 18:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_18));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000000000000000");
                 break;
 
             default:
-                decimalformat.applyLocalizedPattern(c.getString(R.string.str_decimal_pattern_6));
+                decimalformat.applyLocalizedPattern("###,###,###,###,###,###,###,##0.000000");
                 break;
         }
         return decimalformat;

@@ -119,26 +119,6 @@
     <string name="str_block_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss.SSSSSSSSS\'Z\']]></string>
     <string name="str_tx_time_format" translatable="false"><![CDATA[yyyy-MM-dd\'T\'HH:mm:ss\'Z\']]></string>
 
-    <string name="str_decimal_pattern_0" translatable="false">###,###,###,###,###,###,###,##0</string>
-    <string name="str_decimal_pattern_1" translatable="false">###,###,###,###,###,###,###,##0.0</string>
-    <string name="str_decimal_pattern_2" translatable="false">###,###,###,###,###,###,###,##0.00</string>
-    <string name="str_decimal_pattern_3" translatable="false">###,###,###,###,###,###,###,##0.000</string>
-    <string name="str_decimal_pattern_4" translatable="false">###,###,###,###,###,###,###,##0.0000</string>
-    <string name="str_decimal_pattern_5" translatable="false">###,###,###,###,###,###,###,##0.00000</string>
-    <string name="str_decimal_pattern_6" translatable="false">###,###,###,###,###,###,###,##0.000000</string>
-    <string name="str_decimal_pattern_7" translatable="false">###,###,###,###,###,###,###,##0.0000000</string>
-    <string name="str_decimal_pattern_8" translatable="false">###,###,###,###,###,###,###,##0.00000000</string>
-    <string name="str_decimal_pattern_9" translatable="false">###,###,###,###,###,###,###,##0.000000000</string>
-    <string name="str_decimal_pattern_10" translatable="false">###,###,###,###,###,###,###,##0.0000000000</string>
-    <string name="str_decimal_pattern_11" translatable="false">###,###,###,###,###,###,###,##0.00000000000</string>
-    <string name="str_decimal_pattern_12" translatable="false">###,###,###,###,###,###,###,##0.000000000000</string>
-    <string name="str_decimal_pattern_13" translatable="false">###,###,###,###,###,###,###,##0.0000000000000</string>
-    <string name="str_decimal_pattern_14" translatable="false">###,###,###,###,###,###,###,##0.00000000000000</string>
-    <string name="str_decimal_pattern_15" translatable="false">###,###,###,###,###,###,###,##0.000000000000000</string>
-    <string name="str_decimal_pattern_16" translatable="false">###,###,###,###,###,###,###,##0.0000000000000000</string>
-    <string name="str_decimal_pattern_17" translatable="false">###,###,###,###,###,###,###,##0.00000000000000000</string>
-    <string name="str_decimal_pattern_18" translatable="false">###,###,###,###,###,###,###,##0.000000000000000000</string>
-
     <string name="str_cosmos_main_net">Cosmos Mainnet</string>
     <string name="str_cosmos_test_net_12k">COSMOS Testnet (GAIA 12k)</string>
     <string name="str_cosmos_test_net_13k">COSMOS Testnet (GAIA 13k)</string>

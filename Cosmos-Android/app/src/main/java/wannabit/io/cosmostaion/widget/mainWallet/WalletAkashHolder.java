@@ -46,12 +46,13 @@ public class WalletAkashHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.getAvailable(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal vestingAmount = baseData.getVesting(WDp.mainDenom(mainActivity.mBaseChain));
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
-        final BigDecimal rewardAmount = baseData.getRewardSum(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal totalAmount = baseData.getAllMainAsset(WDp.mainDenom(mainActivity.mBaseChain));
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
         mTvAkashTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvAkashAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
@@ -59,7 +60,7 @@ public class WalletAkashHolder extends BaseHolder {
         mTvAkashDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvAkashUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvAkashRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvAkashValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvAkashValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mAkashVestingLayer.setVisibility(View.VISIBLE);
         } else { mAkashVestingLayer.setVisibility(View.GONE); }
 

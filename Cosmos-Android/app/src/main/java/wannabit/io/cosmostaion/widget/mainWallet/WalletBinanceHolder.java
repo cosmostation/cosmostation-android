@@ -48,16 +48,17 @@ public class WalletBinanceHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount    = baseData.availableAmount(TOKEN_BNB);
-        final BigDecimal lockedAmount       = baseData.lockedAmount(TOKEN_BNB);
-        final BigDecimal frozenAmount       = baseData.frozenAmount(TOKEN_BNB);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount    = baseData.availableAmount(denom);
+        final BigDecimal lockedAmount       = baseData.lockedAmount(denom);
+        final BigDecimal frozenAmount       = baseData.frozenAmount(denom);
         final BigDecimal totalAmount        = availableAmount.add(lockedAmount).add(frozenAmount);
 
         mTvBnbTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 0, 6));
         mTvBnbBalance.setText(WDp.getDpAmount2(mainActivity, availableAmount, 0, 6));
         mTvBnbLocked.setText(WDp.getDpAmount2(mainActivity, lockedAmount, 0, 6));
         mTvBnbFrozen.setText(WDp.getDpAmount2(mainActivity, frozenAmount, 0, 6));
-        mTvBnbValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvBnbValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 0));
 
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 

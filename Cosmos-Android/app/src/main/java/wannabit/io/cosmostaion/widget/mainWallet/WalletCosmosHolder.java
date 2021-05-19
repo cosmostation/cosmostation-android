@@ -48,18 +48,19 @@ public class WalletCosmosHolder extends BaseHolder {
         } else if (mainActivity.mBaseChain.equals(COSMOS_TEST)) {
             mTvDenomTitle.setText(mainActivity.getString(R.string.s_muon));
         }
-        final BigDecimal availableAmount = baseData.getAvailable(WDp.mainDenom(mainActivity.mBaseChain));
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
-        final BigDecimal rewardAmount = baseData.getRewardSum(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal totalAmount = baseData.getAllMainAsset(WDp.mainDenom(mainActivity.mBaseChain));
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
         mTvAtomTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvAtomAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
         mTvAtomDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvAtomUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvAtomRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvAtomValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvAtomValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {

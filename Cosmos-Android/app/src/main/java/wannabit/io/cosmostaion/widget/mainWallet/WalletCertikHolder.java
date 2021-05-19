@@ -39,23 +39,20 @@ public class WalletCertikHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_CERTIK);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
         final BigDecimal delegateAmount = baseData.delegatedSumAmount();
         final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_CERTIK);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_CERTIK);
+        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
 
         mTvCertikTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvCertikAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
         mTvCertikDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvCertikUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvCertikRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvCertikValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
-
+        mTvCertikValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
-
-
-
 
         mBtnCertikStake.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -43,12 +43,13 @@ public class WalletCrytoHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.getAvailable(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal vestingAmount = baseData.getVesting(WDp.mainDenom(mainActivity.mBaseChain));
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
-        final BigDecimal rewardAmount = baseData.getRewardSum(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal totalAmount = baseData.getAllMainAsset(WDp.mainDenom(mainActivity.mBaseChain));
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
         mTvCroTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 8, 6));
         mTvCroAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 8, 6));
@@ -56,7 +57,7 @@ public class WalletCrytoHolder extends BaseHolder {
         mTvCroDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 8, 6));
         mTvCroUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 8, 6));
         mTvCroRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 8, 6));
-        mTvCroValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvCroValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 8));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mCroVestingLayer.setVisibility(View.VISIBLE);
         } else { mCroVestingLayer.setVisibility(View.GONE); }

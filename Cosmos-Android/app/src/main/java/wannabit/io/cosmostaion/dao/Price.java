@@ -6,6 +6,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 
+import wannabit.io.cosmostaion.utils.WLog;
+
 public class Price {
     @SerializedName("denom")
     public String denom;
@@ -30,8 +32,8 @@ public class Price {
 
     public BigDecimal currencyPrice(String currency) {
         for (Prices prices: prices) {
-            if (prices.currency == currency) {
-                return new BigDecimal(prices.current_price).setScale(8, RoundingMode.DOWN);
+            if (prices.currency.equals(currency)) {
+                return BigDecimal.valueOf(prices.current_price).setScale(8, RoundingMode.DOWN);
             }
         }
         return BigDecimal.ZERO.setScale(8, RoundingMode.DOWN);
@@ -39,10 +41,10 @@ public class Price {
 
     public BigDecimal priceChange() {
         for (Prices prices: prices) {
-            if (prices.currency == "usd") {
-                return new BigDecimal(prices.daily_price_change_in_percentage).setScale(2, RoundingMode.DOWN);
+            if (prices.currency.equals("usd")) {
+                return BigDecimal.valueOf(prices.daily_price_change_in_percentage).setScale(2, RoundingMode.FLOOR);
             }
         }
-        return BigDecimal.ZERO.setScale(2, RoundingMode.DOWN);
+        return BigDecimal.ZERO.setScale(2, RoundingMode.FLOOR);
     }
 }

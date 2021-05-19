@@ -51,12 +51,13 @@ public class WalletKavaHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_KAVA);
-        final BigDecimal vestingAmount = baseData.lockedAmount(TOKEN_KAVA);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
+        final BigDecimal vestingAmount = baseData.lockedAmount(denom);
         final BigDecimal delegateAmount = baseData.delegatedSumAmount();
         final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_KAVA);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_KAVA);
+        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
 
         mTvKavaTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvKavaAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
@@ -64,7 +65,7 @@ public class WalletKavaHolder extends BaseHolder {
         mTvKavaUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvKavaRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
         mTvKavaVesting.setText(WDp.getDpAmount2(mainActivity, vestingAmount, 6, 6));
-        mTvKavaValue.setText(WDp.getValueOfKava(mainActivity, mainActivity.getBaseDao(), totalAmount));
+        mTvKavaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mKavaVestingLayer.setVisibility(View.VISIBLE);
         } else { mKavaVestingLayer.setVisibility(View.GONE); }

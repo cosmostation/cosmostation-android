@@ -44,12 +44,13 @@ public class WalletPersisHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.getAvailable(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal vestingAmount = baseData.getVesting(WDp.mainDenom(mainActivity.mBaseChain));
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.getAvailable(denom);
+        final BigDecimal vestingAmount = baseData.getVesting(denom);
         final BigDecimal delegateAmount = baseData.getDelegationSum();
         final BigDecimal unbondingAmount = baseData.getUndelegationSum();
-        final BigDecimal rewardAmount = baseData.getRewardSum(WDp.mainDenom(mainActivity.mBaseChain));
-        final BigDecimal totalAmount = baseData.getAllMainAsset(WDp.mainDenom(mainActivity.mBaseChain));
+        final BigDecimal rewardAmount = baseData.getRewardSum(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
         mTvXprtTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvXprtAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
@@ -57,7 +58,7 @@ public class WalletPersisHolder extends BaseHolder {
         mTvXprtDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvXprtUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvXprtRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvXprtValue.setText(WDp.getDpMainAssetValue(mainActivity, baseData, totalAmount, mainActivity.mBaseChain));
+        mTvXprtValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
         if (!vestingAmount.equals(BigDecimal.ZERO)) { mXprtVestingLayer.setVisibility(View.VISIBLE);
         } else { mXprtVestingLayer.setVisibility(View.GONE); }

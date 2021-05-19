@@ -31,7 +31,7 @@ public class TxCloseDeploymentHolder extends TxHolder{
         try {
             DeploymentOuterClass.MsgCloseDeployment msg = DeploymentOuterClass.MsgCloseDeployment.parseFrom(response.getTx().getBody().getMessages(position).getValue());
             itemCloseDeploymentId.setText("" + msg.getId().getOwner());
-            itemDseq.setText("" + WDp.getDecimalFormat(c,0).format(msg.getId().getDseq()));
+            itemDseq.setText("" + WDp.getDecimalFormat(0).format(msg.getId().getDseq()));
         } catch (Exception e) {}
     }
 }

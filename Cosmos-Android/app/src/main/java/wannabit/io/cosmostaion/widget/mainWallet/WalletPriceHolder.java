@@ -60,19 +60,17 @@ public class WalletPriceHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData data = mainActivity.getBaseDao();
-        final BigDecimal lastPrice = data.getLastPriceTic(mainActivity.mBaseChain);
-        final BigDecimal lastUpDown = data.getLastPriceUpDown(mainActivity.mBaseChain);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
 
-        itemPerPrice.setText(WDp.getPriceDp(mainActivity, lastPrice, data.getCurrencySymbol(), data.getCurrency()));
-        itemUpDownPrice.setText(WDp.getPriceUpDown(lastUpDown));
+        itemPerPrice.setText(WDp.dpPerUserCurrencyValue(data, denom));
+        itemUpDownPrice.setText(WDp.dpValueChange(data, denom));
+        final BigDecimal lastUpDown = WDp.valueChange(data, denom);
         if (lastUpDown.compareTo(BigDecimal.ZERO) > 0) {
             itemUpDownImg.setVisibility(View.VISIBLE);
             itemUpDownImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_price_up));
-
         } else if (lastUpDown.compareTo(BigDecimal.ZERO) < 0) {
             itemUpDownImg.setVisibility(View.VISIBLE);
             itemUpDownImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_price_down));
-
         } else {
             itemUpDownImg.setVisibility(View.INVISIBLE);
         }

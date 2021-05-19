@@ -40,19 +40,19 @@ public class WalletBandHolder extends BaseHolder {
 
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
-        final BigDecimal availableAmount = baseData.availableAmount(TOKEN_BAND);
+        final String denom = WDp.mainDenom(mainActivity.mBaseChain);
+        final BigDecimal availableAmount = baseData.availableAmount(denom);
         final BigDecimal delegateAmount = baseData.delegatedSumAmount();
         final BigDecimal unbondingAmount = baseData.unbondingSumAmount();
-        final BigDecimal rewardAmount = baseData.rewardAmount(TOKEN_BAND);
-        final BigDecimal totalAmount = baseData.getAllMainAssetOld(TOKEN_BAND);
+        final BigDecimal rewardAmount = baseData.rewardAmount(denom);
+        final BigDecimal totalAmount = baseData.getAllMainAssetOld(denom);
 
         mTvBandTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
         mTvBandAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
         mTvBandDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
         mTvBandUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
         mTvBandRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
-        mTvBandValue.setText(WDp.getValueOfBand(mainActivity, baseData, totalAmount));
-
+        mTvBandValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {
