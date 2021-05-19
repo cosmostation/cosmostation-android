@@ -1214,14 +1214,16 @@ class WUtils {
             
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
             baseData.mBalances.forEach { coin in
-                var allOKT = NSDecimalNumber.zero
                 if (coin.balance_denom == getMainDenom(chainType)) {
-                    allOKT = allOKT.adding(getAllExToken(coin.balance_denom))
+                    let amount = getAllExToken(coin.balance_denom)
+                    let btcValue = btcValue(getMainDenom(chainType), amount, 0)
+                    totalValue = totalValue.adding(btcValue)
                 } else {
-                    allOKT = allOKT.adding(convertTokenToOkt(coin.balance_denom))
+                    let convertAmount = convertTokenToOkt(coin.balance_denom)
+                    let btcValue = btcValue(getMainDenom(chainType), convertAmount, 0)
+                    totalValue = totalValue.adding(btcValue)
+                    
                 }
-                let btcValue = btcValue(getMainDenom(chainType), allOKT, 0)
-                totalValue = totalValue.adding(btcValue)
             }
             
         } else if (chainType! == ChainType.SIF_MAIN) {

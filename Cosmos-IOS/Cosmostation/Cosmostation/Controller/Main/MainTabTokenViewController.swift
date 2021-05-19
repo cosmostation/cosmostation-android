@@ -265,10 +265,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIrisItems(tableView, indexPath)
         } else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
             return onSetBnbItems(tableView, indexPath)
-        } else if (chainType! == ChainType.KAVA_MAIN) {
+        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
             return onSetKavaItems(tableView, indexPath)
-        } else if (chainType! == ChainType.KAVA_TEST) {
-            return onSetKavaTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.IOV_MAIN || chainType! == ChainType.IOV_TEST) {
             return onSetIovItems(tableView, indexPath)
         } else if (chainType! == ChainType.BAND_MAIN) {
@@ -385,84 +383,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
     }
     
-    func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == COSMOS_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "atom_ic")
-            cell?.tokenSymbol.text = "ATOM"
-            cell?.tokenSymbol.textColor = COLOR_ATOM
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Cosmos Staking Token"
-            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_MAIN_DENOM, allAtom, 6, cell!.tokenValue.font)
-
-        } else {
-            // TODO no this case yet!
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
-        }
-        return cell!
-    }
-    
-    func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == COSMOS_TEST_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "atom_ic")
-            cell?.tokenSymbol.text = "MUON"
-            cell?.tokenSymbol.textColor = COLOR_ATOM
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Stargate Staking Token"
-            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_TEST_DENOM, allAtom, 6, cell!.tokenValue.font)
-        }
-        return cell!
-    }
-    
-    func onSetIrisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == IRIS_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "irisTokenImg")
-            cell?.tokenSymbol.text = "IRIS"
-            cell?.tokenSymbol.textColor = COLOR_IRIS
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Iris Staking Token"
-            let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, allIris, 6, cell!.tokenValue.font)
-            
-        } else {
-            
-        }
-        return cell!
-    }
-    
-    func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == IRIS_TEST_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "irisTokenImg")
-            cell?.tokenSymbol.text = "BIF"
-            cell?.tokenSymbol.textColor = COLOR_IRIS
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Bifrost Staking Token"
-            let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, allIris, 6, cell!.tokenValue.font)
-            
-        } else if (balance.isIbc()) {
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            
-        } else {
-            
-        }
-        return cell!
-    }
-    
     func onSetBnbItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let denom = mainTabVC.mBalances[indexPath.row].balance_denom
@@ -497,7 +417,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenSymbol.text = "KAVA"
             cell?.tokenSymbol.textColor = COLOR_KAVA
             cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Kava Chain Native Token"
+            cell?.tokenDescription.text = "Kava Staking Token"
             
             let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
@@ -516,99 +436,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
-        }
-        return cell!
-    }
-    
-    func onSetKavaTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == KAVA_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "kavaTokenImg")
-            cell?.tokenSymbol.text = "KAVA"
-            cell?.tokenSymbol.textColor = COLOR_KAVA
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Kava Chain Native Token"
-            
-            let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, totalKava, 6, cell!.tokenValue.font)
-            
-        } else {
-            cell?.tokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + balance.balance_denom + ".png")!)
-            cell?.tokenSymbol.text = balance.balance_denom.uppercased()
-            cell?.tokenSymbol.textColor = UIColor.white
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            if (balance.balance_denom == "usdx") { cell?.tokenDescription.text = "USD Stable Asset" }
-            else if (balance.balance_denom == "hard") { cell?.tokenDescription.text = "HardPool Gov. Token" }
-            else { cell?.tokenDescription.text = balance.balance_denom.uppercased() + " on Kava Chain" }
-            
-            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
-            let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
-        }
-        return cell!
-    }
-    
-    func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "iovTokenImg")
-            cell?.tokenSymbol.text = "IOV"
-            cell?.tokenSymbol.textColor = COLOR_IOV
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Starname Native Token"
-                        
-            let allIov = WUtils.getAllMainAssetOld(IOV_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IOV_MAIN_DENOM, allIov, 6, cell!.tokenValue.font)
-            
-        } else { }
-        return cell!
-    }
-    
-    func onSetBandItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == BAND_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "bandTokenImg")
-            cell?.tokenSymbol.text = "BAND"
-            cell?.tokenSymbol.textColor = COLOR_BAND
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Band Chain Native Token"
-            
-            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
-
-        } else {
-            // TODO no this case yet!
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
-        }
-        return cell!
-    }
-    
-    func onSetSecretItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = mainTabVC.mBalances[indexPath.row]
-        if (balance.balance_denom == SECRET_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "secretTokenImg")
-            cell?.tokenSymbol.text = "SCRT"
-            cell?.tokenSymbol.textColor = COLOR_SECRET
-            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
-            cell?.tokenDescription.text = "Secret Native Token"
-            
-            let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SECRET_MAIN_DENOM, allSecret, 6, cell!.tokenValue.font)
-
-        } else {
-            // TODO no this case yet!
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
         }
         return cell!
     }
@@ -642,6 +469,68 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetIovItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == IOV_MAIN_DENOM || balance.balance_denom == IOV_TEST_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "iovTokenImg")
+            cell?.tokenSymbol.text = "IOV"
+            cell?.tokenSymbol.textColor = COLOR_IOV
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Starname Staking Token"
+                        
+            let allIov = WUtils.getAllMainAssetOld(IOV_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIov.stringValue, cell!.tokenAmount.font!, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IOV_MAIN_DENOM, allIov, 6, cell!.tokenValue.font)
+            
+        } else { }
+        return cell!
+    }
+    
+    func onSetBandItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == BAND_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "bandTokenImg")
+            cell?.tokenSymbol.text = "BAND"
+            cell?.tokenSymbol.textColor = COLOR_BAND
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Band Staking Token"
+            
+            let allBand = WUtils.getAllMainAssetOld(BAND_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allBand.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(BAND_MAIN_DENOM, allBand, 6, cell!.tokenValue.font)
+
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetSecretItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == SECRET_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "secretTokenImg")
+            cell?.tokenSymbol.text = "SCRT"
+            cell?.tokenSymbol.textColor = COLOR_SECRET
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Secret Staking Token"
+            
+            let allSecret = WUtils.getAllMainAssetOld(SECRET_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allSecret.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(SECRET_MAIN_DENOM, allSecret, 6, cell!.tokenValue.font)
+
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
     func onSetCertikItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
@@ -655,50 +544,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allCtk = WUtils.getAllMainAssetOld(CERTIK_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCtk.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CERTIK_MAIN_DENOM, allCtk, 6, cell!.tokenValue.font)
-            
-        } else {
-            // TODO no this case yet!
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
-        }
-        return cell!
-    }
-    
-    func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == AKASH_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "akashTokenImg")
-            cell?.tokenSymbol.text = "AKT"
-            cell?.tokenSymbol.textColor = COLOR_AKASH
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Akash Staking Token"
-            
-            let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AKASH_MAIN_DENOM, allAkt, 6, cell!.tokenValue.font)
-            
-        } else {
-            // TODO no this case yet!
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
-        }
-        return cell!
-    }
-    
-    func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == PERSIS_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "tokenpersistence")
-            cell?.tokenSymbol.text = "XPRT"
-            cell?.tokenSymbol.textColor = COLOR_PERSIS
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Persistence Staking Token"
-            
-            let allPersis = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allPersis.stringValue, cell!.tokenAmount.font, 6, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, allPersis, 6, cell!.tokenValue.font)
             
         } else {
             // TODO no this case yet!
@@ -751,27 +596,6 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
-    func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
-        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
-        if (balance.denom == CRYPTO_MAIN_DENOM) {
-            cell?.tokenImg.image = UIImage(named: "tokencrypto")
-            cell?.tokenSymbol.text = "CRO"
-            cell?.tokenSymbol.textColor = COLOR_CRYPTO
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
-            cell?.tokenDescription.text = "Crypto.org Staking Token"
-            
-            let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
-            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
-            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CRYPTO_MAIN_DENOM, allCro, 8, cell!.tokenValue.font)
-        } else {
-            // TODO no this case yet!
-            cell?.tokenImg.image = UIImage(named: "tokenIc")
-            cell?.tokenSymbol.textColor = UIColor.white
-        }
-        return cell!
-    }
-    
     func onSetSifItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = mainTabVC.mBalances[indexPath.row]
@@ -815,6 +639,151 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allKi = WUtils.getAllMainAssetOld(KI_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allKi.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KI_MAIN_DENOM, allKi, 6, cell!.tokenValue.font)
+            
+        }
+        return cell!
+    }
+    
+    
+    //with gRPC
+    func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == COSMOS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "atom_ic")
+            cell?.tokenSymbol.text = "ATOM"
+            cell?.tokenSymbol.textColor = COLOR_ATOM
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Cosmos Staking Token"
+            let allAtom = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_MAIN_DENOM, allAtom, 6, cell!.tokenValue.font)
+
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetIrisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == IRIS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "irisTokenImg")
+            cell?.tokenSymbol.text = "IRIS"
+            cell?.tokenSymbol.textColor = COLOR_IRIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Iris Staking Token"
+            let allIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, allIris, 6, cell!.tokenValue.font)
+            
+        } else {
+            
+        }
+        return cell!
+    }
+    
+    func onSetAkashItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == AKASH_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "akashTokenImg")
+            cell?.tokenSymbol.text = "AKT"
+            cell?.tokenSymbol.textColor = COLOR_AKASH
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Akash Staking Token"
+            
+            let allAkt = WUtils.getAllMainAsset(AKASH_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AKASH_MAIN_DENOM, allAkt, 6, cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetPersisItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == PERSIS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenpersistence")
+            cell?.tokenSymbol.text = "XPRT"
+            cell?.tokenSymbol.textColor = COLOR_PERSIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Persistence Staking Token"
+            
+            let allPersis = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allPersis.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, allPersis, 6, cell!.tokenValue.font)
+            
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetCrytoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == CRYPTO_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokencrypto")
+            cell?.tokenSymbol.text = "CRO"
+            cell?.tokenSymbol.textColor = COLOR_CRYPTO
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Crypto.org Staking Token"
+            
+            let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CRYPTO_MAIN_DENOM, allCro, 8, cell!.tokenValue.font)
+        } else {
+            // TODO no this case yet!
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+        }
+        return cell!
+    }
+    
+    func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == COSMOS_TEST_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "atom_ic")
+            cell?.tokenSymbol.text = "MUON"
+            cell?.tokenSymbol.textColor = COLOR_ATOM
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Stargate Staking Token"
+            let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_TEST_DENOM, allAtom, 6, cell!.tokenValue.font)
+        }
+        return cell!
+    }
+    
+    func onSetIrisTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == IRIS_TEST_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "irisTokenImg")
+            cell?.tokenSymbol.text = "BIF"
+            cell?.tokenSymbol.textColor = COLOR_IRIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Bifrost Staking Token"
+            let allIris = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, allIris, 6, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            
+        } else {
             
         }
         return cell!
