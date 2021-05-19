@@ -23,7 +23,6 @@ import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -103,7 +102,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private LinearLayout            mBtnSort;
 
     private TokensAdapter           mTokensAdapter;
-    private ArrayList<Balance>      mBalances = new ArrayList<>();
     private int                     mOrder;
 
     public static MainTokensFragment newInstance(Bundle bundle) {
@@ -189,6 +187,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     public void onRefreshTab() {
         if(!isAdded()) return;
         mSwipeRefreshLayout.setRefreshing(false);
+        mRecyclerView.getRecycledViewPool().clear();
         onUpdateView();
     }
 
@@ -199,27 +198,35 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateView() {
-        mBalances = getBaseDao().mBalances;
-        if (mOrder == ORDER_NAME) {
-            mTokenSortType.setText(R.string.str_name);
-            WUtil.onSortingTokenByName(mBalances, getMainActivity().mBaseChain);
-        } else if (mOrder == ORDER_AMOUNT) {
-            mTokenSortType.setText(R.string.str_amount);
-            WUtil.onSortingTokenByAmount(mBalances, getMainActivity().mBaseChain);
-        } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST))) {
-            mTokenSortType.setText(R.string.str_value);
-//            WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
-        } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST))) {
-            mTokenSortType.setText(R.string.str_value);
-            WUtil.onSortingKavaTokenByValue(getBaseDao(), mBalances);
-        }
         mCardTotal.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getMainActivity().mBaseChain));
         onUpdateTotalCard();
+
+        if (mOrder == ORDER_NAME) {
+            mTokenSortType.setText(R.string.str_name);
+            if (isGRPC(getMainActivity().mBaseChain)) {
+                WUtil.onSortingTokenByNameV1(getBaseDao().mGrpcBalance, getMainActivity().mBaseChain);
+            } else {
+                WUtil.onSortingTokenByName(getBaseDao().mBalances, getMainActivity().mBaseChain);
+            }
+        } else if (mOrder == ORDER_AMOUNT) {
+            mTokenSortType.setText(R.string.str_amount);
+            if (isGRPC(getMainActivity().mBaseChain)) {
+                WUtil.onSortingTokenByAmountV1(getBaseDao().mGrpcBalance, getMainActivity().mBaseChain);
+            } else {
+                WUtil.onSortingTokenByAmount(getBaseDao().mBalances, getMainActivity().mBaseChain);
+            }
+        } else if (mOrder == ORDER_VALUE) {
+            mTokenSortType.setText(R.string.str_value);
+            if (isGRPC(getMainActivity().mBaseChain)) {
+                WUtil.onSortingTokenByValueV1(getBaseDao().mGrpcBalance, getMainActivity().mBaseChain);
+            } else {
+                WUtil.onSortingTokenByValue(getBaseDao().mBalances, getMainActivity().mBaseChain);
+            }
+        }
 
         if (isGRPC(getMainActivity().mBaseChain)) {
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
-//                mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
 
@@ -229,7 +236,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
 
         } else {
-            if (mBalances != null && mBalances.size() > 0) {
+            if (getBaseDao().mBalances != null && getBaseDao().mBalances.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
                 mEmptyToken.setVisibility(View.GONE);
                 mRecyclerView.setVisibility(View.VISIBLE);
@@ -239,7 +246,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 mRecyclerView.setVisibility(View.GONE);
             }
         }
-
     }
 
     private void onUpdateTotalCard() {
@@ -317,7 +323,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             if (isGRPC(getMainActivity().mBaseChain)) {
                 return getBaseDao().mGrpcBalance.size();
             } else {
-                return mBalances.size();
+                return getBaseDao().mBalances.size();
             }
         }
 
@@ -393,7 +399,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindBnbItem(TokensAdapter.AssetHolder holder, final int position) {
-        final String denom      = mBalances.get(position).symbol;
+        final String denom      = getBaseDao().mBalances.get(position).symbol;
         final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
         final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
         if (bnbToken != null) {
@@ -435,7 +441,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindKavaItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
@@ -473,7 +479,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             } catch (Exception e) { }
 
-            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
+            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
@@ -492,7 +498,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindKavaTestItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_KAVA)) {
             holder.itemSymbol.setText(getString(R.string.str_kava_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
@@ -529,7 +535,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
             } catch (Exception e) { }
 
-            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
+            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
@@ -549,7 +555,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
             holder.itemSymbol.setText(getString(R.string.str_iov_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
@@ -567,7 +573,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_BAND)) {
             holder.itemSymbol.setText(getString(R.string.str_band_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
@@ -585,7 +591,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance   = mBalances.get(position);
+        final Balance balance   = getBaseDao().mBalances.get(position);
         final OkToken token     = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
         if (token == null) {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
@@ -637,7 +643,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_CERTIK)) {
             holder.itemSymbol.setText(getString(R.string.str_ctk_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
@@ -655,7 +661,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindSecretItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_SECRET)) {
             holder.itemSymbol.setText(getString(R.string.str_scrt_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
@@ -674,7 +680,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindSentinelItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_DVPN)) {
             holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SENTINEL_MAIN));
@@ -690,7 +696,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindFetchItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_FET)) {
             holder.itemSymbol.setText(getString(R.string.str_fet_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
@@ -781,7 +787,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindSifItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         final int dpDecimal = WUtil.getSifCoinDecimal(balance.symbol);
         if (balance.symbol.equals(TOKEN_SIF)) {
             holder.itemSymbol.setText(getString(R.string.str_sif_c));
@@ -830,7 +836,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onBindKiItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = mBalances.get(position);
+        final Balance balance = getBaseDao().mBalances.get(position);
         if (balance.symbol.equals(TOKEN_KI)) {
             holder.itemSymbol.setText(getString(R.string.str_ki_c));
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
@@ -881,76 +887,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         } else { }
 
     }
-
-
-    /*
-    private void onFetchCosmosTokenPrice() {
-        onUpdateTotalCard();
-    }
-
-    private void onFetchIrisTokenPrice() {
-        onUpdateTotalCard();
-    }
-
-    private void onFetchBnbTokenPrice() {
-//        mBnbTics.clear();
-//        for (int i = 0; i < mBalances.size(); i ++) {
-//            final int position = i;
-//            if (!mBalances.get(position).symbol.equals(TOKEN_BNB)) {
-//                final String ticSymbol = WUtil.getBnbTicSymbol(mBalances.get(position).symbol);
-//                ResBnbTic tic = mBnbTics.get(ticSymbol);
-//                if (tic == null) {
-//                    ApiClient.getBnbChain(getMainActivity()).getTic(ticSymbol).enqueue(new Callback<ArrayList<ResBnbTic>>() {
-//                        @Override
-//                        public void onResponse(Call<ArrayList<ResBnbTic>> call, Response<ArrayList<ResBnbTic>> response) {
-//                            if (isAdded() && response.isSuccessful() && response.body().size() > 0) {
-//                                mBnbTics.put(ticSymbol, response.body().get(0));
-//                                mTokensAdapter.notifyItemChanged(position);
-//                            } else {
-//                                mBnbTics.remove(ticSymbol);
-//                            }
-//                            onUpdateTotalCard();
-//                        }
-//
-//                        @Override
-//                        public void onFailure(Call<ArrayList<ResBnbTic>> call, Throwable t) {
-//                            mBnbTics.remove(ticSymbol);
-//                            onUpdateTotalCard();
-//                        }
-//                    });
-//                }
-//            }
-//        }
-    }
-
-    private void onFetchIovTokenPrice() {
-        onUpdateTotalCard();
-    }
-
-    private void onFetchOKexTokenPrice() {
-        for (int i = 0; i < mBalances.size(); i ++) {
-            final int position = i;
-            if (mBalances.get(position).symbol.equals("okb-c4d")) {
-//          if (mBalances.get(position).symbol.equals(TOKEN_OK_OKB)) {
-                ApiClient.getCGCClient(getMainActivity()).getPriceTicLite("okb", "false", "false", "false", "false", "false").enqueue(new Callback<ResCgcTic>() {
-                    @Override
-                    public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-                        getBaseDao().mOKBPrice = new BigDecimal(response.body().market_data.current_price.usd);
-                        mTokensAdapter.notifyItemChanged(position);
-                        onUpdateTotalCard();
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResCgcTic> call, Throwable t) {
-                        WLog.w("onFetchOKexTokenPrice onFailure");
-
-                    }
-                });
-            }
-        }
-    }
-    */
-
 
     public MainActivity getMainActivity() {
         return (MainActivity)getBaseActivity();

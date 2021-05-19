@@ -422,7 +422,6 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
 
         onUpdateTitle();
         onFetchAllData();
-//        onShowTestNetWarnIfNeed();
         mSelectChainPosition = getBaseDao().getLastChain();
         onChainSelected(mSelectChainPosition);
     }
