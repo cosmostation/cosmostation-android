@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.Password;
+import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
@@ -108,6 +109,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SENTINEL_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SIF_TIC;
 import static wannabit.io.cosmostaion.base.BaseConstant.PRE_SIF_UP_DOWN_24;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class BaseData {
 
@@ -116,6 +118,17 @@ public class BaseData {
     private SQLiteDatabase          mSQLiteDatabase;
     public String                   mCopySalt;
     public EncResult                mCopyEncResult;
+
+    public ArrayList<Price>         mPrices = new ArrayList<>();
+
+    public Price getPrice(String denom) {
+        for (Price price: mPrices) {
+            if (price.denom == denom.toLowerCase()) {
+                return price;
+            }
+        }
+        return null;
+    }
 
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
@@ -301,6 +314,14 @@ public class BaseData {
             }
         }
         return null;
+    }
+
+    public BigDecimal getAllExToken(String denom) {
+        if (denom == TOKEN_OK) {
+            return availableAmount(denom).add(lockedAmount(denom)).add(okDepositAmount()).add(okWithdrawAmount());
+        } else {
+            return availableAmount(denom).add(lockedAmount(denom));
+        }
     }
 
     //gRPC
@@ -1505,7 +1526,9 @@ public class BaseData {
     }
 
     public String getCurrencyString() {
-        if (getCurrency() == 1) {
+        if (getCurrency() == 0) {
+            return "USD";
+        } else if (getCurrency() == 1) {
             return "EUR";
         } else if (getCurrency() == 2) {
             return "KRW";
@@ -1514,14 +1537,23 @@ public class BaseData {
         } else if (getCurrency() == 4) {
             return "CNY";
         } else if (getCurrency() == 5) {
-            return "BTC";
-        } else {
-            return "USD";
+            return "RUB";
+        } else if (getCurrency() == 6) {
+            return "GBP";
+        } else if (getCurrency() == 7) {
+            return "INR";
+        } else if (getCurrency() == 8) {
+            return "BRL";
+        } else if (getCurrency() == 9) {
+            return "IDR";
         }
+        return "";
     }
 
     public String getCurrencySymbol() {
         if (getCurrency() == 1) {
+            return "$";
+        } else if (getCurrency() == 1) {
             return "€";
         } else if (getCurrency() == 2) {
             return "₩";
@@ -1530,10 +1562,17 @@ public class BaseData {
         } else if (getCurrency() == 4) {
             return "¥";
         } else if (getCurrency() == 5) {
-            return "\u20BF";
-        } else {
-            return "$";
+            return "₽";
+        } else if (getCurrency() == 6) {
+            return "£";
+        } else if (getCurrency() == 7) {
+            return "₹";
+        } else if (getCurrency() == 8) {
+            return "R$";
+        } else if (getCurrency() == 9) {
+            return "Rp";
         }
+        return "";
     }
 
     public void setCurrency(int currency) {

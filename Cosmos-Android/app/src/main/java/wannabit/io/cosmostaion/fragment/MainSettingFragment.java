@@ -236,7 +236,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if(requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
-            getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
+//            getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
+            //TODO YONG
 
         } else if (requestCode == SELECT_MARKET && resultCode == Activity.RESULT_OK) {
             getBaseDao().setMarket(data.getIntExtra("market", 0));

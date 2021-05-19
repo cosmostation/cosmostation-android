@@ -33,7 +33,7 @@ public class TokenHardHolder extends BaseHolder {
         final int dpDecimal = 6;
         final BigDecimal availableAmount    = WDp.getAvailableCoin(baseData.mBalances, TOKEN_HARD);
         final BigDecimal vestingAmount      = WDp.getKavaVestingAmount(baseData.mBalances, TOKEN_HARD);
-        final BigDecimal totalValue         = WDp.kavaTokenDollorValue(chain, baseData, TOKEN_HARD, availableAmount.add(vestingAmount));
+        final BigDecimal totalValue         = WDp.kavaTokenDollorValue(baseData, TOKEN_HARD, availableAmount.add(vestingAmount));
         final BigDecimal convertedToKava    = totalValue.divide(baseData.getLastKavaDollorTic(), 6, RoundingMode.DOWN);
 
 

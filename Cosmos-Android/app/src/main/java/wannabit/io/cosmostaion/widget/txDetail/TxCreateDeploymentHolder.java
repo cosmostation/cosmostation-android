@@ -27,7 +27,7 @@ public class TxCreateDeploymentHolder extends TxHolder{
         itemCreateDeploymentId              = itemView.findViewById(R.id.tx_create_deployment_id);
 //        itemVersionHash                     = itemView.findViewById(R.id.tx_deployment_version_hash);
         itemCreateDeploymentDeposit         = itemView.findViewById(R.id.tx_create_deployment_deposit);
-        itemCreateDeploymentDepositDenom         = itemView.findViewById(R.id.tx_create_deployment_deposit_symbol);
+        itemCreateDeploymentDepositDenom    = itemView.findViewById(R.id.tx_create_deployment_deposit_symbol);
     }
 
     public void onBindMsg(Context c, BaseData baseData, BaseChain baseChain, ServiceOuterClass.GetTxResponse response, int position, String address, boolean isGen) {

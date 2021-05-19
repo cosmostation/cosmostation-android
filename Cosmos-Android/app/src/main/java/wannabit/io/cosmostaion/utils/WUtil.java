@@ -1232,7 +1232,7 @@ public class WUtil {
 //        });
 //    }
 
-    public static void onSortingKavaTokenByValue(BaseChain chain, BaseData baseData, ArrayList<Balance> balances) {
+    public static void onSortingKavaTokenByValue(BaseData baseData, ArrayList<Balance> balances) {
         Collections.sort(balances, new Comparator<Balance>() {
             @Override
             public int compare(Balance o1, Balance o2) {
@@ -1241,8 +1241,8 @@ public class WUtil {
 
                 BigDecimal amount1 = WDp.getKavaTokenAll(baseData, balances, o1.symbol);
                 BigDecimal amount2 = WDp.getKavaTokenAll(baseData, balances, o2.symbol);
-                BigDecimal value1 = WDp.kavaTokenDollorValue(chain, baseData, o1.symbol, amount1);
-                BigDecimal value2 = WDp.kavaTokenDollorValue(chain, baseData, o2.symbol, amount2);
+                BigDecimal value1 = WDp.kavaTokenDollorValue(baseData, o1.symbol, amount1);
+                BigDecimal value2 = WDp.kavaTokenDollorValue(baseData, o2.symbol, amount2);
 
                 return value2.compareTo(value1);
             }
@@ -1369,18 +1369,83 @@ public class WUtil {
         return result;
     }
 
-    public static CollateralParam getCdpCoinParm(CdpParam params, Balance balance) {
-        if (params != null) {
-            for (CollateralParam param:params.collateral_params) {
-                if (param.denom.equals(balance.symbol)) {
-                    return param;
+    public static String marketPrice(BaseChain basechain, BaseData basedata) {
+        String result = "usdt";
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(COSMOS_TEST)) {
+            result = result + ",uatom";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
                 }
             }
-            return null;
 
-        } else {
-            return null;
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            result = result + ",uiris";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
+                }
+            }
+
+        } else if (basechain.equals(AKASH_MAIN)) {
+            result = result + ",uxprt";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
+                }
+            }
+
+        } else if (basechain.equals(PERSIS_MAIN)) {
+            result = result + ",uxprt";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
+                }
+            }
+
+        } else if (basechain.equals(CRYPTO_MAIN)) {
+            result = result + ",basecro";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
+                }
+            }
+
         }
+
+        else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
+            result = result + ",bnb";
+
+        } else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+            result = result + ",ukava,hard";
+
+        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+            result = result + ",okb,okt";
+
+        } else if (basechain.equals(BAND_MAIN)) {
+            result = result + ",uband";
+
+        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+            result = result + ",uiov";
+
+        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+            result = result + ",uctk";
+
+        } else if (basechain.equals(SECRET_MAIN)) {
+            result = result + ",uscrt";
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            result = result + ",udvpn";
+
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            result = result + ",afet";
+
+        } else if (basechain.equals(SIF_MAIN)) {
+            for (Balance balance: basedata.mBalances) {
+                if (balance.symbol != WDp.mainDenom(basechain) && balance.symbol.startsWith("c")) {
+                    result = result + "," + balance.symbol.substring(1);
+                }
+            }
+
+        } else if (basechain.equals(KI_MAIN)) {
+            result = result + ",uxki";
+        }
+        return result;
     }
 
     public static int getKavaCoinDecimal(CdpParam params, Balance balance) {
@@ -1801,30 +1866,6 @@ public class WUtil {
         }
         return result;
     }
-
-
-    public static boolean isDisplayEventCard(BaseData baseData, BaseChain chain) {
-        if (baseData == null || baseData.mStakingPool == null) {
-            return false;
-        }
-        if (chain.equals(COSMOS_MAIN)) {
-            if (baseData.mStakingPool.getHeight() > PERSISTENCE_COSMOS_EVENT_START &&
-                    baseData.mStakingPool.getHeight() < PERSISTENCE_COSMOS_EVENT_END &&
-                    baseData.getEventTime()) {
-                return true;
-            }
-
-        } else if (chain.equals(KAVA_MAIN)) {
-            if (baseData.mStakingPool.getHeight() > PERSISTENCE_KAVA_EVENT_START &&
-                    baseData.mStakingPool.getHeight() < PERSISTENCE_KAVA_EVENT_END &&
-                    baseData.getEventTime()) {
-                return true;
-            }
-
-        }
-        return false;
-    }
-
 
     public static BigDecimal getCBlockTime(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
@@ -2647,6 +2688,9 @@ public class WUtil {
 
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(PERSIS_MAIN)) {
+            return EXPLORER_PERSIS_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;

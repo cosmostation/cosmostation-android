@@ -113,6 +113,7 @@ import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameConfigTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameFeeTask;
+import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
@@ -619,6 +620,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
         mFetchCallback = callback;
 
+        getBaseDao().mPrices.clear();
+
         getBaseDao().mNodeInfo = null;
         getBaseDao().mAllValidators.clear();
         getBaseDao().mMyValidators.clear();
@@ -928,6 +931,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
+            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
+            mTaskCount = mTaskCount + 1;
+            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
             getBaseDao().mNodeInfo = (NodeInfo)result.resultData;
@@ -1046,6 +1053,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess) {
                 getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
             }
+            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
+            mTaskCount = mTaskCount + 1;
+            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_FETCH_OK_STAKING_INFO) {
             if (result.isSuccess && result.resultData != null) {
@@ -1119,6 +1129,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             } else {
                 getBaseDao().mGrpcBalance.add(new Coin(WDp.mainDenom(mBaseChain), "0"));
             }
+            WLog.w("getBaseDao().mGrpcBalance " + getBaseDao().mGrpcBalance.size());
+            mTaskCount = mTaskCount + 1;
+            new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == TASK_GRPC_FETCH_DELEGATIONS) {
             ArrayList<Staking.DelegationResponse> delegations = (ArrayList<Staking.DelegationResponse>) result.resultData;

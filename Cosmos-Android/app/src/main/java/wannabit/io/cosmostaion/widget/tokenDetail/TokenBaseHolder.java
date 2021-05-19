@@ -105,7 +105,7 @@ public class TokenBaseHolder extends BaseHolder {
     public void onBindKavaToken(Context context, BaseChain chain, BaseData baseData, String denom) {
         final int dpDecimal                     = WUtil.getKavaCoinDecimal(denom);
         final BigDecimal availableTokenAmount   = WDp.getAvailableCoin(baseData.mBalances, denom);
-        final BigDecimal tokenTotalValue        = WDp.kavaTokenDollorValue(chain, baseData, denom, availableTokenAmount);
+        final BigDecimal tokenTotalValue        = WDp.kavaTokenDollorValue(baseData, denom, availableTokenAmount);
         final BigDecimal convertedToKava        = tokenTotalValue.divide(baseData.getLastKavaDollorTic(), 6, RoundingMode.DOWN);
 
         mTvTokenTitle.setText(denom.toUpperCase());

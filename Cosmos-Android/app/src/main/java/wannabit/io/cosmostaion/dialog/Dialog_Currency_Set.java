@@ -40,12 +40,11 @@ public class Dialog_Currency_Set extends DialogFragment {
         LinearLayout krw_layer = view.findViewById(R.id.krw_layer);
         LinearLayout jpy_layer = view.findViewById(R.id.jpy_layer);
         LinearLayout cny_layer = view.findViewById(R.id.cny_layer);
-        LinearLayout btc_layer = view.findViewById(R.id.btc_layer);
-//        LinearLayout rub_layer = view.findViewById(R.id.rub_layer);
-//        LinearLayout gbp_layer = view.findViewById(R.id.gbp_layer);
-//        LinearLayout inr_layer = view.findViewById(R.id.inr_layer);
-//        LinearLayout brl_layer = view.findViewById(R.id.brl_layer);
-//        LinearLayout idr_layer = view.findViewById(R.id.idr_layer);
+        LinearLayout rub_layer = view.findViewById(R.id.rub_layer);
+        LinearLayout gbp_layer = view.findViewById(R.id.gbp_layer);
+        LinearLayout inr_layer = view.findViewById(R.id.inr_layer);
+        LinearLayout brl_layer = view.findViewById(R.id.brl_layer);
+        LinearLayout idr_layer = view.findViewById(R.id.idr_layer);
 
         usd_layer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,10 +105,10 @@ public class Dialog_Currency_Set extends DialogFragment {
             }
         });
 
-        btc_layer.setOnClickListener(new View.OnClickListener() {
+        rub_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("btc_layer");
+                WLog.w("rub_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 5);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -118,65 +117,53 @@ public class Dialog_Currency_Set extends DialogFragment {
             }
         });
 
-//        rub_layer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                WLog.w("rub_layer");
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("currency", 5);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-//
-//            }
-//        });
-//
-//        gbp_layer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                WLog.w("gbp_layer");
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("currency", 6);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-//
-//            }
-//        });
-//
-//        inr_layer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                WLog.w("inr_layer");
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("currency", 7);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-//
-//            }
-//        });
-//
-//        brl_layer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                WLog.w("brl_layer");
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("currency", 8);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-//
-//            }
-//        });
-//
-//        idr_layer.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                WLog.w("idr_layer");
-//                Intent resultIntent = new Intent();
-//                resultIntent.putExtra("currency", 9);
-//                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
-//                getDialog().dismiss();
-//
-//            }
-//        });
+        gbp_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("gbp_layer");
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", 6);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+
+            }
+        });
+
+        inr_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("inr_layer");
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", 7);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+
+            }
+        });
+
+        brl_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("brl_layer");
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", 8);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+
+            }
+        });
+
+        idr_layer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                WLog.w("idr_layer");
+                Intent resultIntent = new Intent();
+                resultIntent.putExtra("currency", 9);
+                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
+                getDialog().dismiss();
+
+            }
+        });
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);

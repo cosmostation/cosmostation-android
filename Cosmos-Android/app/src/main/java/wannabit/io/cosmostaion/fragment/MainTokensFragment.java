@@ -216,7 +216,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 //            WUtil.onSortingBnbTokenByValue(mBalances, mBnbTics);
         } else if (mOrder == ORDER_VALUE && (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST))) {
             mTokenSortType.setText(R.string.str_value);
-            WUtil.onSortingKavaTokenByValue(getMainActivity().mBaseChain, getBaseDao(), mBalances);
+            WUtil.onSortingKavaTokenByValue(getBaseDao(), mBalances);
         }
 
         WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
@@ -280,7 +280,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
                 } else {
                     BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
-                    BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getMainActivity().mBaseChain, getBaseDao(), balance.symbol, tokenTotalAmount);
+                    BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
                     BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA));
                     totalKavaAmount = totalKavaAmount.add(convertedKavaAmount);
                 }
@@ -315,7 +315,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalOkAmount = BigDecimal.ZERO;
             for (Balance balance:mBalances) {
                 if (balance.symbol.equals(TOKEN_OK)) {
-                    totalOkAmount = totalOkAmount.add(WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding));
+                    totalOkAmount = totalOkAmount.add(getBaseDao().getAllExToken(balance.symbol));
 
                 } else {
                     OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
@@ -627,7 +627,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getMainActivity().mBaseChain, getBaseDao(), balance.symbol, tokenTotalAmount);
+            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
@@ -683,7 +683,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getMainActivity().mBaseChain, getBaseDao(), balance.symbol, tokenTotalAmount);
+            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
             BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
             holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
 
@@ -756,7 +756,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
 
-            BigDecimal totalAmount = WDp.getAllOk(balance, getBaseDao().mOkStaking, getBaseDao().mOkUnbonding);
+            BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
             holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {

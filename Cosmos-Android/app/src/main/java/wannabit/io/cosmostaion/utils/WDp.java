@@ -45,6 +45,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.kava.Cdp;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
@@ -85,6 +86,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
@@ -435,6 +437,9 @@ public class WDp {
     }
 
 
+
+
+
     public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
         BigDecimal sum = BigDecimal.ZERO;
         for (Balance balance : balances) {
@@ -502,7 +507,7 @@ public class WDp {
         return sum;
     }
 
-    public static BigDecimal kavaTokenDollorValue(BaseChain chain, BaseData baseData, String denom, BigDecimal amount) {
+    public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
         int dpDecimal = WUtil.getKavaCoinDecimal(denom);
         if (denom.equals("usdx") || denom.equals("busd")) {
             return amount.movePointLeft(dpDecimal);
@@ -530,6 +535,12 @@ public class WDp {
 
     }
 
+    public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
+        BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
+        BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, denom, tokenAmount);
+        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, TOKEN_KAVA), 6, RoundingMode.DOWN);
+    }
+
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
         if (okToken.original_symbol.equals("usdt") || okToken.original_symbol.equals("usdc") || okToken.original_symbol.equals("usdk")) {
             return amount;
@@ -544,6 +555,13 @@ public class WDp {
 
         }
         return BigDecimal.ZERO;
+    }
+
+    public static BigDecimal convertTokenToOkt(BaseData baseData, String denom) {
+        OkToken okToken = WUtil.getOkToken(baseData.mOkTokenList, denom);
+        BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
+        BigDecimal totalTokenValue = okExTokenDollorValue(baseData, okToken, tokenAmount);
+        return totalTokenValue.divide(perUsdValue(baseData, TOKEN_OK), 18, RoundingMode.DOWN);
     }
 
     public static BigDecimal getMainAssetValue(Context c, BaseData dao, BigDecimal amount, BaseChain chain) {
@@ -568,18 +586,6 @@ public class WDp {
         SpannableString result = new SpannableString(dao.getCurrencySymbol() + " " +getDecimalFormat(c, dpDecimal).format(getMainAssetValue(c, dao, amount, chain)));
         result.setSpan(new RelativeSizeSpan(0.8f), result.length() - dpDecimal, result.length(), SPAN_INCLUSIVE_INCLUSIVE);
         return result;
-    }
-
-    public static BigDecimal getAllOk(Balance balance, ResOkStaking deposit, ResOkUnbonding withdraw) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (balance != null) {
-            sum = sum.add(balance.balance);
-            sum = sum.add(balance.locked);
-        }
-        sum = sum.add(getOkDepositCoin(deposit));
-        sum = sum.add(getOkWithdrawingCoin(withdraw));
-
-        return sum;
     }
 
     public static SpannableString getPriceDp(Context c, BigDecimal input, String symbol, int currency) {
@@ -765,6 +771,248 @@ public class WDp {
     public static SpannableString getPercentDp(BigDecimal input, int scale) {
         return getDpString(input.setScale(scale, RoundingMode.DOWN).toPlainString() + "%", scale + 1);
     }
+
+
+    //Token & Price
+    public static String tokenCnt(BaseChain baseChain, BaseData baseData) {
+        if (isGRPC(baseChain)) {
+            return "" + baseData.mGrpcBalance.size();
+        } else {
+            return "" + baseData.mBalances.size();
+        }
+    }
+
+    public static BigDecimal valueChange(BaseData baseData, String denom) {
+        if (baseData.getPrice(denom) != null) {
+            return baseData.getPrice(denom).priceChange();
+        }
+        return BigDecimal.ZERO.setScale(2, RoundingMode.DOWN);
+    }
+
+    public static SpannableString dpValueChange(BaseData baseData, String denom) {
+        return getDpString(valueChange(baseData, denom).toPlainString() + "% (24h)", 9);
+    }
+
+    public static BigDecimal perUsdValue(BaseData baseData, String denom) {
+        if (baseData.getPrice(denom) != null) {
+            return baseData.getPrice(denom).currencyPrice(denom).setScale(3, RoundingMode.DOWN);
+        }
+        return BigDecimal.ZERO.setScale(3, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal usdValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
+        return perUsdValue(baseData, denom).multiply(amount).movePointLeft(divider).setScale(3, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal perUserCurrencyValue(BaseData baseData, String denom) {
+        if (baseData.getCurrency() == 0) {
+            return perUsdValue(baseData, denom);
+        } else if (baseData.getPrice("usdt") != null) {
+            final Price usdtInfo = baseData.getPrice("usdt");
+            final BigDecimal usdtPrice = usdtInfo.currencyPrice(baseData.getCurrencyString().toLowerCase());
+            return perUsdValue(baseData, denom).multiply(usdtPrice).setScale(3, RoundingMode.DOWN);
+        }
+        return BigDecimal.ZERO.setScale(3, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal perBtcValue(BaseData baseData, String denom) {
+        final Price usdtInfo = baseData.getPrice("usdt");
+        if (usdtInfo != null) {
+            final BigDecimal usdtPrice = usdtInfo.currencyPrice("btc");
+            return perUsdValue(baseData, denom).multiply(usdtPrice).setScale(8, RoundingMode.DOWN);
+        }
+        return BigDecimal.ZERO.setScale(8, RoundingMode.DOWN);
+    }
+
+    public static SpannableString dpPerUserCurrencyValue(BaseData baseData, String denom) {
+        final String formatted = baseData.getCurrencySymbol() + " " + perUserCurrencyValue(baseData, denom).toPlainString();
+        return getDpString(formatted, 3);
+    }
+
+    public static BigDecimal userCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
+        return perUserCurrencyValue(baseData, denom).multiply(amount).movePointLeft(divider).setScale(3, RoundingMode.DOWN);
+    }
+
+    public static SpannableString dpUserCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
+        final String formatted = baseData.getCurrencySymbol() + " " + userCurrencyValue(baseData, denom, amount, divider).toPlainString();
+        return getDpString(formatted, 3);
+    }
+
+    public static BigDecimal btcValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
+        return perBtcValue(baseData, denom).multiply(amount).movePointLeft(divider).setScale(8, RoundingMode.DOWN);
+    }
+
+    public static BigDecimal allAssetToUserCurrency(BaseChain baseChain, BaseData baseData) {
+        BigDecimal totalValue = BigDecimal.ZERO;
+        if (isGRPC(baseChain)) {
+            for (Coin coin: baseData.mGrpcBalance) {
+                if (coin.denom.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAsset(mainDenom(baseChain));
+                    BigDecimal assetValue = userCurrencyValue(baseData, coin.denom, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else {
+                    // not yet!
+                }
+            }
+        }
+
+        else if (baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_BNB, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else {
+                    BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
+                    BigDecimal convertAmount = WUtil.getBnbConvertAmount(baseData, balance.symbol, amount);
+                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_BNB, convertAmount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                }
+            }
+
+        } else if (baseChain.equals(KAVA_MAIN) || baseChain.equals(KAVA_TEST)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else {
+                    BigDecimal convertAmount = convertTokenToKava(baseData, balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_KAVA, convertAmount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                }
+            }
+
+        } else if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllExToken(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_OK, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else {
+                    BigDecimal convertAmount = convertTokenToOkt(baseData, balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, TOKEN_OK, convertAmount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                }
+            }
+
+        } else if (baseChain.equals(SIF_MAIN)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, balance.symbol, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else {
+                    BigDecimal available = baseData.availableAmount(balance.symbol);
+                    int decimal = WUtil.getSifCoinDecimal(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, balance.symbol.substring(1), available, decimal);
+                    totalValue = totalValue.add(assetValue);
+                }
+            }
+
+        }
+
+        else {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
+                    BigDecimal assetValue = userCurrencyValue(baseData, balance.symbol, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(assetValue);
+                } else {
+
+                }
+            }
+
+        }
+        return totalValue;
+    }
+
+    public static BigDecimal allAssetToBtc(BaseChain baseChain, BaseData baseData) {
+        BigDecimal totalValue = BigDecimal.ZERO;
+        if (isGRPC(baseChain)) {
+            for (Coin coin: baseData.mGrpcBalance) {
+                if (coin.denom.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAsset(mainDenom(baseChain));
+                    BigDecimal btcValue = btcValue(baseData, coin.denom, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                } else {
+                    // not yet!
+                }
+            }
+        }
+
+        else if (baseChain.equals(BNB_MAIN) || baseChain.equals(BNB_TEST)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, TOKEN_BNB, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                } else {
+                    BigDecimal amount = baseData.getAllBnbTokenAmount(balance.symbol);
+                    BigDecimal convertAmount = WUtil.getBnbConvertAmount(baseData, balance.symbol, amount);
+                    BigDecimal btcValue = btcValue(baseData, TOKEN_BNB, convertAmount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                }
+            }
+
+        } else if (baseChain.equals(KAVA_MAIN) || baseChain.equals(KAVA_TEST)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, TOKEN_KAVA, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                } else {
+                    BigDecimal convertAmount = convertTokenToKava(baseData, balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, TOKEN_KAVA, convertAmount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                }
+            }
+
+        } else if (baseChain.equals(OKEX_MAIN) || baseChain.equals(OK_TEST)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllExToken(balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, TOKEN_OK, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                } else {
+                    BigDecimal convertAmount = convertTokenToOkt(baseData, balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, TOKEN_OK, convertAmount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                }
+            }
+
+        } else if (baseChain.equals(SIF_MAIN)) {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, balance.symbol, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                } else {
+                    BigDecimal available = baseData.availableAmount(balance.symbol);
+                    int decimal = WUtil.getSifCoinDecimal(balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, balance.symbol.substring(1), available, decimal);
+                    totalValue = totalValue.add(btcValue);
+                }
+            }
+
+        }
+
+        else {
+            for (Balance balance: baseData.mBalances) {
+                if (balance.symbol.equals(mainDenom(baseChain))) {
+                    BigDecimal amount = baseData.getAllMainAssetOld(balance.symbol);
+                    BigDecimal btcValue = btcValue(baseData, balance.symbol, amount, mainDivideDecimal(baseChain));
+                    totalValue = totalValue.add(btcValue);
+                } else {
+
+                }
+            }
+
+        }
+        return totalValue;
+    }
+
+
 
 
     public static SpannableString getSelfBondRate(String total, String self) {
@@ -991,8 +1239,6 @@ public class WDp {
 
         return result;
     }
-
-
 
     public static String DpTxType(Context c, ArrayList<Msg> msgs, String address) {
         String result = "";
@@ -1396,6 +1642,7 @@ public class WDp {
 
         return result;
     }
+
     public static String getUnbondingTimeleft(Context c, long finishTime) {
         String result = "??";
         try {
@@ -1903,6 +2150,20 @@ public class WDp {
             return 0;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 0;
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
+            return 18;
+        } else if (chain.equals(CRYPTO_MAIN)) {
+            return 8;
+        } else {
+            return 6;
+        }
+    }
+
+    public static int mainDisplayDecimal(BaseChain chain) {
+        if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
+            return 8;
+        } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            return 18;
         } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {

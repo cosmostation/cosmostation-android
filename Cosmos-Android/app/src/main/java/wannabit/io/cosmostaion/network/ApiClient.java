@@ -8,6 +8,21 @@ import wannabit.io.cosmostaion.R;
 
 public class ApiClient {
 
+    //Services for station wallet api
+    private static Station station = null;
+    public static Station getStation(Context c) {
+        if (station == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_station))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                station = retrofit.create(Station.class);
+            }
+        }
+        return station;
+    }
+
     //Services for Cosmostation wallet api
     private static Cosmostation cosmostation = null;
     public static Cosmostation getCosmostation(Context c) {
