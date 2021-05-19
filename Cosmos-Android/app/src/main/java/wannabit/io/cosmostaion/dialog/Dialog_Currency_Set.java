@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import androidx.fragment.app.DialogFragment;
 
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.utils.WLog;
 
 public class Dialog_Currency_Set extends DialogFragment {
 
@@ -49,7 +48,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         usd_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("usd_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 0);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -61,7 +59,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         eur_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("eur_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 1);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -73,7 +70,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         krw_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("krw_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 2);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -84,7 +80,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         jpy_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("jpy_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 3);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -96,7 +91,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         cny_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("cny_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 4);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -108,7 +102,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         rub_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("rub_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 5);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -120,7 +113,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         gbp_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("gbp_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 6);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -132,7 +124,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         inr_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("inr_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 7);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -144,7 +135,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         brl_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("brl_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 8);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);
@@ -156,7 +146,6 @@ public class Dialog_Currency_Set extends DialogFragment {
         idr_layer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WLog.w("idr_layer");
                 Intent resultIntent = new Intent();
                 resultIntent.putExtra("currency", 9);
                 getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, resultIntent);

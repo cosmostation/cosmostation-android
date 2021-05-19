@@ -130,7 +130,7 @@ public class TokenBaseHolder extends BaseHolder {
         mTvTokenLocked.setText(WDp.getDpAmount2(context, lockedAmount, 0, 18));
         mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, 0, 18));
 
-        final OkToken okToken = WUtil.getOkToken(baseData.mOkTokenList, denom);
+        final OkToken okToken = baseData.okToken(denom);
         if (okToken != null) {
             mTvTokenTitle.setText(okToken.original_symbol.toUpperCase());
             mTvTokenDenom.setText("(" + denom + ")");

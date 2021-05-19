@@ -1685,16 +1685,6 @@ public class WUtil {
         }
     }
 
-    public static OkToken getOkToken(ResOkTokenList okTokenList, String denom) {
-        if (okTokenList == null || okTokenList.data == null || TextUtils.isEmpty(denom)) return null;
-        for (OkToken token:okTokenList.data) {
-            if (token.symbol.equals(denom)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
     public static int getVoterTypeCnt(ArrayList<Vote> votes, String option) {
         int result = 0;
         if (votes == null) {

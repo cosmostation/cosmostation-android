@@ -35,6 +35,7 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -283,10 +284,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindIrisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
                 onBindBnbItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN)) {
+            } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
                 onBindKavaItem(viewHolder, position);
-            } else if (getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-                onBindKavaTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
                 onBindIovItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
@@ -346,6 +345,291 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
     }
 
+    private void onBindBnbItem(TokensAdapter.AssetHolder holder, final int position) {
+        final String denom      = getBaseDao().mBalances.get(position).symbol;
+        final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
+        final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
+        if (bnbToken != null) {
+            holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
+            holder.itemFullName.setText(bnbToken.name);
+            if (denom.equals(TOKEN_BNB)) {
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
+                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
+                holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), amount, getMainActivity().mBaseChain));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+            } else {
+                Picasso.get().load(TOKEN_IMG_URL+bnbToken.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
+
+                final BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), denom, amount);
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, convertAmount, 0));
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                        intent.putExtra("denom", denom);
+                        startActivity(intent);
+                    }
+                });
+            }
+        }
+    }
+
+    private void onBindKavaItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_KAVA)) {
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
+            holder.itemSymbol.setText(getString(R.string.str_kava_c));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Kava Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else {
+            Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            if (balance.symbol.equals("usdx")) { holder.itemFullName.setText("USD Stable Asset"); }
+            else if (balance.symbol.equals(TOKEN_HARD)) { holder.itemFullName.setText("HardPool Gov. Token"); }
+            else {  holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain"); }
+
+            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, balance.symbol);
+            BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+
+                }
+            });
+        }
+    }
+
+    private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance   = getBaseDao().mBalances.get(position);
+        final OkToken okToken   = getBaseDao().okToken(balance.symbol);
+        if (okToken != null) {
+            holder.itemSymbol.setText(okToken.original_symbol.toUpperCase());
+            holder.itemInnerSymbol.setText("(" + okToken.symbol + ")");
+            holder.itemFullName.setText(okToken.description);
+            if (balance.symbol.equals(TOKEN_OK)) {
+                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
+                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
+
+                BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 0));
+            } else {
+                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                Picasso.get().load(OKEX_COIN_IMG_URL+  okToken.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
+
+                BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
+                BigDecimal convertAmount = WDp.convertTokenToOkt(getBaseDao(), balance.symbol);
+                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
+                holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_OK, convertAmount, 0));
+            }
+        }
+    }
+
+    private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
+            holder.itemSymbol.setText(getString(R.string.str_iov_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Starname Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_IOV);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+    }
+
+    private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_BAND)) {
+            holder.itemSymbol.setText(getString(R.string.str_band_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Band Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+    }
+
+    private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_CERTIK)) {
+            holder.itemSymbol.setText(getString(R.string.str_ctk_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Certik Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+    }
+
+    private void onBindSecretItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_SECRET)) {
+            holder.itemSymbol.setText(getString(R.string.str_scrt_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Secret Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+
+    }
+
+    private void onBindSentinelItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_DVPN)) {
+            holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SENTINEL_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Sentinel Native Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_DVPN);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        }
+    }
+
+    private void onBindFetchItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_FET)) {
+            holder.itemSymbol.setText(getString(R.string.str_fet_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Fetch.ai Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 18));
+
+        }
+    }
+
+    private void onBindSifItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        final int dpDecimal = WUtil.getSifCoinDecimal(balance.symbol);
+        if (balance.symbol.equals(TOKEN_SIF)) {
+            holder.itemSymbol.setText(getString(R.string.str_sif_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Sif Chain Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, dpDecimal));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(balance.symbol.substring(1).toUpperCase());
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText(balance.symbol.substring(1).toUpperCase() + " on Sif Chain");
+
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
+            try {
+                Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+
+            } catch (Exception e) { }
+
+            BigDecimal totalAmount = getBaseDao().availableAmount(balance.symbol);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol.substring(1), totalAmount, dpDecimal));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", balance.symbol);
+                    startActivity(intent);
+                }
+            });
+
+        }
+    }
+
+    private void onBindKiItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_KI)) {
+            holder.itemSymbol.setText(getString(R.string.str_ki_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("KiChain Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+    }
+
+
+    //with gRPC
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
         final Coin coin = getBaseDao().mGrpcBalance.get(position);
         if (coin.denom.equals(TOKEN_ATOM)) {
@@ -358,7 +642,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ATOM);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -384,7 +668,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -394,319 +678,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             });
 
         } else {
-
-        }
-    }
-
-    private void onBindBnbItem(TokensAdapter.AssetHolder holder, final int position) {
-        final String denom      = getBaseDao().mBalances.get(position).symbol;
-        final BigDecimal amount = getBaseDao().getAllBnbTokenAmount(denom);
-        final BnbToken bnbToken = getBaseDao().getBnbToken(denom);
-        if (bnbToken != null) {
-            holder.itemSymbol.setText(bnbToken.original_symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + bnbToken.symbol + ")");
-            holder.itemFullName.setText(bnbToken.name);
-            if (denom.equals(TOKEN_BNB)) {
-                holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BNB_MAIN));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
-                holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.bnb_token_img));
-                holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), amount, getMainActivity().mBaseChain));
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                        startActivity(intent);
-                    }
-                });
-
-            } else {
-                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-                holder.itemBalance.setText(WDp.getDpAmount2(getContext(), amount, 0, 6));
-                try {
-                    Picasso.get().load(TOKEN_IMG_URL+bnbToken.original_symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-                } catch (Exception e) {}
-
-                final BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), denom, amount);
-                holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), convertAmount, getMainActivity().mBaseChain));
-                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                        intent.putExtra("denom", denom);
-                        startActivity(intent);
-                    }
-                });
-            }
-        }
-    }
-
-    private void onBindKavaItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_KAVA)) {
-            holder.itemSymbol.setText(getString(R.string.str_kava_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Kava Chain Native Token");
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
-
-        } else {
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            if (balance.symbol.equals("usdx")) {
-                holder.itemFullName.setText("USD Stable Asset");
-            } else if (balance.symbol.equals(TOKEN_HARD)) {
-                holder.itemFullName.setText("HardPool Gov. Token");
-            } else {
-                holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
-            }
-
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-            try {
-                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-
-            } catch (Exception e) { }
-
-            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
-            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-
-                }
-            });
-        }
-    }
-
-    private void onBindKavaTestItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_KAVA)) {
-            holder.itemSymbol.setText(getString(R.string.str_kava_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KAVA_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Kava Chain Native Token");
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.kava_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalAmount));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
-
-        } else {
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            if (balance.symbol.equals("usdx")) {
-                holder.itemFullName.setText("USD Stable Asset");
-            } else if (balance.symbol.equals(TOKEN_HARD)) {
-                holder.itemFullName.setText("HardPool Gov. Token");
-            } else {
-                holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain");
-            }
-
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-            try {
-                Picasso.get().load(KAVA_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-            } catch (Exception e) { }
-
-            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
-            BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
-            BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN);
-            holder.itemValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), convertedKavaAmount.movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA))));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-
-                }
-            });
-
-        }
-    }
-
-    private void onBindIovItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_IOV) || balance.symbol.equals(TOKEN_IOV_TEST)) {
-            holder.itemSymbol.setText(getString(R.string.str_iov_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), IOV_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Starname Native Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.iov_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_IOV);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalAmount));
-
-        } else {
-
-        }
-    }
-
-    private void onBindBandItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_BAND)) {
-            holder.itemSymbol.setText(getString(R.string.str_band_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), BAND_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Band Chain Native Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.band_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalAmount));
-
-        } else {
-
-        }
-    }
-
-    private void onBindOkItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance   = getBaseDao().mBalances.get(position);
-        final OkToken token     = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
-        if (token == null) {
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), balance.balance, 0, 6));
-            holder.itemFullName.setText("");
-            return;
-        }
-
-        holder.itemSymbol.setText(token.original_symbol.toUpperCase());
-        holder.itemInnerSymbol.setText("(" + token.symbol + ")");
-        holder.itemFullName.setText(token.description);
-
-        if (token.symbol.equals(TOKEN_OK)) {
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), getMainActivity().mBaseChain));
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.okex_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllExToken(balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), StakingTokenDetailActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-        }  else {
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            Picasso.get().load(OKEX_COIN_IMG_URL+  token.original_symbol + ".png").placeholder(R.drawable.token_ic).error(R.drawable.token_ic).fit().into(holder.itemImg);
-
-            BigDecimal totalAmount = balance.balance.add(balance.locked);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 0, 6));
-            BigDecimal tokenTotalValue = WDp.okExTokenDollorValue(getBaseDao(), token, totalAmount);
-            BigDecimal convertedOKTAmount = tokenTotalValue.divide(getBaseDao().getLastOKexDollorTic(), 6, RoundingMode.DOWN);
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), convertedOKTAmount, getMainActivity().mBaseChain));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-        }
-    }
-
-    private void onBindCertikItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_CERTIK)) {
-            holder.itemSymbol.setText(getString(R.string.str_ctk_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), CERTIK_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Certik Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_token_img));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        } else {
-
-        }
-    }
-
-    private void onBindSecretItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_SECRET)) {
-            holder.itemSymbol.setText(getString(R.string.str_scrt_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SECRET_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Secret Native Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensecret));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        } else {
-
-        }
-
-    }
-
-    private void onBindSentinelItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_DVPN)) {
-            holder.itemSymbol.setText(getString(R.string.str_dvpn_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SENTINEL_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Sentinel Native Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensentinel));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_DVPN);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        }
-    }
-
-    private void onBindFetchItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_FET)) {
-            holder.itemSymbol.setText(getString(R.string.str_fet_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), FETCHAI_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Fetch.ai Native Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenfetchai));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         }
     }
@@ -723,7 +694,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_AKASH);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -748,7 +719,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_XPRT);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -773,80 +744,13 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRO);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 8, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 8));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
                 }
             });
-
-        } else {
-
-        }
-    }
-
-    private void onBindSifItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        final int dpDecimal = WUtil.getSifCoinDecimal(balance.symbol);
-        if (balance.symbol.equals(TOKEN_SIF)) {
-            holder.itemSymbol.setText(getString(R.string.str_sif_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), SIF_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Sif Chain Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokensifchain));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
-                }
-            });
-
-        } else {
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemSymbol.setText(balance.symbol.substring(1).toUpperCase());
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText(balance.symbol.substring(1).toUpperCase() + " on Sif Chain");
-
-            Picasso.get().cancelRequest(holder.itemImg);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_ic));
-            try {
-                Picasso.get().load(SIF_COIN_IMG_URL+balance.symbol+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
-
-            } catch (Exception e) { }
-
-            BigDecimal totalAmount = getBaseDao().availableAmount(balance.symbol);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getMainActivity().getBaseDao(), BigDecimal.ZERO, getMainActivity().mBaseChain));
-
-            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
-                    intent.putExtra("denom", balance.symbol);
-                    startActivity(intent);
-                }
-            });
-
-        }
-    }
-
-    private void onBindKiItem(TokensAdapter.AssetHolder holder, final int position) {
-        final Balance balance = getBaseDao().mBalances.get(position);
-        if (balance.symbol.equals(TOKEN_KI)) {
-            holder.itemSymbol.setText(getString(R.string.str_ki_c));
-            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), KI_MAIN));
-            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
-            holder.itemFullName.setText("Ki Foundation Chain Staking Token");
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_kifoundation));
-
-            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
 
         } else {
 
@@ -865,7 +769,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_COSMOS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else { }
     }
@@ -882,7 +786,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_IRIS_TEST);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            holder.itemValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
 
         } else { }
 

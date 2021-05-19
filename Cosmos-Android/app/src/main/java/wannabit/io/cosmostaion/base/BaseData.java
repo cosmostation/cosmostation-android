@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
+import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -283,6 +284,15 @@ public class BaseData {
         return result;
     }
 
+    public OkToken okToken(String denom) {
+        for (OkToken token: mOkTokenList.data) {
+            if (token.symbol.equals(denom)) {
+                return token;
+            }
+        }
+        return null;
+    }
+
     public BigDecimal okDepositAmount() {
         BigDecimal sum = BigDecimal.ZERO;
         if (mOkStaking != null && !TextUtils.isEmpty(mOkStaking.tokens)) {
@@ -317,7 +327,7 @@ public class BaseData {
     }
 
     public BigDecimal getAllExToken(String denom) {
-        if (denom == TOKEN_OK) {
+        if (denom.equals(TOKEN_OK)) {
             return availableAmount(denom).add(lockedAmount(denom)).add(okDepositAmount()).add(okWithdrawAmount());
         } else {
             return availableAmount(denom).add(lockedAmount(denom));

@@ -558,7 +558,7 @@ public class WDp {
     }
 
     public static BigDecimal convertTokenToOkt(BaseData baseData, String denom) {
-        OkToken okToken = WUtil.getOkToken(baseData.mOkTokenList, denom);
+        OkToken okToken = baseData.okToken(denom);
         BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
         BigDecimal totalTokenValue = okExTokenDollorValue(baseData, okToken, tokenAmount);
         return totalTokenValue.divide(perUsdValue(baseData, TOKEN_OK), 18, RoundingMode.DOWN);
