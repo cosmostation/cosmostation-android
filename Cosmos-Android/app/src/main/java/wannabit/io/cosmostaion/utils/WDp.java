@@ -825,7 +825,9 @@ public class WDp {
     }
 
     public static SpannableString dpPerUserCurrencyValue(BaseData baseData, String denom) {
-        return dpCurrencyValue(baseData, perUserCurrencyValue(baseData, denom), 3);
+        BigDecimal totalValue = perUserCurrencyValue(baseData, denom);
+        final String formatted = baseData.getCurrencySymbol()  + " " + getDecimalFormat(3).format(totalValue);
+        return dpCurrencyValue(formatted, 3);
     }
 
     public static BigDecimal userCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
@@ -833,7 +835,9 @@ public class WDp {
     }
 
     public static SpannableString dpUserCurrencyValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
-        return dpCurrencyValue(baseData, userCurrencyValue(baseData, denom, amount, divider), 3);
+        BigDecimal totalValue = userCurrencyValue(baseData, denom, amount, divider);
+        final String formatted = baseData.getCurrencySymbol()  + " " + getDecimalFormat(3).format(totalValue);
+        return dpCurrencyValue(formatted, 3);
     }
 
     public static BigDecimal btcValue(BaseData baseData, String denom, BigDecimal amount, int divider) {
@@ -1010,9 +1014,20 @@ public class WDp {
         return totalValue;
     }
 
-    public static SpannableString dpCurrencyValue(BaseData baseData, BigDecimal amount, int dpPoint) {
-        final String formatted = baseData.getCurrencySymbol()  + " " + getDecimalFormat(dpPoint).format(amount);
-        return getDpString(formatted, dpPoint);
+    public static SpannableString dpAllAssetValueUserCurrency(BaseChain baseChain, BaseData baseData) {
+        BigDecimal totalValue = allAssetToUserCurrency(baseChain, baseData);
+        final String formatted = baseData.getCurrencySymbol()  + " " + getDecimalFormat(3).format(totalValue);
+        return dpCurrencyValue(formatted, 3);
+    }
+
+    public static SpannableString dpAllAssetValueBtc(BaseChain baseChain, BaseData baseData) {
+        BigDecimal totalValue = allAssetToBtc(baseChain, baseData);
+        final String formatted = getDecimalFormat(8).format(totalValue);
+        return dpCurrencyValue(formatted, 8);
+    }
+
+    public static SpannableString dpCurrencyValue(String input, int dpPoint) {
+        return getDpString(input, dpPoint);
     }
 
 

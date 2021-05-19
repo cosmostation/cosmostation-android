@@ -29,7 +29,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.NativeTokenDetailActivity;
 import wannabit.io.cosmostaion.activities.tokenDetail.StakingTokenDetailActivity;
-import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbToken;
@@ -37,7 +36,6 @@ import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dialog.Dialog_TokenSorting;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -100,10 +98,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     private RecyclerView            mRecyclerView;
     private LinearLayout            mEmptyToken;
     private CardView                mCardTotal;
-    private TextView                mTotalValue, mTotalAmount, mDenomTitle;
+    private TextView                mTotalValue, mTotalBtcValue;
     private TextView                mTokenSize, mTokenSortType;
     private LinearLayout            mBtnSort;
-    private TextView                mKavaOracle;
 
     private TokensAdapter           mTokensAdapter;
     private ArrayList<Balance>      mBalances = new ArrayList<>();
@@ -129,9 +126,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         mEmptyToken             = rootView.findViewById(R.id.empty_token);
         mCardTotal              = rootView.findViewById(R.id.card_total);
         mTotalValue             = rootView.findViewById(R.id.total_value);
-        mTotalAmount            = rootView.findViewById(R.id.total_amount);
-        mDenomTitle             = rootView.findViewById(R.id.total_denom_title);
-        mKavaOracle             = rootView.findViewById(R.id.kava_oracle);
+        mTotalBtcValue          = rootView.findViewById(R.id.total_btc_amount);
         mTokenSize              = rootView.findViewById(R.id.token_cnt);
         mTokenSortType          = rootView.findViewById(R.id.token_sort_type);
         mBtnSort                = rootView.findViewById(R.id.btn_token_sort);
@@ -218,13 +213,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             mTokenSortType.setText(R.string.str_value);
             WUtil.onSortingKavaTokenByValue(getBaseDao(), mBalances);
         }
-
-        WDp.DpMainDenom(getMainActivity(), getMainActivity().mBaseChain.getChain(), mDenomTitle);
         mCardTotal.setCardBackgroundColor(WDp.getChainBgColor(getContext(), getMainActivity().mBaseChain));
         onUpdateTotalCard();
 
         if (isGRPC(getMainActivity().mBaseChain)) {
-            mTokenSize.setText(""+getBaseDao().mGrpcBalance.size());
             if (getBaseDao().mGrpcBalance != null && getBaseDao().mGrpcBalance.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
 //                mTokensAdapter.notifyItemRangeChanged(0, getBaseDao().mGrpcBalance.size());
@@ -237,7 +229,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             }
 
         } else {
-            mTokenSize.setText(""+mBalances.size());
             if (mBalances != null && mBalances.size() > 0) {
                 mTokensAdapter.notifyDataSetChanged();
                 mEmptyToken.setVisibility(View.GONE);
@@ -252,152 +243,9 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
     private void onUpdateTotalCard() {
-        if (isGRPC(getMainActivity().mBaseChain)) {
-            final int dpDecimal = WDp.mainDivideDecimal(getMainActivity().mBaseChain);
-            BigDecimal totalAmount = getBaseDao().getAllMainAsset(WDp.mainDenom(getMainActivity().mBaseChain));
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, dpDecimal, 6));
-            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        } else if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain.equals(BNB_TEST)) {
-            BigDecimal totalBnbAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_BNB)) {
-                    totalBnbAmount = totalBnbAmount.add(getBaseDao().getAllBnbTokenAmount(TOKEN_BNB));
-                } else {
-                    BigDecimal tokenAmount = getBaseDao().getAllBnbTokenAmount(balance.symbol);
-                    BigDecimal convertAmount = WUtil.getBnbConvertAmount(getBaseDao(), balance.symbol, tokenAmount);
-                    totalBnbAmount = totalBnbAmount.add(convertAmount);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBnbAmount, 0, 6));
-            mTotalValue.setText(WDp.getValueOfBnb(getContext(), getBaseDao(), totalBnbAmount));
-
-        } else if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            BigDecimal totalKavaAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_KAVA)) {
-                    totalKavaAmount = getBaseDao().getAllMainAssetOld(TOKEN_KAVA);
-
-                } else {
-                    BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), mBalances, balance.symbol);
-                    BigDecimal tokenTotalValue = WDp.kavaTokenDollorValue(getBaseDao(), balance.symbol, tokenTotalAmount);
-                    BigDecimal convertedKavaAmount = tokenTotalValue.divide(getBaseDao().getLastKavaDollorTic(), WUtil.getKavaCoinDecimal(TOKEN_KAVA), RoundingMode.DOWN).movePointRight(WUtil.getKavaCoinDecimal(TOKEN_KAVA));
-                    totalKavaAmount = totalKavaAmount.add(convertedKavaAmount);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalKavaAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfKava(getContext(), getBaseDao(), totalKavaAmount));
-
-        } else if (getMainActivity().mBaseChain.equals(IOV_MAIN) || getMainActivity().mBaseChain.equals(IOV_TEST)) {
-            BigDecimal totalIovAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_IOV)) {
-                    totalIovAmount = getBaseDao().getAllMainAssetOld(TOKEN_IOV);
-                } else if (balance.symbol.equals(TOKEN_IOV_TEST)) {
-                    totalIovAmount = getBaseDao().getAllMainAssetOld(TOKEN_IOV_TEST);
-                }
-
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalIovAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfIov(getContext(), getBaseDao(), totalIovAmount));
-
-        } else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) {
-            BigDecimal totalBandAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_BAND)) {
-                    totalBandAmount = getBaseDao().getAllMainAssetOld(TOKEN_BAND);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalBandAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfBand(getContext(), getBaseDao(), totalBandAmount));
-
-        } else if (getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain.equals(OK_TEST)) {
-            BigDecimal totalOkAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_OK)) {
-                    totalOkAmount = totalOkAmount.add(getBaseDao().getAllExToken(balance.symbol));
-
-                } else {
-                    OkToken token = WUtil.getOkToken(getBaseDao().mOkTokenList, balance.symbol);
-                    if (token == null) continue;
-                    BigDecimal tokenTotalAmount = balance.balance.add(balance.locked);
-                    BigDecimal tokenTotalValue = WDp.okExTokenDollorValue(getBaseDao(), token, tokenTotalAmount);
-                    BigDecimal convertedOKTAmount = tokenTotalValue.divide(getBaseDao().getLastOKexDollorTic(), 6, RoundingMode.DOWN);
-                    totalOkAmount = totalOkAmount.add(convertedOKTAmount);
-
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalOkAmount, 0, 6));
-            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalOkAmount, getMainActivity().mBaseChain));
-
-        } else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN) || getMainActivity().mBaseChain.equals(CERTIK_TEST)) {
-            BigDecimal totalCtkAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_CERTIK) ) {
-                    totalCtkAmount = getBaseDao().getAllMainAssetOld(TOKEN_CERTIK);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalCtkAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfCertik(getContext(), getBaseDao(), totalCtkAmount));
-
-        } else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-            BigDecimal totalScrtAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_SECRET) ) {
-                    totalScrtAmount = getBaseDao().getAllMainAssetOld(TOKEN_SECRET);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalScrtAmount, 6, 6));
-            mTotalValue.setText(WDp.getValueOfSecret(getContext(), getBaseDao(), totalScrtAmount));
-
-        } else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-            BigDecimal totalAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_DVPN) ) {
-                    totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_DVPN);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        } else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) {
-            BigDecimal totalAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_FET) ) {
-                    totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_FET);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-            BigDecimal totalAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_SIF) ) {
-                    totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_SIF);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
-            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
-            BigDecimal totalAmount = BigDecimal.ZERO;
-            for (Balance balance:mBalances) {
-                if (balance.symbol.equals(TOKEN_KI) ) {
-                    totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_KI);
-                }
-            }
-            mTotalAmount.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
-            mTotalValue.setText(WDp.getDpMainAssetValue(getContext(), getBaseDao(), totalAmount, getMainActivity().mBaseChain));
-
-        }
-
-        if (getMainActivity().mBaseChain.equals(KAVA_MAIN) || getMainActivity().mBaseChain.equals(KAVA_TEST)) {
-            mKavaOracle.setVisibility(View.VISIBLE);
-        } else {
-            mKavaOracle.setVisibility(View.GONE);
-        }
-
+        mTokenSize.setText(WDp.tokenCnt(getMainActivity().mBaseChain, getBaseDao()));
+        mTotalBtcValue.setText(WDp.dpAllAssetValueBtc(getMainActivity().mBaseChain, getBaseDao()));
+        mTotalValue.setText(WDp.dpAllAssetValueUserCurrency(getMainActivity().mBaseChain, getBaseDao()));
     }
 
     @Override
