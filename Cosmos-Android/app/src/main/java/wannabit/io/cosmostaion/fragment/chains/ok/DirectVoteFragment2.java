@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_VOTE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_VOTE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class DirectVoteFragment2 extends BaseFragment implements View.OnClickListener {
@@ -114,10 +114,10 @@ public class DirectVoteFragment2 extends BaseFragment implements View.OnClickLis
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_ok));
 
-            mEstimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_VOTE_MUX).multiply(new BigDecimal(""+getSActivity().mValAddesses.size()))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_VOTE));
+            mEstimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_VOTE_MUX).multiply(new BigDecimal(""+getSActivity().mValAddesses.size()))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_VOTE));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 9));
-            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(18);
+            mGasRate.setText(WDp.getDpString(OK_GAS_RATE_AVERAGE, 9));
+            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE)).setScale(18);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 0, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));

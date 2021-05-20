@@ -41,9 +41,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -229,7 +228,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
             BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
             BigDecimal available = mAccount.getIovBalance();
 
             if (available.compareTo(estimateFeeAmount) <= 0) {
@@ -263,7 +262,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
             BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
             BigDecimal available = mAccount.getIovBalance();
 
             if (available.compareTo(estimateFeeAmount) <= 0) {
@@ -297,7 +296,7 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
 
             ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
             BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
             BigDecimal available = mAccount.getTokenBalance(TOKEN_CERTIK);
 
             if (available.compareTo(estimateFeeAmount) <= 0) {

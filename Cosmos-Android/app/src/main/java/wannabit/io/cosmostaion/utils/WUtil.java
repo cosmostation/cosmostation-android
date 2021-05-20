@@ -6,7 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.text.TextUtils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
@@ -26,7 +25,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -54,12 +52,9 @@ import wannabit.io.cosmostaion.dao.Account;
 import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
-import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.model.ExportStarName;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
-import wannabit.io.cosmostaion.model.kava.CdpParam;
-import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.HardMyBorrow;
 import wannabit.io.cosmostaion.model.kava.HardMyDeposit;
 import wannabit.io.cosmostaion.model.kava.HardParam;
@@ -69,13 +64,11 @@ import wannabit.io.cosmostaion.model.type.Proposal;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.model.type.Vote;
 import wannabit.io.cosmostaion.network.res.ResBnbAccountInfo;
-import wannabit.io.cosmostaion.network.res.ResBnbTic;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdKavaAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResLcdVestingAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountInfo;
 import wannabit.io.cosmostaion.network.res.ResOkAccountToken;
-import wannabit.io.cosmostaion.network.res.ResOkTokenList;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -2113,9 +2106,9 @@ public class WUtil {
         return null;
     }
 
-    public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType) {
-        return getEstimateGasAmount(c, basechain, txType, 0);
-    }
+//    public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType) {
+//        return getEstimateGasAmount(c, basechain, txType, 0);
+//    }
 
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
@@ -2123,60 +2116,51 @@ public class WUtil {
                 basechain.equals(CRYPTO_MAIN) || basechain.equals(COSMOS_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
-
             } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
                 return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-
             } else if (txType == CONST_PW_TX_REINVEST) {
                 return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
-
             } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-
             }
 
         } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
-
             } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
                 return new BigDecimal(V1_GAS_AMOUNT_MID);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
                 return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-
             } else if (txType == CONST_PW_TX_REINVEST) {
                 return new BigDecimal(V1_GAS_AMOUNT_HIGH);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
-
             } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
-
             }
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
+        }
+
+        else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+
+        }
+
+
+        else if (basechain.equals(SENTINEL_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(SENTINEL_GAS_AMOUNT_SEND);
 
@@ -2235,57 +2219,41 @@ public class WUtil {
         } else if (basechain.equals(SIF_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(SIF_GAS_AMOUNT_SEND);
-
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
-
             } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_STAKE);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_REDELEGATE);
-
             } else if (txType == CONST_PW_TX_REINVEST) {
                 return new BigDecimal(SIF_GAS_AMOUNT_REINVEST);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
-
             } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
                 return new BigDecimal(SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(SIF_GAS_AMOUNT_VOTE);
-
             }
 
         } else if (basechain.equals(KI_MAIN)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(KI_GAS_AMOUNT_SEND);
-
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
                 return new BigDecimal(KI_GAS_AMOUNT_STAKE);
-
             } else if (txType == CONST_PW_TX_SIMPLE_UNDELEGATE) {
                 return new BigDecimal(KI_GAS_AMOUNT_STAKE);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REDELEGATE) {
                 return new BigDecimal(KI_GAS_AMOUNT_REDELEGATE);
-
             } else if (txType == CONST_PW_TX_REINVEST) {
                 return new BigDecimal(KI_GAS_AMOUNT_REINVEST);
-
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
                 ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
-
             } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
                 return new BigDecimal(KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
-
             } else if (txType == CONST_PW_TX_VOTE) {
                 return new BigDecimal(KI_GAS_AMOUNT_VOTE);
-
             }
 
         }
@@ -2348,6 +2316,14 @@ public class WUtil {
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
         if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
             if (position == 0) {
+                return new BigDecimal(COSMOS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(COSMOS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
+            if (position == 0) {
                 return new BigDecimal(IRIS_GAS_RATE_TINY);
             } else if (position == 1) {
                 return new BigDecimal(IRIS_GAS_RATE_LOW);
@@ -2370,14 +2346,55 @@ public class WUtil {
             }
             return new BigDecimal(CRYPTO_GAS_RATE_AVERAGE);
 
-        } else {
-            if (position == 0) {
-                return new BigDecimal(COSMOS_GAS_RATE_TINY);
-            } else if (position == 1) {
-                return new BigDecimal(COSMOS_GAS_RATE_LOW);
-            }
-            return new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
         }
+
+        else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
+            if (position == 0) {
+                return BigDecimal.ZERO;
+            } else if (position == 1) {
+                return new BigDecimal(KAVA_GAS_RATE_LOW);
+            }
+            return new BigDecimal(KAVA_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(BAND_MAIN)) {
+            if (position == 0) {
+                return BigDecimal.ZERO;
+            } else if (position == 1) {
+                return new BigDecimal(BAND_GAS_RATE_LOW);
+            }
+            return new BigDecimal(BAND_GAS_RATE_AVERAGE);
+
+        }
+
+        else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
+            return BigDecimal.ZERO;
+
+        } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
+            return new BigDecimal(IOV_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
+            return new BigDecimal(OK_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(CERTIK_MAIN) || basechain.equals(CERTIK_TEST)) {
+            return new BigDecimal(CERTIK_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(SECRET_MAIN)) {
+            return new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE);
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE);
+
+        } else if (basechain.equals(FETCHAI_MAIN)) {
+            return new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
+
+        } else if (basechain.equals(SIF_MAIN)) {
+            return new BigDecimal(SIF_GAS_FEE_RATE_AVERAGE);
+
+        } else if (basechain.equals(KI_MAIN)) {
+            return new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
+
+        }
+        return BigDecimal.ZERO;
     }
 
 

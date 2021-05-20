@@ -34,7 +34,7 @@ import wannabit.io.cosmostaion.network.res.ResKavaBep3Param;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapSupply;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_KAVA_GAS_AMOUNT_BEP3;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_AMOUNT_BEP3;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
 
 public class HtlcSendActivity extends BaseActivity {
@@ -179,7 +179,7 @@ public class HtlcSendActivity extends BaseActivity {
             gasCoin.amount = "0";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
-            mSendFee = new Fee(FEE_KAVA_GAS_AMOUNT_BEP3, gasCoins);
+            mSendFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);
         }
         return mSendFee;
     }
@@ -200,7 +200,7 @@ public class HtlcSendActivity extends BaseActivity {
             gasCoin.amount = "0";
             ArrayList<Coin> gasCoins = new ArrayList<>();
             gasCoins.add(gasCoin);
-            mClaimFee = new Fee(FEE_KAVA_GAS_AMOUNT_BEP3, gasCoins);
+            mClaimFee = new Fee(KAVA_GAS_AMOUNT_BEP3, gasCoins);
         }
         return mClaimFee;
     }

@@ -30,6 +30,9 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_LOW;
+
 public class WithdrawHardStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mBtnGasType;
@@ -149,7 +152,7 @@ public class WithdrawHardStep2Fragment extends BaseFragment implements View.OnCl
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH;
+                fee.gas = BaseConstant.KAVA_GAS_AMOUNT_HARD_POOL;
                 getSActivity().mFee = fee;
 
             }
@@ -191,10 +194,10 @@ public class WithdrawHardStep2Fragment extends BaseFragment implements View.OnCl
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
+                mGasAmount.setText(BaseConstant.KAVA_GAS_AMOUNT_HARD_POOL);
+                mGasRate.setText(WDp.getDpString(KAVA_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(BaseConstant.KAVA_GAS_AMOUNT_HARD_POOL).multiply(new BigDecimal(KAVA_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -211,10 +214,10 @@ public class WithdrawHardStep2Fragment extends BaseFragment implements View.OnCl
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+                mGasAmount.setText(BaseConstant.KAVA_GAS_AMOUNT_HARD_POOL);
+                mGasRate.setText(WDp.getDpString(KAVA_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(BaseConstant.KAVA_GAS_AMOUNT_HARD_POOL).multiply(new BigDecimal(KAVA_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {

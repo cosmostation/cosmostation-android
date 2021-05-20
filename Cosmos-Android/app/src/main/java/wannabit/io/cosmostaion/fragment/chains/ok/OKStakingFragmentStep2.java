@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKStakingFragmentStep2 extends BaseFragment implements View.OnClickListener {
@@ -112,10 +112,10 @@ public class OKStakingFragmentStep2 extends BaseFragment implements View.OnClick
             if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                 myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
             }
-            mEstimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
+            mEstimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(FEE_OK_GAS_RATE_AVERAGE, 9));
-            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE)).setScale(18);
+            mGasRate.setText(WDp.getDpString(OK_GAS_RATE_AVERAGE, 9));
+            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE)).setScale(18);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 0, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));

@@ -29,6 +29,10 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_AMOUNT_CLAIM_INCENTIVE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_LOW;
+
 public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.OnClickListener {
 
     private RelativeLayout mBtnGasType;
@@ -149,7 +153,7 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE;
+                fee.gas = KAVA_GAS_AMOUNT_CLAIM_INCENTIVE;
                 getSActivity().mFee = fee;
 
             }
@@ -181,10 +185,10 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
+                mGasAmount.setText(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE);
+                mGasRate.setText(WDp.getDpString(KAVA_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE).multiply(new BigDecimal(KAVA_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -201,10 +205,10 @@ public class ClaimIncentiveStep2Fragment extends BaseFragment implements View.On
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_KAVA_GAS_AMOUNT_AVERAGE, 3));
+                mGasAmount.setText(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE);
+                mGasRate.setText(WDp.getDpString(KAVA_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_HIGH).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(KAVA_GAS_AMOUNT_CLAIM_INCENTIVE).multiply(new BigDecimal(KAVA_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {

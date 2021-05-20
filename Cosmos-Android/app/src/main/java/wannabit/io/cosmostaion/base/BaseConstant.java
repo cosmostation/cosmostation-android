@@ -520,59 +520,60 @@ public class BaseConstant {
 
 
     public final static int MEMO_ATOM = 255;
-    public final static int MEMO_IRIS = 100;
     public final static int MEMO_BNB = 100;
 
-    public final static String FEE_GAS_RATE_LOW = "0.0025";
-    public final static String FEE_GAS_RATE_AVERAGE = "0.025";
 
 
-    public final static String FEE_GAS_AMOUNT_HALF          = "100000";
-    public final static String FEE_GAS_AMOUNT_AVERAGE       = "200000";
-    public final static String FEE_GAS_AMOUNT_REDELEGATE    = "240000";
-    public final static String FEE_GAS_AMOUNT_REINVEST      = "220000";
 
 
-    public final static String FEE_KAVA_GAS_AMOUNT_LOW          = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_SEND         = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_REWARD       = "300000";
-    public final static String FEE_KAVA_GAS_AMOUNT_AVERAGE      = "800000";
-    public final static String FEE_KAVA_GAS_AMOUNT_REINVEST     = "800000";
-    public final static String FEE_KAVA_GAS_AMOUNT_REDELEGATE   = "800000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CDP          = "2000000";
-    public final static String FEE_KAVA_GAS_AMOUNT_CREATE_CDP   = "2000000";
-    public final static String FEE_KAVA_GAS_AMOUNT_BEP3         = "500000";
-    public final static String FEE_KAVA_GAS_AMOUNT_HIGH         = "800000";
+    public final static String FEE_BNB_SEND                             = "0.000375";
 
+    public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
+    public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";
+    public final static String KAVA_GAS_AMOUNT_SEND                     = "300000";
+    public final static String KAVA_GAS_AMOUNT_STAKE                    = "800000";
+    public final static String KAVA_GAS_AMOUNT_REINVEST                 = "800000";
+    public final static String KAVA_GAS_AMOUNT_REDELEGATE               = "800000";
+    public final static String KAVA_GAS_AMOUNT_VOTE                     = "300000";
+    public final static String KAVA_GAS_AMOUNT_CLAIM_INCENTIVE          = "800000";
+    public final static String KAVA_GAS_AMOUNT_CDP                      = "2000000";
+    public final static String KAVA_GAS_AMOUNT_HARD_POOL                = "800000";
+    public final static String KAVA_GAS_AMOUNT_BEP3                     = "500000";
 
-    public final static String FEE_BNB_SEND                     = "0.000375";
-    public final static String FEE_BEP3_RELAY_FEE               = "0.00001";
+    public final static String BAND_GAS_RATE_LOW                        = "0.0025";
+    public final static String BAND_GAS_RATE_AVERAGE                    = "0.025";
+    public final static String BAND_GAS_AMOUNT_SEND                     = "100000";
+    public final static String BAND_GAS_AMOUNT_STAKE                    = "200000";
+    public final static String BAND_GAS_AMOUNT_REDELEGATE               = "240000";
+    public final static String BAND_GAS_AMOUNT_REINVEST                 = "220000";
+    public final static String BAND_GAS_AMOUNT_ADDRESS_CHANGE           = "100000";
+    public final static String BAND_GAS_AMOUNT_VOTE                     = "100000";
 
-    public final static String FEE_IOV_GAS_RATE_AVERAGE         = "1.00";
-    public final static String FEE_IOV_GAS_AMOUNT_SEND          = "100000";
-    public final static String FEE_IOV_GAS_AMOUNT_STAKE         = "200000";
-    public final static String FEE_IOV_GAS_AMOUNT_REDELEGATE    = "300000";
-    public final static String FEE_IOV_GAS_AMOUNT_REINVEST      = "300000";
-    public final static String FEE_IOV_GAS_AMOUNT_LOW           = "100000";
-    public final static String FEE_IOV_GAS_AMOUNT_REGISTER      = "300000";
-    public final static String FEE_IOV_GAS_AMOUNT_DELETE        = "150000";
-    public final static String FEE_IOV_GAS_AMOUNT_RENEW         = "300000";
-    public final static String FEE_IOV_GAS_AMOUNT_REPLACE       = "300000";
+    public final static String IOV_GAS_RATE_AVERAGE                     = "1.00";
+    public final static String IOV_GAS_AMOUNT_SEND                      = "100000";
+    public final static String IOV_GAS_AMOUNT_STAKE                     = "200000";
+    public final static String IOV_GAS_AMOUNT_REDELEGATE                = "300000";
+    public final static String IOV_GAS_AMOUNT_REINVEST                  = "300000";
+    public final static String IOV_GAS_AMOUNT_LOW                       = "100000";
+    public final static String IOV_GAS_AMOUNT_REGISTER                  = "300000";
+    public final static String IOV_GAS_AMOUNT_DELETE                    = "150000";
+    public final static String IOV_GAS_AMOUNT_RENEW                     = "300000";
+    public final static String IOV_GAS_AMOUNT_REPLACE                   = "300000";
 
-    public final static String FEE_OK_GAS_RATE_AVERAGE          = "0.000000001";
-    public final static String FEE_OK_GAS_AMOUNT_SEND           = "200000";
-    public final static String FEE_OK_GAS_AMOUNT_STAKE          = "200000";
-    public final static String FEE_OK_GAS_AMOUNT_STAKE_MUX      = "20000";
-    public final static String FEE_OK_GAS_AMOUNT_VOTE           = "200000";
-    public final static String FEE_OK_GAS_AMOUNT_VOTE_MUX       = "50000";
+    public final static String OK_GAS_RATE_AVERAGE                      = "0.000000001";
+    public final static String OK_GAS_AMOUNT_SEND                       = "200000";
+    public final static String OK_GAS_AMOUNT_STAKE                      = "200000";
+    public final static String OK_GAS_AMOUNT_STAKE_MUX                  = "20000";
+    public final static String OK_GAS_AMOUNT_VOTE                       = "200000";
+    public final static String OK_GAS_AMOUNT_VOTE_MUX                   = "50000";
 
-    public final static String FEE_CERTIK_GAS_RATE_AVERAGE      = "0.05";
-    public final static String FEE_CERTIK_GAS_AMOUNT_SEND       = "100000";
-    public final static String FEE_CERTIK_GAS_AMOUNT_STAKE      = "200000";
-    public final static String FEE_CERTIK_GAS_AMOUNT_REDELEGATE = "300000";
-    public final static String FEE_CERTIK_GAS_AMOUNT_REINVEST   = "300000";
-    public final static String FEE_CERTIK_GAS_ADDRESS_CHANGE    = "100000";
-    public final static String FEE_CERTIK_GAS_VOTE              = "100000";
+    public final static String CERTIK_GAS_RATE_AVERAGE                  = "0.05";
+    public final static String CERTIK_GAS_AMOUNT_SEND                   = "100000";
+    public final static String CERTIK_GAS_AMOUNT_STAKE                  = "200000";
+    public final static String CERTIK_GAS_AMOUNT_REDELEGATE             = "300000";
+    public final static String CERTIK_GAS_AMOUNT_REINVEST               = "300000";
+    public final static String CERTIK_GAS_ADDRESS_CHANGE                = "100000";
+    public final static String CERTIK_GAS_VOTE                          = "100000";
 
     public final static String SECRET_GAS_FEE_RATE_AVERAGE              = "0.25";
     public final static String SECRET_GAS_AMOUNT_SEND                   = "80000";
@@ -582,13 +583,13 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
 
-    public final static String SENTINEL_GAS_FEE_RATE_AVERAGE              = "0.1";
-    public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
-    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE             = "300000";
-    public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
+    public final static String SENTINEL_GAS_FEE_RATE_AVERAGE            = "0.1";
+    public final static String SENTINEL_GAS_AMOUNT_SEND                 = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_STAKE                = "200000";
+    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE           = "300000";
+    public final static String SENTINEL_GAS_AMOUNT_REINVEST             = "350000";
     public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_VOTE                 = "100000";
 
     public final static String FETCH_GAS_FEE_RATE_AVERAGE               = "0.00";
     public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
@@ -606,13 +607,13 @@ public class BaseConstant {
     public final static String SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
     public final static String SIF_GAS_AMOUNT_VOTE                      = "100000";
 
-    public final static String KI_GAS_FEE_RATE_AVERAGE                 = "0.025";
-    public final static String KI_GAS_AMOUNT_SEND                      = "100000";
-    public final static String KI_GAS_AMOUNT_STAKE                     = "200000";
-    public final static String KI_GAS_AMOUNT_REDELEGATE                = "300000";
-    public final static String KI_GAS_AMOUNT_REINVEST                  = "350000";
-    public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "100000";
-    public final static String KI_GAS_AMOUNT_VOTE                      = "100000";
+    public final static String KI_GAS_FEE_RATE_AVERAGE                  = "0.025";
+    public final static String KI_GAS_AMOUNT_SEND                       = "100000";
+    public final static String KI_GAS_AMOUNT_STAKE                      = "200000";
+    public final static String KI_GAS_AMOUNT_REDELEGATE                 = "300000";
+    public final static String KI_GAS_AMOUNT_REINVEST                   = "350000";
+    public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
+    public final static String KI_GAS_AMOUNT_VOTE                       = "100000";
 
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";

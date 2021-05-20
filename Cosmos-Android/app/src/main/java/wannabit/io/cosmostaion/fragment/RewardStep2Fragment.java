@@ -32,40 +32,29 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_UNDELEGATE;
-import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_GAS_RATE_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_STAKE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
@@ -208,7 +197,7 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
 
             ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
             mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValidators.size() - 1));
-            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -228,8 +217,8 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
             ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
             mEstimateGasAmount = new BigDecimal(rewardGasFees.get(getSActivity().mValidators.size() - 1));
             mGasAmount.setText(mEstimateGasAmount.toPlainString());
-            mGasRate.setText(WDp.getDpString(FEE_CERTIK_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+            mGasRate.setText(WDp.getDpString(CERTIK_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -509,9 +498,9 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
                 mGasAmount.setText(mEstimateGasAmount.toPlainString());
-                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_LOW, 4));
+                mGasRate.setText(WDp.getDpString(KAVA_GAS_RATE_LOW, 4));
 
-                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(KAVA_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -528,9 +517,9 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
                 mGasAmount.setText(mEstimateGasAmount.toPlainString());
-                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_AVERAGE, 3));
+                mGasRate.setText(WDp.getDpString(KAVA_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(KAVA_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -564,9 +553,9 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
                 mGasAmount.setText(mEstimateGasAmount.toPlainString());
-                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_LOW, 4));
+                mGasRate.setText(WDp.getDpString(BAND_GAS_RATE_LOW, 4));
 
-                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(BAND_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -584,9 +573,9 @@ public class RewardStep2Fragment extends BaseFragment implements View.OnClickLis
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
                 mGasAmount.setText(mEstimateGasAmount.toPlainString());
-                mGasRate.setText(WDp.getDpString(FEE_GAS_RATE_AVERAGE, 3));
+                mGasRate.setText(WDp.getDpString(BAND_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = mEstimateGasAmount.multiply(new BigDecimal(BAND_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
                 } else {

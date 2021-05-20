@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_REPLACE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_AMOUNT_REPLACE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
@@ -107,7 +107,7 @@ public class ReplaceStarName2Fragment extends BaseFragment implements View.OnCli
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
 
-            mFeeAmount = new BigDecimal(FEE_IOV_GAS_AMOUNT_REPLACE).multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(IOV_GAS_AMOUNT_REPLACE).multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -134,7 +134,7 @@ public class ReplaceStarName2Fragment extends BaseFragment implements View.OnCli
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_IOV_GAS_AMOUNT_REPLACE;
+                fee.gas = IOV_GAS_AMOUNT_REPLACE;
                 getSActivity().mFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -145,7 +145,7 @@ public class ReplaceStarName2Fragment extends BaseFragment implements View.OnCli
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_IOV_GAS_AMOUNT_REPLACE;
+                fee.gas = IOV_GAS_AMOUNT_REPLACE;
                 getSActivity().mFee = fee;
 
             }

@@ -26,8 +26,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_DELETE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_AMOUNT_DELETE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 
@@ -106,7 +106,7 @@ public class DeleteStarName2Fragment extends BaseFragment implements View.OnClic
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
 
-            mFeeAmount = new BigDecimal(FEE_IOV_GAS_AMOUNT_DELETE).multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(IOV_GAS_AMOUNT_DELETE).multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -133,7 +133,7 @@ public class DeleteStarName2Fragment extends BaseFragment implements View.OnClic
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_IOV_GAS_AMOUNT_DELETE;
+                fee.gas = IOV_GAS_AMOUNT_DELETE;
                 getSActivity().mFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -144,7 +144,7 @@ public class DeleteStarName2Fragment extends BaseFragment implements View.OnClic
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_IOV_GAS_AMOUNT_DELETE;
+                fee.gas = IOV_GAS_AMOUNT_DELETE;
                 getSActivity().mFee = fee;
 
             }

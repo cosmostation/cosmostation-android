@@ -28,8 +28,8 @@ import wannabit.io.cosmostaion.utils.WDp;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_AMOUNT_STAKE_MUX;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_OK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_AMOUNT_STAKE_MUX;
+import static wannabit.io.cosmostaion.base.BaseConstant.OK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClickListener {
@@ -151,8 +151,8 @@ public class OKStakingFragmentStep0 extends BaseFragment implements View.OnClick
             if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
                 myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
             }
-            BigDecimal estimateGasAmount = (new BigDecimal(FEE_OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.FEE_OK_GAS_AMOUNT_STAKE));
-            BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(FEE_OK_GAS_RATE_AVERAGE));
+            BigDecimal estimateGasAmount = (new BigDecimal(OK_GAS_AMOUNT_STAKE_MUX).multiply(new BigDecimal(""+myValidatorCnt))).add(new BigDecimal(BaseConstant.OK_GAS_AMOUNT_STAKE));
+            BigDecimal feeAmount = estimateGasAmount.multiply(new BigDecimal(OK_GAS_RATE_AVERAGE));
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_OK).subtract(feeAmount);
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 0, mDpDecimal));
         }

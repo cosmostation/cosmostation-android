@@ -295,14 +295,6 @@
         </activity>
 
         <activity
-            android:name=".activities.EventStakeDropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="adjustResize|stateHidden">
-        </activity>
-
-
-        <activity
             android:name=".activities.chains.kava.CdpDetail5Activity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"

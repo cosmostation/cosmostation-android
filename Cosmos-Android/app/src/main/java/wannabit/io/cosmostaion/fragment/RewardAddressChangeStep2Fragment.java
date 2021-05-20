@@ -35,20 +35,20 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_AMOUNT_ADDRESS_CHANGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_ADDRESS_CHANGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_CERTIK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_AMOUNT_LOW;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_IOV_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_ADDRESS_CHANGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_AMOUNT_LOW;
+import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
@@ -56,7 +56,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVER
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_AMOUNT_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
@@ -136,33 +135,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
         mNextBtn.setOnClickListener(this);
         WDp.DpMainDenom(getContext(), getSActivity().mAccount.baseChain, mTvGasType);
 
-        if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mBtnGasType.setOnClickListener(this);
-            mSpeedLayer.setOnClickListener(this);
-            Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
-            mSeekBarGas.setProgressDrawable(getResources().getDrawable(R.drawable.gas_kava_seekbar_style));
-            mSeekBarGas.getProgressDrawable().setBounds(bounds);
-            mTvGasType.setTextColor(getResources().getColor(R.color.colorKava));
-
-            mSeekBarGas.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-                @Override
-                public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                    if(fromUser) {
-                        onUpdateFeeLayer();
-                    }
-                }
-
-                @Override
-                public void onStartTrackingTouch(SeekBar seekBar) { }
-
-                @Override
-                public void onStopTrackingTouch(SeekBar seekBar) {
-                    onPayableFee();
-                }
-            });
-            mSeekBarGas.setProgress(0);
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             mBtnGasType.setOnClickListener(this);
             mSpeedLayer.setOnClickListener(this);
             Rect bounds = mSeekBarGas.getProgressDrawable().getBounds();
@@ -196,7 +169,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_iov));
 
-            mFeeAmount = new BigDecimal(FEE_IOV_GAS_AMOUNT_LOW).multiply(new BigDecimal(FEE_IOV_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(IOV_GAS_AMOUNT_LOW).multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastIovTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -213,9 +186,9 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_certik));
 
-            mGasAmount.setText(FEE_CERTIK_GAS_ADDRESS_CHANGE);
-            mGasRate.setText(WDp.getDpString(FEE_CERTIK_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(FEE_CERTIK_GAS_ADDRESS_CHANGE).multiply(new BigDecimal(FEE_CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+            mGasAmount.setText(CERTIK_GAS_ADDRESS_CHANGE);
+            mGasRate.setText(WDp.getDpString(CERTIK_GAS_RATE_AVERAGE, 3));
+            mFeeAmount = new BigDecimal(CERTIK_GAS_ADDRESS_CHANGE).multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -301,11 +274,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
     @Override
     public void onRefreshTab() {
         super.onRefreshTab();
-        if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            mAvailable  = getSActivity().mAccount.getKavaBalance();
-            onUpdateFeeLayer();
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             mAvailable  = getSActivity().mAccount.getBandBalance();
             onUpdateFeeLayer();
 
@@ -318,18 +287,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             getSActivity().onBeforeStep();
 
         } else if (v.equals(mNextBtn)) {
-            if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-                Fee fee = new Fee();
-                Coin gasCoin = new Coin();
-                gasCoin.denom = BaseConstant.TOKEN_KAVA;
-                gasCoin.amount = mFeeAmount.toPlainString();
-                ArrayList<Coin> amount = new ArrayList<>();
-                amount.add(gasCoin);
-                fee.amount = amount;
-                fee.gas = BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND;
-                getSActivity().mTxFee = fee;
-
-            } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+            if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 Fee fee = new Fee();
                 Coin gasCoin = new Coin();
                 gasCoin.denom = BaseConstant.TOKEN_BAND;
@@ -337,7 +295,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = BaseConstant.FEE_GAS_AMOUNT_HALF;
+                fee.gas = BAND_GAS_AMOUNT_ADDRESS_CHANGE;
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {
@@ -348,7 +306,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_IOV_GAS_AMOUNT_LOW;
+                fee.gas = IOV_GAS_AMOUNT_LOW;
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_TEST)) {
@@ -359,7 +317,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_IOV_GAS_AMOUNT_LOW;
+                fee.gas = IOV_GAS_AMOUNT_LOW;
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
@@ -370,7 +328,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = FEE_CERTIK_GAS_ADDRESS_CHANGE;
+                fee.gas = CERTIK_GAS_ADDRESS_CHANGE;
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
@@ -433,63 +391,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
     }
 
     private void onUpdateFeeLayer() {
-        if (getSActivity().mBaseChain.equals(BaseChain.KAVA_MAIN)) {
-            if(mSeekBarGas.getProgress() == 0) {
-                mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
-                mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
-                mFeeLayer1.setVisibility(View.VISIBLE);
-                mFeeLayer2.setVisibility(View.GONE);
-
-                mFeeAmount  = BigDecimal.ZERO;
-                if(getBaseDao().getCurrency() != 5) {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
-                } else {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
-                }
-
-                mMinFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
-                mMinFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-
-            } else if (mSeekBarGas.getProgress() == 1) {
-                mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.car_img));
-                mSpeedMsg.setText(getString(R.string.str_fee_speed_title_1));
-                mFeeLayer1.setVisibility(View.GONE);
-                mFeeLayer2.setVisibility(View.VISIBLE);
-
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
-
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
-                if(getBaseDao().getCurrency() != 5) {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
-                } else {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
-                }
-                mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
-                mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-
-
-            } else if (mSeekBarGas.getProgress() == 2) {
-                mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.rocket_img));
-                mSpeedMsg.setText(getString(R.string.str_fee_speed_title_2));
-                mFeeLayer1.setVisibility(View.GONE);
-                mFeeLayer2.setVisibility(View.VISIBLE);
-
-                mGasAmount.setText(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
-
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_KAVA_GAS_AMOUNT_SEND).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
-                if(getBaseDao().getCurrency() != 5) {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(2, RoundingMode.DOWN);
-                } else {
-                    mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastKavaTic())).setScale(8, RoundingMode.DOWN);
-                }
-                mGasFeeAmount.setText(WDp.getDpString(WDp.uAtomToAtom(mFeeAmount).toPlainString(), 6));
-                mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), mFeePrice, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
-            }
-
-        } else if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (getSActivity().mBaseChain.equals(BaseChain.BAND_MAIN)) {
             if(mSeekBarGas.getProgress() == 0) {
                 mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.bycicle_img));
                 mSpeedMsg.setText(getString(R.string.str_fee_speed_title_0));
@@ -513,10 +415,10 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_LOW, 4));
+                mGasAmount.setText(BAND_GAS_AMOUNT_ADDRESS_CHANGE);
+                mGasRate.setText(WDp.getDpString(BAND_GAS_RATE_LOW, 4));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_LOW)).setScale(0);
+                mFeeAmount = new BigDecimal(BAND_GAS_AMOUNT_ADDRESS_CHANGE).multiply(new BigDecimal(BAND_GAS_RATE_LOW)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
                 } else {
@@ -533,10 +435,10 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 mFeeLayer1.setVisibility(View.GONE);
                 mFeeLayer2.setVisibility(View.VISIBLE);
 
-                mGasAmount.setText(BaseConstant.FEE_GAS_AMOUNT_HALF);
-                mGasRate.setText(WDp.getDpString(BaseConstant.FEE_GAS_RATE_AVERAGE, 3));
+                mGasAmount.setText(BAND_GAS_AMOUNT_ADDRESS_CHANGE);
+                mGasRate.setText(WDp.getDpString(BAND_GAS_RATE_AVERAGE, 3));
 
-                mFeeAmount = new BigDecimal(BaseConstant.FEE_GAS_AMOUNT_HALF).multiply(new BigDecimal(BaseConstant.FEE_GAS_RATE_AVERAGE)).setScale(0);
+                mFeeAmount = new BigDecimal(BAND_GAS_AMOUNT_ADDRESS_CHANGE).multiply(new BigDecimal(BAND_GAS_RATE_AVERAGE)).setScale(0);
                 if(getBaseDao().getCurrency() != 5) {
                     mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastBandTic())).setScale(2, RoundingMode.DOWN);
                 } else {
