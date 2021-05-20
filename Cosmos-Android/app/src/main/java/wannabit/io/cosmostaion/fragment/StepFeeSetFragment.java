@@ -42,7 +42,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulSendGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulUndelegateGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.simulate.SimulVoteGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
@@ -149,7 +148,7 @@ public class StepFeeSetFragment extends BaseFragment implements View.OnClickList
         onCalculateFees();
 
         mFeeAmount.setText(WDp.getDpAmount2(getContext(), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain), WDp.mainDivideDecimal(getSActivity().mBaseChain)));
-        mFeeValue.setText(WDp.getDpMainAssetValue(getSActivity(), getBaseDao(), mFee, getSActivity().mBaseChain));
+        mFeeValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), mFee, WDp.mainDivideDecimal(getSActivity().mBaseChain)));
 
         mGasRate.setText(WDp.getDpGasRate(mSelectedGasRate.toPlainString()));
         mGasAmount.setText(mEstimateGasAmount.toPlainString());
