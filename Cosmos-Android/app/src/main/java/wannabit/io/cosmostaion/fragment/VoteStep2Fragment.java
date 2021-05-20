@@ -44,7 +44,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_VOTE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_AMOUNT_VOTE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_AMOUNT_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_GAS_AMOUNT_VOTE;
@@ -195,9 +195,9 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_certik));
 
-            mGasAmount.setText(CERTIK_GAS_VOTE);
+            mGasAmount.setText(CERTIK_GAS_AMOUNT_VOTE);
             mGasRate.setText(WDp.getDpString(CERTIK_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(CERTIK_GAS_VOTE).multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(CERTIK_GAS_AMOUNT_VOTE).multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
 
             mGasFeeAmount.setText(WDp.getDpAmount2(getContext(), mFeeAmount, 6, 6));
             mGasFeePrice.setText(WDp.getPriceApproximatelyDp(getSActivity(), BigDecimal.ZERO, getBaseDao().getCurrencySymbol(), getBaseDao().getCurrency()));
@@ -348,7 +348,7 @@ public class VoteStep2Fragment extends BaseFragment implements View.OnClickListe
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = CERTIK_GAS_VOTE;
+                fee.gas = CERTIK_GAS_AMOUNT_VOTE;
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(IOV_MAIN)) {

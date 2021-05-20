@@ -45,7 +45,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_AMOUNT_ADDRESS_
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_GAS_RATE_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_ADDRESS_CHANGE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_AMOUNT_LOW;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
@@ -186,9 +186,9 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
             mSpeedImg.setImageDrawable(getResources().getDrawable(R.drawable.fee_img));
             mSpeedMsg.setText(getString(R.string.str_fee_speed_title_certik));
 
-            mGasAmount.setText(CERTIK_GAS_ADDRESS_CHANGE);
+            mGasAmount.setText(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
             mGasRate.setText(WDp.getDpString(CERTIK_GAS_RATE_AVERAGE, 3));
-            mFeeAmount = new BigDecimal(CERTIK_GAS_ADDRESS_CHANGE).multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
+            mFeeAmount = new BigDecimal(CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE).multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
             if(getBaseDao().getCurrency() != 5) {
                 mFeePrice = WDp.uAtomToAtom(mFeeAmount).multiply(new BigDecimal(""+getBaseDao().getLastCertikTic())).setScale(2, RoundingMode.DOWN);
             } else {
@@ -328,7 +328,7 @@ public class RewardAddressChangeStep2Fragment extends BaseFragment implements Vi
                 ArrayList<Coin> amount = new ArrayList<>();
                 amount.add(gasCoin);
                 fee.amount = amount;
-                fee.gas = CERTIK_GAS_ADDRESS_CHANGE;
+                fee.gas = CERTIK_GAS_AMOUNT_REWARD_ADDRESS_CHANGE;
                 getSActivity().mTxFee = fee;
 
             } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
