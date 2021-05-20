@@ -25,9 +25,9 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep1Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep2Fragment;
-import wannabit.io.cosmostaion.fragment.RedelegateStep3Fragment;
 import wannabit.io.cosmostaion.fragment.RedelegateStep4Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.TaskListener;
@@ -85,7 +85,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
         if (isGRPC(mBaseChain)) {
             mValAddress = getIntent().getStringExtra("valOpAddress");
         } else {
-            mFromValidator          = getIntent().getParcelableExtra("validator");
+            mFromValidator = getIntent().getParcelableExtra("validator");
         }
 
         mPageAdapter = new RedelegatePageAdapter(getSupportFragmentManager());
@@ -257,7 +257,7 @@ public class RedelegateActivity extends BaseBroadCastActivity implements TaskLis
             mFragments.add(RedelegateStep1Fragment.newInstance(null));
             mFragments.add(RedelegateStep2Fragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(RedelegateStep3Fragment.newInstance(null)); }
+            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(RedelegateStep4Fragment.newInstance(null));
         }
 

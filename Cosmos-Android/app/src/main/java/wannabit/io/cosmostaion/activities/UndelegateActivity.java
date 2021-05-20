@@ -20,9 +20,9 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep0Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep1Fragment;
-import wannabit.io.cosmostaion.fragment.UndelegateStep2Fragment;
 import wannabit.io.cosmostaion.fragment.UndelegateStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Validator;
 
@@ -182,7 +182,7 @@ public class UndelegateActivity extends BaseBroadCastActivity {
             mFragments.add(UndelegateStep0Fragment.newInstance(null));
             mFragments.add(UndelegateStep1Fragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(UndelegateStep2Fragment.newInstance(null)); }
+            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(UndelegateStep3Fragment.newInstance(null));
         }
 

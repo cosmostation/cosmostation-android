@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
+import wannabit.io.cosmostaion.model.type.Validator;
 
 public class BaseBroadCastActivity extends BaseActivity {
 
@@ -20,6 +21,9 @@ public class BaseBroadCastActivity extends BaseActivity {
     public String               mNewRewardAddress;                  //SetRewardAddress
     public String               mProposalId;                        //Vote
     public String               mOpinion;                           //Vote
+
+
+    public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old
 
 
     public void onNextStep() { }

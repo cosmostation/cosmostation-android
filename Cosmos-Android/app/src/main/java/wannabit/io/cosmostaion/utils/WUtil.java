@@ -2481,7 +2481,7 @@ public class WUtil {
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
             if (position == 0) {
-                return BigDecimal.ZERO;
+                return BigDecimal.ZERO.setScale(3);
             } else if (position == 1) {
                 return new BigDecimal(KAVA_GAS_RATE_LOW);
             }
@@ -2489,7 +2489,7 @@ public class WUtil {
 
         } else if (basechain.equals(BAND_MAIN)) {
             if (position == 0) {
-                return BigDecimal.ZERO;
+                return BigDecimal.ZERO.setScale(3);
             } else if (position == 1) {
                 return new BigDecimal(BAND_GAS_RATE_LOW);
             }
