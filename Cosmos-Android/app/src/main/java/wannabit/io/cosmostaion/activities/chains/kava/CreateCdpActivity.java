@@ -21,28 +21,28 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.CreateCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CREATE_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class CreateCdpActivity extends BaseActivity implements TaskListener {
+public class CreateCdpActivity extends BaseBroadCastActivity implements TaskListener {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -62,8 +62,6 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
     public BigDecimal                   toPrincipalAmount = BigDecimal.ZERO;
     public BigDecimal                   mLiquidationPrice = BigDecimal.ZERO;
     public BigDecimal                   mRiskRate = BigDecimal.ZERO;
-    public String                       mMemo;
-    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +84,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_CREATE_CDP;
 
         mCollateralParamType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
@@ -182,13 +181,13 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
         Coin principalCoin = new Coin(mCollateralParam.debt_limit.denom, toPrincipalAmount.toPlainString());
 
         Intent intent = new Intent(CreateCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CREATE_CDP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_CREATE_CDP);
         intent.putExtra("collateralCoin", collateralCoin);
         intent.putExtra("principalCoin", principalCoin);
         intent.putExtra("sender", mAccount.address);
         intent.putExtra("collateralType", mCollateralParam.type);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -209,7 +208,7 @@ public class CreateCdpActivity extends BaseActivity implements TaskListener {
             mFragments.clear();
             mFragments.add(CreateCdpStep0Fragment.newInstance(null));
             mFragments.add(CreateCdpStep1Fragment.newInstance(null));
-            mFragments.add(CreateCdpStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(CreateCdpStep3Fragment.newInstance(null));
         }
 

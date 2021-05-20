@@ -21,13 +21,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.WithdrawCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -42,11 +42,12 @@ import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_WITHDRAW_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class WithdrawCdpActivity extends BaseActivity {
+public class WithdrawCdpActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -64,9 +65,6 @@ public class WithdrawCdpActivity extends BaseActivity {
     public MyCdp                        mMyCdp;
     public BigDecimal                   mSelfDepositAmount = BigDecimal.ZERO;
     public Coin                         mCollateral = new Coin();
-    public String                       mMemo;
-    public Fee                          mFee;
-
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
 
     @Override
@@ -90,6 +88,7 @@ public class WithdrawCdpActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_WITHDRAW_CDP;
 
         mCollateralType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
@@ -182,14 +181,14 @@ public class WithdrawCdpActivity extends BaseActivity {
 
     public void onStartWithdrawCdp() {
         Intent intent = new Intent(WithdrawCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_WITHDRAW_CDP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_WITHDRAW_CDP);
         intent.putExtra("depositor", mAccount.address);
         //TODO only support self owen CDP now
         intent.putExtra("owner", mAccount.address);
         intent.putExtra("collateralCoin", mCollateral);
         intent.putExtra("collateralType", mCollateralParam.type);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -205,7 +204,7 @@ public class WithdrawCdpActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(WithdrawCdpStep0Fragment.newInstance(null));
             mFragments.add(WithdrawCdpStep1Fragment.newInstance(null));
-            mFragments.add(WithdrawCdpStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(WithdrawCdpStep3Fragment.newInstance(null));
         }
 

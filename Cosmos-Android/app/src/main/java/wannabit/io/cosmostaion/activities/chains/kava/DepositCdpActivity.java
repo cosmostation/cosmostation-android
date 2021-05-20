@@ -21,13 +21,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -35,8 +35,6 @@ import wannabit.io.cosmostaion.model.kava.CollateralParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.kava.MyCdp;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.network.res.ResCdpDepositStatus;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByDepositorTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaCdpByOwnerTask;
 import wannabit.io.cosmostaion.task.FetchTask.KavaMarketPriceTask;
@@ -44,11 +42,12 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class DepositCdpActivity extends BaseActivity {
+public class DepositCdpActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -67,9 +66,6 @@ public class DepositCdpActivity extends BaseActivity {
     public BigDecimal                   mSelfDepositAmount = BigDecimal.ZERO;
 
     public Coin                         mCollateral = new Coin();
-    public String                       mMemo;
-    public Fee                          mFee;
-
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mTotalDepositAmount;
 
     @Override
@@ -93,6 +89,7 @@ public class DepositCdpActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_DEPOSIT_CDP;
 
         mCollateralType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
@@ -186,14 +183,14 @@ public class DepositCdpActivity extends BaseActivity {
 
     public void onStartDepositCdp() {
         Intent intent = new Intent(DepositCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DEPOSIT_CDP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_DEPOSIT_CDP);
         intent.putExtra("depositor", mAccount.address);
         //TODO only support self owen CDP now
         intent.putExtra("owner", mAccount.address);
         intent.putExtra("collateralCoin", mCollateral);
         intent.putExtra("collateralType", mCollateralParam.type);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -213,7 +210,7 @@ public class DepositCdpActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(DepositCdpStep0Fragment.newInstance(null));
             mFragments.add(DepositCdpStep1Fragment.newInstance(null));
-            mFragments.add(DepositCdpStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DepositCdpStep3Fragment.newInstance(null));
         }
 

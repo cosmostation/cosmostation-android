@@ -79,7 +79,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
     public void onRefreshTab() {
         final String cDenom = getCParam().denom;
         final String pDenom = getCParam().debt_limit.denom;
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), pDenom, getSActivity().mPayment.amount, mPaymentDenom, mPaymentAmount, getSActivity().mBaseChain);
         BigDecimal paymentValue = new BigDecimal(getSActivity().mPayment.amount).movePointLeft(WUtil.getKavaCoinDecimal(pDenom));
@@ -104,7 +104,7 @@ public class RepayCdpStep3Fragment extends BaseFragment implements View.OnClickL
         if (getSActivity().mRemainLoanAmount.equals(BigDecimal.ZERO)) {
             mWarnLayer.setVisibility(View.VISIBLE);
         }
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override

@@ -75,7 +75,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
     public void onRefreshTab() {
         final String cDenom = getCParam().denom;
         final String pDenom = getCParam().debt_limit.denom;
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         WDp.showCoinDp(getContext(), cDenom, getSActivity().mCollateral.amount, mWithdrawDenom, mWithdrawAmount, getSActivity().mBaseChain);
         BigDecimal collateralValue = new BigDecimal(getSActivity().mCollateral.amount).movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
@@ -98,7 +98,7 @@ public class WithdrawCdpStep3Fragment extends BaseFragment implements View.OnCli
         BigDecimal totalCollateralValue = getSActivity().mTotalDepositAmount.movePointLeft(WUtil.getKavaCoinDecimal(cDenom)).multiply(new BigDecimal(getPrice().price)).setScale(2, RoundingMode.DOWN);
         mTotalDepositValue.setText(WDp.getDpRawDollor(getContext(), totalCollateralValue, 2));
 
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
 

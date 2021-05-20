@@ -21,13 +21,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DrawDebtCdpStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.CdpDeposit;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -43,11 +43,12 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_DEPOSIT;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_CDP_OWENER;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_KAVA_TOKEN_PRICE;
 
-public class BorrowCdpActivity extends BaseActivity implements TaskListener {
+public class BorrowCdpActivity extends BaseBroadCastActivity implements TaskListener {
 
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
@@ -64,12 +65,7 @@ public class BorrowCdpActivity extends BaseActivity implements TaskListener {
     public CollateralParam              mCollateralParam;
     public MyCdp                        mMyCdp;
     public BigDecimal                   mSelfDepositAmount = BigDecimal.ZERO;
-
-
     public Coin                         mPrincipal = new Coin();
-    public String                       mMemo;
-    public Fee                          mFee;
-
     public BigDecimal                   mBeforeLiquidationPrice, mBeforeRiskRate, mAfterLiquidationPrice, mAfterRiskRate, mMoreAddedLoanAmount;
 
     @Override
@@ -93,6 +89,7 @@ public class BorrowCdpActivity extends BaseActivity implements TaskListener {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_DRAW_DEBT_CDP;
 
         mCollateralType = getIntent().getStringExtra("collateralParamType");
         mMaketId = getIntent().getStringExtra("marketId");
@@ -184,13 +181,13 @@ public class BorrowCdpActivity extends BaseActivity implements TaskListener {
 
     public void onStartDrawDebtCdp() {
         Intent intent = new Intent(BorrowCdpActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_DRAW_DEBT_CDP);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_DRAW_DEBT_CDP);
         intent.putExtra("sender", mAccount.address);
         intent.putExtra("principalCoin", mPrincipal);
         intent.putExtra("cdp_denom", mCollateralParam.denom);
         intent.putExtra("collateralType", mCollateralParam.type);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -206,7 +203,7 @@ public class BorrowCdpActivity extends BaseActivity implements TaskListener {
             mFragments.clear();
             mFragments.add(DrawDebtCdpStep0Fragment.newInstance(null));
             mFragments.add(DrawDebtCdpStep1Fragment.newInstance(null));
-            mFragments.add(DrawDebtCdpStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DrawDebtCdpStep3Fragment.newInstance(null));
         }
 
