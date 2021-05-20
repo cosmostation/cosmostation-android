@@ -26,9 +26,9 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.fragment.SendStep0Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep1Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
-import wannabit.io.cosmostaion.fragment.SendStep3Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.network.res.ResBnbTic;
 
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
@@ -211,7 +211,7 @@ public class SendActivity extends BaseBroadCastActivity {
             mFragments.add(SendStep1Fragment.newInstance(null));
             mFragments.add(SendStep2Fragment.newInstance(null));
             if (isGRPC(mBaseChain)) { mFragments.add(StepFeeSetFragment.newInstance(null)); }
-            else { mFragments.add(SendStep3Fragment.newInstance(null)); }
+            else { mFragments.add(StepFeeSetOldFragment.newInstance(null)); }
             mFragments.add(SendStep4Fragment.newInstance(null));
         }
 

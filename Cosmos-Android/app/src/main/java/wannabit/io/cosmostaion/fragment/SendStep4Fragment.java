@@ -138,7 +138,7 @@ public class SendStep4Fragment extends BaseFragment implements View.OnClickListe
                 BigDecimal currentAvai  = getSActivity().mAccount.getBnbBalance();
                 mCurrentBalance.setText(WDp.getDpAmount2(getContext(), currentAvai, 0, 8));
                 mRemainingBalance.setText(WDp.getDpAmount2(getContext(), currentAvai.subtract(toSendAmount).subtract(feeAmount), 0, 8));
-                mTotalPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, currentAvai.subtract(toSendAmount).subtract(feeAmount), 0));
+                mRemainingPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_BNB, currentAvai.subtract(toSendAmount).subtract(feeAmount), 0));
 
             } else {
                 mDenomSendAmount.setTextColor(getResources().getColor(R.color.colorWhite));

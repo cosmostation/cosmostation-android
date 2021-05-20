@@ -2498,7 +2498,7 @@ public class WUtil {
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
-            return BigDecimal.ZERO;
+            return BigDecimal.ZERO.setScale(3);
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             return new BigDecimal(IOV_GAS_RATE_AVERAGE);
@@ -2525,7 +2525,7 @@ public class WUtil {
             return new BigDecimal(KI_GAS_FEE_RATE_AVERAGE);
 
         }
-        return BigDecimal.ZERO;
+        return BigDecimal.ZERO.setScale(3);
     }
 
 
