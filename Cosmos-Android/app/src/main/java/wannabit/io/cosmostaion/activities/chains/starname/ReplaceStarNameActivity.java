@@ -20,16 +20,15 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.ReplaceStarName3Fragment;
 import wannabit.io.cosmostaion.model.StarNameDomain;
 import wannabit.io.cosmostaion.model.StarNameResource;
-import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameDomainInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameResolveTask;
@@ -40,7 +39,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REPLACE_STAR
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_DOMAIN_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_RESOLVE;
 
-public class ReplaceStarNameActivity extends BaseActivity {
+public class ReplaceStarNameActivity extends BaseBroadCastActivity {
 
     private RelativeLayout  mRootView;
     private Toolbar         mToolbar;
@@ -57,8 +56,6 @@ public class ReplaceStarNameActivity extends BaseActivity {
     public String                       mToReplaceDomain;
     public String                       mToReplaceAccount;
     public ArrayList<StarNameResource>  mResources = new ArrayList();
-    public String                       mMemo;
-    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +83,7 @@ public class ReplaceStarNameActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_REPLACE_STARNAME;
 
         mPageAdapter = new ReplaceStarNamePageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -185,8 +183,8 @@ public class ReplaceStarNameActivity extends BaseActivity {
         intent.putExtra("domain", mToReplaceDomain);
         intent.putExtra("name", TextUtils.isEmpty(mToReplaceAccount) ? "" : mToReplaceAccount);
         intent.putExtra("resource", mResources);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -225,7 +223,7 @@ public class ReplaceStarNameActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(ReplaceStarName0Fragment.newInstance(null));
             mFragments.add(ReplaceStarName1Fragment.newInstance(null));
-            mFragments.add(ReplaceStarName2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(ReplaceStarName3Fragment.newInstance(null));
         }
 

@@ -18,21 +18,20 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RenewStarName3Fragment;
-import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_ACCOUNT;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_RENEW_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_RENEW_DOMAIN;
 
-public class ReNewStarNameActivity extends BaseActivity {
+public class ReNewStarNameActivity extends BaseBroadCastActivity {
 
     private RelativeLayout  mRootView;
     private Toolbar         mToolbar;
@@ -47,8 +46,6 @@ public class ReNewStarNameActivity extends BaseActivity {
     public String                       mToRenewDomain;
     public String                       mToRenewAccount;
     public long                         mValidTime;
-    public String                       mMemo;
-    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +65,10 @@ public class ReNewStarNameActivity extends BaseActivity {
         mValidTime = getIntent().getLongExtra("Time", -1);
 
         if (mRenewType.equals(IOV_MSG_TYPE_RENEW_DOMAIN)) {
+            mTxType = CONST_PW_TX_RENEW_DOMAIN;
             mTitle.setText(getString(R.string.str_renew_domain));
         } else {
+            mTxType = CONST_PW_TX_RENEW_ACCOUNT;
             mTitle.setText(getString(R.string.str_renew_account));
         }
 
@@ -176,8 +175,8 @@ public class ReNewStarNameActivity extends BaseActivity {
         }
         intent.putExtra("domain", mToRenewDomain);
         intent.putExtra("name", mToRenewAccount);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -192,7 +191,7 @@ public class ReNewStarNameActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(RenewStarName0Fragment.newInstance(null));
             mFragments.add(RenewStarName1Fragment.newInstance(null));
-            mFragments.add(RenewStarName2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(RenewStarName3Fragment.newInstance(null));
         }
 

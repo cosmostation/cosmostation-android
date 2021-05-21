@@ -53,7 +53,7 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -65,7 +65,7 @@ public class DeleteStarName3Fragment extends BaseFragment implements View.OnClic
             mStarName.setText(getSActivity().mToDelAccount + "*" + getSActivity().mToDelDomain);
         }
         mExpireTime.setText(WDp.getDpTime(getContext(), getSActivity().mValidTime * 1000));
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
 

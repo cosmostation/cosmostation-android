@@ -55,7 +55,7 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
     @Override
     public void onRefreshTab() {
         BigDecimal starnameFeeAmount = getBaseDao().mStarNameFee.getDomainFee(getSActivity().mToRegDomain, getSActivity().mType);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -66,7 +66,7 @@ public class RegisterDomain3Fragment extends BaseFragment implements View.OnClic
         mExpireTime.setText(getBaseDao().mStarNameConfig.getRegisterDomainExpireTime(getContext()));
         mDomain.setText("*" + getSActivity().mToRegDomain);
         mDomainType.setText(getSActivity().mType);
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
 

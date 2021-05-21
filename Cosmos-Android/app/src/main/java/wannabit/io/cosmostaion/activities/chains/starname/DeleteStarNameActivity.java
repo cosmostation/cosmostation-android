@@ -18,12 +18,12 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.DeleteStarName3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 
@@ -32,7 +32,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_ACCOU
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DELETE_DOMAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_MSG_TYPE_DELETE_DOMAIN;
 
-public class DeleteStarNameActivity extends BaseActivity {
+public class DeleteStarNameActivity extends BaseBroadCastActivity {
 
     private RelativeLayout  mRootView;
     private Toolbar         mToolbar;
@@ -48,8 +48,6 @@ public class DeleteStarNameActivity extends BaseActivity {
     public String       mToDelDomain;
     public String       mToDelAccount;
     public long         mValidTime;
-    public String       mMemo;
-    public Fee          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +66,10 @@ public class DeleteStarNameActivity extends BaseActivity {
         mValidTime = getIntent().getLongExtra("Time", -1);
 
         if (mDeleteType.equals(IOV_MSG_TYPE_DELETE_DOMAIN)) {
+            mTxType = CONST_PW_TX_DELETE_DOMAIN;
             mTitle.setText(getString(R.string.str_delete_domain));
         } else {
+            mTxType = CONST_PW_TX_DELETE_ACCOUNT;
             mTitle.setText(getString(R.string.str_delete_account));
         }
 
@@ -177,8 +177,8 @@ public class DeleteStarNameActivity extends BaseActivity {
         }
         intent.putExtra("domain", mToDelDomain);
         intent.putExtra("name", mToDelAccount);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -193,7 +193,7 @@ public class DeleteStarNameActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(DeleteStarName0Fragment.newInstance(null));
             mFragments.add(DeleteStarName1Fragment.newInstance(null));
-            mFragments.add(DeleteStarName2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DeleteStarName3Fragment.newInstance(null));
         }
 

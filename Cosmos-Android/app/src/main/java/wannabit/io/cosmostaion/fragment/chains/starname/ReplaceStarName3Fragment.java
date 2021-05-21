@@ -16,7 +16,6 @@ import wannabit.io.cosmostaion.activities.chains.starname.ReplaceStarNameActivit
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
@@ -57,7 +56,7 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onRefreshTab() {
         BigDecimal starnameFeeAmount = getBaseDao().mStarNameFee.getReplaceFee();
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -77,7 +76,7 @@ public class ReplaceStarName3Fragment extends BaseFragment implements View.OnCli
             addresses = addresses + resource.uri + "\n" + resource.resource + "\n\n";
         }
         mAddresses.setText(addresses);
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
 

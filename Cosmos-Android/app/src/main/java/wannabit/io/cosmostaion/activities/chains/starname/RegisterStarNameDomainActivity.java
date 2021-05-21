@@ -18,19 +18,20 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterDomain3Fragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_DOMAIN;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
 
-public class RegisterStarNameDomainActivity extends BaseActivity {
+public class RegisterStarNameDomainActivity extends BaseBroadCastActivity {
 
     private RelativeLayout  mRootView;
     private Toolbar         mToolbar;
@@ -44,8 +45,6 @@ public class RegisterStarNameDomainActivity extends BaseActivity {
 
     public String       mToRegDomain;
     public String       mType;
-    public String       mMemo;
-    public Fee          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +67,7 @@ public class RegisterStarNameDomainActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_REGISTER_DOMAIN;
 
         mPageAdapter = new RegisterDomainPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -159,8 +159,8 @@ public class RegisterStarNameDomainActivity extends BaseActivity {
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_REGISTER_DOMAIN);
         intent.putExtra("domain", mToRegDomain);
         intent.putExtra("domainType", mType);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -175,7 +175,7 @@ public class RegisterStarNameDomainActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(RegisterDomain0Fragment.newInstance(null));
             mFragments.add(RegisterDomain1Fragment.newInstance(null));
-            mFragments.add(RegisterDomain2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(RegisterDomain3Fragment.newInstance(null));
         }
 

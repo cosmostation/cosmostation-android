@@ -18,13 +18,13 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount1Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount2Fragment;
-import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount3Fragment;
 import wannabit.io.cosmostaion.fragment.chains.starname.RegisterAccount4Fragment;
 import wannabit.io.cosmostaion.model.StarNameResource;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -32,7 +32,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REGISTER_ACCOUNT;
 
-public class RegisterStarNameAccountActivity extends BaseActivity {
+public class RegisterStarNameAccountActivity extends BaseBroadCastActivity {
 
     private RelativeLayout mRootView;
     private Toolbar mToolbar;
@@ -45,8 +45,6 @@ public class RegisterStarNameAccountActivity extends BaseActivity {
 
     public String                       mToRegDomain;
     public String                       mToRegAccount;
-    public String                       mMemo;
-    public Fee                          mFee;
     public ArrayList<StarNameResource>  mResources = new ArrayList();
 
 
@@ -71,6 +69,7 @@ public class RegisterStarNameAccountActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_REGISTER_ACCOUNT;
 
         mPageAdapter = new RegisterAccountPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -167,8 +166,8 @@ public class RegisterStarNameAccountActivity extends BaseActivity {
         intent.putExtra("domain", mToRegDomain);
         intent.putExtra("name", mToRegAccount);
         intent.putExtra("resource", mResources);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -185,7 +184,7 @@ public class RegisterStarNameAccountActivity extends BaseActivity {
             mFragments.add(RegisterAccount0Fragment.newInstance(null));
             mFragments.add(RegisterAccount1Fragment.newInstance(null));
             mFragments.add(RegisterAccount2Fragment.newInstance(null));
-            mFragments.add(RegisterAccount3Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(RegisterAccount4Fragment.newInstance(null));
         }
 

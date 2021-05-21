@@ -56,7 +56,7 @@ public class RegisterAccount4Fragment extends BaseFragment implements View.OnCli
     @Override
     public void onRefreshTab() {
         BigDecimal starnameFeeAmount = getBaseDao().mStarNameFee.getAccountFee(true);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
@@ -71,7 +71,7 @@ public class RegisterAccount4Fragment extends BaseFragment implements View.OnCli
             addresses = addresses + resource.uri + "\n" + resource.resource + "\n\n";
         }
         mAddresses.setText(addresses);
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
 
