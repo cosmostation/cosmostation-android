@@ -18,20 +18,20 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment0;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment1;
-import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment2;
 import wannabit.io.cosmostaion.fragment.chains.ok.DirectVoteFragment3;
-import wannabit.io.cosmostaion.model.type.Fee;
-import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.utils.WUtil;
 
-public class OKVoteDirectActivity extends BaseActivity {
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE;
+
+public class OKVoteDirectActivity extends BaseBroadCastActivity {
     private RelativeLayout          mRootView;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
@@ -42,8 +42,6 @@ public class OKVoteDirectActivity extends BaseActivity {
 
     public ResOkStaking             mOkDeposit;
     public ArrayList<String>        mValAddesses = new ArrayList<>();
-    public String                   mMemo;
-    public Fee                      mFee;
 
 
     @Override
@@ -67,6 +65,7 @@ public class OKVoteDirectActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_OK_DIRECT_VOTE;
 
         WUtil.onSortByOKValidatorPower(getBaseDao().mAllValidators);
         mOkDeposit = getBaseDao().mOkStaking;
@@ -149,10 +148,10 @@ public class OKVoteDirectActivity extends BaseActivity {
 
     public void onStartDirectVote() {
         Intent intent = new Intent(OKVoteDirectActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_OK_DIRECT_VOTE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OK_DIRECT_VOTE);
         intent.putStringArrayListExtra("voteVal", mValAddesses);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -170,7 +169,7 @@ public class OKVoteDirectActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(DirectVoteFragment0.newInstance(null));
             mFragments.add(DirectVoteFragment1.newInstance(null));
-            mFragments.add(DirectVoteFragment2.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DirectVoteFragment3.newInstance(null));
         }
 

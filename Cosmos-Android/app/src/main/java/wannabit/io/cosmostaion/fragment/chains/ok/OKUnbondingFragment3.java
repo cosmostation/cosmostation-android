@@ -61,7 +61,7 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
     @Override
     public void onRefreshTab() {
         BigDecimal toDeleagteAmount = new BigDecimal(getSActivity().mToWithdrawCoin.amount);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mWithdrawAmount.setText(WDp.getDpAmount2(getContext(), toDeleagteAmount, 0, 18));
@@ -69,7 +69,7 @@ public class OKUnbondingFragment3 extends BaseFragment implements View.OnClickLi
 
         }
         mTime.setText(WDp.getUnbondTime(getContext(), getSActivity().mBaseChain));
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override

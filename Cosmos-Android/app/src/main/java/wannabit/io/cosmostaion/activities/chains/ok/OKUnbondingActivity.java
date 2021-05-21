@@ -18,18 +18,20 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKUnbondingFragment0;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKUnbondingFragment1;
-import wannabit.io.cosmostaion.fragment.chains.ok.OKUnbondingFragment2;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKUnbondingFragment3;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-public class OKUnbondingActivity extends BaseActivity {
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_WITHDRAW;
+
+public class OKUnbondingActivity extends BaseBroadCastActivity {
     private RelativeLayout              mRootView;
     private Toolbar                     mToolbar;
     private TextView                    mTitle;
@@ -39,9 +41,6 @@ public class OKUnbondingActivity extends BaseActivity {
     private StakeWithdrawPageAdapter    mPageAdapter;
 
     public Coin                     mToWithdrawCoin;
-    public String                   mMemo;
-    public Fee                      mFee;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +63,7 @@ public class OKUnbondingActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_OK_WITHDRAW;
 
         mPageAdapter = new StakeWithdrawPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -136,10 +136,10 @@ public class OKUnbondingActivity extends BaseActivity {
 
     public void onStartWithdraw() {
         Intent intent = new Intent(OKUnbondingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_OK_WITHDRAW);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OK_WITHDRAW);
         intent.putExtra("stakeAmount", mToWithdrawCoin);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -154,7 +154,7 @@ public class OKUnbondingActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(OKUnbondingFragment0.newInstance(null));
             mFragments.add(OKUnbondingFragment1.newInstance(null));
-            mFragments.add(OKUnbondingFragment2.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(OKUnbondingFragment3.newInstance(null));
         }
 

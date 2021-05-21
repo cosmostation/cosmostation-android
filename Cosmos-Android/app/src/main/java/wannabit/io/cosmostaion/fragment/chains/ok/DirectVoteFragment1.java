@@ -95,7 +95,7 @@ public class DirectVoteFragment1 extends BaseFragment implements View.OnClickLis
         } else if (v.equals(mNextBtn)) {
             String memo = mMemo.getText().toString().trim();
             if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
-                getSActivity().mMemo = mMemo.getText().toString().trim();
+                getSActivity().mTxMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             } else {
                 Toast.makeText(getContext(), R.string.error_invalid_memo, Toast.LENGTH_SHORT).show();

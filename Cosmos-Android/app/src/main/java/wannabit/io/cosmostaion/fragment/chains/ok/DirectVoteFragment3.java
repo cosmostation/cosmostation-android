@@ -59,7 +59,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
 
         if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
             mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 0, 18));
@@ -75,7 +75,7 @@ public class DirectVoteFragment3 extends BaseFragment implements View.OnClickLis
             mToVoteValidator.setText(monikers);
 
         }
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override

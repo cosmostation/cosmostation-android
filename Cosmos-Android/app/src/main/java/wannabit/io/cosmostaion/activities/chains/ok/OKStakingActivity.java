@@ -18,18 +18,21 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep0;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep1;
-import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep2;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKStakingFragmentStep3;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 
-public class OKStakingActivity extends BaseActivity {
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_OK_DEPOSIT;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+
+public class OKStakingActivity extends BaseBroadCastActivity {
     private RelativeLayout          mRootView;
     private Toolbar                 mToolbar;
     private TextView                mTitle;
@@ -39,8 +42,6 @@ public class OKStakingActivity extends BaseActivity {
     private StakeDepositPageAdapter mPageAdapter;
 
     public Coin                     mToDepositCoin;
-    public String                   mMemo;
-    public Fee                      mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class OKStakingActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_OK_DEPOSIT;
 
         mPageAdapter = new StakeDepositPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -135,10 +137,10 @@ public class OKStakingActivity extends BaseActivity {
 
     public void onStartDeposit() {
         Intent intent = new Intent(OKStakingActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_OK_DEPOSIT);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_OK_DEPOSIT);
         intent.putExtra("stakeAmount", mToDepositCoin);
-        intent.putExtra("memo", mMemo);
-        intent.putExtra("fee", mFee);
+        intent.putExtra("memo", mTxMemo);
+        intent.putExtra("fee", mTxFee);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -155,7 +157,7 @@ public class OKStakingActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(OKStakingFragmentStep0.newInstance(null));
             mFragments.add(OKStakingFragmentStep1.newInstance(null));
-            mFragments.add(OKStakingFragmentStep2.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(OKStakingFragmentStep3.newInstance(null));
         }
 
