@@ -63,7 +63,7 @@ public class CdpDetailMyAvailableHolder extends BaseHolder {
         mEmptyPrincipalValue.setText(WDp.getDpRawDollor(context, principalValue, 2));
 
         mEmptyKavaAmount.setText(WDp.getDpAmount2(context, kAvailable, WUtil.getKavaCoinDecimal(TOKEN_KAVA), WUtil.getKavaCoinDecimal(TOKEN_KAVA)));
-        BigDecimal kavaValue = kAvailable.movePointLeft(WUtil.getKavaCoinDecimal(TOKEN_KAVA)).multiply(baseData.getLastKavaDollorTic()).setScale(2, RoundingMode.DOWN);
+        BigDecimal kavaValue = WDp.usdValue(baseData, TOKEN_KAVA, kAvailable, 6);
         mEmptyKavaValue.setText(WDp.getDpRawDollor(context, kavaValue, 2));
 
         try {

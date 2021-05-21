@@ -143,7 +143,7 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
     public void onRefreshTab() {
         if(!isAdded()) return;
         mTvCurrency.setText(getBaseDao().getCurrencyString());
-        mTvBasePrice.setText(getBaseDao().getMarketString(getMainActivity()));
+        mTvBasePrice.setText(getString(R.string.str_coingecko));
         if(getBaseDao().getUsingAppLock()) {
             mTvAppLock.setText(R.string.str_app_applock_enabled);
         } else {
@@ -236,13 +236,8 @@ public class MainSettingFragment extends BaseFragment implements View.OnClickLis
         if(requestCode == SELECT_CURRENCY && resultCode == Activity.RESULT_OK) {
             getBaseDao().setCurrency(data.getIntExtra("currency", 0));
             mTvCurrency.setText(getBaseDao().getCurrencyString());
-//            getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
-            //TODO YONG
 
         } else if (requestCode == SELECT_MARKET && resultCode == Activity.RESULT_OK) {
-            getBaseDao().setMarket(data.getIntExtra("market", 0));
-            mTvBasePrice.setText(getBaseDao().getMarketString(getMainActivity()));
-            getMainActivity().onPriceTic(BaseChain.getChain(getMainActivity().mAccount.baseChain));
 
         } else if (requestCode == SELECT_STARNAME_WALLET_CONNECT && resultCode == Activity.RESULT_OK) {
             new TedPermission(getContext()).setPermissionListener(new PermissionListener() {

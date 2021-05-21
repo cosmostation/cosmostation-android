@@ -2,7 +2,7 @@
     <string name="app_name">Cosmostation</string>
     <string name="db_password" translatable="false">wannabit</string>
 
-    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>
+<!--    <string name="url_coingecko" translatable="false">https://api.coingecko.com/</string>-->
     <string name="url_moon_pay" translatable="false">https://buy.moonpay.io</string>
     <string name="url_station" translatable="false">https://api-utility.cosmostation.io/</string>
     <string name="url_css" translatable="false">https://api-wallet.cosmostation.io/</string>

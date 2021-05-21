@@ -568,24 +568,4 @@ public class ApiClient {
         return api_iris_test;
     }
 
-
-
-
-
-    private static CoinGeckoService coingeckoService = null;
-    public static CoinGeckoService getCGCClient(Context c) {
-        if (coingeckoService == null) {
-            synchronized (ApiClient.class) {
-                if (coingeckoService == null)  {
-                    Retrofit retrofit = new Retrofit.Builder()
-                            .baseUrl(c.getString(R.string.url_coingecko))
-                            .addConverterFactory(GsonConverterFactory.create())
-                            .build();
-                    coingeckoService = retrofit.create(CoinGeckoService.class);
-                }
-            }
-        }
-        return coingeckoService;
-    }
-
 }
