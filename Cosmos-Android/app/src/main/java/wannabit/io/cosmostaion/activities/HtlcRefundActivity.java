@@ -20,21 +20,23 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import wannabit.io.cosmostaion.R;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.fragment.HtlcRefundStep0Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcRefundStep1Fragment;
-import wannabit.io.cosmostaion.fragment.HtlcRefundStep2Fragment;
 import wannabit.io.cosmostaion.fragment.HtlcRefundStep3Fragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.utils.WLog;
 
-public class HtlcRefundActivity extends BaseActivity {
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_HTLS_REFUND;
+
+public class HtlcRefundActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private ImageView                   mChainBg;
@@ -48,8 +50,6 @@ public class HtlcRefundActivity extends BaseActivity {
     public ResKavaSwapInfo              mResKavaSwapInfo;
     public ResBnbSwapInfo               mResBnbSwapInfo;
     public String                       mSwapId;
-    public String                       mMemo;
-    public Fee                          mFee;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +75,7 @@ public class HtlcRefundActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_HTLS_REFUND;
 
         mPageAdapter = new HtlcRefundPageAdapter(getSupportFragmentManager());
         mViewPager.setOffscreenPageLimit(3);
@@ -158,10 +159,10 @@ public class HtlcRefundActivity extends BaseActivity {
 
     public void onStartHtlcRefund() {
         Intent intent = new Intent(HtlcRefundActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_HTLS_REFUND);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_HTLS_REFUND);
         intent.putExtra("swapId", mSwapId);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -179,7 +180,7 @@ public class HtlcRefundActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(HtlcRefundStep0Fragment.newInstance(null));
             mFragments.add(HtlcRefundStep1Fragment.newInstance(null));
-            mFragments.add(HtlcRefundStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(HtlcRefundStep3Fragment.newInstance(null));
         }
 

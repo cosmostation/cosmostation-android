@@ -99,7 +99,7 @@ public class HtlcRefundStep1Fragment extends BaseFragment implements View.OnClic
             String memo = mMemo.getText().toString().trim();
             if (WUtil.getCharSize(memo) < WUtil.getMaxMemoSize(getSActivity().mBaseChain)) {
                 if (!isMemohasMenomic(memo)) {
-                    getSActivity().mMemo = mMemo.getText().toString().trim();
+                    getSActivity().mTxMemo = mMemo.getText().toString().trim();
                     getSActivity().onNextStep();
                 } else {
                     Dialog_Mnemonics_Warning warning = Dialog_Mnemonics_Warning.newInstance();
@@ -143,7 +143,7 @@ public class HtlcRefundStep1Fragment extends BaseFragment implements View.OnClic
             if(data.getIntExtra("memo" , -1) ==0 ){
                 mMemo.setText("");
             }else if(data.getIntExtra("memo" , -1) == 1){
-                getSActivity().mMemo = mMemo.getText().toString().trim();
+                getSActivity().mTxMemo = mMemo.getText().toString().trim();
                 getSActivity().onNextStep();
             }
         } else {
