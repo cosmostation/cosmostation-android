@@ -19,12 +19,12 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimHardIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
@@ -33,7 +33,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_HARVEST_REWARD;
 
-public class ClaimHardIncentiveActivity extends BaseActivity {
+public class ClaimHardIncentiveActivity extends BaseBroadCastActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -42,9 +42,6 @@ public class ClaimHardIncentiveActivity extends BaseActivity {
     private TextView                        mTvStep;
     private ViewPager                       mViewPager;
     private ClaimHarvestRewardPageAdapter   mPageAdapter;
-
-    public String                           mMemo;
-    public Fee                              mFee;
 
     public String                                   mHarvestDepositDenom;
     public String                                   mHarvestDepositType;            // "lp" or "stake"
@@ -80,6 +77,7 @@ public class ClaimHardIncentiveActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_CLAIM_HARVEST_REWARD;
 
         mIncentiveReward5 = getBaseDao().mIncentiveRewards;
         mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
@@ -170,8 +168,8 @@ public class ClaimHardIncentiveActivity extends BaseActivity {
         intent.putExtra("depositDenom", mHarvestDepositDenom);
         intent.putExtra("depositType", mHarvestDepositType);
         intent.putExtra("multiplierName", mSelectedMultiplier.name);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -186,7 +184,7 @@ public class ClaimHardIncentiveActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(ClaimHardIncentiveStep0Fragment.newInstance(null));
             mFragments.add(ClaimHardIncentiveStep1Fragment.newInstance(null));
-            mFragments.add(ClaimHardIncentiveStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(ClaimHardIncentiveStep3Fragment.newInstance(null));
         }
 

@@ -19,19 +19,20 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.ClaimIncentiveStep3Fragment;
 import wannabit.io.cosmostaion.model.kava.ClaimMultiplier;
 import wannabit.io.cosmostaion.model.kava.IncentiveReward;
-import wannabit.io.cosmostaion.model.type.Fee;
 
-public class ClaimMintIncentiveActivity extends BaseActivity {
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE;
+
+public class ClaimMintIncentiveActivity extends BaseBroadCastActivity {
 
     private RelativeLayout              mRootView;
     private ImageView                   mChainBg;
@@ -41,9 +42,6 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
     private TextView                    mTvStep;
     private ViewPager                   mViewPager;
     private ClaimIncentivePageAdapter   mPageAdapter;
-
-    public String                       mMemo;
-    public Fee                          mFee;
 
     //KAVA-5
     public IncentiveReward                          mIncentiveReward5;
@@ -73,6 +71,7 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_CLAIM_INCENTIVE;
 
         mIncentiveReward5 = getBaseDao().mIncentiveRewards;
         mClaimMultipliers = getBaseDao().mIncentiveParam5.claim_multipliers;
@@ -163,10 +162,10 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
 
     public void onStartIncentiveClaim() {
         Intent intent = new Intent(ClaimMintIncentiveActivity.this, PasswordCheckActivity.class);
-        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, BaseConstant.CONST_PW_TX_CLAIM_INCENTIVE);
+        intent.putExtra(BaseConstant.CONST_PW_PURPOSE, CONST_PW_TX_CLAIM_INCENTIVE);
         intent.putExtra("multiplierName", mSelectedMultiplier.name);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
     }
@@ -183,7 +182,7 @@ public class ClaimMintIncentiveActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(ClaimIncentiveStep0Fragment.newInstance(null));
             mFragments.add(ClaimIncentiveStep1Fragment.newInstance(null));
-            mFragments.add(ClaimIncentiveStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(ClaimIncentiveStep3Fragment.newInstance(null));
         }
 

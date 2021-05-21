@@ -65,11 +65,11 @@ public class ClaimHardIncentiveStep3Fragment extends BaseFragment implements Vie
     public void onRefreshTab() {
         WDp.showCoinDp(getContext(), TOKEN_KAVA, getSActivity().mKReceivableAmount.toPlainString(), mKReceivableAmountDenom, mKReceivableAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), TOKEN_HARD, getSActivity().mHReceivableAmount.toPlainString(), mHReceivableAmountDenom, mHReceivableAmount, getSActivity().mBaseChain);
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         mFee.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
         mLockTime.setText(getSActivity().mSelectedMultiplier.months_lockup + " Month");
         mClaimType.setText(getSActivity().mSelectedMultiplier.name.toUpperCase());
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override
