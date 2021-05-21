@@ -317,7 +317,7 @@ public class WDp {
                 denomTv.setText(symbol.toUpperCase());
 
             }
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 0, 8));
 
         } else if (chain.equals(BAND_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);

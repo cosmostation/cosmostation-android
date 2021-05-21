@@ -103,7 +103,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
         final String toSendDenom = getSActivity().mDenom;
         final BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
         if (isGRPC(getSActivity().mBaseChain)) {
-            mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+            mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             setDisplayDecimals(mDpDecimal);
             if (toSendDenom.equals(mainDenom)) {
                 mMaxAvailable = getBaseDao().getAvailable(toSendDenom).subtract(feeAmount);
@@ -115,15 +115,15 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
 
         } else {
             if (getSActivity().mBaseChain.equals(BNB_MAIN) || getSActivity().mBaseChain.equals(BNB_TEST)) {
-                mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+                mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             } else if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
                 mDpDecimal = WUtil.getKavaCoinDecimal(toSendDenom);
             } else if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
-                mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+                mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             } else if (getSActivity().mBaseChain.equals(SIF_MAIN)) {
                 mDpDecimal = WUtil.getSifCoinDecimal(toSendDenom);
             } else {
-                mDpDecimal = WDp.mainDivideDecimal(getSActivity().mBaseChain);
+                mDpDecimal = WDp.mainDisplayDecimal(getSActivity().mBaseChain);
             }
 
             setDisplayDecimals(mDpDecimal);

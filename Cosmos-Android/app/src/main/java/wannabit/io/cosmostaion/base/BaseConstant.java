@@ -492,7 +492,7 @@ public class BaseConstant {
 
 
 
-    public final static String FEE_BNB_SEND                             = "0.000375";
+    public final static String FEE_BNB_SEND                             = "0.000075";
 
     public final static String KAVA_GAS_RATE_LOW                        = "0.0025";
     public final static String KAVA_GAS_RATE_AVERAGE                    = "0.025";

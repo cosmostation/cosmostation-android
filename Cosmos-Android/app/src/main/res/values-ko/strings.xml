@@ -1188,8 +1188,10 @@
     <string name="tx_create_deployment">배포 열기</string>
     <string name="tx_close_deployment">배포 닫기</string>
     <string name="tx_update_deployment">배포 업데이트</string>
-    <string name="tx_create_Certificate">인증서 생성</string>
-    <string name="tx_revoke_Certificate">인증서 해지</string>
+    <string name="tx_create_certificate">인증서 생성</string>
+    <string name="tx_revoke_certificate">인증서 해지</string>
+    <string name="tx_ibc_update_client">IBC 클라이언트\n업데이트</string>
+    <string name="tx_ibc_transfer">IBC 전송</string>
     <string name="tx_reinvest">이자 즉시 위임</string>
     <string name="tx_new_order">새 주문</string>
     <string name="tx_Cancel_order">주문 취소</string>

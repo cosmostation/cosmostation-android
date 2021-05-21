@@ -74,7 +74,7 @@ public class SendActivity extends BaseBroadCastActivity {
         mTxType = CONST_PW_TX_SIMPLE_SEND;
 
         mDenom = getIntent().getStringExtra("sendTokenDenom");
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
+        if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             mBnbToken = getBaseDao().getBnbToken(mDenom);
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.IRIS_TEST)) {
             mIrisToken_Grpc = getBaseDao().getIrisToken(mDenom);
