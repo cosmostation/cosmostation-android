@@ -20,14 +20,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_AccountShow;
 import wannabit.io.cosmostaion.dialog.Dialog_ChangeNickName;
 import wannabit.io.cosmostaion.dialog.Dialog_DeleteConfirm;
@@ -73,10 +71,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_CHANG
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_WITHDRAW_ADDRESS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class AccountDetailActivity extends BaseActivity implements View.OnClickListener, TaskListener {
 
@@ -192,53 +186,17 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
 
 
         } else {
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            if (mBaseChain.equals(IOV_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("100000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("100000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("20000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 1);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 1);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
+            BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 1);
+            if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(SENTINEL_MAIN) ||
+                    mBaseChain.equals(SIF_MAIN) || mBaseChain.equals(KI_MAIN) || mBaseChain.equals(IOV_TEST) || mBaseChain.equals(CERTIK_TEST)) {
+                if (mainDenomAvailable.compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
             } else {
                 Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-                return;
-
-            }
-
-            if (!hasbalance){
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -247,8 +205,6 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             changeAddress.putExtra("currentAddresses", mRewardAddress.getText().toString());
             startActivity(changeAddress);
         }
-
-
     }
 
     private void onInitView() {

@@ -23,7 +23,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
-import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKValidatorMyFragment;
 import wannabit.io.cosmostaion.fragment.chains.ok.OKValidatorOtherFragment;
@@ -130,13 +129,13 @@ public class OKValidatorListActivity extends BaseActivity implements FetchCallBa
             getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
             return;
         }
-        BigDecimal availableAmount = WDp.getAvailableCoin(getBaseDao().onSelectBalance(mAccount.id), TOKEN_OK);
+        BigDecimal availableAmount = getBaseDao().availableAmount(TOKEN_OK);
         if (availableAmount.compareTo(new BigDecimal("0.1")) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_balance_to_vote, Toast.LENGTH_SHORT).show();
             return;
         }
 
-        BigDecimal depositAmount = WDp.getOkDepositCoin(getBaseDao().mOkStaking);
+        BigDecimal depositAmount = getBaseDao().okDepositAmount();
         if (depositAmount.compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_only_deposit_can_vote, Toast.LENGTH_SHORT).show();
             return;

@@ -239,29 +239,36 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(KAVA_MAIN)) {
-                holder.kavaLayer.setVisibility(View.VISIBLE);
-                holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getKavaChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_KAVA), 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
                     }
-
                     @Override
                     public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(IOV_MAIN)) {
-                holder.iovLayer.setVisibility(View.VISIBLE);
-                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getIovChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null) {
-                                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_IOV), 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
                             }
                         }
                     }
@@ -271,15 +278,18 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
 
 
             } else if (mChain.equals(BAND_MAIN)) {
-                holder.bandLayer.setVisibility(View.VISIBLE);
-                holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getBandChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if(response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.bandAmount.setText(WDp.getDpAmount2(getBaseContext(), balance.get(0).balance, 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override
@@ -287,15 +297,18 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(CERTIK_MAIN)) {
-                holder.certikLayer.setVisibility(View.VISIBLE);
-                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getCertikChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_CERTIK), 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override
@@ -322,30 +335,37 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(KAVA_TEST)) {
-                holder.kavaLayer.setVisibility(View.VISIBLE);
-                holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 0, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getKavaTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdKavaAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdKavaAccountInfo> call, Response<ResLcdKavaAccountInfo> response) {
-                        ArrayList<Balance> balances = WUtil.getBalancesFromKavaLcd(-1, response.body());
-                        holder.kavaAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balances, TOKEN_KAVA), 6, 6));
-
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
+                        }
                     }
-
                     @Override
                     public void onFailure(Call<ResLcdKavaAccountInfo> call, Throwable t) { }
                 });
 
             } else if (mChain.equals(IOV_TEST)) {
-                holder.iovLayer.setVisibility(View.VISIBLE);
-                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getIovTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.iovAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_IOV_TEST), 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override
@@ -391,15 +411,18 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(CERTIK_TEST)) {
-                holder.certikLayer.setVisibility(View.VISIBLE);
-                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getCertikTestChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if(balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.certikAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_CERTIK), 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override
@@ -407,15 +430,18 @@ public class RestorePathActivity extends BaseActivity implements TaskListener {
                 });
 
             } else if (mChain.equals(SECRET_MAIN)) {
-                holder.secretLayer.setVisibility(View.VISIBLE);
-                holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), BigDecimal.ZERO, 6, 6));
+                holder.coinLayer.setVisibility(View.VISIBLE);
+                WDp.showCoinDp(getBaseContext(), WDp.mainDenom(mChain),"0", holder.coinDenom, holder.coinAmount, mChain);
                 ApiClient.getSecretChain(getBaseContext()).getAccountInfo(address).enqueue(new Callback<ResLcdAccountInfo>() {
                     @Override
                     public void onResponse(Call<ResLcdAccountInfo> call, Response<ResLcdAccountInfo> response) {
-                        if (response.isSuccessful() && response.body() != null) {
-                            ArrayList<Balance> balance = WUtil.getBalancesFromLcd(-1, response.body());
-                            if (balance != null && balance.size() > 0 && balance.get(0) != null)
-                                holder.secretAmount.setText(WDp.getDpAmount2(getBaseContext(), WDp.getAvailableCoin(balance, TOKEN_SECRET), 6, 6));
+                        if (response.isSuccessful() && response.body() != null && response.body().result != null && response.body().result.value != null && response.body().result.value.coins != null) {
+                            ArrayList<Coin> coins = response.body().result.value.coins ;
+                            for (Coin coin: coins) {
+                                if (coin.denom.equals(WDp.mainDenom(mChain))) {
+                                    WDp.showCoinDp(getBaseContext(), coin, holder.coinDenom, holder.coinAmount, mChain);
+                                }
+                            }
                         }
                     }
                     @Override

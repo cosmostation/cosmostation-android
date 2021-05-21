@@ -162,6 +162,9 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 return;
             }
             if (isGRPC(mBaseChain)) {
+                BigDecimal mainDenomAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
+
                 if (!mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
@@ -170,14 +173,15 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (mainDenomAvailable.compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+            } else {
+                BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
-                if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-
-            } else if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
                 if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
                     return;
@@ -188,129 +192,11 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     return;
                 }
 
-            } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_CERTIK).compareTo(new BigDecimal("5000")) <= 0) {
+                if (mainDenomAvailable.compareTo(feeAmount) < 0) {
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                     return;
                 }
-
-            } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_IOV).compareTo(new BigDecimal("100000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(BaseChain.SECRET_MAIN)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, TOKEN_SECRET).compareTo(new BigDecimal("25000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(BaseChain.SENTINEL_MAIN)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("10000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(BaseChain.FETCHAI_MAIN)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                if (!mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_not_voting_period), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                if (getBaseDao().delegatedSumAmount().compareTo(BigDecimal.ZERO) <= 0) {
-                    Toast.makeText(getBaseContext(), getString(R.string.error_no_bonding_no_vote), Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
-                getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_VOTE, 0);
-                if (WDp.getAvailableCoin(getBaseDao().mBalances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-
             }
-
             Intent intent = new Intent(VoteDetailsActivity.this, VoteActivity.class);
             intent.putExtra("proposalId", mProposalId);
             intent.putExtra("title", getProposalTitle());

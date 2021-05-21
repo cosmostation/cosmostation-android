@@ -7,14 +7,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
@@ -34,8 +31,8 @@ public class TokenHardHolder extends BaseHolder {
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         final int dpDecimal = 6;
-        final BigDecimal availableAmount    = WDp.getAvailableCoin(baseData.mBalances, TOKEN_HARD);
-        final BigDecimal vestingAmount      = WDp.getKavaVestingAmount(baseData.mBalances, TOKEN_HARD);
+        final BigDecimal availableAmount    = baseData.availableAmount(TOKEN_HARD);
+        final BigDecimal vestingAmount      = baseData.lockedAmount(TOKEN_HARD);
         final BigDecimal convertedToKava    = WDp.convertTokenToKava(baseData, TOKEN_HARD);
 
 

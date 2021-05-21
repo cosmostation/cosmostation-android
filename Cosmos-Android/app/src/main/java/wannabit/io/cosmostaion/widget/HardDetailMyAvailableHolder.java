@@ -1,6 +1,5 @@
 package wannabit.io.cosmostaion.widget;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -11,7 +10,6 @@ import androidx.annotation.NonNull;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.chains.kava.HardDetailActivity;
@@ -24,7 +22,6 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 
 public class HardDetailMyAvailableHolder extends BaseHolder {
@@ -57,8 +54,8 @@ public class HardDetailMyAvailableHolder extends BaseHolder {
             mAssetDepositLayer.setVisibility(View.GONE);
             mDepositValue.setVisibility(View.GONE);
         }
-        BigDecimal targetAvailable = WDp.getAvailableCoin(baseData.mBalances, denom);
-        BigDecimal kavaAvailable = WDp.getAvailableCoin(baseData.mBalances, TOKEN_KAVA);
+        BigDecimal targetAvailable = baseData.availableAmount(denom);
+        BigDecimal kavaAvailable = baseData.availableAmount(TOKEN_KAVA);
 
         // Display each usd value
         BigDecimal targetPrice = BigDecimal.ZERO;

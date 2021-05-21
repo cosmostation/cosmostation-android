@@ -35,7 +35,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
-import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dialog.Dialog_Not_Top_100;
 import wannabit.io.cosmostaion.dialog.Dialog_RedelegationLimited;
 import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
@@ -67,7 +66,6 @@ import wannabit.io.cosmostaion.task.gRpcTask.ValidatorInfoGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.WithdrawAddressGrpcTask;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
@@ -98,12 +96,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_REDELEGA
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_SELF_BONDING;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_VALIDATOR_INFO;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class ValidatorActivity extends BaseActivity implements TaskListener {
 
@@ -235,13 +227,15 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (isGRPC(mBaseChain)) {
-            if (mGrpcValidator.getJailed()) {
-                Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
+            BigDecimal delegatableAmount = getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
+            if (delegatableAmount.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
                 return;
             }
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-            if (getBaseDao().getDelegatable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
+
+            if (mGrpcValidator.getJailed()) {
+                Toast.makeText(getBaseContext(), R.string.error_disabled_jailed, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -254,67 +248,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }
 
         } else {
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                if (WDp.getDelegableAmount(balances, TOKEN_KAVA).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
+            BigDecimal delegatableAmount = getBaseDao().delegatableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
 
-            } else if (mBaseChain.equals(BAND_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_BAND).compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("20000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-                if (WDp.getDelegableAmount(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-                if (WDp.getDelegableAmount(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
-                if (WDp.getDelegableAmount(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else {
-                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (!hasbalance) {
+            if (delegatableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_to_delegate, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -357,16 +294,17 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             return;
         }
 
-        boolean hasbalance = false;
         if (isGRPC(mBaseChain)) {
             if (mGrpcMyDelegation == null || getBaseDao().getDelegation(mValOpAddress).compareTo(BigDecimal.ZERO) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_no_redelegate, Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                hasbalance  = true;
+            if (availableAmount.compareTo(feeAmount) >= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                return;
             }
             if (mGrpcRedelegates != null && mGrpcRedelegates.size() > 0) {
                 for (Staking.RedelegationResponse data: mGrpcRedelegates) {
@@ -385,116 +323,19 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
-                hasbalance  = true;
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("300000")) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("15000")) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("75000")) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("30000")) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                if (mRedelegates == null || mRedelegates.size() > 0) {
-                    Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
-                    add.setCancelable(true);
-                    getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
-                    return;
-                }
-            }
-
-            else {
-                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            BigDecimal availableAmount = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REDELEGATE, 0);
+            if (availableAmount.compareTo(feeAmount) >= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
-        }
 
-        if (!hasbalance) {
-            Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-            return;
+            if (mRedelegates == null || mRedelegates.size() > 0) {
+                Dialog_RedelegationLimited add = Dialog_RedelegationLimited.newInstance();
+                add.setCancelable(true);
+                getSupportFragmentManager().beginTransaction().add(add, "dialog").commitNowAllowingStateLoss();
+                return;
+            }
         }
         onStartRedelegate();
     }
@@ -528,8 +369,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 Toast.makeText(getBaseContext(), R.string.error_unbond_cnt_over, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
+            if (availableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -549,61 +392,10 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 return;
             }
 
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
-            boolean hasbalance = false;
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
-                hasbalance  = true;
-
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("20000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else {
-                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            if (!hasbalance) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            BigDecimal availableAmount = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_UNDELEGATE, 0);
+            if (availableAmount.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -623,8 +415,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (isGRPC(mBaseChain)) {
+            BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
+            if (availableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -640,7 +433,6 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             startActivity(claimReward);
 
         } else {
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
             BigDecimal rewardSum = BigDecimal.ZERO;
             if (mRewardCoins != null) {
                 for (Coin coin: mRewardCoins) {
@@ -649,132 +441,16 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 }
             }
-            boolean hasbalance = false;
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST) || mBaseChain.equals(BAND_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (rewardSum.compareTo(BigDecimal.ONE) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                hasbalance  = true;
 
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (rewardSum.compareTo(new BigDecimal("200000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("200000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (rewardSum.compareTo(new BigDecimal("200000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("200000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (rewardSum.compareTo(new BigDecimal("10000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("10000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (rewardSum.compareTo(new BigDecimal("50000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("50000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (rewardSum.compareTo(new BigDecimal("20000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("20000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-                if (rewardSum.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-                if (rewardSum.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                if (rewardSum == BigDecimal.ZERO) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-                if (rewardSum.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                    hasbalance  = true;
-                }
-
-            } else {
-                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            BigDecimal availableAmount = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
+            if (availableAmount.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!hasbalance) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            if (rewardSum.compareTo(feeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 
@@ -796,8 +472,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
         }
 
         if (isGRPC(mBaseChain)) {
+            BigDecimal availableAmount = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
-            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
+            if (availableAmount.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -823,7 +500,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             }, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else {
-            ArrayList<Balance> balances = getBaseDao().onSelectBalance(mAccount.id);
+            BigDecimal availableAmount = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
+
             BigDecimal rewardSum = BigDecimal.ZERO;
             if (mRewardCoins != null) {
                 for (Coin coin: mRewardCoins) {
@@ -832,96 +511,13 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                     }
                 }
             }
-            boolean hasbalance = false;
-            if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)|| mBaseChain.equals(BAND_MAIN)) {
-                if (rewardSum.compareTo(BigDecimal.ONE) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                hasbalance  = true;
-
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (rewardSum.compareTo(new BigDecimal("300000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV).compareTo(new BigDecimal("300000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (rewardSum.compareTo(new BigDecimal("300000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_IOV_TEST).compareTo(new BigDecimal("300000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (rewardSum.compareTo(new BigDecimal("15000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_CERTIK).compareTo(new BigDecimal("15000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (rewardSum.compareTo(new BigDecimal("87500")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, TOKEN_SECRET).compareTo(new BigDecimal("87500")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                if (rewardSum.compareTo(new BigDecimal("35000")) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("35000")) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
-                if (rewardSum.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
-                if (rewardSum.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_REINVEST, 0);
-                if (rewardSum.compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                if (WDp.getAvailableCoin(balances, WDp.mainDenom(mBaseChain)).compareTo(feeAmount) >= 0) {
-                    hasbalance  = true;
-                }
-
-            } else {
-                Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
+            if (availableAmount.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (!hasbalance) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            if (rewardSum.compareTo(feeAmount) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_small_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
 

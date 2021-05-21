@@ -414,7 +414,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             else if (balance.symbol.equals(TOKEN_HARD)) { holder.itemFullName.setText("HardPool Gov. Token"); }
             else {  holder.itemFullName.setText(balance.symbol.toUpperCase() + " on Kava Chain"); }
 
-            BigDecimal tokenTotalAmount = WDp.getKavaTokenAll(getBaseDao(), getBaseDao().mBalances, balance.symbol);
+            BigDecimal tokenTotalAmount = getBaseDao().availableAmount(balance.symbol).add(getBaseDao().lockedAmount(balance.symbol));
             BigDecimal convertedKavaAmount = WDp.convertTokenToKava(getBaseDao(), balance.symbol);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), tokenTotalAmount, WUtil.getKavaCoinDecimal(balance.symbol), 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), TOKEN_KAVA, convertedKavaAmount, 6));

@@ -201,6 +201,10 @@ public class BaseData {
         return result;
     }
 
+    public BigDecimal delegatableAmount(String denom) {
+        return availableAmount(denom).add(lockedAmount(denom));
+    }
+
     public BigDecimal frozenAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
         for (Balance balance: mBalances) {
@@ -1872,7 +1876,7 @@ public class BaseData {
                     result.add(account);
 
                 } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-                    if (WDp.getAvailableCoin(account.balances, TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
+                    if (availableAmount(TOKEN_BNB).compareTo(new BigDecimal(FEE_BNB_SEND)) >= 0) {
                         result.add(account);
                     }
                 }

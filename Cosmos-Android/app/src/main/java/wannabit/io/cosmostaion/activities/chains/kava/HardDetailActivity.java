@@ -211,7 +211,7 @@ public class HardDetailActivity extends BaseActivity {
 
     public void onHardDeposit() {
         if (!onCommonCheck()) return;
-        if (WDp.getAvailableCoin(getBaseDao().mBalances, mHardMoneyMarketDenom).compareTo(BigDecimal.ZERO) <= 0) {
+        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_no_available_to_deposit, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -250,7 +250,7 @@ public class HardDetailActivity extends BaseActivity {
 
     public void onHardRepay() {
         if (!onCommonCheck()) return;
-        if (WDp.getAvailableCoin(getBaseDao().mBalances, mHardMoneyMarketDenom).compareTo(BigDecimal.ZERO) <= 0) {
+        if ((getBaseDao().availableAmount(mHardMoneyMarketDenom)).compareTo(BigDecimal.ZERO) <= 0) {
             Toast.makeText(getBaseContext(), R.string.error_not_enough_to_balance, Toast.LENGTH_SHORT).show();
             return;
         }

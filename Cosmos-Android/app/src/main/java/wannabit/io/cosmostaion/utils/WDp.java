@@ -58,8 +58,6 @@ import wannabit.io.cosmostaion.network.res.ResBnbSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResKavaSwapInfo;
 import wannabit.io.cosmostaion.network.res.ResNodeInfo;
 import wannabit.io.cosmostaion.network.res.ResOkHistory;
-import wannabit.io.cosmostaion.network.res.ResOkStaking;
-import wannabit.io.cosmostaion.network.res.ResOkUnbonding;
 import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
@@ -434,77 +432,6 @@ public class WDp {
         BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
         BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
         return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
-    }
-
-
-
-
-
-    public static BigDecimal getAvailableCoin(ArrayList<Balance> balances, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equalsIgnoreCase(denom)) {
-                sum = balance.balance;
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getLockedCoin(ArrayList<Balance> balances, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equalsIgnoreCase(denom)) {
-                sum = balance.locked;
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getOkDepositCoin(ResOkStaking deposit) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (deposit != null && !TextUtils.isEmpty(deposit.tokens)) {
-            sum = new BigDecimal(deposit.tokens);
-        }
-        return sum;
-    }
-
-    public static BigDecimal getOkWithdrawingCoin(ResOkUnbonding withdraw) {
-        BigDecimal sum = BigDecimal.ZERO;
-        if (withdraw != null && !TextUtils.isEmpty(withdraw.quantity)) {
-            sum = new BigDecimal(withdraw.quantity);
-        }
-        return sum;
-    }
-
-    public static BigDecimal getDelegableAmount(ArrayList<Balance> balances, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equalsIgnoreCase(denom)) {
-                sum = balance.balance.add(balance.locked);
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getKavaVestingAmount(ArrayList<Balance> balances, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equalsIgnoreCase(denom)) {
-                sum = balance.locked;
-            }
-        }
-        return sum;
-    }
-
-    public static BigDecimal getKavaTokenAll(BaseData baseData, ArrayList<Balance> balances, String denom) {
-        BigDecimal sum = BigDecimal.ZERO;
-        for (Balance balance : balances) {
-            if (balance.symbol.equals(denom)) {
-                sum = sum.add(balance.balance);
-                sum = sum.add(balance.locked);
-            }
-        }
-        return sum;
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {

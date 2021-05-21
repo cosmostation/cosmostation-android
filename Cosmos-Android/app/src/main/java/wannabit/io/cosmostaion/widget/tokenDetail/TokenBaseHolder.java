@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import com.squareup.picasso.Picasso;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -105,7 +104,7 @@ public class TokenBaseHolder extends BaseHolder {
 
     public void onBindKavaToken(Context context, BaseChain chain, BaseData baseData, String denom) {
         final int dpDecimal                     = WUtil.getKavaCoinDecimal(denom);
-        final BigDecimal availableTokenAmount   = WDp.getAvailableCoin(baseData.mBalances, denom);
+        final BigDecimal availableTokenAmount   = baseData.availableAmount(denom);
         final BigDecimal convertedToKava        = WDp.convertTokenToKava(baseData, denom);
 
         mTvTokenTitle.setText(denom.toUpperCase());

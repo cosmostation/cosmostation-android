@@ -99,7 +99,7 @@ public class WalletOkexHolder extends BaseHolder {
                     return;
                 }
 
-                if (WDp.getOkDepositCoin(mainActivity.getBaseDao().mOkStaking).compareTo(BigDecimal.ZERO) <= 0) {
+                if ((mainActivity.getBaseDao().okDepositAmount()).compareTo(BigDecimal.ZERO) <= 0) {
                     Toast.makeText(mainActivity, R.string.error_not_enough_to_withdraw, Toast.LENGTH_SHORT).show();
                     return;
                 }
