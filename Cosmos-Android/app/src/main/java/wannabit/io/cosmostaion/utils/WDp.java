@@ -242,8 +242,14 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 8, 8));
 
         } else if (chain.equals(SIF_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+            if (coin.denom.equals(TOKEN_SIF)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+                int decimal = WUtil.getSifCoinDecimal(coin.denom);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), decimal, decimal));
+            }
 
         } else if (chain.equals(KI_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
@@ -354,8 +360,14 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 8, 8));
 
         } else if (chain.equals(SIF_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+            if (symbol.equals(TOKEN_SIF)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                int decimal = WUtil.getSifCoinDecimal(symbol);
+                amountTv.setText(getDpAmount2(c, new BigDecimal(amount), decimal, decimal));
+            }
 
         } else if (chain.equals(KI_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);

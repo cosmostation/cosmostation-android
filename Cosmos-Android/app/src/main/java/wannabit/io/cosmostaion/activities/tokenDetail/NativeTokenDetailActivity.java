@@ -200,7 +200,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                     Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
+                intent.putExtra("sendTokenDenom", mDenom);
                 startActivity(intent);
             }
         }

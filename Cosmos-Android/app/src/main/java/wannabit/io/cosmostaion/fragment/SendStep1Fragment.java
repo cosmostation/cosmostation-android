@@ -26,6 +26,7 @@ import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dialog.Dialog_Empty_Warnning;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
@@ -320,6 +321,7 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                     if (sendTemp.compareTo(mMaxAvailable.movePointLeft(mDpDecimal).setScale(mDpDecimal, RoundingMode.CEILING)) > 0) return false;
                     Coin coin = new Coin(getSActivity().mDenom, sendTemp.movePointRight(mDpDecimal).setScale(0).toPlainString());
                     mToSendCoins.add(coin);
+                    return true;
                 }
 
                 else {
@@ -332,7 +334,6 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 }
 
             }
-            return false;
 
         } catch (Exception e) {
             mToSendCoins.clear();
