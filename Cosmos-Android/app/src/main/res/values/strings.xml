@@ -1402,8 +1402,10 @@
     <string name="tx_create_deployment">Create Deployment</string>
     <string name="tx_close_deployment">Close Deployment</string>
     <string name="tx_update_deployment">Update Deployment</string>
-    <string name="tx_create_Certificate">Create Certificate</string>
-    <string name="tx_revoke_Certificate">Revoke Certificate</string>
+    <string name="tx_create_certificate">Create Certificate</string>
+    <string name="tx_revoke_certificate">Revoke Certificate</string>
+    <string name="tx_ibc_update_client">IBC Update Client</string>
+    <string name="tx_ibc_transfer">IBC Transfer</string>
     <string name="tx_reinvest">Re-Invest</string>
     <string name="tx_new_order">New Order</string>
     <string name="tx_Cancel_order">Cancel Order</string>

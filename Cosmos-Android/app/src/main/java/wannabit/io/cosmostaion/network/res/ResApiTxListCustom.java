@@ -137,10 +137,16 @@ public class ResApiTxListCustom {
                     result = c.getString(R.string.tx_close_deployment);
 
                 } else if (msgType.contains("MsgCreateCertificate")) {
-                    result = c.getString(R.string.tx_close_deployment);
+                    result = c.getString(R.string.tx_create_certificate);
 
                 } else if (msgType.contains("MsgRevokeCertificate")) {
-                    result = c.getString(R.string.tx_close_deployment);
+                    result = c.getString(R.string.tx_revoke_certificate);
+
+                } else if (msgType.contains("MsgUpdateClient")) {
+                    result = c.getString(R.string.tx_ibc_update_client);
+
+                } else if (msgType.contains("MsgTransfer")) {
+                    result = c.getString(R.string.tx_ibc_transfer);
 
                 }
 
