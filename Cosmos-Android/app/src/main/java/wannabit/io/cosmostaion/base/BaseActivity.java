@@ -318,8 +318,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         if (isGRPC(mBaseChain)) {
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
+            BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-            if ((getBaseDao().getAvailable(WDp.mainDenom(mBaseChain))).compareTo(feeAmount) <= 0) {
+            if (mainAvailable.compareTo(feeAmount) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -328,87 +329,13 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         } else {
             Intent intent = new Intent(getBaseContext(), SendActivity.class);
-            BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
-            boolean hasbalance = false;
-            if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                if (mainDenomAvailable.compareTo(new BigDecimal(FEE_BNB_SEND)) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("bnbToken", WUtil.getBnbMainToken(getBaseDao().mBnbTokens));
-
-            } else if (mBaseChain.equals(IOV_MAIN)) {
-                if (mainDenomAvailable.compareTo(new BigDecimal("100000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("iovDenom", TOKEN_IOV);
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                if (mainDenomAvailable.compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", TOKEN_KAVA);
-
-            } else if (mBaseChain.equals(BAND_MAIN)) {
-                if (mainDenomAvailable.compareTo(BigDecimal.ZERO) > 0) {
-                    hasbalance  = true;
-                }
-
-            } else if (mBaseChain.equals(IOV_TEST)) {
-                if (mainDenomAvailable.compareTo(new BigDecimal("100000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("iovDenom", TOKEN_IOV_TEST);
-
-            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                if (mainDenomAvailable.compareTo(new BigDecimal("0.002")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("okDenom", TOKEN_OK);
-
-            } else if (mBaseChain.equals(CERTIK_MAIN) || mBaseChain.equals(CERTIK_TEST)) {
-                if (mainDenomAvailable.compareTo(new BigDecimal("5000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("certikDenom", TOKEN_CERTIK);
-
-            } else if (mBaseChain.equals(SECRET_MAIN)) {
-                if (mainDenomAvailable.compareTo(new BigDecimal("20000")) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-
-            } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (mainDenomAvailable.compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-
-            } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (mainDenomAvailable.compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (mainDenomAvailable.compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-            } else if (mBaseChain.equals(KI_MAIN)) {
-                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (mainDenomAvailable.compareTo(feeAmount) > 0) {
-                    hasbalance  = true;
-                }
-                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
-            }
-
-            if (!hasbalance) {
+            BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+            if (mainAvailable.compareTo(feeAmount) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
                 return;
             }
+            intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
             startActivity(intent);
         }
 
@@ -1283,117 +1210,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
     }
 
     private Handler mHandler = new Handler(Looper.getMainLooper());
-
-//    public void onPriceTic(final BaseChain chain) {
-//        ApiClient.getCGCClient(getBaseContext()).getPriceTic(WUtil.getCGCId(chain)).enqueue(new Callback<ResCgcTic>() {
-//            @Override
-//            public void onResponse(Call<ResCgcTic> call, Response<ResCgcTic> response) {
-//                if (isFinishing()) return;
-//                try {
-//                    getBaseDao().setLastPriceTic(chain, response.body());
-//                } catch (Exception e) {
-//                    if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
-//                        getBaseDao().setLastAtomTic(0d);
-//                        getBaseDao().setLastAtomUpDown(0d);
-//
-//                    } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-//                        getBaseDao().setLastIrisTic(0d);
-//                        getBaseDao().setLastIrisUpDown(0d);
-//
-//                    } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-//                        getBaseDao().setLastBnbTic(0d);
-//                        getBaseDao().setLastBnbUpDown(0d);
-//
-//                    } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-//                        getBaseDao().setLastKavaTic(0d);
-//                        getBaseDao().setLastKavaUpDown(0d);
-//
-//                    } else if (chain.equals(BAND_MAIN)) {
-//                        getBaseDao().setLastBandTic(0d);
-//                        getBaseDao().setLastBandUpDown(0d);
-//
-//                    } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-//                        getBaseDao().setLastIovTic(0d);
-//                        getBaseDao().setLastIovUpDown(0d);
-//
-//                    } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-//                        getBaseDao().setLastCertikTic(0d);
-//                        getBaseDao().setLastCertikUpDown(0d);
-//
-//                    } else if (chain.equals(AKASH_MAIN)) {
-//                        getBaseDao().setLastAkashTic(0d);
-//                        getBaseDao().setLastAkashUpDown(0d);
-//
-//                    } else if (chain.equals(SECRET_MAIN)) {
-//                        getBaseDao().setLastSecretTic(0d);
-//                        getBaseDao().setLastSecretUpDown(0d);
-//
-//                    } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
-//                        getBaseDao().setLastOKexTic(0d);
-//                        getBaseDao().setLastOKexUpDown(0d);
-//
-//                    } else if (chain.equals(SENTINEL_MAIN)) {
-//                        getBaseDao().setLastSentinelTic(0d);
-//                        getBaseDao().setLastSentinelUpDown(0d);
-//
-//                    } else if (chain.equals(PERSIS_MAIN)) {
-//                        getBaseDao().setLastPersistenceTic(0d);
-//                        getBaseDao().setLastPersistencelUpDown(0d);
-//
-//                    } else if (chain.equals(FETCHAI_MAIN)) {
-//                        getBaseDao().setLastFetchTic(0d);
-//                        getBaseDao().setLastFetchUpDown(0d);
-//
-//                    } else if (chain.equals(CRYPTO_MAIN)) {
-//                        getBaseDao().setLastCryptoTic(0d);
-//                        getBaseDao().setLastCryptoUpDown(0d);
-//
-//                    } else if (chain.equals(SIF_MAIN)) {
-//                        getBaseDao().setLastSifTic(0d);
-//                        getBaseDao().setLastSifUpDown(0d);
-//
-//                    } else if (chain.equals(KI_MAIN)) {
-//                        getBaseDao().setLastSifTic(0d);
-//                        getBaseDao().setLastSifUpDown(0d);
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onFailure(Call<ResCgcTic> call, Throwable t) {
-//                if (chain.equals(COSMOS_MAIN)) {
-//                    getBaseDao().setLastAtomTic(0d);
-//                    getBaseDao().setLastAtomUpDown(0d);
-//
-//                } else if (chain.equals(IRIS_MAIN)) {
-//                    getBaseDao().setLastIrisTic(0d);
-//                    getBaseDao().setLastIrisUpDown(0d);
-//
-//                } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
-//                    getBaseDao().setLastBnbTic(0d);
-//                    getBaseDao().setLastBnbUpDown(0d);
-//
-//                } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
-//                    getBaseDao().setLastKavaTic(0d);
-//                    getBaseDao().setLastKavaUpDown(0d);
-//
-//                } else if (chain.equals(BAND_MAIN)) {
-//                    getBaseDao().setLastBandTic(0d);
-//                    getBaseDao().setLastBandUpDown(0d);
-//
-//                } else if (chain.equals(IOV_MAIN) || chain.equals(IOV_TEST)) {
-//                    getBaseDao().setLastIovTic(0d);
-//                    getBaseDao().setLastIovUpDown(0d);
-//
-//                } else if (chain.equals(CERTIK_MAIN) || chain.equals(CERTIK_TEST)) {
-//                    getBaseDao().setLastCertikTic(0d);
-//                    getBaseDao().setLastCertikUpDown(0d);
-//                }
-//            }
-//        });
-//    }
-
 
     public boolean isNotificationsEnabled() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

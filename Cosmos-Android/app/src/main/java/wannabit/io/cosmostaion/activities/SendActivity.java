@@ -48,10 +48,6 @@ public class SendActivity extends BaseBroadCastActivity {
 
     public String                       mStarName;
     public BnbToken                     mBnbToken;
-    public HashMap<String, ResBnbTic>   mBnbTics = new HashMap<>();
-    public String                       mIovDenom;
-    public String                       mOkDenom;
-    public String                       mCertikDenom;
 
     //V1 .40 version
     public TokenOuterClass.Token        mIrisToken_Grpc;
@@ -72,30 +68,16 @@ public class SendActivity extends BaseBroadCastActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        mBnbToken = getIntent().getParcelableExtra("bnbToken");
-        mBnbTics = (HashMap<String, ResBnbTic>)getIntent().getSerializableExtra("bnbTics");
-        mIovDenom = getIntent().getStringExtra("iovDenom");
-        mOkDenom = getIntent().getStringExtra("okDenom");
-        mCertikDenom = getIntent().getStringExtra("certikDenom");
-
-        mDenom = getIntent().getStringExtra("sendTokenDenom");
-        mIrisToken_Grpc = getBaseDao().getIrisToken(mDenom);
-
         mTvStep.setText(getString(R.string.str_send_step_0));
-
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
         mTxType = CONST_PW_TX_SIMPLE_SEND;
 
+        mDenom = getIntent().getStringExtra("sendTokenDenom");
         if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.BAND_MAIN)) {
-        } else if (mBaseChain.equals(BaseChain.BNB_MAIN)) {
-            if (mBnbToken == null) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.IOV_MAIN) || mBaseChain.equals(BaseChain.IOV_TEST)) {
-            if (TextUtils.isEmpty(mIovDenom)) onBackPressed();
-        } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-            if (TextUtils.isEmpty(mOkDenom)) onBackPressed();
-        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-            if (TextUtils.isEmpty(mCertikDenom)) onBackPressed();
+            mBnbToken = getBaseDao().getBnbToken(mDenom);
+        } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.IRIS_TEST)) {
+            mIrisToken_Grpc = getBaseDao().getIrisToken(mDenom);
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());

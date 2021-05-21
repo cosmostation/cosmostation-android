@@ -47,7 +47,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
-import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
 
 public class NativeTokenDetailActivity extends BaseActivity implements View.OnClickListener {
@@ -184,44 +183,26 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
             if (isGRPC(mBaseChain)) {
                 Intent intent = new Intent(getBaseContext(), SendActivity.class);
+                BigDecimal mainAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
                 BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
-                if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) <= 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+                if (mainAvailable.compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
                 intent.putExtra("sendTokenDenom", mDenom);
                 startActivity(intent);
 
-            }
-
-            else if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
-                if (getBaseDao().availableAmount(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal(FEE_BNB_SEND)) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+            } else {
+                Intent intent = new Intent(getBaseContext(), SendActivity.class);
+                BigDecimal mainAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
+                BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_SEND, 0);
+                if (mainAvailable.compareTo(feeAmount) < 0) {
+                    Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                Intent intent = new Intent(getBaseContext(), SendActivity.class);
-                intent.putExtra("bnbToken", getBaseDao().getBnbToken(mDenom));
+                intent.putExtra("sendTokenDenom", WDp.mainDenom(mBaseChain));
                 startActivity(intent);
-
-            } else if (mBaseChain.equals(KAVA_MAIN) || mBaseChain.equals(KAVA_TEST)) {
-                Intent intent = new Intent(getBaseContext(), SendActivity.class);
-                intent.putExtra("sendTokenDenom", mDenom);
-                startActivity(intent);
-
-            } else if (mBaseChain.equals(OKEX_MAIN) || mBaseChain.equals(OK_TEST)) {
-                if (getBaseDao().availableAmount(WDp.mainDenom(mBaseChain)).compareTo(new BigDecimal("0.002")) < 0) {
-                    Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent intent = new Intent(getBaseContext(), SendActivity.class);
-                intent.putExtra("okDenom", mDenom);
-                startActivity(intent);
-
-            } else if (mBaseChain.equals(SIF_MAIN)) {
-                Toast.makeText(getBaseContext(), R.string.error_prepare, Toast.LENGTH_SHORT).show();
-                return;
             }
-
         }
 
     }
