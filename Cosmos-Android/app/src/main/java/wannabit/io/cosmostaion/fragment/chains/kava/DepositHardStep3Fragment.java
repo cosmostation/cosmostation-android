@@ -54,11 +54,11 @@ public class DepositHardStep3Fragment extends BaseFragment implements View.OnCli
 
     @Override
     public void onRefreshTab() {
-        BigDecimal feeAmount = new BigDecimal(getSActivity().mFee.amount.get(0).amount);
+        BigDecimal feeAmount = new BigDecimal(getSActivity().mTxFee.amount.get(0).amount);
         WDp.showCoinDp(getContext(), getSActivity().mHardPoolCoins.get(0), mDepositDenom, mDepositAmount, getSActivity().mBaseChain);
         WDp.showCoinDp(getContext(), TOKEN_KAVA, feeAmount.toPlainString(), mFeesDenom, mFeesAmount, getSActivity().mBaseChain);
 //        mDepositType.setText("lp (Liquidity Provider)");
-        mMemo.setText(getSActivity().mMemo);
+        mMemo.setText(getSActivity().mTxMemo);
 
     }
 

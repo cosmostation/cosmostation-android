@@ -18,13 +18,12 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.PasswordCheckActivity;
-import wannabit.io.cosmostaion.base.BaseActivity;
+import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
-import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
+import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep0Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep1Fragment;
-import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep2Fragment;
 import wannabit.io.cosmostaion.fragment.chains.kava.DepositHardStep3Fragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
@@ -32,7 +31,7 @@ import wannabit.io.cosmostaion.model.type.Fee;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_PURPOSE;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_DEPOSIT_HARD;
 
-public class DepositHardActivity extends BaseActivity {
+public class DepositHardActivity extends BaseBroadCastActivity {
 
     private RelativeLayout                  mRootView;
     private Toolbar                         mToolbar;
@@ -44,9 +43,6 @@ public class DepositHardActivity extends BaseActivity {
 
     public String                           mHardMoneyMarketDenom;
     public ArrayList<Coin>                  mHardPoolCoins;
-    public String                           mMemo;
-    public Fee                              mFee;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +65,7 @@ public class DepositHardActivity extends BaseActivity {
 
         mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
         mBaseChain = BaseChain.getChain(mAccount.baseChain);
+        mTxType = CONST_PW_TX_DEPOSIT_HARD;
         mHardMoneyMarketDenom = getIntent().getStringExtra("hardPoolDemon");
 
         mPageAdapter = new DepositHarvestPageAdapter(getSupportFragmentManager());
@@ -153,8 +150,8 @@ public class DepositHardActivity extends BaseActivity {
         intent.putExtra(CONST_PW_PURPOSE, CONST_PW_TX_DEPOSIT_HARD);
         intent.putExtra("depositor", mAccount.address);
         intent.putExtra("hardPoolCoins", mHardPoolCoins);
-        intent.putExtra("fee", mFee);
-        intent.putExtra("memo", mMemo);
+        intent.putExtra("fee", mTxFee);
+        intent.putExtra("memo", mTxMemo);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_bottom, R.anim.fade_out);
 
@@ -171,7 +168,7 @@ public class DepositHardActivity extends BaseActivity {
             mFragments.clear();
             mFragments.add(DepositHardStep0Fragment.newInstance(null));
             mFragments.add(DepositHardStep1Fragment.newInstance(null));
-            mFragments.add(DepositHardStep2Fragment.newInstance(null));
+            mFragments.add(StepFeeSetOldFragment.newInstance(null));
             mFragments.add(DepositHardStep3Fragment.newInstance(null));
         }
 
