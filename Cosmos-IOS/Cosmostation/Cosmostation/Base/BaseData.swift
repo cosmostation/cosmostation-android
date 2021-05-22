@@ -103,6 +103,10 @@ final class BaseData : NSObject{
         return amount;
     }
     
+    func delegatableAmount(_ symbol:String) -> NSDecimalNumber {
+        return availableAmount(symbol).adding(lockedAmount(symbol))
+    }
+    
     func delegatedSumAmount() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for bonding in mMyDelegations {

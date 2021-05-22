@@ -24,72 +24,17 @@ class StepDelegateAmountViewController: BaseViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
+        mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
-        userBalance = NSDecimalNumber.zero
-        if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            mDpDecimal = 6
-            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, KAVA_MAIN_DENOM)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, BAND_MAIN_DENOM)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, SECRET_MAIN_DENOM).subtracting(NSDecimalNumber(string: "50000"))
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN) {
-            mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IOV_MAIN_DENOM).subtracting(NSDecimalNumber(string: "200000"))
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, IOV_TEST_DENOM).subtracting(NSDecimalNumber(string: "200000"))
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            mDpDecimal = 6
-            userBalance = WUtils.getTokenAmount(pageHolderVC.mBalances, CERTIK_MAIN_DENOM).subtracting(NSDecimalNumber(string: "20000"))
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            mDpDecimal = 6
-            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
-            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, SENTINEL_MAIN_DENOM).subtracting(feeAmount)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, 6, mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
-            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            mDpDecimal = 18
-            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
-            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), mDpDecimal)
-            
-        } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
-            mDpDecimal = 6
-            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
-            userBalance = WUtils.getDelegableAmount(pageHolderVC.mBalances, WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, WUtils.mainDivideDecimal(pageHolderVC.chainType), mDpDecimal)
-            
+        let mainDenom = WUtils.getMainDenom(pageHolderVC.chainType!)
+        let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            userBalance = BaseData.instance.getDelegatable(mainDenom).subtracting(feeAmount)
+        } else {
+            userBalance = BaseData.instance.delegatableAmount(mainDenom).subtracting(feeAmount)
         }
-        
-        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-            let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
-            userBalance = BaseData.instance.getDelegatable(WUtils.getMainDenom(pageHolderVC.chainType)).subtracting(feeAmount)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, mDpDecimal, mDpDecimal)
-        }
-        
+        availableAmountLabel.attributedText = WUtils.displayAmount2(userBalance.stringValue, availableAmountLabel.font, mDpDecimal, mDpDecimal)
         toDelegateAmountInput.delegate = self
         toDelegateAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         
