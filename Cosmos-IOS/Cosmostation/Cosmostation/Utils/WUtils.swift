@@ -2729,7 +2729,7 @@ class WUtils {
             } else if (type == COSMOS_MSG_TYPE_REDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_REDELEGATE))
             } else if (type == COSMOS_MSG_TYPE_WITHDRAW_DEL) {
-                result = getGasAmountForRewards()[valCnt - 1]
+                result = getGasAmountForKavaRewards()[valCnt - 1]
             } else if (type == COSMOS_MULTI_MSG_TYPE_REINVEST) {
                 result = NSDecimalNumber.init(string: String(KAVA_GAS_AMOUNT_REINVEST))
             } else if (type == TASK_TYPE_VOTE) {
