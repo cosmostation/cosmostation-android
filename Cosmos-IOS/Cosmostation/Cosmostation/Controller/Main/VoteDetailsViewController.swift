@@ -85,6 +85,7 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
             return
         }
         
+        let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType!)) {
             if (mProposalDetail_gRPC?.status != Cosmos_Gov_V1beta1_ProposalStatus.votingPeriod ) {
                 self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
@@ -95,148 +96,26 @@ class VoteDetailsViewController: BaseViewController, UITableViewDelegate, UITabl
                 return
             }
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.BAND_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "25000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "100000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.SIF_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else if (chainType == ChainType.KI_MAIN) {
-            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
-                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
-                return
-            }
-            let bondingList = BaseData.instance.mMyDelegations
-            if (bondingList.count <= 0) {
-                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
-                return
-            }
-            
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
             
         } else {
-            self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))
-            return
+            if (mProposal?.proposal_status != Proposal.PROPOSAL_VOTING) {
+                self.onShowToast(NSLocalizedString("error_not_voting_period", comment: ""))
+                return
+            }
+            let bondingList = BaseData.instance.mMyDelegations
+            if (bondingList.count <= 0) {
+                self.onShowToast(NSLocalizedString("error_no_bonding_no_vote", comment: ""))
+                return
+            }
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_VOTE, 0)
+            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+                return
+            }
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
