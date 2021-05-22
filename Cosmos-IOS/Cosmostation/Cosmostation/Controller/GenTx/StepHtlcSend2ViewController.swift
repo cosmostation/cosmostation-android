@@ -40,7 +40,7 @@ class StepHtlcSend2ViewController: BaseViewController, UITextFieldDelegate {
             if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BNB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BNB) {
                 availableDenom.text = "BNB"
                 availableDenom.textColor = COLOR_BNB
-                maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(WUtils.plainStringToDecimal(GAS_FEE_BNB_TRANSFER))
+                maxAvailable = WUtils.getTokenAmount(self.pageHolderVC.mAccount?.account_balances, self.pageHolderVC.mHtlcDenom!).subtracting(WUtils.plainStringToDecimal(FEE_BNB_TRANSFER))
                 
             } else if (pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_BTCB || pageHolderVC.mHtlcDenom == TOKEN_HTLC_BINANCE_TEST_BTC) {
                 availableDenom.text = "BTC"

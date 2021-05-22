@@ -142,7 +142,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             cell?.sentAmountLabel.attributedText = WUtils.displayAmount2(sendCoin?.amount, cell!.sentAmountLabel.font!, 8, 8)
             WUtils.setDenomTitle(chainType!, cell!.sentDenom)
             
-            cell?.feeLabel.attributedText = WUtils.displayAmount2(GAS_FEE_BNB_TRANSFER, cell!.feeLabel.font!, 0, 8)
+            cell?.feeLabel.attributedText = WUtils.displayAmount2(FEE_BNB_TRANSFER, cell!.feeLabel.font!, 0, 8)
             WUtils.setDenomTitle(chainType!, cell!.feeDenom)
             
             cell?.senderLabel.text = msg?.value.from
@@ -185,7 +185,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             cell?.receivedAmountLabel.text = ""
             cell?.receivedDenom.text = ""
             
-            cell?.feeLabel.attributedText = WUtils.displayAmount2(GAS_FEE_BNB_TRANSFER, cell!.feeLabel.font!, 0, 8)
+            cell?.feeLabel.attributedText = WUtils.displayAmount2(FEE_BNB_TRANSFER, cell!.feeLabel.font!, 0, 8)
             WUtils.setDenomTitle(mHtlcToChain!, cell!.feeDenomLabel)
             
             cell?.claimerAddress.text = msg?.value.from

@@ -122,7 +122,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 return [self.newVc(viewController: "StepDelegateAmountViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "StepDelegateCheckViewController")]
             }
             
@@ -135,7 +135,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 return [self.newVc(viewController: "StepUndelegateAmountViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "StepUndelegateCheckViewController")]
             }
             
@@ -150,7 +150,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                 return [self.newVc(viewController: "StepSendAddressViewController"),
                         self.newVc(viewController: "StepSendAmountViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "StepSendCheckViewController")]
             }
             
@@ -165,7 +165,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                 return [self.newVc(viewController: "StepRedelegateAmountViewController"),
                         self.newVc(viewController: "StepRedelegateToViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "StepRedelegateCheckViewController")]
             }
             
@@ -178,7 +178,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 return [self.newVc(viewController: "StepChangeAddressViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "StepChangeCheckViewController")]
             }
             
@@ -191,7 +191,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 return [self.newVc(viewController: "ReInvestAmountViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "ReInvestCheckViewController")]
             }
             
@@ -204,38 +204,38 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 return [self.newVc(viewController: "VoteSelectViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "VoteCheckViewController")]
             }
            
         } else if (mType == KAVA_MSG_TYPE_CREATE_CDP) {
             return [self.newVc(viewController: "StepCreateCpdAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepCreateCpdCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_DEPOSIT_CDP) {
             return [self.newVc(viewController: "StepDepositCdpAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepDepositCdpCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_WITHDRAW_CDP) {
             return [self.newVc(viewController: "StepWithdrawCdpAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepWithdrawCdpCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_DRAWDEBT_CDP) {
             return [self.newVc(viewController: "StepDrawDebtCdpAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepDrawDebtCdpCheckViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_REPAYDEBT_CDP) {
             return [self.newVc(viewController: "StepRepayCdpAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepRepayCdpCheckViewController")]
             
         } else if (mType == TASK_TYPE_HTLC_SWAP) {
@@ -247,83 +247,67 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         } else if (mType == TASK_TYPE_HTLC_REFUND) {
             return [self.newVc(viewController: "StepHtlcRefund0ViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepHtlcRefund3ViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_USDX_MINT_INCENTIVE) {
             return [self.newVc(viewController: "StepIncentive0ViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepIncentive3ViewController")]
             
-        }
-        
-//        else if (mType == KAVA_MSG_TYPE_DEPOSIT_HAVEST) {
-//            return [self.newVc(viewController: "StepDepositHarvestAmountViewController"),
-//                    self.newVc(viewController: "StepMemoViewController"),
-//                    self.newVc(viewController: "StepFeeViewController"),
-//                    self.newVc(viewController: "StepDepositHarvestCheckViewController")]
-//            
-//        } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HAVEST) {
-//            return [self.newVc(viewController: "StepWithdrawHarvestAmountViewController"),
-//                    self.newVc(viewController: "StepMemoViewController"),
-//                    self.newVc(viewController: "StepFeeViewController"),
-//                    self.newVc(viewController: "StepWithdrawHarvestCheckViewController")]
-//            
-//        }
-        
-        else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
+        } else if (mType == KAVA_MSG_TYPE_CLAIM_HARD_INCENTIVE) {
             return [self.newVc(viewController: "StepHarvestReward0ViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepHarvestReward3ViewController")]
             
         } else if (mType == KAVA_MSG_TYPE_DEPOSIT_HARD) {
             return [HardPoolDeposit0ViewController(nibName: "HardPoolDeposit0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     HardPoolDeposit3ViewController(nibName: "HardPoolDeposit3ViewController", bundle: nil)]
             
         } else if (mType == KAVA_MSG_TYPE_WITHDRAW_HARD) {
             return [HardPoolWithdraw0ViewController(nibName: "HardPoolWithdraw0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     HardPoolWithdraw3ViewController(nibName: "HardPoolWithdraw3ViewController", bundle: nil)]
             
         } else if (mType == KAVA_MSG_TYPE_BORROW_HARD) {
             return [HardPoolBorrow0ViewController(nibName: "HardPoolBorrow0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     HardPoolBorrow3ViewController(nibName: "HardPoolBorrow3ViewController", bundle: nil)]
             
         } else if (mType == KAVA_MSG_TYPE_REPAY_HARD) {
             return [HardPoolRepay0ViewController(nibName: "HardPoolRepay0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     HardPoolRepay3ViewController(nibName: "HardPoolRepay3ViewController", bundle: nil)]
             
         } else if (mType == OK_MSG_TYPE_DEPOSIT) {
             return [self.newVc(viewController: "StepOkDepositAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepOkDepositCheckViewController")]
             
         } else if (mType == OK_MSG_TYPE_WITHDRAW) {
             return [self.newVc(viewController: "StepOkWithdrawAmountViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepOkWithdrawCheckViewController")]
             
         } else if (mType == OK_MSG_TYPE_DIRECT_VOTE) {
             return [self.newVc(viewController: "StepOkVoteToViewController"),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     self.newVc(viewController: "StepOkVoteCheckViewController")]
 
         } else if (mType == IOV_MSG_TYPE_REGISTER_DOMAIN) {
             return [RegisterDomain0ViewController(nibName: "RegisterDomain0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     RegisterDomain3ViewController(nibName: "RegisterDomain3ViewController", bundle: nil)]
             
             
@@ -331,25 +315,25 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             return [RegisterAccount0ViewController(nibName: "RegisterAccount0ViewController", bundle: nil),
                     RegisterAccount1ViewController(nibName: "RegisterAccount1ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     RegisterAccount4ViewController(nibName: "RegisterAccount4ViewController", bundle: nil)]
 
         } else if (mType == IOV_MSG_TYPE_DELETE_DOMAIN || mType == IOV_MSG_TYPE_DELETE_ACCOUNT) {
             return [DeleteStarname0ViewController(nibName: "DeleteStarname0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     DeleteStarname3ViewController(nibName: "DeleteStarname3ViewController", bundle: nil)]
 
         } else if (mType == IOV_MSG_TYPE_RENEW_DOMAIN || mType == IOV_MSG_TYPE_RENEW_ACCOUNT) {
             return [RenewStarname0ViewController(nibName: "RenewStarname0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     RenewStarname3ViewController(nibName: "RenewStarname3ViewController", bundle: nil)]
 
         } else if (mType == IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE) {
             return [ReplaceResource0ViewController(nibName: "ReplaceResource0ViewController", bundle: nil),
                     self.newVc(viewController: "StepMemoViewController"),
-                    self.newVc(viewController: "StepFeeViewController"),
+                    StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                     ReplaceResource3ViewController(nibName: "ReplaceResource3ViewController", bundle: nil)]
 
         } else {
@@ -361,7 +345,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
             } else {
                 return [self.newVc(viewController: "StepRewardViewController"),
                         self.newVc(viewController: "StepMemoViewController"),
-                        self.newVc(viewController: "StepFeeViewController"),
+                        StepFeeOldViewController(nibName: "StepFeeOldViewController", bundle: nil),
                         self.newVc(viewController: "StepRewardCheckViewController")]
             }
             
@@ -441,8 +425,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
         disableBounce = false
         if ((currentIndex <= 3 &&
                 (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE ||
-                    mType == OK_MSG_TYPE_TRANSFER ||
-                    mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) || currentIndex <= 2) {
+                    mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

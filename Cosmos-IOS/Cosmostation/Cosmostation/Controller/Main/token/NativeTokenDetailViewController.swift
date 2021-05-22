@@ -130,7 +130,7 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
         }
         
         else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: FEE_BNB_TRANSFER)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
@@ -150,15 +150,13 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
             txVC.mType = OK_MSG_TYPE_TRANSFER
             
         } else if (chainType! == ChainType.SIF_MAIN) {
-//            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-//            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-//                return
-//            }
-//            txVC.mToSendDenom = self.denom
-//            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            self.onShowToast(NSLocalizedString("prepare", comment: ""))
-            return
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
+            txVC.mToSendDenom = self.denom
+            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
     
         } else {
             return
@@ -180,7 +178,7 @@ class NativeTokenDetailViewController: BaseViewController, UITableViewDelegate, 
         }
         
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (BaseData.instance.availableAmount(BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+            if (BaseData.instance.availableAmount(BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BNB_TRANSFER)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

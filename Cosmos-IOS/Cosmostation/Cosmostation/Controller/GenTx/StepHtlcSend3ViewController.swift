@@ -181,23 +181,23 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
     
     func onInitSendFee() {
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            let feeCoin = Coin.init(BNB_MAIN_DENOM, "0.000375")
+            let feeCoin = Coin.init(BNB_MAIN_DENOM, FEE_BNB_TRANSFER)
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
             pageHolderVC.mHtlcSendFee = Fee.init("", tempList)
-            
+
         } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
             let feeCoin = Coin.init(KAVA_MAIN_DENOM, "0")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
-            pageHolderVC.mHtlcSendFee = Fee.init(KAVA_GAS_FEE_AMOUNT_BEP3, tempList)
-            
+            pageHolderVC.mHtlcSendFee = Fee.init(KAVA_GAS_AMOUNT_BEP3, tempList)
+
         }
     }
     
     func onInitClaimFee() {
         if (pageHolderVC.mHtlcToChain == ChainType.BINANCE_MAIN || pageHolderVC.mHtlcToChain == ChainType.BINANCE_TEST) {
-            let feeCoin = Coin.init(BNB_MAIN_DENOM, "0.000375")
+            let feeCoin = Coin.init(BNB_MAIN_DENOM, FEE_BNB_TRANSFER)
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
             pageHolderVC.mHtlcClaimFee = Fee.init("", tempList)
@@ -206,7 +206,7 @@ class StepHtlcSend3ViewController: BaseViewController, PasswordViewDelegate, SBC
             let feeCoin = Coin.init(KAVA_MAIN_DENOM, "0")
             var tempList = Array<Coin>()
             tempList.append(feeCoin)
-            pageHolderVC.mHtlcClaimFee = Fee.init(KAVA_GAS_FEE_AMOUNT_BEP3, tempList)
+            pageHolderVC.mHtlcClaimFee = Fee.init(KAVA_GAS_AMOUNT_BEP3, tempList)
             
         }
     }
