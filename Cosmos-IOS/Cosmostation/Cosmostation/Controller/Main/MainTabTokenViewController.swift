@@ -659,10 +659,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_MAIN_DENOM, allAtom, 6, cell!.tokenValue.font)
 
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
         } else {
-            // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
+            
         }
         return cell!
     }
@@ -680,7 +688,17 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allIris.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, allIris, 6, cell!.tokenValue.font)
             
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
         } else {
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
             
         }
         return cell!
@@ -700,10 +718,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAkt.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(AKASH_MAIN_DENOM, allAkt, 6, cell!.tokenValue.font)
             
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
         } else {
-            // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
+            
         }
         return cell!
     }
@@ -722,10 +748,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allPersis.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, allPersis, 6, cell!.tokenValue.font)
             
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
         } else {
-            // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
+            
         }
         return cell!
     }
@@ -743,10 +777,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CRYPTO_MAIN_DENOM, allCro, 8, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
         } else {
-            // TODO no this case yet!
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
+            
         }
         return cell!
     }
@@ -763,6 +806,13 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allAtom = WUtils.getAllMainAsset(COSMOS_TEST_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAtom.stringValue, cell!.tokenAmount.font, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_TEST_DENOM, allAtom, 6, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            
+        } else {
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+            
         }
         return cell!
     }
@@ -781,13 +831,19 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, allIris, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
-            cell?.tokenTitle.text = "(" + balance.denom + ")"
             
         } else {
             
         }
         return cell!
     }
+    
+    
+//    func onSetIbcToken(_ balance: Balance, _ cell: TokenCell) {
+//
+//    }
+    
+    
     
     @IBAction func onClickSwitchAccount(_ sender: Any) {
         self.mainTabVC.onShowAccountSwicth()
