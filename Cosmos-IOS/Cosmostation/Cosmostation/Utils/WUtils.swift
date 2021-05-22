@@ -1856,7 +1856,7 @@ class WUtils {
                 denomLabel.textColor = .white
                 denomLabel.text = coin.denom.uppercased()
             }
-            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 8)
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 0, 8)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (coin.denom == KAVA_MAIN_DENOM) {
@@ -2035,7 +2035,7 @@ class WUtils {
                 denomLabel.textColor = .white
                 denomLabel.text = denom.uppercased()
             }
-            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 8, 8)
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 0, 8)
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
             if (denom == KAVA_MAIN_DENOM) {
@@ -2465,6 +2465,38 @@ class WUtils {
         }
     }
     
+    static func getKavaCoinDecimal(_ denom:String?) -> Int16 {
+        if (denom?.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
+            return 6;
+        } else if (denom?.caseInsensitiveCompare("btc") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("usdx") == .orderedSame) {
+            return 6;
+        } else if (denom?.caseInsensitiveCompare("bnb") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("btcb") == .orderedSame || denom?.caseInsensitiveCompare("hbtc") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("busd") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("xrpb") == .orderedSame || denom?.caseInsensitiveCompare("xrbp") == .orderedSame) {
+            return 8;
+        } else if (denom?.caseInsensitiveCompare("hard") == .orderedSame) {
+            return 6;
+        }
+        return 100;
+    }
+    
+    static func getSifCoinDecimal(_ denom:String?) -> Int16 {
+        if (denom?.caseInsensitiveCompare(SIF_MAIN_DENOM) == .orderedSame) { return 18; }
+        else if (denom?.caseInsensitiveCompare("cusdt") == .orderedSame) { return 6; }
+        else if (denom?.caseInsensitiveCompare("cusdc") == .orderedSame) { return 6; }
+        else if (denom?.caseInsensitiveCompare("csrm") == .orderedSame) { return 6; }
+        else if (denom?.caseInsensitiveCompare("cwscrt") == .orderedSame) { return 6; }
+        else if (denom?.caseInsensitiveCompare("ccro") == .orderedSame) { return 8; }
+        else if (denom?.caseInsensitiveCompare("cwbtc") == .orderedSame) { return 8; }
+        return 18;
+    }
+    
     static func setDenomTitle(_ chain: ChainType?, _ label: UILabel) {
         if (chain == ChainType.COSMOS_MAIN) {
             label.text = "ATOM"
@@ -2793,7 +2825,7 @@ class WUtils {
             }
             
         } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
-            if (type == OK_MSG_TYPE_TRANSFER) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(OK_GAS_AMOUNT_SEND))
             } else if (type == OK_MSG_TYPE_DEPOSIT || type == OK_MSG_TYPE_WITHDRAW) {
                 result = (NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE_MUX).multiplying(by: NSDecimalNumber.init(value: valCnt))).adding(NSDecimalNumber.init(string: OK_GAS_AMOUNT_STAKE))
@@ -2802,7 +2834,7 @@ class WUtils {
             }
             
         } else if (chain == ChainType.CERTIK_MAIN || chain == ChainType.CERTIK_TEST) {
-            if (type == CERTIK_MSG_TYPE_TRANSFER) {
+            if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_SEND))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE || type == COSMOS_MSG_TYPE_UNDELEGATE2) {
                 result = NSDecimalNumber.init(string: String(CERTIK_GAS_AMOUNT_STAKE))
@@ -3129,38 +3161,6 @@ class WUtils {
         gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_15))
         gasAmounts.append(NSDecimalNumber.init(string: FEE_KAVA_REWARD_GAS_16))
         return gasAmounts
-    }
-    
-    static func getKavaCoinDecimal(_ denom:String) -> Int16 {
-        if (denom.caseInsensitiveCompare(KAVA_MAIN_DENOM) == .orderedSame) {
-            return 6;
-        } else if (denom.caseInsensitiveCompare("btc") == .orderedSame) {
-            return 8;
-        } else if (denom.caseInsensitiveCompare("usdx") == .orderedSame) {
-            return 6;
-        } else if (denom.caseInsensitiveCompare("bnb") == .orderedSame) {
-            return 8;
-        } else if (denom.caseInsensitiveCompare("btcb") == .orderedSame || denom.caseInsensitiveCompare("hbtc") == .orderedSame) {
-            return 8;
-        } else if (denom.caseInsensitiveCompare("busd") == .orderedSame) {
-            return 8;
-        } else if (denom.caseInsensitiveCompare("xrpb") == .orderedSame || denom.caseInsensitiveCompare("xrbp") == .orderedSame) {
-            return 8;
-        } else if (denom.caseInsensitiveCompare("hard") == .orderedSame) {
-            return 6;
-        }
-        return 100;
-    }
-    
-    static func getSifCoinDecimal(_ denom:String?) -> Int16 {
-        if (denom?.caseInsensitiveCompare(SIF_MAIN_DENOM) == .orderedSame) { return 18; }
-        else if (denom?.caseInsensitiveCompare("cusdt") == .orderedSame) { return 6; }
-        else if (denom?.caseInsensitiveCompare("cusdc") == .orderedSame) { return 6; }
-        else if (denom?.caseInsensitiveCompare("csrm") == .orderedSame) { return 6; }
-        else if (denom?.caseInsensitiveCompare("cwscrt") == .orderedSame) { return 6; }
-        else if (denom?.caseInsensitiveCompare("ccro") == .orderedSame) { return 8; }
-        else if (denom?.caseInsensitiveCompare("cwbtc") == .orderedSame) { return 8; }
-        return 18;
     }
     
     static func getVoterTypeCnt(_ votes: Array<Vote>, _ type: String) -> String {

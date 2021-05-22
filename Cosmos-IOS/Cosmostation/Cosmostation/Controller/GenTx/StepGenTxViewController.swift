@@ -139,7 +139,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
                         self.newVc(viewController: "StepUndelegateCheckViewController")]
             }
             
-        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) {
+        } else if (mType == COSMOS_MSG_TYPE_TRANSFER2) {
             if (WUtils.isGRPC(chainType!)) {
                 return [self.newVc(viewController: "StepSendAddressViewController"),
                         self.newVc(viewController: "StepSendAmountViewController"),
@@ -423,9 +423,7 @@ class StepGenTxViewController: UIPageViewController, UIPageViewControllerDelegat
     
     func onNextPage() {
         disableBounce = false
-        if ((currentIndex <= 3 &&
-                (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE ||
-                    mType == OK_MSG_TYPE_TRANSFER || mType == CERTIK_MSG_TYPE_TRANSFER) || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT) || currentIndex <= 2) {
+        if ((currentIndex <= 3 && (mType == COSMOS_MSG_TYPE_TRANSFER2 || mType == COSMOS_MSG_TYPE_REDELEGATE2 || mType == IRIS_MSG_TYPE_REDELEGATE || mType == IOV_MSG_TYPE_REGISTER_ACCOUNT)) || currentIndex <= 2) {
             setViewControllers([orderedViewControllers[currentIndex + 1]], direction: .forward, animated: true, completion: { (finished) -> Void in
                 self.currentIndex = self.currentIndex + 1
                 let value:[String: Int] = ["step": self.currentIndex ]

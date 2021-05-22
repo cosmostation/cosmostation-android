@@ -17,38 +17,34 @@ import NIO
 
 class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
 
-    @IBOutlet weak var mToSendAmountLabel: UILabel!
-    @IBOutlet weak var mFeeAmountLabel: UILabel!
-    @IBOutlet weak var mTotalSpendTitle: UILabel!
-    @IBOutlet weak var mTotalSpendLabel: UILabel!
-    @IBOutlet weak var mTotalSpendPrice: UILabel!
-    
-    @IBOutlet weak var mCurrentAvailable: UILabel!
-    @IBOutlet weak var mReminaingAvailable: UILabel!
-    @IBOutlet weak var mReminaingPrice: UILabel!
-    
+    @IBOutlet weak var sendAmountLabel: UILabel!
+    @IBOutlet weak var sendDenomLabel: UILabel!
+    @IBOutlet weak var sendValueLabel: UILabel!
+    @IBOutlet weak var feeAmountLabel: UILabel!
+    @IBOutlet weak var feeDenomLabel: UILabel!
+    @IBOutlet weak var feeValueLabel: UILabel!
+    @IBOutlet weak var availableAmountLabel: UILabel!
+    @IBOutlet weak var availableDenomLabel: UILabel!
+    @IBOutlet weak var availableValueLabel: UILabel!
+    @IBOutlet weak var remainAmountLabel: UILabel!
+    @IBOutlet weak var remainDenomLabel: UILabel!
+    @IBOutlet weak var remainValueLabel: UILabel!
     @IBOutlet weak var mToAddressLabel: UILabel!
     @IBOutlet weak var mMemoLabel: UILabel!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var confirmBtn: UIButton!
     
-    @IBOutlet weak var mToSendDenomLabel: UILabel!
-    @IBOutlet weak var mFeeDenomTitle: UILabel!
-    @IBOutlet weak var mTotalSpendDenomTitle: UILabel!
-    @IBOutlet weak var mCurrentBalanceDenomTitle: UILabel!
-    @IBOutlet weak var mRemainBalanceTitle: UILabel!
-    
     var pageHolderVC: StepGenTxViewController!
-    var mDpDecimal:Int16 = 6
+    
+    var mDivideDecimal:Int16 = 6
+    var mDisplayDecimal:Int16 = 6
     
     override func viewDidLoad() {
         super.viewDidLoad()
         pageHolderVC = self.parent as? StepGenTxViewController
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mToSendDenomLabel)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mFeeDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mTotalSpendDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mCurrentBalanceDenomTitle)
-        WUtils.setDenomTitle(pageHolderVC.chainType!, mRemainBalanceTitle)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, sendDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, availableDenomLabel)
+        WUtils.setDenomTitle(pageHolderVC.chainType!, remainDenomLabel)
     }
     
     @IBAction func onClickConfirm(_ sender: Any) {
@@ -73,261 +69,62 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
     }
     
     func onUpdateView() {
-        let toSendAmount = WUtils.plainStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
+        let mainDenom = WUtils.getMainDenom(pageHolderVC.chainType!)
         let toSendDenom = pageHolderVC.mToSendAmount[0].denom
+        let toSendAmount = WUtils.plainStringToDecimal(pageHolderVC.mToSendAmount[0].amount)
         let feeAmount = WUtils.plainStringToDecimal((pageHolderVC.mFee?.amount[0].amount)!)
-        var currentAva = NSDecimalNumber.zero
+        var currentAvailable = NSDecimalNumber.zero
+        var remainAvailable = NSDecimalNumber.zero
         
-        if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-            mDpDecimal = 8
-            mToSendDenomLabel.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
-            mCurrentBalanceDenomTitle.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
-            mRemainBalanceTitle.text = pageHolderVC.mBnbToken?.original_symbol.uppercased()
+        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
+            mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+            mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
+            currentAvailable = BaseData.instance.getAvailableAmount(toSendDenom)
             
-            if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
-                currentAva = pageHolderVC.mAccount!.getBnbBalance()
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, 8)
+        }  else {
+            if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
+                mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+                mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
                 
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
+            } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
+                mDivideDecimal = WUtils.getKavaCoinDecimal(pageHolderVC.mToSendDenom)
+                mDisplayDecimal = WUtils.getKavaCoinDecimal(pageHolderVC.mToSendDenom)
                 
-                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 0, mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 0, mReminaingPrice.font)
+            } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+                mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
                 
-            }  else {
-                mToSendDenomLabel.textColor = UIColor.white
-                mCurrentBalanceDenomTitle.textColor = UIColor.white
-                mRemainBalanceTitle.textColor = UIColor.white
-                
-                mTotalSpendTitle.isHidden = true
-                mTotalSpendLabel.isHidden = true
-                mTotalSpendDenomTitle.isHidden = true
-                mTotalSpendPrice.isHidden = true
-                mReminaingPrice.isHidden = true
-                
-                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mBnbToken!.symbol)
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, 8)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, 8)
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, 8)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, 8)
-                
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-            mDpDecimal = WUtils.getKavaCoinDecimal(self.pageHolderVC.mToSendDenom!)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            if (toSendDenom == KAVA_MAIN_DENOM) {
-                currentAva = pageHolderVC.mAccount!.getKavaBalance()
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
-                
-                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
+            } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
+                mDivideDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
+                mDisplayDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom)
                 
             } else {
-                mTotalSpendTitle.isHidden = true
-                mTotalSpendLabel.isHidden = true
-                mTotalSpendDenomTitle.isHidden = true
-                mTotalSpendPrice.isHidden = true
-                mReminaingPrice.isHidden = true
-                
-                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-                WUtils.showCoinDp(toSendDenom, toSendAmount.stringValue, mToSendDenomLabel, mToSendAmountLabel, pageHolderVC.chainType!)
-                WUtils.showCoinDp(toSendDenom, currentAva.stringValue, mCurrentBalanceDenomTitle, mCurrentAvailable, pageHolderVC.chainType!)
-                WUtils.showCoinDp(toSendDenom, currentAva.subtracting(toSendAmount).stringValue, mRemainBalanceTitle, mReminaingAvailable, pageHolderVC.chainType!)
-                
+                mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
+                mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
             }
-        } else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
-            mDpDecimal = 6
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, mDpDecimal)
-            if (toSendDenom == IOV_MAIN_DENOM || toSendDenom == IOV_TEST_DENOM ) {
-                currentAva = pageHolderVC.mAccount!.getIovBalance()
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, mDpDecimal)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, mDpDecimal)
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
-                
-                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
-                
-            } else {}
+            currentAvailable = BaseData.instance.availableAmount(toSendDenom)
             
-        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-            mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getBandBalance()
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
+        }
+        if (toSendDenom == mainDenom) {
+            remainAvailable = currentAvailable.subtracting(toSendAmount).subtracting(feeAmount)
+            sendValueLabel.attributedText = WUtils.dpUserCurrencyValue(mainDenom, toSendAmount, mDivideDecimal, sendValueLabel.font)
+            feeValueLabel.attributedText = WUtils.dpUserCurrencyValue(mainDenom, feeAmount, mDivideDecimal, feeValueLabel.font)
+            availableValueLabel.attributedText = WUtils.dpUserCurrencyValue(mainDenom, currentAvailable, mDivideDecimal, availableValueLabel.font)
+            remainValueLabel.attributedText = WUtils.dpUserCurrencyValue(mainDenom, remainAvailable, mDivideDecimal, remainValueLabel.font)
             
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            mDpDecimal = 18
-            mToSendDenomLabel.text = pageHolderVC.mToSendDenom!.uppercased()
-            mCurrentBalanceDenomTitle.text = pageHolderVC.mToSendDenom!.uppercased()
-            mRemainBalanceTitle.text = pageHolderVC.mToSendDenom!.uppercased()
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            
-            if (pageHolderVC.mToSendDenom == OKEX_MAIN_DENOM) {
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 0, mDpDecimal)
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
-                
-                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 0, mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 0, mReminaingPrice.font)
-                
-            } else {
-                mToSendDenomLabel.textColor = UIColor.white
-                mCurrentBalanceDenomTitle.textColor = UIColor.white
-                mRemainBalanceTitle.textColor = UIColor.white
-                
-                mTotalSpendTitle.isHidden = true
-                mTotalSpendLabel.isHidden = true
-                mTotalSpendDenomTitle.isHidden = true
-                mTotalSpendPrice.isHidden = true
-                mReminaingPrice.isHidden = true
-                
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 0, mDpDecimal)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 0, mDpDecimal)
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 0, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 0, mDpDecimal)
-                
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-            mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-            mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-            mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, 6, 6)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, 6, 6)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, 6, 6)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, 6)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, 6)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-            mDpDecimal = 18
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 18, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 18, mReminaingPrice.font)
-            
-        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-            let mDpDecimal = WUtils.getSifCoinDecimal(pageHolderVC.mToSendDenom!)
-            if (pageHolderVC.mToSendDenom == SIF_MAIN_DENOM) {
-                currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
-
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
-                
-                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 18, mTotalSpendPrice.font)
-                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 18, mReminaingPrice.font)
-                
-            } else {
-                //not yet
-            }
-            
-        } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
-            mDpDecimal = 6
-            currentAva = pageHolderVC.mAccount!.getTokenBalance(pageHolderVC.mToSendDenom!)
-            mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
-            mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
-            mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
-            
-            mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
-            mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal, mDpDecimal)
-            
-            mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-            mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
+        } else {
+            remainAvailable = currentAvailable.subtracting(toSendAmount)
+            sendValueLabel.isHidden = true
+            feeValueLabel.isHidden = true
+            availableValueLabel.isHidden = true
+            remainValueLabel.isHidden = true
             
         }
         
-        
-        else if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-                mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
-                currentAva = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!)
-                
-                mToSendAmountLabel.attributedText = WUtils.displayAmount2(toSendAmount.stringValue, mToSendAmountLabel.font, mDpDecimal, mDpDecimal)
-                mFeeAmountLabel.attributedText = WUtils.displayAmount2(feeAmount.stringValue, mFeeAmountLabel.font, mDpDecimal, mDpDecimal)
-                mTotalSpendLabel.attributedText = WUtils.displayAmount2(feeAmount.adding(toSendAmount).stringValue, mTotalSpendLabel.font, mDpDecimal, mDpDecimal)
-                mTotalSpendPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), feeAmount.adding(toSendAmount), 6, mTotalSpendPrice.font)
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, mDpDecimal, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(feeAmount).subtracting(toSendAmount).stringValue, mReminaingAvailable.font, mDpDecimal,mDpDecimal)
-                mReminaingPrice.attributedText = WUtils.dpUserCurrencyValue(WUtils.getMainDenom(pageHolderVC.chainType), currentAva.subtracting(feeAmount).subtracting(toSendAmount), 6, mReminaingPrice.font)
-                
-            } else {
-                //TODO need real test
-                mTotalSpendTitle.isHidden = true
-                mTotalSpendLabel.isHidden = true
-                mTotalSpendDenomTitle.isHidden = true
-                mTotalSpendPrice.isHidden = true
-                mReminaingPrice.isHidden = true
-                
-                mToSendDenomLabel.textColor = UIColor.white
-                mCurrentBalanceDenomTitle.textColor = UIColor.white
-                mRemainBalanceTitle.textColor = UIColor.white
-                mToSendDenomLabel.text = pageHolderVC.mToSendDenom!.uppercased()
-                mCurrentBalanceDenomTitle.text = pageHolderVC.mToSendDenom!.uppercased()
-                mRemainBalanceTitle.text = pageHolderVC.mToSendDenom!.uppercased()
-                
-                mCurrentAvailable.attributedText = WUtils.displayAmount2(currentAva.stringValue, mCurrentAvailable.font, 6, mDpDecimal)
-                mReminaingAvailable.attributedText = WUtils.displayAmount2(currentAva.subtracting(toSendAmount).stringValue, mReminaingAvailable.font, 6, mDpDecimal)
-            }
-        }
+        WUtils.showCoinDp(toSendDenom, toSendAmount.stringValue, sendDenomLabel, sendAmountLabel, pageHolderVC.chainType!)
+        WUtils.showCoinDp(mainDenom, feeAmount.stringValue, feeDenomLabel, feeAmountLabel, pageHolderVC.chainType!)
+        WUtils.showCoinDp(toSendDenom, currentAvailable.stringValue, availableDenomLabel, availableAmountLabel, pageHolderVC.chainType!)
+        WUtils.showCoinDp(toSendDenom, remainAvailable.stringValue, remainDenomLabel, remainAmountLabel, pageHolderVC.chainType!)
         
         mToAddressLabel.text = pageHolderVC.mToSendRecipientAddress
         if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
