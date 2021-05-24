@@ -45,7 +45,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tx_deployment_id"
+                    android:text="@string/str_deployment_id"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
                     android:id="@+id/tx_close_deployment_id"
@@ -59,7 +59,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/tx_dseq"
+                    android:text="@string/str_dseq"
                     android:layout_marginTop="@dimen/space_4"
                     style="@style/font_ss_12_gray1"/>
                 <TextView
