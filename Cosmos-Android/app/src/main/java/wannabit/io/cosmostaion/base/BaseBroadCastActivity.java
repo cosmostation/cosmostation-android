@@ -17,10 +17,12 @@ public class BaseBroadCastActivity extends BaseActivity {
     public Coin                 mAmount;                            //Delegate, Undelegate, Redelegate, ReInvest
     public String               mValAddress;                        //Delegate, Undelegate, ReInvest
     public String               mToValAddress;                      //Redelegate
+    public ArrayList<Coin>      mRewards = new ArrayList<>();       //Reward
     public ArrayList<String>    mValAddresses = new ArrayList<>();  //ClaimReward
     public String               mNewRewardAddress;                  //SetRewardAddress
     public String               mProposalId;                        //Vote
     public String               mOpinion;                           //Vote
+
 
 
     public ArrayList<Validator> mValidators = new ArrayList<>();    //ClaimReward old

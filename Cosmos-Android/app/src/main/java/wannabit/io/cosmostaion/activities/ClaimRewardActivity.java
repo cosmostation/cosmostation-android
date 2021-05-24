@@ -55,7 +55,7 @@ public class ClaimRewardActivity extends BaseBroadCastActivity implements TaskLi
     private ViewPager                   mViewPager;
     private RewardPageAdapter           mPageAdapter;
 
-    public ArrayList<Coin>              mRewards = new ArrayList<>();
+//    public ArrayList<Coin>              mRewards = new ArrayList<>();
     public String                       mWithdrawAddress;
     private int                         mTaskCount;
 

@@ -2400,14 +2400,10 @@ public class WUtil {
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
-            BigDecimal gasRate = new BigDecimal(KAVA_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+            return BigDecimal.ZERO;
 
         } else if (basechain.equals(BAND_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(BAND_GAS_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+            return BigDecimal.ZERO;
 
         } else if (basechain.equals(IOV_MAIN) || basechain.equals(IOV_TEST)) {
             BigDecimal gasRate = new BigDecimal(IOV_GAS_RATE_AVERAGE);
