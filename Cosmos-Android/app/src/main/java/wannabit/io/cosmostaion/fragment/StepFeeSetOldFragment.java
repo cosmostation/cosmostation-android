@@ -7,8 +7,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -21,12 +21,10 @@ import java.util.ArrayList;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
-import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Fee;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
@@ -36,6 +34,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_REINVEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_DELEGATE;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 import static wannabit.io.cosmostaion.base.BaseConstant.FEE_BNB_SEND;
 
 public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickListener {
@@ -178,6 +180,63 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
 
 
     private boolean onCheckValidate() {
+        if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(BAND_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
+            BigDecimal available = getBaseDao().availableAmount(getSActivity().mDenom);
+            if (getSActivity().mTxType == CONST_PW_TX_SIMPLE_SEND) {
+                if (getSActivity().mDenom.equals(WDp.mainDenom(getSActivity().mBaseChain))) {
+                    BigDecimal toSend = new BigDecimal(getSActivity().mAmounts.get(0).amount);
+                    if ((toSend.add(mFee)).compareTo(available) > 0) {
+                        Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                } else {
+                    if (mFee.compareTo(available) > 0) {
+                        Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                }
+
+            } else if(getSActivity().mTxType == CONST_PW_TX_SIMPLE_DELEGATE) {
+                BigDecimal delegatable = getBaseDao().delegatableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal todelegate = new BigDecimal(getSActivity().mAmount.amount);
+                if ((todelegate.add(mFee)).compareTo(delegatable) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+            } else if(getSActivity().mTxType == CONST_PW_TX_SIMPLE_REWARD) {
+                BigDecimal rewardable = getBaseDao().availableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                if (mFee.compareTo(rewardable) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                BigDecimal rewardSum = BigDecimal.ZERO;
+                for (Coin coin:getSActivity().mRewards) {
+                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
+                }
+
+                if (mFee.compareTo(rewardSum) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+            } else if (getSActivity().mTxType == CONST_PW_TX_REINVEST) {
+                BigDecimal reinvestable = getBaseDao().availableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                if (mFee.compareTo(reinvestable) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_not_enough_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                BigDecimal reinvest = new BigDecimal(getSActivity().mAmount.amount);
+                if (mFee.compareTo(reinvest) > 0) {
+                    Toast.makeText(getContext(), getString(R.string.error_waste_fee), Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+            }
+
+        }
         return true;
     }
 

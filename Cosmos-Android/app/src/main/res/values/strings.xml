@@ -547,6 +547,12 @@
     <string name="str_provider">Provider</string>
     <string name="str_order">Order</string>
     <string name="str_price">Price</string>
+    <string name="str_dseq">dseq</string>
+    <string name="str_gseq">gseq</string>
+    <string name="str_oseq">oseq</string>
+    <string name="str_deployment_id">Deployment ID</string>
+    <string name="str_version_hash">Version Hash</string>
+    <string name="str_deployment_deposit">Deposit</string>
     <string name="str_akash_deposit">Deposit</string>
     <string name="str_current_delegation">Current Delegation</string>
     <string name="str_expected_delegation">Expected Delegation</string>
@@ -1412,12 +1418,7 @@
     <string name="tx_issue_token">Token Issue</string>
     <string name="tx_known">Unknown</string>
     <string name="tx_kava_post_price">Update Price</string>
-    <string name="tx_dseq">dseq</string>
-    <string name="tx_gseq">gseq</string>
-    <string name="tx_oseq">oseq</string>
-    <string name="tx_deployment_id">Deployment ID</string>
-    <string name="tx_version_hash">Version Hash</string>
-    <string name="tx_deployment_deposit">Deposit</string>
+
 
     <string name="tx_kava_create_cdp">CDP\nOpen</string>
     <string name="tx_kava_deposit_cdp">CDP\nDeposit</string>
