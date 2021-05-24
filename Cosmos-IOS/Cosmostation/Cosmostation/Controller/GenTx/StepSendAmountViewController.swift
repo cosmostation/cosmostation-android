@@ -131,31 +131,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
             return
         }
-//        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-//            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-//                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-//                return
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-//            if (userInput.compare(maxAvailable).rawValue > 0) {
-//                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-//                return
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-//            if (userInput.compare(maxAvailable).rawValue > 0) {
-//                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-//                return
-//            }
-//
-//        } else {
-//            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-//                self.mTargetAmountTextField.layer.borderColor = UIColor.init(hexString: "f31963").cgColor
-//                return
-//            }
-//
-//        }
         self.mTargetAmountTextField.layer.borderColor = UIColor.white.cgColor
     }
     
@@ -179,39 +154,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             self.onShowToast(NSLocalizedString("error_amount", comment: ""))
             return false
         }
-        
-        
-//        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-//            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-//                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-//                return false
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-//            if (pageHolderVC.mBnbToken?.type == BNB_TOKEN_TYPE_MINI) {
-//                if ((userInput.compare(NSDecimalNumber.one).rawValue < 0) && (userInput.compare(maxAvailable).rawValue != 0)) {
-//                    self.onShowToast(NSLocalizedString("error_bnb_mini_amount", comment: ""))
-//                    return false
-//                }
-//            }
-//            if (userInput.compare(maxAvailable).rawValue > 0) {
-//                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-//                return false
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-//            if (userInput.compare(maxAvailable).rawValue > 0) {
-//                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-//                return false
-//            }
-//
-//        } else {
-//            if (userInput.multiplying(byPowerOf10: mDpDecimal).compare(maxAvailable).rawValue > 0) {
-//                self.onShowToast(NSLocalizedString("error_amount", comment: ""))
-//                return false
-//            }
-//
-//        }
         return true
     }
     
@@ -228,7 +170,6 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             var tempList = Array<Coin>()
             tempList.append(toSendCoin)
             self.pageHolderVC.mToSendAmount = tempList
-            print("tempList ", tempList)
             
             self.backBtn.isUserInteractionEnabled = false
             self.nextBtn.isUserInteractionEnabled = false
@@ -289,105 +230,12 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     }
     
     @IBAction func onClickHalf(_ sender: UIButton) {
-//        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-//            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
-//
-//        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-//            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
-//
-//        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-//            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2), withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
-//
-//        } else {
-//            let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDpDecimal)
-//
-//        }
         let halfValue = maxAvailable.dividing(by: NSDecimalNumber(2)).multiplying(byPowerOf10: -mDivideDecimal, withBehavior: WUtils.getDivideHandler(mDisplayDecimal))
         mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(halfValue, mDisplayDecimal)
         self.onUIupdate()
     }
     
     @IBAction func onClickMax(_ sender: UIButton) {
-//        if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxAvailable, mDpDecimal)
-//            if (pageHolderVC.mBnbToken?.symbol == BNB_MAIN_DENOM) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxAvailable, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.KAVA_MAIN || pageHolderVC.chainType! == ChainType.KAVA_TEST) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//
-//        } else if (pageHolderVC.chainType! == ChainType.BAND_MAIN) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//
-//        }
-//
-//        else if (pageHolderVC.chainType! == ChainType.IOV_MAIN || pageHolderVC.chainType! == ChainType.IOV_TEST) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.SECRET_MAIN) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.CERTIK_MAIN || pageHolderVC.chainType! == ChainType.CERTIK_TEST) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.SENTINEL_MAIN) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.FETCH_MAIN) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//
-//        } else if (pageHolderVC.chainType! == ChainType.SIF_MAIN) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        } else if (pageHolderVC.chainType! == ChainType.KI_MAIN) {
-//            let maxValue = maxAvailable.multiplying(byPowerOf10: -mDpDecimal, withBehavior: WUtils.getDivideHandler(mDpDecimal))
-//            mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDpDecimal)
-//            if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
-//                self.showMaxWarnning()
-//            }
-//
-//        }
         let maxValue = maxAvailable.multiplying(byPowerOf10: -mDivideDecimal, withBehavior: WUtils.getDivideHandler(mDisplayDecimal))
         mTargetAmountTextField.text = WUtils.decimalNumberToLocaleString(maxValue, mDisplayDecimal)
         if (pageHolderVC.mToSendDenom == WUtils.getMainDenom(pageHolderVC.chainType!)) {
