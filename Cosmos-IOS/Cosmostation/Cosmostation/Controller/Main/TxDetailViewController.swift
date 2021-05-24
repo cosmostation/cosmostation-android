@@ -292,7 +292,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             cell?.timeGapLabel.text = WUtils.timeGap(input: mBnbTime)
             cell?.hashLabel.text = mTxInfo!.hash
             cell?.memoLabel.text = mTxInfo!.tx?.value.memo
-            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2("0.000375", cell!.feeAmountLabel.font!, 0, 8)
+            cell?.feeAmountLabel.attributedText = WUtils.displayAmount2(FEE_BNB_TRANSFER, cell!.feeAmountLabel.font!, 0, 8)
             
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             cell?.feeLayer.isHidden = false
@@ -1006,7 +1006,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         
         let balances = BaseData.instance.selectBalanceById(accountId: self.account!.account_id)
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
+            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BNB_TRANSFER)).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }

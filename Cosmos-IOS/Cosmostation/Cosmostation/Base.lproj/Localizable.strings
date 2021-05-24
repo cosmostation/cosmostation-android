@@ -551,7 +551,7 @@
 "error_not_enought_principal_asset" = "Not enough USDX to repay.";
 "error_can_not_repay" = "Cannot repay now. You need more USDX to Repay.";
 "error_circuit_breaker" = "Now circuit breake";
-"error_can_not_bep3_account_msg" = "In order to receive BEP3 transfer,\nyou must create a valid(with private key) %@ account and deposit at least 0.000375BNB for claim transaction fee.";
+"error_can_not_bep3_account_msg" = "In order to receive BEP3 transfer,\nyou must create a valid(with private key) %@ account and deposit at least 0.000075BNB for claim transaction fee.";
 "error_can_not_bep3_account_msg2" = "In order to receive BEP3 transfer,\nyou must create a valid(with private key) %@ account wallet.";
 "error_no_recipient_account" = "Please select account to receive";
 "error_no_more_debt_kava" = "Cannot issue USDX. Maximum network USDX capacity has been reached.";

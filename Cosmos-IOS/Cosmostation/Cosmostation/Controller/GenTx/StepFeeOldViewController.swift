@@ -170,7 +170,6 @@ class StepFeeOldViewController: BaseViewController {
                 if (selectedRewardSum.compare(mFee).rawValue < 0) {
                     self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                     return false
-                    
                 }
                 
             } else if (pageHolderVC.mType == COSMOS_MULTI_MSG_TYPE_REINVEST) {
