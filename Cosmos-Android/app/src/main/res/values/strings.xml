@@ -394,12 +394,12 @@
     <string name="str_band" translatable="false">BAND</string>
     <string name="str_kava_test" translatable="false">KAVA TEST</string>
     <string name="str_iov_test" translatable="false">STARNAME TEST</string>
-    <string name="str_ok_test" translatable="false">OKEX TEST</string>
+    <string name="str_ok_test" translatable="false">EX TEST</string>
     <string name="str_certik_main" translatable="false">CERTIK</string>
     <string name="str_certik_test" translatable="false">CERTIK TEST</string>
     <string name="str_secret_main" translatable="false">SECRET</string>
     <string name="str_akash_main" translatable="false">AKASH</string>
-    <string name="str_okex_main" translatable="false">OKEX</string>
+    <string name="str_okex_main" translatable="false">EX</string>
     <string name="str_persis_main" translatable="false">PERSISTENCE</string>
     <string name="str_sentinel_main" translatable="false">SENTINEL</string>
     <string name="str_fetch_main" translatable="false">FETCH.AI</string>
