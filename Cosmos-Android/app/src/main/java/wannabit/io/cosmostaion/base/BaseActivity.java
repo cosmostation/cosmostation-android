@@ -360,7 +360,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         }
 
         boolean hasbalance = true;
-        BigDecimal mainDenomAvailable = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
+        BigDecimal mainDenomAvailable = getBaseDao().availableAmount(WDp.mainDenom(mBaseChain));
         if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST)) {
             if (mainDenomAvailable.compareTo(new BigDecimal(FEE_BNB_SEND)) <= 0) {
                 hasbalance  = false;
