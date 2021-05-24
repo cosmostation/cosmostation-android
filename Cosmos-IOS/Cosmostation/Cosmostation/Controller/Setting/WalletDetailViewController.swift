@@ -400,26 +400,26 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
         }
         
         
-        let mainDenom = WUtils.getMainDenom(chainType)
-        if (WUtils.isGRPC(chainType!)) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else {
-            if (chainType == ChainType.KAVA_MAIN || chainType! == ChainType.FETCH_MAIN || chainType == ChainType.KAVA_TEST) {
-                self.onShowToast("Disabled")
-                return
-            }
-            
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-        }
+//        let mainDenom = WUtils.getMainDenom(chainType)
+//        if (WUtils.isGRPC(chainType!)) {
+//            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+//            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+//                return
+//            }
+//            
+//        } else {
+//            if (chainType == ChainType.KAVA_MAIN || chainType! == ChainType.FETCH_MAIN || chainType == ChainType.KAVA_TEST) {
+//                self.onShowToast("Disabled")
+//                return
+//            }
+//            
+//            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+//            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+//                return
+//            }
+//        }
         
         let title = NSLocalizedString("reward_address_notice_title", comment: "")
         let msg1 = NSLocalizedString("reward_address_notice_msg", comment: "")
