@@ -1058,7 +1058,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             }
             
             let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-            txVC.mType = COSMOS_MSG_TYPE_DELEGATE
+            txVC.mType = COSMOS_MSG_TYPE_UNDELEGATE2
             txVC.mTargetValidator = mValidator
             self.navigationItem.title = ""
             self.navigationController?.pushViewController(txVC, animated: true)

@@ -451,7 +451,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             let coins = msg?.value.inputs?[0].coins
             cell?.multiAmountStack.isHidden = false
             cell?.multiAmountLayer0.isHidden = false
-            WUtils.showCoinDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
+            WUtils.showBNBTxDp(coins![0], cell!.multiAmountDenom0, cell!.multiAmount0, chainType!)
         } else {
             var coins :[Coin]?
             if (msg?.type == COSMOS_MSG_TYPE_TRANSFER3) {
@@ -676,7 +676,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
             }
             
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            WUtils.showCoinDp((msg?.value.getAmounts()![0])!, cell!.sendDenom, cell!.sendAmount, chainType!)
+            WUtils.showBNBTxDp((msg?.value.getAmounts()![0])!, cell!.sendDenom, cell!.sendAmount, chainType!)
             if (self.account?.account_address == msg?.value.from) {
                 cell!.txTitle.text = NSLocalizedString("tx_send_htlc2", comment: "")
                 cell?.senderLabel.text = msg?.value.from

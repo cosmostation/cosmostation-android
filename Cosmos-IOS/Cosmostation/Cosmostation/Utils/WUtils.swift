@@ -1830,6 +1830,16 @@ class WUtils {
         return result
     }
     
+    static func showBNBTxDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
+        if (coin.denom == BNB_MAIN_DENOM) {
+            WUtils.setDenomTitle(chainType, denomLabel)
+        } else {
+            denomLabel.textColor = .white
+            denomLabel.text = coin.denom.uppercased()
+        }
+        amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 8, 8)
+    }
+    
     static func showCoinDp(_ coin:Coin, _ denomLabel:UILabel, _ amountLabel:UILabel, _ chainType:ChainType) {
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.COSMOS_TEST) {
             if (coin.denom == COSMOS_MAIN_DENOM) {
