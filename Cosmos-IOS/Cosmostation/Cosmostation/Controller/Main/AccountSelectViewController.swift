@@ -34,8 +34,6 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
         self.chainTableView.dataSource = self
         self.chainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.chainTableView.register(UINib(nibName: "ManageChainCell", bundle: nil), forCellReuseIdentifier: "ManageChainCell")
-        self.chainTableView.selectRow(at: IndexPath.init(item: mSelectedChain, section: 0), animated: false, scrollPosition: .top)
-        
         onRefechUserInfo()
         
         let dismissTap1 = UITapGestureRecognizer(target: self, action: #selector(tableTapped))
@@ -54,6 +52,7 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.chainTableView.selectRow(at: IndexPath.init(item: mSelectedChain, section: 0), animated: false, scrollPosition: .middle)
     }
 
     @IBAction func OnClose(_ sender: UIButton) {

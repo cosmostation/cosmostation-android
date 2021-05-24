@@ -399,75 +399,27 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             return
         }
         
-        if (WUtils.isGRPC(chainType!)) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                return
-            }
-            
-        } else {
-            let balances = BaseData.instance.selectBalanceById(accountId: account!.account_id)
-            if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-                self.onShowToast("Disabled")
-                return
-                
-            } else if (chainType == ChainType.IOV_MAIN) {
-                if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType == ChainType.IOV_TEST) {
-                if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-            } else if (chainType! == ChainType.SECRET_MAIN) {
-                if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-                if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType! == ChainType.SENTINEL_MAIN) {
-                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-                if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType! == ChainType.FETCH_MAIN) {
-                self.onShowToast("Disabled")
-                return
-                
-            } else if (chainType! == ChainType.SIF_MAIN) {
-                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else if (chainType! == ChainType.KI_MAIN) {
-                let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
-                if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                    self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
-                    return
-                }
-                
-            } else {
-                self.onShowToast(NSLocalizedString("error_support_soon", comment: ""))//TODO
-                return
-            }
-            
-        }
         
-        
+//        let mainDenom = WUtils.getMainDenom(chainType)
+//        if (WUtils.isGRPC(chainType!)) {
+//            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+//            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+//                return
+//            }
+//            
+//        } else {
+//            if (chainType == ChainType.KAVA_MAIN || chainType! == ChainType.FETCH_MAIN || chainType == ChainType.KAVA_TEST) {
+//                self.onShowToast("Disabled")
+//                return
+//            }
+//            
+//            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_MIDIFY, 0)
+//            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
+//                return
+//            }
+//        }
         
         let title = NSLocalizedString("reward_address_notice_title", comment: "")
         let msg1 = NSLocalizedString("reward_address_notice_msg", comment: "")

@@ -604,6 +604,8 @@
 		28DB571125FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB570F25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib */; };
 		28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28DB571325FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift */; };
 		28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */; };
+		28E1D4582658E32D002FDF9B /* StepFeeOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */; };
+		28E1D4592658E32D002FDF9B /* StepFeeOldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
 		28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */; };
@@ -706,7 +708,6 @@
 		E171A06B225B04BD00C5756C /* TransactionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06A225B04BD00C5756C /* TransactionViewController.swift */; };
 		E171A06D225B08A000C5756C /* StepDelegateAmountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */; };
 		E171A06F225B08B100C5756C /* StepMemoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A06E225B08B100C5756C /* StepMemoViewController.swift */; };
-		E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A070225B08C100C5756C /* StepFeeViewController.swift */; };
 		E171A073225B08CE00C5756C /* StepDelegateCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A072225B08CE00C5756C /* StepDelegateCheckViewController.swift */; };
 		E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E171A074225B091300C5756C /* StepGenTxViewController.swift */; };
 		E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */ = {isa = PBXBuildFile; fileRef = E17748E12282D6AD003D8CD1 /* BTCMnemonic.m */; };
@@ -1412,6 +1413,8 @@
 		28DB570F25FA3BDD00B2F0E5 /* HardPoolRepay0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolRepay0ViewController.xib; sourceTree = "<group>"; };
 		28DB571325FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HardPoolRepay3ViewController.swift; sourceTree = "<group>"; };
 		28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolRepay3ViewController.xib; sourceTree = "<group>"; };
+		28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeOldViewController.swift; sourceTree = "<group>"; };
+		28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepFeeOldViewController.xib; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
 		28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkPromotionCell.swift; sourceTree = "<group>"; };
@@ -1543,7 +1546,6 @@
 		E171A06A225B04BD00C5756C /* TransactionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionViewController.swift; sourceTree = "<group>"; };
 		E171A06C225B08A000C5756C /* StepDelegateAmountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDelegateAmountViewController.swift; sourceTree = "<group>"; };
 		E171A06E225B08B100C5756C /* StepMemoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepMemoViewController.swift; sourceTree = "<group>"; };
-		E171A070225B08C100C5756C /* StepFeeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeViewController.swift; sourceTree = "<group>"; };
 		E171A072225B08CE00C5756C /* StepDelegateCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepDelegateCheckViewController.swift; sourceTree = "<group>"; };
 		E171A074225B091300C5756C /* StepGenTxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepGenTxViewController.swift; sourceTree = "<group>"; };
 		E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Cosmostation-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -2375,7 +2377,8 @@
 				E171A06A225B04BD00C5756C /* TransactionViewController.swift */,
 				E171A074225B091300C5756C /* StepGenTxViewController.swift */,
 				E171A06E225B08B100C5756C /* StepMemoViewController.swift */,
-				E171A070225B08C100C5756C /* StepFeeViewController.swift */,
+				28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */,
+				28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */,
 				282A9610260DE054000F4CE6 /* StepFeeGrpcViewController.swift */,
 				282A9611260DE054000F4CE6 /* StepFeeGrpcViewController.xib */,
 				E12D6B88226DF36D00D07CE4 /* StepSendAddressViewController.swift */,
@@ -2864,6 +2867,7 @@
 				E126CF7D2387A3E1002A546F /* WalletCosmosCell.xib in Resources */,
 				28DB570225FA3BA900B2F0E5 /* HardPoolWithdraw3ViewController.xib in Resources */,
 				285A33E724486DA20052BD3D /* HtlcResultSentCell.xib in Resources */,
+				28E1D4592658E32D002FDF9B /* StepFeeOldViewController.xib in Resources */,
 				E16D9B192248C4880019B7BB /* Assets.xcassets in Resources */,
 				280E6CDE2605D78900B3BCBB /* WalletPersisCell.xib in Resources */,
 				283850252448A6C600E5DEF2 /* TxHtlcRefundCell.xib in Resources */,
@@ -3508,7 +3512,6 @@
 				2815AA70243430D4008B23AA /* StepDrawDebtCdpAmountViewController.swift in Sources */,
 				287AC59A25FDF7250070837E /* cosmos_slashing_v1beta1_query.pb.swift in Sources */,
 				E19A32232254A61E00A05E41 /* WalletManageViewController.swift in Sources */,
-				E171A071225B08C100C5756C /* StepFeeViewController.swift in Sources */,
 				287AC64E25FDF7260070837E /* cosmos_distribution_v1beta1_tx.grpc.swift in Sources */,
 				E1F7F634234311F8000E597F /* BnbToken.swift in Sources */,
 				287AC5F925FDF7260070837E /* guardian_tx.grpc.swift in Sources */,
@@ -3531,6 +3534,7 @@
 				28D3551A25386AA200B804CF /* StepHardPoolIncentive3ViewController.swift in Sources */,
 				2848644E24A333CD0046E5C8 /* BottomLineView.swift in Sources */,
 				28D7BE6125F0FC51006EECD7 /* KavaHardMyDeposit.swift in Sources */,
+				28E1D4582658E32D002FDF9B /* StepFeeOldViewController.swift in Sources */,
 				28DB56FC25FA3B9C00B2F0E5 /* HardPoolWithdraw0ViewController.swift in Sources */,
 				E151B64D22485AB20026B8C0 /* History.swift in Sources */,
 				E17748E32282D6AD003D8CD1 /* BTCMnemonic.m in Sources */,

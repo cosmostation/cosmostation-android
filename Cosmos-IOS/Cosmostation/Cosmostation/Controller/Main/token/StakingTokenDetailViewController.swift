@@ -163,7 +163,6 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
             return
         }
         
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
         let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
@@ -171,44 +170,17 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mToSendDenom = mainDenom
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-        }
-        
-        else if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = mainDenom
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = mainDenom
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            if (BaseData.instance.availableAmount(mainDenom).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = mainDenom
-            txVC.mType = OK_MSG_TYPE_TRANSFER
-            
-        } else if (chainType! == ChainType.SIF_MAIN) {
+        } else {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
             if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mToSendDenom = mainDenom
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
         }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mToSendDenom = mainDenom
+        txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
@@ -225,11 +197,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
             return
         }
         
-        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (BaseData.instance.availableAmount(BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
+        //no gRPC case
+        let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, TASK_TYPE_HTLC_SWAP, 0)
+        if (BaseData.instance.availableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+            return
         }
         
         let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController

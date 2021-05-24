@@ -26,16 +26,13 @@ class StepOkDepositAmountViewController: BaseViewController, UITextFieldDelegate
         pageHolderVC = self.parent as? StepGenTxViewController
         WUtils.setDenomTitle(pageHolderVC.chainType!, denomTitleLabel)
         
-        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
-            mDpDecimal = 18
-            var currentVotedCnt = 0
-            if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
-            let estimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt)
-            let feeAmount = estimateGasAmount.multiplying(by: NSDecimalNumber.init(string: GAS_FEE_RATE_OK), withBehavior: WUtils.handler18)
-            
-            userAvailable = WUtils.getTokenAmount(pageHolderVC.mBalances, OKEX_MAIN_DENOM).subtracting(feeAmount)
-            availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 18)
-        }
+        mDpDecimal = 18
+        var currentVotedCnt = 0
+        if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
+        let feeAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt)
+        
+        userAvailable = WUtils.getTokenAmount(pageHolderVC.mBalances, OKEX_MAIN_DENOM).subtracting(feeAmount)
+        availableAmountLabel.attributedText = WUtils.displayAmount2(userAvailable.stringValue, availableAmountLabel.font, 0, 18)
         toDepositAmountInput.delegate = self
         toDepositAmountInput.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
         

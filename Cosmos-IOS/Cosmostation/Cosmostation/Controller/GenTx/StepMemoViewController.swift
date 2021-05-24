@@ -140,8 +140,7 @@ class StepMemoViewController: BaseViewController, UITextViewDelegate, QrScannerD
     func isTransfer() -> Bool {
         var result = true
         let type = self.pageHolderVC.mType
-        if (type == COSMOS_MSG_TYPE_TRANSFER2 ||
-                type == OK_MSG_TYPE_TRANSFER || type == CERTIK_MSG_TYPE_TRANSFER) {
+        if (type == COSMOS_MSG_TYPE_TRANSFER2) {
             result = true
         } else {
             result = false

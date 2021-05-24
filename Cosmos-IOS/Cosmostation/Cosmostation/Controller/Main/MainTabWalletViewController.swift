@@ -1064,7 +1064,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 
         let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
         if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: GAS_FEE_BNB_TRANSFER)).rawValue <= 0) {
+            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BNB_TRANSFER)).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
@@ -1462,123 +1462,24 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        let balances = BaseData.instance.selectBalanceById(accountId: self.mainTabVC.mAccount.account_id)
-        if (chainType! == ChainType.BINANCE_MAIN || chainType! == ChainType.BINANCE_TEST) {
-            if (WUtils.getTokenAmount(balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = BNB_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.KAVA_MAIN || chainType! == ChainType.KAVA_TEST) {
-            if (WUtils.getTokenAmount(balances, KAVA_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = KAVA_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = IOV_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.BAND_MAIN) {
-            if (WUtils.getTokenAmount(balances, BAND_MAIN_DENOM).compare(NSDecimalNumber.zero).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = BAND_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.SECRET_MAIN) {
-            if (WUtils.getTokenAmount(balances, SECRET_MAIN_DENOM).compare(NSDecimalNumber.init(string: "20000")).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = SECRET_MAIN_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(NSDecimalNumber.init(string: "1000000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = IOV_TEST_DENOM
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
-            if (WUtils.getTokenAmount(balances, OKEX_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.002")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = OKEX_MAIN_DENOM
-            txVC.mType = OK_MSG_TYPE_TRANSFER
-            
-        } else if (chainType! == ChainType.CERTIK_MAIN || chainType! == ChainType.CERTIK_TEST) {
-            if (WUtils.getTokenAmount(balances, CERTIK_MAIN_DENOM).compare(NSDecimalNumber.init(string: "5000")).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = CERTIK_MAIN_DENOM
-            txVC.mType = CERTIK_MSG_TYPE_TRANSFER
-            
-        } else if (chainType! == ChainType.SENTINEL_MAIN) {
+        let mainDenom = WUtils.getMainDenom(chainType)
+        if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (WUtils.getTokenAmount(balances, SENTINEL_MAIN_DENOM).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }
-            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.FETCH_MAIN) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.SIF_MAIN) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        } else if (chainType! == ChainType.KI_MAIN) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (WUtils.getTokenAmount(balances, WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
-            
-        }
-        
-        else if (WUtils.isGRPC(chainType!)) {
-            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (BaseData.instance.getAvailableAmount(WUtils.getMainDenom(chainType)).compare(feeAmount).rawValue <= 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
-                return
-            }
-            txVC.mToSendDenom = WUtils.getMainDenom(chainType)
-            txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
             
         } else {
-            return
-            
+            let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
+            if (BaseData.instance.availableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+                self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
+                return
+            }
         }
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mToSendDenom = mainDenom
+        txVC.mType = COSMOS_MSG_TYPE_TRANSFER2
         txVC.hidesBottomBarWhenPushed = true
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)

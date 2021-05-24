@@ -35,7 +35,7 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.chainTableView.dataSource = self
         self.chainTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         self.chainTableView.register(UINib(nibName: "ManageChainCell", bundle: nil), forCellReuseIdentifier: "ManageChainCell")
-        self.chainTableView.selectRow(at: IndexPath.init(item: mSelectedChain, section: 0), animated: false, scrollPosition: .top)
+        self.onRefechUserInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,7 +45,10 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
         self.navigationItem.title = NSLocalizedString("title_wallet_manage", comment: "");
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
-        self.onRefechUserInfo()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.chainTableView.selectRow(at: IndexPath.init(item: mSelectedChain, section: 0), animated: false, scrollPosition: .middle)
     }
     
     func updateOptionBtn() {
@@ -217,6 +220,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "chainsifchain")
                     cell?.chainName.text = "SIF"
+                    
+                } else if (selectedChain == ChainType.KI_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "chainKifoundation")
+                    cell?.chainName.text = "KI"
                     
                 }
                 

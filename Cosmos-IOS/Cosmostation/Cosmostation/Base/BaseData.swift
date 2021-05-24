@@ -103,6 +103,10 @@ final class BaseData : NSObject{
         return amount;
     }
     
+    func delegatableAmount(_ symbol:String) -> NSDecimalNumber {
+        return availableAmount(symbol).adding(lockedAmount(symbol))
+    }
+    
     func delegatedSumAmount() -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for bonding in mMyDelegations {
@@ -687,7 +691,7 @@ final class BaseData : NSObject{
         for account in allAccounts {
             if (WUtils.getChainType(account.account_base_chain) == chain && account.account_has_private) {
                 if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
-                    if (WUtils.getTokenAmount(account.account_balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: "0.000375")).rawValue >= 0) {
+                    if (WUtils.getTokenAmount(account.account_balances, BNB_MAIN_DENOM).compare(NSDecimalNumber.init(string: FEE_BNB_TRANSFER)).rawValue >= 0) {
                         result.append(account)
                     }
                     
