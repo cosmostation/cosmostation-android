@@ -51,7 +51,15 @@ class StepFeeOldViewController: BaseViewController {
         } else {
             gasSelectSegments.tintColor = WUtils.getChainColor(pageHolderVC.chainType!)
         }
-        mEstimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
+        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            var currentVotedCnt = 0
+            if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
+            mEstimateGasAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt)
+            
+        } else {
+            mEstimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
+        }
+        
         onUpdateView()
     }
     
