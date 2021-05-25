@@ -99,7 +99,15 @@ public class StepFeeSetOldFragment extends BaseFragment implements View.OnClickL
         mButtonGroup.setSelectedBackground(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
         mButtonGroup.setRipple(WDp.getChainColor(getContext(), getSActivity().mBaseChain));
 
-        mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValidators.size()));
+        if (getSActivity().mBaseChain.equals(OKEX_MAIN) || getSActivity().mBaseChain.equals(OK_TEST)) {
+            int myValidatorCnt = 0;
+            if (getBaseDao().mOkStaking != null && getBaseDao().mOkStaking.validator_address != null) {
+                myValidatorCnt = getBaseDao().mOkStaking.validator_address.size();
+            }
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, myValidatorCnt);
+        } else {
+            mEstimateGasAmount = WUtil.getEstimateGasAmount(getContext(), getSActivity().mBaseChain, getSActivity().mTxType, (getSActivity().mValidators.size()));
+        }
         onUpdateView();
 
         mButtonGroup.setOnPositionChangedListener(new SegmentedButtonGroup.OnPositionChangedListener() {
