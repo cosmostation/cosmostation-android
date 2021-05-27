@@ -2016,6 +2016,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.RIZON_TEST) {
+            if (coin.denom == RIZON_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         }
     }
     
@@ -2194,6 +2203,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.RIZON_TEST) {
+            if (denom == RIZON_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
             
     }
@@ -2237,18 +2255,6 @@ class WUtils {
         }
     }
     
-    static func getTicData(_ ticSymbol:String, _ tics:[String : NSMutableDictionary]) ->NSMutableDictionary? {
-        for (title, data) in tics {
-            if (title == ticSymbol) {
-                return data
-            }
-        }
-        return nil
-    }
-    
-    
-    
-    
     static func getChainColor(_ chain:ChainType?) -> UIColor {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return COLOR_ATOM
@@ -2282,6 +2288,8 @@ class WUtils {
             return COLOR_SIF
         } else if (chain == ChainType.KI_MAIN) {
             return COLOR_KI
+        } else if (chain == ChainType.RIZON_TEST) {
+            return COLOR_RIZON
         }
         return COLOR_ATOM
     }
@@ -2319,6 +2327,8 @@ class WUtils {
             return COLOR_SIF_DARK
         } else if (chain == ChainType.KI_MAIN) {
             return COLOR_KI_DARK
+        } else if (chain == ChainType.RIZON_TEST) {
+            return COLOR_RIZON_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2356,6 +2366,8 @@ class WUtils {
             return TRANS_BG_COLOR_SIF
         } else if (chain == ChainType.KI_MAIN) {
             return TRANS_BG_COLOR_KI
+        } else if (chain == ChainType.RIZON_TEST) {
+            return TRANS_BG_COLOR_RIZON
         }
         return COLOR_BG_GRAY
     }
@@ -2397,6 +2409,8 @@ class WUtils {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
             return "BIF"
+        } else if (chain == ChainType.RIZON_TEST) {
+            return "ATOLO"
         }
         return ""
     }
@@ -2442,6 +2456,8 @@ class WUtils {
             return IRIS_TEST_DENOM
         } else if (chain == ChainType.IOV_TEST) {
             return IOV_TEST_DENOM
+        } else if (chain == ChainType.RIZON_TEST) {
+            return RIZON_MAIN_DENOM
         }
         return ""
 
@@ -2562,6 +2578,9 @@ class WUtils {
         } else if (chain == ChainType.IRIS_TEST) {
             label.text = "BIF"
             label.textColor = COLOR_IRIS
+        } else if (chain == ChainType.RIZON_TEST) {
+            label.text = "ATOLO"
+            label.textColor = COLOR_RIZON
         }
     }
     
@@ -4568,8 +4587,8 @@ class WUtils {
     }
     
     static func isGRPC(_ chain: ChainType?) -> Bool {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST ) {
             return true
         }
         return false

@@ -14,31 +14,9 @@ import HDWalletKit
 
 class WKey {
     
-//    public struct Ed25519Key {
-//        var key: [UInt8]
-//        var chainCode: [UInt8]
-//
-//        public func derive(index: UInt32) -> Ed25519Key? {
-//            var bigEndian = index.bigEndian
-//            let data = Data(bytes: &bigEndian, count: MemoryLayout.size(ofValue: bigEndian))
-//            var bytes = [UInt8](data)
-//            bytes = [0] + key + bytes
-//
-//            let hmac = HMAC(key: chainCode, variant: .sha512)
-//            guard let sum = try? hmac.authenticate(bytes) else { return nil }
-//            return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
-//        }
-//    }
-    
     static func getMasterKeyFromWords(_ m: [String]) -> HDPrivateKey {
         return HDPrivateKey(seed: Mnemonic.seed(mnemonic: m), network: .testnet)
     }
-    
-//    static func getMasterEd25519KeyFromWord(_ m: [String]) -> Ed25519Key? {
-//        let hmac = HMAC(key: Array("ed25519 seed".utf8), variant: .sha512)
-//        guard let sum = try? hmac.authenticate(Mnemonic.seed(mnemonic: m).dataToHexString().hex2Bytes) else { return nil}
-//        return Ed25519Key(key: Array(sum[0..<32]), chainCode: Array(sum[32..<64]))
-//    }
     
     static func getHDKeyFromWords(_ m: [String], _ account:Account) -> HDPrivateKey {
         let masterKey = getMasterKeyFromWords(m)
@@ -80,6 +58,9 @@ class WKey {
             
         } else if (chainType == ChainType.CRYPTO_MAIN) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 394, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+
+        } else if (chainType == ChainType.RIZON_TEST) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
         } else {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
@@ -124,6 +105,8 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "sif", program: ripemd160)
         } else if (chain == ChainType.KI_MAIN) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "ki", program: ripemd160)
+        } else if (chain == ChainType.RIZON_TEST) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "rizon", program: ripemd160)
         }
         return result
     }
@@ -167,6 +150,9 @@ class WKey {
                 
             } else if (chain == ChainType.CRYPTO_MAIN) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 394, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
+            } else if (chain == ChainType.RIZON_TEST) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
@@ -247,6 +233,8 @@ class WKey {
             result = bech32.encode("sif", values: data)
         } else if (chain == ChainType.KI_MAIN) {
             result = bech32.encode("ki", values: data)
+        } else if (chain == ChainType.RIZON_TEST) {
+            result = bech32.encode("rizon", values: data)
         }
         return result
     }

@@ -332,6 +332,7 @@ let SECRET_BASE_PATH                        = "m/44'/529'/0'/0/"
 let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
 let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
+let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 
 
 
@@ -485,6 +486,7 @@ let KI_GAS_AMOUNT_VOTE                          = "100000";
 
 
 
+
 // Constant for BEP3-Swap
 let KAVA_MAIN_BNB_DEPUTY                    = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6"
 let KAVA_MAIN_BTCB_DEPUTY                   = "kava14qsmvzprqvhwmgql9fr0u3zv9n2qla8zhnm5pc"
@@ -613,6 +615,11 @@ let TRANS_BG_COLOR_KI2                      = UIColor.init(hexString: "3756fc", 
 let COLOR_KI                                = UIColor.init(hexString: "3756fc")
 let COLOR_KI_DARK                           = UIColor.init(hexString: "02188d")
 
+let TRANS_BG_COLOR_RIZON                    = UIColor.init(hexString: "8281fb", alpha: 0.15)
+let TRANS_BG_COLOR_RIZON2                   = UIColor.init(hexString: "8281fb", alpha: 0.4)
+let COLOR_RIZON                             = UIColor.init(hexString: "8281fb")
+let COLOR_RIZON_DARK                        = UIColor.init(hexString: "40408B")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -650,6 +657,7 @@ enum ChainType: String {
     case IOV_TEST
     case OKEX_TEST
     case CERTIK_TEST
+    case RIZON_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -677,6 +685,7 @@ enum ChainType: String {
 //        result.append(IOV_TEST)
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
+        result.append(RIZON_TEST)
         return result
     }
     
@@ -777,6 +786,7 @@ let CHAIN_KAVA_TEST_S = "SUPPORT_CHAIN_KAVA_TEST"
 let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
+let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "uiris"
@@ -795,6 +805,7 @@ let FETCH_MAIN_DENOM = "afet"
 let CRYPTO_MAIN_DENOM = "basecro"
 let SIF_MAIN_DENOM = "rowan"
 let KI_MAIN_DENOM = "uxki"
+let RIZON_MAIN_DENOM = "uatolo"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"

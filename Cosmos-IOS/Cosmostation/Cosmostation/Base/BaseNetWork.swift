@@ -1258,6 +1258,9 @@ class BaseNetWork {
         } else if (chain == ChainType.IRIS_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9095)
             
+        } else if (chain == ChainType.RIZON_TEST) {
+            return ClientConnection.insecure(group: group).connect(host: "13.124.253.195", port: 9090)
+            
         }
         return nil
     }

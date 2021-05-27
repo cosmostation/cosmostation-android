@@ -698,6 +698,7 @@
 "chain_title_iov_test" = "Starname Testnet";
 "chain_title_okex_test" = "ExChain Testnet";
 "chain_title_certik_test" = "Certik Testnet";
+"chain_title_rizon_test" = "Rizon Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 "date_format2" = "MMM d, yyyy";
