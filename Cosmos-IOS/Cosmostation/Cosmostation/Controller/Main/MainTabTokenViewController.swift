@@ -182,6 +182,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "testnetRizon")
             titleChainName.text = "(Rizon Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.MEDI_TEST) {
+            titleChainImg.image = UIImage(named: "testnetMedibloc")
+            titleChainName.text = "(Medi Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
