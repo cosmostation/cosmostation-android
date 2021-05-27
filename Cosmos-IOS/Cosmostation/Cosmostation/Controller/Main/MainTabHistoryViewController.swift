@@ -49,37 +49,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.refresher.tintColor = UIColor.white
         self.historyTableView.addSubview(refresher)
         
-        if (WUtils.isGRPC(chainType!)) {
-            onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
-        } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
-            onFetchBnbHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.BAND_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            self.comingLabel.isHidden = false
-            self.historyTableView.isHidden = true
-            self.comingLabel.text = "Check with Explorer"
-        } else if (chainType == ChainType.IOV_MAIN ) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.IOV_TEST ) {
-            self.comingLabel.isHidden = false
-            self.historyTableView.isHidden = true
-            self.comingLabel.text = "Coming Soon!!"
-        } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            onFetchOkHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SENTINEL_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SIF_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.KI_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        }
+        self.onRequestFetch()
         
         self.comingLabel.isUserInteractionEnabled = true
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(testClick(tapGestureRecognizer:)))
@@ -240,27 +210,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             onFetchApiHistoryCustom(mainTabVC.mAccount.account_address)
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             onFetchBnbHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.BAND_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            self.comingLabel.isHidden = false
-        } else if (chainType == ChainType.IOV_MAIN ) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.IOV_TEST ) {
-            self.comingLabel.isHidden = false
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             onFetchOkHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SENTINEL_MAIN ) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.FETCH_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.SIF_MAIN) {
-            onFetchApiHistory(mainTabVC.mAccount.account_address);
-        } else if (chainType == ChainType.KI_MAIN) {
+        } else if (chainType == ChainType.SECRET_MAIN) {
+            self.comingLabel.isHidden = false
+        }
+        
+        else {
             onFetchApiHistory(mainTabVC.mAccount.account_address);
         }
     }
@@ -280,26 +236,14 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if (WUtils.isGRPC(chainType!)) {
             return onSetCustomHistoryItems(tableView, indexPath);
-        } else if (chainType == ChainType.KAVA_MAIN) {
-            return onSetKavaItem(tableView, indexPath);
         } else if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return onSetBnbItem(tableView, indexPath);
-        } else if (chainType == ChainType.IOV_MAIN) {
-            return onSetIovItem(tableView, indexPath);
-        } else if (chainType == ChainType.KAVA_TEST) {
-            return onSetKavaItem(tableView, indexPath);
-        } else if (chainType == ChainType.BAND_MAIN) {
-            return onSetBandItem(tableView, indexPath);
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            return onSetSecretItem(tableView, indexPath);
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST) {
-            return onSetCertikItem(tableView, indexPath);
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             return onSetOkItem(tableView, indexPath);
-        } else if (chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN) {
+        } else {
             return onSetDefaultItem(tableView, indexPath);
         }
-        return onSetEmptyItem(tableView, indexPath);
+//        return onSetEmptyItem(tableView, indexPath);
     }
     
     func onSetCustomHistoryItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
@@ -325,102 +269,13 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         return cell!
     }
     
-    func onSetIovItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
         let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetKavaItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        if (history.msg[0].type == COSMOS_MSG_TYPE_TRANSFER2) {
-            if (history.height > PERSISTENCE_KAVA_EVENT_START && history.height < PERSISTENCE_KAVA_EVENT_END) {
-                if (history.msg[0].value.to_address == PERSISTENCE_KAVA_EVENT_ADDRESS && history.msg[0].value.from_address == mainTabVC.mAccount.account_address) {
-                    cell?.txRootCard.backgroundColor = COLOR_STAKE_DROP_BG
-                    cell?.txTypeLabel.textColor = COLOR_STAKE_DROP
-                    cell?.txTypeLabel.text = "Persistence\nStake Drop"
-                }
-            }
-        }
-        return cell!
-    }
-    
-    func onSetBandItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetSecretItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetCertikItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
-        return cell!
-    }
-    
-    func onSetAkashItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let history = mApiHistories[indexPath.row]
-        cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.time)
-        cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.time)
-        cell?.txBlockLabel.text = String(history.height) + " block"
-        cell?.txTypeLabel.text = WUtils.historyTitle(history.msg, mainTabVC.mAccount.account_address)
-        if (history.isSuccess) {
-            cell?.txResultLabel.isHidden = true
-        } else {
-            cell?.txResultLabel.isHidden = false
-        }
+        let okHistory = mOkHistories[indexPath.row]
+        cell?.txTypeLabel.text = WUtils.okHistoryTitle(okHistory)
+        cell?.txTimeLabel.text = WUtils.longTimetoString(input: okHistory.timestamp! * 1000)
+        cell?.txTimeGapLabel.text = WUtils.timeGap2(input: okHistory.timestamp! * 1000)
+        cell?.txBlockLabel.text = okHistory.txhash
         return cell!
     }
     
@@ -436,16 +291,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else {
             cell?.txResultLabel.isHidden = false
         }
-        return cell!
-    }
-    
-    func onSetOkItem(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
-        let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-        let okHistory = mOkHistories[indexPath.row]
-        cell?.txTypeLabel.text = WUtils.okHistoryTitle(okHistory)
-        cell?.txTimeLabel.text = WUtils.longTimetoString(input: okHistory.timestamp! * 1000)
-        cell?.txTimeGapLabel.text = WUtils.timeGap2(input: okHistory.timestamp! * 1000)
-        cell?.txBlockLabel.text = okHistory.txhash
         return cell!
     }
     
@@ -588,7 +433,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistory(_ address:String) {
         let url = BaseNetWork.accountHistory(chainType!, address)
-        print("url ", url)
+        print("onFetchApiHistory url ", url)
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -620,7 +465,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     
     func onFetchApiHistoryCustom(_ address:String) {
         let url = BaseNetWork.accountHistory(chainType!, address)
-        print("url ", url)
+        print("onFetchApiHistoryCustom url ", url)
         let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {

@@ -100,6 +100,9 @@ let KI_URL                              = "https://lcd-kichain-app.cosmostation.
 let KI_API                              = "https://api-kichain.cosmostation.io/";
 
 
+let RIZON_TEST_API                      = "https://api-rizon-testnet.cosmostation.io/";
+
+
 let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosmostation.io/";
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
 
@@ -489,6 +492,14 @@ let KI_GAS_AMOUNT_REDELEGATE                    = "300000";
 let KI_GAS_AMOUNT_REINVEST                      = "350000";
 let KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
 let KI_GAS_AMOUNT_VOTE                          = "100000";
+
+let MEDI_GAS_FEE_RATE_AVERAGE                   = "0.025";
+let MEDI_GAS_AMOUNT_SEND                        = "100000";
+let MEDI_GAS_AMOUNT_STAKE                       = "200000";
+let MEDI_GAS_AMOUNT_REDELEGATE                  = "300000";
+let MEDI_GAS_AMOUNT_REINVEST                    = "350000";
+let MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE       = "100000";
+let MEDI_GAS_AMOUNT_VOTE                        = "100000";
 
 
 

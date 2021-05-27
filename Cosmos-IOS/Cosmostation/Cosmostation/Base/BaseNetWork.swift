@@ -1215,11 +1215,15 @@ class BaseNetWork {
             result = COSMOS_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.RIZON_TEST) {
+            result = RIZON_TEST_API + "v1/account/txs/" + address
         }
         else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.MEDI_TEST) {
+            result = MEDI_TEST_API + "v1/account/txs/" + address
         }
         return result
     }
@@ -1259,11 +1263,15 @@ class BaseNetWork {
             result = COSMOS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.RIZON_TEST) {
+            result = RIZON_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         }
         else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.MEDI_TEST) {
+            result = MEDI_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         }
         return result
     }
@@ -1307,7 +1315,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9095)
             
         } else if (chain == ChainType.RIZON_TEST) {
-            return ClientConnection.insecure(group: group).connect(host: "13.124.253.195", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
             
         }
         return nil
