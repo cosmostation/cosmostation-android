@@ -1610,6 +1610,7 @@ class WUtils {
         } else if (chain == ChainType.RIZON_TEST) {
             
         } else if (chain == ChainType.MEDI_TEST) {
+            result = result + ",umed"
             
         }
         return result
