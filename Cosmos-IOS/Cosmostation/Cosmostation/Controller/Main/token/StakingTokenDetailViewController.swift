@@ -35,6 +35,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSifCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSifCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailExCell", bundle: nil), forCellReuseIdentifier: "TokenDetailExCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBnbCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailRizonCell", bundle: nil), forCellReuseIdentifier: "TokenDetailRizonCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -108,7 +109,13 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 cell?.onBindToken()
                 return cell!
                 
-            } else if (chainType == ChainType.SIF_MAIN) {
+            } else if (chainType == ChainType.RIZON_TEST) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailRizonCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
+            }
+            
+            else if (chainType == ChainType.SIF_MAIN) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailSifCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!

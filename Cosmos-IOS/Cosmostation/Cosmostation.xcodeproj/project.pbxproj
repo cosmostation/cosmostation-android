@@ -163,6 +163,8 @@
 		283F3AE7265E283800DF1D93 /* tokenswap_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F3AD9265E283700DF1D93 /* tokenswap_tx.pb.swift */; };
 		283F3AEE265F467500DF1D93 /* WalletRizonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F3AEC265F467500DF1D93 /* WalletRizonCell.swift */; };
 		283F3AEF265F467500DF1D93 /* WalletRizonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283F3AED265F467500DF1D93 /* WalletRizonCell.xib */; };
+		283F3AF2265F574E00DF1D93 /* TokenDetailRizonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */; };
+		283F3AF3265F574E00DF1D93 /* TokenDetailRizonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */; };
 		28429196264A45FB00130651 /* NativeTokenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28429194264A45FB00130651 /* NativeTokenDetailViewController.swift */; };
 		28429197264A45FB00130651 /* NativeTokenDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28429195264A45FB00130651 /* NativeTokenDetailViewController.xib */; };
 		2842919A264A586B00130651 /* TokenDetailNativeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28429198264A586B00130651 /* TokenDetailNativeCell.swift */; };
@@ -984,6 +986,8 @@
 		283F3AD9265E283700DF1D93 /* tokenswap_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tokenswap_tx.pb.swift; sourceTree = "<group>"; };
 		283F3AEC265F467500DF1D93 /* WalletRizonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletRizonCell.swift; sourceTree = "<group>"; };
 		283F3AED265F467500DF1D93 /* WalletRizonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletRizonCell.xib; sourceTree = "<group>"; };
+		283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailRizonCell.swift; sourceTree = "<group>"; };
+		283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailRizonCell.xib; sourceTree = "<group>"; };
 		28429194264A45FB00130651 /* NativeTokenDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTokenDetailViewController.swift; sourceTree = "<group>"; };
 		28429195264A45FB00130651 /* NativeTokenDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeTokenDetailViewController.xib; sourceTree = "<group>"; };
 		28429198264A586B00130651 /* TokenDetailNativeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailNativeCell.swift; sourceTree = "<group>"; };
@@ -1966,6 +1970,8 @@
 				288E1745262812620017322E /* TokenDetailCrytoCell.xib */,
 				28622A52263A850C008355E7 /* TokenDetailSifCell.swift */,
 				28622A53263A850C008355E7 /* TokenDetailSifCell.xib */,
+				283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */,
+				283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
 				28A209DE248897F400C2C078 /* TokenDetailVestingDetailCell.xib */,
 				28429198264A586B00130651 /* TokenDetailNativeCell.swift */,
@@ -2955,6 +2961,7 @@
 				28D7BE7E25F10636006EECD7 /* HardListMyStatusCell.xib in Resources */,
 				283A80C324513F6F008FF813 /* CdpListAllCell.xib in Resources */,
 				E126CFA02387A643002A546F /* WalletInflationCell.xib in Resources */,
+				283F3AF3265F574E00DF1D93 /* TokenDetailRizonCell.xib in Resources */,
 				284D17A02535558A00C364F9 /* Kava.storyboard in Resources */,
 				E19A322C2254AFE100A05E41 /* ManageAccountCell.xib in Resources */,
 				285A33D724475DC00052BD3D /* SelectPopupViewController.xib in Resources */,
@@ -3566,6 +3573,7 @@
 				2827F4CA255B93240029AE1C /* WalletAkashCell.swift in Sources */,
 				287AC5AE25FDF7250070837E /* coinswap_coinswap.pb.swift in Sources */,
 				E14F7FB6227ADAA300FDDC75 /* QRScanViewController.swift in Sources */,
+				283F3AF2265F574E00DF1D93 /* TokenDetailRizonCell.swift in Sources */,
 				28F553492641790100590056 /* WalletKiCell.swift in Sources */,
 				287AC60625FDF7260070837E /* ibc_core_channel_v1_tx.pb.swift in Sources */,
 				2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */,

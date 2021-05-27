@@ -299,6 +299,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetCosmosTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.IRIS_TEST) {
             return onSetIrisTestItems(tableView, indexPath)
+        } else if (chainType! == ChainType.RIZON_TEST) {
+            return onSetRizonItems(tableView, indexPath)
         }
         return tableView.dequeueReusableCell(withIdentifier:"TokenCell") as! TokenCell
     }
@@ -781,6 +783,36 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let allCro = WUtils.getAllMainAsset(CRYPTO_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 8, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(CRYPTO_MAIN_DENOM, allCro, 8, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
+        } else {
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+            
+        }
+        return cell!
+    }
+    
+    func onSetRizonItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == RIZON_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenRizon")
+            cell?.tokenSymbol.text = "ATOLO"
+            cell?.tokenSymbol.textColor = COLOR_RIZON
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Rizon Staking Token"
+            
+            let allCro = WUtils.getAllMainAsset(RIZON_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allCro.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(RIZON_MAIN_DENOM, allCro, 6, cell!.tokenValue.font)
             
         } else if (balance.isIbc()) {
             cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
