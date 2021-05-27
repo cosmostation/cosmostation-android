@@ -869,43 +869,6 @@ class WUtils {
         }
     }
     
-    static func displayAmount(_ amount: String?, _ font:UIFont, _ deciaml:Int, _ chain:ChainType) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = deciaml
-        nf.maximumFractionDigits = deciaml
-        nf.numberStyle = .decimal
-
-        let amount = localeStringToDecimal(amount)
-        let handler = NSDecimalNumberHandler(roundingMode: NSDecimalNumber.RoundingMode.down, scale: Int16(deciaml), raiseOnExactness: false, raiseOnOverflow: false, raiseOnUnderflow: false, raiseOnDivideByZero: true)
-
-        var formatted: String?
-        if (amount == NSDecimalNumber.zero) {
-            formatted = nf.string(from: NSDecimalNumber.zero)
-        } else if (chain == ChainType.COSMOS_MAIN || chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST ||
-                    chain == ChainType.BAND_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CERTIK_MAIN ||
-                    chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST || chain == ChainType.CERTIK_TEST ||
-                    chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.PERSIS_MAIN || chain == ChainType.SENTINEL_MAIN) {
-            formatted = nf.string(from: amount.dividing(by: 1000000).rounding(accordingToBehavior: handler))
-        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
-            formatted = nf.string(from: amount.rounding(accordingToBehavior: handler))
-        }
-
-        let added       = formatted
-        let endIndex    = added!.index(added!.endIndex, offsetBy: -deciaml)
-
-        let preString   = added![..<endIndex]
-        let postString  = added![endIndex...]
-
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
     static func displayAmount2(_ amount: String?, _ font:UIFont, _ inputPoint:Int16, _ dpPoint:Int16) -> NSMutableAttributedString {
         let nf = NumberFormatter()
         nf.minimumFractionDigits = Int(dpPoint)
@@ -948,16 +911,6 @@ class WUtils {
         return formatted!
     }
     
-    static func dpTokenAvailable(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == symbol) {
-                amount = plainStringToDecimal(balance.balance_amount)
-            }
-        }
-        return displayAmount(amount.stringValue, font, deciaml, chain);
-    }
-    
     static func availableAmount(_ balances:Array<Balance>, _ symbol:String) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for balance in balances {
@@ -984,16 +937,6 @@ class WUtils {
     
     static func okWithdrawAmount(_ withdraw: OkUnbonding?) -> NSDecimalNumber {
         return plainStringToDecimal(withdraw?.quantity)
-    }
-    
-    static func dpVestingCoin(_ balances:Array<Balance>, _ font:UIFont, _ deciaml:Int, _ symbol:String, _ chain:ChainType) -> NSMutableAttributedString {
-        var amount = NSDecimalNumber.zero
-        for balance in balances {
-            if (balance.balance_denom == symbol) {
-                amount = plainStringToDecimal(balance.balance_locked)
-            }
-        }
-        return displayAmount(amount.stringValue, font, deciaml, chain);
     }
     
     //price displaying
@@ -1664,6 +1607,10 @@ class WUtils {
         } else if (chain == ChainType.SECRET_MAIN) {
             result = result + ",uscrt"
             
+        } else if (chain == ChainType.RIZON_TEST) {
+            
+        } else if (chain == ChainType.MEDI_TEST) {
+            
         }
         return result
     }
@@ -2025,6 +1972,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.MEDI_TEST) {
+            if (coin.denom == MEDI_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         }
     }
     
@@ -2212,6 +2168,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.MEDI_TEST) {
+            if (denom == MEDI_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
             
     }
@@ -2290,6 +2255,8 @@ class WUtils {
             return COLOR_KI
         } else if (chain == ChainType.RIZON_TEST) {
             return COLOR_RIZON
+        } else if (chain == ChainType.MEDI_TEST) {
+            return COLOR_MEDI
         }
         return COLOR_ATOM
     }
@@ -2329,6 +2296,8 @@ class WUtils {
             return COLOR_KI_DARK
         } else if (chain == ChainType.RIZON_TEST) {
             return COLOR_RIZON_DARK
+        } else if (chain == ChainType.MEDI_TEST) {
+            return COLOR_MEDI_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2368,6 +2337,8 @@ class WUtils {
             return TRANS_BG_COLOR_KI
         } else if (chain == ChainType.RIZON_TEST) {
             return TRANS_BG_COLOR_RIZON
+        } else if (chain == ChainType.MEDI_TEST) {
+            return TRANS_BG_COLOR_MEDI
         }
         return COLOR_BG_GRAY
     }
@@ -2411,6 +2382,8 @@ class WUtils {
             return "BIF"
         } else if (chain == ChainType.RIZON_TEST) {
             return "ATOLO"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return "MED"
         }
         return ""
     }
@@ -2458,6 +2431,8 @@ class WUtils {
             return IOV_TEST_DENOM
         } else if (chain == ChainType.RIZON_TEST) {
             return RIZON_MAIN_DENOM
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_MAIN_DENOM
         }
         return ""
 
@@ -2581,6 +2556,9 @@ class WUtils {
         } else if (chain == ChainType.RIZON_TEST) {
             label.text = "ATOLO"
             label.textColor = COLOR_RIZON
+        } else if (chain == ChainType.MEDI_TEST) {
+            label.text = "MED"
+            label.textColor = COLOR_MEDI
         }
     }
     
@@ -2635,6 +2613,8 @@ class WUtils {
             return ChainType.CERTIK_TEST
         } else if (chainS == CHAIN_RIZON_TEST_S) {
             return ChainType.RIZON_TEST
+        } else if (chainS == CHAIN_MEDI_TEST_S) {
+            return ChainType.MEDI_TEST
         }
         return nil
     }
@@ -2690,6 +2670,8 @@ class WUtils {
             return CHAIN_CERTIK_TEST_S
         } else if (chain == ChainType.RIZON_TEST) {
             return CHAIN_RIZON_TEST_S
+        } else if (chain == ChainType.MEDI_TEST) {
+            return CHAIN_MEDI_TEST_S
         }
         return ""
     }
@@ -2763,7 +2745,7 @@ class WUtils {
     static func getEstimateGasAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.MEDI_TEST) {
             if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
@@ -2981,7 +2963,7 @@ class WUtils {
     }
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.MEDI_TEST) {
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
@@ -3059,7 +3041,7 @@ class WUtils {
     }
     
     static func getGasRate(_ chain:ChainType, _ position: Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.MEDI_TEST) {
             if (position == 0) {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY)
             } else if (position == 1) {
@@ -3627,6 +3609,8 @@ class WUtils {
             return SIF_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.KI_MAIN) {
             return KI_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_VAL_URL + opAddress + ".png";
         }
         return ""
     }

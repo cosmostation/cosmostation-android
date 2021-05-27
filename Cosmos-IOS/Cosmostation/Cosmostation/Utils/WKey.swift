@@ -62,6 +62,9 @@ class WKey {
         } else if (chainType == ChainType.RIZON_TEST) {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
 
+        } else if (chainType == ChainType.MEDI_TEST) {
+            return try! masterKey.derived(at: 44, hardened: true).derived(at: 371, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
+
         } else {
             return try! masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(account.account_path)!)
         }
@@ -107,6 +110,8 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "ki", program: ripemd160)
         } else if (chain == ChainType.RIZON_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "rizon", program: ripemd160)
+        } else if (chain == ChainType.MEDI_TEST) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "panacea", program: ripemd160)
         }
         return result
     }
@@ -153,6 +158,9 @@ class WKey {
                 
             } else if (chain == ChainType.RIZON_TEST) {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
+                
+            } else if (chain == ChainType.MEDI_TEST) {
+                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 371, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 
             } else {
                 childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
@@ -235,6 +243,8 @@ class WKey {
             result = bech32.encode("ki", values: data)
         } else if (chain == ChainType.RIZON_TEST) {
             result = bech32.encode("rizon", values: data)
+        } else if (chain == ChainType.MEDI_TEST) {
+            result = bech32.encode("panacea", values: data)
         }
         return result
     }
