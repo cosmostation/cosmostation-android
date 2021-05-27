@@ -149,6 +149,8 @@
 "send_guide_msg_sif" = "Cosmos SDK로 구축된 옴니체인 분산형 거래소.";
 "send_guide_title_ki" = "키 파운데이션";
 "send_guide_msg_ki" = "Cosmos SDK로 구축된 오픈 소스 블록 체인  분산 응용 프로그램 플랫폼.";
+"send_guide_title_rizon" = "RIZON CHAIN";
+"send_guide_msg_rizon" = "기존 비즈니스를 디지털 통화로 연결하는 Cosmos SDK 기반 오픈 소스 블록 체인";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -165,6 +167,7 @@
 "send_guide_btn1_crypto" = "Home";
 "send_guide_btn1_sif" = "Home";
 "send_guide_btn1_ki" = "Home";
+"send_guide_btn1_rizon" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -181,6 +184,7 @@
 "send_guide_btn2_crypto" = "Communities";
 "send_guide_btn2_sif" = "Blog";
 "send_guide_btn2_ki" = "Blog";
+"send_guide_btn2_rizon" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";
