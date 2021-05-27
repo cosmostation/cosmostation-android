@@ -255,6 +255,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         certikTestAction.setValue(UIImage(named: "certikTestnetImg")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let rizonTestAction = UIAlertAction(title: NSLocalizedString("chain_title_rizon_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.RIZON_TEST
+            self.onGenNewKey()
+        })
+        rizonTestAction.setValue(UIImage(named: "testnetRizon")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -292,6 +298,9 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.CERTIK_TEST)) {
             showAlert.addAction(certikTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.RIZON_TEST)) {
+            showAlert.addAction(rizonTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }

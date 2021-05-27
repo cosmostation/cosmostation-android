@@ -452,7 +452,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCProvision()
             onFetchgRPCStakingPool()
             
-        } else if (mChainType == ChainType.COSMOS_TEST) {
+        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST) {
             self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
