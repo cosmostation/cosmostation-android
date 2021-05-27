@@ -1202,7 +1202,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickRizonSwap() {
-        print("onClickRizonSwap")
+        self.onShowToast(NSLocalizedString("prepare", comment: ""))
     }
     
     func onClickAprHelp() {
