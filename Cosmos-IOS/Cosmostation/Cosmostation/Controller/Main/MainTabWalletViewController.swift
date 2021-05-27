@@ -191,6 +191,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "certikTestnetImg")
             titleChainName.text = "(Certik Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.RIZON_TEST) {
+            titleChainImg.image = UIImage(named: "testnetRizon")
+            titleChainName.text = "(Rizon Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {

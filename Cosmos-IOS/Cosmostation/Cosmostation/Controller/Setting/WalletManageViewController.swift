@@ -278,6 +278,13 @@ class WalletManageViewController: BaseViewController, UITableViewDelegate, UITab
                     cell?.chainAll.isHidden = true
                     cell?.chainImg.image = UIImage(named: "certikTestnetImg")
                     cell?.chainName.text = "CERTIK TEST"
+                    
+                } else if (selectedChain == ChainType.RIZON_TEST) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "testnetRizon")
+                    cell?.chainName.text = "RIZON TEST"
                 }
             }
             return cell!

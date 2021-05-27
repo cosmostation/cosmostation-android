@@ -2633,6 +2633,8 @@ class WUtils {
             return ChainType.OKEX_TEST
         } else if (chainS == CHAIN_CERTIK_TEST_S) {
             return ChainType.CERTIK_TEST
+        } else if (chainS == CHAIN_RIZON_TEST_S) {
+            return ChainType.RIZON_TEST
         }
         return nil
     }
@@ -2686,6 +2688,8 @@ class WUtils {
             return CHAIN_OKEX_TEST_S
         } else if (chain == ChainType.CERTIK_TEST) {
             return CHAIN_CERTIK_TEST_S
+        } else if (chain == ChainType.RIZON_TEST) {
+            return CHAIN_RIZON_TEST_S
         }
         return ""
     }
