@@ -305,6 +305,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetIrisTestItems(tableView, indexPath)
         } else if (chainType! == ChainType.RIZON_TEST) {
             return onSetRizonItems(tableView, indexPath)
+        } else if (chainType! == ChainType.MEDI_TEST) {
+            return onSetMediItems(tableView, indexPath)
         }
         return tableView.dequeueReusableCell(withIdentifier:"TokenCell") as! TokenCell
     }
@@ -653,6 +655,25 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         }
         return cell!
     }
+    
+    func onSetMediItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = mainTabVC.mBalances[indexPath.row]
+        if (balance.balance_denom == MEDI_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenmedibloc")
+            cell?.tokenSymbol.text = "MED"
+            cell?.tokenSymbol.textColor = COLOR_MEDI
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "Mediblock Staking Token"
+            
+            let allMed = WUtils.getAllMainAssetOld(MEDI_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allMed.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(MEDI_MAIN_DENOM, allMed, 6, cell!.tokenValue.font)
+            
+        }
+        return cell!
+    }
+    
     
     
     //with gRPC
