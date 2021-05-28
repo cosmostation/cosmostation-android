@@ -48,6 +48,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "node_info"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "node_info"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "node_info"
         }
         return ""
     }
@@ -87,6 +89,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "auth/accounts/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "auth/accounts/" + address
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "auth/accounts/" + address
         }
         return ""
     }
@@ -122,6 +126,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/validators"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/validators"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/validators"
         }
         return ""
     }
@@ -153,6 +159,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/validators" + "/" + opAddress
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/validators" + "/" + opAddress
         }
         return ""
     }
@@ -184,6 +192,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/delegations"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/delegators/" + address + "/delegations"
         }
         return ""
     }
@@ -215,6 +225,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         }
         return ""
     }
@@ -246,6 +258,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
         }
         return ""
     }
@@ -277,6 +291,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         }
         return ""
     }
@@ -308,6 +324,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/redelegations"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/redelegations"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/redelegations"
         }
         return ""
     }
@@ -339,6 +357,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/rewards"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "distribution/delegators/" + address + "/rewards"
         }
         return ""
     }
@@ -370,6 +390,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         }
         return ""
     }
@@ -401,6 +423,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
         }
         return ""
     }
@@ -440,6 +464,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "minting/parameters"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "minting/parameters"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "minting/parameters"
         }
         return ""
     }
@@ -469,6 +495,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "minting/inflation"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "minting/inflation"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "minting/inflation"
         }
         return ""
     }
@@ -498,6 +526,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "minting/annual-provisions"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "minting/annual-provisions"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "minting/annual-provisions"
         }
         return ""
     }
@@ -529,6 +559,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "staking/pool"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/pool"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "staking/pool"
         }
         return ""
     }
@@ -560,6 +592,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "gov/proposals"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "gov/proposals"
         }
         return ""
     }
@@ -591,6 +625,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "gov/proposals" + "/" + id
         }
         return ""
     }
@@ -622,6 +658,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/tally"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "gov/proposals" + "/" + id + "/tally"
         }
         return ""
     }
@@ -648,11 +686,13 @@ class BaseNetWork {
         }
         
         else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "gov/proposals" + "/" + id + "/tally"
+            return KAVA_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals" + "/" + id + "/tally"
+            return IOV_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
-            return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/tally"
+            return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
         }
         return ""
     }
@@ -684,6 +724,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/proposer"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "gov/proposals" + "/" + id + "/proposer"
         }
         return ""
     }
@@ -715,6 +757,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/votes"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "gov/proposals" + "/" + id + "/votes"
         }
         return ""
     }
@@ -755,6 +799,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "txs/" + txhash
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "txs/" + txhash
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "txs/" + txhash
         }
         return ""
     }
@@ -790,6 +836,8 @@ class BaseNetWork {
             return IOV_TEST_URL + "txs"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "txs"
+        } else if (chain == ChainType.MEDI_TEST) {
+            return MEDI_TEST_URL + "txs"
         }
         return ""
     }
@@ -1167,11 +1215,15 @@ class BaseNetWork {
             result = COSMOS_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.RIZON_TEST) {
+            result = RIZON_TEST_API + "v1/account/txs/" + address
         }
         else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.MEDI_TEST) {
+            result = MEDI_TEST_API + "v1/account/txs/" + address
         }
         return result
     }
@@ -1211,11 +1263,15 @@ class BaseNetWork {
             result = COSMOS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_TEST) {
             result = IRIS_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.RIZON_TEST) {
+            result = RIZON_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         }
         else if (chain == ChainType.KAVA_TEST) {
             result = KAVA_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             result = CERTIK_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.MEDI_TEST) {
+            result = MEDI_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         }
         return result
     }
@@ -1259,7 +1315,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9095)
             
         } else if (chain == ChainType.RIZON_TEST) {
-            return ClientConnection.insecure(group: group).connect(host: "13.124.253.195", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
             
         }
         return nil

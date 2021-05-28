@@ -2433,7 +2433,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(COSMOS_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -2448,6 +2448,14 @@ public class WUtil {
                 return new BigDecimal(IRIS_GAS_RATE_LOW);
             }
             return new BigDecimal(IRIS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(SENTINEL_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(SENTINEL_GAS_RATE_LOW);
+            }
+            return new BigDecimal(SENTINEL_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(PERSIS_MAIN)) {
             if (position == 0) {

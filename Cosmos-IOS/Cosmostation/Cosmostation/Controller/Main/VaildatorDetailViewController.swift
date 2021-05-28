@@ -81,73 +81,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onFech() {
-        if (chainType == ChainType.KAVA_MAIN) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 5
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            
-        } else if (chainType == ChainType.KAVA_TEST) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 5
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            
-        } else if (chainType == ChainType.BAND_MAIN) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 6
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            onFetchBandOracleStatus()
-            
-        } else if (chainType == ChainType.SECRET_MAIN) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 5
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            
-        } else if (chainType == ChainType.IOV_MAIN) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 5
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            
-        } else if (chainType == ChainType.IOV_TEST ) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 4
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            
-        } else if (chainType == ChainType.CERTIK_MAIN || chainType == ChainType.CERTIK_TEST || chainType == ChainType.SENTINEL_MAIN ||
-                    chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN) {
-            mRewardCoins.removeAll()
-            mFetchCnt = 5
-            onFetchValidatorInfo(mValidator!)
-            onFetchSignleBondingInfo(account!, mValidator!)
-            onFetchSignleUnBondingInfo(account!, mValidator!)
-            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
-            onFetchApiHistory(account!, mValidator!)
-            
-        }
-        
-        else if (WUtils.isGRPC(chainType!)) {
+        if (WUtils.isGRPC(chainType!)) {
             self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_gRPC.removeAll()
             BaseData.instance.mMyUnbondings_gRPC.removeAll()
@@ -159,6 +93,26 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             onFetchUndelegations_gRPC(account!.account_address, 0)
             onFetchRewards_gRPC(account!.account_address)
             onFetchApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
+            
+        } else if (chainType == ChainType.BAND_MAIN) {
+            mRewardCoins.removeAll()
+            mFetchCnt = 6
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(account!, mValidator!)
+            onFetchSignleUnBondingInfo(account!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+            onFetchApiHistory(account!, mValidator!)
+            onFetchBandOracleStatus()
+            
+        } else {
+            mRewardCoins.removeAll()
+            mFetchCnt = 5
+            onFetchValidatorInfo(mValidator!)
+            onFetchSignleBondingInfo(account!, mValidator!)
+            onFetchSignleUnBondingInfo(account!, mValidator!)
+            onFetchSelfBondRate(WKey.getAddressFromOpAddress(mValidator!.operator_address, chainType!), mValidator!.operator_address)
+            onFetchApiHistory(account!, mValidator!)
+            
         }
     }
     

@@ -165,6 +165,8 @@
 		283F3AEF265F467500DF1D93 /* WalletRizonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283F3AED265F467500DF1D93 /* WalletRizonCell.xib */; };
 		283F3AF2265F574E00DF1D93 /* TokenDetailRizonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */; };
 		283F3AF3265F574E00DF1D93 /* TokenDetailRizonCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */; };
+		283F3AF6265FA21800DF1D93 /* WalletMediCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F3AF4265FA21800DF1D93 /* WalletMediCell.swift */; };
+		283F3AF7265FA21800DF1D93 /* WalletMediCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283F3AF5265FA21800DF1D93 /* WalletMediCell.xib */; };
 		28429196264A45FB00130651 /* NativeTokenDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28429194264A45FB00130651 /* NativeTokenDetailViewController.swift */; };
 		28429197264A45FB00130651 /* NativeTokenDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28429195264A45FB00130651 /* NativeTokenDetailViewController.xib */; };
 		2842919A264A586B00130651 /* TokenDetailNativeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28429198264A586B00130651 /* TokenDetailNativeCell.swift */; };
@@ -988,6 +990,8 @@
 		283F3AED265F467500DF1D93 /* WalletRizonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletRizonCell.xib; sourceTree = "<group>"; };
 		283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailRizonCell.swift; sourceTree = "<group>"; };
 		283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailRizonCell.xib; sourceTree = "<group>"; };
+		283F3AF4265FA21800DF1D93 /* WalletMediCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletMediCell.swift; sourceTree = "<group>"; };
+		283F3AF5265FA21800DF1D93 /* WalletMediCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletMediCell.xib; sourceTree = "<group>"; };
 		28429194264A45FB00130651 /* NativeTokenDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTokenDetailViewController.swift; sourceTree = "<group>"; };
 		28429195264A45FB00130651 /* NativeTokenDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NativeTokenDetailViewController.xib; sourceTree = "<group>"; };
 		28429198264A586B00130651 /* TokenDetailNativeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailNativeCell.swift; sourceTree = "<group>"; };
@@ -2019,6 +2023,8 @@
 				28F553482641790100590056 /* WalletKiCell.xib */,
 				283F3AEC265F467500DF1D93 /* WalletRizonCell.swift */,
 				283F3AED265F467500DF1D93 /* WalletRizonCell.xib */,
+				283F3AF4265FA21800DF1D93 /* WalletMediCell.swift */,
+				283F3AF5265FA21800DF1D93 /* WalletMediCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -2983,6 +2989,7 @@
 				283E945F254901E7007A9291 /* RegisterDomain3ViewController.xib in Resources */,
 				283E947D25490322007A9291 /* TxRenewStarnameCell.xib in Resources */,
 				28156EA52536DE53006FF06C /* HardDetailViewController.xib in Resources */,
+				283F3AF7265FA21800DF1D93 /* WalletMediCell.xib in Resources */,
 				28A209E0248897F400C2C078 /* TokenDetailVestingDetailCell.xib in Resources */,
 				2842919F264A671700130651 /* TokenDetailBnbCell.xib in Resources */,
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
@@ -3664,6 +3671,7 @@
 				287AC5FA25FDF7260070837E /* guardian_tx.pb.swift in Sources */,
 				287AC5AD25FDF7250070837E /* cosmos_params_v1beta1_query.pb.swift in Sources */,
 				283E9463254902BA007A9291 /* TxRegisterDomainCell.swift in Sources */,
+				283F3AF6265FA21800DF1D93 /* WalletMediCell.swift in Sources */,
 				E16D9B222249EA0C0019B7BB /* PasswordViewController.swift in Sources */,
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,

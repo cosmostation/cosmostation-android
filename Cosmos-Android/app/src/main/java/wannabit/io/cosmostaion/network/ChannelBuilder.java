@@ -23,8 +23,8 @@ public class ChannelBuilder {
     private final static String GRPC_AKASH_MAIN = "lcd-akash-app.cosmostation.io";
     private final static int PORT_AKASH_MAIN = 9090;
 
-    private final static String GRPC_SENTINEL_MAIN = "lcd-office.cosmostation.io/turing-4";
-    private final static int PORT_SENTINEL_MAIN = 9090;
+    private final static String GRPC_SENTINEL_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_SENTINEL_MAIN = 9097;
 
     private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
     private final static int PORT_PERSIS_MAIN = 9090;

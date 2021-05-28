@@ -75,6 +75,8 @@ class RestorePathViewController: BaseViewController, UITableViewDelegate, UITabl
             cell?.pathLabel.text = CRYPTO_BASE_PATH.appending(String(indexPath.row))
         } else if (userChain == ChainType.RIZON_TEST) {
             cell?.pathLabel.text = RIZON_BASE_PATH.appending(String(indexPath.row))
+        } else if (userChain == ChainType.MEDI_TEST) {
+            cell?.pathLabel.text = MEDI_BASE_PATH.appending(String(indexPath.row))
         } else {
             cell?.pathLabel.text = BASE_PATH.appending(String(indexPath.row))
         }
