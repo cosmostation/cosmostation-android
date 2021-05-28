@@ -236,8 +236,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCProvision()
             onFetchgRPCStakingPool()
             
-//            onFetchgRPCAuth(mAccount)
-            
         } else if (mChainType == ChainType.IRIS_MAIN) {
             self.mFetchCnt = 12
             onFetchgRPCNodeInfo()
@@ -371,22 +369,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchProvision()
             onFetchStakingPool()
             
-        } else if (mChainType == ChainType.SENTINEL_MAIN) {
-            self.mFetchCnt = 12
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
         } else if (mChainType == ChainType.FETCH_MAIN) {
             self.mFetchCnt = 12
             onFetchNodeInfo()
@@ -450,7 +432,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
 
         
-        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN) {
+        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN) {
             self.mFetchCnt = 13
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)

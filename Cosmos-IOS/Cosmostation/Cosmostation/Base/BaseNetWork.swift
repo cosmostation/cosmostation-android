@@ -28,8 +28,6 @@ class BaseNetWork {
             return CERTIK_URL + "node_info"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "node_info"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "node_info"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "node_info"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -69,8 +67,6 @@ class BaseNetWork {
             return CERTIK_URL + "auth/accounts/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "auth/accounts/" + address
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "auth/accounts/" + address
         } else if (chain == ChainType.SIF_MAIN) {
@@ -108,8 +104,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/validators"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/validators"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/validators"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/validators"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -143,8 +137,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/validators" + "/" + opAddress
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.SIF_MAIN) {
@@ -176,8 +168,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/delegations"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -209,8 +199,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/delegations/" + opAddress
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.SIF_MAIN) {
@@ -242,8 +230,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/unbonding_delegations"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -275,8 +261,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.SIF_MAIN) {
@@ -308,8 +292,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/redelegations"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/redelegations"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/redelegations"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/redelegations"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -341,8 +323,6 @@ class BaseNetWork {
             return CERTIK_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "distribution/delegators/" + address + "/rewards"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -374,8 +354,6 @@ class BaseNetWork {
             return CERTIK_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.SIF_MAIN) {
@@ -407,8 +385,6 @@ class BaseNetWork {
             return CERTIK_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "distribution/delegators/" + address + "/withdraw_address"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -450,8 +426,6 @@ class BaseNetWork {
             return CERTIK_URL + "minting/parameters"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "minting/parameters"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "minting/parameters"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "minting/parameters"
         } else if (chain == ChainType.KI_MAIN) {
@@ -481,8 +455,6 @@ class BaseNetWork {
             return CERTIK_URL + "minting/inflation"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "minting/inflation"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "minting/inflation"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "minting/inflation"
         } else if (chain == ChainType.KI_MAIN) {
@@ -512,8 +484,6 @@ class BaseNetWork {
             return CERTIK_URL + "minting/annual-provisions"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "minting/annual-provisions"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "minting/annual-provisions"
         } else if (chain == ChainType.KI_MAIN) {
@@ -543,8 +513,6 @@ class BaseNetWork {
             return CERTIK_URL + "staking/pool"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "staking/pool"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "staking/pool"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "staking/pool"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -576,8 +544,6 @@ class BaseNetWork {
             return CERTIK_URL + "gov/proposals"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "gov/proposals"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "gov/proposals"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -609,8 +575,6 @@ class BaseNetWork {
             return CERTIK_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.SIF_MAIN) {
@@ -642,8 +606,6 @@ class BaseNetWork {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/tally"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -675,8 +637,6 @@ class BaseNetWork {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/votes/" + address
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.SIF_MAIN) {
@@ -708,8 +668,6 @@ class BaseNetWork {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/proposer"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -741,8 +699,6 @@ class BaseNetWork {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "gov/proposals" + "/" + id + "/votes"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -779,8 +735,6 @@ class BaseNetWork {
             return CERTIK_URL + "txs/" + txhash
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "txs/" + txhash
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "txs/" + txhash
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "txs/" + txhash
         } else if (chain == ChainType.SIF_MAIN) {
@@ -818,8 +772,6 @@ class BaseNetWork {
             return CERTIK_URL + "txs"
         } else if (chain == ChainType.SECRET_MAIN) {
             return SECRET_URL + "txs"
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return SENTINEL_URL + "txs"
         } else if (chain == ChainType.FETCH_MAIN) {
             return FETCH_URL + "txs"
         } else if (chain == ChainType.SIF_MAIN) {
@@ -1306,6 +1258,9 @@ class BaseNetWork {
             
         } else if (chain == ChainType.CRYPTO_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-cryptocom-app.cosmostation.io", port: 9090)
+            
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9097)
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

@@ -45,19 +45,14 @@ class WalletSentinelCell: UITableViewCell {
     
     
     func updateView(_ account: Account?, _ chainType: ChainType?) {
-        let available = BaseData.instance.availableAmount(SENTINEL_MAIN_DENOM)
-        let delegated = BaseData.instance.delegatedSumAmount()
-        let unbonding = BaseData.instance.unbondingSumAmount()
-        let reward = BaseData.instance.rewardAmount(SENTINEL_MAIN_DENOM)
-        let total = available.adding(delegated).adding(unbonding).adding(reward)
-
-        totalAmount.attributedText = WUtils.displayAmount2(total.stringValue, totalAmount.font, 6, 6)
-        availableAmount.attributedText = WUtils.displayAmount2(available.stringValue, availableAmount.font, 6, 6)
-        delegatedAmount.attributedText = WUtils.displayAmount2(delegated.stringValue, delegatedAmount.font, 6, 6)
-        unbondingAmount.attributedText = WUtils.displayAmount2(unbonding.stringValue, unbondingAmount.font, 6, 6)
-        rewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, rewardAmount.font, 6, 6)
-        totalValue.attributedText = WUtils.dpUserCurrencyValue(SENTINEL_MAIN_DENOM, total, 6, totalValue.font)
-        BaseData.instance.updateLastTotal(account, total.multiplying(byPowerOf10: -6).stringValue)
+        let totalToken = WUtils.getAllMainAsset(SENTINEL_MAIN_DENOM)
+        totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
+        totalValue.attributedText = WUtils.dpUserCurrencyValue(SENTINEL_MAIN_DENOM, totalToken, 6, totalValue.font)
+        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(SENTINEL_MAIN_DENOM), availableAmount.font!, 6, 6)
+        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
+        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
+        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(SENTINEL_MAIN_DENOM), rewardAmount.font, 6, 6)
+        BaseData.instance.updateLastTotal(account, totalToken.multiplying(byPowerOf10: -6).stringValue)
         
     }
 }
