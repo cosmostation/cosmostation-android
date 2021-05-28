@@ -82,8 +82,9 @@ let AKASH_API                           = "https://api-akash.cosmostation.io/";
 let PERSIS_API                          = "https://api-persistence.cosmostation.io/";
 
 
-let SENTINEL_URL                        = "https://lcd-sentinel-app.cosmostation.io/";
-let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
+//let SENTINEL_URL                        = "https://lcd-sentinel-app.cosmostation.io/";
+//let SENTINEL_API                        = "https://api-sentinel.cosmostation.io/";
+let SENTINEL_API                        = "https://api-office.cosmostation.io/turing-4/";
 
 let FETCH_URL                           = "https://lcd-fetchai-app.cosmostation.io/";
 let FETCH_API                           = "https://api-fetchai.cosmostation.io/";
@@ -826,7 +827,8 @@ let AKASH_MAIN_DENOM = "uakt"
 let OKEX_MAIN_DENOM = "okt"
 let OKEX_MAIN_OKB = "okb"
 let PERSIS_MAIN_DENOM = "uxprt"
-let SENTINEL_MAIN_DENOM = "udvpn"
+//let SENTINEL_MAIN_DENOM = "udvpn"
+let SENTINEL_MAIN_DENOM = "tsent"
 let FETCH_MAIN_DENOM = "afet"
 let CRYPTO_MAIN_DENOM = "basecro"
 let SIF_MAIN_DENOM = "rowan"

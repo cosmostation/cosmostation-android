@@ -1354,8 +1354,8 @@ class WUtils {
     
     static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
         let data = BaseData.instance
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN ||
+                chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST) {
             if (data.mStakingPool_gRPC == nil || data.mProvision_gRPC == nil || data.mMintParam_gRPC == nil) {
                 return NSDecimalNumber.zero
             }
@@ -4605,7 +4605,8 @@ class WUtils {
     }
     
     static func isGRPC(_ chain: ChainType?) -> Bool {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
+                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST ) {
             return true
         }
