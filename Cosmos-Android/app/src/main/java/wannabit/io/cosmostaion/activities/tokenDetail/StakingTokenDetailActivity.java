@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenKavaHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenOKExHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenPersisHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenSentinelHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenSifHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
@@ -53,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 
@@ -186,8 +188,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private static final int TYPE_ATOM                  = 0;
     private static final int TYPE_IRIS                  = 1;
     private static final int TYPE_AKASH                 = 2;
-    private static final int TYPE_PERSISTENCE           = 3;
-    private static final int TYPE_CRYPTO                = 4;
+    private static final int TYPE_SENTINEL              = 3;
+    private static final int TYPE_PERSISTENCE           = 4;
+    private static final int TYPE_CRYPTO                = 5;
 
     private static final int TYPE_SIF                   = 31;
     private static final int TYPE_OKEX                  = 32;
@@ -208,6 +211,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenIrisHolder(getLayoutInflater().inflate(R.layout.layout_card_iris, viewGroup, false));
             } else if (viewType == TYPE_AKASH) {
                 return new TokenAkashHolder(getLayoutInflater().inflate(R.layout.layout_card_akash, viewGroup, false));
+            } else if (viewType == TYPE_SENTINEL) {
+                return new TokenSentinelHolder(getLayoutInflater().inflate(R.layout.layout_card_sentinel, viewGroup, false));
             } else if (viewType == TYPE_PERSISTENCE) {
                 return new TokenPersisHolder(getLayoutInflater().inflate(R.layout.layout_card_persistence, viewGroup, false));
             } else if (viewType == TYPE_CRYPTO) {
@@ -241,6 +246,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_AKASH) {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+
+            } else if (getItemViewType(position) == TYPE_SENTINEL) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_PERSISTENCE) {
@@ -314,6 +322,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return TYPE_IRIS;
                 } else if (mBaseChain.equals(AKASH_MAIN)) {
                     return TYPE_AKASH;
+                } else if (mBaseChain.equals(SENTINEL_MAIN)) {
+                    return TYPE_SENTINEL;
                 } else if (mBaseChain.equals(PERSIS_MAIN)) {
                     return TYPE_PERSISTENCE;
                 } else if (mBaseChain.equals(CRYPTO_MAIN)) {

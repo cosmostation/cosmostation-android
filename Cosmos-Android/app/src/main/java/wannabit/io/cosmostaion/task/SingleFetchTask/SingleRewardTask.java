@@ -96,13 +96,6 @@ public class SingleRewardTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdRewardFromVal> response = ApiClient.getSentinelChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
                 Response<ResLcdRewardFromVal> response = ApiClient.getFetchChain(mApp).getRewardFromValidator(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body().result != null) {

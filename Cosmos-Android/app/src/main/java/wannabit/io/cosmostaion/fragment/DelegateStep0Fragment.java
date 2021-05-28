@@ -126,10 +126,6 @@ public class DelegateStep0Fragment extends BaseFragment implements View.OnClickL
             mMaxAvailable = getSActivity().mAccount.getTokenBalance(TOKEN_SECRET).subtract(new BigDecimal("50000"));
             mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
 
-        } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-            mMaxAvailable = getSActivity().mAccount.getTokenDelegable(TOKEN_DVPN).subtract(new BigDecimal("20000"));
-            mAvailableAmount.setText(WDp.getDpAmount2(getContext(), mMaxAvailable, 6, 6));
-
         } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN)) {
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getContext(), getSActivity().mBaseChain, CONST_PW_TX_SIMPLE_DELEGATE, 0);
             mMaxAvailable = getSActivity().mAccount.getTokenDelegable(WDp.mainDenom(getSActivity().mBaseChain)).subtract(feeAmount);

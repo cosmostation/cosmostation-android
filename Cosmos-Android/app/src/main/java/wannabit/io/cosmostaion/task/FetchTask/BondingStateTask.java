@@ -96,13 +96,6 @@ public class BondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdBondings> response = ApiClient.getSentinelChain(mApp).getBondingList(mAccount.address).execute();
-                if (response.isSuccessful() && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
                 Response<ResLcdBondings> response = ApiClient.getFetchChain(mApp).getBondingList(mAccount.address).execute();
                 if (response.isSuccessful() && response.body().result != null) {

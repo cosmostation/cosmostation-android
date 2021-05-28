@@ -230,26 +230,6 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                     mExpectedLayer.setVisibility(View.GONE);
                 }
 
-            } else if (getSActivity().mBaseChain.equals(SENTINEL_MAIN)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentDvdp     = getSActivity().mAccount.getTokenBalance(TOKEN_DVPN);
-                    BigDecimal expectedDvdp    = currentDvdp.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedDvdp, mDpDecimal, mDpDecimal));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedDvdp, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
             } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN) || getSActivity().mBaseChain.equals(SIF_MAIN)) {
                 for (Coin coin:getSActivity().mRewards) {
                     rewardSum = rewardSum.add(new BigDecimal(coin.amount));

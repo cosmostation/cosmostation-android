@@ -140,13 +140,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdVestingAccountInfo> response = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromVestingLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromVestingLcd(mAccount.id, response.body()));
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getFetchChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {

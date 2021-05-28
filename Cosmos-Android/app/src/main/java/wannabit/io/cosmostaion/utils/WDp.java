@@ -394,7 +394,7 @@ public class WDp {
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYPTO_MAIN) || chain.equals(COSMOS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYPTO_MAIN) || chain.equals(COSMOS_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
@@ -2246,6 +2246,8 @@ public class WDp {
             return IRIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(AKASH_MAIN)) {
             return AKASH_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return SENTINEL_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(PERSIS_MAIN)) {
             return PERSIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(CRYPTO_MAIN)) {
@@ -2262,8 +2264,6 @@ public class WDp {
             return CERTIK_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(SECRET_MAIN)) {
             return SECRET_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return SENTINEL_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(OKEX_MAIN) || basechain.equals(OK_TEST)) {
             return OKEX_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(FETCHAI_MAIN)) {
