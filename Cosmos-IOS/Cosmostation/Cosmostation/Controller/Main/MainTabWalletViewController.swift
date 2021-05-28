@@ -94,7 +94,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     
     func updateTitle() {
-        print("mainTabVC.mAccount ", mainTabVC.mAccount.account_account_numner)
         titleChainName.textColor = WUtils.getChainColor(chainType!)
         if (mainTabVC.mAccount.account_nick_name == "") {
             titleWalletName.text = NSLocalizedString("wallet_dash", comment: "") + String(mainTabVC.mAccount.account_id)

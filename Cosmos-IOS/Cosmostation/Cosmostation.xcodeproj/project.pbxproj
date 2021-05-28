@@ -254,6 +254,8 @@
 		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
 		286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A47CE261D790500F29C5A /* RewardInfo.swift */; };
 		286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A9914253ECA0600306417 /* BandOracleStatus.swift */; };
+		286AFF0E2660BC9100014355 /* TokenDetailSentinelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286AFF0C2660BC9100014355 /* TokenDetailSentinelCell.swift */; };
+		286AFF0F2660BC9100014355 /* TokenDetailSentinelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286AFF0D2660BC9100014355 /* TokenDetailSentinelCell.xib */; };
 		286EB38626035FB00021C79D /* TxCdpLiquidateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */; };
 		286EB38726035FB00021C79D /* TxCdpLiquidateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286EB38526035FB00021C79D /* TxCdpLiquidateCell.xib */; };
 		2872B0F2252EF79900E8CACF /* WalletSecretCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */; };
@@ -1079,6 +1081,8 @@
 		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
 		286A47CE261D790500F29C5A /* RewardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardInfo.swift; sourceTree = "<group>"; };
 		286A9914253ECA0600306417 /* BandOracleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOracleStatus.swift; sourceTree = "<group>"; };
+		286AFF0C2660BC9100014355 /* TokenDetailSentinelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailSentinelCell.swift; sourceTree = "<group>"; };
+		286AFF0D2660BC9100014355 /* TokenDetailSentinelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailSentinelCell.xib; sourceTree = "<group>"; };
 		286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCdpLiquidateCell.swift; sourceTree = "<group>"; };
 		286EB38526035FB00021C79D /* TxCdpLiquidateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxCdpLiquidateCell.xib; sourceTree = "<group>"; };
 		2872B0F0252EF79900E8CACF /* WalletSecretCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSecretCell.swift; sourceTree = "<group>"; };
@@ -1974,6 +1978,8 @@
 				288E1745262812620017322E /* TokenDetailCrytoCell.xib */,
 				28622A52263A850C008355E7 /* TokenDetailSifCell.swift */,
 				28622A53263A850C008355E7 /* TokenDetailSifCell.xib */,
+				286AFF0C2660BC9100014355 /* TokenDetailSentinelCell.swift */,
+				286AFF0D2660BC9100014355 /* TokenDetailSentinelCell.xib */,
 				283F3AF0265F574E00DF1D93 /* TokenDetailRizonCell.swift */,
 				283F3AF1265F574E00DF1D93 /* TokenDetailRizonCell.xib */,
 				28A209DD248897F400C2C078 /* TokenDetailVestingDetailCell.swift */,
@@ -2994,6 +3000,7 @@
 				2842919F264A671700130651 /* TokenDetailBnbCell.xib in Resources */,
 				E16B70DD229F9A78001D6B9C /* RedelegateCell.xib in Resources */,
 				E126CF912387A55A002A546F /* WalletKavaCell.xib in Resources */,
+				286AFF0F2660BC9100014355 /* TokenDetailSentinelCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
 				280E1F12254AB5C70007BA7D /* ReplaceResource3ViewController.xib in Resources */,
@@ -3353,6 +3360,7 @@
 				28DB570B25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift in Sources */,
 				2877013A25F78E4500E9663F /* CdpDeposit.swift in Sources */,
 				283E948A2549434F007A9291 /* IovStarNameDomainInfo.swift in Sources */,
+				286AFF0E2660BC9100014355 /* TokenDetailSentinelCell.swift in Sources */,
 				28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */,
 				282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */,
 				287AC62A25FDF7260070837E /* cosmos_proto_cosmos.pb.swift in Sources */,
