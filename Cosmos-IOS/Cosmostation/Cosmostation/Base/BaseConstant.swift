@@ -9,7 +9,7 @@
 import Foundation
 import SQLite
 
-let SHOW_LOG                            = false;
+let SHOW_LOG                            = true;
 let SUPPORT_BEP3_SWAP                   = true;
 
 let KEY_RECENT_ACCOUNT                  = "KEY_RECENT_ACCOUNT"
@@ -100,6 +100,13 @@ let KI_URL                              = "https://lcd-kichain-app.cosmostation.
 let KI_API                              = "https://api-kichain.cosmostation.io/";
 
 
+let RIZON_TEST_API                      = "https://api-rizon-testnet.cosmostation.io/";
+
+
+let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosmostation.io/";
+let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
+
+
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
@@ -124,6 +131,7 @@ let CRYPTO_VAL_URL                      = "https://raw.githubusercontent.com/cos
 let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
 let KI_VAL_URL                          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
 let RIZON_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
+let MEDI_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -334,6 +342,7 @@ let OK_BASE_PATH                            = "m/44'/996'/0'/0/"
 let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
 let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
+let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
 
 
 
@@ -484,6 +493,14 @@ let KI_GAS_AMOUNT_REINVEST                      = "350000";
 let KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE         = "100000";
 let KI_GAS_AMOUNT_VOTE                          = "100000";
 
+let MEDI_GAS_FEE_RATE_AVERAGE                   = "0.025";
+let MEDI_GAS_AMOUNT_SEND                        = "100000";
+let MEDI_GAS_AMOUNT_STAKE                       = "200000";
+let MEDI_GAS_AMOUNT_REDELEGATE                  = "300000";
+let MEDI_GAS_AMOUNT_REINVEST                    = "350000";
+let MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE       = "100000";
+let MEDI_GAS_AMOUNT_VOTE                        = "100000";
+
 
 
 
@@ -621,6 +638,11 @@ let TRANS_BG_COLOR_RIZON2                   = UIColor.init(hexString: "8281fb", 
 let COLOR_RIZON                             = UIColor.init(hexString: "8281fb")
 let COLOR_RIZON_DARK                        = UIColor.init(hexString: "40408B")
 
+let TRANS_BG_COLOR_MEDI                     = UIColor.init(hexString: "79aaf2", alpha: 0.15)
+let TRANS_BG_COLOR_MEDI2                    = UIColor.init(hexString: "79aaf2", alpha: 0.4)
+let COLOR_MEDI                              = UIColor.init(hexString: "79aaf2")
+let COLOR_MEDI_DARK                         = UIColor.init(hexString: "0d3d84")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -659,6 +681,7 @@ enum ChainType: String {
     case OKEX_TEST
     case CERTIK_TEST
     case RIZON_TEST
+    case MEDI_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -687,6 +710,7 @@ enum ChainType: String {
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         result.append(RIZON_TEST)
+        result.append(MEDI_TEST)
         return result
     }
     
@@ -788,6 +812,7 @@ let CHAIN_IOV_TEST_S = "SUPPORT_CHAIN_IOV_TEST"
 let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST"
+let CHAIN_MEDI_TEST_S = "SUPPORT_CHAIN_MEDI_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "uiris"
@@ -807,6 +832,7 @@ let CRYPTO_MAIN_DENOM = "basecro"
 let SIF_MAIN_DENOM = "rowan"
 let KI_MAIN_DENOM = "uxki"
 let RIZON_MAIN_DENOM = "uatolo"
+let MEDI_MAIN_DENOM = "umed"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"

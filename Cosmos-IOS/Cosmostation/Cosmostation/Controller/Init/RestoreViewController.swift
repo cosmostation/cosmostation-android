@@ -278,6 +278,12 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         })
         rizonTestAction.setValue(UIImage(named: "testnetRizon")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let mediTestAction = UIAlertAction(title: NSLocalizedString("chain_title_medi_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.MEDI_TEST
+            self.initViewUpdate()
+        })
+        mediTestAction.setValue(UIImage(named: "testnetMedibloc")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -319,6 +325,9 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.RIZON_TEST)) {
             showAlert.addAction(rizonTestAction)
         }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.MEDI_TEST)) {
+            showAlert.addAction(mediTestAction)
+        }
         self.present(showAlert, animated: true, completion: nil)
     }
     
@@ -330,7 +339,6 @@ class RestoreViewController: BaseViewController , UICollectionViewDelegate, UICo
         self.actionView.isHidden = false
         self.keyboardView.isHidden = false
         self.updateFocus()
-        
     }
     
     @objc func clearAll(sender: AnyObject) {
