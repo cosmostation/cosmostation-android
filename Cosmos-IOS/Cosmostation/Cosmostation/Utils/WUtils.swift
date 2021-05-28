@@ -3003,6 +3003,11 @@ class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_SENTINEL)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -3033,11 +3038,6 @@ class WUtils {
             
         } else if (chain == ChainType.SECRET_MAIN) {
             let gasRate = NSDecimalNumber.init(string: SECRET_GAS_FEE_RATE_AVERAGE)
-            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
-            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
-            
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            let gasRate = NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -3102,6 +3102,15 @@ class WUtils {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_CRYPTO)
             }
             
+        } else if (chain == ChainType.SENTINEL_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_SENTINEL)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_SENTINEL)
+            } else {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_SENTINEL)
+            }
+            
         }
         
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
@@ -3138,9 +3147,6 @@ class WUtils {
             
         } else if (chain == ChainType.SECRET_MAIN) {
             return NSDecimalNumber.init(string: SECRET_GAS_FEE_RATE_AVERAGE)
-            
-        } else if (chain == ChainType.SENTINEL_MAIN) {
-            return NSDecimalNumber.init(string: SENTINEL_GAS_FEE_RATE_AVERAGE)
             
         } else if (chain == ChainType.FETCH_MAIN) {
             return NSDecimalNumber.init(string: FETCH_GAS_FEE_RATE_AVERAGE)

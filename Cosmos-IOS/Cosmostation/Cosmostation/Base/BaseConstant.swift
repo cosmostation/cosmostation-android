@@ -398,6 +398,10 @@ let GAS_FEE_RATE_TINY_CRYPTO                = "0.025"
 let GAS_FEE_RATE_LOW_CRYPTO                 = "0.05"
 let GAS_FEE_RATE_AVERAGE_CRYPTO             = "0.075"
 
+let GAS_FEE_RATE_TINY_SENTINEL              = "0.01"
+let GAS_FEE_RATE_LOW_SENTINEL               = "0.1"
+let GAS_FEE_RATE_AVERAGE_SENTINEL           = "0.1"
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -462,7 +466,7 @@ let SECRET_GAS_AMOUNT_REINVEST                  = "350000";
 let SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE     = "80000";
 let SECRET_GAS_AMOUNT_VOTE                      = "100000";
 
-let SENTINEL_GAS_FEE_RATE_AVERAGE               = "0.1";
+//let SENTINEL_GAS_FEE_RATE_AVERAGE               = "0.1";
 let SENTINEL_GAS_AMOUNT_SEND                    = "100000";
 let SENTINEL_GAS_AMOUNT_STAKE                   = "200000";
 let SENTINEL_GAS_AMOUNT_REDELEGATE              = "300000";
