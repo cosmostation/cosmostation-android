@@ -433,7 +433,8 @@ public class BaseConstant {
     public final static String TOKEN_OK             = "okt";
     public final static String TOKEN_OK_OKB         = "okb";
     public final static String TOKEN_XPRT           = "uxprt";
-    public final static String TOKEN_DVPN           = "udvpn";
+//    public final static String TOKEN_DVPN           = "udvpn";
+    public final static String TOKEN_DVPN           = "tsent";
     public final static String TOKEN_FET            = "afet";
     public final static String TOKEN_CRO            = "basecro";
     public final static String TOKEN_SIF            = "rowan";
@@ -549,13 +550,12 @@ public class BaseConstant {
     public final static String SECRET_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "80000";
     public final static String SECRET_GAS_AMOUNT_VOTE                   = "100000";
 
-    public final static String SENTINEL_GAS_FEE_RATE_AVERAGE            = "0.1";
-    public final static String SENTINEL_GAS_AMOUNT_SEND                 = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_STAKE                = "200000";
-    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE           = "300000";
-    public final static String SENTINEL_GAS_AMOUNT_REINVEST             = "350000";
+    public final static String SENTINEL_GAS_AMOUNT_SEND                   = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_STAKE                  = "200000";
+    public final static String SENTINEL_GAS_AMOUNT_REDELEGATE             = "300000";
+    public final static String SENTINEL_GAS_AMOUNT_REINVEST               = "350000";
     public final static String SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE  = "100000";
-    public final static String SENTINEL_GAS_AMOUNT_VOTE                 = "100000";
+    public final static String SENTINEL_GAS_AMOUNT_VOTE                   = "100000";
 
     public final static String FETCH_GAS_FEE_RATE_AVERAGE               = "0.00";
     public final static String FETCH_GAS_AMOUNT_SEND                    = "100000";
@@ -589,6 +589,10 @@ public class BaseConstant {
     public final static String IRIS_GAS_RATE_TINY                       = "0.002";
     public final static String IRIS_GAS_RATE_LOW                        = "0.02";
     public final static String IRIS_GAS_RATE_AVERAGE                    = "0.2";
+
+    public final static String SENTINEL_GAS_RATE_TINY                   = "0.01";
+    public final static String SENTINEL_GAS_RATE_LOW                    = "0.1";
+    public final static String SENTINEL_GAS_RATE_AVERAGE                = "0.1";
 
     public final static String PERSIS_GAS_RATE_TINY                     = "0.000";
     public final static String PERSIS_GAS_RATE_LOW                      = "0.000";

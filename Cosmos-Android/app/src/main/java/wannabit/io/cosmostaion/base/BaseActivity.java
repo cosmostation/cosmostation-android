@@ -730,22 +730,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
             Toast.makeText(getBaseContext(), "Using Figment's Data Hub API for Secret Network.", Toast.LENGTH_SHORT).show();
 
-        } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-            mTaskCount = 12;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
         } else if (mBaseChain.equals(FETCHAI_MAIN)) {
             mTaskCount = 12;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -793,7 +777,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         }
 
-        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(PERSIS_MAIN) || mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(COSMOS_TEST)) {
+        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
+                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(COSMOS_TEST)) {
             mTaskCount = 13;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);

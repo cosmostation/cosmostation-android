@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class ChannelBuilder {
     private final static String GRPC_COSMOS_MAIN = "lcd-cosmos-app.cosmostation.io";
@@ -21,6 +22,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_AKASH_MAIN = "lcd-akash-app.cosmostation.io";
     private final static int PORT_AKASH_MAIN = 9090;
+
+    private final static String GRPC_SENTINEL_MAIN = "lcd-office.cosmostation.io";
+    private final static int PORT_SENTINEL_MAIN = 9097;
 
     private final static String GRPC_PERSIS_MAIN = "lcd-persistence-app.cosmostation.io";
     private final static int PORT_PERSIS_MAIN = 9090;
@@ -46,6 +50,8 @@ public class ChannelBuilder {
             return getIrisMain();
         } else if (chain.equals(AKASH_MAIN)) {
             return getAkashMain();
+        } else if (chain.equals(SENTINEL_MAIN)) {
+            return getSentinelMain();
         } else if (chain.equals(PERSIS_MAIN)) {
             return getPersisMain();
         } else if (chain.equals(CRYPTO_MAIN)) {
@@ -99,6 +105,19 @@ public class ChannelBuilder {
             }
         }
         return channel_akash_main;
+    }
+
+    //Channel for sentinel main
+    private static ManagedChannel channel_sentinel_main = null;
+    public static ManagedChannel getSentinelMain() {
+        if (channel_sentinel_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_sentinel_main = ManagedChannelBuilder.forAddress(GRPC_SENTINEL_MAIN, PORT_SENTINEL_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_sentinel_main;
     }
 
     //Channel for persistence main

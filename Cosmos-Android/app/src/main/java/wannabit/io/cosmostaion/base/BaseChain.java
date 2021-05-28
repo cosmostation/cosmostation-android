@@ -289,6 +289,8 @@ public enum BaseChain {
             return true;
         } else if (baseChain.equals(AKASH_MAIN)) {
             return true;
+        } else if (baseChain.equals(SENTINEL_MAIN)) {
+            return true;
         } else if (baseChain.equals(PERSIS_MAIN)) {
             return true;
         } else if (baseChain.equals(CRYPTO_MAIN)) {

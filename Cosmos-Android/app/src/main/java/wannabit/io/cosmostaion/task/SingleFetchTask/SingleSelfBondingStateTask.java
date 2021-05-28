@@ -95,13 +95,6 @@ public class SingleSelfBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(SENTINEL_MAIN)) {
-                Response<ResLcdSingleBonding> response = ApiClient.getSentinelChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
-                if(response.isSuccessful() && response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(FETCHAI_MAIN)) {
                 Response<ResLcdSingleBonding> response = ApiClient.getFetchChain(mApp).getBonding(mDelegateAddr, mValidatorAddr).execute();
                 if(response.isSuccessful() && response.body() != null && response.body().result != null) {

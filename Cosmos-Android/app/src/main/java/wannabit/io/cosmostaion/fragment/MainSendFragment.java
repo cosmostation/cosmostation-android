@@ -320,6 +320,7 @@ public class MainSendFragment extends BaseFragment {
                     if (getMainActivity().mBaseChain.equals(COSMOS_MAIN) || getMainActivity().mBaseChain.equals(COSMOS_TEST)) { return TYPE_COSMOS; }
                     else if (getMainActivity().mBaseChain.equals(IRIS_MAIN) || getMainActivity().mBaseChain.equals(IRIS_TEST)) { return TYPE_IRIS; }
                     else if (getMainActivity().mBaseChain.equals(AKASH_MAIN)) { return TYPE_AKASH; }
+                    else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
                     else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) { return TYPE_PERSIS; }
                     else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) { return TYPE_CRYPTO; }
                 } else if (position == 2) {
@@ -368,7 +369,6 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(BAND_MAIN)) { return TYPE_BAND; }
                     else if (getMainActivity().mBaseChain.equals(CERTIK_MAIN)) { return TYPE_CERTIK; }
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
-                    else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
                 } else if (position == 2) {

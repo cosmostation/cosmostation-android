@@ -1327,6 +1327,10 @@ public class WUtil {
                     if(o1.denom.equals(TOKEN_AKASH)) return -1;
                     if(o2.denom.equals(TOKEN_AKASH)) return 1;
 
+                } else if (chain.equals(SENTINEL_MAIN)) {
+                    if(o1.denom.equals(TOKEN_DVPN)) return -1;
+                    if(o2.denom.equals(TOKEN_DVPN)) return 1;
+
                 } else if (chain.equals(PERSIS_MAIN)) {
                     if(o1.denom.equals(TOKEN_XPRT)) return -1;
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
@@ -1484,6 +1488,13 @@ public class WUtil {
                 }
             }
 
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            result = result + ",udvpn";
+            for (Coin coin: basedata.mGrpcBalance) {
+                if (coin.denom != WDp.mainDenom(basechain)) {
+                }
+            }
+
         } else if (basechain.equals(PERSIS_MAIN)) {
             result = result + ",uxprt";
             for (Coin coin: basedata.mGrpcBalance) {
@@ -1520,9 +1531,6 @@ public class WUtil {
 
         } else if (basechain.equals(SECRET_MAIN)) {
             result = result + ",uscrt";
-
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            result = result + ",udvpn";
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             result = result + ",afet";
@@ -2290,7 +2298,7 @@ public class WUtil {
             } else if (txType == CONST_PW_TX_REINVEST) {
                 return new BigDecimal(SENTINEL_GAS_AMOUNT_REINVEST);
             } else if (txType == CONST_PW_TX_SIMPLE_REWARD) {
-                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward)));
+                ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(c.getResources().getStringArray(R.array.gas_multi_reward_kava)));
                 return new BigDecimal(rewardGasFees.get(valCnt - 1));
             } else if (txType == CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS) {
                 return new BigDecimal(SENTINEL_GAS_AMOUNT_REWARD_ADDRESS_CHANGE);
@@ -2378,6 +2386,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(SENTINEL_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(PERSIS_MAIN)) {
             BigDecimal gasRate = new BigDecimal(PERSIS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2420,11 +2433,6 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE);
-            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
-            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
-
         } else if (basechain.equals(FETCHAI_MAIN)) {
             BigDecimal gasRate = new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2460,6 +2468,14 @@ public class WUtil {
                 return new BigDecimal(IRIS_GAS_RATE_LOW);
             }
             return new BigDecimal(IRIS_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(SENTINEL_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(SENTINEL_GAS_RATE_LOW);
+            }
+            return new BigDecimal(SENTINEL_GAS_RATE_AVERAGE);
 
         } else if (basechain.equals(PERSIS_MAIN)) {
             if (position == 0) {
@@ -2511,9 +2527,6 @@ public class WUtil {
 
         } else if (basechain.equals(SECRET_MAIN)) {
             return new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE);
-
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE);
 
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return new BigDecimal(FETCH_GAS_FEE_RATE_AVERAGE);
@@ -2830,9 +2843,6 @@ public class WUtil {
         } else if (basechain.equals(SECRET_MAIN)) {
             return EXPLORER_SECRET_MAIN;
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return EXPLORER_SENTINEL_MAIN;
-
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN;
 
@@ -2852,6 +2862,9 @@ public class WUtil {
 
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN;
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return EXPLORER_SENTINEL_MAIN;
 
         } else if (basechain.equals(PERSIS_MAIN)) {
             return EXPLORER_PERSIS_MAIN;
@@ -2902,9 +2915,6 @@ public class WUtil {
         } else if (basechain.equals(SECRET_MAIN)) {
             return EXPLORER_SECRET_MAIN + "transactions/" + hash;
 
-        } else if (basechain.equals(SENTINEL_MAIN)) {
-            return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
-
         } else if (basechain.equals(FETCHAI_MAIN)) {
             return EXPLORER_FETCHAI_MAIN + "txs/" + hash;
 
@@ -2924,6 +2934,9 @@ public class WUtil {
 
         } else if (basechain.equals(AKASH_MAIN)) {
             return EXPLORER_AKASH_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(SENTINEL_MAIN)) {
+            return EXPLORER_SENTINEL_MAIN + "txs/" + hash;
 
         } else if (basechain.equals(PERSIS_MAIN)) {
             return EXPLORER_PERSIS_MAIN + "txs/" + hash;

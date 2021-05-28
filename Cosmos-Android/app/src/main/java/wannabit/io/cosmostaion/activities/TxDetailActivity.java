@@ -63,7 +63,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.getChain;
 import static wannabit.io.cosmostaion.base.BaseConstant.BNB_MSG_TYPE_HTLC;
@@ -2573,39 +2572,6 @@ public class TxDetailActivity extends BaseActivity implements View.OnClickListen
 
         } else if (mBaseChain.equals(SECRET_MAIN)) {
             ApiClient.getSecretChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
-                @Override
-                public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
-                    if (isFinishing()) return;
-                    WLog.w("onFetchTx " + response.toString());
-                    if (response.isSuccessful() && response.body() != null) {
-                        mResTxInfo = response.body();
-                        onUpdateView();
-                    } else {
-                        if (mIsSuccess && FetchCnt < 10) {
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    FetchCnt++;
-                                    onFetchTx(mTxHash);
-                                }
-                            }, 6000);
-                        } else if (!mIsGen) {
-                            onBackPressed();
-                        } else {
-                            onShowMoreWait();
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<ResTxInfo> call, Throwable t) {
-                    if (IS_SHOWLOG) t.printStackTrace();
-                    if (isFinishing()) return;
-                }
-            });
-
-        } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-            ApiClient.getSentinelChain(getBaseContext()).getSearchTx(hash).enqueue(new Callback<ResTxInfo>() {
                 @Override
                 public void onResponse(Call<ResTxInfo> call, Response<ResTxInfo> response) {
                     if (isFinishing()) return;

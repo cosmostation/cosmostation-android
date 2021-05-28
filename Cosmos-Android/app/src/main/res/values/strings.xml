@@ -70,8 +70,7 @@
     <string name="url_api_persis" translatable="false">https://api-persistence.cosmostation.io/</string>
 
 
-    <string name="url_lcd_sentinel" translatable="false">https://lcd-sentinel.cosmostation.io/</string>
-    <string name="url_api_sentinel" translatable="false">https://api-sentinel.cosmostation.io/</string>
+    <string name="url_api_sentinel" translatable="false">https://api-office.cosmostation.io/turing-4/</string>
 
 
     <string name="url_lcd_fetch" translatable="false">https://lcd-fetchai.cosmostation.io/</string>

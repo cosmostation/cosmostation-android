@@ -1,14 +1,14 @@
 //
-//  WalletSentinelCell.swift
+//  TokenDetailSentinelCell.swift
 //  Cosmostation
 //
-//  Created by 정용주 on 2021/03/29.
+//  Created by 정용주 on 2021/05/28.
 //  Copyright © 2021 wannabit. All rights reserved.
 //
 
 import UIKit
 
-class WalletSentinelCell: UITableViewCell {
+class TokenDetailSentinelCell: TokenDetailCell {
     @IBOutlet weak var cardRoot: CardView!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var totalValue: UILabel!
@@ -29,22 +29,11 @@ class WalletSentinelCell: UITableViewCell {
         vestingAmount.font = UIFontMetrics(forTextStyle: .footnote).scaledFont(for: Font_13_footnote)
     }
     
-    var actionDelegate: (() -> Void)? = nil
-    var actionVote: (() -> Void)? = nil
-    
-    @IBAction func onClickDelegate(_ sender: Any) {
-        actionDelegate?()
-    }
-    @IBAction func onClickVote(_ sender: Any) {
-        actionVote?()
-    }
-    
     override func prepareForReuse() {
         vestingLayer.isHidden = true
     }
     
-    
-    func updateView(_ account: Account?, _ chainType: ChainType?) {
+    override func onBindToken() {
         let totalToken = WUtils.getAllMainAsset(SENTINEL_MAIN_DENOM)
         totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
         totalValue.attributedText = WUtils.dpUserCurrencyValue(SENTINEL_MAIN_DENOM, totalToken, 6, totalValue.font)
@@ -52,7 +41,5 @@ class WalletSentinelCell: UITableViewCell {
         delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
         unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
         rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(SENTINEL_MAIN_DENOM), rewardAmount.font, 6, 6)
-        BaseData.instance.updateLastTotal(account, totalToken.multiplying(byPowerOf10: -6).stringValue)
-        
     }
 }

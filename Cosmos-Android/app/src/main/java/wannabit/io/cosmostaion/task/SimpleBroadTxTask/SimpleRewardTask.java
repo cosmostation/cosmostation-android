@@ -203,21 +203,6 @@ public class SimpleRewardTask extends CommonTask {
                     msgs.add(singleWithdrawDeleMsg);
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdVestingAccountInfo> accountResponse = ApiClient.getSentinelChain(mApp).getAccountInfo(mAccount.address).execute();
-                if (!accountResponse.isSuccessful()) {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                    return mResult;
-                }
-                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromVestingLcd(mAccount.id, accountResponse.body()));
-                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromVestingLcd(mAccount.id, accountResponse.body()));
-
-
-                for(Validator val:mValidators) {
-                    Msg singleWithdrawDeleMsg = MsgGenerator.genWithdrawDeleMsg(mAccount.address, val.operator_address, BaseChain.getChain(mAccount.baseChain));
-                    msgs.add(singleWithdrawDeleMsg);
-                }
-
             } else if (getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getFetchChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(!accountResponse.isSuccessful()) {
@@ -388,23 +373,6 @@ public class SimpleRewardTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResBroadTx> response = ApiClient.getSecretChain(mApp).broadTx(reqBroadCast).execute();
-                if(response.isSuccessful() && response.body() != null) {
-                    if (response.body().txhash != null) {
-                        mResult.resultData = response.body().txhash;
-                    }
-                    if(response.body().code != null) {
-                        mResult.errorCode = response.body().code;
-                        mResult.errorMsg = response.body().raw_log;
-                        return mResult;
-                    }
-                    mResult.isSuccess = true;
-
-                } else {
-                    mResult.errorCode = ERROR_CODE_BROADCAST;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResBroadTx> response = ApiClient.getSentinelChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

@@ -96,13 +96,6 @@ public class SingleUnBondingStateTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(SENTINEL_MAIN)) {
-                Response<ResLcdSingleUnBonding> response = ApiClient.getSentinelChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(FETCHAI_MAIN)) {
                 Response<ResLcdSingleUnBonding> response = ApiClient.getFetchChain(mApp).getUnbonding(mAccount.address, mValidatorAddr).execute();
                 if (response.isSuccessful() && response.body() != null) {

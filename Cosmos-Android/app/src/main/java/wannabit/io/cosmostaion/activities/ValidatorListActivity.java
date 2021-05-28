@@ -37,16 +37,13 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_REWARD;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_GAS_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_GAS_FEE_RATE_AVERAGE;
-import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_GAS_FEE_RATE_AVERAGE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class ValidatorListActivity extends BaseActivity implements FetchCallBack {
@@ -332,40 +329,6 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
             BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE)).setScale(0);
             BigDecimal available = mAccount.getTokenBalance(TOKEN_SECRET);
-
-            if (available.compareTo(estimateFeeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(SENTINEL_MAIN)) {
-            //only collect over 0.02 dvpn
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
-            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(SENTINEL_GAS_FEE_RATE_AVERAGE)).setScale(0);
-            BigDecimal available = mAccount.getTokenBalance(TOKEN_DVPN);
 
             if (available.compareTo(estimateFeeAmount) <= 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
