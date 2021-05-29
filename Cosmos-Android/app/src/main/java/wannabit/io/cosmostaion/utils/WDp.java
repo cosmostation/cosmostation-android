@@ -78,9 +78,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -95,10 +97,14 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_RIZON_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
@@ -118,7 +124,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
@@ -271,6 +279,14 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(RIZON_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
+        } else if (chain.equals(MEDI_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         }
     }
 
@@ -388,13 +404,22 @@ public class WDp {
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(RIZON_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(MEDI_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
         }
     }
 
     //get reward without commission per block per one staking coin
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYPTO_MAIN) || chain.equals(COSMOS_TEST)) {
+        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYPTO_MAIN) ||
+                chain.equals(COSMOS_TEST) || chain.equals(RIZON_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
@@ -1290,6 +1315,12 @@ public class WDp {
         } else if (chain.equals(CRYPTO_MAIN)) {
             return BaseConstant.KEY_CRYPTO_PATH + String.valueOf(position);
 
+        } else if (chain.equals(RIZON_TEST)) {
+            return KEY_RIZON_PATH + String.valueOf(position);
+
+        } else if (chain.equals(MEDI_TEST)) {
+            return KEY_MEDI_PATH + String.valueOf(position);
+
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
@@ -1680,6 +1711,10 @@ public class WDp {
             return c.getResources().getColor(R.color.colorSif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColor(R.color.colorKi);
+        } else if (chain.equals(RIZON_TEST)) {
+            return c.getResources().getColor(R.color.colorRizon);
+        } else if (chain.equals(MEDI_TEST)) {
+            return c.getResources().getColor(R.color.colorMedi);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1718,6 +1753,10 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgSif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgKi);
+        } else if (chain.equals(RIZON_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgRizon);
+        } else if (chain.equals(MEDI_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgMedi);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1755,6 +1794,10 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ki);
+        } else if (chain.equals(RIZON_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_rizon);
+        } else if (chain.equals(MEDI_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_med);
         }
         return null;
     }
@@ -1790,6 +1833,10 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorSif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorKi);
+        } else if (chain.equals(RIZON_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorRizon);
+        } else if (chain.equals(MEDI_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorMedi);
         }
         return null;
     }
@@ -1873,6 +1920,14 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorIris));
             textview.setText(c.getString(R.string.s_bif));
 
+        }else if (BaseChain.getChain(chain).equals(RIZON_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorRizon));
+            textview.setText(c.getString(R.string.s_rizon));
+
+        } else if (BaseChain.getChain(chain).equals(MEDI_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorMedi));
+            textview.setText(c.getString(R.string.s_medi));
+
         }
     }
 
@@ -1915,6 +1970,10 @@ public class WDp {
             return TOKEN_IRIS_TEST;
         } else if (chain.equals(IOV_TEST)) {
             return TOKEN_IOV_TEST;
+        } else if (chain.equals(RIZON_TEST)) {
+            return TOKEN_RIZON;
+        } else if (chain.equals(MEDI_TEST)) {
+            return TOKEN_MEDI;
         }
         return "";
     }
@@ -2252,6 +2311,8 @@ public class WDp {
             return PERSIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return CRYPTO_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(RIZON_TEST)) {
+            return RIZON_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
@@ -2272,6 +2333,8 @@ public class WDp {
             return SIF_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(KI_MAIN)) {
             return KI_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(MEDI_TEST)) {
+            return MEDI_VAL_URL + opAddress + ".png";
         }
         return "";
     }

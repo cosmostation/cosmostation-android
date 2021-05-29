@@ -439,6 +439,8 @@ public class BaseConstant {
     public final static String TOKEN_CRO            = "basecro";
     public final static String TOKEN_SIF            = "rowan";
     public final static String TOKEN_KI             = "uxki";
+    public final static String TOKEN_RIZON          = "uatolo";
+    public final static String TOKEN_MEDI           = "umed";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -475,6 +477,8 @@ public class BaseConstant {
     public final static String KEY_NEW_SECRET_PATH  = "44'/529'/0'/0/";
     public final static String KEY_PERSIS_PATH      = "44'/750'/0'/0/";
     public final static String KEY_CRYPTO_PATH      = "44'/394'/0'/0/";
+    public final static String KEY_RIZON_PATH       = "44'/1217'/0'/0/";
+    public final static String KEY_MEDI_PATH        = "44'/371'/0'/0/";
     public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -581,6 +585,14 @@ public class BaseConstant {
     public final static String KI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE      = "100000";
     public final static String KI_GAS_AMOUNT_VOTE                       = "100000";
 
+    public final static String MEDI_GAS_FEE_RATE_AVERAGE                = "0.025";
+    public final static String MEDI_GAS_AMOUNT_SEND                     = "100000";
+    public final static String MEDI_GAS_AMOUNT_STAKE                    = "200000";
+    public final static String MEDI_GAS_AMOUNT_REDELEGATE               = "300000";
+    public final static String MEDI_GAS_AMOUNT_REINVEST                 = "350000";
+    public final static String MEDI_GAS_AMOUNT_REWARD_ADDRESS_CHANGE    = "100000";
+    public final static String MEDI_GAS_AMOUNT_VOTE                     = "100000";
+
 
     public final static String COSMOS_GAS_RATE_TINY                     = "0.00025";
     public final static String COSMOS_GAS_RATE_LOW                      = "0.0025";
@@ -606,22 +618,6 @@ public class BaseConstant {
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
 
-    public final static String CGC_ATOM = "cosmos";
-    public final static String CGC_IRIS = "iris-network";
-    public final static String CGC_BNB  = "binancecoin";
-    public final static String CGC_KAVA = "kava";
-    public final static String CGC_BAND = "band-protocol";
-    public final static String CGC_IOV = "starname";
-    public final static String CGC_CERTIK = "certik";
-    public final static String CGC_AKASH = "akash-network";
-    public final static String CGC_SECRET = "secret";
-    public final static String CGC_OKEX = "okexchain";
-    public final static String CGC_SENTINEL = "sentinel";
-    public final static String CGC_PERSISTENCE = "persistence";
-    public final static String CGC_FETCH = "fetch-ai";
-    public final static String CGC_CRYPTO = "crypto-com-chain";
-    public final static String CGC_SIF = "sifchain";
-    public final static String CGC_KI = "ki-foundation-chain";
 
     public final static String BINANCE_MAIN_BNB_DEPUTY  = "bnb1jh7uv2rm6339yue8k4mj9406k3509kr4wt5nxn";
     public final static String KAVA_MAIN_BNB_DEPUTY     = "kava1r4v2zdhdalfj2ydazallqvrus9fkphmglhn6u6";
@@ -631,8 +627,6 @@ public class BaseConstant {
     public final static String KAVA_MAIN_XRPB_DEPUTY    = "kava1c0ju5vnwgpgxnrktfnkccuth9xqc68dcdpzpas";
     public final static String BINANCE_MAIN_BUSD_DEPUTY = "bnb10zq89008gmedc6rrwzdfukjk94swynd7dl97w8";
     public final static String KAVA_MAIN_BUSD_DEPUTY    = "kava1hh4x3a4suu5zyaeauvmv7ypf7w9llwlfufjmuu";
-
-
 
     //For 9000
     public final static String BINANCE_TEST_BNB_DEPUTY  = "tbnb10uypsspvl6jlxcx5xse02pag39l8xpe7a3468h";
@@ -657,6 +651,8 @@ public class BaseConstant {
     public final static String CRYPTO_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/cryto/";
     public final static String SIF_VAL_URL              = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/sif/";
     public final static String KI_VAL_URL               = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
+    public final static String RIZON_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
+    public final static String MEDI_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";

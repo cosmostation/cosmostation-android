@@ -79,7 +79,9 @@ public enum BaseChain {
     OK_TEST_LEGACY3("okexchain-65"),
     OK_TEST("okexchain-testnet"),
     CERTIK_TEST_LEGACY1("shentu-incentivized-3"),
-    CERTIK_TEST("certik-testnet");
+    CERTIK_TEST("certik-testnet"),
+    RIZON_TEST("rizon-testnet"),
+    MEDI_TEST("medi-testnet");
 
     private final String chainName;
 
@@ -202,6 +204,12 @@ public enum BaseChain {
                 chainName.equals(CERTIK_TEST.chainName)) {
             return CERTIK_TEST;
         }
+        if (chainName.equals(RIZON_TEST.chainName)) {
+            return RIZON_TEST;
+        }
+        if (chainName.equals(MEDI_TEST.chainName)) {
+            return MEDI_TEST;
+        }
         return null;
     }
 
@@ -232,6 +240,8 @@ public enum BaseChain {
 //        result.add(IOV_TEST);
 //        result.add(OK_TEST);
 //        result.add(CERTIK_TEST);
+        result.add(RIZON_TEST);
+        result.add(MEDI_TEST);
         return result;
     }
 
@@ -294,6 +304,8 @@ public enum BaseChain {
         } else if (baseChain.equals(PERSIS_MAIN)) {
             return true;
         } else if (baseChain.equals(CRYPTO_MAIN)) {
+            return true;
+        } else if (baseChain.equals(RIZON_TEST)) {
             return true;
         }
 

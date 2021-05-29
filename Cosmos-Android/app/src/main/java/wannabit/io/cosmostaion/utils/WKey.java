@@ -49,9 +49,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -148,6 +150,12 @@ public class WKey {
 
         } else if (chain.equals(CRYPTO_MAIN)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(394, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(RIZON_TEST)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(1217, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(MEDI_TEST)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         }
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -321,6 +329,10 @@ public class WKey {
                 result = bech32Encode("sif".getBytes(), converted);
             } else if (chain.equals(KI_MAIN)){
                 result = bech32Encode("ki".getBytes(), converted);
+            } else if (chain.equals(RIZON_TEST)){
+                result = bech32Encode("rizon".getBytes(), converted);
+            } else if (chain.equals(MEDI_TEST)){
+                result = bech32Encode("panacea".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -364,6 +376,10 @@ public class WKey {
             return bech32Encode("sif".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(KI_MAIN)) {
             return bech32Encode("ki".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(RIZON_TEST)) {
+            return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(MEDI_TEST)) {
+            return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -400,6 +416,10 @@ public class WKey {
             return bech32Encode("sifvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(KI_MAIN)) {
             return bech32Encode("kivaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(RIZON_TEST)) {
+            return bech32Encode("rizonvaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(MEDI_TEST)) {
+            return bech32Encode("panaceavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
