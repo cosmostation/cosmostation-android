@@ -1184,7 +1184,7 @@
 
     <string name="tx_send">보내기</string>
     <string name="tx_receive">받기</string>
-    <string name="tx_transfer">전송기하기</string>
+    <string name="tx_transfer">전송하기</string>
     <string name="tx_delegate">위임</string>
     <string name="tx_undelegate">위임 철회</string>
     <string name="tx_redelegate">재위임</string>

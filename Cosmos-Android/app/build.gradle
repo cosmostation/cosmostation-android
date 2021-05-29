@@ -3,14 +3,14 @@ apply plugin: 'kotlin-android'
 
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "wannabit.io.cosmostaion"
         minSdkVersion 23
-        targetSdkVersion 29
-        versionCode 106
+        targetSdkVersion 30
+        versionCode 107
         versionName "1.5.7"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
