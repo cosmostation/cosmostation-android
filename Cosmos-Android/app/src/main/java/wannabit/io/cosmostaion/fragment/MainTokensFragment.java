@@ -56,9 +56,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -83,7 +85,9 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_XPRT;
@@ -311,6 +315,10 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindSifItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
                 onBindKiItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) {
+                onBindRizonItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(MEDI_TEST)) {
+                onBindMediItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -621,6 +629,24 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
         }
     }
 
+    private void onBindMediItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Balance balance = getBaseDao().mBalances.get(position);
+        if (balance.symbol.equals(TOKEN_MEDI)) {
+            holder.itemSymbol.setText(getString(R.string.str_medi_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), MEDI_TEST));
+            holder.itemInnerSymbol.setText("(" + balance.symbol + ")");
+            holder.itemFullName.setText("Medibloc Staking Token");
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenmedibloc));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAssetOld(TOKEN_MEDI);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), balance.symbol, totalAmount, 6));
+
+        } else {
+
+        }
+    }
+
 
     //with gRPC
     private void onBindCosmosItem(TokensAdapter.AssetHolder holder, final int position) {
@@ -808,6 +834,42 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_CRO);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 8, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 8));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else if (coin.denom.startsWith("ibc/")) {
+            holder.itemSymbol.setText("IBC");
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemInnerSymbol.setText("(unKnown)");
+            holder.itemFullName.setText(coin.denom);
+            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+
+        } else {
+
+        }
+    }
+
+
+
+    private void onBindRizonItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_RIZON)) {
+            holder.itemSymbol.setText(getString(R.string.str_rizon_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), RIZON_TEST));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Rizon Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_rizon));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_RIZON);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

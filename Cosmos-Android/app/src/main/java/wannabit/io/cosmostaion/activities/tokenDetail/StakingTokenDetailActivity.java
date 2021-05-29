@@ -37,6 +37,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenIrisHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenKavaHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenOKExHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenPersisHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenRizonHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenSentinelHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenSifHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
@@ -54,6 +55,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -191,6 +193,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private static final int TYPE_SENTINEL              = 3;
     private static final int TYPE_PERSISTENCE           = 4;
     private static final int TYPE_CRYPTO                = 5;
+    private static final int TYPE_RIZON                = 6;
 
     private static final int TYPE_SIF                   = 31;
     private static final int TYPE_OKEX                  = 32;
@@ -217,6 +220,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenPersisHolder(getLayoutInflater().inflate(R.layout.layout_card_persistence, viewGroup, false));
             } else if (viewType == TYPE_CRYPTO) {
                 return new TokenCrytoHolder(getLayoutInflater().inflate(R.layout.layout_card_cryto, viewGroup, false));
+            } else if (viewType == TYPE_RIZON) {
+                return new TokenRizonHolder(getLayoutInflater().inflate(R.layout.layout_card_rizon, viewGroup, false));
             }
 
             else if (viewType == TYPE_SIF) {
@@ -255,6 +260,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_CRYPTO) {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+
+            } else if (getItemViewType(position) == TYPE_RIZON) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             }
@@ -328,6 +336,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return TYPE_PERSISTENCE;
                 } else if (mBaseChain.equals(CRYPTO_MAIN)) {
                     return TYPE_CRYPTO;
+                } else if (mBaseChain.equals(RIZON_TEST)) {
+                    return TYPE_RIZON;
                 }
 
                 if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST))) {
