@@ -22,6 +22,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -44,18 +45,6 @@ public class CheckWithdrawAddressTask extends CommonTask {
         try {
             if (getChain(mAccount.baseChain).equals(KAVA_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKavaChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getKavaTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = ERROR_CODE_NETWORK;
@@ -90,32 +79,8 @@ public class CheckWithdrawAddressTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getIovTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (getChain(mAccount.baseChain).equals(CERTIK_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getCertikChain(mApp).getWithdrawAddress(mAccount.address).execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
-                Response<ResLcdWithDrawAddress> response = ApiClient.getCertikTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = ERROR_CODE_NETWORK;
@@ -164,6 +129,56 @@ public class CheckWithdrawAddressTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdWithDrawAddress> response = ApiClient.getKiChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            }
+
+            else if (getChain(mAccount.baseChain).equals(KAVA_TEST)) {
+                Response<ResLcdWithDrawAddress> response = ApiClient.getKavaTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(IOV_TEST)) {
+                Response<ResLcdWithDrawAddress> response = ApiClient.getIovTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(CERTIK_TEST)) {
+                Response<ResLcdWithDrawAddress> response = ApiClient.getCertikTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+                if(response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(MEDI_TEST)) {
+                Response<ResLcdWithDrawAddress> response = ApiClient.getMediTestChain(mApp).getWithdrawAddress(mAccount.address).execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = ERROR_CODE_NETWORK;

@@ -60,9 +60,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -173,11 +175,11 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
         }
 
         if (isGRPC(mBaseChain)) {
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
-            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
-                return;
-            }
+//            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_CHANGE_REWARD_ADDRESS, 0);
+//            if (getBaseDao().getAvailable(WDp.mainDenom(mBaseChain)).compareTo(feeAmount) < 0) {
+//                Toast.makeText(getBaseContext(), R.string.error_not_enough_budget, Toast.LENGTH_SHORT).show();
+//                return;
+//            }
 
             getBaseDao().setLastUser(mAccount.id);
             Intent changeAddress = new Intent(AccountDetailActivity.this, RewardAddressChangeActivity.class);
@@ -422,6 +424,24 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
+
+        } else if (mBaseChain.equals(RIZON_TEST)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_medibloc));
+
+        } else if (mBaseChain.equals(MEDI_TEST)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBg));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_medibloc));
 
         }
 
