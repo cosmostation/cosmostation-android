@@ -20,6 +20,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import wannabit.io.cosmostaion.R;
+import wannabit.io.cosmostaion.activities.ReInvestActivity;
 import wannabit.io.cosmostaion.activities.RewardAddressChangeActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseFragment;
@@ -27,7 +28,9 @@ import wannabit.io.cosmostaion.utils.WKey;
 
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
@@ -176,6 +179,22 @@ public class RewardAddressChangeStep0Fragment extends BaseFragment implements Vi
 
             } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
                 if (targetAddress.startsWith("ki1") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(RIZON_TEST)) {
+                if (targetAddress.startsWith("rizon1") && WKey.isValidBech32(targetAddress)) {
+                    getSActivity().mNewRewardAddress = targetAddress;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(MEDI_TEST)) {
+                if (targetAddress.startsWith("panacea1") && WKey.isValidBech32(targetAddress)) {
                     getSActivity().mNewRewardAddress = targetAddress;
                     getSActivity().onNextStep();
                 } else {

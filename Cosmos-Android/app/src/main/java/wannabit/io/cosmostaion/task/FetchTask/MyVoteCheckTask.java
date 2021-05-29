@@ -13,6 +13,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 
 public class MyVoteCheckTask extends CommonTask {
@@ -60,19 +61,6 @@ public class MyVoteCheckTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ResMyVote> response = ApiClient.getCertikChain(mApp).getMyVote(mProposalId, mAddress).execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null && response.body().result != null) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
-                Response<ResMyVote> response = ApiClient.getCertikTestChain(mApp).getMyVote(mProposalId, mAddress).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
@@ -138,6 +126,34 @@ public class MyVoteCheckTask extends CommonTask {
 
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResMyVote> response = ApiClient.getKiChain(mApp).getMyVote(mProposalId, mAddress).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            }
+
+            else if (mChain.equals(BaseChain.CERTIK_TEST)) {
+                Response<ResMyVote> response = ApiClient.getCertikTestChain(mApp).getMyVote(mProposalId, mAddress).execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null && response.body().result != null) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(MEDI_TEST)) {
+                Response<ResMyVote> response = ApiClient.getMediTestChain(mApp).getMyVote(mProposalId, mAddress).execute();
                 if (!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
