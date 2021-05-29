@@ -1461,6 +1461,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.SIF_MAIN) {
             guard let url = URL(string: "https://www.coingecko.com/en/coins/sifchain") else { return }
             self.onShowSafariWeb(url)
+            
+        } else if (chainType! == ChainType.KI_MAIN) {
+            guard let url = URL(string: "https://www.coingecko.com/en/coins/ki") else { return }
+            self.onShowSafariWeb(url)
         }
         
         
