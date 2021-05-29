@@ -43,8 +43,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -318,7 +320,7 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_test_iris));
                     holder.chainName.setText(getString(R.string.str_iris_test));
 
-                }else if (chain.equals(BaseChain.BNB_TEST)) {
+                } else if (chain.equals(BaseChain.BNB_TEST)) {
                     holder.chainLayer.setVisibility(View.VISIBLE);
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.binancetestnet));
@@ -347,6 +349,18 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
                     holder.chainName.setText(getString(R.string.str_certik_test));
+
+                } else if (chain.equals(RIZON_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_rizon));
+                    holder.chainName.setText(getString(R.string.str_rizon_test));
+
+                } else if (chain.equals(MEDI_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_medibloc));
+                    holder.chainName.setText(getString(R.string.str_medi_test));
 
                 }
             }

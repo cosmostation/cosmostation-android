@@ -74,9 +74,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -402,6 +404,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorCertik));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
 //            mFaucetBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorCertik));
+
+        } else if (mBaseChain.equals(RIZON_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_rizon));
+            mToolbarChainName.setText(getString(R.string.str_rizon_chain_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorRizon));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorRizon));
+
+        } else if (mBaseChain.equals(MEDI_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_medibloc));
+            mToolbarChainName.setText(getString(R.string.str_medi_chain_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorMedi));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorMedi));
 
         }
 
@@ -764,6 +778,18 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.certik_testnet_img));
                     holder.chainName.setText(getString(R.string.str_certik_test));
+
+                } else if (chain.equals(RIZON_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_rizon));
+                    holder.chainName.setText(getString(R.string.str_rizon_test));
+
+                } else if (chain.equals(MEDI_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_medibloc));
+                    holder.chainName.setText(getString(R.string.str_medi_test));
 
                 }
             }

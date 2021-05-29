@@ -391,6 +391,10 @@
     <string name="str_sif_net2" translatable="false">SifChain Mainnet</string>
     <string name="str_ki_net" translatable="false">(Ki Foundation Mainnet)</string>
     <string name="str_ki_net2" translatable="false">Ki Foundation Mainnet</string>
+    <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
+    <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
+    <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
+    <string name="str_medi_chain_test_2" translatable="false">Medibloc Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -414,6 +418,8 @@
     <string name="str_crypto_main" translatable="false">CRYPTO.ORG</string>
     <string name="str_sif_main" translatable="false">SIF</string>
     <string name="str_ki_main" translatable="false">KI</string>
+    <string name="str_rizon_test" translatable="false">RIZON TEST</string>
+    <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
