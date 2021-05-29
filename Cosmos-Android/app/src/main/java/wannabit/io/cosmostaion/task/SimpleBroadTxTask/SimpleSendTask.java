@@ -37,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -200,6 +201,15 @@ public class SimpleSendTask extends CommonTask {
 
             } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 Response<ResLcdAccountInfo> accountResponse = ApiClient.getKiChain(mApp).getAccountInfo(mAccount.address).execute();
+                if (!accountResponse.isSuccessful()) {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                    return mResult;
+                }
+                mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, accountResponse.body()));
+                mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, accountResponse.body()));
+
+            } else if (getChain(mAccount.baseChain).equals(MEDI_TEST)) {
+                Response<ResLcdAccountInfo> accountResponse = ApiClient.getMediTestChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (!accountResponse.isSuccessful()) {
                     mResult.errorCode = ERROR_CODE_BROADCAST;
                     return mResult;
@@ -435,6 +445,24 @@ public class SimpleSendTask extends CommonTask {
             } else if (getChain(mAccount.baseChain).equals(KI_MAIN)) {
                 ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
                 Response<ResBroadTx> response = ApiClient.getKiChain(mApp).broadTx(reqBroadCast).execute();
+                if(response.isSuccessful() && response.body() != null) {
+                    if (response.body().txhash != null) {
+                        mResult.resultData = response.body().txhash;
+                    }
+                    if(response.body().code != null) {
+                        mResult.errorCode = response.body().code;
+                        mResult.errorMsg = response.body().raw_log;
+                        return mResult;
+                    }
+                    mResult.isSuccess = true;
+
+                } else {
+                    mResult.errorCode = ERROR_CODE_BROADCAST;
+                }
+
+            } else if (getChain(mAccount.baseChain).equals(MEDI_TEST)) {
+                ReqBroadCast reqBroadCast = MsgGenerator.getBroadcaseReq(mAccount, msgs, mToFees, mToSendMemo, deterministicKey, mApp.getBaseDao().getChainId());
+                Response<ResBroadTx> response = ApiClient.getMediTestChain(mApp).broadTx(reqBroadCast).execute();
                 if(response.isSuccessful() && response.body() != null) {
                     if (response.body().txhash != null) {
                         mResult.resultData = response.body().txhash;

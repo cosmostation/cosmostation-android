@@ -36,6 +36,7 @@ import wannabit.io.cosmostaion.network.ApiClient;
 import wannabit.io.cosmostaion.network.req.ReqStarNameResolve;
 import wannabit.io.cosmostaion.network.res.ResIovStarNameResolve;
 import wannabit.io.cosmostaion.utils.WKey;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
@@ -55,9 +56,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -288,6 +291,22 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
                 if (userInput.startsWith("ki1") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mToAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(RIZON_TEST)) {
+                if (userInput.startsWith("rizon1") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mToAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(MEDI_TEST)) {
+                if (userInput.startsWith("panacea1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
