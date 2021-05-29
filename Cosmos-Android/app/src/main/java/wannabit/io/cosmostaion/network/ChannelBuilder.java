@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 
 public class ChannelBuilder {
@@ -39,6 +40,9 @@ public class ChannelBuilder {
     private final static String GRPC_IRIS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_IRIS_TEST = 9095;
 
+    private final static String GRPC_RIZON_TEST = "lcd-rizon-testnet.cosmostation.io";
+    private final static int PORT_RIZON_TEST = 9090;
+
 
     public final static int TIME_OUT = 8;
 
@@ -62,6 +66,8 @@ public class ChannelBuilder {
             return getCosmosTest();
         } else if (chain.equals(IRIS_TEST)) {
             return getIrisTest();
+        } else if (chain.equals(RIZON_TEST)) {
+            return getRizonTest();
         }
         return null;
     }
@@ -173,5 +179,18 @@ public class ChannelBuilder {
             }
         }
         return channel_iris_test;
+    }
+
+    //Channel for rizon testnet
+    private static ManagedChannel channel_rizon_test = null;
+    public static ManagedChannel getRizonTest() {
+        if (channel_rizon_test == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_rizon_test = ManagedChannelBuilder.forAddress(GRPC_RIZON_TEST, PORT_RIZON_TEST)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_rizon_test;
     }
 }

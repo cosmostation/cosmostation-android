@@ -45,9 +45,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -187,6 +189,10 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sif));
             } else if (mChain.equals(KI_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_ki));
+            } else if (mChain.equals(RIZON_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
+            } else if (mChain.equals(MEDI_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_medi));
             }
         }
 

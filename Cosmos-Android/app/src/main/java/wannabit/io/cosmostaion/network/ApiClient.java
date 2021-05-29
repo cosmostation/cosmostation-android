@@ -520,6 +520,54 @@ public class ApiClient {
 
 
 
+    //Services for Rizon test api
+    private static HistoryApi api_rizon_test = null;
+    public static HistoryApi getRizonTestApi(Context c) {
+        if (api_rizon_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_rizon_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_rizon_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_rizon_test;
+    }
+
+    //Services for Medi test chain
+    private static MediChain service_medi_test = null;
+    public static MediChain getMediTestChain(Context c) {
+        if (service_medi_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_lcd_medi_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                service_medi_test = retrofit.create(MediChain.class);
+            }
+        }
+        return service_medi_test;
+    }
+
+    //Services for Medi test api
+    private static HistoryApi api_medi_test = null;
+    public static HistoryApi getMediTestApi(Context c) {
+        if (api_medi_test == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_medi_test))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_medi_test = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_medi_test;
+    }
+
+
+
+
 
     //Services for Cosmos Test api
     private static HistoryApi api_cosmos_test = null;

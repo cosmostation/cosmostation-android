@@ -26,6 +26,8 @@
     <string name="str_iov_test_net">스타네임 테스트넷</string>
     <string name="str_ok_test_net">오케이엑스 테스트넷</string>
     <string name="str_certik_test_net">써틱 테스트넷</string>
+    <string name="str_rizon_test_net">라이젠 테스트넷</string>
+    <string name="str_medi_test_net">메디블럭 테스트넷</string>
 
 
     <string name="str_ok">OK</string>
