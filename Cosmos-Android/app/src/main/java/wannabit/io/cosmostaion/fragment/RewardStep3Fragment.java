@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 
 import cosmos.staking.v1beta1.Staking;
 import wannabit.io.cosmostaion.R;
@@ -23,22 +22,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.utils.WDp;
 
-import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 
 public class RewardStep3Fragment extends BaseFragment implements View.OnClickListener {
 
@@ -127,151 +111,25 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
             }
             mTvFromValidators.setText(monikers);
-            mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-            mMemo.setText(getSActivity().mTxMemo);
 
         } else {
-            if (getSActivity().mBaseChain.equals(KAVA_MAIN) || getSActivity().mBaseChain.equals(KAVA_TEST)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, 6, 6));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, 6, 6));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentKava      = getSActivity().mAccount.getKavaBalance();
-                    BigDecimal expectedKava     = currentKava.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedKava, 6, 6));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedKava, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(BAND_MAIN)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentBand     = getSActivity().mAccount.getBandBalance();
-                    BigDecimal expectedBand    = currentBand.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedBand, mDpDecimal, mDpDecimal));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedBand, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(IOV_MAIN) || getSActivity().mBaseChain.equals(IOV_TEST)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentIov     = getSActivity().mAccount.getIovBalance();
-                    BigDecimal expectedIov    = currentIov.add(rewardSum).subtract(feeAmount);
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedIov, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(CERTIK_MAIN) || getSActivity().mBaseChain.equals(CERTIK_TEST)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentCertik     = getSActivity().mAccount.getTokenBalance(TOKEN_CERTIK);
-                    BigDecimal expectedCertik    = currentCertik.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedCertik, mDpDecimal, mDpDecimal));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedCertik, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(SECRET_MAIN)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if(getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentScrt     = getSActivity().mAccount.getTokenBalance(TOKEN_SECRET);
-                    BigDecimal expectedScrt    = currentScrt.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedScrt, mDpDecimal, mDpDecimal));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedScrt, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(FETCHAI_MAIN) || getSActivity().mBaseChain.equals(SIF_MAIN)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentAmount = getSActivity().mAccount.getTokenBalance(WDp.mainDenom(getSActivity().mBaseChain));
-                    BigDecimal expectedAmount = currentAmount.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
-            } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
-                for (Coin coin:getSActivity().mRewards) {
-                    rewardSum = rewardSum.add(new BigDecimal(coin.amount));
-                }
-                mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
-                mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
-                if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
-                    mTvGoalLayer.setVisibility(View.GONE);
-                    mExpectedLayer.setVisibility(View.VISIBLE);
-
-                    BigDecimal currentAmount = getSActivity().mAccount.getTokenBalance(WDp.mainDenom(getSActivity().mBaseChain));
-                    BigDecimal expectedAmount = currentAmount.add(rewardSum).subtract(feeAmount);
-                    mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
-                    mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
-
-                } else {
-                    mTvGoalLayer.setVisibility(View.VISIBLE);
-                    mExpectedLayer.setVisibility(View.GONE);
-                }
-
+            for (Coin coin:getSActivity().mRewards) {
+                rewardSum = rewardSum.add(new BigDecimal(coin.amount));
             }
+            mTvRewardAmount.setText(WDp.getDpAmount2(getContext(), rewardSum, mDpDecimal, mDpDecimal));
+            mFeeAmount.setText(WDp.getDpAmount2(getContext(), feeAmount, mDpDecimal, mDpDecimal));
+            if (getSActivity().mWithdrawAddress.equals(getSActivity().mAccount.address)) {
+                mTvGoalLayer.setVisibility(View.GONE);
+                mExpectedLayer.setVisibility(View.VISIBLE);
+                BigDecimal currentAmount = getBaseDao().availableAmount(WDp.mainDenom(getSActivity().mBaseChain));
+                BigDecimal expectedAmount = currentAmount.add(rewardSum).subtract(feeAmount);
+                mExpectedAmount.setText(WDp.getDpAmount2(getContext(), expectedAmount, mDpDecimal, mDpDecimal));
+                mExpectedPrice.setText(WDp.dpUserCurrencyValue(getBaseDao(), WDp.mainDenom(getSActivity().mBaseChain), expectedAmount, mDpDecimal));
 
+            } else {
+                mTvGoalLayer.setVisibility(View.VISIBLE);
+                mExpectedLayer.setVisibility(View.GONE);
+            }
             String monikers = "";
             for (Validator validator:getSActivity().mValidators) {
                 if(TextUtils.isEmpty(monikers)) {
@@ -281,9 +139,10 @@ public class RewardStep3Fragment extends BaseFragment implements View.OnClickLis
                 }
             }
             mTvFromValidators.setText(monikers);
-            mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
-            mMemo.setText(getSActivity().mTxMemo);
+
         }
+        mTvGoalAddress.setText(getSActivity().mWithdrawAddress);
+        mMemo.setText(getSActivity().mTxMemo);
     }
 
     @Override

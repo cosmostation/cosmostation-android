@@ -150,296 +150,17 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             return;
         }
 
-        ArrayList<Validator> toClaimValidators = new ArrayList<>();
-        ArrayList<String> toClaimValaddr= new ArrayList<>();        // for Grpc
-
-        if (mBaseChain.equals(BaseChain.KAVA_MAIN) || mBaseChain.equals(BaseChain.KAVA_TEST)) {
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ZERO) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (mBaseChain.equals(BaseChain.BAND_MAIN)) {
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ONE) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-        } else if (mBaseChain.equals(BaseChain.IOV_MAIN)) {
-            //only collect over 0.15 iov
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
-            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
-            BigDecimal available = mAccount.getIovBalance();
-
-            if (available.compareTo(estimateFeeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(BaseChain.IOV_TEST)) {
-            //only collect over 0.15 iov
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
-            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(IOV_GAS_RATE_AVERAGE)).setScale(0);
-            BigDecimal available = mAccount.getIovBalance();
-
-            if (available.compareTo(estimateFeeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-            //only collect over 0.0075 ctk
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("150000")) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
-            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(CERTIK_GAS_RATE_AVERAGE)).setScale(0);
-            BigDecimal available = mAccount.getTokenBalance(TOKEN_CERTIK);
-
-            if (available.compareTo(estimateFeeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            //only collect over 0.0375 scrt
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(new BigDecimal("37500")) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            ArrayList<String> rewardGasFees = new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.gas_multi_reward_kava)));
-            BigDecimal estimateGasAmount = new BigDecimal(rewardGasFees.get(toClaimValidators.size() - 1));
-            BigDecimal estimateFeeAmount = estimateGasAmount.multiply(new BigDecimal(SECRET_GAS_FEE_RATE_AVERAGE)).setScale(0);
-            BigDecimal available = mAccount.getTokenBalance(TOKEN_SECRET);
-
-            if (available.compareTo(estimateFeeAmount) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(BigDecimal.ZERO) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
-
-            if (available.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(SIF_MAIN)) {
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(singlefeeAmount) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
-
-            if (available.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-        } else if (mBaseChain.equals(KI_MAIN)) {
-            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
-            for (Validator validator: getBaseDao().mAllValidators) {
-                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(singlefeeAmount) > 0) {
-                    toClaimValidators.add(validator);
-                }
-            }
-
-            if (toClaimValidators.size() == 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
-            if (toClaimValidators.size() >= 17) {
-                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
-                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
-            }
-
-            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
-            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
-
-            if (available.compareTo(feeAmount) < 0) {
-                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
-                return;
-            }
-        }
-
-
-        else if (isGRPC(mBaseChain)) {
+        if (isGRPC(mBaseChain)) {
+            ArrayList<String> toClaimValaddr= new ArrayList<>();
             ArrayList<Distribution.DelegationDelegatorReward> toClaimRewards = new ArrayList<>();
             if (getBaseDao().mGrpcRewards == null) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
                 return;
             }
+
+            BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
             for (Distribution.DelegationDelegatorReward reward: getBaseDao().mGrpcRewards) {
-                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(new BigDecimal("3750")) > 0) {
+                if (getBaseDao().getReward(WDp.mainDenom(mBaseChain), reward.getValidatorAddress()).compareTo(singlefeeAmount) > 0) {
                     toClaimRewards.add(reward);
                 }
             }
@@ -449,33 +170,64 @@ public class ValidatorListActivity extends BaseActivity implements FetchCallBack
             }
             WUtil.onSortRewardAmount(toClaimRewards, WDp.mainDenom(mBaseChain));
             if (toClaimRewards.size() >= 17) {
-                ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimValidators.subList(0,16));
+                ArrayList<Distribution.DelegationDelegatorReward> temp = new ArrayList(toClaimRewards.subList(0,16));
                 toClaimRewards = temp;
                 Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
             }
 
             BigDecimal available = getBaseDao().getAvailable(WDp.mainDenom(mBaseChain));
             BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimRewards.size());
+            if (available.compareTo(feeAmount) < 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
+                return;
+            }
+            for (Distribution.DelegationDelegatorReward reward: toClaimRewards) {
+                toClaimValaddr.add(reward.getValidatorAddress());
+            }
+
+            Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
+            claimReward.putStringArrayListExtra("valOpAddresses", toClaimValaddr);
+            startActivity(claimReward);
+
+        } else {
+            ArrayList<Validator> toClaimValidators = new ArrayList<>();
+            if (getBaseDao().rewardAmount(WDp.mainDenom(mBaseChain)).compareTo(BigDecimal.ZERO) <= 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            BigDecimal singlefeeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, 1);
+            for (Validator validator: getBaseDao().mAllValidators) {
+                if (getBaseDao().rewardAmountByValidator(WDp.mainDenom(mBaseChain), validator.operator_address).compareTo(singlefeeAmount) > 0) {
+                    toClaimValidators.add(validator);
+                }
+            }
+
+            if (toClaimValidators.size() == 0) {
+                Toast.makeText(getBaseContext(), R.string.error_not_enough_reward, Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            WUtil.onSortByOnlyReward(toClaimValidators, WDp.mainDenom(mBaseChain), getBaseDao());
+            if (toClaimValidators.size() >= 17) {
+                toClaimValidators = new ArrayList<>(getBaseDao().mMyValidators.subList(0,16));
+                Toast.makeText(getBaseContext(), R.string.str_multi_reward_max_16, Toast.LENGTH_SHORT).show();
+            }
+
+            BigDecimal available = mAccount.getTokenBalance(WDp.mainDenom(mBaseChain));
+            BigDecimal feeAmount = WUtil.getEstimateGasFeeAmount(getBaseContext(), mBaseChain, CONST_PW_TX_SIMPLE_REWARD, toClaimValidators.size());
 
             if (available.compareTo(feeAmount) < 0) {
                 Toast.makeText(getBaseContext(), R.string.error_not_enough_fee, Toast.LENGTH_SHORT).show();
                 return;
             }
 
+            Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
+            claimReward.putExtra("opAddresses", toClaimValidators);
+            startActivity(claimReward);
 
-            for (Distribution.DelegationDelegatorReward reward: toClaimRewards) {
-                toClaimValaddr.add(reward.getValidatorAddress());
-            }
-
-        } else {
-            Toast.makeText(getBaseContext(), R.string.error_not_yet, Toast.LENGTH_SHORT).show();
-            return;
         }
 
-        Intent claimReward = new Intent(ValidatorListActivity.this, ClaimRewardActivity.class);
-        claimReward.putExtra("opAddresses", toClaimValidators);
-        claimReward.putStringArrayListExtra("valOpAddresses", toClaimValaddr);
-        startActivity(claimReward);
     }
 
     public void onFetchAllData() {
