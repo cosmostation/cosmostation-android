@@ -29,10 +29,12 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletGuideHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletIrisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKavaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletKiHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletMediHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletMintHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletOkexHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPersisHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletPriceHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletRizonHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSentinelHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifHolder;
@@ -54,9 +56,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -199,6 +203,8 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_CRYPTO            = 14;
         private static final int TYPE_SIF               = 15;
         private static final int TYPE_KI                = 16;
+        private static final int TYPE_RIZON             = 17;
+        private static final int TYPE_MEDI              = 18;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
@@ -259,6 +265,12 @@ public class MainSendFragment extends BaseFragment {
 
             } else if (viewType == TYPE_KI) {
                 return new WalletKiHolder(getLayoutInflater().inflate(R.layout.item_wallet_ki, viewGroup, false));
+
+            } else if (viewType == TYPE_RIZON) {
+                return new WalletRizonHolder(getLayoutInflater().inflate(R.layout.item_wallet_rizon, viewGroup, false));
+
+            } else if (viewType == TYPE_MEDI) {
+                return new WalletMediHolder(getLayoutInflater().inflate(R.layout.item_wallet_medi, viewGroup, false));
 
             }
 
@@ -323,6 +335,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(SENTINEL_MAIN)) { return TYPE_SENTINEL; }
                     else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) { return TYPE_PERSIS; }
                     else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) { return TYPE_CRYPTO; }
+                    else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {
@@ -371,6 +384,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) { return TYPE_SECRET; }
                     else if (getMainActivity().mBaseChain.equals(FETCHAI_MAIN)) { return TYPE_FETCH; }
                     else if (getMainActivity().mBaseChain.equals(KI_MAIN)) { return TYPE_KI; }
+                    else if (getMainActivity().mBaseChain.equals(MEDI_TEST)) { return TYPE_MEDI; }
                 } else if (position == 2) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }

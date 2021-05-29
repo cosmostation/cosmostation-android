@@ -310,6 +310,10 @@
     <string name="str_guide_sif">Blog</string>
     <string name="str_faq_ki">Home</string>
     <string name="str_guide_ki">Blog</string>
+    <string name="str_faq_rizon">Home</string>
+    <string name="str_guide_rizon">Blog</string>
+    <string name="str_faq_medi">Home</string>
+    <string name="str_guide_medi">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -502,6 +506,8 @@
     <string name="str_front_guide_title_crypto"><![CDATA[CRYPTO.ORG CHAIN]]></string>
     <string name="str_front_guide_title_sif"><![CDATA[SIF CHAIN]]></string>
     <string name="str_front_guide_title_ki"><![CDATA[KI FOUNDATATION]]></string>
+    <string name="str_front_guide_title_rizon"><![CDATA[RIZON CHAIN]]></string>
+    <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -518,6 +524,8 @@
     <string name="str_front_guide_msg_crypto"><![CDATA[Cosmos SDK based public blockchain network for payments, DeFi, and NFTs.]]></string>
     <string name="str_front_guide_msg_sif"><![CDATA[Omni-chain decentralized exchange built with the Cosmos SDK.]]></string>
     <string name="str_front_guide_msg_ki"><![CDATA[Open-source blockchain platform for decentralized applications.]]></string>
+    <string name="str_front_guide_msg_rizon"><![CDATA[Cosmos SDK based public network bridging traditional businesses with digital currencies.]]></string>
+    <string name="str_front_guide_msg_medi"><![CDATA[Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

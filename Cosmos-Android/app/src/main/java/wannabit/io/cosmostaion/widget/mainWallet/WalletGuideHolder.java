@@ -32,9 +32,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -160,7 +162,7 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.sifchain_img));
             itemGuideTitle.setText(R.string.str_front_guide_title_sif);
             itemGuideMsg.setText(R.string.str_front_guide_msg_sif);
-            itemBtnGuide1.setText(R.string.str_guide_crypto);
+            itemBtnGuide1.setText(R.string.str_guide_sif);
             itemBtnGuide2.setText(R.string.str_faq_sif);
 
         } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
@@ -169,6 +171,20 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_ki);
             itemBtnGuide1.setText(R.string.str_faq_ki);
             itemBtnGuide2.setText(R.string.str_guide_ki);
+
+        } else if (mainActivity.mBaseChain.equals(RIZON_TEST)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_guide_rizon));
+            itemGuideTitle.setText(R.string.str_front_guide_title_rizon);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_rizon);
+            itemBtnGuide1.setText(R.string.str_guide_rizon);
+            itemBtnGuide2.setText(R.string.str_faq_rizon);
+
+        } else if (mainActivity.mBaseChain.equals(MEDI_TEST)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.medibloc_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_medi);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_medi);
+            itemBtnGuide1.setText(R.string.str_faq_medi);
+            itemBtnGuide2.setText(R.string.str_guide_medi);
 
         }
 

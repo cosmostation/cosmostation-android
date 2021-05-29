@@ -1498,6 +1498,7 @@ public class WUtil {
             result = result + ",uxki";
 
         } else if (basechain.equals(MEDI_TEST)) {
+            result = result + ",umed";
 
         }
         return result;
