@@ -21,10 +21,10 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_NODE_INFO;
 
@@ -185,6 +185,16 @@ public class NodeInfoTask extends CommonTask {
 
             } else if (mChain.equals(OK_TEST)) {
                 Response<ResNodeInfo> response =  ApiClient.getOkexChain(mApp).getNodeInfo().execute();
+                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
+                    mResult.resultData = response.body().node_info;
+                    mResult.isSuccess = true;
+
+                } else {
+                    WLog.w("NodeInfoTask : NOk");
+                }
+
+            } else if (mChain.equals(MEDI_TEST)) {
+                Response<ResNodeInfo> response =  ApiClient.getMediTestChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
                     mResult.resultData = response.body().node_info;
                     mResult.isSuccess = true;

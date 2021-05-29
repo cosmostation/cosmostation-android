@@ -1458,6 +1458,8 @@ public class WUtil {
                 }
             }
 
+        } else if (basechain.equals(RIZON_TEST)) {
+
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {
@@ -1494,6 +1496,9 @@ public class WUtil {
 
         } else if (basechain.equals(KI_MAIN)) {
             result = result + ",uxki";
+
+        } else if (basechain.equals(MEDI_TEST)) {
+
         }
         return result;
     }

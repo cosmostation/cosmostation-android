@@ -25,6 +25,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -45,19 +46,6 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
         try {
             if (mChain.equals(KAVA_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getKavaChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(KAVA_TEST)) {
-                Response<ResLcdValidators> response = ApiClient.getKavaTestChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
@@ -95,19 +83,6 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(IOV_TEST)) {
-                Response<ResLcdValidators> response = ApiClient.getIovTestChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(OKEX_MAIN)) {
                 Response<ArrayList<Validator>> response = ApiClient.getOkexChain(mApp).getUnBondedValidatorDetailList().execute();
                 if (!response.isSuccessful()) {
@@ -121,34 +96,8 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(OK_TEST)) {
-                Response<ArrayList<Validator>> response = ApiClient.getOkTestChain(mApp).getUnBondedValidatorDetailList().execute();
-                if (!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if (response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(CERTIK_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getCertikChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(CERTIK_TEST)) {
-                Response<ResLcdValidators> response = ApiClient.getCertikTestChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
@@ -201,6 +150,73 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
 
             } else if (mChain.equals(KI_MAIN)) {
                 Response<ResLcdValidators> response = ApiClient.getKiChain(mApp).getUnBondedValidatorDetailList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            }
+
+            else if (mChain.equals(KAVA_TEST)) {
+                Response<ResLcdValidators> response = ApiClient.getKavaTestChain(mApp).getUnBondedValidatorDetailList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(IOV_TEST)) {
+                Response<ResLcdValidators> response = ApiClient.getIovTestChain(mApp).getUnBondedValidatorDetailList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(OK_TEST)) {
+                Response<ArrayList<Validator>> response = ApiClient.getOkTestChain(mApp).getUnBondedValidatorDetailList().execute();
+                if (!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if (response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(CERTIK_TEST)) {
+                Response<ResLcdValidators> response = ApiClient.getCertikTestChain(mApp).getUnBondedValidatorDetailList().execute();
+                if(!response.isSuccessful()) {
+                    mResult.isSuccess = false;
+                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
+                    return mResult;
+                }
+
+                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
+                    mResult.resultData = response.body().result;
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(MEDI_TEST)) {
+                Response<ResLcdValidators> response = ApiClient.getMediTestChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
