@@ -66,7 +66,14 @@ public struct ApiHistoryCustom {
                 }
             }
             
-            let msgType = getMsgs()![0].object(forKey: "@type") as! String
+            var msgType = ""
+            if let rawMsgType = getMsgs()?[0].object(forKey: "@type") as? String {
+                msgType = rawMsgType
+            }
+            if let rawMsgType = getMsgs()?[0].object(forKey: "type") as? String {
+                msgType = rawMsgType
+            }
+            
             if (msgType.contains("MsgDelegate")) {
                 result = NSLocalizedString("tx_delegate", comment: "")
                 

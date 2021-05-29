@@ -351,12 +351,19 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         } else if (WUtils.isGRPC(chainType!)) {
             let history = mApiCustomHistories[indexPath.row]
-            let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
-            txDetailVC.mIsGen = false
-            txDetailVC.mTxHash = history.tx_hash
-            txDetailVC.hidesBottomBarWhenPushed = true
-            self.navigationItem.title = ""
-            self.navigationController?.pushViewController(txDetailVC, animated: true)
+            if (history.chain_id?.isEmpty == false && (BaseData.instance.getChainId_gRPC() != history.chain_id)) {
+                let link = WUtils.getTxExplorer(self.chainType!, history.tx_hash!)
+                guard let url = URL(string: link) else { return }
+                self.onShowSafariWeb(url)
+                
+            } else {
+                let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history.tx_hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
+            }
             
         } else {
             let history = mApiHistories[indexPath.row]
@@ -485,7 +492,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
                 } else {
                     self.emptyLabel.isHidden = false
                 }
-                
+
             case .failure(let error):
                 self.emptyLabel.isHidden = false
                 if (SHOW_LOG) { print("onFetchApiHistoryCustom ", error) }
