@@ -151,7 +151,7 @@ public class WalletPriceHolder extends BaseHolder {
                     mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/sifchain")));
 
                 } else if (mainActivity.mBaseChain.equals(KI_MAIN)) {
-                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/")));
+                    mainActivity.startActivity(new Intent(Intent.ACTION_VIEW , Uri.parse("https://www.coingecko.com/en/coins/ki")));
 
                 }
             }
