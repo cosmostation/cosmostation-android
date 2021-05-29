@@ -59,8 +59,20 @@ public struct ApiHistoryCustom {
             
         } else {
             if (getMsgCnt() == 2) {
-                let msgType0 = getMsgs()![0].object(forKey: "@type") as! String
-                let msgType1 = getMsgs()![1].object(forKey: "@type") as! String
+                var msgType0 = ""
+                var msgType1 = ""
+                if let rawMsgType = getMsgs()?[0].object(forKey: "@type") as? String {
+                    msgType0 = rawMsgType
+                }
+                if let rawMsgType = getMsgs()?[0].object(forKey: "type") as? String {
+                    msgType0 = rawMsgType
+                }
+                if let rawMsgType = getMsgs()?[1].object(forKey: "@type") as? String {
+                    msgType1 = rawMsgType
+                }
+                if let rawMsgType = getMsgs()?[1].object(forKey: "type") as? String {
+                    msgType1 = rawMsgType
+                }
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
                     return NSLocalizedString("tx_reinvest", comment: "")
                 }
@@ -80,7 +92,7 @@ public struct ApiHistoryCustom {
             } else if (msgType.contains("MsgUndelegate")) {
                 result = NSLocalizedString("tx_undelegate", comment: "")
                 
-            } else if (msgType.contains("MsgWithdrawDelegatorReward")) {
+            } else if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
                 result = NSLocalizedString("tx_get_reward", comment: "")
                 
             } else if (msgType.contains("MsgSend")) {
@@ -98,7 +110,7 @@ public struct ApiHistoryCustom {
             } else if (msgType.contains("MsgBeginRedelegate")) {
                 result = NSLocalizedString("tx_redelegate", comment: "")
                 
-            } else if (msgType.contains("MsgSetWithdrawAddress")) {
+            } else if (msgType.contains("MsgSetWithdrawAddress") || msgType.contains("MsgModifyWithdrawAddress")) {
                 result = NSLocalizedString("tx_change_reward_address", comment: "")
                 
             } else if (msgType.contains("MsgCreateValidator")) {

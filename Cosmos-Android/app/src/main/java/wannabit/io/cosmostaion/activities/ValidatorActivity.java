@@ -1126,11 +1126,20 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
             holder.historyRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
-                    txDetail.putExtra("txHash", history.tx_hash);
-                    txDetail.putExtra("isGen", false);
-                    txDetail.putExtra("isSuccess", true);
-                    startActivity(txDetail);
+                    if (!TextUtils.isEmpty(history.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.chain_id)) {
+                        Intent webintent = new Intent(getBaseContext(), WebActivity.class);
+                        webintent.putExtra("txid", history.tx_hash);
+                        webintent.putExtra("chain", mBaseChain.getChain());
+                        webintent.putExtra("goMain", false);
+                        startActivity(webintent);
+
+                    } else {
+                        Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
+                        txDetail.putExtra("txHash", history.tx_hash);
+                        txDetail.putExtra("isGen", false);
+                        txDetail.putExtra("isSuccess", true);
+                        startActivity(txDetail);
+                    }
                 }
             });
 

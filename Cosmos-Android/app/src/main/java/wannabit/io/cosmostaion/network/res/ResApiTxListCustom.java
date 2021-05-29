@@ -63,28 +63,53 @@ public class ResApiTxListCustom {
             try {
                 String result = "";
                 if (getMsgCnt() == 2) {
-                    String msgType0 =  getMsgs().getJSONObject(0).getString("@type");
-                    String msgType1 =  getMsgs().getJSONObject(1).getString("@type");
+                    String msgType0 = "";
+                    String msgType1 = "";
+                    try {
+                        msgType0 = getMsgs().getJSONObject(0).getString("@type");
+                    } catch (Exception e) { }
+                    try {
+                        msgType0 = getMsgs().getJSONObject(0).getString("type");
+                    } catch (Exception e) { }
+                    try {
+                        msgType1 = getMsgs().getJSONObject(1).getString("@type");
+                    } catch (Exception e) { }
+                    try {
+                        msgType1 = getMsgs().getJSONObject(1).getString("type");
+                    } catch (Exception e) { }
+
                     if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
                         return c.getString(R.string.tx_reinvest);
                     }
                 }
 
-                String msgType =  getMsgs().getJSONObject(0).getString("@type");
+                String msgType = "";
+                try {
+                    msgType = getMsgs().getJSONObject(0).getString("@type");
+                } catch (Exception e) { }
+                try {
+                    msgType = getMsgs().getJSONObject(0).getString("type");
+                } catch (Exception e) { }
+
                 if (msgType.contains("MsgDelegate")) {
                     result = c.getString(R.string.tx_delegate);
                 } else if (msgType.contains("MsgUndelegate")) {
                     result = c.getString(R.string.tx_undelegate);
 
-                } else if (msgType.contains("MsgWithdrawDelegatorReward")) {
+                } else if (msgType.contains("MsgWithdrawDelegatorReward") || msgType.contains("MsgWithdrawDelegationReward")) {
                     result = c.getString(R.string.tx_get_reward);
 
                 } else if (msgType.contains("MsgSend")) {
-                    if (getMsgs().getJSONObject(0).getString("to_address").equals(address)) {
-                        result = c.getString(R.string.tx_receive);
-                    } else if (getMsgs().getJSONObject(0).getString("from_address").equals(address)) {
-                        result = c.getString(R.string.tx_send);
-                    } else {
+                    try {
+                        if (getMsgs().getJSONObject(0).getString("to_address").equals(address)) {
+                            result = c.getString(R.string.tx_receive);
+                        } else if (getMsgs().getJSONObject(0).getString("from_address").equals(address)) {
+                            result = c.getString(R.string.tx_send);
+                        } else {
+                            result = c.getString(R.string.tx_transfer);
+                        }
+
+                    } catch (Exception e) {
                         result = c.getString(R.string.tx_transfer);
                     }
 
@@ -94,7 +119,7 @@ public class ResApiTxListCustom {
                 } else if (msgType.contains("MsgBeginRedelegate")) {
                     result = c.getString(R.string.tx_redelegate);
 
-                } else if (msgType.contains("MsgSetWithdrawAddress")) {
+                } else if (msgType.contains("MsgSetWithdrawAddress") || msgType.contains("MsgModifyWithdrawAddress")) {
                     result = c.getString(R.string.tx_change_reward_address);
 
                 } else if (msgType.contains("MsgCreateValidator")) {
@@ -170,7 +195,9 @@ public class ResApiTxListCustom {
                     result = result +  "\n+ " + (getMsgCnt() - 1);
                 }
                 return result;
-            } catch (Exception e) {}
+            } catch (Exception e) {
+                WLog.w("Exception " + e.getMessage());
+            }
             return "Known";
         }
     }
