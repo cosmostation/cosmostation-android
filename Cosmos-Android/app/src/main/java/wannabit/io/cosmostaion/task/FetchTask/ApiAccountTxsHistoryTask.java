@@ -18,6 +18,8 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 
 public class ApiAccountTxsHistoryTask extends CommonTask {
 
@@ -36,14 +38,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
         try {
             if (mChain.equals(BaseChain.KAVA_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaApi(mApp).getAccountTxs(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-            } else if (mChain.equals(BaseChain.KAVA_TEST)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaTestApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -78,15 +72,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCertikTestApi(mApp).getAccountTxs(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
             } else if (mChain.equals(BaseChain.FETCHAI_MAIN)) {
 //                WLog.w("FETCHAI_MAIN " + ApiClient.getFetchApi(mApp).getAccountTxs(mAddress, "50").request().url());
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getFetchApi(mApp).getAccountTxs(mAddress, "50").execute();
@@ -108,6 +93,35 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(BaseChain.KI_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKiApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            }
+
+            else if (mChain.equals(BaseChain.KAVA_TEST)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getKavaTestApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.CERTIK_TEST)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCertikTestApi(mApp).getAccountTxs(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(MEDI_TEST)) {
+                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getMediTestApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -185,8 +199,17 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            }else if (mChain.equals(IRIS_TEST)) {
+            } else if (mChain.equals(IRIS_TEST)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getIrisTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("HistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(RIZON_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getRizonTestApi(mApp).getAccountTxsCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
