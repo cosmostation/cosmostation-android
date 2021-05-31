@@ -94,6 +94,9 @@
     <string name="url_api_medi_test" translatable="false">https://api-medibloc-opentestnet.cosmostation.io/</string>
 
 
+    <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
+
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
@@ -154,6 +157,7 @@
     <string name="str_certik_test_net">Certik Testnet</string>
     <string name="str_rizon_test_net">Rizon Testnet</string>
     <string name="str_medi_test_net">Medibloc Testnet</string>
+    <string name="str_althea_test_net">Althea Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
