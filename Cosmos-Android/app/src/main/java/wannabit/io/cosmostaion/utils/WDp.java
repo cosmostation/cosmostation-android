@@ -2342,6 +2342,8 @@ public class WDp {
             return CRYPTO_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
             return RIZON_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(ALTHEA_TEST)) {
+            return ALTHEA_VAL_URL + opAddress + ".png";
         }
 
         else if (basechain.equals(KAVA_MAIN) || basechain.equals(KAVA_TEST)) {
@@ -2364,8 +2366,6 @@ public class WDp {
             return KI_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(MEDI_TEST)) {
             return MEDI_VAL_URL + opAddress + ".png";
-        } else if (basechain.equals(ALTHEA_TEST)) {
-            return ALTHEA_VAL_URL + opAddress + ".png";
         }
         return "";
     }
