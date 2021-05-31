@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WLog;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
@@ -201,6 +202,14 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
 
             } else if (mChain.equals(RIZON_TEST)) {
                 Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getRizonTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                } else {
+                    WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+            } else if (mChain.equals(ALTHEA_TEST)) {
+                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getAltheaTestApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
