@@ -405,6 +405,8 @@
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
     <string name="str_medi_chain_test_2" translatable="false">Medibloc Testnet</string>
+    <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
+    <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -430,6 +432,7 @@
     <string name="str_ki_main" translatable="false">KI</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
+    <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
