@@ -1461,6 +1461,8 @@ public class WUtil {
 
         } else if (basechain.equals(RIZON_TEST)) {
 
+        } else if (basechain.equals(ALTHEA_TEST)) {
+
         }
 
         else if (basechain.equals(BNB_MAIN) || basechain.equals(BNB_TEST)) {

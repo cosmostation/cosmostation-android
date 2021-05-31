@@ -421,9 +421,9 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
         } else if (mBaseChain.equals(ALTHEA_TEST)) {
             mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_althea));
             mToolbarChainName.setText(getString(R.string.str_althea_chain_test));
-            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAlthea));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorBlack));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAlthea));
-
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorBlack));
         }
 
 //        if (mContentsPager != null) {

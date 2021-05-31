@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -185,6 +186,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_medi);
             itemBtnGuide1.setText(R.string.str_faq_medi);
             itemBtnGuide2.setText(R.string.str_guide_medi);
+
+        } else if (mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.althea_img));
+            itemGuideTitle.setText(R.string.str_front_guide_title_althea);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_althea);
+            itemBtnGuide1.setText(R.string.str_faq_althea);
+            itemBtnGuide2.setText(R.string.str_guide_althea);
 
         }
 
