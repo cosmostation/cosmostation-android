@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -307,6 +308,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(MEDI_TEST)) {
                 if (userInput.startsWith("panacea1") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mToAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(ALTHEA_TEST)) {
+                if (userInput.startsWith("althea1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {
