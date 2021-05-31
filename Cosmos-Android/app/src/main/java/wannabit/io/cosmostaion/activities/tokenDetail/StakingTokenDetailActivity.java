@@ -30,6 +30,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenAkashHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenAltheaHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenBnbHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCosmosHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCrytoHolder;
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenSifHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -193,7 +195,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private static final int TYPE_SENTINEL              = 3;
     private static final int TYPE_PERSISTENCE           = 4;
     private static final int TYPE_CRYPTO                = 5;
-    private static final int TYPE_RIZON                = 6;
+    private static final int TYPE_RIZON                 = 6;
+    private static final int TYPE_ALTHEA                = 7;
 
     private static final int TYPE_SIF                   = 31;
     private static final int TYPE_OKEX                  = 32;
@@ -222,6 +225,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenCrytoHolder(getLayoutInflater().inflate(R.layout.layout_card_cryto, viewGroup, false));
             } else if (viewType == TYPE_RIZON) {
                 return new TokenRizonHolder(getLayoutInflater().inflate(R.layout.layout_card_rizon, viewGroup, false));
+            } else if (viewType == TYPE_ALTHEA) {
+                return new TokenAltheaHolder(getLayoutInflater().inflate(R.layout.layout_card_althea, viewGroup, false));
             }
 
             else if (viewType == TYPE_SIF) {
@@ -263,6 +268,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_RIZON) {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+
+            } else if (getItemViewType(position) == TYPE_ALTHEA) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             }
@@ -338,6 +346,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return TYPE_CRYPTO;
                 } else if (mBaseChain.equals(RIZON_TEST)) {
                     return TYPE_RIZON;
+                } else if (mBaseChain.equals(ALTHEA_TEST)) {
+                    return TYPE_ALTHEA;
                 }
 
                 if ((mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST))) {

@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -69,6 +70,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -319,6 +321,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindRizonItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(MEDI_TEST)) {
                 onBindMediItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) {
+                onBindAltheaItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(COSMOS_TEST)) {
                 onBindCosmosTestItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(IRIS_TEST)) {
@@ -869,6 +873,40 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_RIZON);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else if (coin.denom.startsWith("ibc/")) {
+            holder.itemSymbol.setText("IBC");
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemInnerSymbol.setText("(unKnown)");
+            holder.itemFullName.setText(coin.denom);
+            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
+
+        } else {
+
+        }
+    }
+
+    private void onBindAltheaItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+        if (coin.denom.equals(TOKEN_ALTHEA)) {
+            holder.itemSymbol.setText(getString(R.string.str_althea_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), ALTHEA_TEST));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Althea Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenalthea));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ALTHEA);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override
