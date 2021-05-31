@@ -62,6 +62,7 @@ import wannabit.io.cosmostaion.network.res.ResTxInfo;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -88,6 +89,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.AKASH_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.BAND_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.CERTIK_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.COSMOS_VAL_URL;
@@ -97,6 +99,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.FETCH_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IOV_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.IRIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.KEY_ALTHEA_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_MEDI_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KEY_RIZON_PATH;
 import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
@@ -109,6 +112,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SENTINEL_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ATOM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BAND;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_BNB;
@@ -287,6 +291,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(ALTHEA_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
+
         }
     }
 
@@ -412,6 +420,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
+        } else if (chain.equals(ALTHEA_TEST)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
+
         }
     }
 
@@ -419,7 +431,7 @@ public class WDp {
     public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
         BigDecimal result = BigDecimal.ZERO;
         if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYPTO_MAIN) ||
-                chain.equals(COSMOS_TEST) || chain.equals(RIZON_TEST)) {
+                chain.equals(COSMOS_TEST) || chain.equals(RIZON_TEST) || chain.equals(ALTHEA_TEST)) {
             if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
             BigDecimal provisions = baseData.mGrpcProvision;
             BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
@@ -1321,6 +1333,9 @@ public class WDp {
         } else if (chain.equals(MEDI_TEST)) {
             return KEY_MEDI_PATH + String.valueOf(position);
 
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return KEY_ALTHEA_PATH + String.valueOf(position);
+
         } else {
             return BaseConstant.KEY_PATH + String.valueOf(position);
 
@@ -1715,6 +1730,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorRizon);
         } else if (chain.equals(MEDI_TEST)) {
             return c.getResources().getColor(R.color.colorMedi);
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return c.getResources().getColor(R.color.colorAlthea);
         } else {
             return c.getResources().getColor(R.color.colorGray0);
         }
@@ -1757,6 +1774,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgRizon);
         } else if (chain.equals(MEDI_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgMedi);
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return c.getResources().getColor(R.color.colorTransBgAlthea);
         } else {
             return c.getResources().getColor(R.color.colorTransBg);
         }
@@ -1798,6 +1817,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_rizon);
         } else if (chain.equals(MEDI_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_med);
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_althea);
         }
         return null;
     }
@@ -1837,6 +1858,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorRizon);
         } else if (chain.equals(MEDI_TEST)) {
             return c.getResources().getColorStateList(R.color.colorMedi);
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return c.getResources().getColorStateList(R.color.colorAlthea);
         }
         return null;
     }
@@ -1928,6 +1951,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorMedi));
             textview.setText(c.getString(R.string.s_medi));
 
+        } else if (BaseChain.getChain(chain).equals(ALTHEA_TEST)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorAlthea));
+            textview.setText(c.getString(R.string.s_althea));
+
         }
     }
 
@@ -1974,6 +2001,8 @@ public class WDp {
             return TOKEN_RIZON;
         } else if (chain.equals(MEDI_TEST)) {
             return TOKEN_MEDI;
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return TOKEN_ALTHEA;
         }
         return "";
     }
@@ -1983,7 +2012,7 @@ public class WDp {
             return 0;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 0;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(ALTHEA_TEST)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -1997,7 +2026,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 18;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(ALTHEA_TEST)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -2335,6 +2364,8 @@ public class WDp {
             return KI_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(MEDI_TEST)) {
             return MEDI_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(ALTHEA_TEST)) {
+            return ALTHEA_VAL_URL + opAddress + ".png";
         }
         return "";
     }

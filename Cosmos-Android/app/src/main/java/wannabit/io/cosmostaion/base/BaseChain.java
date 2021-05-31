@@ -81,7 +81,8 @@ public enum BaseChain {
     CERTIK_TEST_LEGACY1("shentu-incentivized-3"),
     CERTIK_TEST("certik-testnet"),
     RIZON_TEST("rizon-testnet"),
-    MEDI_TEST("medi-testnet");
+    MEDI_TEST("medi-testnet"),
+    ALTHEA_TEST("althea-testnet");
 
     private final String chainName;
 
@@ -210,6 +211,9 @@ public enum BaseChain {
         if (chainName.equals(MEDI_TEST.chainName)) {
             return MEDI_TEST;
         }
+        if (chainName.equals(ALTHEA_TEST.chainName)) {
+            return ALTHEA_TEST;
+        }
         return null;
     }
 
@@ -242,6 +246,7 @@ public enum BaseChain {
 //        result.add(CERTIK_TEST);
 //        result.add(RIZON_TEST);
 //        result.add(MEDI_TEST);
+        result.add(ALTHEA_TEST);
         return result;
     }
 
@@ -306,6 +311,8 @@ public enum BaseChain {
         } else if (baseChain.equals(CRYPTO_MAIN)) {
             return true;
         } else if (baseChain.equals(RIZON_TEST)) {
+            return true;
+        } else if (baseChain.equals(ALTHEA_TEST)) {
             return true;
         }
 

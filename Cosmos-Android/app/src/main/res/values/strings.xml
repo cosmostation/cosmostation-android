@@ -1411,6 +1411,7 @@
     <string name="s_ki" translatable="false">XKI</string>
     <string name="s_rizon" translatable="false">ATOLO</string>
     <string name="s_medi" translatable="false">MED</string>
+    <string name="s_althea" translatable="false">ALTG</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

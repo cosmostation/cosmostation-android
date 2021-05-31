@@ -33,6 +33,7 @@ import wannabit.io.cosmostaion.crypto.Sha256;
 
 import static org.bitcoinj.core.ECKey.CURVE;
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -156,6 +157,9 @@ public class WKey {
 
         } else if (chain.equals(MEDI_TEST)) {
             return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(371, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
 
         }
         return  ImmutableList.of(new ChildNumber(44, true), new ChildNumber(118, true), ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
@@ -333,6 +337,8 @@ public class WKey {
                 result = bech32Encode("rizon".getBytes(), converted);
             } else if (chain.equals(MEDI_TEST)){
                 result = bech32Encode("panacea".getBytes(), converted);
+            } else if (chain.equals(ALTHEA_TEST)){
+                result = bech32Encode("althea".getBytes(), converted);
             }
 
         } catch (Exception e) {
@@ -380,6 +386,8 @@ public class WKey {
             return bech32Encode("rizon".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(MEDI_TEST)) {
             return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
@@ -420,6 +428,8 @@ public class WKey {
             return bech32Encode("rizonvaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(MEDI_TEST)) {
             return bech32Encode("panaceavaloper".getBytes(), bech32Decode(dpOpAddress).data);
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return bech32Encode("altheavaloper".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }
