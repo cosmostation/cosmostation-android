@@ -35,12 +35,12 @@ public class TokenAltheaHolder extends BaseHolder {
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
-        mTvAltheaTotal.setText(WDp.getDpAmount2(c, totalAmount, 18, 18));
-        mTvAltheaAvailable.setText(WDp.getDpAmount2(c, availableAmount, 18, 18));
-        mTvAltheaDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 18, 18));
-        mTvAltheaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 18, 18));
-        mTvAltheaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 18, 18));
-        mTvAltheaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
+        mTvAltheaTotal.setText(WDp.getDpAmount2(c, totalAmount, 6, 6));
+        mTvAltheaAvailable.setText(WDp.getDpAmount2(c, availableAmount, 6, 6));
+        mTvAltheaDelegated.setText(WDp.getDpAmount2(c, delegateAmount, 6, 6));
+        mTvAltheaUnBonding.setText(WDp.getDpAmount2(c, unbondingAmount, 6, 6));
+        mTvAltheaRewards.setText(WDp.getDpAmount2(c, rewardAmount, 6, 6));
+        mTvAltheaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
 
     }
 }

@@ -45,12 +45,12 @@ public class WalletAltheaHolder extends BaseHolder {
         final BigDecimal rewardAmount = baseData.getRewardSum(denom);
         final BigDecimal totalAmount = baseData.getAllMainAsset(denom);
 
-        mTvAltheaTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 18, 6));
-        mTvAltheaAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 18, 6));
-        mTvAltheaDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 18, 6));
-        mTvAltheaUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 18, 6));
-        mTvAltheaRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 18, 6));
-        mTvAltheaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 18));
+        mTvAltheaTotal.setText(WDp.getDpAmount2(mainActivity, totalAmount, 6, 6));
+        mTvAltheaAvailable.setText(WDp.getDpAmount2(mainActivity, availableAmount, 6, 6));
+        mTvAltheaDelegated.setText(WDp.getDpAmount2(mainActivity, delegateAmount, 6, 6));
+        mTvAltheaUnBonding.setText(WDp.getDpAmount2(mainActivity, unbondingAmount, 6, 6));
+        mTvAltheaRewards.setText(WDp.getDpAmount2(mainActivity, rewardAmount, 6, 6));
+        mTvAltheaValue.setText(WDp.dpUserCurrencyValue(baseData, denom, totalAmount, 6));
         mainActivity.getBaseDao().onUpdateLastTotalAccount(mainActivity.mAccount, totalAmount.toPlainString());
 
         mBtnStake.setOnClickListener(new View.OnClickListener() {

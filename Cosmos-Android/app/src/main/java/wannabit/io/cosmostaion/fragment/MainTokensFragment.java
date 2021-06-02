@@ -906,7 +906,7 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.tokenalthea));
 
             BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_ALTHEA);
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 18, 6));
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
             holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
             holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                 @Override

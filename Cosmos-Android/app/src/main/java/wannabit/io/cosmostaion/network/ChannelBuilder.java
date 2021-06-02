@@ -45,7 +45,7 @@ public class ChannelBuilder {
     private final static int PORT_RIZON_TEST = 9090;
 
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_ALTHEA_TEST = 9090;
+    private final static int PORT_ALTHEA_TEST = 9096;
 
 
     public final static int TIME_OUT = 8;

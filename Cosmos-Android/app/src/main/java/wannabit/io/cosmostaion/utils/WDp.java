@@ -293,8 +293,7 @@ public class WDp {
 
         } else if (chain.equals(ALTHEA_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 18, 18));
-
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
         }
     }
 
@@ -422,8 +421,7 @@ public class WDp {
 
         } else if (chain.equals(ALTHEA_TEST)) {
             DpMainDenom(c, chain.getChain(), denomTv);
-            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 18, 18));
-
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
     }
 
@@ -2012,7 +2010,7 @@ public class WDp {
             return 0;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 0;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
@@ -2026,7 +2024,7 @@ public class WDp {
             return 8;
         } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
             return 18;
-        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN) || chain.equals(ALTHEA_TEST)) {
+        } else if (chain.equals(FETCHAI_MAIN) || chain.equals(SIF_MAIN)) {
             return 18;
         } else if (chain.equals(CRYPTO_MAIN)) {
             return 8;
