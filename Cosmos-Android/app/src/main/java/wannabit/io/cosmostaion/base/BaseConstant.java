@@ -166,6 +166,10 @@ public class BaseConstant {
 
     public final static int TASK_FETCH_PRICE_INFO                       = 2800;
 
+    public final static int TASK_HDAC_NODE_INFO                         = 2900;
+    public final static int TASK_HDAC_UTXO                              = 2901;
+    public final static int TASK_HDAC_BROAD_BURN                        = 2902;
+
     //gRPC
     public final static int TASK_GRPC_FETCH_BALANCE                     = 4001;
     public final static int TASK_GRPC_FETCH_BONDED_VALIDATORS           = 4002;
