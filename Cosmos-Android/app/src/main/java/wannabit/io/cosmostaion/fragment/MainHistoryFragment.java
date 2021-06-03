@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,7 +26,6 @@ import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
 import wannabit.io.cosmostaion.activities.TxDetailActivity;
 import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
-import wannabit.io.cosmostaion.activities.WebActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
@@ -39,6 +39,7 @@ import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WLog;
+import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -96,13 +97,6 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
 //                txDetail.putExtra("isGen", false);
 //                txDetail.putExtra("isSuccess", true);
 //                startActivity(txDetail);
-//                if (getMainActivity().mBaseChain.equals(SECRET_MAIN)) {
-//                    Intent webintent = new Intent(getMainActivity(), WebActivity.class);
-//                    webintent.putExtra("address", getMainActivity().mAccount.address);
-//                    webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-//                    webintent.putExtra("goMain", false);
-//                    getMainActivity().startActivity(webintent);
-//                }
             }
         });
 
@@ -276,11 +270,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     @Override
                     public void onClick(View v) {
                         if (!TextUtils.isEmpty(history.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.chain_id)) {
-                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                            webintent.putExtra("txid", history.tx_hash);
-                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                            webintent.putExtra("goMain", false);
-                            startActivity(webintent);
+                            String url  = WUtil.getTxExplorer(getMainActivity().mBaseChain, history.tx_hash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
 
                         } else {
                             Intent txDetail = new Intent(getBaseActivity(), TxDetailgRPCActivity.class);
@@ -312,10 +304,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                                 startActivity(txDetail);
 
                             } else {
-                                Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                                webintent.putExtra("txid", history.txHash);
-                                webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                                startActivity(webintent);
+                                String url  = WUtil.getTxExplorer(getMainActivity().mBaseChain, history.txHash);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(intent);
                             }
                         }
                     });
@@ -330,10 +321,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                            webintent.putExtra("txid", history.txhash);
-                            webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                            startActivity(webintent);
+                            String url  = WUtil.getTxExplorer(getMainActivity().mBaseChain, history.txhash);
+                            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                            startActivity(intent);
                         }
                     });
 
@@ -354,11 +344,9 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                         @Override
                         public void onClick(View v) {
                             if (!TextUtils.isEmpty(tx.chain_id) && !getBaseDao().getChainId().equals(tx.chain_id)) {
-                                Intent webintent = new Intent(getBaseActivity(), WebActivity.class);
-                                webintent.putExtra("txid", tx.tx_hash);
-                                webintent.putExtra("chain", getMainActivity().mBaseChain.getChain());
-                                webintent.putExtra("goMain", false);
-                                startActivity(webintent);
+                                String url  = WUtil.getTxExplorer(getMainActivity().mBaseChain, tx.tx_hash);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                                startActivity(intent);
 
                             } else {
                                 Intent txDetail = new Intent(getBaseActivity(), TxDetailActivity.class);

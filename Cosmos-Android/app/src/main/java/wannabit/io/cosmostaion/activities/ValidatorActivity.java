@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.SpannableString;
@@ -70,14 +71,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
-import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
@@ -940,11 +934,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     if (!TextUtils.isEmpty(tx.chain_id) && !getBaseDao().getChainId().equals(tx.chain_id)) {
-                        Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                        webintent.putExtra("txid", tx.tx_hash);
-                        webintent.putExtra("chain", mBaseChain.getChain());
-                        webintent.putExtra("goMain", false);
-                        startActivity(webintent);
+                        String url  = WUtil.getTxExplorer(mBaseChain, tx.tx_hash);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
 
                     } else {
                         Intent txDetail = new Intent(getBaseContext(), TxDetailActivity.class);
@@ -1127,11 +1119,9 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
                 @Override
                 public void onClick(View v) {
                     if (!TextUtils.isEmpty(history.chain_id) && !getBaseDao().getChainIdGrpc().equals(history.chain_id)) {
-                        Intent webintent = new Intent(getBaseContext(), WebActivity.class);
-                        webintent.putExtra("txid", history.tx_hash);
-                        webintent.putExtra("chain", mBaseChain.getChain());
-                        webintent.putExtra("goMain", false);
-                        startActivity(webintent);
+                        String url  = WUtil.getTxExplorer(mBaseChain, history.tx_hash);
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
 
                     } else {
                         Intent txDetail = new Intent(getBaseContext(), TxDetailgRPCActivity.class);
