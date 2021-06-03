@@ -2863,11 +2863,8 @@ public class WUtil {
         } else if (basechain.equals(PERSIS_MAIN)) {
             return EXPLORER_PERSIS_MAIN;
 
-        } else if (basechain.equals(RIZON_TEST)) {
-            return EXPLORER_RIZON_TEST;
-
-        } else if (basechain.equals(ALTHEA_TEST)) {
-            return EXPLORER_ALTHEA_TEST;
+        } else if (basechain.equals(CRYPTO_MAIN)) {
+            return EXPLORER_CRYPTOORG_MAIN;
 
         }
 
@@ -2876,6 +2873,12 @@ public class WUtil {
 
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST;
+
+        } else if (basechain.equals(RIZON_TEST)) {
+            return EXPLORER_RIZON_TEST;
+
+        } else if (basechain.equals(ALTHEA_TEST)) {
+            return EXPLORER_ALTHEA_TEST;
 
         }
         return "";
@@ -2921,6 +2924,9 @@ public class WUtil {
         } else if (basechain.equals(KI_MAIN)) {
             return EXPLORER_KI_MAIN + "txs/" + hash;
 
+        } else if (basechain.equals(MEDI_TEST)) {
+            return EXPLORER_MEDI_TEST + "txs/" + hash;
+
         }
 
         else if (basechain.equals(COSMOS_MAIN)) {
@@ -2948,6 +2954,12 @@ public class WUtil {
 
         } else if (basechain.equals(IRIS_TEST)) {
             return EXPLORER_IRIS_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(RIZON_TEST)) {
+            return EXPLORER_RIZON_TEST + "txs/" + hash;
+
+        } else if (basechain.equals(ALTHEA_TEST)) {
+            return EXPLORER_ALTHEA_TEST + "txs/" + hash;
 
         }
         return "";

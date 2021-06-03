@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -191,10 +192,14 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                         startActivity(voteIntent);
 
                     } else {
-                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                        webintent.putExtra("voteId", proposal.id);
-                        webintent.putExtra("chain", mAccount.baseChain);
-                        startActivity(webintent);
+                        String url;
+                        if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+                            url = WUtil.getExplorer(mBaseChain) + "governance/proposals/" + proposal.id;
+                        } else {
+                            url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
+                        }
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
                     }
                 }
             });
@@ -293,12 +298,10 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                         voteIntent.putExtra("proposalId", String.valueOf(proposal.getProposalId()));
                         startActivity(voteIntent);
                     } else {
-                        Intent webintent = new Intent(VoteListActivity.this, WebActivity.class);
-                        webintent.putExtra("voteId", "" + proposal.getProposalId());
-                        webintent.putExtra("chain", mAccount.baseChain);
-                        startActivity(webintent);
+                        String url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.getProposalId();
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
                     }
-
                 }
             });
         }
