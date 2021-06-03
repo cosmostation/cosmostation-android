@@ -29,8 +29,9 @@
     <color name="colorTransBgCryto">#241199fa</color>
     <color name="colorTransBgSif">#24c19f33</color>
     <color name="colorTransBgKi">#243756fc</color>
-    <color name="colorTransBgRizon">#248281fb</color>
+    <color name="colorTransBgRizon">#268c8af2</color>
     <color name="colorTransBgMedi">#2479aaf2</color>
+    <color name="colorTransBgAlthea">#24eadea5</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorGray0">#3D3D3D</color>
@@ -101,11 +102,14 @@
     <color name="colorKi">#3756fc</color>
     <color name="colorKi2">#02188d</color>
 
-    <color name="colorRizon">#8281fb</color>
-    <color name="colorRizon2">#40408B</color>
+    <color name="colorRizon">#8c8af2</color>
+    <color name="colorRizon2">#484773</color>
 
     <color name="colorMedi">#79aaf2</color>
     <color name="colorMedi2">#0d3d84</color>
+
+    <color name="colorAlthea">#eadea5</color>
+    <color name="colorAlthea2">#7d7659</color>
 
     <color name="colorRed">#f31963</color>
     <color name="colorRipple1">#AA000000</color>

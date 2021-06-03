@@ -38,6 +38,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.TokenBaseHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenHardHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -213,6 +214,7 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
         private static final int TYPE_KAVA                  = 1;
         private static final int TYPE_OKEX                  = 2;
         private static final int TYPE_SIF                   = 3;
+        private static final int TYPE_ALTHEA                = 4;
 
         private static final int TYPE_HARD                  = 98;
         private static final int TYPE_VESTING               = 99;
@@ -233,6 +235,9 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 return new TokenBaseHolder(getLayoutInflater().inflate(R.layout.item_token_base, viewGroup, false));
 
             } else if (viewType == TYPE_SIF) {
+                return new TokenBaseHolder(getLayoutInflater().inflate(R.layout.item_token_base, viewGroup, false));
+
+            } else if (viewType == TYPE_ALTHEA) {
                 return new TokenBaseHolder(getLayoutInflater().inflate(R.layout.item_token_base, viewGroup, false));
 
             }
@@ -261,6 +266,9 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
                 viewHolder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
 
             } else if (getItemViewType(position) == TYPE_SIF) {
+                viewHolder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
+
+            } else if (getItemViewType(position) == TYPE_ALTHEA) {
                 viewHolder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), mDenom);
 
 
@@ -326,6 +334,10 @@ public class NativeTokenDetailActivity extends BaseActivity implements View.OnCl
 
             } else if (mBaseChain.equals(SIF_MAIN)) {
                 if (position == 0) return TYPE_SIF;
+                else return TYPE_HISTORY;
+
+            } else if (mBaseChain.equals(ALTHEA_TEST)) {
+                if (position == 0) return TYPE_ALTHEA;
                 else return TYPE_HISTORY;
 
             }

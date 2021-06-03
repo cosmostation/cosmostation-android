@@ -427,10 +427,10 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
             
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
-            
+
             let channel = BaseNetWork.getConnection(self.pageHolderVC.chainType!, group)!
             defer { try! channel.close().wait() }
-            
+
             do {
                 let response = try Cosmos_Tx_V1beta1_ServiceClient(channel: channel).broadcastTx(reqTx).response.wait()
 //                print("response ", response.txResponse.txhash)

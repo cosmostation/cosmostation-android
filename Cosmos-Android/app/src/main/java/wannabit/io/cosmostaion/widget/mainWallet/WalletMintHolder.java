@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
@@ -42,7 +43,8 @@ public class WalletMintHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final BaseData baseData = mainActivity.getBaseDao();
         if (mainActivity.mBaseChain.equals(COSMOS_MAIN) || mainActivity.mBaseChain.equals(AKASH_MAIN) || mainActivity.mBaseChain.equals(SENTINEL_MAIN) ||
-            mainActivity.mBaseChain.equals(PERSIS_MAIN) || mainActivity.mBaseChain.equals(CRYPTO_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST) || mainActivity.mBaseChain.equals(RIZON_TEST)) {
+            mainActivity.mBaseChain.equals(PERSIS_MAIN) || mainActivity.mBaseChain.equals(CRYPTO_MAIN) || mainActivity.mBaseChain.equals(COSMOS_TEST) ||
+                 mainActivity.mBaseChain.equals(RIZON_TEST) || mainActivity.mBaseChain.equals(ALTHEA_TEST)) {
             if (baseData.mGrpcInflation != null) mInflation.setText(WDp.getPercentDp(baseData.mGrpcInflation.multiply(new BigDecimal("100"))));
             mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
 

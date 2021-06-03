@@ -16,6 +16,7 @@ import wannabit.io.cosmostaion.base.BaseActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
@@ -38,8 +39,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
     private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mSecret, mCosmosTest, mIrisTest;
-    private LinearLayout mRizonTestLayer, mMediTestLayer;
-    private LinearLayout mRizonTest, mMediTest;
+    private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer;
+    private LinearLayout mRizonTest, mMediTest, mAltheaTest;
 
     public static Dialog_ChoiceNet newInstance(Bundle bundle) {
         Dialog_ChoiceNet frag = new Dialog_ChoiceNet();
@@ -96,6 +97,8 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mRizonTest = view.findViewById(R.id.rizon_test_net);
         mMediTestLayer = view.findViewById(R.id.medi_test_layer);
         mMediTest = view.findViewById(R.id.medi_test_net);
+        mAltheaTestLayer = view.findViewById(R.id.althea_test_layer);
+        mAltheaTest = view.findViewById(R.id.althea_test_net);
 
 
 
@@ -323,6 +326,17 @@ public class Dialog_ChoiceNet extends DialogFragment {
                 @Override
                 public void onClick(View v) {
                     ((BaseActivity)getActivity()).onChoiceNet(MEDI_TEST);
+                    getDialog().dismiss();
+                }
+            });
+        }
+
+        if (BaseChain.SUPPORT_CHAINS().contains(ALTHEA_TEST)) {
+            mAltheaTestLayer.setVisibility(View.VISIBLE);
+            mAltheaTest.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((BaseActivity)getActivity()).onChoiceNet(ALTHEA_TEST);
                     getDialog().dismiss();
                 }
             });
