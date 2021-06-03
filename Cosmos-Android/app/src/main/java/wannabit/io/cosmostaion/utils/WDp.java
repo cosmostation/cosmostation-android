@@ -292,7 +292,11 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(ALTHEA_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_ALTHEA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
         }
     }
@@ -420,7 +424,11 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(ALTHEA_TEST)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_ALTHEA)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
         }
     }

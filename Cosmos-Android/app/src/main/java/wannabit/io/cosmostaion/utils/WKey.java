@@ -387,7 +387,7 @@ public class WKey {
         } else if (chain.equals(MEDI_TEST)) {
             return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
         } else if (chain.equals(ALTHEA_TEST)) {
-            return bech32Encode("panacea".getBytes(), bech32Decode(dpOpAddress).data);
+            return bech32Encode("althea".getBytes(), bech32Decode(dpOpAddress).data);
         } else {
             return "";
         }

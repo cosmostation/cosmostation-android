@@ -66,6 +66,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
@@ -915,16 +916,25 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 }
             });
 
-        } else if (coin.denom.startsWith("ibc/")) {
-            holder.itemSymbol.setText("IBC");
-            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
-            holder.itemInnerSymbol.setText("(unKnown)");
-            holder.itemFullName.setText(coin.denom);
-            holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
-            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_default_ibc));
-            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), new BigDecimal(coin.amount), 6, 6));
-
         } else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Althea Chain");
+            Picasso.get().load(ALTHEA_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+
+            BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom.substring(1), totalAmount, 6));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", coin.denom);
+                    startActivity(intent);
+                }
+            });
 
         }
     }

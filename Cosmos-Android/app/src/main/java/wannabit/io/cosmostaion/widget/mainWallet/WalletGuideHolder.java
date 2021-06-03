@@ -174,7 +174,7 @@ public class WalletGuideHolder extends BaseHolder {
             itemBtnGuide2.setText(R.string.str_guide_ki);
 
         } else if (mainActivity.mBaseChain.equals(RIZON_TEST)) {
-            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.ic_guide_rizon));
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));
             itemGuideTitle.setText(R.string.str_front_guide_title_rizon);
             itemGuideMsg.setText(R.string.str_front_guide_msg_rizon);
             itemBtnGuide1.setText(R.string.str_guide_rizon);

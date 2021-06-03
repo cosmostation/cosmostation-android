@@ -2425,7 +2425,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -2920,7 +2920,7 @@ public class WUtil {
             return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
 
         }
-
+        
         else if (basechain.equals(COSMOS_TEST)) {
             return EXPLORER_COSMOS_TEST + "txs/" + hash;
 
