@@ -662,7 +662,7 @@ public class BaseConstant {
     public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String SIF_COIN_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
-    public final static String ALTHEA_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
+    public final static String ALTHEA_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/althea/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
