@@ -58,6 +58,7 @@ import wannabit.io.cosmostaion.widget.StopViewPager;
 import wannabit.io.cosmostaion.widget.TintableImageView;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -417,6 +418,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorMedi));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorMedi));
 
+        } else if (mBaseChain.equals(ALTHEA_TEST)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_althea));
+            mToolbarChainName.setText(getString(R.string.str_althea_chain_test));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorAlthea));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorAlthea));
+            mFloatBtn.setImageTintList(getResources().getColorStateList(R.color.colorBlack));
         }
 
 //        if (mContentsPager != null) {
@@ -790,6 +797,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_medibloc));
                     holder.chainName.setText(getString(R.string.str_medi_test));
+
+                } else if (chain.equals(ALTHEA_TEST)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.testnet_althea));
+                    holder.chainName.setText(getString(R.string.str_althea_test));
 
                 }
             }

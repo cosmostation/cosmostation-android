@@ -21,6 +21,7 @@ import wannabit.io.cosmostaion.utils.WDp;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -29,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
@@ -62,7 +64,7 @@ public class TokenBaseHolder extends BaseHolder {
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         if (isGRPC(chain)) {
-
+            onBindAltheaToken(c, chain, baseData, denom);
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             onBindBnbToken(c, chain, baseData, denom);
 
@@ -146,5 +148,17 @@ public class TokenBaseHolder extends BaseHolder {
         mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, dpDecimal, dpDecimal));
         mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, denom.substring(1), totalAmount, dpDecimal));
         Picasso.get().load(SIF_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
+    }
+
+    public void onBindAltheaToken(Context context, BaseChain chain, BaseData baseData, String denom) {
+        mTvTokenTitle.setText(denom.substring(1).toUpperCase());
+        mTvTokenDenom.setText("(" + denom + ")");
+
+        final BigDecimal totalAmount = baseData.getAvailable(denom);
+
+        mTvTokenAvailable.setText(WDp.getDpAmount2(context, totalAmount, 6, 6));
+        mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, 6, 6));
+        mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, denom.substring(1), totalAmount, 6));
+        Picasso.get().load(ALTHEA_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
     }
 }

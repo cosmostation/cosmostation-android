@@ -440,6 +440,7 @@ public class BaseConstant {
     public final static String TOKEN_KI             = "uxki";
     public final static String TOKEN_RIZON          = "uatolo";
     public final static String TOKEN_MEDI           = "umed";
+    public final static String TOKEN_ALTHEA         = "ualtg";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -478,6 +479,7 @@ public class BaseConstant {
     public final static String KEY_CRYPTO_PATH      = "44'/394'/0'/0/";
     public final static String KEY_RIZON_PATH       = "44'/1217'/0'/0/";
     public final static String KEY_MEDI_PATH        = "44'/371'/0'/0/";
+    public final static String KEY_ALTHEA_PATH      = "44'/60'/0'/0/";
     public final static String characterFilter      = "[^\\p{L}\\p{M}\\p{N}\\p{P}\\p{Z}\\p{Cf}\\p{Cs}\\s]";
 
 
@@ -652,6 +654,7 @@ public class BaseConstant {
     public final static String KI_VAL_URL               = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
     public final static String RIZON_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
     public final static String MEDI_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
+    public final static String ALTHEA_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
@@ -659,6 +662,7 @@ public class BaseConstant {
     public final static String TOKEN_IMG_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/";
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String SIF_COIN_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
+    public final static String ALTHEA_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";

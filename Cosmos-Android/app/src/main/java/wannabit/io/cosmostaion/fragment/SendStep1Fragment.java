@@ -110,7 +110,8 @@ public class SendStep1Fragment extends BaseFragment implements View.OnClickListe
                 WDp.showCoinDp(getContext(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
 
             } else {
-                // not staking denom send
+                mMaxAvailable = getBaseDao().getAvailable(toSendDenom);
+                WDp.showCoinDp(getContext(), toSendDenom, mMaxAvailable.toPlainString(), mDenomTitle, mAvailableAmount, getSActivity().mBaseChain);
             }
 
         } else {

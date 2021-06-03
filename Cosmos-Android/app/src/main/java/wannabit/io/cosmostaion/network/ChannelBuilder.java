@@ -5,6 +5,7 @@ import io.grpc.ManagedChannelBuilder;
 import wannabit.io.cosmostaion.base.BaseChain;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
@@ -43,6 +44,9 @@ public class ChannelBuilder {
     private final static String GRPC_RIZON_TEST = "lcd-rizon-testnet.cosmostation.io";
     private final static int PORT_RIZON_TEST = 9090;
 
+    private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
+    private final static int PORT_ALTHEA_TEST = 9096;
+
 
     public final static int TIME_OUT = 8;
 
@@ -68,6 +72,8 @@ public class ChannelBuilder {
             return getIrisTest();
         } else if (chain.equals(RIZON_TEST)) {
             return getRizonTest();
+        } else if (chain.equals(ALTHEA_TEST)) {
+            return getAltheaTest();
         }
         return null;
     }
@@ -192,5 +198,18 @@ public class ChannelBuilder {
             }
         }
         return channel_rizon_test;
+    }
+
+    //Channel for althea testnet
+    private static ManagedChannel channel_althea_test = null;
+    public static ManagedChannel getAltheaTest() {
+        if (channel_althea_test == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_althea_test = ManagedChannelBuilder.forAddress(GRPC_ALTHEA_TEST, PORT_ALTHEA_TEST)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_althea_test;
     }
 }

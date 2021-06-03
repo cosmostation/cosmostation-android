@@ -19,6 +19,7 @@ import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAddressHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletAkashHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletAltheaHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBandHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletBinanceHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletCertikHolder;
@@ -42,6 +43,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletUndelegationHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -205,6 +207,7 @@ public class MainSendFragment extends BaseFragment {
         private static final int TYPE_KI                = 16;
         private static final int TYPE_RIZON             = 17;
         private static final int TYPE_MEDI              = 18;
+        private static final int TYPE_ALTHEA            = 19;
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
@@ -272,6 +275,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_MEDI) {
                 return new WalletMediHolder(getLayoutInflater().inflate(R.layout.item_wallet_medi, viewGroup, false));
 
+            } else if (viewType == TYPE_ALTHEA) {
+                return new WalletAltheaHolder(getLayoutInflater().inflate(R.layout.item_wallet_althea, viewGroup, false));
+
             }
 
 
@@ -336,6 +342,7 @@ public class MainSendFragment extends BaseFragment {
                     else if (getMainActivity().mBaseChain.equals(PERSIS_MAIN)) { return TYPE_PERSIS; }
                     else if (getMainActivity().mBaseChain.equals(CRYPTO_MAIN)) { return TYPE_CRYPTO; }
                     else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) { return TYPE_RIZON; }
+                    else if (getMainActivity().mBaseChain.equals(ALTHEA_TEST)) { return TYPE_ALTHEA; }
                 } else if (position == 2) {
                     return TYPE_PRICE;
                 } else if (position == 3) {

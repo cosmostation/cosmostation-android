@@ -94,6 +94,9 @@
     <string name="url_api_medi_test" translatable="false">https://api-medibloc-opentestnet.cosmostation.io/</string>
 
 
+    <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
+
+
     <string name="key_mnemonic" translatable="false">MNEMONIC_KEY</string>
     <string name="key_password" translatable="false">PASSWORD_KEY</string>
     <string name="str_atom_c" translatable="false">ATOM</string>
@@ -116,6 +119,7 @@
     <string name="str_ki_c" translatable="false">XKI</string>
     <string name="str_rizon_c" translatable="false">ATOLO</string>
     <string name="str_medi_c" translatable="false">MED</string>
+    <string name="str_althea_c" translatable="false">ALTG</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -154,6 +158,7 @@
     <string name="str_certik_test_net">Certik Testnet</string>
     <string name="str_rizon_test_net">Rizon Testnet</string>
     <string name="str_medi_test_net">Medibloc Testnet</string>
+    <string name="str_althea_test_net">Althea Testnet</string>
 
     <string name="str_coingecko" translatable="false">CoinGecko</string>
     <string name="str_coinmarketcap" translatable="false">CoinMarket Cap</string>
@@ -316,6 +321,8 @@
     <string name="str_guide_rizon">Blog</string>
     <string name="str_faq_medi">Home</string>
     <string name="str_guide_medi">Blog</string>
+    <string name="str_faq_althea">Home</string>
+    <string name="str_guide_althea">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -401,6 +408,8 @@
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
     <string name="str_medi_chain_test_2" translatable="false">Medibloc Testnet</string>
+    <string name="str_althea_chain_test" translatable="false">(Althea Testnet)</string>
+    <string name="str_althea_chain_test_2" translatable="false">Althea Testnet</string>
     <string name="str_cosmos" translatable="false">COSMOS</string>
     <string name="str_cosmos_test" translatable="false">STARGATE</string>
     <string name="str_iris_test" translatable="false">BIFORST</string>
@@ -426,6 +435,7 @@
     <string name="str_ki_main" translatable="false">KI</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
+    <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
     <string name="str_mintscan">Check Explorer</string>
     <string name="str_tx_success">Transaction Success</string>
     <string name="str_tx_failed">Transaction Failed</string>
@@ -510,6 +520,7 @@
     <string name="str_front_guide_title_ki"><![CDATA[KI FOUNDATATION]]></string>
     <string name="str_front_guide_title_rizon"><![CDATA[RIZON CHAIN]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
+    <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -528,6 +539,7 @@
     <string name="str_front_guide_msg_ki"><![CDATA[Open-source blockchain platform for decentralized applications.]]></string>
     <string name="str_front_guide_msg_rizon"><![CDATA[Cosmos SDK based public network bridging traditional businesses with digital currencies.]]></string>
     <string name="str_front_guide_msg_medi"><![CDATA[Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.]]></string>
+    <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1411,6 +1423,7 @@
     <string name="s_ki" translatable="false">XKI</string>
     <string name="s_rizon" translatable="false">ATOLO</string>
     <string name="s_medi" translatable="false">MED</string>
+    <string name="s_althea" translatable="false">ALTG</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>
