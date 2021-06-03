@@ -715,7 +715,7 @@ public class WUtil {
         return sb.toString();
     }
 
-    public static String hexToStr(String hex) {
+    public static String hex2Str(String hex) {
         String digital = "0123456789abcdef";
         char[] hex2char = hex.toCharArray();
         byte[] bytes = new byte[hex.length() / 2];
@@ -728,6 +728,22 @@ public class WUtil {
         return new String(bytes);
     }
 
+    public static String bytes2Hex( byte[] raw) {
+        String HEXES = "0123456789ABCDEF";
+        if ( raw == null ) {
+            return null;
+        }
+        final StringBuilder hex = new StringBuilder( 2 * raw.length );
+        for ( final byte b : raw ) {
+            hex.append(HEXES.charAt((b & 0xF0) >> 4))
+                    .append(HEXES.charAt((b & 0x0F)));
+        }
+        return hex.toString();
+    }
+
+    public static byte[] hex2Byte(String hex) {
+        return new BigInteger(hex,16).toByteArray();
+    }
 
 
     //TODO for ssh ignore test
