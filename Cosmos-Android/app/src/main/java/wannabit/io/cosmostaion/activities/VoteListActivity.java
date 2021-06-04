@@ -193,7 +193,7 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
 
                     } else {
                         String url;
-                        if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+                        if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
                             url = WUtil.getExplorer(mBaseChain) + "governance/proposals/" + proposal.id;
                         } else {
                             url  = WUtil.getExplorer(mBaseChain) + "proposals/" + proposal.id;
