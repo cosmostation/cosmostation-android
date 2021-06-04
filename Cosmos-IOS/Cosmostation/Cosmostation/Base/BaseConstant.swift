@@ -636,10 +636,10 @@ let TRANS_BG_COLOR_KI2                      = UIColor.init(hexString: "3756fc", 
 let COLOR_KI                                = UIColor.init(hexString: "3756fc")
 let COLOR_KI_DARK                           = UIColor.init(hexString: "02188d")
 
-let TRANS_BG_COLOR_RIZON                    = UIColor.init(hexString: "8281fb", alpha: 0.15)
-let TRANS_BG_COLOR_RIZON2                   = UIColor.init(hexString: "8281fb", alpha: 0.4)
-let COLOR_RIZON                             = UIColor.init(hexString: "8281fb")
-let COLOR_RIZON_DARK                        = UIColor.init(hexString: "40408B")
+let TRANS_BG_COLOR_RIZON                    = UIColor.init(hexString: "8c8af2", alpha: 0.15)
+let TRANS_BG_COLOR_RIZON2                   = UIColor.init(hexString: "8c8af2", alpha: 0.4)
+let COLOR_RIZON                             = UIColor.init(hexString: "8c8af2")
+let COLOR_RIZON_DARK                        = UIColor.init(hexString: "484773")
 
 let TRANS_BG_COLOR_MEDI                     = UIColor.init(hexString: "79aaf2", alpha: 0.15)
 let TRANS_BG_COLOR_MEDI2                    = UIColor.init(hexString: "79aaf2", alpha: 0.4)
@@ -713,7 +713,7 @@ enum ChainType: String {
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         result.append(RIZON_TEST)
-//        result.append(MEDI_TEST)
+        result.append(MEDI_TEST)
         return result
     }
     
