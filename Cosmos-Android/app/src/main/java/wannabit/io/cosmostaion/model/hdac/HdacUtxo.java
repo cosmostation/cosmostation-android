@@ -48,11 +48,6 @@ public class HdacUtxo {
         Script script;
         String address;
         try {
-//            txid = new BigInteger((String) unspent.get("txid") ,32).toByteArray();
-//            index = (long) unspent.get("vout");
-//            value = Coin.valueOf((long)((long) unspent.get("amount") * Math.pow(10, 8)));
-//            script = new Script(new BigInteger((String) unspent.get("scriptPubKey") ,16).toByteArray());
-//            address = (String) unspent.get("address");
             txid = new BigInteger(this.txid ,32).toByteArray();
             index = this.vout;
             value = Coin.valueOf(new BigDecimal(this.amount).movePointRight(8).setScale(0).longValue());
@@ -62,8 +57,6 @@ public class HdacUtxo {
             e.printStackTrace();
             return null;
         }
-//        Sha256Hash hash = new Sha256Hash.wrap(txid);
-//        Sha256Hash hash = Sha256Hash.wrap(txid);
         Sha256Hash hash = Sha256Hash.wrap(this.txid);
         return new UTXO(hash, index, value, height, coinbase, script, address);
     }

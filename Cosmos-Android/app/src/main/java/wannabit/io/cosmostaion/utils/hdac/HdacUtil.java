@@ -56,7 +56,7 @@ public class HdacUtil {
     public BigDecimal getBalance(ArrayList<HdacUtxo> utxos) {
         BigDecimal result = BigDecimal.ZERO;
         for (HdacUtxo utxo: utxos){
-            if (utxo.satoshis > 0) {
+            if (utxo.satoshis > 0 && utxo.confirmations > 0) {
                 result = result.add(new BigDecimal(utxo.amount));
             }
         }
@@ -66,7 +66,7 @@ public class HdacUtil {
     public ArrayList<HdacUtxo> getRemainUtxo(ArrayList<HdacUtxo> utxos) {
         ArrayList<HdacUtxo> result = new ArrayList<>();
         for (HdacUtxo utxo: utxos){
-            if (utxo.satoshis > 0) {
+            if (utxo.satoshis > 0 && utxo.confirmations > 0) {
                 result.add(utxo);
             }
         }
@@ -90,6 +90,7 @@ public class HdacUtil {
             if(ecKey!=null) hdacTx.addSignedInput(utxo, ecKey);
         }
         txHex = hdacTx.getTxBuilder().toHex();
+        WLog.w("txHex "+ txHex);
         return txHex;
     }
 
