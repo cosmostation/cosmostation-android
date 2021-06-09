@@ -37,6 +37,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBnbCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSentinelCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSentinelCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailRizonCell", bundle: nil), forCellReuseIdentifier: "TokenDetailRizonCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAltheaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAltheaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -117,6 +118,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 
             } else if (chainType == ChainType.RIZON_TEST) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailRizonCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
+                
+            } else if (chainType == ChainType.ALTHEA_TEST) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailAltheaCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
             }
