@@ -711,6 +711,7 @@
 "chain_title_certik_test" = "Certik Testnet";
 "chain_title_rizon_test" = "Rizon Testnet";
 "chain_title_medi_test" = "Medibloc Testnet";
+"chain_title_althea_test" = "Althea Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
 "date_format2" = "yyyy-MM-dd";

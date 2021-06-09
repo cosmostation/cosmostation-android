@@ -1272,6 +1272,9 @@ class BaseNetWork {
         } else if (chain == ChainType.RIZON_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
             
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9096)
+            
         }
         return nil
     }

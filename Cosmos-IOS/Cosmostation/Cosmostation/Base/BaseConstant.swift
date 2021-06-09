@@ -132,6 +132,7 @@ let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cos
 let KI_VAL_URL                          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
 let RIZON_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
 let MEDI_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
+let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -343,7 +344,7 @@ let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
 let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
-let ALTEA_BASE_PATH                         = "m/44'/60'/0'/0/"
+let ALTHEA_BASE_PATH                        = "m/44'/60'/0'/0/"
 
 
 
@@ -647,10 +648,10 @@ let TRANS_BG_COLOR_MEDI2                    = UIColor.init(hexString: "79aaf2", 
 let COLOR_MEDI                              = UIColor.init(hexString: "79aaf2")
 let COLOR_MEDI_DARK                         = UIColor.init(hexString: "0d3d84")
 
-let TRANS_BG_COLOR_ALTEA                    = UIColor.init(hexString: "eadea5", alpha: 0.15)
-let TRANS_BG_COLOR_ALTEA2                   = UIColor.init(hexString: "eadea5", alpha: 0.4)
-let COLOR_ALTEA                             = UIColor.init(hexString: "eadea5")
-let COLOR_ALTEA_DARK                        = UIColor.init(hexString: "7d7659")
+let TRANS_BG_COLOR_ALTHEA                   = UIColor.init(hexString: "eadea5", alpha: 0.15)
+let TRANS_BG_COLOR_ALTHEA2                  = UIColor.init(hexString: "eadea5", alpha: 0.4)
+let COLOR_ALTHEA                            = UIColor.init(hexString: "eadea5")
+let COLOR_ALTHEA_DARK                       = UIColor.init(hexString: "7d7659")
 
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
@@ -691,7 +692,7 @@ enum ChainType: String {
     case CERTIK_TEST
     case RIZON_TEST
     case MEDI_TEST
-    case ALTEA_TEST
+    case ALTHEA_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -721,7 +722,7 @@ enum ChainType: String {
 //        result.append(CERTIK_TEST)
         result.append(RIZON_TEST)
         result.append(MEDI_TEST)
-        result.append(ALTEA_TEST)
+        result.append(ALTHEA_TEST)
         return result
     }
     
@@ -824,7 +825,7 @@ let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST"
 let CHAIN_MEDI_TEST_S = "SUPPORT_CHAIN_MEDI_TEST"
-let CHAIN_ALTEA_TEST_S = "SUPPORT_CHAIN_ALTEA_TEST"
+let CHAIN_ALTHEA_TEST_S = "SUPPORT_CHAIN_ALTHEA_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "uiris"
@@ -845,7 +846,7 @@ let SIF_MAIN_DENOM = "rowan"
 let KI_MAIN_DENOM = "uxki"
 let RIZON_MAIN_DENOM = "uatolo"
 let MEDI_MAIN_DENOM = "umed"
-let ALTEA_MAIN_DENOM = "ualtg"
+let ALTHEA_MAIN_DENOM = "ualtg"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"

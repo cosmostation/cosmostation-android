@@ -267,6 +267,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         mediTestAction.setValue(UIImage(named: "testnetMedibloc")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let altheaTestAction = UIAlertAction(title: NSLocalizedString("chain_title_althea_test", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.ALTHEA_TEST
+            self.onGenNewKey()
+        })
+        altheaTestAction.setValue(UIImage(named: "testnetAlthea")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         showAlert.addAction(cosmosAction)
         showAlert.addAction(irisAction)
         showAlert.addAction(bnbAction)
@@ -310,6 +316,9 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         }
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.MEDI_TEST)) {
             showAlert.addAction(mediTestAction)
+        }
+        if (ChainType.SUPPRT_CHAIN().contains(ChainType.ALTHEA_TEST)) {
+            showAlert.addAction(altheaTestAction)
         }
         self.present(showAlert, animated: true, completion: nil)
     }

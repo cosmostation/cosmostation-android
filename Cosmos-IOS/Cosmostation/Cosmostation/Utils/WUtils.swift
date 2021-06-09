@@ -587,8 +587,6 @@ class WUtils {
         }
     }
     
-    
-    
     static func historyTitle(_ msgs:Array<Msg>, _ myaddress:String) -> String {
         var resultMsg = NSLocalizedString("tx_known", comment: "")
 
@@ -1982,6 +1980,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.ALTHEA_TEST) {
+            if (coin.denom == ALTHEA_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         }
     }
     
@@ -2178,6 +2185,15 @@ class WUtils {
                 denomLabel.text = denom.uppercased()
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
+        } else if (chainType == ChainType.ALTHEA_TEST) {
+            if (denom == ALTHEA_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
         }
             
     }
@@ -2258,6 +2274,8 @@ class WUtils {
             return COLOR_RIZON
         } else if (chain == ChainType.MEDI_TEST) {
             return COLOR_MEDI
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return COLOR_ALTHEA
         }
         return COLOR_ATOM
     }
@@ -2299,6 +2317,8 @@ class WUtils {
             return COLOR_RIZON_DARK
         } else if (chain == ChainType.MEDI_TEST) {
             return COLOR_MEDI_DARK
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return COLOR_ALTHEA_DARK
         }
         return COLOR_DARK_GRAY
     }
@@ -2340,6 +2360,8 @@ class WUtils {
             return TRANS_BG_COLOR_RIZON
         } else if (chain == ChainType.MEDI_TEST) {
             return TRANS_BG_COLOR_MEDI
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return TRANS_BG_COLOR_ALTHEA
         }
         return COLOR_BG_GRAY
     }
@@ -2385,6 +2407,8 @@ class WUtils {
             return "ATOLO"
         } else if (chain == ChainType.MEDI_TEST) {
             return "MED"
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return "ALTG"
         }
         return ""
     }
@@ -2434,6 +2458,8 @@ class WUtils {
             return RIZON_MAIN_DENOM
         } else if (chain == ChainType.MEDI_TEST) {
             return MEDI_MAIN_DENOM
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return ALTHEA_MAIN_DENOM
         }
         return ""
 
@@ -2560,6 +2586,9 @@ class WUtils {
         } else if (chain == ChainType.MEDI_TEST) {
             label.text = "MED"
             label.textColor = COLOR_MEDI
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            label.text = "ALTG"
+            label.textColor = COLOR_ALTHEA
         }
     }
     
@@ -2616,6 +2645,8 @@ class WUtils {
             return ChainType.RIZON_TEST
         } else if (chainS == CHAIN_MEDI_TEST_S) {
             return ChainType.MEDI_TEST
+        } else if (chainS == CHAIN_ALTHEA_TEST_S) {
+            return ChainType.ALTHEA_TEST
         }
         return nil
     }
@@ -2673,6 +2704,8 @@ class WUtils {
             return CHAIN_RIZON_TEST_S
         } else if (chain == ChainType.MEDI_TEST) {
             return CHAIN_MEDI_TEST_S
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return CHAIN_ALTHEA_TEST_S
         }
         return ""
     }
@@ -2746,7 +2779,7 @@ class WUtils {
     static func getEstimateGasAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
             } else if (type == COSMOS_MSG_TYPE_DELEGATE) {
@@ -2983,7 +3016,7 @@ class WUtils {
     }
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
@@ -3066,7 +3099,7 @@ class WUtils {
     }
     
     static func getGasRate(_ chain:ChainType, _ position: Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             if (position == 0) {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY)
             } else if (position == 1) {
@@ -3645,6 +3678,8 @@ class WUtils {
             return KI_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.MEDI_TEST) {
             return MEDI_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return ALTHEA_VAL_URL + opAddress + ".png";
         }
         return ""
     }
@@ -4613,7 +4648,7 @@ class WUtils {
     static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST ) {
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             return true
         }
         return false
