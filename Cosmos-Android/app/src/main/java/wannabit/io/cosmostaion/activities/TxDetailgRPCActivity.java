@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_MoreWait;
 import wannabit.io.cosmostaion.network.ChannelBuilder;
 import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
+import wannabit.io.cosmostaion.widget.txDetail.TxCloseBidHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCloseDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommissionHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCommonHolder;
@@ -187,10 +188,11 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_COMMISSION = 8;
         private static final int TYPE_TX_UNJAIL = 9;
         private static final int TYPE_TX_CREATE_BID = 10;
-        private static final int TYPE_TX_CREATE_LEASE = 11;
-        private static final int TYPE_TX_WITHDRAW_LEASE = 12;
-        private static final int TYPE_TX_CREATE_DEPLOYMENT = 13;
-        private static final int TYPE_TX_CLOSE_DEPLOYMENT = 14;
+        private static final int TYPE_TX_CLOSE_BID = 11;
+        private static final int TYPE_TX_CREATE_LEASE = 12;
+        private static final int TYPE_TX_WITHDRAW_LEASE = 13;
+        private static final int TYPE_TX_CREATE_DEPLOYMENT = 14;
+        private static final int TYPE_TX_CLOSE_DEPLOYMENT = 15;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -228,6 +230,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_CREATE_BID) {
                 return new TxCreateBidHolder(getLayoutInflater().inflate(R.layout.item_tx_create_bid, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_CLOSE_BID) {
+                return new TxCloseBidHolder(getLayoutInflater().inflate(R.layout.item_tx_close_bid, viewGroup, false));
 
             } else if (viewType == TYPE_TX_CREATE_LEASE) {
                 return new TxCreateLeaseHolder(getLayoutInflater().inflate(R.layout.item_tx_create_lease, viewGroup, false));
@@ -293,6 +298,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_UNJAIL;
                 } else if (msg.getTypeUrl().contains(BidOuterClass.MsgCreateBid.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_BID;
+                } else if (msg.getTypeUrl().contains(BidOuterClass.MsgCloseBid.getDescriptor().getFullName())) {
+                    return TYPE_TX_CLOSE_BID;
                 } else if (msg.getTypeUrl().contains(LeaseOuterClass.MsgCreateLease.getDescriptor().getFullName())) {
                     return TYPE_TX_CREATE_LEASE;
                 } else if (msg.getTypeUrl().contains(LeaseOuterClass.MsgWithdrawLease.getDescriptor().getFullName())) {
