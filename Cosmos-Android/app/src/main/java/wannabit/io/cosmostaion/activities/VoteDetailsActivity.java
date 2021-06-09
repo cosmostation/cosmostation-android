@@ -453,7 +453,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
 
         private void onExplorerLink() {
             String url;
-            if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
+            if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.SECRET_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
                 url = WUtil.getExplorer(mBaseChain) + "governance/proposals/" + mProposalId;
             } else {
                 url  = WUtil.getExplorer(mBaseChain) + "proposals/" + mProposalId;
