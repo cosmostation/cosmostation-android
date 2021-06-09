@@ -107,6 +107,10 @@ let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosm
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
 
 
+let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
+let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
+let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
+
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
