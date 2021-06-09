@@ -628,6 +628,8 @@
 		28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */; };
 		28E1D4582658E32D002FDF9B /* StepFeeOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */; };
 		28E1D4592658E32D002FDF9B /* StepFeeOldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */; };
+		28E3E3792670A27A00BA89C2 /* WalletAltheaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E3E3772670A27A00BA89C2 /* WalletAltheaCell.swift */; };
+		28E3E37A2670A27A00BA89C2 /* WalletAltheaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E3E3782670A27A00BA89C2 /* WalletAltheaCell.xib */; };
 		28E46BE424F8FCFF005CE985 /* StepOkVoteToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */; };
 		28E46BE624F8FD14005CE985 /* StepOkVoteCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */; };
 		28E746B725AD76ED004B2C64 /* OkPromotionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */; };
@@ -1459,6 +1461,8 @@
 		28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolRepay3ViewController.xib; sourceTree = "<group>"; };
 		28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeOldViewController.swift; sourceTree = "<group>"; };
 		28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepFeeOldViewController.xib; sourceTree = "<group>"; };
+		28E3E3772670A27A00BA89C2 /* WalletAltheaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAltheaCell.swift; sourceTree = "<group>"; };
+		28E3E3782670A27A00BA89C2 /* WalletAltheaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAltheaCell.xib; sourceTree = "<group>"; };
 		28E46BE324F8FCFF005CE985 /* StepOkVoteToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteToViewController.swift; sourceTree = "<group>"; };
 		28E46BE524F8FD14005CE985 /* StepOkVoteCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepOkVoteCheckViewController.swift; sourceTree = "<group>"; };
 		28E746B525AD76ED004B2C64 /* OkPromotionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OkPromotionCell.swift; sourceTree = "<group>"; };
@@ -2031,6 +2035,8 @@
 				283F3AED265F467500DF1D93 /* WalletRizonCell.xib */,
 				283F3AF4265FA21800DF1D93 /* WalletMediCell.swift */,
 				283F3AF5265FA21800DF1D93 /* WalletMediCell.xib */,
+				28E3E3772670A27A00BA89C2 /* WalletAltheaCell.swift */,
+				28E3E3782670A27A00BA89C2 /* WalletAltheaCell.xib */,
 				288A14DB25199A9800E17808 /* WalletCertikCell.swift */,
 				288A14E325199C6200E17808 /* WalletCertikCell.xib */,
 				2876AD58240CDC5A005B33F4 /* WalletUnbondingInfoCellTableViewCell.swift */,
@@ -2895,6 +2901,7 @@
 				282FF36623F533AF0028CC66 /* TxUnknownCell.xib in Resources */,
 				E19A32282254AE8500A05E41 /* ManageHeader.xib in Resources */,
 				E151B63D22467E520026B8C0 /* HistoryCell.xib in Resources */,
+				28E3E37A2670A27A00BA89C2 /* WalletAltheaCell.xib in Resources */,
 				282FF34E23F50E010028CC66 /* TxRedelegateCell.xib in Resources */,
 				28474ED1241E06AF00AF5A81 /* TxPostPriceCell.xib in Resources */,
 				2876AD5C240CE4A6005B33F4 /* WalletUnbondingInfoCellTableViewCell.xib in Resources */,
@@ -3374,6 +3381,7 @@
 				E123FD3B233CCBF3004EC348 /* MainTabTokenViewController.swift in Sources */,
 				287AC58625FDF7250070837E /* nft_tx.pb.swift in Sources */,
 				282FF34123F4FFD20028CC66 /* TxCommissionCell.swift in Sources */,
+				28E3E3792670A27A00BA89C2 /* WalletAltheaCell.swift in Sources */,
 				287AC61125FDF7260070837E /* tendermint_version_types.pb.swift in Sources */,
 				287AC65D25FDF7260070837E /* ibc_core_channel_v1_query.pb.swift in Sources */,
 				28474ECE241E06AF00AF5A81 /* TxCdpBorrowCell.swift in Sources */,
