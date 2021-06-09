@@ -1204,6 +1204,7 @@
     <string name="tx_edit_validator">검증인 편집</string>
     <string name="tx_unjail">검증인 재 활성</string>
     <string name="tx_create_bid">입찰서 작성</string>
+    <string name="tx_close_bid">입찰 마감</string>
     <string name="tx_create_lease">임대 생성</string>
     <string name="tx_withdraw_lease">임대 철회</string>
     <string name="tx_create_deployment">배포 열기</string>

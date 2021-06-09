@@ -146,6 +146,9 @@ public class ResApiTxListCustom {
                 } else if (msgType.contains("MsgCreateBid")) {
                     result = c.getString(R.string.tx_create_bid);
 
+                } else if (msgType.contains("MsgCloseBid")) {
+                    result = c.getString(R.string.tx_close_bid);
+
                 } else if (msgType.contains("MsgCreateLease")) {
                     result = c.getString(R.string.tx_create_lease);
 

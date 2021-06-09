@@ -27,6 +27,7 @@ import wannabit.io.cosmostaion.utils.WKey;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
@@ -43,9 +44,11 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
@@ -90,21 +93,21 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_atom));
             } else if (getChain(toCheck.baseChain).equals(IRIS_MAIN) || getChain(toCheck.baseChain).equals(IRIS_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iris));
-            } else if (getChain(toCheck.baseChain).equals(BNB_MAIN)) {
+            } else if (getChain(toCheck.baseChain).equals(BNB_MAIN) || (getChain(toCheck.baseChain).equals(BNB_TEST))) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_bnb));
-            } else if (getChain(toCheck.baseChain).equals(KAVA_MAIN)) {
+            } else if (getChain(toCheck.baseChain).equals(KAVA_MAIN) || getChain(toCheck.baseChain).equals(KAVA_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_kava));
-            } else if (getChain(toCheck.baseChain).equals(IOV_MAIN)) {
+            } else if (getChain(toCheck.baseChain).equals(IOV_MAIN) || getChain(toCheck.baseChain).equals(IOV_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_iov));
             } else if (getChain(toCheck.baseChain).equals(BAND_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_band));
-            } else if (getChain(toCheck.baseChain).equals(CERTIK_MAIN)) {
+            } else if (getChain(toCheck.baseChain).equals(CERTIK_MAIN) || getChain(toCheck.baseChain).equals(CERTIK_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_certik));
             } else if (getChain(toCheck.baseChain).equals(SECRET_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_secret));
             } else if (getChain(toCheck.baseChain).equals(AKASH_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_akash));
-            } else if (getChain(toCheck.baseChain).equals(OKEX_MAIN)) {
+            } else if (getChain(toCheck.baseChain).equals(OKEX_MAIN) || getChain(toCheck.baseChain).equals(OK_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_okex));
             } else if (getChain(toCheck.baseChain).equals(PERSIS_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_persis));
@@ -118,12 +121,14 @@ public class MnemonicCheckActivity extends BaseActivity {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sif));
             } else if (getChain(toCheck.baseChain).equals(KI_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_ki));
+            } else if (getChain(toCheck.baseChain).equals(RIZON_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
+            } else if (getChain(toCheck.baseChain).equals(MEDI_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_medi));
+            } else if (getChain(toCheck.baseChain).equals(ALTHEA_TEST)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_althea));
             }
-
-            else if (getChain(toCheck.baseChain).equals(BNB_TEST) || getChain(toCheck.baseChain).equals(KAVA_TEST) || getChain(toCheck.baseChain).equals(IOV_TEST) ||
-                    getChain(toCheck.baseChain).equals(OK_TEST) || getChain(toCheck.baseChain).equals(CERTIK_TEST)) {
-                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_darkgray));
-            }
+            
             if(i >= mWords.size()) mWordsLayer[i].setVisibility(View.INVISIBLE);
             else mWordsLayer[i].setVisibility(View.VISIBLE);
         }
