@@ -259,6 +259,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType! == ChainType.ALTHEA_TEST) {
+            chainImg.image = UIImage(named: "testnetAlthea")
+            keyPath.text = ALTHEA_BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         }
         
         importDate.text = WUtils.longTimetoString(input:account!.account_import_time)

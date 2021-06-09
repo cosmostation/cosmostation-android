@@ -107,6 +107,9 @@ let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosm
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
 
 
+let ALTHEA_TEST_API                     = "https://api-office.cosmostation.io/althea-testnet2v1/";
+
+
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
 
