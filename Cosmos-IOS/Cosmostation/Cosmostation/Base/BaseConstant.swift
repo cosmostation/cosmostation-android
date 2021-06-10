@@ -908,6 +908,9 @@ let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://dev.mintscan.io/kava-testnet/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
 let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
+let EXPLORER_MEDI_TEST      = "https://testnet.mintscan.io/medibloc/";
+let EXPLORER_RIZON_TEST     = "https://testnet.mintscan.io/rizon/";
+let EXPLORER_ALTHEA_TEST    = "https://testnet.mintscan.io/althea/";
 
 
 

@@ -3709,6 +3709,15 @@ class WUtils {
         } else if (chain == ChainType.IRIS_TEST) {
             return EXPLORER_IRIS_TEST + "txs/" + hash
             
+        } else if (chain == ChainType.MEDI_TEST) {
+            return EXPLORER_MEDI_TEST + "txs/" + hash
+            
+        } else if (chain == ChainType.RIZON_TEST) {
+            return EXPLORER_RIZON_TEST + "txs/" + hash
+            
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return EXPLORER_ALTHEA_TEST + "txs/" + hash
+            
         }
         
         if (chain == ChainType.BINANCE_MAIN) {
@@ -3818,6 +3827,15 @@ class WUtils {
         } else if (chain == ChainType.KAVA_TEST) {
             return EXPLORER_KAVA_TEST + "account/" + address
             
+        } else if (chain == ChainType.MEDI_TEST) {
+            return EXPLORER_MEDI_TEST + "account/" + address
+            
+        } else if (chain == ChainType.RIZON_TEST) {
+            return EXPLORER_RIZON_TEST + "account/" + address
+            
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return EXPLORER_ALTHEA_TEST + "account/" + address
+            
         }
         return ""
     }
@@ -3875,6 +3893,16 @@ class WUtils {
             
         } else if (chain == ChainType.CERTIK_TEST) {
             return EXPLORER_CERTIK + "governance/proposals/" + proposalId + "?net=" + BaseData.instance.getChainId()
+            
+        } else if (chain == ChainType.MEDI_TEST) {
+            return EXPLORER_MEDI_TEST + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.RIZON_TEST) {
+            return EXPLORER_RIZON_TEST + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return EXPLORER_ALTHEA_TEST + "proposals/" + proposalId
+            
         }
         return ""
     }
