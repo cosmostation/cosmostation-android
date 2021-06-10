@@ -174,11 +174,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyUnbondings.removeAll()
         BaseData.instance.mMyReward.removeAll()
         
-        BaseData.instance.mMintParam = nil
-        BaseData.instance.mStakingPool = nil
-        BaseData.instance.mInflation = nil
-        BaseData.instance.mProvision = nil
-        
         BaseData.instance.mBnbTokenList.removeAll()
         BaseData.instance.mBnbTokenTicker.removeAll()
         
@@ -211,50 +206,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyVestings_gRPC.removeAll()
         BaseData.instance.mMyReward_gRPC.removeAll()
         
-        BaseData.instance.mMintParam_gRPC = nil
-        BaseData.instance.mStakingPool_gRPC = nil
-        BaseData.instance.mProvision_gRPC = NSDecimalNumber.zero
-        BaseData.instance.mInflation_gRPC = NSDecimalNumber.zero
-        
-        BaseData.instance.mIrisMintParam_gRPC = nil
-        BaseData.instance.mIrisTokens_gRPC.removeAll()
-        
-        if (mChainType == ChainType.COSMOS_MAIN) {
-            self.mFetchCnt = 13
-            onFetchgRPCNodeInfo()
-            onFetchgRPCAuth(mAccount.account_address)
-            onFetchgRPCBondedValidators(0)
-            onFetchgRPCUnbondedValidators(0)
-            onFetchgRPCUnbondingValidators(0)
-
-            onFetchgRPCBalance(mAccount.account_address, 0)
-            onFetchgRPCDelegations(mAccount.account_address, 0)
-            onFetchgRPCUndelegations(mAccount.account_address, 0)
-            onFetchgRPCRewards(mAccount.account_address, 0)
-
-            onFetchgRPCMintParam()
-            onFetchgRPCInflation()
-            onFetchgRPCProvision()
-            onFetchgRPCStakingPool()
-            
-        } else if (mChainType == ChainType.IRIS_MAIN) {
-            self.mFetchCnt = 12
-            onFetchgRPCNodeInfo()
-            onFetchgRPCAuth(mAccount.account_address)
-            onFetchgRPCBondedValidators(0)
-            onFetchgRPCUnbondedValidators(0)
-            onFetchgRPCUnbondingValidators(0)
-            
-            onFetchgRPCBalance(mAccount.account_address, 0)
-            onFetchgRPCDelegations(mAccount.account_address, 0)
-            onFetchgRPCUndelegations(mAccount.account_address, 0)
-            onFetchgRPCRewards(mAccount.account_address, 0)
-            
-            onFetchgRPCStakingPool()
-            onFetchgRPCIrisMintParam()
-            onFetchgRPCIrisTokens()
-            
-        } else if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
+        if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 6
             onFetchNodeInfo()
             onFetchAccountInfo(mAccount)
@@ -264,7 +216,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBnbMiniTokenTickers()
             
         } else if (mChainType == ChainType.KAVA_MAIN || mChainType == ChainType.KAVA_TEST) {
-            self.mFetchCnt = 14
+            self.mFetchCnt = 10
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -274,17 +226,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
             
             onFetchPriceFeedParam()
             onFetchIncentiveParam()
             
         } else if (mChainType == ChainType.BAND_MAIN) {
-            self.mFetchCnt = 13
+            self.mFetchCnt = 9
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -295,14 +242,10 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
             
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
             onFetchBandOracleStatus()
             
         } else if (mChainType == ChainType.SECRET_MAIN) {
-            self.mFetchCnt = 12
+            self.mFetchCnt = 8
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -312,16 +255,11 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
             
             self.onShowToast("Using Figment's Data Hub API for Secret Network.")
             
         } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
-            self.mFetchCnt = 14
+            self.mFetchCnt = 10
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -331,11 +269,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
             
             onFetchStarNameFees()
             onFetchStarNameConfig()
@@ -354,8 +287,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchOkUnbondingInfo(mAccount)
             
             
-        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.CERTIK_TEST) {
-            self.mFetchCnt = 12
+        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.SIF_MAIN || mChainType == ChainType.KI_MAIN ||
+                    mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.MEDI_TEST) {
+            self.mFetchCnt = 8
             onFetchNodeInfo()
             onFetchTopValidatorsInfo()
             onFetchUnbondedValidatorsInfo()
@@ -364,77 +298,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
-        } else if (mChainType == ChainType.FETCH_MAIN) {
-            self.mFetchCnt = 12
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
-        } else if (mChainType == ChainType.SIF_MAIN) {
-            self.mFetchCnt = 9
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            onFetchStakingPool()
-            
-        } else if (mChainType == ChainType.KI_MAIN) {
-            self.mFetchCnt = 12
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
-            
-        } else if (mChainType == ChainType.MEDI_TEST) {
-            self.mFetchCnt = 12
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchMintParam()
-            onFetchInflation()
-            onFetchProvision()
-            onFetchStakingPool()
             
         }
 
-        
-        else if (mChainType == ChainType.AKASH_MAIN || mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN) {
-            self.mFetchCnt = 13
+        else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.AKASH_MAIN ||
+                    mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN) {
+            self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
@@ -445,14 +314,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCDelegations(mAccount.account_address, 0)
             onFetchgRPCUndelegations(mAccount.account_address, 0)
             onFetchgRPCRewards(mAccount.account_address, 0)
-
-            onFetchgRPCMintParam()
-            onFetchgRPCInflation()
-            onFetchgRPCProvision()
-            onFetchgRPCStakingPool()
             
-        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST) {
-            self.mFetchCnt = 13
+        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
+            self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
             onFetchgRPCBondedValidators(0)
@@ -463,28 +327,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCDelegations(mAccount.account_address, 0)
             onFetchgRPCUndelegations(mAccount.account_address, 0)
             onFetchgRPCRewards(mAccount.account_address, 0)
-
-            onFetchgRPCMintParam()
-            onFetchgRPCInflation()
-            onFetchgRPCProvision()
-            onFetchgRPCStakingPool()
-            
-        } else if (mChainType == ChainType.IRIS_TEST) {
-            self.mFetchCnt = 12
-            onFetchgRPCNodeInfo()
-            onFetchgRPCAuth(mAccount.account_address)
-            onFetchgRPCBondedValidators(0)
-            onFetchgRPCUnbondedValidators(0)
-            onFetchgRPCUnbondingValidators(0)
-            
-            onFetchgRPCBalance(mAccount.account_address, 0)
-            onFetchgRPCDelegations(mAccount.account_address, 0)
-            onFetchgRPCUndelegations(mAccount.account_address, 0)
-            onFetchgRPCRewards(mAccount.account_address, 0)
-            
-            onFetchgRPCStakingPool()
-            onFetchgRPCIrisMintParam()
-            onFetchgRPCIrisTokens()
             
         }
         return true
@@ -631,6 +473,12 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 BaseData.instance.mNodeInfo = NodeInfo.init(nodeInfo)
                 self.mFetchCnt = self.mFetchCnt + 1
                 self.onFetchParams(BaseData.instance.getChainId())
+                if let height = responseData.object(forKey: "height") as? Int {
+                    BaseData.instance.mHeight = height
+                }
+                if let heightS = responseData.object(forKey: "height") as? String, let height = Int(heightS) {
+                    BaseData.instance.mHeight = height
+                }
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
             }
@@ -845,88 +693,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchEachReward ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchMintParam() {
-        let request = Alamofire.request(BaseNetWork.paramMintUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary else {
-                    self.onFetchFinished()
-                    return;
-                }
-                BaseData.instance.mMintParam = MintParam.init(responseData).result
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMintParam ", error) }
-            }
-            self.onFetchFinished()
-        }
-        
-    }
-    
-    func onFetchInflation() {
-        let request = Alamofire.request(BaseNetWork.inflationUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let inflation = responseData.object(forKey: "result") as? String else {
-                        self.onFetchFinished()
-                        return;
-                }
-                BaseData.instance.mInflation = inflation.replacingOccurrences(of: "\"", with: "")
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchInflation ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchProvision() {
-        let request = Alamofire.request(BaseNetWork.provisionUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                    let provisions = responseData.object(forKey: "result") as? String else {
-                        self.onFetchFinished()
-                        return;
-                }
-                BaseData.instance.mProvision = provisions.replacingOccurrences(of: "\"", with: "")
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchProvision ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchStakingPool() {
-        let request = Alamofire.request(BaseNetWork.stakingPoolUrl(mChainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary,
-                      let stakingPool = responseData.object(forKey: "result") as? NSDictionary else {
-                    self.onFetchFinished()
-                    return;
-                }
-                if let height = responseData.object(forKey: "height") as? Int {
-                    BaseData.instance.mHeight = height
-                }
-                if let heightS = responseData.object(forKey: "height") as? String, let height = Int(heightS) {
-                    BaseData.instance.mHeight = height
-                }
-                BaseData.instance.mStakingPool = stakingPool
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchStakingPool ", error) }
             }
             self.onFetchFinished()
         }
@@ -1477,158 +1243,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             } catch {
                 print("onFetchgRPCRewards failed: \(error)")
             }
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-    }
-    
-    func onFetchgRPCMintParam() {
-//        print("onFetchgRPCMintParam")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Mint_V1beta1_QueryParamsRequest()
-            do {
-                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-//                print("onFetchgRPCMintParam: \(response.params)")
-                BaseData.instance.mMintParam_gRPC = response.params
-            } catch {
-                print("onFetchgRPCMintParam failed: \(error)")
-            }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-    }
-    
-    func onFetchgRPCInflation() {
-//        print("onFetchgRPCInflation")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Mint_V1beta1_QueryInflationRequest()
-            do {
-                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).inflation(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-                BaseData.instance.mInflation_gRPC = NSDecimalNumber.init(string: String(data: response.inflation, encoding: .utf8)).multiplying(byPowerOf10: -18)
-//                print("onFetchgRPCInflation:  ", BaseData.instance.mInflation_gRPC)
-            } catch {
-                print("onFetchgRPCInflation failed: \(error)")
-            }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-    }
-    
-    func onFetchgRPCProvision() {
-//        print("onFetchgRPCProvision")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Mint_V1beta1_QueryAnnualProvisionsRequest()
-            do {
-                let response = try Cosmos_Mint_V1beta1_QueryClient(channel: channel).annualProvisions(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-                BaseData.instance.mProvision_gRPC = NSDecimalNumber.init(string: String(data: response.annualProvisions, encoding: .utf8)).multiplying(byPowerOf10: -18)
-    //            print("onFetchgRPCProvision:  ", BaseData.instance.mProvision_gRPC)
-            } catch {
-                print("onFetchgRPCProvision failed: \(error)")
-            }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-    }
-    
-    func onFetchgRPCStakingPool() {
-//        print("onFetchgRPCStakingPool")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Cosmos_Staking_V1beta1_QueryPoolRequest()
-            do {
-                let response = try Cosmos_Staking_V1beta1_QueryClient(channel: channel).pool(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-//                print("onFetchgRPCStakingPool: \(response.pool)")
-                BaseData.instance.mStakingPool_gRPC = response.pool
-            } catch {
-                print("onFetchgRPCIrisMintParam failed: \(error)")
-            }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-    }
-    
-    func onFetchgRPCIrisMintParam() {
-//        print("onFetchgRPCIrisMintParam")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-            
-            let req = Irishub_Mint_QueryParamsRequest()
-            do {
-                let response = try Irishub_Mint_QueryClient(channel: channel).params(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-//                print("onFetchgRPCIrisMintParam: \(response.params)")
-                BaseData.instance.mIrisMintParam_gRPC = response.params
-            } catch {
-                print("onFetchgRPCIrisMintParam failed: \(error)")
-            }
-            
-            DispatchQueue.main.async(execute: {
-                self.onFetchFinished()
-            });
-        }
-    }
-    
-    
-    func onFetchgRPCIrisTokens() {
-//        print("onFetchgRPCIrisTokens")
-        DispatchQueue.global().async {
-            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
-            defer { try! group.syncShutdownGracefully() }
-            
-            let channel = BaseNetWork.getConnection(self.mChainType, group)!
-            defer { try! channel.close().wait() }
-            
-            let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
-                $0.limit = 500
-            }
-            let req = Irismod_Token_QueryTokensRequest.with {
-                $0.pagination = page
-            }
-            do {
-                let response = try Irismod_Token_QueryClient(channel: channel).tokens(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
-//                print("onFetchgRPCIrisTokens: \(response.tokens.count)")
-                response.tokens.forEach { token in
-                    BaseData.instance.mIrisTokens_gRPC.append(try! Irismod_Token_Token.init(serializedData: token.value))
-                }
-            } catch {
-                print("onFetchgRPCIrisTokens failed: \(error)")
-            }
-            
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });

@@ -18,7 +18,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
-    var mBandOracleStatus: BandOracleStatus?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.myValidatorTableView.delegate = self
         self.myValidatorTableView.dataSource = self
         self.myValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -63,7 +61,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.onSortingMy()
         self.refresher.endRefreshing()
     }
@@ -207,7 +204,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
 
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(validator.operator_address) {
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
         }

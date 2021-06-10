@@ -23,18 +23,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     var mainTabVC: MainTabViewController!
     var wcURL:String?
-    
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
         
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
@@ -254,9 +247,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
     }

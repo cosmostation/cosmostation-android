@@ -1317,129 +1317,36 @@ class WUtils {
         return attributedString1
     }
     
-    //remove this!!
-    static func displayInflation(_ rate:NSDecimalNumber, font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = 2
-        nf.maximumFractionDigits = 2
-        nf.numberStyle = .decimal
-        
-        let formatted   = nf.string(from: rate.multiplying(by: 100).rounding(accordingToBehavior: handler2Down))! + "%"
-        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
-        
-        let preString   = formatted[..<endIndex]
-        let postString  = formatted[endIndex...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-    }
-    
-    static func displayInflation(_ inflation:String?, font:UIFont) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = 2
-        nf.maximumFractionDigits = 2
-        nf.numberStyle = .decimal
-        
-        let inflationValue  = WUtils.plainStringToDecimal(inflation).multiplying(byPowerOf10: 2)
-        return displayPercent(inflationValue, font)
-    }
-    
-    static func getYieldPerBlock(_ chain: ChainType) -> NSDecimalNumber {
-        let data = BaseData.instance
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN ||
-                chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
-                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
-            if (data.mStakingPool_gRPC == nil || data.mProvision_gRPC == nil || data.mMintParam_gRPC == nil) {
-                return NSDecimalNumber.zero
-            }
-            let provisions = data.mProvision_gRPC!
-            let bonded = plainStringToDecimal(data.mStakingPool_gRPC!.bondedTokens)
-            let blocksPerYear = NSDecimalNumber.init(value: data.mMintParam_gRPC!.blocksPerYear)
-            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
-            
-        } else if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            if (data.mStakingPool_gRPC == nil || data.mIrisMintParam_gRPC == nil) {
-                return NSDecimalNumber.zero
-            } else {
-                let inflation_base = NSDecimalNumber.init(string: "2000000000000000")
-                let provisions = inflation_base.multiplying(by: plainStringToDecimal(data.mIrisMintParam_gRPC!.inflation)).multiplying(byPowerOf10: -18)
-                let bonded = plainStringToDecimal(data.mStakingPool_gRPC!.bondedTokens)
-                return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: plainStringToDecimal("6311520"), withBehavior: handler24Down)
-            }
-            
-        } else {
-            if (data.mStakingPool == nil || data.mProvision == nil || data.mMintParam == nil) {
-                return NSDecimalNumber.zero
-            }
-            let provisions = WUtils.plainStringToDecimal(data.mProvision)
-            let bonded = WUtils.plainStringToDecimal(data.mStakingPool!.object(forKey: "bonded_tokens") as? String)
-            let blocksPerYear = WUtils.plainStringToDecimal(data.mMintParam?.blocks_per_year)
-            return provisions.dividing(by: bonded, withBehavior: handler24Down).dividing(by: blocksPerYear, withBehavior: handler24Down)
-        }
-    }
-    
-    static func getDpEstApr(_ font: UIFont, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock(chain)
-        let estApr = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: rpr).multiplying(byPowerOf10: 2)
-        return displayPercent(estApr, font)
-    }
-    
     static func getDpEstAprCommission(_ font: UIFont, _ commission: NSDecimalNumber, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock(chain)
-        let commissionCal = NSDecimalNumber.one.subtracting(commission)
-        let estAprCommission = YEAR_SEC.dividing(by: getCBlockTime(chain), withBehavior: handler24Down).multiplying(by: commissionCal).multiplying(by: rpr).multiplying(byPowerOf10: 2)
-        return displayPercent(estAprCommission, font)
+        guard let param = BaseData.instance.mParam else {
+            return displayPercent(NSDecimalNumber.zero, font)
+        }
+        let apr = param.getApr(chain)
+        let calCommission = NSDecimalNumber.one.subtracting(commission)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2).multiplying(byPowerOf10: 2)
+        return displayPercent(aprCommission, font)
     }
     
     static func getDailyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock(chain)
-        let commissionCal = NSDecimalNumber.one.subtracting(commission)
-        var dAmount = NSDecimalNumber.zero
-        if (delegated != nil) {
-            dAmount = delegated!
+        guard let param = BaseData.instance.mParam, let bondingAmount = delegated else {
+            return displayAmount2(NSDecimalNumber.zero.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
         }
-        let estDpr = DAY_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
-        return displayAmount2(estDpr.stringValue, font, mainDivideDecimal(chain), 12)
+        let apr = param.getApr(chain)
+        let calCommission = NSDecimalNumber.one.subtracting(commission)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2)
+        let dayReward = bondingAmount.multiplying(by: aprCommission).dividing(by: NSDecimalNumber.init(string: "365"), withBehavior: WUtils.handler0)
+        return displayAmount2(dayReward.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
     }
     
     static func getMonthlyReward(_ font: UIFont, _ commission: NSDecimalNumber, _ delegated: NSDecimalNumber?, _ chain: ChainType) -> NSMutableAttributedString {
-        let rpr = getYieldPerBlock(chain)
-        let commissionCal = NSDecimalNumber.one.subtracting(commission)
-        var dAmount = NSDecimalNumber.zero
-        if (delegated != nil) {
-            dAmount = delegated!
+        guard let param = BaseData.instance.mParam, let bondingAmount = delegated else {
+            return displayAmount2(NSDecimalNumber.zero.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
         }
-        let estDpr = MONTH_SEC.multiplying(by: commissionCal).multiplying(by: rpr).multiplying(by: dAmount).dividing(by: getCBlockTime(chain), withBehavior: handler12Down)
-        return displayAmount2(estDpr.stringValue, font, mainDivideDecimal(chain), 12)
-    }
-    
-    static func displayYield(_ bonded:NSDecimalNumber, _ provision:NSDecimalNumber, _ commission:NSDecimalNumber, font:UIFont ) -> NSMutableAttributedString {
-        let nf = NumberFormatter()
-        nf.minimumFractionDigits = 2
-        nf.maximumFractionDigits = 2
-        nf.numberStyle = .decimal
-        
-        let formatted   = nf.string(from: provision.dividing(by: bonded).multiplying(by: (NSDecimalNumber.one.subtracting(commission))).multiplying(by: 100))! + "%"
-        let endIndex    = formatted.index(formatted.endIndex, offsetBy: -3)
-        
-        let preString   = formatted[..<endIndex]
-        let postString  = formatted[endIndex...]
-        
-        let preAttrs = [NSAttributedString.Key.font : font]
-        let postAttrs = [NSAttributedString.Key.font : font.withSize(CGFloat(Int(Double(font.pointSize) * 0.85)))]
-        
-        let attributedString1 = NSMutableAttributedString(string:String(preString), attributes:preAttrs as [NSAttributedString.Key : Any])
-        let attributedString2 = NSMutableAttributedString(string:String(postString), attributes:postAttrs as [NSAttributedString.Key : Any])
-        
-        attributedString1.append(attributedString2)
-        return attributedString1
-        
+        let apr = param.getApr(chain)
+        let calCommission = NSDecimalNumber.one.subtracting(commission)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2)
+        let dayReward = bondingAmount.multiplying(by: aprCommission).dividing(by: NSDecimalNumber.init(string: "12"), withBehavior: WUtils.handler0)
+        return displayAmount2(dayReward.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
     }
     
     static func displayCommission(_ rate:String?, font:UIFont ) -> NSMutableAttributedString {
@@ -4655,10 +4562,10 @@ class WUtils {
     }
     
     static func getTurnout(_ tally:Cosmos_Gov_V1beta1_TallyResult) -> NSDecimalNumber {
-        if let bonded = BaseData.instance.mStakingPool_gRPC?.bondedTokens {
-            return getSum(tally).multiplying(byPowerOf10: 2).dividing(by: NSDecimalNumber.init(string: bonded), withBehavior: WUtils.handler2)
+        guard let param = BaseData.instance.mParam else {
+            return NSDecimalNumber.zero
         }
-        return NSDecimalNumber.zero
+        return getSum(tally).multiplying(byPowerOf10: 2).dividing(by: param.getBondedAmount(), withBehavior: WUtils.handler2)
     }
     
     static func getVoterTypeCnt_gRPC(_ votes: Array<Cosmos_Gov_V1beta1_Vote>?, _ option: Cosmos_Gov_V1beta1_VoteOption) -> String {

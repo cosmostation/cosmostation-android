@@ -18,6 +18,63 @@ public struct Param {
             self.params = Params.init(rawParams)
         }
     }
+    
+    func getInflation(_ chainType: ChainType?) -> NSDecimalNumber {
+        if (chainType == ChainType.IRIS_MAIN || chainType == ChainType.IRIS_TEST) {
+            return NSDecimalNumber.init(string: params?.minting_params?.inflation)
+        }
+        return NSDecimalNumber.init(string: params?.minting_inflation)
+    }
+    
+    func getDpInflation(_ chainType: ChainType?) -> NSDecimalNumber {
+        return getInflation(chainType).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2Down)
+    }
+    
+    func getBondedAmount() -> NSDecimalNumber {
+        if let pool = params?.staking_pool?.pool {
+            return NSDecimalNumber.init(string: pool.bonded_tokens)
+        }
+        if let bonded_tokens = params?.staking_pool?.bonded_tokens {
+            return NSDecimalNumber.init(string: bonded_tokens)
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    func getTax() -> NSDecimalNumber {
+        if let params = params?.distribution_params?.params {
+            return NSDecimalNumber.init(string: params.community_tax)
+        }
+        
+        if let community_tax = params?.distribution_params?.community_tax {
+            return NSDecimalNumber.init(string: community_tax)
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    func getMainSupply() -> NSDecimalNumber {
+        if let denom = params?.staking_params?.getMainDenom() {
+            return NSDecimalNumber.init(string: params?.supply?.filter { $0.denom == denom}.first?.amount)
+        }
+        return NSDecimalNumber.zero
+    }
+    
+    func getApr(_ chain: ChainType?) -> NSDecimalNumber {
+        let inflation = getInflation(chain)
+        let calTax = NSDecimalNumber.one.subtracting(getTax())
+        if (getMainSupply() == NSDecimalNumber.zero) { return NSDecimalNumber.zero}
+        let bondingRate = getBondedAmount().dividing(by: getMainSupply(), withBehavior: WUtils.handler6)
+        if (bondingRate == NSDecimalNumber.zero) { return NSDecimalNumber.zero}
+        return inflation.multiplying(by: calTax).dividing(by: bondingRate, withBehavior: WUtils.handler6)
+    }
+    
+    func getDpApr(_ chain: ChainType?) -> NSDecimalNumber {
+        return getApr(chain).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2)
+    }
+    
+    func getSupplyDenom(_ denom: String) -> Coin?{
+        return params?.supply?.filter {$0.denom == denom }.first
+    }
+    
 }
 
 public struct Params {
@@ -28,8 +85,9 @@ public struct Params {
     var staking_pool: StakingPool?
     var staking_params: StakingParam?
     var distribution_params: DistributionParam?
-    var supply: SupplyList?
+    var supply: Array<Coin>?
     var gov_tallying: GovTallying?
+    var iris_tokens: Array<IrisToken>?
     
     init(_ dictionary: NSDictionary?) {
         if let rawIbcParams = dictionary?["ibc_params"] as? NSDictionary {
@@ -60,10 +118,23 @@ public struct Params {
             self.distribution_params = DistributionParam.init(rawDistributionParam)
         }
         if let rawSupply = dictionary?["supply"] as? NSDictionary {
-            self.supply = SupplyList.init(rawSupply)
+            self.supply = SupplyList.init(rawSupply).supply
         }
+        if let rawSupplys = dictionary?["supply"] as? Array<NSDictionary> {
+            self.supply = Array<Coin>()
+            for rawSupply in rawSupplys {
+                self.supply?.append(Coin.init(rawSupply))
+            }
+        }
+        
         if let rawGovTallying = dictionary?["gov_tallying"] as? NSDictionary {
             self.gov_tallying = GovTallying.init(rawGovTallying)
+        }
+        if let rawIrisTokens = dictionary?["iris_tokens"] as? Array<NSDictionary> {
+            self.iris_tokens = Array<IrisToken>()
+            for rawIrisToken in rawIrisTokens {
+                self.iris_tokens?.append(IrisToken.init(rawIrisToken))
+            }
         }
     }
 }
@@ -88,7 +159,7 @@ public struct IbcParams {
     }
 }
 
-public struct MintingParams{
+public struct MintingParams {
     var params: Params?
     var inflation: String?
     var mint_denom: String?
@@ -178,6 +249,26 @@ public struct StakingParam {
     var max_validators: Int?
     var unbonding_time: String?
     var historical_entries: Int?
+    
+    func getMainDenom() -> String {
+        if let result = params?.bond_denom {
+            return result
+        }
+        if let result = bond_denom {
+            return result
+        }
+        return ""
+    }
+    
+    func getUnbondingTime() -> NSDecimalNumber {
+        if let result = params?.unbonding_time {
+            return NSDecimalNumber.init(string: result.filter{ $0.isNumber })
+        }
+        if let result = unbonding_time {
+            return NSDecimalNumber.init(string: result).multiplying(byPowerOf10: -9, withBehavior: WUtils.handler0Down)
+        }
+        return NSDecimalNumber.zero
+    }
     
     init(_ dictionary: NSDictionary?) {
         if let rawParam = dictionary?["params"] as? NSDictionary {
@@ -292,6 +383,40 @@ public struct GovTallying {
             self.veto = dictionary?["veto"] as? String
             self.quorum = dictionary?["quorum"] as? String
             self.threshold = dictionary?["threshold"] as? String
+        }
+    }
+}
+
+public struct IrisToken {
+    var type: String?
+    var value: IrisTokenValue?
+    
+    init(_ dictionary: NSDictionary?) {
+        self.type = dictionary?["type"] as? String
+        if let rawValue = dictionary?["value"] as? NSDictionary {
+            self.value = IrisTokenValue.init(rawValue)
+        }
+    }
+    
+    public struct IrisTokenValue {
+        var name: String?
+        var owner: String?
+        var scale: String?
+        var symbol: String?
+        var min_unit: String?
+        var mintable: Bool?
+        var max_supply: String?
+        var initial_supply: String?
+        
+        init(_ dictionary: NSDictionary?) {
+            self.name = dictionary?["name"] as? String
+            self.owner = dictionary?["owner"] as? String
+            self.scale = dictionary?["scale"] as? String
+            self.symbol = dictionary?["symbol"] as? String
+            self.min_unit = dictionary?["min_unit"] as? String
+            self.mintable = dictionary?["mintable"] as? Bool
+            self.max_supply = dictionary?["max_supply"] as? String
+            self.initial_supply = dictionary?["initial_supply"] as? String
         }
     }
 }

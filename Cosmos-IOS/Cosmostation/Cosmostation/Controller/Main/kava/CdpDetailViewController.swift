@@ -416,8 +416,9 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         self.mFetchCnt = 3
         onFetchOwenCdp(account!.account_address)
         onFetchCdpDeposit(account!, self.mCollateralParamType!)
-        onFetchTotalSupply()
+//        onFetchTotalSupply()
 //        onFetchKavaPrice(self.mMarketID)
+        self.mDebtAmount = NSDecimalNumber.init(string: BaseData.instance.mParam?.getSupplyDenom("debt")?.amount)
     }
     
     func onFetchFinished() {
@@ -528,24 +529,24 @@ class CdpDetailViewController: BaseViewController, UITableViewDelegate, UITableV
         }
     }
 
-    func onFetchTotalSupply() {
-        let request = Alamofire.request(BaseNetWork.supplyUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
-                    self.onFetchFinished()
-                    return
-                }
-                let totalSupply = KavaSupply.init(responseData)
-                self.mDebtAmount = totalSupply.getDebtAmount()
-                print("mDebtAmount ", self.mDebtAmount)
-                
-            case .failure(let error):
-                self.onShowToast(NSLocalizedString("error_network", comment: ""))
-                return
-            }
-            self.onFetchFinished()
-        }
-    }
+//    func onFetchTotalSupply() {
+//        let request = Alamofire.request(BaseNetWork.supplyUrl(chainType), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+//                guard let responseData = res as? NSDictionary, let _ = responseData.object(forKey: "height") as? String else {
+//                    self.onFetchFinished()
+//                    return
+//                }
+//                let totalSupply = KavaSupply.init(responseData)
+//                self.mDebtAmount = totalSupply.getDebtAmount()
+//                print("mDebtAmount ", self.mDebtAmount)
+//                
+//            case .failure(let error):
+//                self.onShowToast(NSLocalizedString("error_network", comment: ""))
+//                return
+//            }
+//            self.onFetchFinished()
+//        }
+//    }
 }

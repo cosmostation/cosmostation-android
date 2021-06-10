@@ -17,10 +17,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     @IBOutlet weak var btnBefore: UIButton!
     @IBOutlet weak var btnNext: UIButton!
     
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    var mIrisStakePool: NSDictionary?
-    
     var pageHolderVC: StepGenTxViewController!
     
     var checkedValidator: Validator?
@@ -30,10 +26,6 @@ class StepRedelegateToViewController: BaseViewController, UITableViewDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
-        self.mIrisStakePool = BaseData.instance.mIrisStakePool
-        
         pageHolderVC = self.parent as? StepGenTxViewController
         mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         

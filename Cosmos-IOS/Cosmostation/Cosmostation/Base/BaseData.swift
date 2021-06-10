@@ -31,11 +31,6 @@ final class BaseData : NSObject{
     var mMyValidator = Array<Validator>()
     
     var mHeight: Int = 0
-    var mStakingPool: NSDictionary?
-    var mIrisStakePool: NSDictionary?
-    var mProvision: String?
-    var mInflation: String?
-    var mMintParam: MintParam.MintParamResult?
     
     
     //kava-7
@@ -80,14 +75,6 @@ final class BaseData : NSObject{
     var mMyBalances_gRPC = Array<Coin>()
     var mMyVestings_gRPC = Array<Coin>()
     var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
-    
-    var mMintParam_gRPC: Cosmos_Mint_V1beta1_Params?
-    var mStakingPool_gRPC: Cosmos_Staking_V1beta1_Pool?
-    var mProvision_gRPC: NSDecimalNumber?
-    var mInflation_gRPC: NSDecimalNumber?
-    
-    var mIrisMintParam_gRPC: Irishub_Mint_Params?
-    var mIrisTokens_gRPC = Array<Irismod_Token_Token>()
     
     
     public override init() {

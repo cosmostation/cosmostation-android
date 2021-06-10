@@ -31,12 +31,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mSelfDelegationInfo_gRPC: Cosmos_Staking_V1beta1_DelegationResponse?
     var mApiCustomHistories = Array<ApiHistoryCustom>()
-    
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    var mBandOracleStatus: BandOracleStatus?
-    
+        
     var refresher: UIRefreshControl!
 
     override func viewDidLoad() {
@@ -59,11 +54,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         refresher.addTarget(self, action: #selector(onFech), for: .valueChanged)
         refresher.tintColor = UIColor.white
         validatorDetailTableView.addSubview(refresher)
-        
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         
         self.loadingImg.onStartAnimation()
         self.onFech()
@@ -133,7 +123,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 } else {
                     mMyValidator = false
                 }
-                self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
@@ -243,7 +232,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
                 } else {
@@ -302,7 +291,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
                 } else {
@@ -356,7 +345,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else {
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getDailyReward(cell!.myMonthlyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
             cell!.myDailyReturns.textColor = UIColor.init(hexString: "f31963")
             cell!.myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
         }
