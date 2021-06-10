@@ -37,14 +37,14 @@ class TokenDetailPersistenceCell: TokenDetailCell {
         let totalToken = WUtils.getAllMainAsset(PERSIS_MAIN_DENOM)
         totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
         totalValue.attributedText = WUtils.dpUserCurrencyValue(PERSIS_MAIN_DENOM, totalToken, 6, totalValue.font)
-        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
-        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
-        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
-        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(PERSIS_MAIN_DENOM), rewardAmount.font, 6, 6)
-        let vesting = BaseData.instance.getVestingAmount(PERSIS_MAIN_DENOM)
+        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable_gRPC(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
+        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum_gRPC(), delegatedAmount.font!, 6, 6)
+        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum_gRPC(), unbondingAmount.font, 6, 6)
+        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum_gRPC(PERSIS_MAIN_DENOM), rewardAmount.font, 6, 6)
+        let vesting = BaseData.instance.getVestingAmount_gRPC(PERSIS_MAIN_DENOM)
         if (vesting.compare(NSDecimalNumber.zero).rawValue > 0) {
             vestingLayer.isHidden = false
-            vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
+            vestingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getVesting_gRPC(PERSIS_MAIN_DENOM), availableAmount.font!, 6, 6)
         }
     }
     

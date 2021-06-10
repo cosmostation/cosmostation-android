@@ -162,6 +162,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             return false
         }
         BaseData.instance.mPrices.removeAll()
+        BaseData.instance.mParam = nil
         
         BaseData.instance.mNodeInfo = nil
         BaseData.instance.mAllValidator.removeAll()
@@ -628,6 +629,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 BaseData.instance.mNodeInfo = NodeInfo.init(nodeInfo)
+                self.mFetchCnt = self.mFetchCnt + 1
+                self.onFetchParams(BaseData.instance.getChainId())
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
             }
@@ -1239,6 +1242,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 print("onFetchgRPCNodeInfo failed: \(error)")
             }
             DispatchQueue.main.async(execute: {
+                self.mFetchCnt = self.mFetchCnt + 1
+                self.onFetchParams(BaseData.instance.getChainId_gRPC())
                 self.onFetchFinished()
             });
         }
@@ -1647,6 +1652,25 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if (SHOW_LOG) { print("onFetchPriceInfo ", error) }
             }
         }
+    }
+    
+    func onFetchParams(_ chainId: String) {
+        print("onFetchParams ", chainId, "   ", BaseNetWork.getParams(chainId))
+        let request = Alamofire.request(BaseNetWork.getParams(chainId), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                if let params = res as? NSDictionary {
+                    BaseData.instance.mParam = Param.init(params)
+                }
+                print("mParam ", BaseData.instance.mParam)
+            
+            case .failure(let error):
+                if (SHOW_LOG) { print("onFetchPriceInfo ", error) }
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     

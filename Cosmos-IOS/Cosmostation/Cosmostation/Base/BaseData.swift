@@ -18,9 +18,7 @@ final class BaseData : NSObject{
     var database: Connection!
     var copySalt: String?
     var mPrices = Array<Price>()
-    func getPrice(_ denom: String) -> Price? {
-        return mPrices.filter { $0.denom == denom.lowercased() }.first
-    }
+    var mParam: Param?
     
     var mNodeInfo: NodeInfo?
     var mBalances = Array<Balance>()
@@ -67,6 +65,47 @@ final class BaseData : NSObject{
     
     var mBandOracleStatus: BandOracleStatus?
     
+    
+    //For ProtoBuf and gRPC
+    var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?
+    var mNodeInfo_gRPC: Tendermint_P2p_DefaultNodeInfo?
+    var mAccount_gRPC: Google_Protobuf2_Any?
+    var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    var mBondedValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    var mUnbondValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    var mMyValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
+    
+    var mMyDelegations_gRPC = Array<Cosmos_Staking_V1beta1_DelegationResponse>()
+    var mMyUnbondings_gRPC = Array<Cosmos_Staking_V1beta1_UnbondingDelegation>()
+    var mMyBalances_gRPC = Array<Coin>()
+    var mMyVestings_gRPC = Array<Coin>()
+    var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
+    
+    var mMintParam_gRPC: Cosmos_Mint_V1beta1_Params?
+    var mStakingPool_gRPC: Cosmos_Staking_V1beta1_Pool?
+    var mProvision_gRPC: NSDecimalNumber?
+    var mInflation_gRPC: NSDecimalNumber?
+    
+    var mIrisMintParam_gRPC: Irishub_Mint_Params?
+    var mIrisTokens_gRPC = Array<Irismod_Token_Token>()
+    
+    
+    public override init() {
+        super.init();
+        if database == nil {
+            self.initdb();
+        }
+    }
+    
+    func getPrice(_ denom: String) -> Price? {
+        return mPrices.filter { $0.denom == denom.lowercased() }.first
+    }
+    
+    
+    func getChainId() -> String {
+        if (mNodeInfo != nil) { return mNodeInfo!.network! }
+        return ""
+    }
     
     func getBalance(_ symbol:String?) -> Balance? {
         return mBalances.filter {$0.balance_denom == symbol}.first
@@ -181,41 +220,13 @@ final class BaseData : NSObject{
     
     
     
-    //For ProtoBuf and gRPC
-    var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?
-    var mNodeInfo_gRPC: Tendermint_P2p_DefaultNodeInfo?
-    var mAccount_gRPC: Google_Protobuf2_Any?
-    var mAllValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
-    var mBondedValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
-    var mUnbondValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
-    var mMyValidators_gRPC = Array<Cosmos_Staking_V1beta1_Validator>()
-    
-    var mMyDelegations_gRPC = Array<Cosmos_Staking_V1beta1_DelegationResponse>()
-    var mMyUnbondings_gRPC = Array<Cosmos_Staking_V1beta1_UnbondingDelegation>()
-    var mMyBalances_gRPC = Array<Coin>()
-    var mMyVestings_gRPC = Array<Coin>()
-    var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
-    
-    var mMintParam_gRPC: Cosmos_Mint_V1beta1_Params?
-    var mStakingPool_gRPC: Cosmos_Staking_V1beta1_Pool?
-    var mProvision_gRPC: NSDecimalNumber?
-    var mInflation_gRPC: NSDecimalNumber?
-    
-    var mIrisMintParam_gRPC: Irishub_Mint_Params?
-    var mIrisTokens_gRPC = Array<Irismod_Token_Token>()
-    
-    
-    func getChainId() -> String {
-        if (mNodeInfo != nil) { return mNodeInfo!.network! }
-        return ""
-    }
-    
+    // for gRPC func
     func getChainId_gRPC() -> String {
         if (mNodeInfo_gRPC != nil) { return mNodeInfo_gRPC!.network }
         return ""
     }
     
-    func getAvailable(_ symbol:String) -> String {
+    func getAvailable_gRPC(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero.stringValue
         for balance in mMyBalances_gRPC {
             if (balance.denom == symbol) {
@@ -225,11 +236,11 @@ final class BaseData : NSObject{
         return amount;
     }
     
-    func getAvailableAmount(_ symbol:String) -> NSDecimalNumber {
-        return WUtils.plainStringToDecimal(getAvailable(symbol))
+    func getAvailableAmount_gRPC(_ symbol:String) -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(getAvailable_gRPC(symbol))
     }
     
-    func getVesting(_ symbol:String) -> String {
+    func getVesting_gRPC(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero.stringValue
         for balance in mMyVestings_gRPC {
             if (balance.denom == symbol) {
@@ -239,11 +250,11 @@ final class BaseData : NSObject{
         return amount;
     }
     
-    func getVestingAmount(_ symbol:String) -> NSDecimalNumber {
-        return WUtils.plainStringToDecimal(getVesting(symbol))
+    func getVestingAmount_gRPC(_ symbol:String) -> NSDecimalNumber {
+        return WUtils.plainStringToDecimal(getVesting_gRPC(symbol))
     }
     
-    func onParseRemainVestingsByDenom(_ denom: String) -> Array<Cosmos_Vesting_V1beta1_Period> {
+    func onParseRemainVestingsByDenom_gRPC(_ denom: String) -> Array<Cosmos_Vesting_V1beta1_Period> {
         var results = Array<Cosmos_Vesting_V1beta1_Period>()
         if (mAccount_gRPC?.typeURL.contains(Cosmos_Vesting_V1beta1_PeriodicVestingAccount.protoMessageName) == true) {
             let account = try! Cosmos_Vesting_V1beta1_PeriodicVestingAccount.init(serializedData: mAccount_gRPC!.value)
@@ -285,9 +296,9 @@ final class BaseData : NSObject{
         return results
     }
     
-    func onParseRemainVestingsAmountSumByDenom(_ denom: String) -> NSDecimalNumber {
+    func onParseRemainVestingsAmountSumByDenom_gRPC(_ denom: String) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        onParseRemainVestingsByDenom(denom).forEach { (vp) in
+        onParseRemainVestingsByDenom_gRPC(denom).forEach { (vp) in
             vp.amount.forEach { (coin) in
                 if (coin.denom == denom) {
                     result = result.adding(NSDecimalNumber.init(string: coin.amount))
@@ -297,11 +308,11 @@ final class BaseData : NSObject{
         return result
     }
     
-    func getDelegatable(_ symbol:String) -> NSDecimalNumber {
-        return getAvailableAmount(symbol).adding(getVestingAmount(symbol))
+    func getDelegatable_gRPC(_ symbol:String) -> NSDecimalNumber {
+        return getAvailableAmount_gRPC(symbol).adding(getVestingAmount_gRPC(symbol))
     }
     
-    func getDelegatedSum() -> String {
+    func getDelegatedSum_gRPC() -> String {
         var amount = NSDecimalNumber.zero
         for delegation in mMyDelegations_gRPC {
             amount = amount.adding(WUtils.plainStringToDecimal(delegation.balance.amount))
@@ -309,7 +320,7 @@ final class BaseData : NSObject{
         return amount.stringValue;
     }
     
-    func getDelegated(_ opAddress: String?) -> NSDecimalNumber {
+    func getDelegated_gRPC(_ opAddress: String?) -> NSDecimalNumber {
         if let delegation = BaseData.instance.mMyDelegations_gRPC.filter({ $0.delegation.validatorAddress == opAddress}).first {
             return WUtils.plainStringToDecimal(delegation.balance.amount)
         } else {
@@ -317,7 +328,7 @@ final class BaseData : NSObject{
         }
     }
     
-    func getUnbondingSum() -> String {
+    func getUnbondingSum_gRPC() -> String {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings_gRPC {
             for entry in unbonding.entries {
@@ -327,7 +338,7 @@ final class BaseData : NSObject{
         return amount.stringValue;
     }
     
-    func getUnbonding(_ opAddress: String?) -> NSDecimalNumber {
+    func getUnbonding_gRPC(_ opAddress: String?) -> NSDecimalNumber {
         var amount = NSDecimalNumber.zero
         for unbonding in mMyUnbondings_gRPC {
             if (unbonding.validatorAddress == opAddress) {
@@ -339,7 +350,7 @@ final class BaseData : NSObject{
         return amount;
     }
     
-    func getRewardSum(_ symbol:String) -> String {
+    func getRewardSum_gRPC(_ symbol:String) -> String {
         var amount = NSDecimalNumber.zero
         for reward in mMyReward_gRPC {
             for coin in reward.reward {
@@ -351,7 +362,7 @@ final class BaseData : NSObject{
         return amount.stringValue;
     }
     
-    func getReward(_ symbol:String, _ opAddress: String?) -> NSDecimalNumber {
+    func getReward_gRPC(_ symbol:String, _ opAddress: String?) -> NSDecimalNumber {
         if let reward = BaseData.instance.mMyReward_gRPC.filter({ $0.validatorAddress == opAddress}).first {
             for coin in reward.reward {
                 if (coin.denom == symbol) {
@@ -362,20 +373,7 @@ final class BaseData : NSObject{
         return NSDecimalNumber.zero
     }
     
-    public override init() {
-        super.init();
-        if database == nil {
-            self.initdb();
-        }
-    }
     
-    func setAllValidators(_ validators: Array<Validator>) {
-        self.mAllValidator = validators
-    }
-    
-    func getAllValidators () -> Array<Validator>{
-        return self.mAllValidator
-    }
     
     func setRecentAccountId(_ id : Int64) {
         UserDefaults.standard.set(id, forKey: KEY_RECENT_ACCOUNT)

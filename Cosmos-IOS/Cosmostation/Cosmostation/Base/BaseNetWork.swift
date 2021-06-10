@@ -1246,6 +1246,10 @@ class BaseNetWork {
         return STATION_URL + "v1/market/price?id=" + denoms
     }
     
+    static func getParams(_ chainId: String) -> String {
+        return STATION_URL + "v1/params/" + chainId
+        
+    }
     
     static func getConnection(_ chain: ChainType, _ group: MultiThreadedEventLoopGroup) -> ClientConnection? {
         if (chain == ChainType.COSMOS_MAIN) {

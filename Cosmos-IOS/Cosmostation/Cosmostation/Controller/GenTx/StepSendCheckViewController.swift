@@ -79,7 +79,7 @@ class StepSendCheckViewController: BaseViewController, PasswordViewDelegate{
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
             mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
-            currentAvailable = BaseData.instance.getAvailableAmount(toSendDenom)
+            currentAvailable = BaseData.instance.getAvailableAmount_gRPC(toSendDenom)
             
         }  else {
             if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
