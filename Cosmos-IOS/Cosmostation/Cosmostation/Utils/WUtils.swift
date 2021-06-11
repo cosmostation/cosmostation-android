@@ -1323,7 +1323,7 @@ class WUtils {
         }
         let apr = param.getApr(chain)
         let calCommission = NSDecimalNumber.one.subtracting(commission)
-        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2).multiplying(byPowerOf10: 2)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler6).multiplying(byPowerOf10: 2)
         return displayPercent(aprCommission, font)
     }
     
@@ -1333,7 +1333,7 @@ class WUtils {
         }
         let apr = param.getApr(chain)
         let calCommission = NSDecimalNumber.one.subtracting(commission)
-        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler6)
         let dayReward = bondingAmount.multiplying(by: aprCommission).dividing(by: NSDecimalNumber.init(string: "365"), withBehavior: WUtils.handler0)
         return displayAmount2(dayReward.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
     }
@@ -1344,7 +1344,7 @@ class WUtils {
         }
         let apr = param.getApr(chain)
         let calCommission = NSDecimalNumber.one.subtracting(commission)
-        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler6)
         let dayReward = bondingAmount.multiplying(by: aprCommission).dividing(by: NSDecimalNumber.init(string: "12"), withBehavior: WUtils.handler0)
         return displayAmount2(dayReward.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
     }

@@ -462,13 +462,6 @@ public class WDp {
         }
     }
 
-    //display estimate apr by own checked block time
-    public static SpannableString getDpEstApr(BaseData baseData, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal estApr = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(rpr).movePointRight(2);
-        return getPercentDp(estApr);
-    }
-
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = param.getApr(chain);
@@ -481,18 +474,18 @@ public class WDp {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = param.getApr(chain);
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
-        BigDecimal dayReward = delegated.multiply(aprCommission).divide(YEAR_SEC ,0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
+        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365") ,0, RoundingMode.DOWN);
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = param.getApr(chain);
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
-        BigDecimal dayReward = delegated.multiply(aprCommission).divide(MONTH_SEC, 0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
+        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
