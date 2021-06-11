@@ -37,6 +37,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailBnbCell", bundle: nil), forCellReuseIdentifier: "TokenDetailBnbCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSentinelCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSentinelCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailRizonCell", bundle: nil), forCellReuseIdentifier: "TokenDetailRizonCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAltheaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAltheaCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -56,7 +57,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         }
         
         if (WUtils.isGRPC(chainType!)) {
-            if (BaseData.instance.onParseRemainVestingsByDenom(WUtils.getMainDenom(chainType)).count > 0) { hasVesting = true }
+            if (BaseData.instance.onParseRemainVestingsByDenom_gRPC(WUtils.getMainDenom(chainType)).count > 0) { hasVesting = true }
             btnIcbSend.isHidden = false
             
         } else if (chainType == ChainType.KAVA_MAIN || chainType == ChainType.KAVA_TEST) {
@@ -119,6 +120,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailRizonCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
+                
+            } else if (chainType == ChainType.ALTHEA_TEST) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailAltheaCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
             }
             
             else if (chainType == ChainType.SIF_MAIN) {
@@ -179,7 +185,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue <= 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

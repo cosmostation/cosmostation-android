@@ -61,9 +61,9 @@ class ValidatorDetailMyActionCell: UITableViewCell {
     
     func updateView(_ validator: Cosmos_Staking_V1beta1_Validator?, _ chainType: ChainType?) {
         cardView.backgroundColor = WUtils.getChainBg(chainType)
-        let delegation = BaseData.instance.getDelegated(validator!.operatorAddress)
-        let unbonding = BaseData.instance.getUnbonding(validator!.operatorAddress)
-        let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType!), validator!.operatorAddress)
+        let delegation = BaseData.instance.getDelegated_gRPC(validator!.operatorAddress)
+        let unbonding = BaseData.instance.getUnbonding_gRPC(validator!.operatorAddress)
+        let reward = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(chainType!), validator!.operatorAddress)
         myDelegateAmount.attributedText =  WUtils.displayAmount2(delegation.stringValue, myDelegateAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
         myUndelegateAmount.attributedText =  WUtils.displayAmount2(unbonding.stringValue, myUndelegateAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))
         myRewardAmount.attributedText = WUtils.displayAmount2(reward.stringValue, myRewardAmount.font, WUtils.mainDivideDecimal(chainType), WUtils.mainDivideDecimal(chainType))

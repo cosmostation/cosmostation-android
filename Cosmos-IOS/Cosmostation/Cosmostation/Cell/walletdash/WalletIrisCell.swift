@@ -43,10 +43,10 @@ class WalletIrisCell: UITableViewCell {
             let totalIris = WUtils.getAllMainAsset(IRIS_MAIN_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(totalIris.stringValue, totalAmount.font!, 6, 6)
             totalValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_MAIN_DENOM, totalIris, 6, totalValue.font)
-            availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(IRIS_MAIN_DENOM), availableAmount.font!, 6, 6)
-            delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
-            unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
-            rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(IRIS_MAIN_DENOM), rewardAmount.font, 6, 6)
+            availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable_gRPC(IRIS_MAIN_DENOM), availableAmount.font!, 6, 6)
+            delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum_gRPC(), delegatedAmount.font!, 6, 6)
+            unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum_gRPC(), unbondingAmount.font, 6, 6)
+            rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum_gRPC(IRIS_MAIN_DENOM), rewardAmount.font, 6, 6)
             BaseData.instance.updateLastTotal(account, totalIris.multiplying(byPowerOf10: -6).stringValue)
             
         } else if (chainType == ChainType.IRIS_TEST) {
@@ -54,10 +54,10 @@ class WalletIrisCell: UITableViewCell {
             let totalBif = WUtils.getAllMainAsset(IRIS_TEST_DENOM)
             totalAmount.attributedText = WUtils.displayAmount2(totalBif.stringValue, totalAmount.font!, 6, 6)
             totalValue.attributedText = WUtils.dpUserCurrencyValue(IRIS_TEST_DENOM, totalBif, 6, totalValue.font)
-            availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(IRIS_TEST_DENOM), availableAmount.font!, 6, 6)
-            delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
-            unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
-            rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(IRIS_TEST_DENOM), rewardAmount.font, 6, 6)
+            availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable_gRPC(IRIS_TEST_DENOM), availableAmount.font!, 6, 6)
+            delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum_gRPC(), delegatedAmount.font!, 6, 6)
+            unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum_gRPC(), unbondingAmount.font, 6, 6)
+            rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum_gRPC(IRIS_TEST_DENOM), rewardAmount.font, 6, 6)
             BaseData.instance.updateLastTotal(account, totalBif.multiplying(byPowerOf10: -6).stringValue)
         }
     }

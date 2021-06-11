@@ -61,7 +61,7 @@ class ReInvestAmountViewController: BaseViewController {
         mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            let cReward = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
+            let cReward = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(pageHolderVC.chainType), pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
             rewardAmountLabel.attributedText = WUtils.displayAmount2(cReward.stringValue, rewardAmountLabel.font, mDpDecimal, mDpDecimal)
             validatorLabel.text = pageHolderVC.mTargetValidator_gRPC?.description_p.moniker
             

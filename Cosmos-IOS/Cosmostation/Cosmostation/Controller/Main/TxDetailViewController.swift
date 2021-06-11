@@ -38,7 +38,7 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
         super.viewDidLoad()
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
-        self.mAllValidator = BaseData.instance.getAllValidators()
+        self.mAllValidator = BaseData.instance.mAllValidator
         
         self.txTableView.delegate = self
         self.txTableView.dataSource = self

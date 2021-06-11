@@ -18,7 +18,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
-    var mBandOracleStatus: BandOracleStatus?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
         
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.myValidatorTableView.delegate = self
         self.myValidatorTableView.dataSource = self
         self.myValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -63,7 +61,6 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         self.onSortingMy()
         self.refresher.endRefreshing()
     }
@@ -207,7 +204,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
         cell.rewardAmoutLabel.attributedText = WUtils.displayAmount2(reward.stringValue, cell.rewardAmoutLabel.font, WUtils.mainDivideDecimal(chainType), 6)
 
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(validator.operator_address) {
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
         }
@@ -216,7 +213,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
     func onSetClaimAllItem(_ cell: ClaimRewardAllCell) {
         WUtils.setDenomTitle(chainType!, cell.denomLabel)
         if (WUtils.isGRPC(chainType!)) {
-            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(WUtils.getMainDenom(chainType)), cell.totalRewardLabel.font, WUtils.mainDivideDecimal(chainType), 6)
+            cell.totalRewardLabel.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum_gRPC(WUtils.getMainDenom(chainType)), cell.totalRewardLabel.font, WUtils.mainDivideDecimal(chainType), 6)
             cell.delegate = self
             
         } else {
@@ -237,7 +234,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             let mainDenom = WUtils.getMainDenom(chainType)
             
             BaseData.instance.mMyValidators_gRPC.forEach { validator in
-                if (BaseData.instance.getReward(mainDenom, validator.operatorAddress).compare(feeAmountSingle).rawValue > 0) {
+                if (BaseData.instance.getReward_gRPC(mainDenom, validator.operatorAddress).compare(feeAmountSingle).rawValue > 0) {
                     claimAbleValidators.append(validator)
                 }
             }
@@ -246,8 +243,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 return;
             }
             claimAbleValidators.sort {
-                let reward0 = BaseData.instance.getReward(mainDenom, $0.operatorAddress)
-                let reward1 = BaseData.instance.getReward(mainDenom, $1.operatorAddress)
+                let reward0 = BaseData.instance.getReward_gRPC(mainDenom, $0.operatorAddress)
+                let reward1 = BaseData.instance.getReward_gRPC(mainDenom, $1.operatorAddress)
                 return reward0.compare(reward1).rawValue > 0 ? true : false
             }
             if (claimAbleValidators.count > 16) {
@@ -257,7 +254,7 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
             }
 
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, toClaimValidators.count)
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -357,8 +354,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 if ($1.description_p.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
                 if (!$0.jailed && $1.jailed) { return true }
-                let firstVal = BaseData.instance.getDelegated($0.operatorAddress)
-                let seconVal = BaseData.instance.getDelegated($1.operatorAddress)
+                let firstVal = BaseData.instance.getDelegated_gRPC($0.operatorAddress)
+                let seconVal = BaseData.instance.getDelegated_gRPC($1.operatorAddress)
                 return firstVal.compare(seconVal).rawValue > 0 ? true : false
             }
             
@@ -383,8 +380,8 @@ class MyValidatorViewController: BaseViewController, UITableViewDelegate, UITabl
                 if ($1.description_p.moniker == "Cosmostation") { return false }
                 if ($0.jailed && !$1.jailed) { return false }
                 if (!$0.jailed && $1.jailed) { return true }
-                let firstVal = BaseData.instance.getReward(WUtils.getMainDenom(self.chainType), $0.operatorAddress)
-                let seconVal = BaseData.instance.getReward(WUtils.getMainDenom(self.chainType), $1.operatorAddress)
+                let firstVal = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(self.chainType), $0.operatorAddress)
+                let seconVal = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(self.chainType), $1.operatorAddress)
                 return firstVal.compare(seconVal).rawValue > 0 ? true : false
             }
             

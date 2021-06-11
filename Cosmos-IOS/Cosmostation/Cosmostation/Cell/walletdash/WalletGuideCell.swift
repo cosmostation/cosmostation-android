@@ -159,6 +159,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_medi", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_medi", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.ALTHEA_TEST) {
+            guideImg.image = UIImage(named: "infoiconAlthea")
+            guideTitle.text = NSLocalizedString("send_guide_title_althea", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_althea", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_althea", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_althea", comment: ""), for: .normal)
+            
         }
         
     }

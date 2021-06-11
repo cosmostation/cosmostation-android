@@ -62,10 +62,9 @@ public class Tally {
     }
     
     public func getTurnout() -> NSDecimalNumber {
-        if let bonded = BaseData.instance.mStakingPool?.object(forKey: "bonded_tokens") as? String {
-            let bonded_tokens = NSDecimalNumber.init(string: bonded)
-            return getSum().multiplying(byPowerOf10: 2).dividing(by: bonded_tokens, withBehavior: WUtils.handler2)
+        guard let param = BaseData.instance.mParam else {
+            return NSDecimalNumber.zero
         }
-        return NSDecimalNumber.zero
+        return getSum().multiplying(byPowerOf10: 2).dividing(by: param.getBondedAmount(), withBehavior: WUtils.handler2)
     }
 }
