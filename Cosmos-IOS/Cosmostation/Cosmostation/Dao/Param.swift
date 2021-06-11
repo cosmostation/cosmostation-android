@@ -68,6 +68,7 @@ public struct Param {
     }
     
     func getDpApr(_ chain: ChainType?) -> NSDecimalNumber {
+        if (getApr(chain) == NSDecimalNumber.zero) { return NSDecimalNumber.zero}
         return getApr(chain).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2)
     }
     
@@ -96,6 +97,7 @@ public struct Params {
         if let rawMintingParams = dictionary?["minting_params"] as? NSDictionary {
             self.minting_params = MintingParams.init(rawMintingParams)
         }
+        self.minting_inflation = "0"
         if let rawMintingInflation = dictionary?["minting_inflation"] as? NSDictionary {
             self.minting_inflation = MintingInflation.init(rawMintingInflation).inflation
         }

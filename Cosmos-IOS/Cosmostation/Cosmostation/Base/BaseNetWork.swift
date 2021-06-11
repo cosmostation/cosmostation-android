@@ -1144,7 +1144,7 @@ class BaseNetWork {
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 10000)
             
         } else if (chain == ChainType.IRIS_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9095)
@@ -1153,8 +1153,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.ALTHEA_TEST) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9096)
-            
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20100)
         }
         return nil
     }

@@ -1138,7 +1138,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchgRPCBalance(_ address: String, _ offset:Int) {
-//        print("onFetchgRPCDelegations")
+//        print("onFetchgRPCBalance")
         DispatchQueue.global().async {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
