@@ -689,7 +689,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
     @Override
     public void onTaskResponse(TaskResult result) {
-        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
+//        WLog.w("onTaskResponse " + result.taskType + "   " + mTaskCount);
         if(isFinishing()) return;
         if (result.taskType == BaseConstant.TASK_PUSH_STATUS_UPDATE) {
             if (result.isSuccess) {
@@ -703,7 +703,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
+//            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
             mTaskCount = mTaskCount + 1;
             new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -812,7 +812,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess) {
                 getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
             }
-            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
+//            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
             mTaskCount = mTaskCount + 1;
             new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

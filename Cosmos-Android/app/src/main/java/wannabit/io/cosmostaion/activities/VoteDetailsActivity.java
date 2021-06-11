@@ -384,7 +384,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     onDisplayVote_V1(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
                     holder.itemQuorum.setText(WDp.getDpString(WDp.systemQuorum(mBaseChain) + "%", 3));
-                    holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(getBaseDao(), mTally_gRPC).setScale(2).toPlainString() + "%", 3));
+                    holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mTally_gRPC).setScale(2).toPlainString() + "%", 3));
                 }
 
                 if (mMyVote_gRPC != null) {
@@ -421,7 +421,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
                     holder.itemQuorum.setText(WDp.getDpString(WDp.systemQuorum(mBaseChain) + "%", 3));
-                    holder.itemTurnout.setText(WDp.getDpString(mTally.getTurnout(getBaseDao().mChainParam).toPlainString() + "%", 3));
+                    holder.itemTurnout.setText(WDp.getDpString(mTally.getTurnout(mBaseChain, getBaseDao().mChainParam).toPlainString() + "%", 3));
                 }
 
                 if (mMyVote != null) {

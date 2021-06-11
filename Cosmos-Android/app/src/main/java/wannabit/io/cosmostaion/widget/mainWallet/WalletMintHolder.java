@@ -34,12 +34,10 @@ public class WalletMintHolder extends BaseHolder {
     public void onBindHolder(@NotNull MainActivity mainActivity) {
         final ChainParam.Params param = mainActivity.getBaseDao().mChainParam;
         final BaseChain baseChain = mainActivity.mBaseChain;
-        if (param == null || param.mMintParams == null || param.mMintParams.mint_denom == null) { return; }
-//        WLog.w("param.Inflation(baseChain) " + param.Inflation(baseChain));
-        mInflation.setText(WDp.getPercentDp(param.Inflation(baseChain)));
-        mAPR.setText(WDp.getDpEstApr(mainActivity.getBaseDao(), mainActivity.mBaseChain));
-
-
+        if (param != null) {
+            mInflation.setText(WDp.getPercentDp(param.getDpInflation(baseChain)));
+            mAPR.setText(WDp.getPercentDp(param.getDpApr(baseChain)));
+        }
         mAprCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

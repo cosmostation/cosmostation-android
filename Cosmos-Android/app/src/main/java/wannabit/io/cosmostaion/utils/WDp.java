@@ -2567,14 +2567,14 @@ public class WDp {
         return new BigDecimal(tally.getNoWithVeto()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getTurnout(BaseData baseData, Gov.TallyResult tally) {
+    public static BigDecimal getTurnout(BaseChain baseCahin, BaseData baseData, Gov.TallyResult tally) {
         BigDecimal result = BigDecimal.ZERO;
         if (baseData != null && baseData.mChainParam != null) {
             if (geTallySum(tally).equals(BigDecimal.ZERO)) {
                 return BigDecimal.ZERO.setScale(2);
 
             } else {
-                BigDecimal bonded = baseData.mChainParam.getBondedAmount();
+                BigDecimal bonded = baseData.mChainParam.getBondedAmount(baseCahin);
                 return geTallySum(tally).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
             }
         }

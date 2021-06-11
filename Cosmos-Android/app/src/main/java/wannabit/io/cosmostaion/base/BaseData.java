@@ -121,52 +121,6 @@ public class BaseData {
         return null;
     }
 
-//    public ArrayList<Token>         mToken = new ArrayList<>();
-//
-//    public Token getIrisToken(String denom) {
-//        if (mChainParam != null && mChainParam.mIrisTokens != null) {
-//            for (Token token : mToken) {
-//                if (token.value.min_unit.equals(denom)) {
-//                    return token;
-//                }
-//            }
-//        }
-//        return null;
-//    }
-
-
-//    public BigDecimal BlocksPerYear() {
-//        if (!TextUtils.isEmpty(getChainId())) {
-//            if (mChainParam != null && mChainParam.mMintParams != null) {
-//                return new BigDecimal(mChainParam.mMintParams.blocks_per_year);
-//            }
-//        } else {
-//            return new BigDecimal(mChainParam.mMintParams.params.blocks_per_year);
-//        }
-//        return BigDecimal.ZERO;
-//    }
-//
-//
-//
-//    public BigDecimal Bonded_Tokens() {
-//        if (!TextUtils.isEmpty(getChainId())) {
-//            if (mChainParam != null && (mChainParam.mStakingpools != null)) {
-//                return new BigDecimal(mChainParam.mStakingpools.bonded_tokens);
-//            }
-//        } else {
-//            return new BigDecimal(mChainParam.mStakingpools.pool.bonded_tokens);
-//        }
-//        return BigDecimal.ZERO;
-//    }
-
-    public BigDecimal IrisInflation() {
-        if (mChainParam != null && mChainParam.mMintParams != null) {
-            return new BigDecimal(mChainParam.mMintParams.mInflation);
-        }
-
-        return BigDecimal.ZERO;
-    }
-
     //COMMON DATA
     public NodeInfo                     mNodeInfo;
     public ArrayList<Validator>         mAllValidators = new ArrayList<>();
