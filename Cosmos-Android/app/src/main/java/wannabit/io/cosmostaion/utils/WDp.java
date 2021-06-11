@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
@@ -469,24 +470,29 @@ public class WDp {
     }
 
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estAprCommission = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(commissionCal).multiply(rpr).movePointRight(2);
-        return getPercentDp(estAprCommission);
+        final ChainParam.Params param = baseData.mChainParam;
+        BigDecimal apr = param.getApr(chain);
+        BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
+        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
+        return getPercentDp(aprCommission);
     }
 
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estDpr = DAY_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
-        return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
+        final ChainParam.Params param = baseData.mChainParam;
+        BigDecimal apr = param.getApr(chain);
+        BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
+        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(YEAR_SEC ,0, RoundingMode.DOWN);
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
-        return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
+        final ChainParam.Params param = baseData.mChainParam;
+        BigDecimal apr = param.getApr(chain);
+        BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
+        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(MONTH_SEC, 0, RoundingMode.DOWN);
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {

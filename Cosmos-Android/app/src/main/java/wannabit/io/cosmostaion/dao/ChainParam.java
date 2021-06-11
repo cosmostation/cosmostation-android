@@ -138,50 +138,6 @@ public class ChainParam {
                 return mStakingParams.bond_denom;
             }
         }
-//
-//        public BigDecimal getMintProvision() {
-//            try {
-//                MintProvision temp = new Gson().fromJson(new Gson().toJson(mMintProvisions), MintProvision.class);
-//                return new BigDecimal(temp.mProvision);
-//            } catch (Exception e) { }
-//
-//            try {
-//                String temp = new Gson().fromJson(new Gson().toJson(mMintProvisions), String.class);
-//                return new BigDecimal(temp);
-//            } catch (Exception e) { }
-//
-//            return BigDecimal.ZERO;
-//        }
-//
-
-//
-
-//
-
-//
-//        public BigDecimal getInflation(BaseChain baseChain) {
-//            if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
-//                if (params == null || params.mMintParams == null || params.mMintParams.mInflation == null){
-//                    return BigDecimal.ZERO;
-//                }
-//                return new BigDecimal(params.mMintParams.mInflation);
-//            }
-//            return getMintInflation();
-//        }
-//
-//        public BigDecimal Inflation(BaseChain baseChain) {
-//            return getInflation(baseChain).movePointRight(2);
-//        }
-//
-
-//
-
-//
-//        public BigDecimal getApr(BaseChain baseChain) {
-//            BigDecimal inflation = Inflation(baseChain);
-//            return BigDecimal.ZERO;
-//        }
-
     }
 
 
