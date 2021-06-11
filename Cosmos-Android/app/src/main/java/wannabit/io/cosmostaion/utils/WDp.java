@@ -2569,12 +2569,12 @@ public class WDp {
 
     public static BigDecimal getTurnout(BaseData baseData, Gov.TallyResult tally) {
         BigDecimal result = BigDecimal.ZERO;
-        if (baseData != null && baseData.mGrpcStakingPool != null) {
+        if (baseData != null && baseData.mChainParam != null) {
             if (geTallySum(tally).equals(BigDecimal.ZERO)) {
                 return BigDecimal.ZERO.setScale(2);
 
             } else {
-                BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+                BigDecimal bonded = baseData.mChainParam.getBondedAmount();
                 return geTallySum(tally).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
             }
         }

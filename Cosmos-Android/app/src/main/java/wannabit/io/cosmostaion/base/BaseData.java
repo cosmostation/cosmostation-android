@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -108,6 +109,8 @@ public class BaseData {
 
 
     public ArrayList<Price>         mPrices = new ArrayList<>();
+    public ChainParam.Params        mChainParam;
+
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
@@ -116,6 +119,52 @@ public class BaseData {
             }
         }
         return null;
+    }
+
+//    public ArrayList<Token>         mToken = new ArrayList<>();
+//
+//    public Token getIrisToken(String denom) {
+//        if (mChainParam != null && mChainParam.mIrisTokens != null) {
+//            for (Token token : mToken) {
+//                if (token.value.min_unit.equals(denom)) {
+//                    return token;
+//                }
+//            }
+//        }
+//        return null;
+//    }
+
+
+//    public BigDecimal BlocksPerYear() {
+//        if (!TextUtils.isEmpty(getChainId())) {
+//            if (mChainParam != null && mChainParam.mMintParams != null) {
+//                return new BigDecimal(mChainParam.mMintParams.blocks_per_year);
+//            }
+//        } else {
+//            return new BigDecimal(mChainParam.mMintParams.params.blocks_per_year);
+//        }
+//        return BigDecimal.ZERO;
+//    }
+//
+//
+//
+//    public BigDecimal Bonded_Tokens() {
+//        if (!TextUtils.isEmpty(getChainId())) {
+//            if (mChainParam != null && (mChainParam.mStakingpools != null)) {
+//                return new BigDecimal(mChainParam.mStakingpools.bonded_tokens);
+//            }
+//        } else {
+//            return new BigDecimal(mChainParam.mStakingpools.pool.bonded_tokens);
+//        }
+//        return BigDecimal.ZERO;
+//    }
+
+    public BigDecimal IrisInflation() {
+        if (mChainParam != null && mChainParam.mMintParams != null) {
+            return new BigDecimal(mChainParam.mMintParams.mInflation);
+        }
+
+        return BigDecimal.ZERO;
     }
 
     //COMMON DATA
@@ -537,18 +586,6 @@ public class BaseData {
         }
         return null;
     }
-
-
-    public TokenOuterClass.Token getIrisToken(String denom) {
-        for (TokenOuterClass.Token token: mGrpcIrisTokens) {
-            if (token.getMinUnit().equals(denom)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-
 
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();

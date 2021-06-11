@@ -2,7 +2,6 @@ package wannabit.io.cosmostaion.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,9 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-import irismod.token.TokenOuterClass;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseBroadCastActivity;
 import wannabit.io.cosmostaion.base.BaseChain;
@@ -29,10 +26,7 @@ import wannabit.io.cosmostaion.fragment.SendStep2Fragment;
 import wannabit.io.cosmostaion.fragment.SendStep4Fragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetFragment;
 import wannabit.io.cosmostaion.fragment.StepFeeSetOldFragment;
-import wannabit.io.cosmostaion.network.res.ResBnbTic;
 
-import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.CONST_PW_TX_SIMPLE_SEND;
 
@@ -50,7 +44,7 @@ public class SendActivity extends BaseBroadCastActivity {
     public BnbToken                     mBnbToken;
 
     //V1 .40 version
-    public TokenOuterClass.Token        mIrisToken_Grpc;
+//    public Token                    mIrisToken;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +71,7 @@ public class SendActivity extends BaseBroadCastActivity {
         if (mBaseChain.equals(BaseChain.BNB_MAIN) || mBaseChain.equals(BaseChain.BNB_TEST)) {
             mBnbToken = getBaseDao().getBnbToken(mDenom);
         } else if (mBaseChain.equals(BaseChain.IRIS_MAIN) || mBaseChain.equals(BaseChain.IRIS_TEST)) {
-            mIrisToken_Grpc = getBaseDao().getIrisToken(mDenom);
+//            mIrisToken = getBaseDao().getIrisToken(mDenom);
         }
 
         mPageAdapter = new SendPageAdapter(getSupportFragmentManager());

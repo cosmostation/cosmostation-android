@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.network.res.ResStakingPool;
 import wannabit.io.cosmostaion.utils.WLog;
 
@@ -54,19 +55,19 @@ public class Tally {
         return new BigDecimal(no_with_veto).movePointRight(2).divide(sum(), 2, RoundingMode.HALF_UP);
     }
 
-    public BigDecimal getTurnout(ResStakingPool pool) {
+    public BigDecimal getTurnout(ChainParam.Params param) {
 //        if (sum().equals(BigDecimal.ZERO)) {
 //            return BigDecimal.ZERO.setScale(2);
 //        }
 //        return new BigDecimal(yes).movePointRight(2).divide(sum(), 2, RoundingMode.DOWN);
-        if (pool == null) {
+        if (param == null) {
             return BigDecimal.ZERO.setScale(2);
 
         } else if (sum().equals(BigDecimal.ZERO)) {
             return BigDecimal.ZERO.setScale(2);
 
         } else {
-            BigDecimal bondedToken = new BigDecimal(pool.result.bonded_tokens);
+            BigDecimal bondedToken = param.getBondedAmount();
             return sum().movePointRight(2).divide(bondedToken, 2, RoundingMode.HALF_UP);
         }
 
