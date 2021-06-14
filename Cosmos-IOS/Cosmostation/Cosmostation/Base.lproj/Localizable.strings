@@ -298,7 +298,9 @@
 "str_select_to_send_coin" = "Select To Send Coin Type";
 "str_event_confirm" = "Please confirm twice yourself ETH deposit address for XPRT distribution. \n(we don't support validate checksum) \n\n\n%@";
 "str_event_confirm_title" = "Once More Check";
-"str_apr_help_title" = "Delegation APR";
+"str_apr_help_title" = "APR";
+"str_apr_help_onchain_msg" = "With on chain params";
+"str_apr_help_real_msg" = "With real block time";
 "str_apr_help_msg" = "This figure is an estimated percentage calculated by taking into account the current average network block time.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";

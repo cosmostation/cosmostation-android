@@ -38,6 +38,7 @@ class WalletInflationCell: UITableViewCell {
         }
         infaltionLabel.attributedText = WUtils.displayPercent(param.getDpInflation(chainType), infaltionLabel.font)
         yieldLabel.attributedText = WUtils.displayPercent(param.getDpApr(chainType), yieldLabel.font)
+        
     }
     
 }
