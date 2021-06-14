@@ -14,6 +14,7 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
@@ -136,9 +137,12 @@ public class ChainParam {
                     return BigDecimal.ZERO;
                 }
                 return new BigDecimal(mMintParams.params.blocks_per_year);
-            } else {
-                return new BigDecimal(mMintParams.blocks_per_year);
+
+            } else if (baseChain.equals(SIF_MAIN)) {
+                return BigDecimal.ZERO;
+
             }
+            return new BigDecimal(mMintParams.blocks_per_year);
         }
 
 
