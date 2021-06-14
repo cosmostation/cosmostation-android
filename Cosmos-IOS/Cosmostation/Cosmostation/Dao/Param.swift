@@ -72,6 +72,29 @@ public struct Param {
         return getApr(chain).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2)
     }
     
+    func getRealApr(_ chain: ChainType?) -> NSDecimalNumber {
+        if (WUtils.getRealBlockPerYear(chain) == NSDecimalNumber.zero || getBlockPerYear(chain) == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
+        return getApr(chain).multiplying(by: WUtils.getRealBlockPerYear(chain)).dividing(by: getBlockPerYear(chain), withBehavior: WUtils.handler6)
+    }
+    
+    func getDpRealApr(_ chain: ChainType?) -> NSDecimalNumber {
+        if (getRealApr(chain) == NSDecimalNumber.zero) { return NSDecimalNumber.zero }
+        return getRealApr(chain).multiplying(byPowerOf10: 2, withBehavior: WUtils.handler2)
+    }
+    
+    func getBlockPerYear(_ chain: ChainType?) -> NSDecimalNumber {
+        if let blocks_per_year = params?.minting_params?.params?.blocks_per_year {
+            return NSDecimalNumber.init(string: blocks_per_year)
+        }
+        
+        if let blocks_per_year = params?.minting_params?.blocks_per_year {
+            return NSDecimalNumber.init(string: blocks_per_year)
+        }
+        return NSDecimalNumber.zero
+    }
+    
     func getSupplyDenom(_ denom: String) -> Coin?{
         return params?.supply?.filter {$0.denom == denom }.first
     }

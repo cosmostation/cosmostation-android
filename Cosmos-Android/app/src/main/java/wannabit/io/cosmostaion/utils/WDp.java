@@ -450,7 +450,7 @@ public class WDp {
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365") ,0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
@@ -461,7 +461,7 @@ public class WDp {
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
         BigDecimal aprCommission = apr.multiply(calCommission);
         BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
-        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {

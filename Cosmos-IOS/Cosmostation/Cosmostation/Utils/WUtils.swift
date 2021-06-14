@@ -1323,7 +1323,7 @@ class WUtils {
         }
         let apr = param.getApr(chain)
         let calCommission = NSDecimalNumber.one.subtracting(commission)
-        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2).multiplying(byPowerOf10: 2)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler6).multiplying(byPowerOf10: 2)
         return displayPercent(aprCommission, font)
     }
     
@@ -1331,9 +1331,11 @@ class WUtils {
         guard let param = BaseData.instance.mParam, let bondingAmount = delegated else {
             return displayAmount2(NSDecimalNumber.zero.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
         }
-        let apr = param.getApr(chain)
+        var apr = NSDecimalNumber.zero
+        if (param.getRealApr(chain) == NSDecimalNumber.zero) { apr = param.getApr(chain) }
+        else { apr = param.getRealApr(chain) }
         let calCommission = NSDecimalNumber.one.subtracting(commission)
-        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler6)
         let dayReward = bondingAmount.multiplying(by: aprCommission).dividing(by: NSDecimalNumber.init(string: "365"), withBehavior: WUtils.handler0)
         return displayAmount2(dayReward.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
     }
@@ -1342,9 +1344,11 @@ class WUtils {
         guard let param = BaseData.instance.mParam, let bondingAmount = delegated else {
             return displayAmount2(NSDecimalNumber.zero.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
         }
-        let apr = param.getApr(chain)
+        var apr = NSDecimalNumber.zero
+        if (param.getRealApr(chain) == NSDecimalNumber.zero) { apr = param.getApr(chain) }
+        else { apr = param.getRealApr(chain) }
         let calCommission = NSDecimalNumber.one.subtracting(commission)
-        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler2)
+        let aprCommission = apr.multiplying(by: calCommission, withBehavior: handler6)
         let dayReward = bondingAmount.multiplying(by: aprCommission).dividing(by: NSDecimalNumber.init(string: "12"), withBehavior: WUtils.handler0)
         return displayAmount2(dayReward.stringValue, font, mainDivideDecimal(chain), mainDivideDecimal(chain))
     }
@@ -3503,7 +3507,7 @@ class WUtils {
         
     }
     
-    static func getCBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
+    static func getRealBlockTime(_ chain: ChainType?) -> NSDecimalNumber {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {
             return BLOCK_TIME_COSMOS
             
@@ -3547,8 +3551,16 @@ class WUtils {
             return BLOCK_TIME_KI
             
         }
-        return NSDecimalNumber.init(string: "6")
+        return NSDecimalNumber.zero
     }
+    
+    static func getRealBlockPerYear(_ chain: ChainType?) -> NSDecimalNumber {
+        if (getRealBlockTime(chain) == NSDecimalNumber.zero) {
+            return NSDecimalNumber.zero
+        }
+        return YEAR_SEC.dividing(by: getRealBlockTime(chain), withBehavior: handler2)
+    }
+    
     
     static func getMonikerImgUrl(_ chain: ChainType?, _ opAddress: String) -> String {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.COSMOS_TEST) {

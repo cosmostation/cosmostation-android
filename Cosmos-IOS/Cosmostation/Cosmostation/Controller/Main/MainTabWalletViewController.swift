@@ -1287,7 +1287,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickAprHelp() {
-        let helpAlert = UIAlertController(title: NSLocalizedString("str_apr_help_title", comment: ""), message: NSLocalizedString("str_apr_help_msg", comment: ""), preferredStyle: .alert)
+        guard let param = BaseData.instance.mParam else { return }
+        let msg1 = NSLocalizedString("str_apr_help_onchain_msg", comment: "") + "\n"
+        let msg2 = param.getDpApr(chainType).stringValue + "%\n\n"
+        let msg3 = NSLocalizedString("str_apr_help_real_msg", comment: "") + "\n"
+        var msg4 = ""
+        if (param.getDpRealApr(chainType) == NSDecimalNumber.zero) {
+            msg4 = "-"
+        } else {
+            msg4 = param.getDpRealApr(chainType).stringValue + "%"
+        }
+        
+        let helpAlert = UIAlertController(title: "", message: msg1 + msg2 + msg3 + msg4, preferredStyle: .alert)
         helpAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
