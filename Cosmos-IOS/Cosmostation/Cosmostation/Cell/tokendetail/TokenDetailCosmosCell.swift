@@ -34,10 +34,10 @@ class TokenDetailCosmosCell: TokenDetailCell {
         let totalToken = WUtils.getAllMainAsset(COSMOS_MAIN_DENOM)
         totalAmount.attributedText = WUtils.displayAmount2(totalToken.stringValue, totalAmount.font!, 6, 6)
         totalValue.attributedText = WUtils.dpUserCurrencyValue(COSMOS_MAIN_DENOM, totalToken, 6, totalValue.font)
-        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable(COSMOS_MAIN_DENOM), availableAmount.font!, 6, 6)
-        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum(), delegatedAmount.font!, 6, 6)
-        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum(), unbondingAmount.font, 6, 6)
-        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum(COSMOS_MAIN_DENOM), rewardAmount.font, 6, 6)
+        availableAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getAvailable_gRPC(COSMOS_MAIN_DENOM), availableAmount.font!, 6, 6)
+        delegatedAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getDelegatedSum_gRPC(), delegatedAmount.font!, 6, 6)
+        unbondingAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getUnbondingSum_gRPC(), unbondingAmount.font, 6, 6)
+        rewardAmount.attributedText = WUtils.displayAmount2(BaseData.instance.getRewardSum_gRPC(COSMOS_MAIN_DENOM), rewardAmount.font, 6, 6)
     }
     
 }

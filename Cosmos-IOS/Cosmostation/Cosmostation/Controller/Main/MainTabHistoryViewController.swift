@@ -50,24 +50,6 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.historyTableView.addSubview(refresher)
         
         self.onRequestFetch()
-        
-        self.comingLabel.isUserInteractionEnabled = true
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(testClick(tapGestureRecognizer:)))
-        self.comingLabel.addGestureRecognizer(tapGesture)
-    }
-
-    @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
-//        let txDetailVC = TxDetailViewController(nibName: "TxDetailViewController", bundle: nil)
-//        txDetailVC.mIsGen = false
-//        txDetailVC.mTxHash = "316D5C4492149900549FFEA037B8C2CC51E2F903BBB2A4B805A236016BAD9278"
-//        txDetailVC.hidesBottomBarWhenPushed = true
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txDetailVC, animated: true)
-//        if (chainType == ChainType.SECRET_MAIN) {
-//            guard let url = URL(string: EXPLORER_SECRET_MAIN + "accounts/" + mainTabVC.mAccount.account_address) else { return }
-//            self.onShowSafariWeb(url)
-//        }
-        
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -187,6 +169,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "testnetMedibloc")
             titleChainName.text = "(Medi Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.ALTHEA_TEST) {
+            titleChainImg.image = UIImage(named: "testnetAlthea")
+            titleChainName.text = "(Althea Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -213,6 +199,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
             onFetchOkHistory(mainTabVC.mAccount.account_address);
         } else if (chainType == ChainType.SECRET_MAIN) {
+            self.comingLabel.text = "Check with Explorer"
             self.comingLabel.isHidden = false
         }
         

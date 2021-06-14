@@ -405,134 +405,6 @@ class BaseNetWork {
         return ""
     }
     
-    static func supplyUrl(_ chain: ChainType?) -> String {
-        if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "supply/total"
-        }
-        else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "supply/total"
-        }
-        return ""
-    }
-    
-    static func paramMintUrl(_ chain: ChainType) -> String {
-        if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "minting/parameters"
-        } else if (chain == ChainType.BAND_MAIN) {
-            return BAND_URL + "minting/parameters"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "minting/parameters"
-        } else if (chain == ChainType.CERTIK_MAIN) {
-            return CERTIK_URL + "minting/parameters"
-        } else if (chain == ChainType.SECRET_MAIN) {
-            return SECRET_URL + "minting/parameters"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "minting/parameters"
-        } else if (chain == ChainType.KI_MAIN) {
-            return KI_URL + "minting/parameters"
-        }
-        
-        else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "minting/parameters"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "minting/parameters"
-        } else if (chain == ChainType.CERTIK_TEST) {
-            return CERTIK_TEST_URL + "minting/parameters"
-        } else if (chain == ChainType.MEDI_TEST) {
-            return MEDI_TEST_URL + "minting/parameters"
-        }
-        return ""
-    }
-    
-    static func inflationUrl(_ chain: ChainType) -> String {
-        if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "minting/inflation"
-        } else if (chain == ChainType.BAND_MAIN) {
-            return BAND_URL + "minting/inflation"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "minting/inflation"
-        } else if (chain == ChainType.CERTIK_MAIN) {
-            return CERTIK_URL + "minting/inflation"
-        } else if (chain == ChainType.SECRET_MAIN) {
-            return SECRET_URL + "minting/inflation"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "minting/inflation"
-        } else if (chain == ChainType.KI_MAIN) {
-            return KI_URL + "minting/inflation"
-        }
-        
-        else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "minting/inflation"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "minting/inflation"
-        } else if (chain == ChainType.CERTIK_TEST) {
-            return CERTIK_TEST_URL + "minting/inflation"
-        } else if (chain == ChainType.MEDI_TEST) {
-            return MEDI_TEST_URL + "minting/inflation"
-        }
-        return ""
-    }
-    
-    static func provisionUrl(_ chain: ChainType) -> String {
-        if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.BAND_MAIN) {
-            return BAND_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.CERTIK_MAIN) {
-            return CERTIK_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.SECRET_MAIN) {
-            return SECRET_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.KI_MAIN) {
-            return KI_URL + "minting/annual-provisions"
-        }
-        
-        else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.CERTIK_TEST) {
-            return CERTIK_TEST_URL + "minting/annual-provisions"
-        } else if (chain == ChainType.MEDI_TEST) {
-            return MEDI_TEST_URL + "minting/annual-provisions"
-        }
-        return ""
-    }
-    
-    static func stakingPoolUrl(_ chain: ChainType) -> String {
-        if (chain == ChainType.KAVA_MAIN) {
-            return KAVA_URL + "staking/pool"
-        } else if (chain == ChainType.BAND_MAIN) {
-            return BAND_URL + "staking/pool"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/pool"
-        } else if (chain == ChainType.CERTIK_MAIN) {
-            return CERTIK_URL + "staking/pool"
-        } else if (chain == ChainType.SECRET_MAIN) {
-            return SECRET_URL + "staking/pool"
-        } else if (chain == ChainType.FETCH_MAIN) {
-            return FETCH_URL + "staking/pool"
-        } else if (chain == ChainType.SIF_MAIN) {
-            return SIF_URL + "staking/pool"
-        } else if (chain == ChainType.KI_MAIN) {
-            return KI_URL + "staking/pool"
-        }
-        
-        else if (chain == ChainType.KAVA_TEST) {
-            return KAVA_TEST_URL + "staking/pool"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/pool"
-        } else if (chain == ChainType.CERTIK_TEST) {
-            return CERTIK_TEST_URL + "staking/pool"
-        } else if (chain == ChainType.MEDI_TEST) {
-            return MEDI_TEST_URL + "staking/pool"
-        }
-        return ""
-    }
-    
     static func proposalsUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals"
@@ -1176,6 +1048,8 @@ class BaseNetWork {
             result = CERTIK_TEST_API + "v1/account/txs/" + address
         } else if (chain == ChainType.MEDI_TEST) {
             result = MEDI_TEST_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            result = ALTHEA_TEST_API + "v1/account/txs/" + address
         }
         return result
     }
@@ -1224,6 +1098,8 @@ class BaseNetWork {
             result = CERTIK_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.MEDI_TEST) {
             result = MEDI_TEST_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            result = ALTHEA_TEST_API + "v1/account/txs/" + address + "/" + valAddress
         }
         return result
     }
@@ -1242,6 +1118,10 @@ class BaseNetWork {
         return STATION_URL + "v1/market/price?id=" + denoms
     }
     
+    static func getParams(_ chainId: String) -> String {
+        return STATION_URL + "v1/params/" + chainId
+        
+    }
     
     static func getConnection(_ chain: ChainType, _ group: MultiThreadedEventLoopGroup) -> ClientConnection? {
         if (chain == ChainType.COSMOS_MAIN) {
@@ -1264,7 +1144,7 @@ class BaseNetWork {
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 10000)
             
         } else if (chain == ChainType.IRIS_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 9095)
@@ -1272,6 +1152,8 @@ class BaseNetWork {
         } else if (chain == ChainType.RIZON_TEST) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-rizon-testnet.cosmostation.io", port: 9090)
             
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20100)
         }
         return nil
     }

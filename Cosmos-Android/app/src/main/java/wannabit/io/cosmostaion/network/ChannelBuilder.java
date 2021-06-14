@@ -36,7 +36,7 @@ public class ChannelBuilder {
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_COSMOS_TEST = 9090;
+    private final static int PORT_COSMOS_TEST = 10300;
 
     private final static String GRPC_IRIS_TEST = "lcd-office.cosmostation.io";
     private final static int PORT_IRIS_TEST = 9095;
@@ -45,7 +45,7 @@ public class ChannelBuilder {
     private final static int PORT_RIZON_TEST = 9090;
 
     private final static String GRPC_ALTHEA_TEST = "lcd-office.cosmostation.io";
-    private final static int PORT_ALTHEA_TEST = 9096;
+    private final static int PORT_ALTHEA_TEST = 20100;
 
 
     public final static int TIME_OUT = 8;

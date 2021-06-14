@@ -154,6 +154,8 @@
 "send_guide_msg_rizon" = "Cosmos SDK based public network bridging traditional businesses with digital currencies.";
 "send_guide_title_medi" = "MEDIBLOC";
 "send_guide_msg_medi" = "Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.";
+"send_guide_title_althea" = "ALTHEA";
+"send_guide_msg_althea" = "Decentralized internet service provider built with the Cosmos SDK.";
 "send_guide_btn1_cosmos" = "Guide";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -172,6 +174,7 @@
 "send_guide_btn1_ki" = "Home";
 "send_guide_btn1_rizon" = "Home";
 "send_guide_btn1_medi" = "Home";
+"send_guide_btn1_althea" = "Home";
 "send_guide_btn2_cosmos" = "FAQ";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -190,6 +193,7 @@
 "send_guide_btn2_ki" = "Blog";
 "send_guide_btn2_rizon" = "Blog";
 "send_guide_btn2_medi" = "Blog";
+"send_guide_btn2_althea" = "Blog";
 "name" = "Name";
 "amount" = "Amount";
 "value" = "Value";
@@ -294,7 +298,9 @@
 "str_select_to_send_coin" = "Select To Send Coin Type";
 "str_event_confirm" = "Please confirm twice yourself ETH deposit address for XPRT distribution. \n(we don't support validate checksum) \n\n\n%@";
 "str_event_confirm_title" = "Once More Check";
-"str_apr_help_title" = "Delegation APR";
+"str_apr_help_title" = "APR";
+"str_apr_help_onchain_msg" = "With on chain params";
+"str_apr_help_real_msg" = "With real block time";
 "str_apr_help_msg" = "This figure is an estimated percentage calculated by taking into account the current average network block time.";
 
 "creat_cdp_step_0" = "Deposit collateral to borrow USDX";
@@ -708,6 +714,7 @@
 "chain_title_certik_test" = "Certik Testnet";
 "chain_title_rizon_test" = "Rizon Testnet";
 "chain_title_medi_test" = "Medibloc Testnet";
+"chain_title_althea_test" = "Althea Testnet";
 
 "date_format" = "MMM d, yyyy HH:mm:ss";
 "date_format2" = "MMM d, yyyy";

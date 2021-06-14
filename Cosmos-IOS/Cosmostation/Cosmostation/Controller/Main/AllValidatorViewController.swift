@@ -18,25 +18,13 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
     
     var mainTabVC: MainTabViewController!
     var refresher: UIRefreshControl!
-    
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    var mIrisStakePool: NSDictionary?
-    var mBandOracleStatus: BandOracleStatus?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.account = BaseData.instance.selectAccountById(id: BaseData.instance.getRecentAccountId())
         self.chainType = WUtils.getChainType(account!.account_base_chain)
-        
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
-        self.mIrisStakePool = BaseData.instance.mIrisStakePool
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
-        
+                
         self.allValidatorTableView.delegate = self
         self.allValidatorTableView.dataSource = self
         self.allValidatorTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
@@ -74,11 +62,6 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
             self.onSorting()
             self.refresher.endRefreshing()
         } else {
-            self.mInflation = BaseData.instance.mInflation
-            self.mProvision = BaseData.instance.mProvision
-            self.mStakingPool = BaseData.instance.mStakingPool
-            self.mIrisStakePool = BaseData.instance.mIrisStakePool
-            self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
             self.onSorting()
             self.refresher.endRefreshing()
         }
@@ -177,7 +160,7 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
         }
         
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(validator.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(validator.operator_address) {
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
         }

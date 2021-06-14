@@ -23,6 +23,21 @@ public class ApiClient {
         return station;
     }
 
+    //Services for station_param wallet api
+    private static Station station_chain_param = null;
+    public static Station getChainParam(Context c) {
+        if (station_chain_param == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_station))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                station_chain_param = retrofit.create(Station.class);
+            }
+        }
+        return station_chain_param;
+    }
+
     //Services for Cosmostation wallet api
     private static Cosmostation cosmostation = null;
     public static Cosmostation getCosmostation(Context c) {

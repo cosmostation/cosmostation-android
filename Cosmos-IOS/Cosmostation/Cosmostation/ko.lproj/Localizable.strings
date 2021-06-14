@@ -153,6 +153,8 @@
 "send_guide_msg_rizon" = "기존 비즈니스를 디지털 통화로 연결하는 Cosmos SDK 기반 오픈 소스 블록 체인";
 "send_guide_title_medi" = "MEDIBLOC";
 "send_guide_msg_medi" = "의료 데이터의 효율적인 배포를위한 플랫폼을 제공하는 환자 중심 의료 데이터 솔루션입니다.";
+"send_guide_title_althea" = "ALTHEA";
+"send_guide_msg_althea" = "Cosmos SDK로 구축된 분산형 인터넷 서비스 공급자.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -171,6 +173,7 @@
 "send_guide_btn1_ki" = "Home";
 "send_guide_btn1_rizon" = "Home";
 "send_guide_btn1_medi" = "Home";
+"send_guide_btn1_althea" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -189,6 +192,7 @@
 "send_guide_btn2_ki" = "Blog";
 "send_guide_btn2_rizon" = "Blog";
 "send_guide_btn2_medi" = "Blog";
+"send_guide_btn2_althea" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";
@@ -266,7 +270,9 @@
 "str_select_to_send_coin" = "보낼 코인 종류를 선택하세요";
 "str_event_confirm" = "에어드랍을 받으실. ETH주소를 다시한번 확인해주세요.\n(입력하신 ETH 주소 검증은 지원하지 않습니다.) \n\n\n%@";
 "str_event_confirm_title" = "한번 더 확인";
-"str_apr_help_title" = "위임 예상 연 수익율";
+"str_apr_help_title" = "연 수익율";
+"str_apr_help_onchain_msg" = "체인 타겟 수익율";
+"str_apr_help_real_msg" = "실제 블럭타임 기준 수익율";
 "str_apr_help_msg" = "현재 체인의 평균 블럭 시간을 바탕으로 계산한 연간 위임 예상 수익율 입니다.";
 
 "current_price_format" = "현재 %@ 가격";
@@ -711,6 +717,7 @@
 "chain_title_certik_test" = "Certik Testnet";
 "chain_title_rizon_test" = "Rizon Testnet";
 "chain_title_medi_test" = "Medibloc Testnet";
+"chain_title_althea_test" = "Althea Testnet";
 
 "date_format" = "yyyy-MM-dd HH:mm:ss";
 "date_format2" = "yyyy-MM-dd";

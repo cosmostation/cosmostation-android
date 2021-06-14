@@ -75,7 +75,7 @@ class StepRewardViewController: BaseViewController {
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
             var selectedRewardSum = NSDecimalNumber.zero
             for validator in pageHolderVC.mRewardTargetValidators_gRPC {
-                let amount = BaseData.instance.getReward(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
+                let amount = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(pageHolderVC.chainType), validator.operatorAddress)
                 selectedRewardSum = selectedRewardSum.adding(amount)
             }
             rewardAmountLabel.attributedText = WUtils.displayAmount2(selectedRewardSum.stringValue, rewardAmountLabel.font, mDpDecimal, mDpDecimal)

@@ -28,7 +28,7 @@ class StepRedelegateAmountViewController: BaseViewController, UITextFieldDelegat
         mDpDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
         
         if (WUtils.isGRPC(pageHolderVC.chainType!)) {
-            userDelegated = BaseData.instance.getDelegated(self.pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
+            userDelegated = BaseData.instance.getDelegated_gRPC(self.pageHolderVC.mTargetValidator_gRPC?.operatorAddress)
             availableAmountLabel.attributedText = WUtils.displayAmount2(userDelegated.stringValue, availableAmountLabel.font, mDpDecimal, mDpDecimal)
         } else {
             userDelegated = BaseData.instance.delegatedAmountByValidator(self.pageHolderVC.mTargetValidator!.operator_address)

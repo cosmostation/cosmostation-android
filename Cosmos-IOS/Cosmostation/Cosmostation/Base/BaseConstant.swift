@@ -107,9 +107,14 @@ let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosm
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
 
 
+<<<<<<< HEAD
 let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
 let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
 let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
+=======
+let ALTHEA_TEST_API                     = "https://api-office.cosmostation.io/althea-testnet2v1/";
+
+>>>>>>> 0f8655e261570fa3f1a33847a415296dc6c850b4
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
@@ -136,6 +141,7 @@ let SIF_VAL_URL                         = "https://raw.githubusercontent.com/cos
 let KI_VAL_URL                          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/ki/";
 let RIZON_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
 let MEDI_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
+let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -347,6 +353,7 @@ let PERSIS_BASE_PATH                        = "m/44'/750'/0'/0/"
 let CRYPTO_BASE_PATH                        = "m/44'/394'/0'/0/"
 let RIZON_BASE_PATH                         = "m/44'/1217'/0'/0/"
 let MEDI_BASE_PATH                          = "m/44'/371'/0'/0/"
+let ALTHEA_BASE_PATH                        = "m/44'/60'/0'/0/"
 
 
 
@@ -650,6 +657,11 @@ let TRANS_BG_COLOR_MEDI2                    = UIColor.init(hexString: "79aaf2", 
 let COLOR_MEDI                              = UIColor.init(hexString: "79aaf2")
 let COLOR_MEDI_DARK                         = UIColor.init(hexString: "0d3d84")
 
+let TRANS_BG_COLOR_ALTHEA                   = UIColor.init(hexString: "eadea5", alpha: 0.15)
+let TRANS_BG_COLOR_ALTHEA2                  = UIColor.init(hexString: "eadea5", alpha: 0.4)
+let COLOR_ALTHEA                            = UIColor.init(hexString: "eadea5")
+let COLOR_ALTHEA_DARK                       = UIColor.init(hexString: "7d7659")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -689,6 +701,7 @@ enum ChainType: String {
     case CERTIK_TEST
     case RIZON_TEST
     case MEDI_TEST
+    case ALTHEA_TEST
     
     static func SUPPRT_CHAIN() -> Array<ChainType> {
         var result = [ChainType]()
@@ -718,6 +731,7 @@ enum ChainType: String {
 //        result.append(CERTIK_TEST)
         result.append(RIZON_TEST)
         result.append(MEDI_TEST)
+        result.append(ALTHEA_TEST)
         return result
     }
     
@@ -820,6 +834,7 @@ let CHAIN_OKEX_TEST_S = "SUPPORT_CHAIN_OKEX_TEST"
 let CHAIN_CERTIK_TEST_S = "SUPPORT_CHAIN_CERTIK_TEST"
 let CHAIN_RIZON_TEST_S = "SUPPORT_CHAIN_RIZON_TEST"
 let CHAIN_MEDI_TEST_S = "SUPPORT_CHAIN_MEDI_TEST"
+let CHAIN_ALTHEA_TEST_S = "SUPPORT_CHAIN_ALTHEA_TEST"
 
 let COSMOS_MAIN_DENOM = "uatom"
 let IRIS_MAIN_DENOM = "uiris"
@@ -840,6 +855,7 @@ let SIF_MAIN_DENOM = "rowan"
 let KI_MAIN_DENOM = "uxki"
 let RIZON_MAIN_DENOM = "uatolo"
 let MEDI_MAIN_DENOM = "umed"
+let ALTHEA_MAIN_DENOM = "ualtg"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -898,6 +914,9 @@ let EXPLORER_BINANCE_TEST   = "https://testnet-explorer.binance.org/";
 let EXPLORER_KAVA_TEST      = "https://dev.mintscan.io/kava-testnet/";
 let EXPLORER_OKEX_TEST      = "https://www.oklink.com/okexchain-test/";
 let EXPLORER_CERTIK         = "https://explorer.certik.foundation/";
+let EXPLORER_MEDI_TEST      = "https://testnet.mintscan.io/medibloc/";
+let EXPLORER_RIZON_TEST     = "https://testnet.mintscan.io/rizon/";
+let EXPLORER_ALTHEA_TEST    = "https://testnet.mintscan.io/althea/";
 
 
 

@@ -43,6 +43,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.Balance;
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.OkTicker;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.dao.Price;
@@ -461,32 +462,30 @@ public class WDp {
         }
     }
 
-    //display estimate apr by own checked block time
-    public static SpannableString getDpEstApr(BaseData baseData, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal estApr = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(rpr).movePointRight(2);
-        return getPercentDp(estApr);
-    }
-
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estAprCommission = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(commissionCal).multiply(rpr).movePointRight(2);
-        return getPercentDp(estAprCommission);
+        final ChainParam.Params param = baseData.mChainParam;
+        BigDecimal apr = param.getApr(chain);
+        BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
+        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
+        return getPercentDp(aprCommission);
     }
 
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estDpr = DAY_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
-        return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
+        final ChainParam.Params param = baseData.mChainParam;
+        BigDecimal apr = param.getApr(chain);
+        BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
+        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365") ,0, RoundingMode.DOWN);
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal commissionCal = BigDecimal.ONE.subtract(commission);
-        BigDecimal estDpr = MONTH_SEC.multiply(commissionCal).multiply(rpr).multiply(delegated).divide(WUtil.getCBlockTime(chain), 12, RoundingMode.DOWN);
-        return getDpAmount2(c, estDpr, mainDivideDecimal(chain), 12);
+        final ChainParam.Params param = baseData.mChainParam;
+        BigDecimal apr = param.getApr(chain);
+        BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
+        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
+        return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDisplayDecimal(chain));
     }
 
     public static BigDecimal kavaTokenDollorValue(BaseData baseData, String denom, BigDecimal amount) {
@@ -2567,14 +2566,14 @@ public class WDp {
         return new BigDecimal(tally.getNoWithVeto()).movePointRight(2).divide(geTallySum(tally), 2, RoundingMode.HALF_UP);
     }
 
-    public static BigDecimal getTurnout(BaseData baseData, Gov.TallyResult tally) {
+    public static BigDecimal getTurnout(BaseChain baseCahin, BaseData baseData, Gov.TallyResult tally) {
         BigDecimal result = BigDecimal.ZERO;
-        if (baseData != null && baseData.mGrpcStakingPool != null) {
+        if (baseData != null && baseData.mChainParam != null) {
             if (geTallySum(tally).equals(BigDecimal.ZERO)) {
                 return BigDecimal.ZERO.setScale(2);
 
             } else {
-                BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
+                BigDecimal bonded = baseData.mChainParam.getBondedAmount(baseCahin);
                 return geTallySum(tally).movePointRight(2).divide(bonded, 2, RoundingMode.HALF_UP);
             }
         }

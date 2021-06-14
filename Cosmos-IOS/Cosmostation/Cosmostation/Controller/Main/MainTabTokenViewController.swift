@@ -186,6 +186,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "testnetMedibloc")
             titleChainName.text = "(Medi Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.ALTHEA_TEST) {
+            titleChainImg.image = UIImage(named: "testnetAlthea")
+            titleChainName.text = "(Althea Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -307,6 +311,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetRizonItems(tableView, indexPath)
         } else if (chainType! == ChainType.MEDI_TEST) {
             return onSetMediItems(tableView, indexPath)
+        } else if (chainType! == ChainType.ALTHEA_TEST) {
+            return onSetAltheaItems(tableView, indexPath)
         }
         return tableView.dequeueReusableCell(withIdentifier:"TokenCell") as! TokenCell
     }
@@ -654,6 +660,7 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
     
     
     
+    
     //with gRPC
     func onSetCosmosItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
@@ -857,6 +864,38 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         } else {
             cell?.tokenImg.image = UIImage(named: "tokenIc")
             cell?.tokenSymbol.textColor = UIColor.white
+            
+        }
+        return cell!
+    }
+    
+    func onSetAltheaItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == ALTHEA_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenAlthea")
+            cell?.tokenSymbol.text = "ALTG"
+            cell?.tokenSymbol.textColor = COLOR_ALTHEA
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Althea Staking Token"
+            
+            let allAlthea = WUtils.getAllMainAsset(ALTHEA_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allAlthea.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(ALTHEA_MAIN_DENOM, allAlthea, 6, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
+        } else {
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenSymbol.text = balance.denom.substring(from: 1).uppercased()
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
             
         }
         return cell!

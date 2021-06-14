@@ -1445,6 +1445,7 @@
     <string name="tx_edit_validator">Edit Val</string>
     <string name="tx_unjail">Unjail</string>
     <string name="tx_create_bid">Create Bid</string>
+    <string name="tx_close_bid">Close Bid</string>
     <string name="tx_create_lease">Create Lease</string>
     <string name="tx_withdraw_lease">Withdraw Lease</string>
     <string name="tx_create_deployment">Create Deployment</string>

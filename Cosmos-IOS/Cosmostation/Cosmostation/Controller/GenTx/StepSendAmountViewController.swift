@@ -36,10 +36,10 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
             mDivideDecimal = WUtils.mainDivideDecimal(pageHolderVC.chainType)
             mDisplayDecimal = WUtils.mainDisplayDecimal(pageHolderVC.chainType)
             if (pageHolderVC.mToSendDenom == mainDenom) {
-                maxAvailable = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
+                maxAvailable = BaseData.instance.getAvailableAmount_gRPC(pageHolderVC.mToSendDenom!).subtracting(feeAmount)
                 
             } else {
-                maxAvailable = BaseData.instance.getAvailableAmount(pageHolderVC.mToSendDenom!)
+                maxAvailable = BaseData.instance.getAvailableAmount_gRPC(pageHolderVC.mToSendDenom!)
             }
             
         } else {

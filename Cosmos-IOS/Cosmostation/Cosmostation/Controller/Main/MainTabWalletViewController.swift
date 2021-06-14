@@ -23,18 +23,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     
     var mainTabVC: MainTabViewController!
     var wcURL:String?
-    
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         mainTabVC = (self.parent)?.parent as? MainTabViewController
         chainType = WUtils.getChainType(mainTabVC.mAccount.account_base_chain)
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
         
         self.walletTableView.delegate = self
         self.walletTableView.dataSource = self
@@ -59,6 +52,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletKiCell", bundle: nil), forCellReuseIdentifier: "WalletKiCell")
         self.walletTableView.register(UINib(nibName: "WalletRizonCell", bundle: nil), forCellReuseIdentifier: "WalletRizonCell")
         self.walletTableView.register(UINib(nibName: "WalletMediCell", bundle: nil), forCellReuseIdentifier: "WalletMediCell")
+        self.walletTableView.register(UINib(nibName: "WalletAltheaCell", bundle: nil), forCellReuseIdentifier: "WalletAltheaCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -201,6 +195,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             titleChainImg.image = UIImage(named: "testnetMedibloc")
             titleChainName.text = "(Medi Testnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.ALTHEA_TEST) {
+            titleChainImg.image = UIImage(named: "testnetAlthea")
+            titleChainName.text = "(Althea Testnet)"
+            titleAlarmBtn.isHidden = true
         }
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             if settings.authorizationStatus == .authorized {
@@ -231,6 +229,9 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.CRYPTO_MAIN) {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = COLOR_CRYPTO_DARK
+        } else if (chainType! == ChainType.ALTHEA_TEST) {
+            floaty.buttonImage = UIImage.init(named: "btnSendAlthea")
+            floaty.buttonColor = COLOR_ALTHEA
         } else {
             floaty.buttonImage = UIImage.init(named: "sendImg")
             floaty.buttonColor = WUtils.getChainColor(chainType)
@@ -246,9 +247,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     @objc func onFetchDone(_ notification: NSNotification) {
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
         self.walletTableView.reloadData()
         self.refresher.endRefreshing()
     }
@@ -315,6 +313,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetRizonItems(tableView, indexPath);
         } else if (chainType == ChainType.MEDI_TEST) {
             return onSetMediItems(tableView, indexPath);
+        } else if (chainType == ChainType.ALTHEA_TEST) {
+            return onSetAltheaItems(tableView, indexPath);
         } else {
             let cell:WalletAddressCell? = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
             return cell!
@@ -966,6 +966,44 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         
     }
     
+    func onSetAltheaItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            return cell!
+
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAltheaCell") as? WalletAltheaCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            return cell!
+
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+        
+    }
+    
+    
+    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         if (indexPath.row == 0) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
@@ -1249,7 +1287,18 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func onClickAprHelp() {
-        let helpAlert = UIAlertController(title: NSLocalizedString("str_apr_help_title", comment: ""), message: NSLocalizedString("str_apr_help_msg", comment: ""), preferredStyle: .alert)
+        guard let param = BaseData.instance.mParam else { return }
+        let msg1 = NSLocalizedString("str_apr_help_onchain_msg", comment: "") + "\n"
+        let msg2 = param.getDpApr(chainType).stringValue + "%\n\n"
+        let msg3 = NSLocalizedString("str_apr_help_real_msg", comment: "") + "\n"
+        var msg4 = ""
+        if (param.getDpRealApr(chainType) == NSDecimalNumber.zero) {
+            msg4 = "-"
+        } else {
+            msg4 = param.getDpRealApr(chainType).stringValue + "%"
+        }
+        
+        let helpAlert = UIAlertController(title: "", message: msg1 + msg2 + msg3 + msg4, preferredStyle: .alert)
         helpAlert.addAction(UIAlertAction(title: NSLocalizedString("ok", comment: ""), style: .default, handler: { _ in
             self.dismiss(animated: true, completion: nil)
         }))
@@ -1559,7 +1608,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType!)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_TRANSFER2, 0)
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue <= 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_balance_to_send", comment: ""))
                 return
             }

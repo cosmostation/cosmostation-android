@@ -75,9 +75,9 @@ class TokenDetailVestingDetailCell: TokenDetailCell {
     
     func onBindGRPCTokenVesting(_ chainType: ChainType, _ denom: String) {
         let baseData = BaseData.instance
-        let vps = baseData.onParseRemainVestingsByDenom(denom)
+        let vps = baseData.onParseRemainVestingsByDenom_gRPC(denom)
         vestingCntLabel.text = "(" + String(vps.count) + ")"
-        vestingTotalAmount.attributedText = WUtils.displayAmount2(baseData.onParseRemainVestingsAmountSumByDenom(denom).stringValue, vestingTotalAmount.font!, 6, 6)
+        vestingTotalAmount.attributedText = WUtils.displayAmount2(baseData.onParseRemainVestingsAmountSumByDenom_gRPC(denom).stringValue, vestingTotalAmount.font!, 6, 6)
         
         vestingTime0.text = WUtils.longTimetoString(input: vps[0].length)
         vestingGap0.text = WUtils.getUnbondingTimeleft(vps[0].length)

@@ -34,6 +34,7 @@ import wannabit.io.cosmostaion.dao.Balance;
 import wannabit.io.cosmostaion.dao.BnbTicker;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
+import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dao.Password;
 import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
@@ -108,6 +109,8 @@ public class BaseData {
 
 
     public ArrayList<Price>         mPrices = new ArrayList<>();
+    public ChainParam.Params        mChainParam;
+
 
     public Price getPrice(String denom) {
         for (Price price: mPrices) {
@@ -537,18 +540,6 @@ public class BaseData {
         }
         return null;
     }
-
-
-    public TokenOuterClass.Token getIrisToken(String denom) {
-        for (TokenOuterClass.Token token: mGrpcIrisTokens) {
-            if (token.getMinUnit().equals(denom)) {
-                return token;
-            }
-        }
-        return null;
-    }
-
-
 
     public void setValSorting(int sort) {
         getSharedPreferences().edit().putInt(BaseConstant.PRE_VALIDATOR_SORTING, sort).commit();

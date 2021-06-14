@@ -31,12 +31,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mSelfDelegationInfo_gRPC: Cosmos_Staking_V1beta1_DelegationResponse?
     var mApiCustomHistories = Array<ApiHistoryCustom>()
-    
-    var mInflation: String?
-    var mProvision: String?
-    var mStakingPool: NSDictionary?
-    var mBandOracleStatus: BandOracleStatus?
-    
+        
     var refresher: UIRefreshControl!
 
     override func viewDidLoad() {
@@ -59,11 +54,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         refresher.addTarget(self, action: #selector(onFech), for: .valueChanged)
         refresher.tintColor = UIColor.white
         validatorDetailTableView.addSubview(refresher)
-        
-        self.mInflation = BaseData.instance.mInflation
-        self.mProvision = BaseData.instance.mProvision
-        self.mStakingPool = BaseData.instance.mStakingPool
-        self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
         
         self.loadingImg.onStartAnimation()
         self.onFech()
@@ -133,7 +123,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 } else {
                     mMyValidator = false
                 }
-                self.mBandOracleStatus = BaseData.instance.mBandOracleStatus
                 self.validatorDetailTableView.reloadData()
                 self.loadingImg.onStopAnimation()
                 self.loadingImg.isHidden = true
@@ -243,7 +232,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
                 } else {
@@ -302,7 +291,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         }
         
         if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = mBandOracleStatus?.isEnable(mValidator!.operator_address) {
+            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) {
                 if (oracle) {
                     cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
                 } else {
@@ -356,7 +345,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             
         } else {
             cell!.myDailyReturns.attributedText =  WUtils.getDailyReward(cell!.myDailyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
-            cell!.myMonthlyReturns.attributedText =  WUtils.getDailyReward(cell!.myMonthlyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
+            cell!.myMonthlyReturns.attributedText =  WUtils.getMonthlyReward(cell!.myMonthlyReturns.font, NSDecimalNumber.one, NSDecimalNumber.zero, chainType!)
             cell!.myDailyReturns.textColor = UIColor.init(hexString: "f31963")
             cell!.myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
         }
@@ -947,7 +936,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType)) {
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_DELEGATE, 0)
-            if (BaseData.instance.getDelegatable(mainDenom).compare(feeAmount).rawValue <= 0) {
+            if (BaseData.instance.getDelegatable_gRPC(mainDenom).compare(feeAmount).rawValue <= 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -992,7 +981,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 }
             }
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_UNDELEGATE2, 0)
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -1039,7 +1028,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 return
             }
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_REDELEGATE2, 0)
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_fee", comment: ""))
                 return
             }
@@ -1081,13 +1070,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType!)) {
-            let reward = BaseData.instance.getReward(WUtils.getMainDenom(chainType), mValidator_gRPC?.operatorAddress)
+            let reward = BaseData.instance.getReward_gRPC(WUtils.getMainDenom(chainType), mValidator_gRPC?.operatorAddress)
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MSG_TYPE_WITHDRAW_DEL, 1)
             if (reward.compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                 return
             }
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }
@@ -1134,13 +1123,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         
         let mainDenom = WUtils.getMainDenom(chainType)
         if (WUtils.isGRPC(chainType!)) {
-            let reward = BaseData.instance.getReward(mainDenom, mValidator_gRPC?.operatorAddress)
+            let reward = BaseData.instance.getReward_gRPC(mainDenom, mValidator_gRPC?.operatorAddress)
             let feeAmount = WUtils.getEstimateGasFeeAmount(chainType!, COSMOS_MULTI_MSG_TYPE_REINVEST, 0)
             if (reward.compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_wasting_fee", comment: ""))
                 return
             }
-            if (BaseData.instance.getAvailableAmount(mainDenom).compare(feeAmount).rawValue < 0) {
+            if (BaseData.instance.getAvailableAmount_gRPC(mainDenom).compare(feeAmount).rawValue < 0) {
                 self.onShowToast(NSLocalizedString("error_not_enough_available", comment: ""))
                 return
             }

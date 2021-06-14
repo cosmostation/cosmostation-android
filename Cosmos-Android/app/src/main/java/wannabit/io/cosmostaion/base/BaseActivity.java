@@ -107,16 +107,13 @@ import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameConfigTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameFeeTask;
+import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoAllTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoBondedTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoUnbondedTask;
 import wannabit.io.cosmostaion.task.FetchTask.ValidatorInfoUnbondingTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleInflationTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleMintParamTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleProvisionsTask;
-import wannabit.io.cosmostaion.task.SingleFetchTask.SingleStakingPoolTask;
 import wannabit.io.cosmostaion.task.TaskListener;
 import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
@@ -124,13 +121,7 @@ import wannabit.io.cosmostaion.task.gRpcTask.AuthGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.InflationGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.IrisParamMintGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.IrisTokenListGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.ParamMintGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.ProvisionGrpcTask;
-import wannabit.io.cosmostaion.task.gRpcTask.StakingPoolGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnBondingValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.UnDelegationsGrpcTask;
@@ -202,11 +193,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STAKING_
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CERTIK;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
-import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
 
 public class BaseActivity extends AppCompatActivity implements TaskListener {
 
@@ -543,6 +529,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         mFetchCallback = callback;
 
         getBaseDao().mPrices.clear();
+        getBaseDao().mChainParam = null;
 
         getBaseDao().mNodeInfo = null;
         getBaseDao().mAllValidators.clear();
@@ -554,10 +541,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyDelegations.clear();
         getBaseDao().mMyUnbondings.clear();
         getBaseDao().mMyRewards.clear();
-
-        getBaseDao().mStakingPool = null;
-        getBaseDao().mInflation = BigDecimal.ZERO;
-        getBaseDao().mProvisions = BigDecimal.ZERO;
 
         //gRPC
         getBaseDao().mGRpcNodeInfo = null;
@@ -572,15 +555,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mGrpcDelegations.clear();
         getBaseDao().mGrpcUndelegations.clear();
         getBaseDao().mGrpcRewards.clear();
-
-        getBaseDao().mGrpcStakingPool = null;
-        getBaseDao().mGrpcParamMint = null;
-        getBaseDao().mGrpcInflation = BigDecimal.ZERO;
-        getBaseDao().mGrpcProvision = BigDecimal.ZERO;
-
-        getBaseDao().mGrpcIrisParamMint = null;
-        getBaseDao().mGrpcIrisTokens.clear();
-
 
         //kava-5
         getBaseDao().mMyHardDeposit.clear();
@@ -606,7 +580,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
 
         } else if (mBaseChain.equals(KAVA_MAIN)) {
-            mTaskCount = 13;
+            mTaskCount = 9;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -616,17 +590,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new KavaPriceFeedParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(KAVA_TEST)) {
-            mTaskCount = 13;
+            mTaskCount = 9;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -636,17 +605,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new KavaPriceFeedParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-            mTaskCount = 14;
+            mTaskCount = 10;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -656,16 +620,11 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new StarNameFeeTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
             new StarNameConfigTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (mBaseChain.equals(BAND_MAIN)) {
-            mTaskCount = 13;
+            mTaskCount = 9;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -675,10 +634,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -699,8 +654,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new OkStakingInfoTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new OkUnbondingInfoTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST)) {
-            mTaskCount = 12;
+        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(FETCHAI_MAIN) || mBaseChain.equals(SIF_MAIN) ||
+                   mBaseChain.equals(KI_MAIN) || mBaseChain.equals(MEDI_TEST)) {
+            mTaskCount = 8;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -710,95 +666,12 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(SECRET_MAIN)) {
-            mTaskCount = 12;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            Toast.makeText(getBaseContext(), "Using Figment's Data Hub API for Secret Network.", Toast.LENGTH_SHORT).show();
-
-        } else if (mBaseChain.equals(FETCHAI_MAIN)) {
-            mTaskCount = 12;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(SIF_MAIN)) {
-            mTaskCount = 9;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(KI_MAIN)) {
-            mTaskCount = 12;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(MEDI_TEST)) {
-            mTaskCount = 12;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleMintParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleInflationTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleProvisionsTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new SingleStakingPoolTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
 
-        else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
-                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST)) {
-            mTaskCount = 13;
+          else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
+                 mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST)) {
+            mTaskCount = 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -809,29 +682,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new StakingPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ParamMintGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ProvisionGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new InflationGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-
-        }  else if (mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(IRIS_TEST)) {
-            mTaskCount = 12;
-            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new StakingPoolGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IrisParamMintGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new IrisTokenListGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
 
@@ -853,13 +703,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         if (result.taskType == BaseConstant.TASK_FETCH_ACCOUNT) {
             mAccount = getBaseDao().onSelectAccount(getBaseDao().getLastUser());
             getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
-            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
+//            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
             mTaskCount = mTaskCount + 1;
             new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
         } else if (result.taskType == TASK_FETCH_NODE_INFO) {
             getBaseDao().mNodeInfo = (NodeInfo)result.resultData;
+            mTaskCount = mTaskCount + 1;
+            new StationParamInfoTask(getBaseApplication(), this, getBaseDao().getChainId()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BONDEB_VALIDATOR) {
             ArrayList<Validator> bondedValis = (ArrayList<Validator>)result.resultData;
@@ -893,21 +745,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mMyRewards = (ArrayList<RewardInfo>)result.resultData;
             }
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_INFLATION) {
-            try {
-                getBaseDao().mInflation = new BigDecimal((String)result.resultData);
-            } catch (Exception e) {}
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_PROVISIONS) {
-            try {
-                getBaseDao().mProvisions = new BigDecimal((String)result.resultData);
-            } catch (Exception e) {}
-
-        } else if (result.taskType == BaseConstant.TASK_FETCH_STAKING_POOL) {
-            try {
-                getBaseDao().mStakingPool = (ResStakingPool)result.resultData;
-            } catch (Exception e) {}
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_BNB_TOKENS) {
             ArrayList<BnbToken> tempTokens = (ArrayList<BnbToken>)result.resultData;
@@ -975,7 +812,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             if (result.isSuccess) {
                 getBaseDao().mBalances = getBaseDao().onSelectBalance(mAccount.id);
             }
-            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
+//            WLog.w("getBaseDao().mBalances " + getBaseDao().mBalances.size());
             mTaskCount = mTaskCount + 1;
             new StationPriceInfoTask(getBaseApplication(), this, WUtil.marketPrice(mBaseChain, getBaseDao())).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
@@ -1014,17 +851,15 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mBandOracles = ((ResBandOracleStatus)result.resultData);
             }
 
-        } else if (result.taskType == TASK_FETCH_MINT_PARAM) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mMintParam = ((ResMintParam.MintParam)result.resultData);
-            }
-
         }
 
         //gRPC callback
         else if (result.taskType == TASK_GRPC_FETCH_NODE_INFO) {
             Types.DefaultNodeInfo tempNodeInfo = (Types.DefaultNodeInfo) result.resultData;
-            if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo; }
+            if (tempNodeInfo != null) { getBaseDao().mGRpcNodeInfo = tempNodeInfo;
+                mTaskCount = mTaskCount + 1;
+                new StationParamInfoTask(getBaseApplication(), this, getBaseDao().getChainIdGrpc()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            }
 
         } else if (result.taskType == TASK_GRPC_FETCH_AUTH) {
             Any tempAccount = (Any)result.resultData;
@@ -1066,25 +901,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
             if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
-
-        } else if (result.taskType == TASK_GRPC_FETCH_STAKING_POOL) {
-            getBaseDao().mGrpcStakingPool = (Staking.Pool)result.resultData;
-
-        } else if (result.taskType == TASK_GRPC_FETCH_PARAM_MINT) {
-            getBaseDao().mGrpcParamMint = (cosmos.mint.v1beta1.Mint.Params)result.resultData;
-
-        } else if (result.taskType == TASK_GRPC_FETCH_INFLATION) {
-            getBaseDao().mGrpcInflation = (BigDecimal)result.resultData;
-
-        } else if (result.taskType == TASK_GRPC_FETCH_PROVISION) {
-            getBaseDao().mGrpcProvision = (BigDecimal)result.resultData;
-
-        } else if (result.taskType == TASK_GRPC_FETCH_IRIS_PARAM_MINT) {
-            getBaseDao().mGrpcIrisParamMint = (irishub.mint.Mint.Params )result.resultData;
-
-        } else if (result.taskType == TASK_GRPC_FETCH_IRIS_TOKEN_LIST) {
-            ArrayList<TokenOuterClass.Token> tokens = (ArrayList<TokenOuterClass.Token>) result.resultData;
-            if (tokens != null) { getBaseDao().mGrpcIrisTokens = tokens; }
 
         }
 
