@@ -434,64 +434,33 @@ public class WDp {
         }
     }
 
-    //get reward without commission per block per one staking coin
-    public static BigDecimal getYieldPerBlock(BaseData baseData, BaseChain chain) {
-        BigDecimal result = BigDecimal.ZERO;
-        if (chain.equals(COSMOS_MAIN) || chain.equals(AKASH_MAIN) || chain.equals(SENTINEL_MAIN) || chain.equals(PERSIS_MAIN) || chain.equals(CRYPTO_MAIN) ||
-                chain.equals(COSMOS_TEST) || chain.equals(RIZON_TEST) || chain.equals(ALTHEA_TEST)) {
-            if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcProvision == null || baseData.mGrpcParamMint == null) { return result; }
-            BigDecimal provisions = baseData.mGrpcProvision;
-            BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
-            BigDecimal blocksPerYear = new BigDecimal(baseData.mGrpcParamMint.getBlocksPerYear());
-            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
-
-        } else if (chain.equals(IRIS_MAIN) || chain.equals(IRIS_TEST)) {
-            if (baseData == null || baseData.mGrpcStakingPool == null || baseData.mGrpcIrisParamMint == null) { return result; }
-            BigDecimal bonded = new BigDecimal(baseData.mGrpcStakingPool.getBondedTokens());
-            BigDecimal unbonded = new BigDecimal(baseData.mGrpcStakingPool.getNotBondedTokens());
-            BigDecimal inflation_base = new BigDecimal("2000000000000000");
-            BigDecimal provisions = inflation_base.multiply(new BigDecimal(baseData.mGrpcIrisParamMint.getInflation())).movePointLeft(18);
-            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(new BigDecimal("6311520"), 24, RoundingMode.DOWN);
-
-        } else {
-            if (baseData == null || baseData.mStakingPool == null || baseData.mProvisions == null || baseData.mMintParam == null) { return result; }
-            BigDecimal provisions = baseData.mProvisions;
-            BigDecimal bonded = new BigDecimal(baseData.mStakingPool.result.bonded_tokens);
-            BigDecimal blocksPerYear = new BigDecimal(baseData.mMintParam.blocks_per_year);
-            return provisions.divide(bonded, 24, RoundingMode.DOWN).divide(blocksPerYear, 24, RoundingMode.DOWN);
-        }
-    }
-
-    //display estimate apr by own checked block time
-    public static SpannableString getDpEstApr(BaseData baseData, BaseChain chain) {
-        BigDecimal rpr = getYieldPerBlock(baseData, chain);
-        BigDecimal estApr = YEAR_SEC.divide(WUtil.getCBlockTime(chain), 24, RoundingMode.DOWN).multiply(rpr).movePointRight(2);
-        return getPercentDp(estApr);
-    }
-
     public static SpannableString getDpEstAprCommission(BaseData baseData, BaseChain chain, BigDecimal commission) {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = param.getApr(chain);
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
+        BigDecimal aprCommission = apr.multiply(calCommission);
         return getPercentDp(aprCommission);
     }
 
     public static SpannableString getDailyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
-        BigDecimal apr = param.getApr(chain);
+        BigDecimal apr = BigDecimal.ZERO;
+        if (param.getRealApr(chain) == BigDecimal.ZERO) { apr = param.getApr(chain); }
+        else { apr = param.getRealApr(chain); }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
-        BigDecimal dayReward = delegated.multiply(aprCommission).divide(YEAR_SEC ,0, RoundingMode.DOWN);
+        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("365") ,0, RoundingMode.DOWN);
         return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
     }
 
     public static SpannableString getMonthlyReward(Context c, BaseData baseData, BigDecimal commission, BigDecimal delegated, BaseChain chain) {
         final ChainParam.Params param = baseData.mChainParam;
-        BigDecimal apr = param.getApr(chain);
+        BigDecimal apr = BigDecimal.ZERO;
+        if (param.getRealApr(chain) == BigDecimal.ZERO) { apr = param.getApr(chain); }
+        else { apr = param.getRealApr(chain); }
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
-        BigDecimal dayReward = delegated.multiply(aprCommission).divide(MONTH_SEC, 0, RoundingMode.DOWN);
+        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal dayReward = delegated.multiply(aprCommission).divide(new BigDecimal("12"), 0, RoundingMode.DOWN);
         return getDpAmount2(c, dayReward, mainDivideDecimal(chain), mainDivideDecimal(chain));
     }
 

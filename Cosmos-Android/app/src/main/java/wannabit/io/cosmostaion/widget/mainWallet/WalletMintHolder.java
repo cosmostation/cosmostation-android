@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import org.jetbrains.annotations.NotNull;
 
 
+import java.math.BigDecimal;
 
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.MainActivity;
@@ -17,7 +18,6 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.dao.ChainParam;
 import wannabit.io.cosmostaion.dialog.Dialog_Help_Msg;
 import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
 public class WalletMintHolder extends BaseHolder {
@@ -42,8 +42,14 @@ public class WalletMintHolder extends BaseHolder {
             @Override
             public void onClick(View v) {
                 Bundle bundle = new Bundle();
-                bundle.putString("title", mainActivity.getString(R.string.str_apr_help_title));
-                bundle.putString("msg", mainActivity.getString(R.string.str_apr_help_msg));
+                bundle.putString("msg1" , mainActivity.getString(R.string.str_apr_help_onchain_msg));
+                bundle.putString("msg2" , "" + WDp.getPercentDp(param.getDpApr(baseChain)));
+                bundle.putString("msg3" , mainActivity.getString(R.string.str_apr_help_real_msg));
+                if (param.getDpRealApr(baseChain) == BigDecimal.ZERO) {
+                    bundle.putString("msg4" , "-");
+                } else {
+                    bundle.putString("msg4" , "" + WDp.getPercentDp(param.getDpRealApr(baseChain)));
+                }
                 Dialog_Help_Msg dialog = Dialog_Help_Msg.newInstance(bundle);
                 dialog.setCancelable(true);
                 mainActivity.getSupportFragmentManager().beginTransaction().add(dialog, "dialog").commitNowAllowingStateLoss();

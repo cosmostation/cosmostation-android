@@ -751,7 +751,9 @@
     <string name="str_lock_time">Lock Time</string>
     <string name="str_vesting_schedule">Vesting Unlock Schedule</string>
     <string name="str_relayer_status">Relayer Status</string>
-    <string name="str_apr_help_title">Delegation APR</string>
+    <string name="str_apr_help_title">APR</string>
+    <string name="str_apr_help_onchain_msg">With on chain params</string>
+    <string name="str_apr_help_real_msg">With real block time</string>
     <string name="str_apr_help_msg">This figure is an estimated percentage calculated by taking into account the current average network block time.</string>
 
     <string name="str_min_collateral_rate">Min. Collateral Rate</string>
