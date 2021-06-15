@@ -495,7 +495,7 @@ public class WDp {
     public static BigDecimal convertTokenToKava(BaseData baseData, String denom) {
         BigDecimal tokenAmount = baseData.availableAmount(denom).add(baseData.lockedAmount(denom));
         BigDecimal totalTokenValue = kavaTokenDollorValue(baseData, denom, tokenAmount);
-        return totalTokenValue.divide(perUsdValue(baseData, TOKEN_KAVA), 6, RoundingMode.DOWN);
+        return totalTokenValue.movePointRight(6).divide(perUsdValue(baseData, TOKEN_KAVA), 6, RoundingMode.DOWN);
     }
 
     public static BigDecimal okExTokenDollorValue(BaseData baseData, OkToken okToken, BigDecimal amount) {
