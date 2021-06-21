@@ -16,7 +16,7 @@ public struct HdacUtxo {
     var amount: String?
     var vout: UInt32?
     var confirmations: Int64?
-    var satoshis: Int64?
+    var satoshis: UInt64?
     var txid: String?
     
     init(_ dictionary: NSDictionary?) {
@@ -26,18 +26,47 @@ public struct HdacUtxo {
         self.amount = dictionary?["amount"] as? String
         self.vout = dictionary?["vout"] as? UInt32
         self.confirmations = dictionary?["confirmations"] as? Int64
-        self.satoshis = dictionary?["satoshis"] as? Int64
+        self.satoshis = dictionary?["satoshis"] as? UInt64
         self.txid = dictionary?["txid"] as? String
     }
     
-    func toUTXO() -> HDWalletKit.UnspentTransaction {
-        let rawValue = NSDecimalNumber.init(string: self.amount).multiplying(byPowerOf10: 8, withBehavior: WUtils.handler0).uint64Value
-        let rawlockingScript = dataWithHexString(hex: self.scriptPubKey!)
-        let output = TransactionOutput(value: rawValue, lockingScript: rawlockingScript)
-        
-        let rawHashData = dataWithHexString(hex: self.txid!)
-        let outpoint = TransactionOutPoint(hash: rawHashData, index: vout!)
+    func toUTXO() -> UnspentTransaction {
+        let rawValue = satoshis
+        let rawlockingScript = self.scriptPubKey!.hexadecimal
+        let output = TransactionOutput(value: rawValue!, lockingScript: rawlockingScript!)
+        let reverseRawHashData = self.txid!.groups(of: 2).reversed().joined().hexadecimal
+        let outpoint = TransactionOutPoint(hash: reverseRawHashData!, index: vout!)
         return UnspentTransaction(output: output, outpoint: outpoint)
     }
     
+}
+
+extension String {
+    var hexadecimal: Data? {
+        var data = Data(capacity: count / 2)
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let num = UInt8(byteString, radix: 16)!
+            data.append(num)
+        }
+        
+        guard data.count > 0 else { return nil }
+        return data
+    }
+}
+
+extension Collection {
+    func groups(of n: Int) -> [SubSequence] {
+        var startIndex = self.startIndex
+        let count = self.count
+        return (0..<count/n).map { _ in
+            var endIndex = index(startIndex, offsetBy: n, limitedBy: self.endIndex) ?? self.endIndex
+            if count % n > 0, distance(from: self.startIndex, to: startIndex) > (count / n) {
+                endIndex = self.endIndex
+            }
+            defer { startIndex = endIndex }
+            return self[startIndex..<endIndex]
+        }
+    }
 }

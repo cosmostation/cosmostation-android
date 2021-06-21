@@ -93,6 +93,7 @@ public struct PrivateKey {
         switch self.coin {
         case .bitcoin: fallthrough
         case .litecoin: fallthrough
+        case .hdac: fallthrough
         case .bitcoinCash:
             return self.wifCompressed()
         case .ethereum:

@@ -67,7 +67,7 @@ public final class Crypto {
 
 // MARK: SHA256 of SHA256
 extension Data {
-    var doubleSHA256: Data {
+    public var doubleSHA256: Data {
         return sha256().sha256()
     }
 }

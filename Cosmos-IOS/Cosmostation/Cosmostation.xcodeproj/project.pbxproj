@@ -103,6 +103,7 @@
 		2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834399D2531D1A200CCFADE /* StarNameListViewController.swift */; };
 		283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283439A02531D1CF00CCFADE /* MyDomainViewController.swift */; };
 		283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283439A32531D1DF00CCFADE /* MyAccountViewController.swift */; };
+		2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2836E19A2680B3F300119FD2 /* HdacAddress.swift */; };
 		2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */; };
 		2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */; };
 		283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */; };
@@ -928,6 +929,7 @@
 		2834399D2531D1A200CCFADE /* StarNameListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameListViewController.swift; sourceTree = "<group>"; };
 		283439A02531D1CF00CCFADE /* MyDomainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDomainViewController.swift; sourceTree = "<group>"; };
 		283439A32531D1DF00CCFADE /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		2836E19A2680B3F300119FD2 /* HdacAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HdacAddress.swift; sourceTree = "<group>"; };
 		2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcCreateCell.swift; sourceTree = "<group>"; };
 		2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcCreateCell.xib; sourceTree = "<group>"; };
 		2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcClaimCell.swift; sourceTree = "<group>"; };
@@ -2388,6 +2390,7 @@
 			isa = PBXGroup;
 			children = (
 				28E3E373266DD72900BA89C2 /* HdacUtxo.swift */,
+				2836E19A2680B3F300119FD2 /* HdacAddress.swift */,
 			);
 			path = HdacModel;
 			sourceTree = "<group>";
@@ -3732,6 +3735,7 @@
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
 				287AC62B25FDF7260070837E /* cosmos_distribution_v1beta1_genesis.pb.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
+				2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */,
 				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				28BB2AA3253417CE00CFF097 /* StarNameResource.swift in Sources */,

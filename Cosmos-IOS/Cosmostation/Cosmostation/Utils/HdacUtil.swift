@@ -10,6 +10,7 @@ import Foundation
 import HDWalletKit
 
 class HdacUtil {
+    static let HDAC_BURN_ADDRESS = "HDC1cXNDDuDgmmpmqxoR2Bwf2bzx2fxVZy"
     
     static func getMasterKeyFromWords(_ seed: String) -> HDWalletKit.PrivateKey {
         return PrivateKey(seed: Mnemonic.createSeed(mnemonic: seed), coin: .bitcoin)
@@ -55,6 +56,52 @@ class HdacUtil {
         var result = Data.getxor(left: checksum, right: hdacChecksum)
         result = swapUInt32Data(result)
         return Base58.encode(prefix + payload + result)
+    }
+    
+    static func createSendTx(_ utxos: [UnspentTransaction], _ recipient: String, _ amount: NSDecimalNumber, _ key: PrivateKey) throws -> String {
+        let utxoTransactionBuilder = UtxoTransactionBuilder()
+        let utoxTransactionSigner = UtxoTransactionSigner()
+        
+        let toAddress: Address = try! HdacAddress.init(recipient, coin: .hdac)
+        let changeAddress: Address = try! HdacAddress.init(key.publicKey.address, coin: .hdac)
+        let amount: UInt64 = amount.uint64Value
+        
+        
+        
+        let totalAmount: UInt64 = utxos.sum()
+        let fee: UInt64 = 10000000
+        let change: UInt64 = totalAmount - amount - fee
+        let destinations: [(Address, UInt64)] = [(toAddress, amount), (changeAddress, change)]
+        let unsignedTx = try utxoTransactionBuilder.build(destinations: destinations, utxos: utxos)
+        let signedTx = try utoxTransactionSigner.sign(unsignedTx, with: key)
+        print("unsignedTx ", unsignedTx.tx.serialized().hex.uppercased())
+        print("signedTx ", signedTx.serialized().hex.uppercased())
+        return signedTx.serialized().hex
+    }
+    
+    static func createSwapTx(_ utxos: [UnspentTransaction], _ rizonAddress: String, _ key: PrivateKey) throws -> String {
+        let utoxTransactionSigner = UtxoTransactionSigner()
+        let burnAddress: Address = try! HdacAddress.init(HDAC_BURN_ADDRESS, coin: .hdac)
+        let totalAmount: UInt64 = utxos.sum()
+        let fee: UInt64 = 10000000
+        let burnAmount: UInt64 = totalAmount - fee
+        
+        let unsignedTx = swapBuild(utxos: utxos, address: burnAddress, amount: burnAmount, rizonAddress: rizonAddress)
+        let signedTx = try utoxTransactionSigner.sign(unsignedTx!, with: key)
+        print("unsignedTx ", unsignedTx?.tx.serialized().toHexString().uppercased())
+        print("signedTx ", signedTx.serialized().hex.uppercased())
+        return signedTx.serialized().hex
+    }
+    
+    static func swapBuild(utxos: [UnspentTransaction], address: Address, amount: UInt64, rizonAddress: String) -> UnsignedTransaction? {
+        var outputs: [TransactionOutput] = [TransactionOutput]()
+        outputs.append(TransactionOutput(value: amount, lockingScript: Script(address: address)!.data))
+        let returnScript = ScriptFactory.OpReturn.build(text: rizonAddress)
+        outputs.append(TransactionOutput(value: 546, lockingScript: returnScript!.data))
+        
+        let unsignedInputs = utxos.map { TransactionInput(previousOutput: $0.outpoint, signatureScript: $0.output.lockingScript, sequence: UInt32.max) }
+        let tx = Transaction(version: 1, inputs: unsignedInputs, outputs: outputs, lockTime: 0)
+        return UnsignedTransaction(tx: tx, utxos: utxos)
     }
     
     static func swapUInt32Data(_ data: Data) -> Data {
