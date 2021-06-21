@@ -18,13 +18,9 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import wannabit.io.cosmostaion.model.hdac.HdacUtxo;
-import wannabit.io.cosmostaion.utils.WKey;
-import wannabit.io.cosmostaion.utils.WLog;
-import wannabit.io.cosmostaion.utils.WUtil;
 
 
 public class HdacUtil {
@@ -82,7 +78,23 @@ public class HdacUtil {
 
         hdacTx.addOutput(toAddress, send_amount.longValue());
         hdacTx.addOutput(getAddress(), remain.longValue());
-        hdacTx.addOpReturnOutput("rizon13a4asd0tvekw6r2cga36k5j82rfwhdla9cd99j".getBytes());
+        for (int i=0; i<utxos.size();i++) {
+            UTXO utxo = utxos.get(i).toUTXO();
+            hdacTx.addInput(utxo);
+        }
+        txHex = hdacTx.getTxBuilder().toHex();
+        return txHex;
+    }
+
+    public String genSignedTxSend(ArrayList<HdacUtxo> utxos, String toAddress, BigDecimal send_amount) {
+        String txHex = null;
+        HdacTx hdacTx = new HdacTx();
+        BigDecimal balance = getBalance(utxos);
+        BigDecimal fee = new BigDecimal("0.1").movePointRight(8);
+        BigDecimal remain = balance.subtract(send_amount).subtract(fee);
+
+        hdacTx.addOutput(toAddress, send_amount.longValue());
+        hdacTx.addOutput(getAddress(), remain.longValue());
 
         for (int i=0; i<utxos.size();i++) {
             UTXO utxo = utxos.get(i).toUTXO();
@@ -90,11 +102,27 @@ public class HdacUtil {
             if(ecKey!=null) hdacTx.addSignedInput(utxo, ecKey);
         }
         txHex = hdacTx.getTxBuilder().toHex();
-        WLog.w("txHex "+ txHex);
         return txHex;
     }
 
-    public String genSwapTx(ArrayList<HdacUtxo> utxos, String rizonAddress) {
+    public String genRawTxSwap(ArrayList<HdacUtxo> utxos, String rizonAddress) {
+        String txHex = null;
+        HdacTx hdacTx = new HdacTx();
+        BigDecimal balance = getBalance(utxos);
+        BigDecimal toBurnAmount = balance.subtract(mTxFee);
+
+        hdacTx.addOutput(mBurnAddress, toBurnAmount.longValue());
+        hdacTx.addOpReturnOutput(rizonAddress.getBytes());
+
+        for (int i=0; i<utxos.size();i++) {
+            UTXO utxo = utxos.get(i).toUTXO();
+            hdacTx.addInput(utxo);
+        }
+        txHex = hdacTx.getTxBuilder().toHex();
+        return txHex;
+    }
+
+    public String genSignedTxSwap(ArrayList<HdacUtxo> utxos, String rizonAddress) {
         String txHex = null;
         HdacTx hdacTx = new HdacTx();
         BigDecimal balance = getBalance(utxos);

@@ -8,6 +8,7 @@ import org.bitcoinj.core.NetworkParameters;
 import org.bitcoinj.core.Sha256Hash;
 import org.bitcoinj.core.Transaction;
 import org.bitcoinj.core.TransactionConfidence;
+import org.bitcoinj.core.TransactionInput;
 import org.bitcoinj.core.TransactionOutPoint;
 import org.bitcoinj.core.UTXO;
 import org.bitcoinj.script.Script;
@@ -28,6 +29,16 @@ public class HdacTx {
     public HdacTx(byte[] payload) {
         this.mParams = HdacNetworkParams.getDefault();
         this.mTxBuilder = new HdacTxBuilder(payload);
+    }
+
+
+    public void addInput(UTXO utxo) {
+        if(utxo!=null) {
+            TransactionOutPoint outPoint = new TransactionOutPoint(mParams, utxo.getIndex(), utxo.getHash());
+            TransactionInput input = new TransactionInput(mParams, null, utxo.getScript().getProgram(), outPoint, utxo.getValue());
+            mTxBuilder.getTransaction().addInput(input);
+        }
+
     }
 
     public void addSignedInput(JSONObject unspent, ECKey sign) {
@@ -56,7 +67,7 @@ public class HdacTx {
     }
 
     public void addOutput(String address, long amount) {
-        if(address != null && !address.isEmpty()) {
+        if (address != null && !address.isEmpty()) {
             byte[] hash160 = new byte[20];
             byte[] dec = Base58.decode(address);
             if(dec!=null && dec.length==25) {
