@@ -1278,7 +1278,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                 if let params = res as? NSDictionary {
                     BaseData.instance.mParam = Param.init(params)
                 }
-                print("mParam ", BaseData.instance.mParam)
+//                print("mParam ", BaseData.instance.mParam)
             
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchPriceInfo ", error) }

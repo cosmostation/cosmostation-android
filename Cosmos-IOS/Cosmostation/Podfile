@@ -8,7 +8,7 @@ target 'Cosmostation' do
 #    pod 'BinanceChain', :git => 'https://github.com/binance-chain/swift-sdk.git'
     pod 'BinanceChain', :git => 'https://github.com/cosmostation/swift-sdk.git'
     pod 'WalletConnect', git: 'https://github.com/WalletConnect/swift-walletconnect-lib', branch: 'master'
-    pod 'BitcoinKit', '~> 1.0.2'
+#    pod 'BitcoinKit', '~> 1.0.2'
     pod 'AlamofireImage', '~> 3.3'
     pod 'SQLite.swift', '~> 0.11.5'
 #    pod 'CryptoSwift', '~> 1.5.0'
