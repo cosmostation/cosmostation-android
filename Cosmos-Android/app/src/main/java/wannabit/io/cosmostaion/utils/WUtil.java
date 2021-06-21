@@ -91,6 +91,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -2086,7 +2087,7 @@ public class WUtil {
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
+                basechain.equals(OSMOSIS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -2362,6 +2363,11 @@ public class WUtil {
 
         } else if (basechain.equals(CRYPTO_MAIN)) {
             BigDecimal gasRate = new BigDecimal(CRYPTO_GAS_RATE_TINY);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 

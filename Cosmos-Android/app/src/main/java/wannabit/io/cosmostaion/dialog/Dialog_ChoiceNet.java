@@ -38,7 +38,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
 
     private LinearLayout mKavaTestLayer, mBinanaceTestLayer, mIovTestLayer, mOKTestLayer, mCertikTestLayer, mCosmosTestLayer, mIrisTestLayer;
     private LinearLayout mMain, mIris, mBinance, mOkex, mKava, mIov, mBinanaceTest, mKavaTest, mIovTest, mOKTest, mCertikTest, mTest12k, mTest13k;
-    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mSecret, mCosmosTest, mIrisTest;
+    private LinearLayout mBand, mPersis, mCertik, mAkash, mSentinel, mFetch, mCryto, mSifchain, mKichain, mOsmosis, mSecret, mCosmosTest, mIrisTest;
     private LinearLayout mRizonTestLayer, mMediTestLayer, mAltheaTestLayer;
     private LinearLayout mRizonTest, mMediTest, mAltheaTest;
 
@@ -92,6 +92,7 @@ public class Dialog_ChoiceNet extends DialogFragment {
         mCryto = view.findViewById(R.id.cryto_chain);
         mSifchain = view.findViewById(R.id.sif_chain);
         mKichain = view.findViewById(R.id.ki_chain);
+        mOsmosis = view.findViewById(R.id.osmosis_chain);
 
         mRizonTestLayer = view.findViewById(R.id.rizon_test_layer);
         mRizonTest = view.findViewById(R.id.rizon_test_net);
@@ -219,6 +220,14 @@ public class Dialog_ChoiceNet extends DialogFragment {
             @Override
             public void onClick(View v) {
                 ((BaseActivity)getActivity()).onChoiceNet(KI_MAIN);
+                getDialog().dismiss();
+            }
+        });
+
+        mOsmosis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((BaseActivity)getActivity()).onChoiceNet(BaseChain.OSMOSIS_MAIN);
                 getDialog().dismiss();
             }
         });

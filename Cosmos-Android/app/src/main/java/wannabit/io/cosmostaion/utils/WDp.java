@@ -83,6 +83,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -107,6 +108,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.KI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MEDI_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.MONTH_SEC;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_VAL_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.PERSIS_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.RIZON_VAL_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SECRET_VAL_URL;
@@ -131,6 +133,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -268,6 +271,10 @@ public class WDp {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
+
         } else if (chain.equals(COSMOS_TEST)) {
             if (coin.denom.equals(TOKEN_COSMOS_TEST)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
@@ -398,6 +405,10 @@ public class WDp {
             }
 
         } else if (chain.equals(KI_MAIN)) {
+            DpMainDenom(c, chain.getChain(), denomTv);
+            amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
+
+        } else if (chain.equals(OSMOSIS_MAIN)) {
             DpMainDenom(c, chain.getChain(), denomTv);
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -1707,6 +1718,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorSif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColor(R.color.colorKi);
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorOsmosis);
         } else if (chain.equals(RIZON_TEST)) {
             return c.getResources().getColor(R.color.colorRizon);
         } else if (chain.equals(MEDI_TEST)) {
@@ -1751,6 +1764,8 @@ public class WDp {
             return c.getResources().getColor(R.color.colorTransBgSif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColor(R.color.colorTransBgKi);
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return c.getResources().getColor(R.color.colorTransBgOsmosis);
         } else if (chain.equals(RIZON_TEST)) {
             return c.getResources().getColor(R.color.colorTransBgRizon);
         } else if (chain.equals(MEDI_TEST)) {
@@ -1794,6 +1809,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_sif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_ki);
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return c.getResources().getColorStateList(R.color.color_tab_myvalidator_osmosis);
         } else if (chain.equals(RIZON_TEST)) {
             return c.getResources().getColorStateList(R.color.color_tab_myvalidator_rizon);
         } else if (chain.equals(MEDI_TEST)) {
@@ -1835,6 +1852,8 @@ public class WDp {
             return c.getResources().getColorStateList(R.color.colorSif);
         } else if (chain.equals(KI_MAIN)) {
             return c.getResources().getColorStateList(R.color.colorKi);
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return c.getResources().getColorStateList(R.color.colorOsmosis);
         } else if (chain.equals(RIZON_TEST)) {
             return c.getResources().getColorStateList(R.color.colorRizon);
         } else if (chain.equals(MEDI_TEST)) {
@@ -1914,6 +1933,10 @@ public class WDp {
             textview.setTextColor(c.getResources().getColor(R.color.colorKi));
             textview.setText(c.getString(R.string.s_ki));
 
+        } else if (BaseChain.getChain(chain).equals(OSMOSIS_MAIN)) {
+            textview.setTextColor(c.getResources().getColor(R.color.colorOsmosis));
+            textview.setText(c.getString(R.string.s_osmosis));
+
         }
 
         else if (BaseChain.getChain(chain).equals(COSMOS_TEST)) {
@@ -1972,6 +1995,8 @@ public class WDp {
             return TOKEN_SIF;
         } else if (chain.equals(KI_MAIN)) {
             return TOKEN_KI;
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return TOKEN_OSMOSIS;
         } else if (chain.equals(COSMOS_TEST)) {
             return TOKEN_COSMOS_TEST;
         } else if (chain.equals(IRIS_TEST)) {
@@ -2321,6 +2346,8 @@ public class WDp {
             return PERSIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return CRYPTO_VAL_URL + opAddress + ".png";
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            return OSMOSIS_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(RIZON_TEST)) {
             return RIZON_VAL_URL + opAddress + ".png";
         } else if (basechain.equals(ALTHEA_TEST)) {

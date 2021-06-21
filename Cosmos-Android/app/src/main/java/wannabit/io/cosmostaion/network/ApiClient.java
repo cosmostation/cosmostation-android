@@ -533,6 +533,21 @@ public class ApiClient {
         return api_ki;
     }
 
+    //Services for osmosis mainnet api
+    private static HistoryApi api_osmosis = null;
+    public static HistoryApi getOsmosisApi(Context c) {
+        if (api_osmosis == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_osmosis))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                api_osmosis = retrofit.create(HistoryApi.class);
+            }
+        }
+        return api_osmosis;
+    }
+
 
 
     //Services for Rizon test api

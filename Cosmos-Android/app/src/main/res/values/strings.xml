@@ -86,6 +86,8 @@
     <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
 
+    <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
+
 
     <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
 
@@ -149,6 +151,7 @@
     <string name="str_crypto_main_net">Crypto.org Mainnet</string>
     <string name="str_sif_main_net">SifChain Mainnet</string>
     <string name="str_ki_main_net">Ki Foundation Mainnet</string>
+    <string name="str_osmosis_main_net">Osmosis Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -1426,6 +1429,7 @@
     <string name="s_rizon" translatable="false">ATOLO</string>
     <string name="s_medi" translatable="false">MED</string>
     <string name="s_althea" translatable="false">ALTG</string>
+    <string name="s_osmosis" translatable="false">OSMO</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

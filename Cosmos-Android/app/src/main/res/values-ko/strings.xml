@@ -19,6 +19,7 @@
     <string name="str_crypto_main_net">크립토 오알지 메인넷</string>
     <string name="str_sif_main_net">시프체인 메인넷</string>
     <string name="str_ki_main_net">키 파운데이션 메인넷</string>
+    <string name="str_osmosis_main_net">오스모시스 메인넷</string>
     <string name="str_cosmos_test_net">스타게이트 테스트넷</string>
     <string name="str_iris_test_net">바이프로스트 테스트넷</string>
     <string name="str_bnb_test_net">바이낸스 테스트넷</string>

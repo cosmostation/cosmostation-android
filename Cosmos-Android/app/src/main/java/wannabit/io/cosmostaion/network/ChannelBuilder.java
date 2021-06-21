@@ -11,6 +11,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SENTINEL_MAIN;
@@ -33,6 +34,9 @@ public class ChannelBuilder {
 
     private final static String GRPC_CRYPTO_MAIN = "lcd-cryptocom.cosmostation.io";
     private final static int PORT_CRYPTO_MAIN = 9090;
+
+    private final static String GRPC_OSMOSIS_MAIN = "lcd-osmosis.cosmostation.io";
+    private final static int PORT_OSMOSIS_MAIN = 10102;
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -64,6 +68,8 @@ public class ChannelBuilder {
             return getPersisMain();
         } else if (chain.equals(CRYPTO_MAIN)) {
             return getCryptoMain();
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return getOsmosisMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -156,6 +162,19 @@ public class ChannelBuilder {
             }
         }
         return channel_crypto_main;
+    }
+
+    //Channel for osmosis main
+    private static ManagedChannel channel_osmosis_main = null;
+    public static ManagedChannel getOsmosisMain() {
+        if (channel_osmosis_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_osmosis_main = ManagedChannelBuilder.forAddress(GRPC_OSMOSIS_MAIN, PORT_OSMOSIS_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_osmosis_main;
     }
 
 
