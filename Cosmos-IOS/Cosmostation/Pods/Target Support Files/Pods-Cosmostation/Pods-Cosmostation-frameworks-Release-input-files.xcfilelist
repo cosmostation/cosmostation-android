@@ -1,7 +1,6 @@
 ${PODS_ROOT}/Target Support Files/Pods-Cosmostation/Pods-Cosmostation-frameworks.sh
 ${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework
 ${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework
-${BUILT_PRODUCTS_DIR}/BitcoinKit/BitcoinKit.framework
 ${BUILT_PRODUCTS_DIR}/CGRPCZlib/CGRPCZlib.framework
 ${BUILT_PRODUCTS_DIR}/CNIOAtomics/CNIOAtomics.framework
 ${BUILT_PRODUCTS_DIR}/CNIOBoringSSL/CNIOBoringSSL.framework
@@ -15,7 +14,6 @@ ${BUILT_PRODUCTS_DIR}/DropDown/DropDown.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCore/FirebaseCore.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseCoreDiagnostics/FirebaseCoreDiagnostics.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseInstallations/FirebaseInstallations.framework
-${BUILT_PRODUCTS_DIR}/FirebaseInstanceID/FirebaseInstanceID.framework
 ${BUILT_PRODUCTS_DIR}/FirebaseMessaging/FirebaseMessaging.framework
 ${BUILT_PRODUCTS_DIR}/Floaty/Floaty.framework
 ${BUILT_PRODUCTS_DIR}/GoogleDataTransport/GoogleDataTransport.framework

@@ -30,12 +30,16 @@ final class PipeChannel: BaseStreamSocketChannel<PipePair> {
                        recvAllocator: AdaptiveRecvByteBufferAllocator())
     }
 
-    func registrationForInput(interested: SelectorEventSet) -> NIORegistration {
-        return .pipeChannel(self, .input, interested)
+    func registrationForInput(interested: SelectorEventSet, registrationID: SelectorRegistrationID) -> NIORegistration {
+        return NIORegistration(channel: .pipeChannel(self, .input),
+                               interested: interested,
+                               registrationID: registrationID)
     }
 
-    func registrationForOutput(interested: SelectorEventSet) -> NIORegistration {
-        return .pipeChannel(self, .output, interested)
+    func registrationForOutput(interested: SelectorEventSet, registrationID: SelectorRegistrationID) -> NIORegistration {
+        return NIORegistration(channel: .pipeChannel(self, .output),
+                               interested: interested,
+                               registrationID: registrationID)
     }
 
     override func connectSocket(to address: SocketAddress) throws -> Bool {
@@ -49,10 +53,10 @@ final class PipeChannel: BaseStreamSocketChannel<PipePair> {
     override func register(selector: Selector<NIORegistration>, interested: SelectorEventSet) throws {
         try selector.register(selectable: self.pipePair.inputFD,
                               interested: interested.intersection([.read, .reset]),
-                              makeRegistration: self.registrationForInput(interested:))
+                              makeRegistration: self.registrationForInput)
         try selector.register(selectable: self.pipePair.outputFD,
                               interested: interested.intersection([.write, .reset]),
-                              makeRegistration: self.registrationForOutput(interested:))
+                              makeRegistration: self.registrationForOutput)
 
     }
 
@@ -91,6 +95,18 @@ final class PipeChannel: BaseStreamSocketChannel<PipePair> {
         }
         try! self.selectableEventLoop.deregister(channel: self, mode: .output)
         try! self.pipePair.outputFD.close()
+    }
+
+    override func shutdownSocket(mode: CloseMode) throws {
+        switch mode {
+        case .input:
+            try! self.selectableEventLoop.deregister(channel: self, mode: .input)
+        case .output:
+            try! self.selectableEventLoop.deregister(channel: self, mode: .output)
+        case .all:
+            break
+        }
+        try super.shutdownSocket(mode: mode)
     }
 }
 

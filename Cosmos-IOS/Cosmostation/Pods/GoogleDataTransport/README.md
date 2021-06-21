@@ -14,14 +14,51 @@ These instructions apply to minor and patch version updates. Major versions need
 a customized adaptation.
 
 After the CI is green:
-  * Update the version in the podspec
-  * Add the CocoaPods tag
-    * `git tag CocoaPods-{version}`
-    * `git push origin CocoaPods-{version}`
-  * Push the podspec to SpecsStaging
-    * `pod repo push staging GoogleDataTransport.podspec`
-  * Run Firebase CI by waiting until next nightly or adding a PR that touches `Gemfile`
-  * On google3, copybara and run a global TAP which should kick off automatically after each PR.
+* Update the version in the podspec to match the latest entry in the [CHANGELOG.md](CHANGELOG.md)
+* Checkout the `main` branch and ensure it is up to date.
+  ```console
+  git checkout main
+  git pull
+  ```
+* Add the CocoaPods tag (`{version}` will be the latest version in the [podspec](GoogleDataTransport.podspec#L3))
+  ```console
+  git tag CocoaPods-{version}
+  git push origin CocoaPods-{version}
+  ```
+* Push the podspec to the designated repo
+  * If this version of GDT is intended to launch **before or with** the next Firebase release:
+    <details>
+    <summary>Push to <b>SpecsStaging</b></summary>
+
+    ```console
+    pod repo push --skip-tests staging GoogleDataTransport.podspec
+    ```
+
+    If the command fails with `Unable to find the 'staging' repo.`, add the staging repo with:
+    ```console
+    pod repo add staging git@github.com:firebase/SpecsStaging.git
+    ```
+    </details>
+  * Otherwise:
+    <details>
+    <summary>Push to <b>SpecsDev</b></summary>
+
+    ```console
+    pod repo push --skip-tests dev GoogleDataTransport.podspec
+    ```
+
+    If the command fails with `Unable to find the 'dev' repo.`, add the dev repo with:
+    ```console
+    pod repo add dev git@github.com:firebase/SpecsDev.git
+    ```
+    </details>
+* Run Firebase CI by waiting until next nightly or adding a PR that touches `Gemfile`.
+* On google3, create a workspace and new CL. Then copybara and run a global TAP.
+  <pre>
+  /google/data/ro/teams/copybara/copybara third_party/firebase/ios/Releases/GoogleDataTransport/copy.bara.sky \
+  --piper-description-behavior=OVERWRITE \
+  --destination-cl=<b>YOUR_CL</b> gdt
+  </pre>
 
 ## Publishing
   * Add a version tag for Swift PM
@@ -35,21 +72,21 @@ After the CI is green:
 ### Swift
 
 - Import `GoogleDataTransport` module:
-    ```
+    ```swift
     import GoogleDataTransport
     ```
 - Set logging level global variable to the desired value before calling `FirebaseApp.config()`:
-    ```
+    ```swift
     GDTCORConsoleLoggerLoggingLevel = GDTCORLoggingLevel.debug.rawValue
     ```
 ### Objective-C
 
 - Import `GoogleDataTransport`:
-    ```
+    ```objective-c
     #import <GoogleDataTransport/GoogleDataTransport.h>
     ```
 - Set logging level global variable to the desired value before calling `-[FIRApp config]`:
-    ```
+    ```objective-c
     GDTCORConsoleLoggerLoggingLevel = GDTCORLoggingLevelDebug;
     ```
 
@@ -61,7 +98,7 @@ After the CI is green:
 
 ## To develop
 
-- Run `generate_project.sh` after installing the prereqs
+- Run `./GoogleDataTransport/generate_project.sh` after installing the prereqs
 
 ## When adding new logging endpoint
 
@@ -116,8 +153,8 @@ before creating a PR.
 GitHub Actions will verify that any code changes are done in a style compliant
 way. Install `clang-format` and `mint`:
 
-```
-brew install clang-format@11
+```console
+brew install clang-format@12
 brew install mint
 ```
 

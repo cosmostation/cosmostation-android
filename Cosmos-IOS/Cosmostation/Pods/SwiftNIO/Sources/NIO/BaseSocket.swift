@@ -57,10 +57,10 @@ import struct WinSDK.socklen_t
 import CNIOWindows
 #endif
 
-/// A Registration on a `Selector`, which is interested in an `SelectorEventSet`.
 protocol Registration {
     /// The `SelectorEventSet` in which the `Registration` is interested.
     var interested: SelectorEventSet { get set }
+    var registrationID: SelectorRegistrationID { get set }
 }
 
 protocol SockAddrProtocol {
