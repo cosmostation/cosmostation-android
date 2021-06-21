@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.base.BaseData;
 import wannabit.io.cosmostaion.dao.BnbToken;
 import wannabit.io.cosmostaion.dao.OkToken;
 import wannabit.io.cosmostaion.utils.WDp;
+import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 import wannabit.io.cosmostaion.widget.BaseHolder;
 
@@ -113,7 +114,7 @@ public class TokenBaseHolder extends BaseHolder {
         mTvTokenDenom.setText("(" + denom + ")");
         mTvTokenAvailable.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
         mTvTokenTotal.setText(WDp.getDpAmount2(context, availableTokenAmount, dpDecimal, dpDecimal));
-        mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, TOKEN_KAVA, convertedToKava, 0));
+        mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, TOKEN_KAVA, convertedToKava, 6));
         Picasso.get().load(KAVA_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
     }
 

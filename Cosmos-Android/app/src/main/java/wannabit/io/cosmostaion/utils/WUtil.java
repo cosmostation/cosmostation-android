@@ -1930,7 +1930,7 @@ public class WUtil {
         return result;
     }
 
-    public static BigDecimal getCBlockTime(BaseChain chain) {
+    public static BigDecimal getRealBlockTime(BaseChain chain) {
         if (chain.equals(COSMOS_MAIN) || chain.equals(COSMOS_TEST)) {
             return BLOCK_TIME_COSMOS;
 
@@ -1971,7 +1971,14 @@ public class WUtil {
             return BLOCK_TIME_KI;
 
         }
-        return new BigDecimal("6");
+        return BigDecimal.ZERO;
+    }
+
+    public static BigDecimal getRealBlockPerYear(BaseChain chain) {
+        if (getRealBlockTime(chain) == BigDecimal.ZERO) {
+            return BigDecimal.ZERO;
+        }
+        return YEAR_SEC.divide(getRealBlockTime(chain), 2, RoundingMode.DOWN);
     }
 
     public static Intent getGuide1Intent(BaseChain chain) {

@@ -66,7 +66,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/str_est_apr"
+                    android:text="@string/str_apr_help_title"
                     style="@style/font_ss_12_gray1"/>
                 <ImageView
                     android:layout_width="@dimen/space_14"
