@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import BitcoinKit
 import SwiftKeychainWrapper
 import HDWalletKit
 
@@ -117,12 +116,12 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                     
                     if (self.pageHolderVC.mAccount!.account_new_bip44) {
                         let hash = HDWalletKit.Crypto.sha3keccak256(data: rawData!)
-                        let signedData: Data? = try ECDSA.compactsign(hash, privateKey: pKey.privateKey().raw)
+                        let signedData: Data? = try ECDSA.compactsign(hash, privateKey: pKey.raw)
                         
                         var genedSignature = Signature.init()
                         var genPubkey =  PublicKey.init()
                         genPubkey.type = ETHERMINT_KEY_TYPE_PUBLIC
-                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                        genPubkey.value = pKey.publicKey.data.base64EncodedString()
                         genedSignature.pub_key = genPubkey
                         genedSignature.signature = signedData!.base64EncodedString()
                         genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
@@ -134,15 +133,15 @@ class StepOkWithdrawCheckViewController: BaseViewController, PasswordViewDelegat
                         stdTx = MsgGenerator.genSignedTx(msgList, self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, signatures)
                         
                     } else {
-                        let hash = Crypto.sha256(rawData!)
-                        let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
-                        
+                        let hash = rawData!.sha256()
+                        let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
+
                         var genedSignature = Signature.init()
                         var genPubkey =  PublicKey.init()
                         genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                        genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                        genPubkey.value = pKey.publicKey.data.base64EncodedString()
                         genedSignature.pub_key = genPubkey
-                        genedSignature.signature = WKey.convertSignature(signedData!)
+                        genedSignature.signature = signedData.base64EncodedString()
                         genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
                         genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                         

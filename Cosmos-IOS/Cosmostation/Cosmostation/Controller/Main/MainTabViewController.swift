@@ -35,6 +35,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         self.delegate = self
         self.selectedIndex = BaseData.instance.getLastTab()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {

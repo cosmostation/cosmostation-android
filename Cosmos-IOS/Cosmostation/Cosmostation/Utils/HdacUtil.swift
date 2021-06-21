@@ -8,7 +8,6 @@
 
 import Foundation
 import HDWalletKit
-import BitcoinKit
 
 class HdacUtil {
     
@@ -47,7 +46,7 @@ class HdacUtil {
     static func generateHdacAddress(_ publickey: HDWalletKit.PublicKey) -> String {
         let prefix = Data([0x28])
         let publicKeyy = publickey.getPublicKey(compressed: true)
-        let payload = Crypto.ripemd160(publicKeyy.sha256())
+        let payload = RIPEMD160.hash(publicKeyy.sha256())
         
         var checksum = (prefix + payload).sha256().sha256().prefix(4)
         checksum = swapUInt32Data(checksum)
@@ -55,7 +54,7 @@ class HdacUtil {
         hdacChecksum = swapUInt32Data(hdacChecksum)
         var result = Data.getxor(left: checksum, right: hdacChecksum)
         result = swapUInt32Data(result)
-        return HDWalletKit.Base58.encode(prefix + payload + result)
+        return Base58.encode(prefix + payload + result)
     }
     
     static func swapUInt32Data(_ data: Data) -> Data {
