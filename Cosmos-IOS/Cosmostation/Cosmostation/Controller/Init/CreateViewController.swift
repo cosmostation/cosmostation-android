@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import BitcoinKit
+import HDWalletKit
 import SwiftKeychainWrapper
 
 class CreateViewController: BaseViewController, PasswordViewDelegate{
@@ -325,10 +325,10 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
     
     
     func onGenNewKey() {
-        guard let words = try? Mnemonic.generate(strength: .veryHigh, language: .english) else {
+        guard let words = try? Mnemonic.create(strength: .hight, language: .english) else {
             return
         }
-        self.mnemonicWords = words
+        self.mnemonicWords = words.components(separatedBy: " ")
         self.onUpdateView()
     }
     

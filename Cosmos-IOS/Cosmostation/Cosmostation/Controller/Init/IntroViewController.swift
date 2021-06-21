@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import Firebase
-import BitcoinKit
 
 class IntroViewController: BaseViewController, PasswordViewDelegate {
 

@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import BitcoinKit
 import HDWalletKit
 
 class Signer {
@@ -280,7 +279,7 @@ class Signer {
     
     static func genSignedSendTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                     _ toAddress: String, _ amount: Array<Coin>, _ fee: Fee, _ memo: String,
-                                    _ pKey: HDPrivateKey, _ chainId: String)  -> Cosmos_Tx_V1beta1_BroadcastTxRequest{
+                                    _ pKey: PrivateKey, _ chainId: String)  -> Cosmos_Tx_V1beta1_BroadcastTxRequest{
         let sendCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount[0].denom
             $0.amount = amount[0].amount
@@ -306,7 +305,7 @@ class Signer {
     
     static func genSimulateSendTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                       _ toAddress: String, _ amount: Array<Coin>, _ fee: Fee, _ memo: String,
-                                      _ pKey: HDPrivateKey, _ chainId: String)  -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                      _ pKey: PrivateKey, _ chainId: String)  -> Cosmos_Tx_V1beta1_SimulateRequest {
         let sendCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount[0].denom
             $0.amount = amount[0].amount
@@ -332,7 +331,7 @@ class Signer {
     
     static func genSignedDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                         _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                        _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                        _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -358,7 +357,7 @@ class Signer {
     
     static func genSimulateDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                           _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                          _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                          _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -383,7 +382,7 @@ class Signer {
     
     static func genSignedUnDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                           _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                          _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                          _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -409,7 +408,7 @@ class Signer {
     
     static func genSimulateUnDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                             _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                            _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                            _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -435,7 +434,7 @@ class Signer {
     
     static func genSignedReDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                           _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                          _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                          _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -462,7 +461,7 @@ class Signer {
     
     static func genSimulateReDelegateTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                             _ fromValAddress: String, _ toValAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                            _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                            _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let toCoin = Cosmos_Base_V1beta1_Coin.with {
             $0.denom = amount.denom
             $0.amount = amount.amount
@@ -489,7 +488,7 @@ class Signer {
     
     static func genSignedClaimRewardsTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                             _ validators: Array<Cosmos_Staking_V1beta1_Validator>, _ fee: Fee, _ memo: String,
-                                            _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                            _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         var anyMsgs = Array<Google_Protobuf2_Any>()
         for validator in validators{
             let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
@@ -514,7 +513,7 @@ class Signer {
     
     static func genSimulateClaimRewardsTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                               _ validators: Array<Cosmos_Staking_V1beta1_Validator>, _ fee: Fee, _ memo: String,
-                                              _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                              _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         var anyMsgs = Array<Google_Protobuf2_Any>()
         for validator in validators{
             let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
@@ -539,7 +538,7 @@ class Signer {
     
     static func genSignedReInvestTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                         _ valAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                        _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                        _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         var anyMsgs = Array<Google_Protobuf2_Any>()
         let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
             $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
@@ -576,7 +575,7 @@ class Signer {
     
     static func genSimulateReInvestTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                           _ valAddress: String, _ amount: Coin, _ fee: Fee, _ memo: String,
-                                          _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                          _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         var anyMsgs = Array<Google_Protobuf2_Any>()
         let claimMsg = Cosmos_Distribution_V1beta1_MsgWithdrawDelegatorReward.with {
             $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
@@ -613,7 +612,7 @@ class Signer {
     
     static func genSignedVoteTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                     _ proposalId: String, _ opinion: String, _ fee: Fee, _ memo: String,
-                                    _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                    _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let voteMsg = Cosmos_Gov_V1beta1_MsgVote.with {
             $0.voter = WUtils.onParseAuthGrpc(auth).0!
             $0.proposalID = UInt64(proposalId)!
@@ -643,7 +642,7 @@ class Signer {
     
     static func genSimulateVoteTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                       _ proposalId: String, _ opinion: String, _ fee: Fee, _ memo: String,
-                                      _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                      _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let voteMsg = Cosmos_Gov_V1beta1_MsgVote.with {
             $0.voter = WUtils.onParseAuthGrpc(auth).0!
             $0.proposalID = UInt64(proposalId)!
@@ -673,7 +672,7 @@ class Signer {
     
     static func genSignedSetRewardAddressTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                                 _ newRewardAddress: String, _ fee: Fee, _ memo: String,
-                                                _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+                                                _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
         let rewardAddressMsg = Cosmos_Distribution_V1beta1_MsgSetWithdrawAddress.with {
             $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
             $0.withdrawAddress = newRewardAddress
@@ -695,7 +694,7 @@ class Signer {
     
     static func genSimulateetRewardAddressTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
                                                 _ newRewardAddress: String, _ fee: Fee, _ memo: String,
-                                                _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                                _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let rewardAddressMsg = Cosmos_Distribution_V1beta1_MsgSetWithdrawAddress.with {
             $0.delegatorAddress = WUtils.onParseAuthGrpc(auth).0!
             $0.withdrawAddress = newRewardAddress
@@ -723,7 +722,7 @@ class Signer {
         }
     }
     
-    static func getGrpcSignerInfo(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ pKey: HDPrivateKey) -> Cosmos_Tx_V1beta1_SignerInfo {
+    static func getGrpcSignerInfo(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ pKey: PrivateKey) -> Cosmos_Tx_V1beta1_SignerInfo {
         let single = Cosmos_Tx_V1beta1_ModeInfo.Single.with {
             $0.mode = Cosmos_Tx_Signing_V1beta1_SignMode.direct
         }
@@ -731,7 +730,7 @@ class Signer {
             $0.single = single
         }
         let pub = Cosmos_Crypto_Secp256k1_PubKey.with {
-            $0.key = pKey.extendedPublicKey().raw
+            $0.key = pKey.publicKey.data
         }
         let pubKey = Google_Protobuf2_Any.with {
             $0.typeURL = "/cosmos.crypto.secp256k1.PubKey"
@@ -759,7 +758,7 @@ class Signer {
         }
     }
     
-    static func getGrpcRawTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_TxRaw {
+    static func getGrpcRawTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_TxRaw {
         let signDoc = Cosmos_Tx_V1beta1_SignDoc.with {
             $0.bodyBytes = try! txBody.serializedData()
             $0.authInfoBytes = try! authInfo.serializedData()
@@ -774,7 +773,7 @@ class Signer {
         }
     }
     
-    static func getGrpcSimulTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: HDPrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_Tx {
+    static func getGrpcSimulTx(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ txBody: Cosmos_Tx_V1beta1_TxBody, _ authInfo: Cosmos_Tx_V1beta1_AuthInfo, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_Tx {
         let signDoc = Cosmos_Tx_V1beta1_SignDoc.with {
             $0.bodyBytes = try! txBody.serializedData()
             $0.authInfoBytes = try! authInfo.serializedData()
@@ -789,9 +788,9 @@ class Signer {
         }
     }
     
-    static func getGrpcByteSingleSignature(_ pKey: HDPrivateKey, _ toSignByte: Data) -> Data {
+    static func getGrpcByteSingleSignature(_ pKey: PrivateKey, _ toSignByte: Data) -> Data {
         let hash = toSignByte.sha256()
-        let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.privateKey().raw)
+        let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
         return signedData
     }
 }

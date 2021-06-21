@@ -9,7 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import BinanceChain
-import BitcoinKit
+import HDWalletKit
 import Alamofire
 
 class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
@@ -269,27 +269,25 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 self.onUpdateView(NSLocalizedString("error_invalid_password", comment: ""))
                 return
             }
-            
             if (self.chainType == ChainType.BINANCE_MAIN) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.account!)
-                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
-                
+                let wallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+
                 wallet.synchronise(){ (error) in
                     if let error = error {
                         if(SHOW_LOG) { print(error) }
                         self.onUpdateView(error.localizedDescription)
                         return
                     }
-                    
+
                     self.mTimeStamp = Date().millisecondsSince1970 / 1000
                     self.mRandomNumber = WKey.generateRandomBytes()
                     self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
-                    if (SHOW_LOG) {
-                        print("BINANCE_MAIN mTimeStamp ", self.mTimeStamp)
-                        print("BINANCE_MAIN mRandomNumber ", self.mRandomNumber)
-                        print("BINANCE_MAIN mRandomNumberHash ", self.mRandomNumberHash)
-                    }
+                    print("BINANCE_MAIN mTimeStamp ", self.mTimeStamp)
+                    print("BINANCE_MAIN mRandomNumber ", self.mRandomNumber)
+                    print("BINANCE_MAIN mRandomNumberHash ", self.mRandomNumberHash)
+                    
                     let bnbMsg = MsgGenerator.genCreateBnbSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!, wallet)
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
@@ -307,24 +305,22 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             } else if (self.chainType == ChainType.BINANCE_TEST) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.account!)
-                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
-                
+                let wallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+
                 wallet.synchronise(){ (error) in
                     if let error = error {
                         if(SHOW_LOG) { print(error) }
                         self.onUpdateView(error.localizedDescription)
                         return
                     }
-                    
+
                     self.mTimeStamp = Date().millisecondsSince1970 / 1000
                     self.mRandomNumber = WKey.generateRandomBytes()
                     self.mRandomNumberHash = WKey.getRandomNumnerHash(self.mRandomNumber!, self.mTimeStamp!)
-                    if (SHOW_LOG) {
-                        print("BINANCE_TEST mTimeStamp ", self.mTimeStamp)
-                        print("BINANCE_TEST mRandomNumber ", self.mRandomNumber)
-                        print("BINANCE_TEST mRandomNumberHash ", self.mRandomNumberHash)
-                    }
-                    
+                    print("BINANCE_TEST mTimeStamp ", self.mTimeStamp)
+                    print("BINANCE_TEST mRandomNumber ", self.mRandomNumber)
+                    print("BINANCE_TEST mRandomNumberHash ", self.mRandomNumberHash)
+
                     let bnbMsg = MsgGenerator.genCreateBnbSwapMsg(self.chainType!, self.mHtlcToChain!, self.account!, self.mHtlcToAccount!, self.mHtlcToSendAmount, self.mTimeStamp!, self.mRandomNumberHash!, wallet)
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         if (SHOW_LOG) { print("onCreateHtlcSwap response", response.broadcast) }
@@ -341,6 +337,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                 
             } else if (self.chainType == ChainType.KAVA_MAIN || self.chainType == ChainType.KAVA_TEST) {
                 var stdTx:StdTx!
+                
                 do {
                     let pKey = WKey.getHDKeyFromWords(words, self.account!)
                     
@@ -368,16 +365,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let data = try? encoder.encode(stdMsg)
                     let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                     let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = Crypto.sha256(rawData!)
-                    
-                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    let hash = rawData!.sha256()
+                    let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
                     
                     var genedSignature = Signature.init()
                     var genPubkey =  PublicKey.init()
                     genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genPubkey.value = pKey.publicKey.data.base64EncodedString()
                     genedSignature.pub_key = genPubkey
-                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.signature = signedData.base64EncodedString()
                     genedSignature.account_number = String(self.account!.account_account_numner)
                     genedSignature.sequence = String(self.account!.account_sequence_number)
                     
@@ -517,52 +513,53 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
             if (self.mHtlcToChain == ChainType.BINANCE_MAIN) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
-                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
-                
+                let wallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+
                 wallet.synchronise(){ (error) in
                     if let error = error {
-                        if (SHOW_LOG) { print(error) }
+                        print(error)
                         self.onUpdateView(error.localizedDescription)
                         return
                     }
-                    
+
                     let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-                    if (SHOW_LOG) { print("swapId ", swapId) }
-                    if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
+                    print("swapId ", swapId)
+                    print("randomNumber ", self.mRandomNumber!)
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
                                                    swapId: swapId,
                                                    memo: SWAP_MEMO_CLAIM,
                                                    wallet: wallet)
-                    
+
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         print(response.broadcast)
                         if let error = response.error {
-                            if (SHOW_LOG) { print(error.localizedDescription) }
+                            print(error.localizedDescription)
                             self.onUpdateView(error.localizedDescription)
                         }
-                        if (SHOW_LOG) { print("onClaimHtlcSwap OK ", response.broadcast[0].hash) }
+                        print("onClaimHtlcSwap OK ", response.broadcast[0].hash)
                         self.mClaimHash = response.broadcast[0].hash
                         self.onFetchSendTx()
                         self.onFetchClaimTx()
-                        
+
                     }
                 }
                 
             } else if (self.mHtlcToChain == ChainType.BINANCE_TEST) {
                 let binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
                 let pKey = WKey.getHDKeyFromWords(words, self.mHtlcToAccount!)
-                let wallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+                let wallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
                 
                 wallet.synchronise(){ (error) in
                     if let error = error {
-                        if (SHOW_LOG) { print(error) }
+                        print(error)
                         self.onUpdateView(error.localizedDescription)
                         return
                     }
                     
                     let swapId = WKey.getSwapId(self.mHtlcToChain!, self.mHtlcToSendAmount, self.mRandomNumberHash!, self.account!.account_address)
-                    if (SHOW_LOG) { print("swapId ", swapId) }
-                    if (SHOW_LOG) { print("randomNumber ", self.mRandomNumber!) }
+                    print("swapId ", swapId)
+                    print("randomNumber ", self.mRandomNumber!)
+                    
                     let bnbMsg = Message.claimHtlc(randomNumber: self.mRandomNumber!,
                                                    swapId: swapId,
                                                    memo: SWAP_MEMO_CLAIM,
@@ -571,10 +568,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     binance.broadcast(message: bnbMsg, sync: true) { (response) in
                         print(response.broadcast)
                         if let error = response.error {
-                            if (SHOW_LOG) { print(error.localizedDescription) }
+                            print(error.localizedDescription)
                             self.onUpdateView(error.localizedDescription)
                         }
-                        if (SHOW_LOG) { print("onClaimHtlcSwap OK ", response.broadcast[0].hash) }
+                        print("onClaimHtlcSwap OK ", response.broadcast[0].hash)
                         self.mClaimHash = response.broadcast[0].hash
                         self.onFetchSendTx()
                         self.onFetchClaimTx()
@@ -596,7 +593,7 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                         mHtlcToChainId = NodeInfo.init(nodeInfo).network!
                         
                     case .failure(let error):
-                        if (SHOW_LOG) { print("onFetchTopValidatorsInfo ", error) }
+                        print("onFetchTopValidatorsInfo ", error)
                     }
                     group.leave()
                 }
@@ -625,16 +622,15 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     let data = try? encoder.encode(stdMsg)
                     let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                     let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = Crypto.sha256(rawData!)
-                    
-                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    let hash = rawData!.sha256()
+                    let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
                     
                     var genedSignature = Signature.init()
                     var genPubkey =  PublicKey.init()
                     genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genPubkey.value = pKey.publicKey.data.base64EncodedString()
                     genedSignature.pub_key = genPubkey
-                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.signature = signedData.base64EncodedString()
                     genedSignature.account_number = String(self.mHtlcToAccount!.account_account_numner)
                     genedSignature.sequence = String(self.mHtlcToAccount!.account_sequence_number)
                     
@@ -644,9 +640,10 @@ class HtlcResultViewController: BaseViewController, UITableViewDelegate, UITable
                     stdTx = MsgGenerator.genSignedTx(msgList, self.mHtlcClaimFee!, SWAP_MEMO_CLAIM, signatures)
                     
                 } catch {
-                    if(SHOW_LOG) { print(error) }
+                    print(error)
                     self.onUpdateView(error.localizedDescription)
                 }
+                
                 
                 DispatchQueue.main.async(execute: {
                     let postTx = PostTx.init("sync", stdTx.value)

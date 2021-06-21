@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import BitcoinKit
+import HDWalletKit
 import GRPC
 import NIO
 
@@ -197,7 +197,7 @@ class StepFeeGrpcViewController: BaseViewController, PasswordViewDelegate {
         }
     }
     
-    func genSimulateReq(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ pKey: HDPrivateKey)  -> Cosmos_Tx_V1beta1_SimulateRequest? {
+    func genSimulateReq(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse, _ pKey: PrivateKey)  -> Cosmos_Tx_V1beta1_SimulateRequest? {
         if (pageHolderVC.mType == COSMOS_MSG_TYPE_TRANSFER2) {
             return Signer.genSimulateSendTxgRPC(auth, self.pageHolderVC.mToSendRecipientAddress!, self.pageHolderVC.mToSendAmount,
                                                 self.pageHolderVC.mFee!, self.pageHolderVC.mMemo!, pKey,

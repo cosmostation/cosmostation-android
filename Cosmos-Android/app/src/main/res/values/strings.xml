@@ -94,6 +94,9 @@
     <string name="url_api_medi_test" translatable="false">https://api-medibloc-opentestnet.cosmostation.io/</string>
 
 
+    <string name="url_hdac" translatable="false">https://wallet.new.hdactech.com/insight-api/</string>
+
+
     <string name="url_api_althea_test" translatable="false">https://api-office.cosmostation.io/althea-testnet2v1/</string>
 
 
