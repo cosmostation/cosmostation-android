@@ -11,11 +11,12 @@ import java.util.List;
 
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.model.type.Coin;
-import wannabit.io.cosmostaion.utils.WDp;
-import wannabit.io.cosmostaion.utils.WLog;
 import wannabit.io.cosmostaion.utils.WUtil;
 
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
+import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
 
 
 public class ChainParam {
@@ -116,6 +117,32 @@ public class ChainParam {
 
         public BigDecimal getDpApr(BaseChain baseChain) {
             return getApr(baseChain).movePointRight(2);
+        }
+
+        public BigDecimal getRealApr(BaseChain baseChain) {
+            if (WUtil.getRealBlockPerYear(baseChain) == BigDecimal.ZERO || getBlockPerYear(baseChain) == BigDecimal.ZERO) {
+                return BigDecimal.ZERO;
+            }
+            return getApr(baseChain).multiply(WUtil.getRealBlockPerYear(baseChain)).divide(getBlockPerYear(baseChain), 6, RoundingMode.DOWN);
+        }
+
+        public BigDecimal getDpRealApr(BaseChain baseChain) {
+            if (getRealApr(baseChain) == BigDecimal.ZERO) { return BigDecimal.ZERO; }
+            return getRealApr(baseChain).movePointRight(2);
+        }
+
+        public BigDecimal getBlockPerYear(BaseChain baseChain) {
+            if (isGRPC(baseChain)) {
+                if (baseChain.equals(BaseChain.IRIS_MAIN) || baseChain.equals(BaseChain.IRIS_TEST)) {
+                    return BigDecimal.ZERO;
+                }
+                return new BigDecimal(mMintParams.params.blocks_per_year);
+
+            } else if (baseChain.equals(SIF_MAIN)) {
+                return BigDecimal.ZERO;
+
+            }
+            return new BigDecimal(mMintParams.blocks_per_year);
         }
 
 

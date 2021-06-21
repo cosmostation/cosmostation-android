@@ -31,10 +31,14 @@ public class Dialog_Help_Msg extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         View view  = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_help_msg, null);
-        TextView title = view.findViewById(R.id.dialog_title);
-        TextView msg = view.findViewById(R.id.dialog_msg);
-        title.setText(getArguments().getString("title"));
-        msg.setText(getArguments().getString("msg"));
+        TextView msg1 = view.findViewById(R.id.dialog_msg1);
+        TextView msg2 = view.findViewById(R.id.dialog_msg2);
+        TextView msg3 = view.findViewById(R.id.dialog_msg3);
+        TextView msg4 = view.findViewById(R.id.dialog_msg4);
+        msg1.setText(getArguments().getString("msg1"));
+        msg2.setText(getArguments().getString("msg2"));
+        msg3.setText(getArguments().getString("msg3"));
+        msg4.setText(getArguments().getString("msg4"));
 
         Button btn_negative = view.findViewById(R.id.btn_nega);
         btn_negative.setOnClickListener(new View.OnClickListener() {
