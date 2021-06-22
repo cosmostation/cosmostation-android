@@ -2035,6 +2035,9 @@ public class WUtil {
         } else if (chain.equals(KI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://foundation.ki/en"));
 
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://osmosis.zone/"));
+
         }
         return null;
     }
@@ -2091,6 +2094,9 @@ public class WUtil {
 
         } else if (chain.equals(KI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/ki-foundation"));
+
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/osmosis"));
 
         }
         return null;
@@ -2454,7 +2460,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(OSMOSIS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -2879,6 +2885,9 @@ public class WUtil {
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return EXPLORER_CRYPTOORG_MAIN;
 
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            return EXPLORER_OSMOSIS_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2959,6 +2968,9 @@ public class WUtil {
 
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
 
         }
         

@@ -966,6 +966,14 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
 
         } else {
             holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            WLog.w("osmosis : " + coin.denom);
+            if (coin.denom.startsWith("ibc/")) {
+                holder.itemSymbol.setText("IBC");
+                holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+                holder.itemInnerSymbol.setText("(unKnown)");
+                holder.itemFullName.setText(coin.denom);
+                holder.itemFullName.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+            }
             holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Osmosis Chain");

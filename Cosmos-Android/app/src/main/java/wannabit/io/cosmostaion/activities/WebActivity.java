@@ -18,6 +18,7 @@ import wannabit.io.cosmostaion.base.BaseChain;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_BAND_MAIN;
@@ -36,6 +37,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OKEX_TEST;
+import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SECRET_MAIN;
 import static wannabit.io.cosmostaion.base.BaseConstant.EXPLORER_SENTINEL_MAIN;
@@ -282,6 +284,17 @@ public class WebActivity extends BaseActivity {
                 mWebview.loadUrl(EXPLORER_KI_MAIN + "account/" + mAddress);
             else
                 mWebview.loadUrl(EXPLORER_KI_MAIN);
+
+        } else if (mBasechain.equals(OSMOSIS_MAIN)) {
+            mShare.setBackgroundTintList(getResources().getColorStateList(R.color.colorOsmosis));
+            if (!TextUtils.isEmpty(mTxid))
+                mWebview.loadUrl(EXPLORER_OSMOSIS_MAIN + "txs/" + mTxid);
+            else if (!TextUtils.isEmpty(mVoteId))
+                mWebview.loadUrl(EXPLORER_OSMOSIS_MAIN + "proposals/" + mVoteId);
+            else if (!TextUtils.isEmpty(mAddress))
+                mWebview.loadUrl(EXPLORER_OSMOSIS_MAIN + "account/" + mAddress);
+            else
+                mWebview.loadUrl(EXPLORER_OSMOSIS_MAIN);
 
         }
 
