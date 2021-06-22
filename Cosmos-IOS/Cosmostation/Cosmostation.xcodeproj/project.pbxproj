@@ -217,6 +217,7 @@
 		2852EAF12681A4CC003A5E74 /* WalletOsmoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852EAEF2681A4CC003A5E74 /* WalletOsmoCell.xib */; };
 		2852EAF42681B92C003A5E74 /* TokenDetailOsmoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852EAF22681B92C003A5E74 /* TokenDetailOsmoCell.swift */; };
 		2852EAF52681B92C003A5E74 /* TokenDetailOsmoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852EAF32681B92C003A5E74 /* TokenDetailOsmoCell.xib */; };
+		2852EAF926821084003A5E74 /* SifIncentive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852EAF826821084003A5E74 /* SifIncentive.swift */; };
 		28592E772580616D00C31460 /* BaseNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28592E762580616D00C31460 /* BaseNetWork.swift */; };
 		285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */; };
 		285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */; };
@@ -1055,6 +1056,7 @@
 		2852EAEF2681A4CC003A5E74 /* WalletOsmoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOsmoCell.xib; sourceTree = "<group>"; };
 		2852EAF22681B92C003A5E74 /* TokenDetailOsmoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailOsmoCell.swift; sourceTree = "<group>"; };
 		2852EAF32681B92C003A5E74 /* TokenDetailOsmoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailOsmoCell.xib; sourceTree = "<group>"; };
+		2852EAF826821084003A5E74 /* SifIncentive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SifIncentive.swift; sourceTree = "<group>"; };
 		28592E762580616D00C31460 /* BaseNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetWork.swift; sourceTree = "<group>"; };
 		285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend0ViewController.swift; sourceTree = "<group>"; };
 		285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend1ViewController.swift; sourceTree = "<group>"; };
@@ -2746,6 +2748,7 @@
 				280524B7255CEEC7004D6172 /* ExportStarname.swift */,
 				28248A9325DD3DD4004F3FB0 /* ApiHistoryCustom.swift */,
 				28A8401E2605A3D8008C2D61 /* NodeInfo.swift */,
+				2852EAF826821084003A5E74 /* SifIncentive.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -3562,6 +3565,7 @@
 				287AC5B525FDF7250070837E /* cosmos_upgrade_v1beta1_upgrade.pb.swift in Sources */,
 				287AC63125FDF7260070837E /* oracle_tx.grpc.swift in Sources */,
 				287AC65625FDF7260070837E /* ibc_lightclients_localhost_v1_localhost.pb.swift in Sources */,
+				2852EAF926821084003A5E74 /* SifIncentive.swift in Sources */,
 				284D17D92535572300C364F9 /* DAppsListViewController.swift in Sources */,
 				287AC5FF25FDF7260070837E /* google_api_annotations.pb.swift in Sources */,
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,

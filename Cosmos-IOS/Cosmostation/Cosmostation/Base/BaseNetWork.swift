@@ -998,6 +998,16 @@ class BaseNetWork {
     static func oracleBandUrl() -> String {
         return BAND_URL + "oracle/active_validators"
     }
+    
+    
+    //sif
+    static func vsIncentiveUrl(_ address: String) -> String {
+        return SIF_FINANCE_API + "api/vs?key=userData&address=" + address + "&timestamp=now"
+    }
+    
+    static func lmIncentiveUrl(_ address: String) -> String {
+        return SIF_FINANCE_API + "api/lm?key=userData&address=" + address + "&timestamp=now"
+    }
 
     
     

@@ -94,6 +94,8 @@ let CRYTO_API                           = "https://api-cryptocom.cosmostation.io
 
 let SIF_URL                             = "https://lcd-sifchain-app.cosmostation.io/";
 let SIF_API                             = "https://api-sifchain.cosmostation.io/";
+let SIF_FINANCE_API                     = "https://api-cryptoeconomics.sifchain.finance/";
+
 
 
 let KI_URL                              = "https://lcd-kichain-app.cosmostation.io/";
@@ -411,6 +413,10 @@ let GAS_FEE_RATE_AVERAGE_CRYPTO             = "0.075"
 let GAS_FEE_RATE_TINY_SENTINEL              = "0.01"
 let GAS_FEE_RATE_LOW_SENTINEL               = "0.1"
 let GAS_FEE_RATE_AVERAGE_SENTINEL           = "0.1"
+
+let GAS_FEE_RATE_TINY_OSMOSIS               = "0.000"
+let GAS_FEE_RATE_LOW_OSMOSIS                = "0.0025"
+let GAS_FEE_RATE_AVERAGE_OSMOSIS            = "0.025"
 
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
