@@ -303,7 +303,20 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
 
         else if (mChainType == ChainType.COSMOS_MAIN || mChainType == ChainType.IRIS_MAIN || mChainType == ChainType.AKASH_MAIN ||
-                    mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN || mChainType == ChainType.OSMOSIS_MAIN) {
+                    mChainType == ChainType.PERSIS_MAIN || mChainType == ChainType.CRYPTO_MAIN || mChainType == ChainType.SENTINEL_MAIN) {
+            self.mFetchCnt = 9
+            onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+            
+        } else if (mChainType == ChainType.OSMOSIS_MAIN) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)

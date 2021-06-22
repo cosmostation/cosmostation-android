@@ -666,6 +666,7 @@ let TRANS_BG_COLOR_OSMOSIS                  = UIColor.init(hexString: "9248db", 
 let TRANS_BG_COLOR_OSMOSIS2                 = UIColor.init(hexString: "9248db", alpha: 0.4)
 let COLOR_OSMOSIS                           = UIColor.init(hexString: "9248db")
 let COLOR_OSMOSIS_DARK                      = UIColor.init(hexString: "4e1a82")
+let COLOR_ION                               = UIColor.init(hexString: "3C90FC")
 
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
@@ -870,6 +871,7 @@ let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
 let IOV_TEST_DENOM = "uvoi"
 let KAVA_HARD_DENOM = "hard"
+let OSMOSIS_ION_DENOM = "uion"
 
 
 let BITCOINCASH    = "asset:bch";
