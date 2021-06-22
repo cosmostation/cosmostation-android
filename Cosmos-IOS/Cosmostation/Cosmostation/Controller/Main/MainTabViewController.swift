@@ -316,6 +316,19 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCUndelegations(mAccount.account_address, 0)
             onFetchgRPCRewards(mAccount.account_address, 0)
             
+        } else if (mChainType == ChainType.OSMOSIS_MAIN) {
+            self.mFetchCnt = 9
+            onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+            
         } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()

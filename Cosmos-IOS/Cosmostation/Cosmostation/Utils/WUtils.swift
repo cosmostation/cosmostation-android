@@ -1865,6 +1865,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.OSMOSIS_MAIN) {
+            if (coin.denom == OSMOSIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = coin.denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(coin.amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (coin.denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -2071,6 +2080,15 @@ class WUtils {
             }
             amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
             
+        } else if (chainType == ChainType.OSMOSIS_MAIN) {
+            if (denom == OSMOSIS_MAIN_DENOM) {
+                WUtils.setDenomTitle(chainType, denomLabel)
+            } else {
+                denomLabel.textColor = .white
+                denomLabel.text = denom.uppercased()
+            }
+            amountLabel.attributedText = displayAmount2(amount, amountLabel.font, 6, 6)
+            
         } else if (chainType == ChainType.IRIS_TEST) {
             if (denom == IRIS_TEST_DENOM) {
                 WUtils.setDenomTitle(chainType, denomLabel)
@@ -2182,6 +2200,8 @@ class WUtils {
             return COLOR_SIF
         } else if (chain == ChainType.KI_MAIN) {
             return COLOR_KI
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return COLOR_OSMOSIS
         } else if (chain == ChainType.RIZON_TEST) {
             return COLOR_RIZON
         } else if (chain == ChainType.MEDI_TEST) {
@@ -2225,6 +2245,8 @@ class WUtils {
             return COLOR_SIF_DARK
         } else if (chain == ChainType.KI_MAIN) {
             return COLOR_KI_DARK
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return COLOR_OSMOSIS_DARK
         } else if (chain == ChainType.RIZON_TEST) {
             return COLOR_RIZON_DARK
         } else if (chain == ChainType.MEDI_TEST) {
@@ -2268,6 +2290,8 @@ class WUtils {
             return TRANS_BG_COLOR_SIF
         } else if (chain == ChainType.KI_MAIN) {
             return TRANS_BG_COLOR_KI
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return TRANS_BG_COLOR_OSMOSIS
         } else if (chain == ChainType.RIZON_TEST) {
             return TRANS_BG_COLOR_RIZON
         } else if (chain == ChainType.MEDI_TEST) {
@@ -2311,6 +2335,8 @@ class WUtils {
             return "ROWAN"
         } else if (chain == ChainType.KI_MAIN) {
             return "XKI"
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return "OSMO"
         } else if (chain == ChainType.COSMOS_TEST) {
             return "MUON"
         } else if (chain == ChainType.IRIS_TEST) {
@@ -2358,6 +2384,8 @@ class WUtils {
             return SIF_MAIN_DENOM
         } else if (chain == ChainType.KI_MAIN) {
             return KI_MAIN_DENOM
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return OSMOSIS_MAIN_DENOM
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2486,6 +2514,9 @@ class WUtils {
         } else if (chain == ChainType.KI_MAIN) {
             label.text = "XKI"
             label.textColor = COLOR_KI
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            label.text = "OSMO"
+            label.textColor = COLOR_OSMOSIS
         } else if (chain == ChainType.COSMOS_TEST) {
             label.text = "MUON"
             label.textColor = COLOR_ATOM
@@ -2537,6 +2568,8 @@ class WUtils {
             return ChainType.SIF_MAIN
         } else if (chainS == CHAIN_KI_S) {
             return ChainType.KI_MAIN
+        } else if (chainS == CHAIN_OSMOSIS_S) {
+            return ChainType.OSMOSIS_MAIN
         }
         
         else if (chainS == CHAIN_COSMOS_TEST_S) {
@@ -2596,6 +2629,8 @@ class WUtils {
             return CHAIN_SIF_S
         } else if (chain == ChainType.KI_MAIN) {
             return CHAIN_KI_S
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return CHAIN_OSMOSIS_S
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -2690,7 +2725,8 @@ class WUtils {
 
     static func getEstimateGasAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
         var result = NSDecimalNumber.zero
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN ||
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
+                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.OSMOSIS_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             if (type == COSMOS_MSG_TYPE_TRANSFER2) {
                 result = NSDecimalNumber.init(string: String(GAS_FEE_AMOUNT_LOW))
@@ -2928,7 +2964,8 @@ class WUtils {
     }
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
@@ -3011,7 +3048,8 @@ class WUtils {
     }
     
     static func getGasRate(_ chain:ChainType, _ position: Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+                chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             if (position == 0) {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY)
             } else if (position == 1) {
@@ -3573,6 +3611,8 @@ class WUtils {
             return PERSIS_VAL_URL + opAddress + ".png";
         } else if (chain == ChainType.RIZON_TEST) {
             return RIZON_VAL_URL + opAddress + ".png";
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return OSMOSIS_VAL_URL + opAddress + ".png";
         }
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
             return KAVA_VAL_URL + opAddress + ".png";
@@ -3619,6 +3659,9 @@ class WUtils {
             
         } else if (chain == ChainType.CRYPTO_MAIN) {
             return EXPLORER_CRYPTO_MAIN + "txs/" + hash
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return EXPLORER_OSMOSIS_MAIN + "txs/" + hash
             
         }
         
@@ -3726,6 +3769,9 @@ class WUtils {
         } else if (chain == ChainType.KI_MAIN) {
             return EXPLORER_KI_MAIN + "account/" + address
             
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return EXPLORER_OSMOSIS_MAIN + "account/" + address
+            
         }
         
         else if (chain == ChainType.COSMOS_TEST) {
@@ -3801,6 +3847,9 @@ class WUtils {
             
         } else if (chain == ChainType.KI_MAIN) {
             return EXPLORER_KI_MAIN + "proposals/" + proposalId
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return EXPLORER_OSMOSIS_MAIN + "proposals/" + proposalId
             
         }
         
@@ -4595,7 +4644,7 @@ class WUtils {
     
     static func isGRPC(_ chain: ChainType?) -> Bool {
         if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.AKASH_MAIN ||
-                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN ||
+                chain == ChainType.PERSIS_MAIN || chain == ChainType.CRYPTO_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.OSMOSIS_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             return true
         }

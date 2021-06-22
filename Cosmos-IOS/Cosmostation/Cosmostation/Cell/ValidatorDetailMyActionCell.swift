@@ -79,6 +79,11 @@ class ValidatorDetailMyActionCell: UITableViewCell {
             myMonthlyReturns.textColor = UIColor.init(hexString: "f31963")
             
         }
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+            myDailyReturns.text = "--"
+            myMonthlyReturns.text = "--"
+        }
     }
     
     

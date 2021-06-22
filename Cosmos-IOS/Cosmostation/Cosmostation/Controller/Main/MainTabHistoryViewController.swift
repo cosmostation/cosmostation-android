@@ -130,6 +130,10 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             titleChainImg.image = UIImage(named: "chainKifoundation")
             titleChainName.text = "(KiChain Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            titleChainImg.image = UIImage(named: "chainOsmosis")
+            titleChainName.text = "(OSMOSIS Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         

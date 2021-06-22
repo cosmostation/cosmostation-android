@@ -195,6 +195,13 @@ class WalletDetailViewController: BaseViewController, PasswordViewDelegate {
             constraint2.priority = .defaultHigh
             constraint1.priority = .defaultLow
             
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            chainImg.image = UIImage(named: "chainOsmosis")
+            keyPath.text = BASE_PATH.appending(account!.account_path)
+            cardPush.isHidden = true
+            constraint2.priority = .defaultHigh
+            constraint1.priority = .defaultLow
+            
         }
         
         

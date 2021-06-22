@@ -164,8 +164,8 @@ class AllValidatorViewController: BaseViewController, UITableViewDelegate, UITab
                 if (!oracle) { cell.bandOracleOffImg.isHidden = false }
             }
         }
-        //temp hide apr for sifchain
-        if (chainType == ChainType.SIF_MAIN) {
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell.commissionLabel.text = "--"
         }
     }

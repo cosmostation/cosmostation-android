@@ -207,6 +207,12 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         })
         kiAction.setValue(UIImage(named: "chainKifoundation")?.withRenderingMode(.alwaysOriginal), forKey: "image")
         
+        let osmosisAction = UIAlertAction(title: NSLocalizedString("chain_title_osmosis", comment: ""), style: .default, handler: {_ in
+            self.chainType = ChainType.OSMOSIS_MAIN
+            self.onGenNewKey()
+        })
+        osmosisAction.setValue(UIImage(named: "chainOsmosis")?.withRenderingMode(.alwaysOriginal), forKey: "image")
+        
         let secretAction = UIAlertAction(title: NSLocalizedString("chain_title_secret", comment: ""), style: .default, handler: {_ in
             self.chainType = ChainType.SECRET_MAIN
             self.onGenNewKey()
@@ -288,6 +294,7 @@ class CreateViewController: BaseViewController, PasswordViewDelegate{
         showAlert.addAction(cryptoAction)
         showAlert.addAction(sifAction)
         showAlert.addAction(kiAction)
+        showAlert.addAction(osmosisAction)
         showAlert.addAction(secretAction)
         
         if (ChainType.SUPPRT_CHAIN().contains(ChainType.COSMOS_TEST)) {

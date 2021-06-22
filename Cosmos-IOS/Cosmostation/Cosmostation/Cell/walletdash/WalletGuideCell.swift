@@ -145,6 +145,13 @@ class WalletGuideCell: UITableViewCell {
             btn1Label.setTitle(NSLocalizedString("send_guide_btn1_ki", comment: ""), for: .normal)
             btn2Label.setTitle(NSLocalizedString("send_guide_btn2_ki", comment: ""), for: .normal)
             
+        } else if (chainType == ChainType.OSMOSIS_MAIN) {
+            guideImg.image = UIImage(named: "infoiconOsmosis")
+            guideTitle.text = NSLocalizedString("send_guide_title_osmosis", comment: "")
+            guideMsg.text = NSLocalizedString("send_guide_msg_osmosis", comment: "")
+            btn1Label.setTitle(NSLocalizedString("send_guide_btn1_osmosis", comment: ""), for: .normal)
+            btn2Label.setTitle(NSLocalizedString("send_guide_btn2_osmosis", comment: ""), for: .normal)
+            
         } else if (chainType == ChainType.RIZON_TEST) {
            guideImg.image = UIImage(named: "icGuideRizon")
            guideTitle.text = NSLocalizedString("send_guide_title_rizon", comment: "")

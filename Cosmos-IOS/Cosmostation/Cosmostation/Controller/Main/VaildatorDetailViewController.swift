@@ -242,8 +242,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell?.bandOracleImg.isHidden = false
             }
         }
-        //temp hide apr for sifchain
-        if (chainType == ChainType.SIF_MAIN) {
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
         }
         
@@ -301,8 +301,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 cell?.bandOracleImg.isHidden = false
             }
         }
-        //temp hide apr for sifchain
-        if (chainType == ChainType.SIF_MAIN) {
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
         }
         
@@ -371,8 +371,8 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             self.onCheckReinvest()
         }
         
-        //temp hide apr for sifchain
-        if (chainType == ChainType.SIF_MAIN) {
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.myDailyReturns.text = "--"
             cell!.myMonthlyReturns.text = "--"
         }

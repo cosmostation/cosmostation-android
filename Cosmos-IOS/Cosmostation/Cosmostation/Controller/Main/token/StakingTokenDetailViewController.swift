@@ -38,6 +38,7 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailSentinelCell", bundle: nil), forCellReuseIdentifier: "TokenDetailSentinelCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailRizonCell", bundle: nil), forCellReuseIdentifier: "TokenDetailRizonCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailAltheaCell", bundle: nil), forCellReuseIdentifier: "TokenDetailAltheaCell")
+        self.tokenDetailTableView.register(UINib(nibName: "TokenDetailOsmoCell", bundle: nil), forCellReuseIdentifier: "TokenDetailOsmoCell")
         self.tokenDetailTableView.register(UINib(nibName: "TokenDetailVestingDetailCell", bundle: nil), forCellReuseIdentifier: "TokenDetailVestingDetailCell")
         self.tokenDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
         
@@ -113,6 +114,11 @@ class StakingTokenDetailViewController: BaseViewController, UITableViewDelegate,
                 
             } else if (chainType == ChainType.SENTINEL_MAIN) {
                 let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailSentinelCell") as? TokenDetailCell
+                cell?.onBindToken()
+                return cell!
+                
+            } else if (chainType == ChainType.OSMOSIS_MAIN) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"TokenDetailOsmoCell") as? TokenDetailCell
                 cell?.onBindToken()
                 return cell!
                 

@@ -69,6 +69,11 @@ class AllValidatorCell: UITableViewCell {
         } else {
             cardView.backgroundColor = COLOR_BG_GRAY
         }
+        
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+            commissionLabel.text = "--"
+        }
     }
     
     

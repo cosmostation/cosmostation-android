@@ -148,6 +148,10 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             titleChainImg.image = UIImage(named: "chainKifoundation")
             titleChainName.text = "(KiChain Mainnet)"
             titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            titleChainImg.image = UIImage(named: "chainOsmosis")
+            titleChainName.text = "(OSMOSIS Mainnet)"
+            titleAlarmBtn.isHidden = true
         }
         
         else if (chainType! == ChainType.COSMOS_TEST) {
@@ -313,6 +317,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             return onSetMediItems(tableView, indexPath)
         } else if (chainType! == ChainType.ALTHEA_TEST) {
             return onSetAltheaItems(tableView, indexPath)
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            return onSetOsmoItems(tableView, indexPath)
         }
         return tableView.dequeueReusableCell(withIdentifier:"TokenCell") as! TokenCell
     }
@@ -440,6 +446,18 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             let totalKava = WUtils.getAllMainAssetOld(KAVA_MAIN_DENOM)
             cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalKava.stringValue, cell!.tokenAmount.font!, 6, 6)
             cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, totalKava, 6, cell!.tokenValue.font)
+            
+        } else if (balance.balance_denom == KAVA_HARD_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenhard")
+            cell?.tokenSymbol.text = "HARD"
+            cell?.tokenSymbol.textColor = COLOR_HARD
+            cell?.tokenTitle.text = "(" + balance.balance_denom + ")"
+            cell?.tokenDescription.text = "HardPool Gov. Token"
+            
+            let totalTokenAmount = WUtils.getKavaTokenAll(balance.balance_denom, mainTabVC.mBalances)
+            let convertedKavaAmount = WUtils.convertTokenToKava(balance.balance_denom)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(totalTokenAmount.stringValue, cell!.tokenAmount.font!, WUtils.getKavaCoinDecimal(balance.balance_denom), 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(KAVA_MAIN_DENOM, convertedKavaAmount, 6, cell!.tokenValue.font)
             
         } else {
             cell?.tokenImg.af_setImage(withURL: URL(string: KAVA_COIN_IMG_URL + balance.balance_denom + ".png")!)
@@ -901,6 +919,50 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
         return cell!
     }
     
+    func onSetOsmoItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
+        let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
+        let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
+        if (balance.denom == OSMOSIS_MAIN_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenOsmosis")
+            cell?.tokenSymbol.text = "OSMO"
+            cell?.tokenSymbol.textColor = COLOR_OSMOSIS
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Osmosis Staking Token"
+            
+            let allOsmos = WUtils.getAllMainAsset(OSMOSIS_MAIN_DENOM)
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(allOsmos.stringValue, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OSMOSIS_MAIN_DENOM, allOsmos, 6, cell!.tokenValue.font)
+            
+        } else if (balance.denom == OSMOSIS_ION_DENOM) {
+            cell?.tokenImg.image = UIImage(named: "tokenIon")
+            cell?.tokenSymbol.text = "ION"
+            cell?.tokenSymbol.textColor = COLOR_ION
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            cell?.tokenDescription.text = "Ion Token"
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            cell?.tokenValue.attributedText = WUtils.dpUserCurrencyValue(OSMOSIS_ION_DENOM, BaseData.instance.getAvailableAmount_gRPC(OSMOSIS_ION_DENOM), 6, cell!.tokenValue.font)
+            
+        } else if (balance.isIbc()) {
+            cell?.tokenImg.image = UIImage(named: "tokenDefaultIbc")
+            cell?.tokenSymbol.text = "IBC"
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenTitle.text = "(unKnown)"
+            cell?.tokenDescription.text = balance.denom
+            cell?.tokenAmount.attributedText = WUtils.displayAmount2(balance.amount, cell!.tokenAmount.font, 6, 6)
+            
+        } else {
+            cell?.tokenImg.image = UIImage(named: "tokenIc")
+            cell?.tokenSymbol.textColor = UIColor.white
+            cell?.tokenSymbol.text = balance.denom.substring(from: 1).uppercased()
+            cell?.tokenTitle.text = "(" + balance.denom + ")"
+            
+        }
+        return cell!
+    }
+    
+    
+    
+    
     func onSetCosmosTestItems(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
         let cell:TokenCell? = tableView.dequeueReusableCell(withIdentifier:"TokenCell") as? TokenCell
         let balance = BaseData.instance.mMyBalances_gRPC[indexPath.row]
@@ -1017,6 +1079,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
                 if ($1.balance_denom == KAVA_MAIN_DENOM) { return false }
+                if ($0.balance_denom == KAVA_HARD_DENOM) { return true }
+                if ($1.balance_denom == KAVA_HARD_DENOM) { return false }
                 return $0.balance_denom < $1.balance_denom
             }
         } else if (chainType! == ChainType.OKEX_MAIN || chainType! == ChainType.OKEX_TEST) {
@@ -1041,6 +1105,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             BaseData.instance.mMyBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
+                if ($0.denom == OSMOSIS_ION_DENOM) { return true }
+                if ($1.denom == OSMOSIS_ION_DENOM) { return false }
                 return $0.denom < $1.denom
             }
         }
@@ -1060,6 +1126,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             mainTabVC.mBalances.sort{
                 if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
                 if ($1.balance_denom == KAVA_MAIN_DENOM) { return false }
+                if ($0.balance_denom == KAVA_HARD_DENOM) { return true }
+                if ($1.balance_denom == KAVA_HARD_DENOM) { return false }
                 return WUtils.localeStringToDecimal($0.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($0.balance_denom)).compare(WUtils.localeStringToDecimal($1.balance_amount).multiplying(byPowerOf10: -WUtils.getKavaCoinDecimal($1.balance_denom))).rawValue > 0 ? true : false
             }
             
@@ -1085,6 +1153,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             BaseData.instance.mMyBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
+                if ($0.denom == OSMOSIS_ION_DENOM) { return true }
+                if ($1.denom == OSMOSIS_ION_DENOM) { return false }
                 return WUtils.localeStringToDecimal($0.amount).compare(WUtils.localeStringToDecimal($1.amount)).rawValue > 0 ? true : false
             }
         }
@@ -1106,6 +1176,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             mainTabVC.mBalances.sort {
                 if ($0.balance_denom == KAVA_MAIN_DENOM) { return true }
                 if ($1.balance_denom == KAVA_MAIN_DENOM){ return false }
+                if ($0.balance_denom == KAVA_HARD_DENOM) { return true }
+                if ($1.balance_denom == KAVA_HARD_DENOM) { return false }
                 let totalTokenAmount0 = WUtils.getKavaTokenAll($0.balance_denom, balances)
                 let totalTokenAmount1 = WUtils.getKavaTokenAll($1.balance_denom, balances)
                 let totalTokenValue0 = WUtils.getKavaTokenDollorValue($0.balance_denom, totalTokenAmount0)
@@ -1135,6 +1207,8 @@ class MainTabTokenViewController: BaseViewController, UITableViewDelegate, UITab
             BaseData.instance.mMyBalances_gRPC.sort {
                 if ($0.denom == WUtils.getMainDenom(chainType)) { return true }
                 if ($1.denom == WUtils.getMainDenom(chainType)) { return false }
+                if ($0.denom == OSMOSIS_ION_DENOM) { return true }
+                if ($1.denom == OSMOSIS_ION_DENOM) { return false }
                 return false
             }
         }

@@ -85,5 +85,9 @@ class ValidatorDetailCell: UITableViewCell {
         }
         validatorImg.af_setImage(withURL: URL(string: WUtils.getMonikerImgUrl(chainType, validator!.operatorAddress))!)
         
+        //temp hide apr for no mint param chain
+        if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
+            avergaeYield.text = "--"
+        }
     }
 }

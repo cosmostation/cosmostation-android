@@ -22,7 +22,7 @@ class WKey {
         let chainType = WUtils.getChainType(account.account_base_chain)
         
         if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.IRIS_MAIN || chainType == ChainType.CERTIK_MAIN || chainType == ChainType.AKASH_MAIN ||
-                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN ||
+                chainType == ChainType.SENTINEL_MAIN || chainType == ChainType.FETCH_MAIN || chainType == ChainType.SIF_MAIN || chainType == ChainType.KI_MAIN || chainType == ChainType.OSMOSIS_MAIN ||
                 chainType == ChainType.COSMOS_TEST || chainType == ChainType.IRIS_TEST || chainType == ChainType.CERTIK_TEST) {
             return masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(account.account_path)!))
             
@@ -116,88 +116,71 @@ class WKey {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "panacea", program: ripemd160)
         } else if (chain == ChainType.ALTHEA_TEST) {
             result = try! SegwitAddrCoder.shared.encode2(hrp: "althea", program: ripemd160)
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            result = try! SegwitAddrCoder.shared.encode2(hrp: "osmo", program: ripemd160)
         }
         return result
     }
 
     static func getHDKeyDpAddressWithPath(_ masterKey:PrivateKey, path:Int, chain:ChainType, _ newbip:Bool) -> String {
-        do {
-            var childKey:PrivateKey?
-            if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.AKASH_MAIN ||
-                    chain == ChainType.SENTINEL_MAIN || chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN ||
-                    chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST) {
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(714)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-                if (newbip) {
-//                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 459, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                    childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(459)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                } else {
-//                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                    childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                }
-                
-            } else if (chain == ChainType.BAND_MAIN) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 494, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(494)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.SECRET_MAIN) {
-                if (newbip) {
-//                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                    childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                } else {
-//                    childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 529, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                    childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(529)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                }
-                
-            } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 234, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(234)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 996, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(996)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.PERSIS_MAIN) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 750, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(750)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.CRYPTO_MAIN) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 394, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(394)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.RIZON_TEST) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 1217, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(1217)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.MEDI_TEST) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 371, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(371)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
-            } else if (chain == ChainType.ALTHEA_TEST) {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 60, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
-                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
+        var childKey:PrivateKey?
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.IRIS_MAIN || chain == ChainType.CERTIK_MAIN || chain == ChainType.AKASH_MAIN ||
+                chain == ChainType.SENTINEL_MAIN || chain == ChainType.FETCH_MAIN || chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+                chain == ChainType.COSMOS_TEST || chain == ChainType.IRIS_TEST || chain == ChainType.CERTIK_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(714)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
+            if (newbip) {
+                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(459)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
             } else {
-//                childKey = try masterKey.derived(at: 44, hardened: true).derived(at: 118, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
                 childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
-                
             }
-//            return getPubToDpAddress(childKey!.privateKey().publicKey().raw.dataToHexString(), chain)
-            return getPubToDpAddress(childKey!.publicKey.data.dataToHexString(), chain)
-        } catch {
-            return ""
+            
+        } else if (chain == ChainType.BAND_MAIN) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(494)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.SECRET_MAIN) {
+            if (newbip) {
+                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            } else {
+                childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(529)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            }
+            
+        } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(234)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(996)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.PERSIS_MAIN) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(750)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.CRYPTO_MAIN) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(394)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.RIZON_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(1217)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.MEDI_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(371)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else if (chain == ChainType.ALTHEA_TEST) {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(60)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
+        } else {
+            childKey =  masterKey.derived(at: .hardened(44)).derived(at: .hardened(118)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
+            
         }
+        return getPubToDpAddress(childKey!.publicKey.data.dataToHexString(), chain)
         
     }
     
     static func getDpAddressPath(_ mnemonic: [String], _ path:Int, _ chain:ChainType, _ newbip:Bool) -> String {
         let masterKey = getMasterKeyFromWords(mnemonic)
         if ((chain == ChainType.OKEX_MAIN || chain == ChainType.OKEX_TEST) && newbip) {
-//            let pKey = try! masterKey.derived(at: 44, hardened: true).derived(at: 996, hardened: true).derived(at: 0, hardened: true).derived(at: 0).derived(at: UInt32(path))
             let pKey = masterKey.derived(at: .hardened(44)).derived(at: .hardened(996)).derived(at: .hardened(0)).derived(at: .notHardened(0)).derived(at: .notHardened(UInt32(path)))
             return generateAddressFromPriv("ex", pKey)
             
@@ -269,6 +252,8 @@ class WKey {
             result = bech32.encode("panacea", values: data)
         } else if (chain == ChainType.ALTHEA_TEST) {
             result = bech32.encode("althea", values: data)
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            result = bech32.encode("osmo", values: data)
         }
         return result
     }
@@ -337,7 +322,6 @@ class WKey {
     static func getRandomNumnerHash(_ randomNumner: String, _ timeStamp: Int64) -> String {
         let timeStampData = withUnsafeBytes(of: timeStamp.bigEndian) { Data($0) }
         let originHex = randomNumner + timeStampData.hexEncodedString()
-//        let hash = Crypto.sha256(Data.fromHex(originHex)!)
         let hash = Data.fromHex(originHex)!.sha256()
         return hash.hexEncodedString()
     }
@@ -356,7 +340,6 @@ class WKey {
             }
             let otherSenderData = otherSender.data(using: .utf8)
             let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
-//            let hash = Crypto.sha256(Data.fromHex(add)!)
             let hash = Data.fromHex(add)!.sha256()
             return hash.hexEncodedString()
             
@@ -373,7 +356,6 @@ class WKey {
             }
             let otherSenderData = otherSender.data(using: .utf8)
             let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
-//            let hash = Crypto.sha256(Data.fromHex(add)!)
             let hash = Data.fromHex(add)!.sha256()
             return hash.hexEncodedString()
             
@@ -386,7 +368,6 @@ class WKey {
             }
             let otherSenderData = otherSender.data(using: .utf8)
             let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
-//            let hash = Crypto.sha256(Data.fromHex(add)!)
             let hash = Data.fromHex(add)!.sha256()
             return hash.hexEncodedString()
             
@@ -399,7 +380,6 @@ class WKey {
             }
             let otherSenderData = otherSender.data(using: .utf8)
             let add = randomNumnerHash + senderData!.hexEncodedString() + otherSenderData!.hexEncodedString()
-//            let hash = Crypto.sha256(Data.fromHex(add)!)
             let hash = Data.fromHex(add)!.sha256()
             return hash.hexEncodedString()
             
@@ -411,21 +391,17 @@ class WKey {
     // Ethermint Style address gen (OKex)
     static func generateAddressFromPriv(_ prefix: String, _ priKey: PrivateKey) -> String {
         let uncompressedPubKey = HDWalletKit.Crypto.generatePublicKey(data: priKey.raw, compressed: false)
-//        print("uncompressedPubKey ", uncompressedPubKey.dataToHexString(), "   ", uncompressedPubKey.dataToHexString().count)
         var pub = Data(count: 64)
         pub = uncompressedPubKey.subdata(in: (1..<65))
-//        print("pub ", pub.dataToHexString(), "   ", pub.dataToHexString().count)
         
         let eth = HDWalletKit.Crypto.sha3keccak256(data: pub)
         var address = Data(count: 20)
         address = eth.subdata(in: (12..<32))
         let ethAddress  = EthereumAddress.init(data: address)
-//        print("ethAddress ", ethAddress.string)
         
         var result = ""
         let convert = try? WKey.convertBits(from: 8, to: 5, pad: true, idata: address)
         result = Bech32().encode("ex", values: convert!)
-//        print("OKexAddress ", result)
         return result
     }
     

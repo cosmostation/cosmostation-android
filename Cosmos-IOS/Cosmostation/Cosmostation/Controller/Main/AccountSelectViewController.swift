@@ -214,6 +214,12 @@ class AccountSelectViewController: BaseViewController, UITableViewDelegate, UITa
                     cell?.chainImg.image = UIImage(named: "chainKifoundation")
                     cell?.chainName.text = "KI"
                     
+                } else if (selectedChain == ChainType.OSMOSIS_MAIN) {
+                    cell?.chainImg.isHidden = false
+                    cell?.chainName.isHidden = false
+                    cell?.chainAll.isHidden = true
+                    cell?.chainImg.image = UIImage(named: "chainOsmosis")
+                    cell?.chainName.text = "OSMOSIS"
                 }
                 
                 else if (selectedChain == ChainType.COSMOS_TEST) {
