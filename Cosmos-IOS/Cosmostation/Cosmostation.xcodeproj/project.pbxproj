@@ -218,6 +218,8 @@
 		2852EAF42681B92C003A5E74 /* TokenDetailOsmoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852EAF22681B92C003A5E74 /* TokenDetailOsmoCell.swift */; };
 		2852EAF52681B92C003A5E74 /* TokenDetailOsmoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852EAF32681B92C003A5E74 /* TokenDetailOsmoCell.xib */; };
 		2852EAF926821084003A5E74 /* SifIncentive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852EAF826821084003A5E74 /* SifIncentive.swift */; };
+		2852EAFE268216B4003A5E74 /* WalletSifIncentiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2852EAFC268216B4003A5E74 /* WalletSifIncentiveCell.swift */; };
+		2852EAFF268216B4003A5E74 /* WalletSifIncentiveCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2852EAFD268216B4003A5E74 /* WalletSifIncentiveCell.xib */; };
 		28592E772580616D00C31460 /* BaseNetWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28592E762580616D00C31460 /* BaseNetWork.swift */; };
 		285A33CD2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */; };
 		285A33CF2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */; };
@@ -1057,6 +1059,8 @@
 		2852EAF22681B92C003A5E74 /* TokenDetailOsmoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailOsmoCell.swift; sourceTree = "<group>"; };
 		2852EAF32681B92C003A5E74 /* TokenDetailOsmoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailOsmoCell.xib; sourceTree = "<group>"; };
 		2852EAF826821084003A5E74 /* SifIncentive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SifIncentive.swift; sourceTree = "<group>"; };
+		2852EAFC268216B4003A5E74 /* WalletSifIncentiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletSifIncentiveCell.swift; sourceTree = "<group>"; };
+		2852EAFD268216B4003A5E74 /* WalletSifIncentiveCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletSifIncentiveCell.xib; sourceTree = "<group>"; };
 		28592E762580616D00C31460 /* BaseNetWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetWork.swift; sourceTree = "<group>"; };
 		285A33CC2446CD8C0052BD3D /* StepHtlcSend0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend0ViewController.swift; sourceTree = "<group>"; };
 		285A33CE2446CD9C0052BD3D /* StepHtlcSend1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepHtlcSend1ViewController.swift; sourceTree = "<group>"; };
@@ -2053,6 +2057,8 @@
 				2829CEA62627080C0048B52A /* WalletCrytoCell.xib */,
 				28105892262EE638009244B8 /* WalletSifCell.swift */,
 				28105893262EE638009244B8 /* WalletSifCell.xib */,
+				2852EAFC268216B4003A5E74 /* WalletSifIncentiveCell.swift */,
+				2852EAFD268216B4003A5E74 /* WalletSifIncentiveCell.xib */,
 				28F553472641790100590056 /* WalletKiCell.swift */,
 				28F553482641790100590056 /* WalletKiCell.xib */,
 				283F3AEC265F467500DF1D93 /* WalletRizonCell.swift */,
@@ -3050,6 +3056,7 @@
 				286AFF0F2660BC9100014355 /* TokenDetailSentinelCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
+				2852EAFF268216B4003A5E74 /* WalletSifIncentiveCell.xib in Resources */,
 				280E1F12254AB5C70007BA7D /* ReplaceResource3ViewController.xib in Resources */,
 				285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */,
 				2845D881246FAED7007CD497 /* VoteInfoTableViewCell.xib in Resources */,
@@ -3790,6 +3797,7 @@
 				287AC60A25FDF7260070837E /* cosmos_base_store_v1beta1_commit_info.pb.swift in Sources */,
 				287AC63A25FDF7260070837E /* cosmos_crypto_multisig_keys.pb.swift in Sources */,
 				E151B651224867D60026B8C0 /* Proposal.swift in Sources */,
+				2852EAFE268216B4003A5E74 /* WalletSifIncentiveCell.swift in Sources */,
 				282BDFEA24A5BCE000D3A5D4 /* WcTransferPopup.swift in Sources */,
 				287AC60925FDF7260070837E /* ibc_lightclients_solomachine_v1_solomachine.pb.swift in Sources */,
 				287AC5F525FDF7260070837E /* cosmos_staking_v1beta1_tx.grpc.swift in Sources */,

@@ -402,6 +402,18 @@ class WUtils {
     }
     
     
+    static func sifNodeTimeToString(_ input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
+        
+        let fullDate = nodeFormatter.date(from: input)
+        return localFormatter.string(from: fullDate!)
+    }
+    
     static func nodeTimeToInt64(input: String) -> Date {
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"

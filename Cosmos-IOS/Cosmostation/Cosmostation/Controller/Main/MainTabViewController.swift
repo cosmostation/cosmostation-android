@@ -191,6 +191,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         BaseData.instance.mBandOracleStatus = nil
         
+        BaseData.instance.mSifVsIncentive = nil
+        BaseData.instance.mSifLmIncentive = nil
+        
         
         
         //gRPC
