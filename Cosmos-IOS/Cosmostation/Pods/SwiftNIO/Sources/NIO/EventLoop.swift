@@ -732,39 +732,23 @@ extension EventLoop {
 /// Whenever a `Selectable` is registered to a `Selector` a `Registration` is created internally that is also provided within the
 /// `SelectorEvent` that is provided to the user when an event is ready to be consumed for a `Selectable`. As we need to have access to the `ServerSocketChannel`
 /// and `SocketChannel` (to dispatch the events) we create our own `Registration` that holds a reference to these.
-enum NIORegistration: Registration {
-    case serverSocketChannel(ServerSocketChannel, SelectorEventSet)
-    case socketChannel(SocketChannel, SelectorEventSet)
-    case datagramChannel(DatagramChannel, SelectorEventSet)
-    case pipeChannel(PipeChannel, PipeChannel.Direction, SelectorEventSet)
+/// The `RegistrationID` is used by the `Selector` to tag registrations with a sequence number that can be
+/// used for external registrations (e.g. epoll, kqueue) to filter out outdated events when registrations with the same fd is repeatedly registered/deregistered.
+struct NIORegistration: Registration {
+    enum ChannelType {
+        case serverSocketChannel(ServerSocketChannel)
+        case socketChannel(SocketChannel)
+        case datagramChannel(DatagramChannel)
+        case pipeChannel(PipeChannel, PipeChannel.Direction)
+    }
+
+    var channel: ChannelType
 
     /// The `SelectorEventSet` in which this `NIORegistration` is interested in.
-    var interested: SelectorEventSet {
-        set {
-            switch self {
-            case .serverSocketChannel(let c, _):
-                self = .serverSocketChannel(c, newValue)
-            case .socketChannel(let c, _):
-                self = .socketChannel(c, newValue)
-            case .datagramChannel(let c, _):
-                self = .datagramChannel(c, newValue)
-            case .pipeChannel(let c, let d, _):
-                self = .pipeChannel(c, d, newValue)
-            }
-        }
-        get {
-            switch self {
-            case .serverSocketChannel(_, let i):
-                return i
-            case .socketChannel(_, let i):
-                return i
-            case .datagramChannel(_, let i):
-                return i
-            case .pipeChannel(_, _, let i):
-                return i
-            }
-        }
-    }
+    var interested: SelectorEventSet
+
+    /// The registration ID for this `NIORegistration` used by the `Selector`.
+    var registrationID: SelectorRegistrationID
 }
 
 /// Provides an endless stream of `EventLoop`s to use.
@@ -943,7 +927,7 @@ public final class MultiThreadedEventLoopGroup: EventLoopGroup {
     /// - arguments:
     ///     - threadInitializers: The `ThreadInitializer`s to use.
     internal init(threadInitializers: [ThreadInitializer],
-                  selectorFactory: @escaping () throws -> NIO.Selector<NIORegistration> = { try .init() }) {
+                  selectorFactory: @escaping () throws -> NIO.Selector<NIORegistration> = NIO.Selector<NIORegistration>.init) {
         let myGroupID = nextEventLoopGroupID.add(1)
         self.myGroupID = myGroupID
         var idx = 0

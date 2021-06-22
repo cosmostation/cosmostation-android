@@ -128,7 +128,6 @@ public class MainSendFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-//        onUpdateView();
     }
 
     @Override

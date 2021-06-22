@@ -367,11 +367,22 @@ public final class ChannelPipeline: ChannelInvoker {
     ///     - handler: the `ChannelHandler` to remove.
     ///     - promise: An `EventLoopPromise` that will complete when the `ChannelHandler` is removed.
     public func removeHandler(_ handler: RemovableChannelHandler, promise: EventLoopPromise<Void>?) {
-        let contextFuture = self.context(handler: handler).map { context in
-            self.removeHandler(context: context, promise: promise)
+        func removeHandler0() {
+            switch self.contextSync(handler: handler) {
+            case .success(let context):
+                self.removeHandler(context: context, promise: promise)
+            case .failure(let error):
+                promise?.fail(error)
+            }
         }
 
-        contextFuture.cascadeFailure(to: promise)
+        if self.eventLoop.inEventLoop {
+            removeHandler0()
+        } else {
+            self.eventLoop.execute {
+                removeHandler0()
+            }
+        }
     }
 
     /// Remove a `ChannelHandler` from the `ChannelPipeline`.
@@ -380,11 +391,22 @@ public final class ChannelPipeline: ChannelInvoker {
     ///     - name: the name that was used to add the `ChannelHandler` to the `ChannelPipeline` before.
     ///     - promise: An `EventLoopPromise` that will complete when the `ChannelHandler` is removed.
     public func removeHandler(name: String, promise: EventLoopPromise<Void>?) {
-        let contextFuture = self.context(name: name).map { context in
-            self.removeHandler(context: context, promise: promise)
+        func removeHandler0() {
+            switch self.contextSync(name: name) {
+            case .success(let context):
+                self.removeHandler(context: context, promise: promise)
+            case .failure(let error):
+                promise?.fail(error)
+            }
         }
 
-        contextFuture.cascadeFailure(to: promise)
+        if self.eventLoop.inEventLoop {
+            removeHandler0()
+        } else {
+            self.eventLoop.execute {
+                removeHandler0()
+            }
+        }
     }
 
     /// Remove a `ChannelHandler` from the `ChannelPipeline`.
@@ -505,7 +527,7 @@ public final class ChannelPipeline: ChannelInvoker {
     /// Synchronously finds a `ChannelHandlerContext` in the `ChannelPipeline`.
     /// - Important: This must be called on the `EventLoop`.
     @usableFromInline // should be fileprivate
-    internal func _contextSync(_ body: @escaping ((ChannelHandlerContext) -> Bool)) -> Result<ChannelHandlerContext, Error> {
+    internal func _contextSync(_ body: (ChannelHandlerContext) -> Bool) -> Result<ChannelHandlerContext, Error> {
         self.eventLoop.assertInEventLoop()
 
         if let context = self.contextForPredicate0(body) {
@@ -522,7 +544,7 @@ public final class ChannelPipeline: ChannelInvoker {
     /// - parameters:
     ///     - body: The predicate to execute per `ChannelHandlerContext` in the `ChannelPipeline`.
     /// - returns: The first `ChannelHandlerContext` that matches or `nil` if none did.
-    private func contextForPredicate0(_ body: @escaping((ChannelHandlerContext) -> Bool)) -> ChannelHandlerContext? {
+    private func contextForPredicate0(_ body: (ChannelHandlerContext) -> Bool) -> ChannelHandlerContext? {
         var curCtx: ChannelHandlerContext? = self.head?.next
         while let context = curCtx, context !== self.tail {
             if body(context) {

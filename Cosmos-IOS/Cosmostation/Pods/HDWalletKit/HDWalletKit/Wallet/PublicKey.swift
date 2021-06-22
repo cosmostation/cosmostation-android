@@ -28,6 +28,8 @@ public struct PublicKey {
             return generateBtcAddress()
         case .ethereum:
             return generateEthAddress()
+        case .hdac:
+            return generateHdacAddress()
         }
     }
     
@@ -57,6 +59,18 @@ public struct PublicKey {
         return coin.addressPrefix + EIP55.encode(addressData)
     }
     
+    func generateHdacAddress() -> String {
+        let prefix = Data([coin.publicKeyHash])
+        let payload = RIPEMD160.hash(Crypto.generatePublicKey(data: rawPrivateKey, compressed: true).sha256())
+        var checksum = (prefix + payload).doubleSHA256.prefix(4)
+        checksum = swapUInt32Data(checksum)
+        var hdacChecksum = "48444143".hexadecimal
+        hdacChecksum = swapUInt32Data(hdacChecksum!)
+        var result = Data.getxor(left: checksum, right: hdacChecksum!)
+        result = swapUInt32Data(result)
+        return Base58.encode(prefix + payload + result)
+    }
+    
     public func get() -> String {
         let publicKey = getPublicKey(compressed: true)
         return publicKey.toHexString()
@@ -69,4 +83,61 @@ public struct PublicKey {
     public func getPublicKey(compressed: Bool) -> Data {
         return Crypto.generatePublicKey(data: rawPrivateKey, compressed: compressed)
     }
+    
+    public func swapUInt32Data(_ data: Data) -> Data {
+        var mdata = data // make a mutable copy
+        let count = data.count / MemoryLayout<UInt32>.size
+        mdata.withUnsafeMutableBytes { (i16ptr: UnsafeMutablePointer<UInt32>) in
+            for i in 0..<count {
+                i16ptr[i] =  i16ptr[i].byteSwapped
+            }
+        }
+        return mdata
+    }
+}
+extension String {
+    var hexadecimal: Data? {
+        var data = Data(capacity: count / 2)
+        let regex = try! NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let num = UInt8(byteString, radix: 16)!
+            data.append(num)
+        }
+        
+        guard data.count > 0 else { return nil }
+        
+        return data
+    }
+    
+}
+extension Data {
+    static func getxor (left: Data, right: Data) -> Data {
+        if left.count != right.count {
+            NSLog("Warning! XOR operands are not equal. left = \(left), right = \(right)")
+        }
+
+        var result: Data = Data()
+        var smaller: Data, bigger: Data
+        if left.count <= right.count {
+            smaller = left
+            bigger = right
+        } else {
+            smaller = right
+            bigger = left
+        }
+
+        let bs:[UInt8] = Array(smaller)
+        let bb:[UInt8] = Array (bigger)
+        var br = [UInt8] ()
+        for i in 0..<bs.count {
+            br.append(bs[i] ^ bb[i])
+        }
+        for j in bs.count..<bb.count {
+            br.append(bb[j])
+        }
+        result = Data(br)
+        return result
+    }
+        
 }

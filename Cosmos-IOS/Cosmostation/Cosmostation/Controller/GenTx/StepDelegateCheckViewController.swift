@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import BitcoinKit
+import HDWalletKit
 import SwiftKeychainWrapper
 import GRPC
 import NIO
@@ -145,7 +145,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             guard let words = KeychainWrapper.standard.string(forKey: self.pageHolderVC.mAccount!.account_uuid.sha1())?.trimmingCharacters(in: .whitespacesAndNewlines).components(separatedBy: " ") else {
                 return
             }
-            
             do {
                 let pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
                 let msg = MsgGenerator.genDelegateMsg(self.pageHolderVC.mAccount!.account_address,
@@ -168,16 +167,15 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
                 let data = try? encoder.encode(stdMsg)
                 let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                 let rawData: Data? = rawResult!.data(using: .utf8)
-                let hash = Crypto.sha256(rawData!)
-                
-                let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                let hash = rawData!.sha256()
+                let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
                 
                 var genedSignature = Signature.init()
                 var genPubkey =  PublicKey.init()
                 genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                genPubkey.value = pKey.publicKey.data.base64EncodedString()
                 genedSignature.pub_key = genPubkey
-                genedSignature.signature = WKey.convertSignature(signedData!)
+                genedSignature.signature = signedData.base64EncodedString()
                 genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
                 genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                 
@@ -189,7 +187,6 @@ class StepDelegateCheckViewController: BaseViewController, PasswordViewDelegate,
             } catch {
                 if (SHOW_LOG) { print(error) }
             }
-            
             DispatchQueue.main.async(execute: {
                 let postTx = PostTx.init("sync", stdTx.value)
                 let encoder = JSONEncoder()

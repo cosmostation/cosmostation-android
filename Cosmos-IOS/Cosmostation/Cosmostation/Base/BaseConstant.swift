@@ -107,8 +107,10 @@ let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosm
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
 
 
+let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
+let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
+let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
 let ALTHEA_TEST_API                     = "https://api-office.cosmostation.io/althea-testnet2v1/";
-
 
 let MOON_PAY_URL                        = "https://buy.moonpay.io";
 let MOON_PAY_PUBLICK                    = "pk_live_zbG1BOGMVTcfKibboIE2K3vduJBTuuCn";
@@ -641,10 +643,10 @@ let TRANS_BG_COLOR_KI2                      = UIColor.init(hexString: "3756fc", 
 let COLOR_KI                                = UIColor.init(hexString: "3756fc")
 let COLOR_KI_DARK                           = UIColor.init(hexString: "02188d")
 
-let TRANS_BG_COLOR_RIZON                    = UIColor.init(hexString: "8281fb", alpha: 0.15)
-let TRANS_BG_COLOR_RIZON2                   = UIColor.init(hexString: "8281fb", alpha: 0.4)
-let COLOR_RIZON                             = UIColor.init(hexString: "8281fb")
-let COLOR_RIZON_DARK                        = UIColor.init(hexString: "40408B")
+let TRANS_BG_COLOR_RIZON                    = UIColor.init(hexString: "8c8af2", alpha: 0.15)
+let TRANS_BG_COLOR_RIZON2                   = UIColor.init(hexString: "8c8af2", alpha: 0.4)
+let COLOR_RIZON                             = UIColor.init(hexString: "8c8af2")
+let COLOR_RIZON_DARK                        = UIColor.init(hexString: "484773")
 
 let TRANS_BG_COLOR_MEDI                     = UIColor.init(hexString: "79aaf2", alpha: 0.15)
 let TRANS_BG_COLOR_MEDI2                    = UIColor.init(hexString: "79aaf2", alpha: 0.4)

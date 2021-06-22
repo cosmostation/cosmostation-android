@@ -4,7 +4,7 @@
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 // See LICENSE.txt for license information:
-// https://github.com/apple/swift-protobuf/blob/master/LICENSE.txt
+// https://github.com/apple/swift-protobuf/blob/main/LICENSE.txt
 //
 // -----------------------------------------------------------------------------
 ///
@@ -724,12 +724,12 @@ internal struct JSONDecoder: Decoder {
     // Force-unwrap: we can only get here if the extension exists.
     let ext = scanner.extensions[messageType, fieldNumber]!
 
-    var fieldValue = values[fieldNumber]
-    if fieldValue != nil {
-      try fieldValue!.decodeExtensionField(decoder: &self)
-    } else {
-      fieldValue = try ext._protobuf_newField(decoder: &self)
+    try values.modify(index: fieldNumber) { fieldValue in
+      if fieldValue != nil {
+        try fieldValue!.decodeExtensionField(decoder: &self)
+      } else {
+        fieldValue = try ext._protobuf_newField(decoder: &self)
+      }
     }
-    values[fieldNumber] = fieldValue!
   }
 }

@@ -103,6 +103,7 @@
 		2834399E2531D1A200CCFADE /* StarNameListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2834399D2531D1A200CCFADE /* StarNameListViewController.swift */; };
 		283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283439A02531D1CF00CCFADE /* MyDomainViewController.swift */; };
 		283439A42531D1DF00CCFADE /* MyAccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283439A32531D1DF00CCFADE /* MyAccountViewController.swift */; };
+		2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2836E19A2680B3F300119FD2 /* HdacAddress.swift */; };
 		2838501C2448A69D00E5DEF2 /* TxHtlcCreateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */; };
 		2838501D2448A69D00E5DEF2 /* TxHtlcCreateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */; };
 		283850202448A6B000E5DEF2 /* TxHtlcClaimCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */; };
@@ -628,6 +629,8 @@
 		28DB571625FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */; };
 		28E1D4582658E32D002FDF9B /* StepFeeOldViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */; };
 		28E1D4592658E32D002FDF9B /* StepFeeOldViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */; };
+		28E3E371266D033100BA89C2 /* HdacUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E3E370266D033100BA89C2 /* HdacUtil.swift */; };
+		28E3E374266DD72900BA89C2 /* HdacUtxo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E3E373266DD72900BA89C2 /* HdacUtxo.swift */; };
 		28E3E3792670A27A00BA89C2 /* WalletAltheaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E3E3772670A27A00BA89C2 /* WalletAltheaCell.swift */; };
 		28E3E37A2670A27A00BA89C2 /* WalletAltheaCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28E3E3782670A27A00BA89C2 /* WalletAltheaCell.xib */; };
 		28E3E37D2670BA8D00BA89C2 /* TokenDetailAltheaCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28E3E37B2670BA8D00BA89C2 /* TokenDetailAltheaCell.swift */; };
@@ -926,6 +929,7 @@
 		2834399D2531D1A200CCFADE /* StarNameListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameListViewController.swift; sourceTree = "<group>"; };
 		283439A02531D1CF00CCFADE /* MyDomainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyDomainViewController.swift; sourceTree = "<group>"; };
 		283439A32531D1DF00CCFADE /* MyAccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAccountViewController.swift; sourceTree = "<group>"; };
+		2836E19A2680B3F300119FD2 /* HdacAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HdacAddress.swift; sourceTree = "<group>"; };
 		2838501A2448A69D00E5DEF2 /* TxHtlcCreateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcCreateCell.swift; sourceTree = "<group>"; };
 		2838501B2448A69D00E5DEF2 /* TxHtlcCreateCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxHtlcCreateCell.xib; sourceTree = "<group>"; };
 		2838501E2448A6B000E5DEF2 /* TxHtlcClaimCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxHtlcClaimCell.swift; sourceTree = "<group>"; };
@@ -1463,6 +1467,8 @@
 		28DB571425FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HardPoolRepay3ViewController.xib; sourceTree = "<group>"; };
 		28E1D4562658E32D002FDF9B /* StepFeeOldViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepFeeOldViewController.swift; sourceTree = "<group>"; };
 		28E1D4572658E32D002FDF9B /* StepFeeOldViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StepFeeOldViewController.xib; sourceTree = "<group>"; };
+		28E3E370266D033100BA89C2 /* HdacUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HdacUtil.swift; sourceTree = "<group>"; };
+		28E3E373266DD72900BA89C2 /* HdacUtxo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HdacUtxo.swift; sourceTree = "<group>"; };
 		28E3E3772670A27A00BA89C2 /* WalletAltheaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletAltheaCell.swift; sourceTree = "<group>"; };
 		28E3E3782670A27A00BA89C2 /* WalletAltheaCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletAltheaCell.xib; sourceTree = "<group>"; };
 		28E3E37B2670BA8D00BA89C2 /* TokenDetailAltheaCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailAltheaCell.swift; sourceTree = "<group>"; };
@@ -2380,6 +2386,15 @@
 			path = kava;
 			sourceTree = "<group>";
 		};
+		28E3E372266DD71100BA89C2 /* HdacModel */ = {
+			isa = PBXGroup;
+			children = (
+				28E3E373266DD72900BA89C2 /* HdacUtxo.swift */,
+				2836E19A2680B3F300119FD2 /* HdacAddress.swift */,
+			);
+			path = HdacModel;
+			sourceTree = "<group>";
+		};
 		51090F06A9DC4E886F628890 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -2658,6 +2673,7 @@
 		E1A82DDD224478150097CAEE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				28E3E372266DD71100BA89C2 /* HdacModel */,
 				28D7BDAB25F0B8DE006EECD7 /* KavaModel */,
 				E151B64C22485AB20026B8C0 /* History.swift */,
 				E1F7F63523436B71000E597F /* BnbHistory.swift */,
@@ -2734,6 +2750,7 @@
 				E16D9B1C2248E6A60019B7BB /* WKey.swift */,
 				E16FACB02361ADFA00372052 /* Bytes.swift */,
 				E17748D82282C612003D8CD1 /* Cosmostation-Bridging-Header.h */,
+				28E3E370266D033100BA89C2 /* HdacUtil.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -3443,6 +3460,7 @@
 				E1BDBC08225C705000810D2E /* MsgGenerator.swift in Sources */,
 				284291A1264AA77C00130651 /* BnbTicker.swift in Sources */,
 				2888B7FE246BC83A00B2EB4A /* BnbSwapInfo.swift in Sources */,
+				28E3E371266D033100BA89C2 /* HdacUtil.swift in Sources */,
 				287AC64225FDF7260070837E /* tendermint_libs_bits_types.pb.swift in Sources */,
 				287AC61525FDF7260070837E /* cosmos_capability_v1beta1_capability.pb.swift in Sources */,
 				28617A8324333B90006D66EA /* StepWithdrawCdpAmountViewController.swift in Sources */,
@@ -3501,6 +3519,7 @@
 				283E945E254901E7007A9291 /* RegisterDomain3ViewController.swift in Sources */,
 				28089AA424FF8FC4007E9C40 /* IovStarNameResolve.swift in Sources */,
 				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
+				28E3E374266DD72900BA89C2 /* HdacUtxo.swift in Sources */,
 				287AC5B125FDF7250070837E /* ibc_applications_transfer_v1_tx.pb.swift in Sources */,
 				287AC5F725FDF7260070837E /* cosmos_staking_v1beta1_staking.pb.swift in Sources */,
 				282FF34D23F50E010028CC66 /* TxRedelegateCell.swift in Sources */,
@@ -3716,6 +3735,7 @@
 				E1945E4C222E81C200A1436F /* VoteListViewController.swift in Sources */,
 				287AC62B25FDF7260070837E /* cosmos_distribution_v1beta1_genesis.pb.swift in Sources */,
 				E1FD2330233E1BF4009327FE /* WalletBnbCell.swift in Sources */,
+				2836E19B2680B3F300119FD2 /* HdacAddress.swift in Sources */,
 				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
 				28BB2AA3253417CE00CFF097 /* StarNameResource.swift in Sources */,

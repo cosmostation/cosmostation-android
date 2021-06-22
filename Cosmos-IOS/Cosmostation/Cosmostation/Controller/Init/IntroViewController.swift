@@ -9,7 +9,6 @@
 import UIKit
 import Alamofire
 import Firebase
-import BitcoinKit
 
 class IntroViewController: BaseViewController, PasswordViewDelegate {
 
@@ -38,12 +37,12 @@ class IntroViewController: BaseViewController, PasswordViewDelegate {
         importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpInside)
         importAddressBtn.addTarget(self, action: #selector(stopHighlight), for: .touchUpOutside)
         
-        InstanceID.instanceID().instanceID { (result, error) in
+        Messaging.messaging().token { token, error in
             if let error = error {
-                print("Error fetching remote instance ID: \(error)")
-            } else if let result = result {
-                print("Remote instance ID token: \(result.token)")
-                BaseData.instance.setFCMToken(result.token)
+                print("Error fetching FCM registration token: \(error)")
+            } else if let token = token {
+                print("FCM registration token: \(token)")
+                BaseData.instance.setFCMToken(token)
             }
         }
     }

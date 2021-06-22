@@ -8,7 +8,6 @@
 
 import UIKit
 import Alamofire
-import BitcoinKit
 import SwiftKeychainWrapper
 import GRPC
 import NIO

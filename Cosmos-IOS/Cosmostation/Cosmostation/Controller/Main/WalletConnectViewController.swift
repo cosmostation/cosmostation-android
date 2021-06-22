@@ -11,7 +11,7 @@ import WalletConnect
 import Alamofire
 import BinanceChain
 import SwiftKeychainWrapper
-import BitcoinKit
+import HDWalletKit
 
 class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
 
@@ -166,14 +166,13 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
             return
         }
         let pKey = WKey.getHDKeyFromWords(words, account!)
-        let extendPKey = PrivateKey.init(data: pKey.privateKey().raw, network: .testnet, isPublicKeyCompressed: false)
-        let pubKeyString = extendPKey.publicKey().raw.dataToHexString()
+        let pubKeyString = pKey.publicKey.getPublicKey(compressed: false).dataToHexString()
     
         var bnbWallet = Wallet()
         if (chainType == ChainType.BINANCE_MAIN) {
-            bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+            bnbWallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
         } else {
-            bnbWallet = Wallet(privateKey: pKey.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+            bnbWallet = Wallet(privateKey: pKey.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
         }
 
         bnbWallet.synchronise(){ (error) in
@@ -198,6 +197,7 @@ class WalletConnectViewController: BaseViewController, SBCardPopupDelegate {
                 }
             }).cauterize()
         }
+        
     }
     
 

@@ -4,7 +4,7 @@
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 // See LICENSE.txt for license information:
-// https://github.com/apple/swift-protobuf/blob/master/LICENSE.txt
+// https://github.com/apple/swift-protobuf/blob/main/LICENSE.txt
 //
 // -----------------------------------------------------------------------------
 ///
@@ -374,9 +374,8 @@ internal struct JSONScanner {
   private let source: UnsafeRawBufferPointer
   private var index: UnsafeRawBufferPointer.Index
   private var numberParser = DoubleParser()
-  internal var options: JSONDecodingOptions
-  internal var extensions: ExtensionMap
-  internal var recursionLimit: Int
+  internal let options: JSONDecodingOptions
+  internal let extensions: ExtensionMap
   internal var recursionBudget: Int
 
   /// True if the scanner has read all of the data from the source, with the
@@ -406,7 +405,6 @@ internal struct JSONScanner {
   ) {
     self.source = source
     self.index = source.startIndex
-    self.recursionLimit = options.messageDepthLimit
     self.recursionBudget = options.messageDepthLimit
     self.options = options
     self.extensions = extensions ?? SimpleExtensionMap()
@@ -423,7 +421,7 @@ internal struct JSONScanner {
     recursionBudget += 1
     // This should never happen, if it does, something is probably corrupting memory, and
     // simply throwing doesn't make much sense.
-    if recursionBudget > recursionLimit {
+    if recursionBudget > options.messageDepthLimit {
       fatalError("Somehow JSONDecoding unwound more objects than it started")
     }
   }
@@ -1278,8 +1276,8 @@ internal struct JSONScanner {
           return fieldNumber
         }
       }
-      if let first = fieldName.first, first == "[",
-         let last = fieldName.last, last == "]"
+      if let first = fieldName.utf8.first, first == UInt8(ascii: "["),
+         let last = fieldName.utf8.last, last == UInt8(ascii: "]")
       {
         fieldName.removeFirst()
         fieldName.removeLast()

@@ -8,7 +8,7 @@
 
 import UIKit
 import Alamofire
-import BitcoinKit
+import HDWalletKit
 import BinanceChain
 import SwiftKeychainWrapper
 
@@ -135,15 +135,15 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                     let data = try? encoder.encode(stdMsg)
                     let rawResult = String(data:data!, encoding:.utf8)?.replacingOccurrences(of: "\\/", with: "/")
                     let rawData: Data? = rawResult!.data(using: .utf8)
-                    let hash = Crypto.sha256(rawData!)
-                    let signedData: Data? = try Crypto.sign(hash, privateKey: pKey.privateKey())
+                    let hash = rawData!.sha256()
+                    let signedData = try! ECDSA.compactsign(hash, privateKey: pKey.raw)
                     
                     var genedSignature = Signature.init()
                     var genPubkey =  PublicKey.init()
                     genPubkey.type = COSMOS_KEY_TYPE_PUBLIC
-                    genPubkey.value = pKey.privateKey().publicKey().raw.base64EncodedString()
+                    genPubkey.value = pKey.publicKey.data.base64EncodedString()
                     genedSignature.pub_key = genPubkey
-                    genedSignature.signature = WKey.convertSignature(signedData!)
+                    genedSignature.signature = signedData.base64EncodedString()
                     genedSignature.account_number = String(self.pageHolderVC.mAccount!.account_account_numner)
                     genedSignature.sequence = String(self.pageHolderVC.mAccount!.account_sequence_number)
                     
@@ -154,8 +154,9 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                 }
                 
             } catch {
-                if(SHOW_LOG) { print(error) }
+                print(error)
             }
+            
             
             DispatchQueue.main.async(execute: {
                 let postTx = PostTx.init("sync", stdTx.value)
@@ -170,12 +171,12 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                         var txResult = [String:Any]()
                         switch response.result {
                         case .success(let res):
-                            if(SHOW_LOG) { print("Refund ", res) }
+                            print("Refund ", res)
                             if let result = res as? [String : Any]  {
                                 txResult = result
                             }
                         case .failure(let error):
-                            if(SHOW_LOG) { print("Refund error ", error) }
+                            print("Refund error ", error)
                             if (response.response?.statusCode == 500) {
                                 txResult["net_error"] = 500
                             }
@@ -206,7 +207,7 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
             }
             
             var binance: BinanceChain?
-            var pKey: HDPrivateKey?
+            var pKey: PrivateKey?
             var wallet = Wallet()
             var txResult = [String:Any]()
             
@@ -214,13 +215,13 @@ class StepHtlcRefund3ViewController: BaseViewController, PasswordViewDelegate {
                 //For Binance main-net refund
                 binance = BinanceChain(endpoint: BinanceChain.Endpoint.mainnet)
                 pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
+                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.mainnet)
                 
             } else {
                 //For Binance test-net refund
                 binance = BinanceChain(endpoint: BinanceChain.Endpoint.testnet)
                 pKey = WKey.getHDKeyFromWords(words, self.pageHolderVC.mAccount!)
-                wallet = Wallet(privateKey: pKey!.privateKey().raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
+                wallet = Wallet(privateKey: pKey!.raw.hexEncodedString(), endpoint: BinanceChain.Endpoint.testnet)
             }
             
             wallet.synchronise(){ (error) in

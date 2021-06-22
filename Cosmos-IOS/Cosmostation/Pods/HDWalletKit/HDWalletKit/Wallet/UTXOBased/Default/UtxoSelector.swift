@@ -107,7 +107,7 @@ private extension Array {
 }
 
 internal extension Sequence where Element == UnspentTransaction {
-    func sum() -> UInt64 {
+    public func sum() -> UInt64 {
         return reduce(UInt64()) { $0 + $1.output.value }
     }
 }

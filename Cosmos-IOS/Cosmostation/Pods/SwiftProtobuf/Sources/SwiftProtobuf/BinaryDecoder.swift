@@ -4,7 +4,7 @@
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 // See LICENSE.txt for license information:
-// https://github.com/apple/swift-protobuf/blob/master/LICENSE.txt
+// https://github.com/apple/swift-protobuf/blob/main/LICENSE.txt
 //
 // -----------------------------------------------------------------------------
 ///
@@ -1110,18 +1110,16 @@ internal struct BinaryDecoder: Decoder {
     ) throws {
         assert(!consumed)
         assert(fieldNumber == ext.fieldNumber)
-        var fieldValue = values[fieldNumber]
-        // Message/Group extensions both will call back into the matching
-        // decode methods, so the recursion depth will be tracked there.
-        if fieldValue != nil {
-            try fieldValue!.decodeExtensionField(decoder: &self)
-        } else {
-            fieldValue = try ext._protobuf_newField(decoder: &self)
-        }
-        if consumed {
+
+        try values.modify(index: fieldNumber) { fieldValue in
+            // Message/Group extensions both will call back into the matching
+            // decode methods, so the recursion depth will be tracked there.
             if fieldValue != nil {
-                values[fieldNumber] = fieldValue
+                try fieldValue!.decodeExtensionField(decoder: &self)
             } else {
+                fieldValue = try ext._protobuf_newField(decoder: &self)
+            }
+            if consumed && fieldValue == nil {
                 // Really things should never get here, if the decoder says
                 // the bytes were consumed, then there should have been a
                 // field that consumed them (existing or created). This

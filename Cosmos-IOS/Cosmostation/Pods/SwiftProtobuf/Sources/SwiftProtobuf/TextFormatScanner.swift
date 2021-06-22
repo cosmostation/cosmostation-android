@@ -4,7 +4,7 @@
 // Licensed under Apache License v2.0 with Runtime Library Exception
 //
 // See LICENSE.txt for license information:
-// https://github.com/apple/swift-protobuf/blob/master/LICENSE.txt
+// https://github.com/apple/swift-protobuf/blob/main/LICENSE.txt
 //
 // -----------------------------------------------------------------------------
 ///
@@ -128,7 +128,11 @@ private func decodeString(_ s: String) -> String? {
             if let digit3 = bytes.next(),
               digit3 >= asciiZero && digit3 <= asciiSeven {
               let digit3Value = digit3 - asciiZero
-              let n = digit1Value * 64 + digit2Value * 8 + digit3Value
+              // The max octal digit is actually \377, but looking at the C++
+              // protobuf code in strutil.cc:UnescapeCEscapeSequences(), it
+              // decodes with rollover, so just duplicate that behavior for
+              // consistency between languages.
+              let n = digit1Value &* 64 &+ digit2Value &* 8 &+ digit3Value
               out.append(n)
             } else {
               let n = digit1Value * 8 + digit2Value
@@ -233,17 +237,45 @@ internal struct TextFormatScanner {
     private var end: UnsafeRawPointer
     private var doubleParser = DoubleParser()
 
+    private let options: TextFormatDecodingOptions
+    internal var recursionBudget: Int
+
     internal var complete: Bool {
         mutating get {
             return p == end
         }
     }
 
-    internal init(utf8Pointer: UnsafeRawPointer, count: Int, extensions: ExtensionMap? = nil) {
+    internal init(
+      utf8Pointer: UnsafeRawPointer,
+      count: Int,
+      options: TextFormatDecodingOptions,
+      extensions: ExtensionMap? = nil
+    ) {
         p = utf8Pointer
         end = p + count
         self.extensions = extensions
+        self.options = options
+        // Since the root message doesn't start with a `skipObjectStart`, the
+        // budget starts with one less depth to cover that top message.
+        recursionBudget = options.messageDepthLimit - 1
         skipWhitespace()
+    }
+
+    internal mutating func incrementRecursionDepth() throws {
+        recursionBudget -= 1
+        if recursionBudget < 0 {
+            throw TextFormatDecodingError.messageDepthLimit
+        }
+    }
+
+    private mutating func decrementRecursionDepth() {
+        recursionBudget += 1
+        // This should never happen, if it does, something is probably
+        // corrupting memory, and simply throwing doesn't make much sense.
+        if recursionBudget > options.messageDepthLimit {
+            fatalError("Somehow TextFormatDecoding unwound more objects than it started")
+        }
     }
 
     /// Skip whitespace
@@ -374,11 +406,11 @@ internal struct TextFormatScanner {
                 count += 1
               case asciiLowerU, asciiUpperU: // 'u' or 'U' unicode escape
                 let numDigits = (escaped == asciiLowerU) ? 4 : 8
+                guard (end - p) >= numDigits else {
+                  throw TextFormatDecodingError.malformedText // unicode escape must 4/8 digits
+                }
                 var codePoint: UInt32 = 0
                 for i in 0..<numDigits {
-                  guard p != end else {
-                    throw TextFormatDecodingError.malformedText // unicode escape must 4/8 digits
-                  }
                   if let digit = uint32FromHexDigit(p[i]) {
                     codePoint = (codePoint << 4) + digit
                   } else {
@@ -594,6 +626,10 @@ internal struct TextFormatScanner {
         let c = p[0]
         p += 1
         if c == asciiZero { // leading '0' precedes octal or hex
+            if p == end {
+                // The TextFormat ended with a field value of zero.
+                return 0
+            }
             if p[0] == asciiLowerX { // 'x' => hex
                 p += 1
                 var n: UInt64 = 0
@@ -679,6 +715,9 @@ internal struct TextFormatScanner {
         let c = p[0]
         if c == asciiMinus { // -
             p += 1
+            if p == end {
+                throw TextFormatDecodingError.malformedNumber
+            }
             // character after '-' must be digit
             let digit = p[0]
             if digit < asciiZero || digit > asciiNine {
@@ -1170,7 +1209,11 @@ internal struct TextFormatScanner {
     }
 
     internal mutating func skipOptionalObjectEnd(_ c: UInt8) -> Bool {
-        return skipOptionalCharacter(c)
+        let result = skipOptionalCharacter(c)
+        if result {
+            decrementRecursionDepth()
+        }
+        return result
     }
 
     internal mutating func skipOptionalSeparator() {
@@ -1186,6 +1229,7 @@ internal struct TextFormatScanner {
     /// Returns the character that should end this field.
     /// E.g., if object starts with "{", returns "}"
     internal mutating func skipObjectStart() throws -> UInt8 {
+        try incrementRecursionDepth()
         if p != end {
             let c = p[0]
             p += 1
