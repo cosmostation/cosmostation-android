@@ -149,12 +149,14 @@
 "send_guide_msg_sif" = "Cosmos SDK로 구축된 옴니체인 분산형 거래소.";
 "send_guide_title_ki" = "키 파운데이션";
 "send_guide_msg_ki" = "Cosmos SDK로 구축된 오픈 소스 블록 체인  분산 응용 프로그램 플랫폼.";
-"send_guide_title_rizon" = "RIZON CHAIN";
+"send_guide_title_rizon" = "라이젠";
 "send_guide_msg_rizon" = "기존 비즈니스를 디지털 통화로 연결하는 Cosmos SDK 기반 오픈 소스 블록 체인";
-"send_guide_title_medi" = "MEDIBLOC";
+"send_guide_title_medi" = "메디블록";
 "send_guide_msg_medi" = "의료 데이터의 효율적인 배포를위한 플랫폼을 제공하는 환자 중심 의료 데이터 솔루션입니다.";
-"send_guide_title_althea" = "ALTHEA";
-"send_guide_msg_althea" = "Cosmos SDK로 구축된 분산형 인터넷 서비스 공급자.";
+"send_guide_title_althea" = "알테아";
+"send_guide_msg_althea" = "Cosmos SDK로 구축되고 탈 중앙화 되어있는 형태의 메시 네트워크로 운영되는 분산형 인터넷 서비스 공급자.";
+"send_guide_title_osmosis" = "오스모시스";
+"send_guide_msg_osmosis" = "Cosmos SDK와 코스모스 인터블록체인 커뮤니케이션(IBC) 프로토콜을 이용하여 다수의 다른 블록체인 네트워크 유저들에게 유동성을 제공해주는 인터체인 AMM.";
 "send_guide_btn1_cosmos" = "가이드";
 "send_guide_btn1_iris" = "Home";
 "send_guide_btn1_bnb" = "Market";
@@ -174,6 +176,7 @@
 "send_guide_btn1_rizon" = "Home";
 "send_guide_btn1_medi" = "Home";
 "send_guide_btn1_althea" = "Home";
+"send_guide_btn1_osmosis" = "Home";
 "send_guide_btn2_cosmos" = "도움말";
 "send_guide_btn2_iris" = "Medium";
 "send_guide_btn2_bnb" = "Blog";
@@ -193,6 +196,7 @@
 "send_guide_btn2_rizon" = "Blog";
 "send_guide_btn2_medi" = "Blog";
 "send_guide_btn2_althea" = "Blog";
+"send_guide_btn2_osmosis" = "Blog";
 "name" = "이름";
 "amount" = "수량";
 "value" = "금액";

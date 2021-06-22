@@ -53,6 +53,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletRizonCell", bundle: nil), forCellReuseIdentifier: "WalletRizonCell")
         self.walletTableView.register(UINib(nibName: "WalletMediCell", bundle: nil), forCellReuseIdentifier: "WalletMediCell")
         self.walletTableView.register(UINib(nibName: "WalletAltheaCell", bundle: nil), forCellReuseIdentifier: "WalletAltheaCell")
+        self.walletTableView.register(UINib(nibName: "WalletOsmoCell", bundle: nil), forCellReuseIdentifier: "WalletOsmoCell")
         self.walletTableView.register(UINib(nibName: "WalletUnbondingInfoCellTableViewCell", bundle: nil), forCellReuseIdentifier: "WalletUnbondingInfoCellTableViewCell")
         self.walletTableView.register(UINib(nibName: "WalletPriceCell", bundle: nil), forCellReuseIdentifier: "WalletPriceCell")
         self.walletTableView.register(UINib(nibName: "WalletInflationCell", bundle: nil), forCellReuseIdentifier: "WalletInflationCell")
@@ -156,6 +157,10 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         } else if (chainType! == ChainType.KI_MAIN) {
             titleChainImg.image = UIImage(named: "chainKifoundation")
             titleChainName.text = "(KiChain Mainnet)"
+            titleAlarmBtn.isHidden = true
+        } else if (chainType! == ChainType.OSMOSIS_MAIN) {
+            titleChainImg.image = UIImage(named: "chainOsmosis")
+            titleChainName.text = "(OSMOSIS Mainnet)"
             titleAlarmBtn.isHidden = true
         }
         
@@ -303,6 +308,8 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return onSetSifItems(tableView, indexPath);
         } else if (chainType == ChainType.KI_MAIN) {
             return onSetkiItems(tableView, indexPath);
+        } else if (chainType == ChainType.OSMOSIS_MAIN) {
+            return onSetOsmoItems(tableView, indexPath);
         }
         
         else if (chainType == ChainType.COSMOS_TEST) {
@@ -975,6 +982,42 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
 
         } else if (indexPath.row == 1) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAltheaCell") as? WalletAltheaCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionDelegate = { self.onClickValidatorList() }
+            cell?.actionVote = { self.onClickVoteList() }
+            return cell!
+
+        } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapPricel = { self.onClickMarketInfo() }
+            return cell!
+
+        } else if (indexPath.row == 3) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletInflationCell") as? WalletInflationCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionTapApr = { self.onClickAprHelp() }
+            return cell!
+
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletGuideCell") as? WalletGuideCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionGuide1 = { self.onClickGuide1() }
+            cell?.actionGuide2 = { self.onClickGuide2() }
+            return cell!
+        }
+        
+    }
+    
+    func onSetOsmoItems(_ tableView: UITableView, _ indexPath: IndexPath)  -> UITableViewCell {
+        if (indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletAddressCell") as? WalletAddressCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            cell?.actionShare = { self.onClickActionShare() }
+            return cell!
+
+        } else if (indexPath.row == 1) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletOsmoCell") as? WalletOsmoCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionDelegate = { self.onClickValidatorList() }
             cell?.actionVote = { self.onClickVoteList() }
