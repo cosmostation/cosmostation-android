@@ -60,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -69,6 +70,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.KAVA_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.OKEX_COIN_IMG_URL;
+import static wannabit.io.cosmostaion.base.BaseConstant.OSMOSIS_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.SIF_COIN_IMG_URL;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_AKASH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ALTHEA;
@@ -90,6 +92,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KAVA;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_KI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_MEDI;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OK;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_OSMOSIS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_RIZON;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SECRET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_SIF;
@@ -318,6 +321,8 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
                 onBindSifItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(KI_MAIN)) {
                 onBindKiItem(viewHolder, position);
+            } else if (getMainActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                onBindOsmosisItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(RIZON_TEST)) {
                 onBindRizonItem(viewHolder, position);
             } else if (getMainActivity().mBaseChain.equals(MEDI_TEST)) {
@@ -922,6 +927,49 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
             holder.itemInnerSymbol.setText("(" + coin.denom + ")");
             holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Althea Chain");
             Picasso.get().load(ALTHEA_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
+
+            BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom.substring(1), totalAmount, 6));
+
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getMainActivity(), NativeTokenDetailActivity.class);
+                    intent.putExtra("denom", coin.denom);
+                    startActivity(intent);
+                }
+            });
+
+        }
+    }
+
+    private void onBindOsmosisItem(TokensAdapter.AssetHolder holder, final int position) {
+        final Coin coin = getBaseDao().mGrpcBalance.get(position);
+         if (coin.denom.equals(TOKEN_OSMOSIS)) {
+            holder.itemSymbol.setText(getString(R.string.str_althea_c));
+            holder.itemSymbol.setTextColor(WDp.getChainColor(getContext(), OSMOSIS_MAIN));
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText("Osmosis Staking Token");
+            Picasso.get().cancelRequest(holder.itemImg);
+            holder.itemImg.setImageDrawable(getResources().getDrawable(R.drawable.token_osmosis));
+
+            BigDecimal totalAmount = getBaseDao().getAllMainAsset(TOKEN_OSMOSIS);
+            holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
+            holder.itemValue.setText(WDp.dpUserCurrencyValue(getBaseDao(), coin.denom, totalAmount, 6));
+            holder.itemRoot.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getMainActivity(), StakingTokenDetailActivity.class));
+                }
+            });
+
+        } else {
+            holder.itemSymbol.setTextColor(getResources().getColor(R.color.colorWhite));
+            holder.itemSymbol.setText(coin.denom.substring(1).toUpperCase());
+            holder.itemInnerSymbol.setText("(" + coin.denom + ")");
+            holder.itemFullName.setText(coin.denom.substring(1).toUpperCase() + " on Osmosis Chain");
+            Picasso.get().load(OSMOSIS_COIN_IMG_URL+coin.denom+".png") .fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic) .into(holder.itemImg);
 
             BigDecimal totalAmount = getBaseDao().getAvailable(coin.denom);
             holder.itemBalance.setText(WDp.getDpAmount2(getContext(), totalAmount, 6, 6));
