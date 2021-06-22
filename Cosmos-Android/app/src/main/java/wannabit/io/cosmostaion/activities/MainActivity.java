@@ -78,6 +78,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -356,6 +357,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
             mToolbarChainName.setText(getString(R.string.str_ki_net));
             mToolbarChainName.setTextColor(getResources().getColor(R.color.colorKi));
             mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorKi));
+
+        } else if (mBaseChain.equals(OSMOSIS_MAIN)) {
+            mToolbarChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_osmosis));
+            mToolbarChainName.setText(getString(R.string.str_osmosis_net));
+            mToolbarChainName.setTextColor(getResources().getColor(R.color.colorOsmosis));
+            mFloatBtn.setBackgroundTintList(getResources().getColorStateList(R.color.colorOsmosis));
 
         }
 
@@ -741,6 +748,12 @@ public class MainActivity extends BaseActivity implements FetchCallBack {
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_kifoundation));
                     holder.chainName.setText(getString(R.string.str_ki_main));
+
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_osmosis));
+                    holder.chainName.setText(getString(R.string.str_osmosis_main));
 
                 }
 

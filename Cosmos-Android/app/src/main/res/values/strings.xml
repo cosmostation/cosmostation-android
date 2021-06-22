@@ -326,6 +326,8 @@
     <string name="str_guide_medi">Blog</string>
     <string name="str_faq_althea">Home</string>
     <string name="str_guide_althea">Blog</string>
+    <string name="str_faq_osmosis">Home</string>
+    <string name="str_guide_osmosis">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -407,6 +409,8 @@
     <string name="str_sif_net2" translatable="false">SifChain Mainnet</string>
     <string name="str_ki_net" translatable="false">(Ki Foundation Mainnet)</string>
     <string name="str_ki_net2" translatable="false">Ki Foundation Mainnet</string>
+    <string name="str_osmosis_net" translatable="false">(Osmosis Mainnet)</string>
+    <string name="str_osmosis_net2" translatable="false">Osmosis Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -436,6 +440,7 @@
     <string name="str_crypto_main" translatable="false">CRYPTO.ORG</string>
     <string name="str_sif_main" translatable="false">SIF</string>
     <string name="str_ki_main" translatable="false">KI</string>
+    <string name="str_osmosis_main" translatable="false">OSMOSIS</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -524,6 +529,7 @@
     <string name="str_front_guide_title_rizon"><![CDATA[RIZON CHAIN]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
+    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS ZONE]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -543,6 +549,7 @@
     <string name="str_front_guide_msg_rizon"><![CDATA[Cosmos SDK based public network bridging traditional businesses with digital currencies.]]></string>
     <string name="str_front_guide_msg_medi"><![CDATA[Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.]]></string>
     <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK.]]></string>
+    <string name="str_front_guide_msg_osmosis"><![CDATA[The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
