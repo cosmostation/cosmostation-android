@@ -552,8 +552,8 @@
     <string name="str_front_guide_msg_ki"><![CDATA[Open-source blockchain platform for decentralized applications.]]></string>
     <string name="str_front_guide_msg_rizon"><![CDATA[Cosmos SDK based public network bridging traditional businesses with digital currencies.]]></string>
     <string name="str_front_guide_msg_medi"><![CDATA[Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.]]></string>
-    <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK.]]></string>
-    <string name="str_front_guide_msg_osmosis"><![CDATA[The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol.]]></string>
+    <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK, enabled by community-run mesh networks.]]></string>
+    <string name="str_front_guide_msg_osmosis"><![CDATA[The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol, enabling sovereign blockchain networks to access a vast pool of liquidity.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>

@@ -1172,9 +1172,14 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
 
                 } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
+                    if(o1.denom.equals(TOKEN_CRO)) return -1;
+                    if(o2.denom.equals(TOKEN_CRO)) return 1;
 
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
+                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
+                    if(o1.denom.equals("uion")) return -1;
+                    if(o2.denom.equals("uion")) return 1;
                 }
 
                 else if (chain.equals(COSMOS_TEST)) {
@@ -1262,8 +1267,14 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
 
                 } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
+                    if(o1.denom.equals(TOKEN_CRO)) return -1;
+                    if(o2.denom.equals(TOKEN_CRO)) return 1;
+
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
+                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
+                    if(o1.denom.equals("uion")) return -1;
+                    if(o2.denom.equals("uion")) return 1;
 
                 }
 
@@ -1356,8 +1367,14 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
 
                 } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
+                    if(o1.denom.equals(TOKEN_CRO)) return -1;
+                    if(o2.denom.equals(TOKEN_CRO)) return 1;
+
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
+                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
+                    if(o1.denom.equals("uion")) return -1;
+                    if(o2.denom.equals("uion")) return 1;
 
                 }
 
@@ -2389,7 +2406,7 @@ public class WUtil {
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
         } else if (basechain.equals(OSMOSIS_MAIN)) {
-            BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
+            BigDecimal gasRate = new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
@@ -2460,7 +2477,7 @@ public class WUtil {
     }
 
     public static BigDecimal getGasRate(BaseChain basechain, int position) {
-        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(OSMOSIS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
+        if (basechain.equals(COSMOS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
             if (position == 0) {
                 return new BigDecimal(COSMOS_GAS_RATE_TINY);
             } else if (position == 1) {
@@ -2499,6 +2516,14 @@ public class WUtil {
                 return new BigDecimal(CRYPTO_GAS_RATE_LOW);
             }
             return new BigDecimal(CRYPTO_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(OSMOSIS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(OSMOSIS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
 
         }
 

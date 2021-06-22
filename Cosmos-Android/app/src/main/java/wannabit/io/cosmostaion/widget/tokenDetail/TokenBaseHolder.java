@@ -1,6 +1,7 @@
 package wannabit.io.cosmostaion.widget.tokenDetail;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -29,6 +30,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.ALTHEA_COIN_IMG_URL;
@@ -65,7 +67,12 @@ public class TokenBaseHolder extends BaseHolder {
     @Override
     public void onBindTokenHolder(Context c, BaseChain chain, BaseData baseData, String denom) {
         if (isGRPC(chain)) {
-            onBindAltheaToken(c, chain, baseData, denom);
+            if (chain.equals(ALTHEA_TEST)) {
+                onBindAltheaToken(c, chain, baseData, denom);
+            } else if (chain.equals(OSMOSIS_MAIN)) {
+                onBindOsmosisToken(c, chain, baseData, denom);
+            }
+
         } else if (chain.equals(BNB_MAIN) || chain.equals(BNB_TEST)) {
             onBindBnbToken(c, chain, baseData, denom);
 
@@ -161,5 +168,33 @@ public class TokenBaseHolder extends BaseHolder {
         mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, 6, 6));
         mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, denom.substring(1), totalAmount, 6));
         Picasso.get().load(ALTHEA_COIN_IMG_URL+denom+".png").fit().placeholder(R.drawable.token_ic).error(R.drawable.token_ic).into(mIvToken);
+    }
+
+    public void onBindOsmosisToken(Context context, BaseChain chain, BaseData baseData, String denom) {
+        if (denom.startsWith("uion")) {
+            mIvToken.setImageDrawable(context.getDrawable(R.drawable.token_ion));
+            mTvTokenTitle.setText(denom.substring(1).toUpperCase());
+            mTvTokenTitle.setTextColor(context.getColor(R.color.colorIon));
+            mTvTokenDenom.setText("(" + denom + ")");
+
+        } else if (denom.startsWith("ibc/")) {
+            mIvToken.setImageDrawable(context.getDrawable(R.drawable.token_default_ibc));
+            mTvTokenTitle.setText("IBC");
+            mTvTokenTitle.setTextColor(context.getColor(R.color.colorWhite));
+            mTvTokenDenom.setText("(" + denom + ")");
+            mTvTokenDenom.setEllipsize(TextUtils.TruncateAt.MIDDLE);
+
+
+        } else if (denom.startsWith("gamm/")) {
+            mIvToken.setImageDrawable(context.getDrawable(R.drawable.token_ic));
+            mTvTokenTitle.setText("AMM");
+            mTvTokenTitle.setTextColor(context.getColor(R.color.colorWhite));
+            mTvTokenDenom.setText("(" + denom + ")");
+        }
+
+        final BigDecimal totalAmount = baseData.getAvailable(denom);
+        mTvTokenAvailable.setText(WDp.getDpAmount2(context, totalAmount, 6, 6));
+        mTvTokenTotal.setText(WDp.getDpAmount2(context, totalAmount, 6, 6));
+        mTvTokenValue.setText(WDp.dpUserCurrencyValue(baseData, denom.substring(1), totalAmount, 6));
     }
 }

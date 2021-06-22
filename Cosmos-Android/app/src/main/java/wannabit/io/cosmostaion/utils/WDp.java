@@ -272,7 +272,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (coin.denom.equals(TOKEN_OSMOSIS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
@@ -409,7 +414,12 @@ public class WDp {
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(OSMOSIS_MAIN)) {
-            DpMainDenom(c, chain.getChain(), denomTv);
+            if (symbol.equals(TOKEN_OSMOSIS)) {
+                DpMainDenom(c, chain.getChain(), denomTv);
+            } else {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+            }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
         } else if (chain.equals(COSMOS_TEST)) {
@@ -1428,7 +1438,7 @@ public class WDp {
                 result = unbondFormat.format(calendar.getTimeInMillis());
                 return result + "   " +c.getString(R.string.str_unbonding_3days_after);
 
-            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST)) {
+            } else if (chain.equals(OKEX_MAIN) || chain.equals(OK_TEST) || chain.equals(OSMOSIS_MAIN)) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.DATE, 14);
                 SimpleDateFormat unbondFormat = new SimpleDateFormat(c.getString(R.string.str_dp_time_format2));
@@ -2402,6 +2412,8 @@ public class WDp {
         } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(IOV_MAIN) ||
                 basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(SIF_MAIN) || basechain.equals(KI_MAIN)) {
             result = new BigDecimal("0.334");
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            result = new BigDecimal("0.2");
         }
         return result.movePointRight(2).setScale(2);
     }
