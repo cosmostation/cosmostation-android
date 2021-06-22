@@ -91,6 +91,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -1171,9 +1172,14 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
 
                 } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
+                    if(o1.denom.equals(TOKEN_CRO)) return -1;
+                    if(o2.denom.equals(TOKEN_CRO)) return 1;
 
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
+                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
+                    if(o1.denom.equals("uion")) return -1;
+                    if(o2.denom.equals("uion")) return 1;
                 }
 
                 else if (chain.equals(COSMOS_TEST)) {
@@ -1261,8 +1267,14 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
 
                 } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
+                    if(o1.denom.equals(TOKEN_CRO)) return -1;
+                    if(o2.denom.equals(TOKEN_CRO)) return 1;
+
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
+                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
+                    if(o1.denom.equals("uion")) return -1;
+                    if(o2.denom.equals("uion")) return 1;
 
                 }
 
@@ -1355,8 +1367,14 @@ public class WUtil {
                     if(o2.denom.equals(TOKEN_XPRT)) return 1;
 
                 } else if (chain.equals(CRYPTO_MAIN)) {
-                    if(o1.denom.equals(TOKEN_XPRT)) return -1;
-                    if(o2.denom.equals(TOKEN_XPRT)) return 1;
+                    if(o1.denom.equals(TOKEN_CRO)) return -1;
+                    if(o2.denom.equals(TOKEN_CRO)) return 1;
+
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    if(o1.denom.equals(TOKEN_OSMOSIS)) return -1;
+                    if(o2.denom.equals(TOKEN_OSMOSIS)) return 1;
+                    if(o1.denom.equals("uion")) return -1;
+                    if(o2.denom.equals("uion")) return 1;
 
                 }
 
@@ -2034,6 +2052,9 @@ public class WUtil {
         } else if (chain.equals(KI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://foundation.ki/en"));
 
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://osmosis.zone/"));
+
         }
         return null;
     }
@@ -2091,6 +2112,9 @@ public class WUtil {
         } else if (chain.equals(KI_MAIN)) {
             return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/ki-foundation"));
 
+        } else if (chain.equals(OSMOSIS_MAIN)) {
+            return new Intent(Intent.ACTION_VIEW , Uri.parse("https://medium.com/osmosis"));
+
         }
         return null;
     }
@@ -2102,7 +2126,7 @@ public class WUtil {
     public static BigDecimal getEstimateGasAmount(Context c, BaseChain basechain, int txType,  int valCnt) {
         BigDecimal result = BigDecimal.ZERO;
         if (basechain.equals(COSMOS_MAIN) || basechain.equals(IRIS_MAIN) || basechain.equals(AKASH_MAIN) || basechain.equals(PERSIS_MAIN) || basechain.equals(CRYPTO_MAIN) ||
-                basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
+                basechain.equals(OSMOSIS_MAIN) || basechain.equals(COSMOS_TEST) || basechain.equals(IRIS_TEST) || basechain.equals(RIZON_TEST) || basechain.equals(ALTHEA_TEST)) {
             if (txType == CONST_PW_TX_SIMPLE_SEND) {
                 return new BigDecimal(V1_GAS_AMOUNT_LOW);
             } else if (txType == CONST_PW_TX_SIMPLE_DELEGATE) {
@@ -2381,6 +2405,11 @@ public class WUtil {
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
             return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
 
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            BigDecimal gasRate = new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
+            BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
+            return gasRate.multiply(gasAmount).setScale(0, RoundingMode.DOWN);
+
         } else if (basechain.equals(RIZON_TEST)) {
             BigDecimal gasRate = new BigDecimal(COSMOS_GAS_RATE_AVERAGE);
             BigDecimal gasAmount = getEstimateGasAmount(c, basechain, txType, valCnt);
@@ -2487,6 +2516,14 @@ public class WUtil {
                 return new BigDecimal(CRYPTO_GAS_RATE_LOW);
             }
             return new BigDecimal(CRYPTO_GAS_RATE_AVERAGE);
+
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            if (position == 0) {
+                return new BigDecimal(OSMOSIS_GAS_RATE_TINY);
+            } else if (position == 1) {
+                return new BigDecimal(OSMOSIS_GAS_RATE_LOW);
+            }
+            return new BigDecimal(OSMOSIS_GAS_RATE_AVERAGE);
 
         }
 
@@ -2873,6 +2910,9 @@ public class WUtil {
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return EXPLORER_CRYPTOORG_MAIN;
 
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            return EXPLORER_OSMOSIS_MAIN;
+
         }
 
         else if (basechain.equals(COSMOS_TEST)) {
@@ -2953,6 +2993,9 @@ public class WUtil {
 
         } else if (basechain.equals(CRYPTO_MAIN)) {
             return EXPLORER_CRYPTOORG_MAIN + "txs/" + hash;
+
+        } else if (basechain.equals(OSMOSIS_MAIN)) {
+            return EXPLORER_OSMOSIS_MAIN + "txs/" + hash;
 
         }
         

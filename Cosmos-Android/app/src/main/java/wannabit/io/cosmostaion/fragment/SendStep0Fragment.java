@@ -60,6 +60,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -292,6 +293,14 @@ public class SendStep0Fragment extends BaseFragment implements View.OnClickListe
 
             } else if (getSActivity().mBaseChain.equals(KI_MAIN)) {
                 if (userInput.startsWith("ki1") && WKey.isValidBech32(userInput)) {
+                    getSActivity().mToAddress = userInput;
+                    getSActivity().onNextStep();
+                } else {
+                    Toast.makeText(getContext(), R.string.error_invalid_address_target, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (getSActivity().mBaseChain.equals(OSMOSIS_MAIN)) {
+                if (userInput.startsWith("osmo1") && WKey.isValidBech32(userInput)) {
                     getSActivity().mToAddress = userInput;
                     getSActivity().onNextStep();
                 } else {

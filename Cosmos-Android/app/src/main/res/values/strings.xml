@@ -86,6 +86,8 @@
     <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
 
+    <string name="url_api_osmosis" translatable="false">https://api-osmosis.cosmostation.io/</string>
+
 
     <string name="url_api_rizon_test" translatable="false">https://api-rizon-testnet.cosmostation.io/</string>
 
@@ -123,6 +125,7 @@
     <string name="str_rizon_c" translatable="false">ATOLO</string>
     <string name="str_medi_c" translatable="false">MED</string>
     <string name="str_althea_c" translatable="false">ALTG</string>
+    <string name="str_osmosis_c" translatable="false">OSMO</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
@@ -152,6 +155,7 @@
     <string name="str_crypto_main_net">Crypto.org Mainnet</string>
     <string name="str_sif_main_net">SifChain Mainnet</string>
     <string name="str_ki_main_net">Ki Foundation Mainnet</string>
+    <string name="str_osmosis_main_net">Osmosis Mainnet</string>
     <string name="str_cosmos_test_net">StarGate Testnet</string>
     <string name="str_iris_test_net">Bifrost Testnet</string>
     <string name="str_bnb_test_net">Binance Testnet</string>
@@ -326,6 +330,8 @@
     <string name="str_guide_medi">Blog</string>
     <string name="str_faq_althea">Home</string>
     <string name="str_guide_althea">Blog</string>
+    <string name="str_faq_osmosis">Home</string>
+    <string name="str_guide_osmosis">Blog</string>
     <string name="str_telegram">Telegram</string>
     <string name="str_explore">Explorer</string>
     <string name="str_explore_bnb">Explorer Binance</string>
@@ -407,6 +413,8 @@
     <string name="str_sif_net2" translatable="false">SifChain Mainnet</string>
     <string name="str_ki_net" translatable="false">(Ki Foundation Mainnet)</string>
     <string name="str_ki_net2" translatable="false">Ki Foundation Mainnet</string>
+    <string name="str_osmosis_net" translatable="false">(Osmosis Mainnet)</string>
+    <string name="str_osmosis_net2" translatable="false">Osmosis Mainnet</string>
     <string name="str_rizon_chain_test" translatable="false">(Rizon Testnet)</string>
     <string name="str_rizon_chain_test_2" translatable="false">Rizon Testnet</string>
     <string name="str_medi_chain_test" translatable="false">(Medibloc Testnet)</string>
@@ -436,6 +444,7 @@
     <string name="str_crypto_main" translatable="false">CRYPTO.ORG</string>
     <string name="str_sif_main" translatable="false">SIF</string>
     <string name="str_ki_main" translatable="false">KI</string>
+    <string name="str_osmosis_main" translatable="false">OSMOSIS</string>
     <string name="str_rizon_test" translatable="false">RIZON TEST</string>
     <string name="str_medi_test" translatable="false">MEDI TEST</string>
     <string name="str_althea_test" translatable="false">ALTHEA TEST</string>
@@ -524,6 +533,7 @@
     <string name="str_front_guide_title_rizon"><![CDATA[RIZON CHAIN]]></string>
     <string name="str_front_guide_title_medi"><![CDATA[MEDIBLOC]]></string>
     <string name="str_front_guide_title_althea"><![CDATA[ALTHEA NETWORK]]></string>
+    <string name="str_front_guide_title_osmosis"><![CDATA[OSMOSIS ZONE]]></string>
     <string name="str_front_guide_msg">Decentralized network of blockchains powered by Tendermint BFT and ABCI.</string>
     <string name="str_front_guide_msg_iris">Interchain service infrastructure for a distributed business ecosystem.</string>
     <string name="str_front_guide_msg_bnb">Fast and secure decentralized digital asset exchange based on Tendermint built by Binance.</string>
@@ -542,7 +552,8 @@
     <string name="str_front_guide_msg_ki"><![CDATA[Open-source blockchain platform for decentralized applications.]]></string>
     <string name="str_front_guide_msg_rizon"><![CDATA[Cosmos SDK based public network bridging traditional businesses with digital currencies.]]></string>
     <string name="str_front_guide_msg_medi"><![CDATA[Patient-centric healthcare data solution providing a platform for efficient distribution of healthcare data.]]></string>
-    <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK.]]></string>
+    <string name="str_front_guide_msg_althea"><![CDATA[Decentralized internet service provider built with the Cosmos SDK, enabled by community-run mesh networks.]]></string>
+    <string name="str_front_guide_msg_osmosis"><![CDATA[The interchain AMM powered by the Cosmos Inter-Blockchain Communication protocol, enabling sovereign blockchain networks to access a vast pool of liquidity.]]></string>
     <string name="str_current_reward_address">Current Reward Address</string>
     <string name="str_new_reward_address">New Reward Address</string>
     <string name="str_inflation">Inflation</string>
@@ -1429,6 +1440,7 @@
     <string name="s_rizon" translatable="false">ATOLO</string>
     <string name="s_medi" translatable="false">MED</string>
     <string name="s_althea" translatable="false">ALTG</string>
+    <string name="s_osmosis" translatable="false">OSMO</string>
 
     <string name="tx_send">Send</string>
     <string name="tx_receive">Received</string>

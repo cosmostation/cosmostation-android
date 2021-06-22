@@ -54,6 +54,7 @@ public enum BaseChain {
     CRYPTO_MAIN("crytoorg-mainnet"),
     SIF_MAIN("sif-mainnet"),
     KI_MAIN("ki-mainnet"),
+    OSMOSIS_MAIN("osmosis-mainnet"),
 
     COSMOS_TEST_LEGACY1("stargate-final"),
     COSMOS_TEST("cosmos-testnet"),
@@ -164,6 +165,9 @@ public enum BaseChain {
         if (chainName.equals(KI_MAIN.chainName)) {
             return KI_MAIN;
         }
+        if (chainName.equals(OSMOSIS_MAIN.chainName)) {
+            return OSMOSIS_MAIN;
+        }
 
 
         if (chainName.equals(COSMOS_TEST_LEGACY1.chainName) ||
@@ -234,6 +238,7 @@ public enum BaseChain {
         result.add(CRYPTO_MAIN);
         result.add(SIF_MAIN);
         result.add(KI_MAIN);
+        result.add(OSMOSIS_MAIN);
         result.add(SECRET_MAIN);
 
 
@@ -309,6 +314,8 @@ public enum BaseChain {
         } else if (baseChain.equals(PERSIS_MAIN)) {
             return true;
         } else if (baseChain.equals(CRYPTO_MAIN)) {
+            return true;
+        } else if (baseChain.equals(OSMOSIS_MAIN)) {
             return true;
         } else if (baseChain.equals(RIZON_TEST)) {
             return true;

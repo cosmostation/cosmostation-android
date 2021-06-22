@@ -54,6 +54,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -310,6 +311,13 @@ public class WatchingAccountAddActivity extends BaseActivity implements View.OnC
             } else if (mUserInput.startsWith("ki1")) {
                 if (WKey.isValidBech32(mUserInput)) {
                     onGenNewAccount(KI_MAIN, mUserInput);
+                } else {
+                    Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
+                }
+
+            } else if (mUserInput.startsWith("osmo1")) {
+                if (WKey.isValidBech32(mUserInput)) {
+                    onGenNewAccount(OSMOSIS_MAIN, mUserInput);
                 } else {
                     Toast.makeText(getBaseContext(), R.string.error_invalid_address, Toast.LENGTH_SHORT).show();
                 }

@@ -49,6 +49,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -190,6 +191,8 @@ public class CreateActivity extends BaseActivity implements View.OnClickListener
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_sif));
             } else if (mChain.equals(KI_MAIN)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_ki));
+            } else if (mChain.equals(OSMOSIS_MAIN)) {
+                mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_osmosis));
             } else if (mChain.equals(RIZON_TEST)) {
                 mWordsLayer[i].setBackground(getDrawable(R.drawable.box_round_rizon));
             } else if (mChain.equals(MEDI_TEST)) {

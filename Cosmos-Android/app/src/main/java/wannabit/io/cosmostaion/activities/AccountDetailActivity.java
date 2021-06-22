@@ -64,6 +64,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -359,6 +360,15 @@ public class AccountDetailActivity extends BaseActivity implements View.OnClickL
             mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgKi));
             mCardRewardAddress.setVisibility(View.VISIBLE);
             mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_kifoundation));
+
+        } else if (mBaseChain.equals(OSMOSIS_MAIN)) {
+            mCardName.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOsmosis));
+            mCardAlarm.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOsmosis));
+            mCardAlarm.setVisibility(View.GONE);
+            mCardBody.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOsmosis));
+            mCardRewardAddress.setCardBackgroundColor(getResources().getColor(R.color.colorTransBgOsmosis));
+            mCardRewardAddress.setVisibility(View.VISIBLE);
+            mChainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_osmosis));
 
         }
 

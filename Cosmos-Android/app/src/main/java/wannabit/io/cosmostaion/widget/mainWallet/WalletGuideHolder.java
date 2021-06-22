@@ -36,6 +36,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.OK_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -172,6 +173,13 @@ public class WalletGuideHolder extends BaseHolder {
             itemGuideMsg.setText(R.string.str_front_guide_msg_ki);
             itemBtnGuide1.setText(R.string.str_faq_ki);
             itemBtnGuide2.setText(R.string.str_guide_ki);
+
+        } else if (mainActivity.mBaseChain.equals(OSMOSIS_MAIN)) {
+            itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_osmosis));
+            itemGuideTitle.setText(R.string.str_front_guide_title_osmosis);
+            itemGuideMsg.setText(R.string.str_front_guide_msg_osmosis);
+            itemBtnGuide1.setText(R.string.str_faq_osmosis);
+            itemBtnGuide2.setText(R.string.str_guide_osmosis);
 
         } else if (mainActivity.mBaseChain.equals(RIZON_TEST)) {
             itemGuideImg.setImageDrawable(mainActivity.getResources().getDrawable(R.drawable.infoicon_rizon));

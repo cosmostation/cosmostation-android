@@ -46,6 +46,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.MEDI_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OKEX_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.PERSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.RIZON_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -305,6 +306,12 @@ public class AccountListActivity extends BaseActivity implements View.OnClickLis
                     holder.allLayer.setVisibility(View.GONE);
                     holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_kifoundation));
                     holder.chainName.setText(getString(R.string.str_ki_main));
+
+                } else if (chain.equals(OSMOSIS_MAIN)) {
+                    holder.chainLayer.setVisibility(View.VISIBLE);
+                    holder.allLayer.setVisibility(View.GONE);
+                    holder.chainImg.setImageDrawable(getResources().getDrawable(R.drawable.chain_osmosis));
+                    holder.chainName.setText(getString(R.string.str_osmosis_main));
 
                 }
 

@@ -446,6 +446,7 @@ public class BaseConstant {
     public final static String TOKEN_RIZON          = "uatolo";
     public final static String TOKEN_MEDI           = "umed";
     public final static String TOKEN_ALTHEA         = "ualtg";
+    public final static String TOKEN_OSMOSIS        = "uosmo";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
@@ -620,6 +621,10 @@ public class BaseConstant {
     public final static String CRYPTO_GAS_RATE_LOW                      = "0.05";
     public final static String CRYPTO_GAS_RATE_AVERAGE                  = "0.075";
 
+    public final static String OSMOSIS_GAS_RATE_TINY                    = "0.000";
+    public final static String OSMOSIS_GAS_RATE_LOW                     = "0.0025";
+    public final static String OSMOSIS_GAS_RATE_AVERAGE                 = "0.025";
+
     public final static String V1_GAS_AMOUNT_LOW                        = "100000";
     public final static String V1_GAS_AMOUNT_MID                        = "200000";
     public final static String V1_GAS_AMOUNT_HIGH                       = "300000";
@@ -660,6 +665,7 @@ public class BaseConstant {
     public final static String RIZON_VAL_URL            = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
     public final static String MEDI_VAL_URL             = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
     public final static String ALTHEA_VAL_URL           = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
+    public final static String OSMOSIS_VAL_URL          = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 
     public final static String KAVA_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
     public final static String KAVA_CDP_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/cdp/";
@@ -668,6 +674,7 @@ public class BaseConstant {
     public final static String OKEX_COIN_IMG_URL        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/okex/";
     public final static String SIF_COIN_IMG_URL         = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/sif/";
     public final static String ALTHEA_COIN_IMG_URL      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/althea/";
+    public final static String OSMOSIS_COIN_IMG_URL     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/coin_image/osmosis/";
 
 
     public final static String EXPLORER_COSMOS_MAIN     = "https://www.mintscan.io/cosmos/";
@@ -685,6 +692,7 @@ public class BaseConstant {
     public final static String EXPLORER_CRYPTOORG_MAIN  = "https://www.mintscan.io/crypto-org/";
     public final static String EXPLORER_SIF_MAIN        = "https://www.mintscan.io/sifchain/";
     public final static String EXPLORER_KI_MAIN         = "https://www.mintscan.io/ki-chain/";
+    public final static String EXPLORER_OSMOSIS_MAIN    = "https://www.mintscan.io/osmosis/";
 
     public final static String EXPLORER_COSMOS_TEST     = "https://testnet.mintscan.io/cosmos/";
     public final static String EXPLORER_IRIS_TEST       = "https://testnet.mintscan.io/iris/";
