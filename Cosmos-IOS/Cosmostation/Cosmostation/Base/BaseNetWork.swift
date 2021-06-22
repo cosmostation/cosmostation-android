@@ -1141,6 +1141,9 @@ class BaseNetWork {
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-sentinel-app.cosmostation.io", port: 9090)
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            return ClientConnection.insecure(group: group).connect(host: "lcd-osmosis-app.cosmostation.io", port: 9090)
         }
         
         else if (chain == ChainType.COSMOS_TEST) {

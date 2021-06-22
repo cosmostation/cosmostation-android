@@ -307,6 +307,16 @@ class AddAddressViewController: BaseViewController, QrScannerDelegate {
                 return;
             }
             
+        } else if (userInput.starts(with: "osmo1")) {
+            if (WKey.isValidateBech32(userInput)) {
+                self.onGenWatchAccount(ChainType.OSMOSIS_MAIN, userInput)
+                return;
+            } else {
+                self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
+                self.addAddressInputText.text = ""
+                return;
+            }
+            
         } else {
             self.onShowToast(NSLocalizedString("error_invalid_address_or_pubkey", comment: ""))
             self.addAddressInputText.text = ""

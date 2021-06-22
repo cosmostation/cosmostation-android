@@ -107,6 +107,9 @@ let MEDI_TEST_URL                       = "https://lcd-medibloc-opentestnet.cosm
 let MEDI_TEST_API                       = "https://api-medibloc-opentestnet.cosmostation.io/";
 
 
+let OSMOSIS_API                         = "https://api-osmosis.cosmostation.io/";
+
+
 let HDAC_STATUS                         = "https://wallet.new.hdactech.com/insight-api/status";
 let HDAC_GET_UTXO                       = "https://wallet.new.hdactech.com/insight-api/addr/";
 let HDAC_BROADCAST                      = "https://wallet.new.hdactech.com/insight-api/tx/send";
@@ -138,6 +141,7 @@ let KI_VAL_URL                          = "https://raw.githubusercontent.com/cos
 let RIZON_VAL_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/rizon/";
 let MEDI_VAL_URL                        = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/medibloc/";
 let ALTHEA_VAL_URL                      = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/althea/";
+let OSMOSIS_VAL_URL                     = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/moniker/osmosis/";
 
 let TOKEN_IMG_URL                       = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/thumnail/"
 let KAVA_COIN_IMG_URL                   = "https://raw.githubusercontent.com/cosmostation/cosmostation_token_resource/master/kava/coin/";
@@ -658,6 +662,11 @@ let TRANS_BG_COLOR_ALTHEA2                  = UIColor.init(hexString: "eadea5", 
 let COLOR_ALTHEA                            = UIColor.init(hexString: "eadea5")
 let COLOR_ALTHEA_DARK                       = UIColor.init(hexString: "7d7659")
 
+let TRANS_BG_COLOR_OSMOSIS                  = UIColor.init(hexString: "9248db", alpha: 0.15)
+let TRANS_BG_COLOR_OSMOSIS2                 = UIColor.init(hexString: "9248db", alpha: 0.4)
+let COLOR_OSMOSIS                           = UIColor.init(hexString: "9248db")
+let COLOR_OSMOSIS_DARK                      = UIColor.init(hexString: "4e1a82")
+
 
 let COLOR_CDP_DANGER                        = UIColor.init(hexString: "FF2745")
 let COLOR_CDP_STABLE                        = UIColor.init(hexString: "FFE62B")
@@ -687,6 +696,7 @@ enum ChainType: String {
     case CRYPTO_MAIN
     case SIF_MAIN
     case KI_MAIN
+    case OSMOSIS_MAIN
     
     case COSMOS_TEST
     case IRIS_TEST
@@ -716,6 +726,7 @@ enum ChainType: String {
         result.append(CRYPTO_MAIN)
         result.append(SIF_MAIN)
         result.append(KI_MAIN)
+        result.append(OSMOSIS_MAIN)
         result.append(SECRET_MAIN)
 
 //        result.append(COSMOS_TEST)
@@ -820,6 +831,7 @@ let CHAIN_FETCH_S = "SUPPORT_CHAIN_FETCH_MAIN"
 let CHAIN_CRYPTO_S = "SUPPORT_CHAIN_CRYTO_MAIN"
 let CHAIN_SIF_S = "SUPPORT_CHAIN_SIF_MAIN"
 let CHAIN_KI_S = "SUPPORT_CHAIN_KI_MAIN"
+let CHAIN_OSMOSIS_S = "SUPPORT_CHAIN_OSMOSIS_MAIN"
 
 let CHAIN_COSMOS_TEST_S = "SUPPORT_CHAIN_COSMOS_TEST"
 let CHAIN_IRIS_TEST_S = "SUPPORT_CHAIN_IRIS_TEST"
@@ -852,6 +864,7 @@ let KI_MAIN_DENOM = "uxki"
 let RIZON_MAIN_DENOM = "uatolo"
 let MEDI_MAIN_DENOM = "umed"
 let ALTHEA_MAIN_DENOM = "ualtg"
+let OSMOSIS_MAIN_DENOM = "uosmo"
 
 let COSMOS_TEST_DENOM = "umuon"
 let IRIS_TEST_DENOM = "ubif"
@@ -903,6 +916,7 @@ let EXPLORER_FETCH_MAIN     = "https://www.mintscan.io/fetchai/";
 let EXPLORER_CRYPTO_MAIN    = "https://www.mintscan.io/crypto-org/";
 let EXPLORER_SIF_MAIN       = "https://www.mintscan.io/sifchain/";
 let EXPLORER_KI_MAIN        = "https://www.mintscan.io/ki-chain/";
+let EXPLORER_OSMOSIS_MAIN   = "https://www.mintscan.io/osmosis/";
 
 let EXPLORER_COSMOS_TEST    = "https://testnet.mintscan.io/";
 let EXPLORER_IRIS_TEST      = "https://testnet.mintscan.io/iris/";
