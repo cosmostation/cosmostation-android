@@ -694,6 +694,7 @@
 "tx_kava_hard_liquidate" = "하드풀\n청산";
 "tx_kava_hard_hard_incentive" = "인센티브\n하드풀";
 "tx_kava_hard_mint_incentive" = "인센티브\nUSDX 발행";
+"tx_ibc_send" = "IBC 전송";
 "tx_known" = "알 수 없음";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

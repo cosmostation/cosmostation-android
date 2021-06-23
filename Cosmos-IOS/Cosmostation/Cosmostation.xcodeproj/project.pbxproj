@@ -520,6 +520,8 @@
 		288D24FD268321A40093121A /* ApiHistoryNewCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D24FC268321A40093121A /* ApiHistoryNewCustom.swift */; };
 		288D2500268326060093121A /* NewHistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D24FE268326060093121A /* NewHistoryCell.swift */; };
 		288D2501268326060093121A /* NewHistoryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288D24FF268326060093121A /* NewHistoryCell.xib */; };
+		288D250426834E980093121A /* TxIbcSendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288D250226834E980093121A /* TxIbcSendCell.swift */; };
+		288D250526834E980093121A /* TxIbcSendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288D250326834E980093121A /* TxIbcSendCell.xib */; };
 		288E1746262812620017322E /* TokenDetailCrytoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 288E1744262812620017322E /* TokenDetailCrytoCell.swift */; };
 		288E1747262812620017322E /* TokenDetailCrytoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 288E1745262812620017322E /* TokenDetailCrytoCell.xib */; };
 		28908F6923F69BD100164030 /* EdgeInsetLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28908F6823F69BD100164030 /* EdgeInsetLabel.swift */; };
@@ -1401,6 +1403,8 @@
 		288D24FC268321A40093121A /* ApiHistoryNewCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiHistoryNewCustom.swift; sourceTree = "<group>"; };
 		288D24FE268326060093121A /* NewHistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewHistoryCell.swift; sourceTree = "<group>"; };
 		288D24FF268326060093121A /* NewHistoryCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewHistoryCell.xib; sourceTree = "<group>"; };
+		288D250226834E980093121A /* TxIbcSendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxIbcSendCell.swift; sourceTree = "<group>"; };
+		288D250326834E980093121A /* TxIbcSendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TxIbcSendCell.xib; sourceTree = "<group>"; };
 		288E1744262812620017322E /* TokenDetailCrytoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailCrytoCell.swift; sourceTree = "<group>"; };
 		288E1745262812620017322E /* TokenDetailCrytoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailCrytoCell.xib; sourceTree = "<group>"; };
 		28908F6823F69BD100164030 /* EdgeInsetLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EdgeInsetLabel.swift; sourceTree = "<group>"; };
@@ -2377,6 +2381,8 @@
 				283E94762549030C007A9291 /* TxReplaceResourceCell.xib */,
 				283E947A25490322007A9291 /* TxRenewStarnameCell.swift */,
 				283E947B25490322007A9291 /* TxRenewStarnameCell.xib */,
+				288D250226834E980093121A /* TxIbcSendCell.swift */,
+				288D250326834E980093121A /* TxIbcSendCell.xib */,
 			);
 			path = txs;
 			sourceTree = "<group>";
@@ -3168,6 +3174,7 @@
 				286AFF0F2660BC9100014355 /* TokenDetailSentinelCell.xib in Resources */,
 				E16D9B202249E9DC0019B7BB /* Password.storyboard in Resources */,
 				E17748F522842628003D8CD1 /* ClaimRewardAllCell.xib in Resources */,
+				288D250526834E980093121A /* TxIbcSendCell.xib in Resources */,
 				2852EAFF268216B4003A5E74 /* WalletSifIncentiveCell.xib in Resources */,
 				280E1F12254AB5C70007BA7D /* ReplaceResource3ViewController.xib in Resources */,
 				285A33DB244763290052BD3D /* SelectChainCell.xib in Resources */,
@@ -3723,6 +3730,7 @@
 				287AC5E325FDF7260070837E /* oracle_query.pb.swift in Sources */,
 				E183EF2122A75E09003B3580 /* ReInvestCheckViewController.swift in Sources */,
 				28CFB6B22613447C00A18634 /* TokenDetailCell.swift in Sources */,
+				288D250426834E980093121A /* TxIbcSendCell.swift in Sources */,
 				287AC62525FDF7260070837E /* token_tx.grpc.swift in Sources */,
 				283E946D254902E5007A9291 /* TxDeleteDomainCell.swift in Sources */,
 				289EF81B26824E4700F90AC1 /* osmosis_claim_v1beta1_params.pb.swift in Sources */,

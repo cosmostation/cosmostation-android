@@ -151,6 +151,11 @@ public struct ApiHistoryNewCustom {
                 
             }
             
+            else if (msgType.contains("ibc") || msgType.contains("MsgTransfer")) {
+                result = NSLocalizedString("tx_ibc_send", comment: "")
+                
+            }
+            
             if (getMsgCnt() > 1) {
                 result = result +  "\n+ " + String(getMsgCnt() - 1)
             }
@@ -182,6 +187,10 @@ public struct ApiHistoryNewCustom {
                 return Coin.init(rawAmount)
             }
             
+        } else if (msgType.contains("ibc") || msgType.contains("MsgTransfer")) {
+            if let rawAmount = getMsgs()?[0].object(forKey: "token") as? NSDictionary {
+                return Coin.init(rawAmount)
+            }
         }
         return nil
     }
