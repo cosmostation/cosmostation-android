@@ -383,7 +383,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 if (mProposalDetail_gRPC != null && mProposalDetail_gRPC.getStatus().equals(Gov.ProposalStatus.PROPOSAL_STATUS_VOTING_PERIOD)) {
                     onDisplayVote_V1(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
-                    holder.itemQuorum.setText(WDp.getDpString(WDp.systemQuorum(mBaseChain) + "%", 3));
+                    holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
                     holder.itemTurnout.setText(WDp.getDpString(WDp.getTurnout(mBaseChain, getBaseDao(), mTally_gRPC).setScale(2).toPlainString() + "%", 3));
                 }
 
@@ -420,7 +420,7 @@ public class VoteDetailsActivity extends BaseActivity implements View.OnClickLis
                 if (mProposal != null && mProposal.proposal_status.equals(PROPOSAL_VOTING)) {
                     onDisplayVote(holder);
                     holder.itemTurnoutLayer.setVisibility(View.VISIBLE);
-                    holder.itemQuorum.setText(WDp.getDpString(WDp.systemQuorum(mBaseChain) + "%", 3));
+                    holder.itemQuorum.setText(WDp.getPercentDp(getBaseDao().mChainParam.getQuorum(mBaseChain)));
                     holder.itemTurnout.setText(WDp.getDpString(mTally.getTurnout(mBaseChain, getBaseDao().mChainParam).toPlainString() + "%", 3));
                 }
 

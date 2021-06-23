@@ -14,6 +14,8 @@ import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.utils.WUtil;
 
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.CERTIK_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.SIF_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.isGRPC;
 import static wannabit.io.cosmostaion.base.BaseConstant.YEAR_SEC;
@@ -163,6 +165,18 @@ public class ChainParam {
                 return mStakingParams.params.bond_denom;
             } else {
                 return mStakingParams.bond_denom;
+            }
+        }
+
+        public BigDecimal getQuorum (BaseChain baseChain) {
+            if (isGRPC(baseChain)) {
+                return new BigDecimal(govTallyings.tallyparams.quorum).movePointRight(2);
+
+            } else {
+                if (baseChain.equals(CERTIK_MAIN) || baseChain.equals(CERTIK_TEST)) {
+                    return new BigDecimal(govTallyings.defaultTally.quorum).movePointRight(2);
+                }
+                return new BigDecimal(govTallyings.quorum).movePointRight(2);
             }
         }
     }

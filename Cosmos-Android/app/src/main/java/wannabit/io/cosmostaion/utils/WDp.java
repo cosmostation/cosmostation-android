@@ -2405,19 +2405,6 @@ public class WDp {
         return result;
     }
 
-    public static BigDecimal systemQuorum(BaseChain basechain) {
-        BigDecimal result = new BigDecimal("0.4");
-        if (basechain.equals(IRIS_MAIN) || basechain.equals(IRIS_TEST)) {
-            result = new BigDecimal("0.5");
-        } else if (basechain.equals(AKASH_MAIN) || basechain.equals(SENTINEL_MAIN) || basechain.equals(IOV_MAIN) ||
-                basechain.equals(CERTIK_MAIN) || basechain.equals(SECRET_MAIN) || basechain.equals(CRYPTO_MAIN) || basechain.equals(SIF_MAIN) || basechain.equals(KI_MAIN)) {
-            result = new BigDecimal("0.334");
-        } else if (basechain.equals(OSMOSIS_MAIN)) {
-            result = new BigDecimal("0.2");
-        }
-        return result.movePointRight(2).setScale(2);
-    }
-
     public static String getDpOption(String option) {
         if (option.equals("1")) {
             return "Yes";
