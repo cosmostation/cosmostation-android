@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.widget.mainWallet.WalletRizonHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSecretHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSentinelHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletSifHolder;
+import wannabit.io.cosmostaion.widget.mainWallet.WalletSifIncentiveHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletStarnameHolder;
 import wannabit.io.cosmostaion.widget.mainWallet.WalletUndelegationHolder;
 
@@ -213,6 +214,7 @@ public class MainSendFragment extends BaseFragment {
 
         private static final int TYPE_STAKE_DROP        = 30;
         private static final int TYPE_UNDELEGATIONS     = 40;
+        private static final int TYPE_SIF_INCENTIVE     = 50;
         private static final int TYPE_PRICE             = 80;
         private static final int TYPE_MINT              = 81;
         private static final int TYPE_GIUDE             = 82;
@@ -298,6 +300,9 @@ public class MainSendFragment extends BaseFragment {
             } else if (viewType == TYPE_UNDELEGATIONS) {
                 return new WalletUndelegationHolder(getLayoutInflater().inflate(R.layout.item_wallet_undelegation, viewGroup, false));
 
+            } else if (viewType == TYPE_SIF_INCENTIVE) {
+                return new WalletSifIncentiveHolder(getLayoutInflater().inflate(R.layout.item_wallet_sifincentive, viewGroup, false));
+
             }
             return null;
         }
@@ -317,13 +322,6 @@ public class MainSendFragment extends BaseFragment {
                 if (getMainActivity().mBaseChain.equals(BNB_MAIN) || getMainActivity().mBaseChain .equals(BNB_TEST) ||
                         getMainActivity().mBaseChain.equals(OKEX_MAIN) || getMainActivity().mBaseChain .equals(OK_TEST)) {
                     return 4;
-                } else if (getMainActivity().mBaseChain.equals(SIF_MAIN)) {
-                    if (getBaseDao().mMyUnbondings.size() > 0) {
-                        return 5;
-                    } else {
-                        return 4;
-                    }
-
                 } else {
                     if (getBaseDao().mMyUnbondings.size() > 0) {
                         return 6;
@@ -377,12 +375,14 @@ public class MainSendFragment extends BaseFragment {
                 } else if (position == 1) {
                     return TYPE_SIF;
                 } else if (position == 2) {
+                    return TYPE_SIF_INCENTIVE;
+                } else if (position == 3) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_UNDELEGATIONS; }
                     else { return TYPE_PRICE; }
-                } else if (position == 3) {
+                } else if (position == 4) {
                     if (getBaseDao().mMyUnbondings.size() > 0) { return TYPE_PRICE; }
                     else { return TYPE_GIUDE; }
-                } else if (position == 4) {
+                } else if (position == 5) {
                     return TYPE_GIUDE;
                 }
 

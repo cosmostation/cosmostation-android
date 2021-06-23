@@ -82,6 +82,8 @@
 
     <string name="url_lcd_sif" translatable="false">https://lcd-sifchain.cosmostation.io/</string>
     <string name="url_api_sif" translatable="false">https://api-sifchain.cosmostation.io/</string>
+    <string name="url_api_sif_finance" translatable="false">https://api-cryptoeconomics.sifchain.finance/</string>
+
 
     <string name="url_lcd_ki" translatable="false">https://lcd-kichain.cosmostation.io/</string>
     <string name="url_api_ki" translatable="false">https://api-kichain.cosmostation.io/</string>
@@ -1078,6 +1080,12 @@
     <string name="str_recent">Recent</string>
     <string name="str_in_wallet">Wallet</string>
     <string name="str_fee_free_title">Fee Free Event</string>
+    <string name="str_sif_incentive_title">Incentive Event</string>
+    <string name="str_sif_incentive_staking">Staking Subsidy Incentive</string>
+    <string name="str_sif_incentive_liquidity">Liquidity Mining Incentive</string>
+    <string name="str_sif_incentive_max_staking">Max Staking Subsidy</string>
+    <string name="str_sif_incentive_max_liquidity">Max Liquidity Mining</string>
+    <string name="str_sif_incentive_max_date">Max Date</string>
     <string name="str_fee_free_msg">To commemorate the launch of the main net, \nwe will hold a free 3-week event.</string>
     <string name="str_delegate_notice">When you delegate, your accumulated rewards will be automatically claimed to your available balance.</string>
     <string name="str_undelegate_notice">If you undelegate to the validator, the accumulated rewards will be automatically withdrawn and deposited into your available balance.</string>

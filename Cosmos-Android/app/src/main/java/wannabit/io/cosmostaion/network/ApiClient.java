@@ -503,6 +503,21 @@ public class ApiClient {
         return api_sif;
     }
 
+    //Services for sifChain incentive api
+    private static SifChain incentive_sif = null;
+    public static SifChain getSifIncentiveApi(Context c) {
+        if (incentive_sif == null) {
+            synchronized (ApiClient.class) {
+                Retrofit retrofit = new Retrofit.Builder()
+                        .baseUrl(c.getString(R.string.url_api_sif_finance))
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+                incentive_sif = retrofit.create(SifChain.class);
+            }
+        }
+        return incentive_sif;
+    }
+
     //Services for kifoundation mainnet
     private static KiChain service_ki = null;
     public static KiChain getKiChain(Context c) {

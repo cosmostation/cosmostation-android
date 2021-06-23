@@ -71,6 +71,7 @@ import wannabit.io.cosmostaion.dialog.Dialog_WatchMode;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
+import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
 import wannabit.io.cosmostaion.model.kava.MarketPrice;
@@ -105,6 +106,8 @@ import wannabit.io.cosmostaion.task.FetchTask.OkStakingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkTokenListTask;
 import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
+import wannabit.io.cosmostaion.task.FetchTask.SifLmIncentiveTask;
+import wannabit.io.cosmostaion.task.FetchTask.SifVsIncentiveTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameConfigTask;
 import wannabit.io.cosmostaion.task.FetchTask.StarNameFeeTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
@@ -177,6 +180,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_DEX_TICKER
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_STAKING_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE_LM;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE_VS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_CONFIG;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
@@ -532,6 +537,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mPrices.clear();
         getBaseDao().mChainParam = null;
 
+        getBaseDao().mSifVsIncentive = null;
+        getBaseDao().mSifLmIncentive = null;
+
         getBaseDao().mNodeInfo = null;
         getBaseDao().mAllValidators.clear();
         getBaseDao().mMyValidators.clear();
@@ -655,7 +663,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new OkStakingInfoTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new OkUnbondingInfoTask(getBaseApplication(), this, mAccount, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(FETCHAI_MAIN) || mBaseChain.equals(SIF_MAIN) ||
+        } else if (mBaseChain.equals(BaseChain.CERTIK_MAIN) || mBaseChain.equals(BaseChain.CERTIK_TEST) || mBaseChain.equals(SECRET_MAIN) || mBaseChain.equals(FETCHAI_MAIN) ||
                    mBaseChain.equals(KI_MAIN) || mBaseChain.equals(MEDI_TEST)) {
             mTaskCount = 8;
             new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -667,6 +675,20 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
             new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(SIF_MAIN)) {
+            mTaskCount = 10;
+            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SifVsIncentiveTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new SifLmIncentiveTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
 
@@ -850,6 +872,16 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_FETCH_BAND_ORACLE_STATUS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mBandOracles = ((ResBandOracleStatus)result.resultData);
+            }
+
+        } else if (result.taskType == TASK_FETCH_SIF_INCENTIVE_VS) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mSifVsIncentive = ((SifIncentive.User)result.resultData);
+            }
+
+        } else if (result.taskType == TASK_FETCH_SIF_INCENTIVE_LM) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mSifLmIncentive = ((SifIncentive.User)result.resultData);
             }
 
         }

@@ -6,6 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
+import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.network.req.ReqBroadCast;
 import wannabit.io.cosmostaion.network.res.ResBroadTx;
 import wannabit.io.cosmostaion.network.res.ResLcdAccountInfo;
@@ -120,4 +121,13 @@ public interface SifChain {
 
     @GET("gov/proposals/{proposalId}/votes/{address}")
     Call<ResMyVote> getMyVote(@Path("proposalId") String proposalId, @Path("address") String address);
+
+
+
+    //Liquidity and Validator Rewards
+    @GET("api/vs")
+    Call<SifIncentive> getVsIncentive(@Query("key") String key, @Query("address") String address, @Query("timestamp") String time);
+
+    @GET("api/lm")
+    Call<SifIncentive> getLmIncentive(@Query("key") String key, @Query("address") String address, @Query("timestamp") String time);
 }
