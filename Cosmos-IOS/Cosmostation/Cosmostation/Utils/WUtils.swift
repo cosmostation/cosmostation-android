@@ -4527,6 +4527,11 @@ class WUtils {
         } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
             let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
             return cancelProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
+            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
+            return PoolIncentiveProposal.title
+            
         }
         return ""
     }
@@ -4555,6 +4560,11 @@ class WUtils {
         } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
             let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
             return cancelProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
+            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
+            return PoolIncentiveProposal.description_p
+            
         }
         return ""
     }
