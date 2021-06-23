@@ -28,7 +28,8 @@ let KEY_PRE_EVENT_HIDE                  = "KEY_PRE_EVENT_HIDE"
 let STATION_URL                         = "https://api-utility.cosmostation.io/";
 let CSS_URL                             = "https://api-wallet.cosmostation.io/";
 
-let COSMOS_API                          = "https://api.cosmostation.io/";
+//let COSMOS_API                          = "https://api.cosmostation.io/";
+let COSMOS_API                          = "https://api-office.cosmostation.io/cosmoshub-4/";
 
 let COSMOS_TEST_API                     = "https://api-office.cosmostation.io/stargate-final/";
 
@@ -744,7 +745,7 @@ enum ChainType: String {
 //        result.append(OKEX_TEST)
 //        result.append(CERTIK_TEST)
         result.append(RIZON_TEST)
-        result.append(MEDI_TEST)
+//        result.append(MEDI_TEST)
         result.append(ALTHEA_TEST)
         return result
     }

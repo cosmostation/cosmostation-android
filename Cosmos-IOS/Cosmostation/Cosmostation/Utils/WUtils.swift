@@ -402,6 +402,35 @@ class WUtils {
     }
     
     
+    static func newApiTimeToInt64(_ input: String) -> Date {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        return nodeFormatter.date(from: input) ?? Date.init()
+    }
+    
+    static func newApiTimeToString(_ input: String?) -> String {
+        if (input == nil) { return "??" }
+        guard let subString = input!.split(separator: ".").first else { return "??" }
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
+        return localFormatter.string(from: newApiTimeToInt64(String(subString)))
+    }
+    
+    static func newApiTimeGap(_ input: String?) -> String {
+        if (input == nil) { return "??" }
+        guard let subString = input!.split(separator: ".").first else { return "??" }
+        let secondsAgo = Int(Date().timeIntervalSince(newApiTimeToInt64(String(subString))))
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        if secondsAgo < minute { return "(\(secondsAgo) seconds ago)" }
+        else if secondsAgo < hour { return "(\(secondsAgo / minute) minutes ago)" }
+        else if secondsAgo < day { return "(\(secondsAgo / hour) hours ago)" }
+        else { return "(\(secondsAgo / day) days ago)" }
+    }
+    
+    
     static func sifNodeTimeToString(_ input: String) -> String {
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"

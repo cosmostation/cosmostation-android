@@ -1016,7 +1016,8 @@ class BaseNetWork {
     static func accountHistory(_ chain: ChainType, _ address: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
-            result = COSMOS_API + "v1/account/txs/" + address
+//            result = COSMOS_API + "v1/account/txs/" + address
+            result = COSMOS_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_API + "v1/account/txs/" + address
         } else if (chain == ChainType.AKASH_MAIN) {
@@ -1067,7 +1068,7 @@ class BaseNetWork {
     static func accountStakingHistory(_ chain: ChainType, _ address: String, _ valAddress: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
-            result = COSMOS_API + "v1/account/txs/" + address + "/" + valAddress
+            result = COSMOS_API + "v1/account/new_txs/" + address + "/" + valAddress
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.AKASH_MAIN) {

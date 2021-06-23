@@ -31,6 +31,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     var mValidator_gRPC: Cosmos_Staking_V1beta1_Validator?
     var mSelfDelegationInfo_gRPC: Cosmos_Staking_V1beta1_DelegationResponse?
     var mApiCustomHistories = Array<ApiHistoryCustom>()
+    var mApiCustomNewHistories = Array<ApiHistoryNewCustom>()
         
     var refresher: UIRefreshControl!
 
@@ -47,6 +48,7 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailCell", bundle: nil), forCellReuseIdentifier: "ValidatorDetailCell")
         self.validatorDetailTableView.register(UINib(nibName: "ValidatorDetailHistoryEmpty", bundle: nil), forCellReuseIdentifier: "ValidatorDetailHistoryEmpty")
         self.validatorDetailTableView.register(UINib(nibName: "HistoryCell", bundle: nil), forCellReuseIdentifier: "HistoryCell")
+        self.validatorDetailTableView.register(UINib(nibName: "NewHistoryCell", bundle: nil), forCellReuseIdentifier: "NewHistoryCell")
         self.validatorDetailTableView.rowHeight = UITableView.automaticDimension
         self.validatorDetailTableView.estimatedRowHeight = UITableView.automaticDimension
         
@@ -71,7 +73,20 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     @objc func onFech() {
-        if (WUtils.isGRPC(chainType!)) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+            self.mFetchCnt = 6
+            BaseData.instance.mMyDelegations_gRPC.removeAll()
+            BaseData.instance.mMyUnbondings_gRPC.removeAll()
+            BaseData.instance.mMyReward_gRPC.removeAll()
+            
+            onFetchSingleValidator_gRPC(mValidator_gRPC!.operatorAddress)
+            onFetchValidatorSelfBond_gRPC(WKey.getAddressFromOpAddress(mValidator_gRPC!.operatorAddress, chainType!), mValidator_gRPC!.operatorAddress)
+            onFetchDelegations_gRPC(account!.account_address, 0)
+            onFetchUndelegations_gRPC(account!.account_address, 0)
+            onFetchRewards_gRPC(account!.account_address)
+            onFetchNewApiHistoryCustom(account!.account_address, mValidator_gRPC!.operatorAddress)
+            
+        } else  if (WUtils.isGRPC(chainType!)) {
             self.mFetchCnt = 6
             BaseData.instance.mMyDelegations_gRPC.removeAll()
             BaseData.instance.mMyUnbondings_gRPC.removeAll()
@@ -142,8 +157,13 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 if (BaseData.instance.mMyValidators_gRPC.contains{ $0.operatorAddress == mValidator_gRPC?.operatorAddress }) { return 2 }
                 else { return 1 }
             } else {
-                if (mApiCustomHistories.count > 0) { return mApiCustomHistories.count }
-                else { return 1 }
+                if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+                    if (mApiCustomNewHistories.count > 0) { return mApiCustomNewHistories.count }
+                    else { return 1 }
+                } else {
+                    if (mApiCustomHistories.count > 0) { return mApiCustomHistories.count }
+                    else { return 1 }
+                }
             }
         } else {
             if (section == 0) {
@@ -462,19 +482,31 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
     }
     
     func onSetHistoryItemsV1(_ tableView: UITableView, _ indexPath: IndexPath) -> UITableViewCell {
-        if (mApiCustomHistories.count > 0) {
-            let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
-            let history = mApiCustomHistories[indexPath.row]
-            cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
-            cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
-            cell?.txBlockLabel.text = String(history.height!) + " block"
-            cell?.txTypeLabel.text = history.getMsgType(account!.account_address)
-            if (history.isSuccess()) { cell?.txResultLabel.isHidden = true }
-            else { cell?.txResultLabel.isHidden = false }
-            return cell!
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+            if (mApiCustomNewHistories.count > 0) {
+                let cell = tableView.dequeueReusableCell(withIdentifier:"NewHistoryCell") as? NewHistoryCell
+                cell?.bindView(chainType!, mApiCustomNewHistories[indexPath.row], account!.account_address)
+                return cell!
+            } else {
+                let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
+                return cell!
+            }
+            
         } else {
-            let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
-            return cell!
+            if (mApiCustomHistories.count > 0) {
+                let cell:HistoryCell? = tableView.dequeueReusableCell(withIdentifier:"HistoryCell") as? HistoryCell
+                let history = mApiCustomHistories[indexPath.row]
+                cell?.txTimeLabel.text = WUtils.txTimetoString(input: history.timestamp)
+                cell?.txTimeGapLabel.text = WUtils.txTimeGap(input: history.timestamp)
+                cell?.txBlockLabel.text = String(history.height!) + " block"
+                cell?.txTypeLabel.text = history.getMsgType(account!.account_address)
+                if (history.isSuccess()) { cell?.txResultLabel.isHidden = true }
+                else { cell?.txResultLabel.isHidden = false }
+                return cell!
+            } else {
+                let cell:ValidatorDetailHistoryEmpty? = tableView.dequeueReusableCell(withIdentifier:"ValidatorDetailHistoryEmpty") as? ValidatorDetailHistoryEmpty
+                return cell!
+            }
         }
     }
     
@@ -500,6 +532,22 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
                 txDetailVC.mIsGen = false
                 txDetailVC.mTxHash = history.tx_hash
+                txDetailVC.hidesBottomBarWhenPushed = true
+                self.navigationItem.title = ""
+                self.navigationController?.pushViewController(txDetailVC, animated: true)
+            }
+            
+        } else if (indexPath.section == 1 && mApiCustomNewHistories.count > 0) {
+            let history = mApiCustomNewHistories[indexPath.row]
+            if (history.header?.chain_id != BaseData.instance.getChainId_gRPC()) {
+                let link = WUtils.getTxExplorer(self.chainType!, history.data!.txhash!)
+                guard let url = URL(string: link) else { return }
+                self.onShowSafariWeb(url)
+                
+            } else {
+                let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
+                txDetailVC.mIsGen = false
+                txDetailVC.mTxHash = history.data!.txhash!
                 txDetailVC.hidesBottomBarWhenPushed = true
                 self.navigationItem.title = ""
                 self.navigationController?.pushViewController(txDetailVC, animated: true)
@@ -920,6 +968,27 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
                 
             case .failure(let error):
                 if (SHOW_LOG) { print("onFetchApiHistoryCustom ", error) }
+            }
+            self.onFetchFinished()
+        }
+    }
+    
+    func onFetchNewApiHistoryCustom(_ address: String, _ valAddress: String) {
+        let url = BaseNetWork.accountStakingHistory(chainType!, address, valAddress)
+        let request = Alamofire.request(url, method: .get, parameters: ["limit":"50"], encoding: URLEncoding.default, headers: [:])
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                print("onFetchNewApiHistoryCustom ", res)
+                self.mApiCustomNewHistories.removeAll()
+                if let histories = res as? Array<NSDictionary> {
+                    for rawHistory in histories {
+                        self.mApiCustomNewHistories.append(ApiHistoryNewCustom.init(rawHistory))
+                    }
+                }
+                
+            case .failure(let error):
+                print("onFetchNewApiHistoryCustom ", error)
             }
             self.onFetchFinished()
         }
