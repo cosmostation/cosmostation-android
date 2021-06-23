@@ -40,6 +40,7 @@ import wannabit.io.cosmostaion.dao.Price;
 import wannabit.io.cosmostaion.model.BondingInfo;
 import wannabit.io.cosmostaion.model.NodeInfo;
 import wannabit.io.cosmostaion.model.RewardInfo;
+import wannabit.io.cosmostaion.model.SifIncentive;
 import wannabit.io.cosmostaion.model.UnbondingInfo;
 import wannabit.io.cosmostaion.model.kava.AuctionParam;
 import wannabit.io.cosmostaion.model.kava.CdpParam;
@@ -133,11 +134,6 @@ public class BaseData {
     public ArrayList<UnbondingInfo>     mMyUnbondings = new ArrayList<>();
     public ArrayList<RewardInfo>        mMyRewards = new ArrayList<>();
 
-    public ResStakingPool               mStakingPool;
-    public BigDecimal                   mInflation = BigDecimal.ZERO;
-    public BigDecimal                   mProvisions = BigDecimal.ZERO;
-    public ResMintParam.MintParam       mMintParam;
-
     //COMMON DATA FOR KAVA-7
     public ResLcdKavaAccountInfo.Result     mKavaAccount;
     public CdpParam                         mCdpParam;
@@ -170,6 +166,10 @@ public class BaseData {
 
     //COMMON DATA FOR BAND
     public ResBandOracleStatus      mBandOracles;
+
+    //INCENTIVE DATA FOR SIF
+    public SifIncentive.User        mSifVsIncentive;
+    public SifIncentive.User        mSifLmIncentive;
 
     public BigDecimal availableAmount(String denom) {
         BigDecimal result = BigDecimal.ZERO;
@@ -341,11 +341,6 @@ public class BaseData {
     public ArrayList<Staking.DelegationResponse>                mGrpcDelegations = new ArrayList<>();
     public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
     public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
-
-    public Staking.Pool                                         mGrpcStakingPool;
-    public cosmos.mint.v1beta1.Mint.Params                      mGrpcParamMint;
-    public BigDecimal                                           mGrpcInflation;
-    public BigDecimal                                           mGrpcProvision;
 
     public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
     public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();

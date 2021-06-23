@@ -858,6 +858,12 @@
     <string name="str_recent">최근 목록</string>
     <string name="str_in_wallet">지갑 목록</string>
     <string name="str_fee_free_title">Tx 수수료 무료 </string>
+    <string name="str_sif_incentive_title">인센티브 이벤트</string>
+    <string name="str_sif_incentive_staking">스테이킹 보조금 인센티브</string>
+    <string name="str_sif_incentive_liquidity">유동성 채굴 인센티브</string>
+    <string name="str_sif_incentive_max_staking">Max 스테이킹 인센티브</string>
+    <string name="str_sif_incentive_max_liquidity">Max 유동성 인센티브</string>
+    <string name="str_sif_incentive_max_date">만기 날짜</string>
     <string name="str_fee_free_msg">Tx 수수료 무료 이벤트가 진행중 입니다.</string>
     <string name="str_delegate_notice">위임 시 해당 검증인에게 발생한 기존 이자는 사용 가능 수량으로 자동 정산 됩니다.</string>
     <string name="str_undelegate_notice">현재 이 검증인에게 받을 이자가 있다면,\n위임 철회를 하는 순간 모든 이자는 귀하의 사용가능\n수량으로 자동적으로 입금될 것입니다.</string>
