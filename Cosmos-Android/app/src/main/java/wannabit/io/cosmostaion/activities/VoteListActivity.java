@@ -286,6 +286,16 @@ public class VoteListActivity extends BaseActivity implements TaskListener {
                     Upgrade.CancelSoftwareUpgradeProposal cancelSoftwareUpgradeProposal = Upgrade.CancelSoftwareUpgradeProposal.parseFrom(proposal.getContent().getValue());
                     voteHolder.proposal_title.setText(cancelSoftwareUpgradeProposal.getTitle());
                     voteHolder.proposal_details.setText(cancelSoftwareUpgradeProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.UpdatePoolIncentivesProposal")) {
+                    osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal updatePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.UpdatePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(updatePoolIncentivesProposal.getTitle());
+                    voteHolder.proposal_details.setText(updatePoolIncentivesProposal.getDescription());
+
+                } else if (proposal.getContent().getTypeUrl().equals("/osmosis.poolincentives.v1beta1.ReplacePoolIncentivesProposal")) {
+                    osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal replacePoolIncentivesProposal = osmosis.poolincentives.v1beta1.Gov.ReplacePoolIncentivesProposal.parseFrom(proposal.getContent().getValue());
+                    voteHolder.proposal_title.setText(replacePoolIncentivesProposal.getTitle());
+                    voteHolder.proposal_details.setText(replacePoolIncentivesProposal.getDescription());
                 }
 
             } catch (Exception e){WLog.w("Ex " +e.getMessage());}
