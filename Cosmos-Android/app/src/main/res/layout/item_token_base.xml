@@ -43,6 +43,8 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/token_icon"
                     android:layout_toRightOf="@+id/token_icon"
+                    android:maxWidth="@dimen/space_180"
+                    android:singleLine="true"
                     android:layout_marginLeft="@dimen/space_6"
                     style="@style/font_ss_12_gray1"/>
                 <LinearLayout
