@@ -165,16 +165,28 @@ class StepSendAmountViewController: BaseViewController, UITextFieldDelegate{
     
     @IBAction func onClickNext(_ sender: Any) {
         if (isValiadAmount()) {
-            let userInput = WUtils.localeStringToDecimal((mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces))!)
-            let toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDivideDecimal).stringValue)
-            var tempList = Array<Coin>()
-            tempList.append(toSendCoin)
-            self.pageHolderVC.mToSendAmount = tempList
-            
-            self.backBtn.isUserInteractionEnabled = false
-            self.nextBtn.isUserInteractionEnabled = false
-            pageHolderVC.onNextPage()
-
+            if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+                let userInput = WUtils.localeStringToDecimal((mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces))!)
+                let toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, WUtils.getFormattedNumber(userInput, mDisplayDecimal))
+                var tempList = Array<Coin>()
+                tempList.append(toSendCoin)
+                self.pageHolderVC.mToSendAmount = tempList
+                
+                self.backBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+                
+            } else {
+                let userInput = WUtils.localeStringToDecimal((mTargetAmountTextField.text?.trimmingCharacters(in: .whitespaces))!)
+                let toSendCoin = Coin.init(pageHolderVC.mToSendDenom!, userInput.multiplying(byPowerOf10: mDivideDecimal).stringValue)
+                var tempList = Array<Coin>()
+                tempList.append(toSendCoin)
+                self.pageHolderVC.mToSendAmount = tempList
+                
+                self.backBtn.isUserInteractionEnabled = false
+                self.nextBtn.isUserInteractionEnabled = false
+                pageHolderVC.onNextPage()
+            }
         }
     }
     

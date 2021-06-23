@@ -4532,6 +4532,10 @@ class WUtils {
             let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
             return PoolIncentiveProposal.title
             
+        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.protoMessageName)) {
+            let ReplacePoolIncentive = try! Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.init(serializedData: proposal.content.value)
+            return ReplacePoolIncentive.title
+            
         }
         return ""
     }
@@ -4564,6 +4568,10 @@ class WUtils {
         } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
             let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
             return PoolIncentiveProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.protoMessageName)) {
+            let ReplacePoolIncentive = try! Osmosis_Poolincentives_V1beta1_ReplacePoolIncentivesProposal.init(serializedData: proposal.content.value)
+            return ReplacePoolIncentive.description_p
             
         }
         return ""

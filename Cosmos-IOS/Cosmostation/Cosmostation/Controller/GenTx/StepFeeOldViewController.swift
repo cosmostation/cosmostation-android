@@ -54,7 +54,7 @@ class StepFeeOldViewController: BaseViewController {
         if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             var currentVotedCnt = 0
             if let voted = BaseData.instance.mOkStaking?.validator_address?.count { currentVotedCnt = voted }
-            mEstimateGasAmount = WUtils.getEstimateGasFeeAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt)
+            mEstimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, currentVotedCnt)
             
         } else {
             mEstimateGasAmount = WUtils.getEstimateGasAmount(pageHolderVC.chainType!, pageHolderVC.mType!, pageHolderVC.mRewardTargetValidators.count)
@@ -67,8 +67,10 @@ class StepFeeOldViewController: BaseViewController {
         mSelectedGasRate = WUtils.getGasRate(pageHolderVC.chainType!, mSelectedGasPosition)
         if (pageHolderVC.chainType! == ChainType.BINANCE_MAIN || pageHolderVC.chainType! == ChainType.BINANCE_TEST) {
             mFee = NSDecimalNumber.init(string: FEE_BNB_TRANSFER)
+            
         } else if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
             mFee = mSelectedGasRate.multiplying(by: mEstimateGasAmount, withBehavior: WUtils.handler18)
+            
         } else {
             mFee = mSelectedGasRate.multiplying(by: mEstimateGasAmount, withBehavior: WUtils.handler0Up)
         }
@@ -131,15 +133,27 @@ class StepFeeOldViewController: BaseViewController {
     }
     
     func onSetFee() {
-        let gasCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), mFee.stringValue)
-        var amount: Array<Coin> = Array<Coin>()
-        amount.append(gasCoin)
+        if (pageHolderVC.chainType! == ChainType.OKEX_MAIN || pageHolderVC.chainType! == ChainType.OKEX_TEST) {
+            let gasCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), WUtils.getFormattedNumber(mFee, mDisplayDecimal))
+            var amount: Array<Coin> = Array<Coin>()
+            amount.append(gasCoin)
+            
+            var fee = Fee.init()
+            fee.amount = amount
+            fee.gas = mEstimateGasAmount.stringValue
+            pageHolderVC.mFee = fee
+            
+        } else {
+            let gasCoin = Coin.init(WUtils.getMainDenom(pageHolderVC.chainType), mFee.stringValue)
+            var amount: Array<Coin> = Array<Coin>()
+            amount.append(gasCoin)
+            
+            var fee = Fee.init()
+            fee.amount = amount
+            fee.gas = mEstimateGasAmount.stringValue
+            pageHolderVC.mFee = fee
+        }
         
-        var fee = Fee.init()
-        fee.amount = amount
-        fee.gas = mEstimateGasAmount.stringValue
-        
-        pageHolderVC.mFee = fee
     }
     
     func onCheckValidate() -> Bool {
