@@ -979,7 +979,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
         request.responseJSON { (response) in
             switch response.result {
             case .success(let res):
-                print("onFetchNewApiHistoryCustom ", res)
                 self.mApiCustomNewHistories.removeAll()
                 if let histories = res as? Array<NSDictionary> {
                     for rawHistory in histories {

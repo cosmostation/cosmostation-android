@@ -1016,7 +1016,6 @@ class BaseNetWork {
     static func accountHistory(_ chain: ChainType, _ address: String) -> String {
         var result = ""
         if (chain == ChainType.COSMOS_MAIN) {
-//            result = COSMOS_API + "v1/account/txs/" + address
             result = COSMOS_API + "v1/account/new_txs/" + address
         } else if (chain == ChainType.IRIS_MAIN) {
             result = IRIS_API + "v1/account/txs/" + address
@@ -1026,6 +1025,8 @@ class BaseNetWork {
             result = PERSIS_API + "v1/account/txs/" + address
         } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            result = OSMOSIS_API + "v1/account/txs/" + address
         }
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/txs/" + address
@@ -1077,6 +1078,8 @@ class BaseNetWork {
             result = PERSIS_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CRYPTO_MAIN) {
             result = CRYTO_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            result = OSMOSIS_API + "v1/account/txs/" + address + "/" + valAddress
         }
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/txs/" + address + "/" + valAddress
