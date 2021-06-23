@@ -191,6 +191,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         BaseData.instance.mBandOracleStatus = nil
         
+        BaseData.instance.mSifVsIncentive = nil
+        BaseData.instance.mSifLmIncentive = nil
+        
         
         
         //gRPC
@@ -288,7 +291,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchOkUnbondingInfo(mAccount)
             
             
-        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.SIF_MAIN || mChainType == ChainType.KI_MAIN ||
+        } else if (mChainType == ChainType.CERTIK_MAIN || mChainType == ChainType.FETCH_MAIN || mChainType == ChainType.KI_MAIN ||
                     mChainType == ChainType.CERTIK_TEST || mChainType == ChainType.MEDI_TEST) {
             self.mFetchCnt = 8
             onFetchNodeInfo()
@@ -299,6 +302,20 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchBondingInfo(mAccount)
             onFetchUnbondingInfo(mAccount)
             onFetchAllReward(mAccount)
+            
+        } else if (mChainType == ChainType.SIF_MAIN) {
+            self.mFetchCnt = 10
+            onFetchNodeInfo()
+            onFetchTopValidatorsInfo()
+            onFetchUnbondedValidatorsInfo()
+            onFetchUnbondingValidatorsInfo()
+            onFetchAccountInfo(mAccount)
+            onFetchBondingInfo(mAccount)
+            onFetchUnbondingInfo(mAccount)
+            onFetchAllReward(mAccount)
+            
+            onFetchSifVsIncentive(mAccount.account_address)
+            onFetchSifLmIncentive(mAccount.account_address)
             
         }
 
@@ -1001,6 +1018,49 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             }
             self.onFetchFinished()
         }
+    }
+    
+    
+    func onFetchSifVsIncentive(_ address: String) {
+        print("onFetchSifVsIncentive ", BaseNetWork.vsIncentiveUrl(address))
+        let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let resData = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mSifVsIncentive = SifIncentive.init(resData)
+                print("mSifVsIncentive ", BaseData.instance.mSifVsIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
+                
+            case .failure(let error):
+                print("onFetchSifVsIncentive ", error)
+            }
+            self.onFetchFinished()
+        }
+        
+    }
+    
+    func onFetchSifLmIncentive(_ address: String) {
+        print("onFetchSifLmIncentive ", BaseNetWork.lmIncentiveUrl(address))
+        let request = Alamofire.request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
+        request.responseJSON { (response) in
+            switch response.result {
+            case .success(let res):
+                guard let resData = res as? NSDictionary else {
+                    self.onFetchFinished()
+                    return
+                }
+                BaseData.instance.mSifLmIncentive = SifIncentive.init(resData)
+                print("mSifLmIncentive ", BaseData.instance.mSifLmIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
+                
+            case .failure(let error):
+                print("onFetchSifLmIncentive ", error)
+            }
+            self.onFetchFinished()
+        }
+        
     }
     
     

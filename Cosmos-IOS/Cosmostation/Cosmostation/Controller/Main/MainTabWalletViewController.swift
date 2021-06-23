@@ -49,6 +49,7 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         self.walletTableView.register(UINib(nibName: "WalletFetchCell", bundle: nil), forCellReuseIdentifier: "WalletFetchCell")
         self.walletTableView.register(UINib(nibName: "WalletCrytoCell", bundle: nil), forCellReuseIdentifier: "WalletCrytoCell")
         self.walletTableView.register(UINib(nibName: "WalletSifCell", bundle: nil), forCellReuseIdentifier: "WalletSifCell")
+        self.walletTableView.register(UINib(nibName: "WalletSifIncentiveCell", bundle: nil), forCellReuseIdentifier: "WalletSifIncentiveCell")
         self.walletTableView.register(UINib(nibName: "WalletKiCell", bundle: nil), forCellReuseIdentifier: "WalletKiCell")
         self.walletTableView.register(UINib(nibName: "WalletRizonCell", bundle: nil), forCellReuseIdentifier: "WalletRizonCell")
         self.walletTableView.register(UINib(nibName: "WalletMediCell", bundle: nil), forCellReuseIdentifier: "WalletMediCell")
@@ -268,8 +269,6 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
         if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return 4;
         } else if (chainType == ChainType.OKEX_MAIN || chainType == ChainType.OKEX_TEST) {
-            return 4;
-        } else if (chainType == ChainType.SIF_MAIN) {
             return 4;
         }
         return 5;
@@ -849,6 +848,11 @@ class MainTabWalletViewController: BaseViewController, UITableViewDelegate, UITa
             return cell!
             
         } else if (indexPath.row == 2) {
+            let cell = tableView.dequeueReusableCell(withIdentifier:"WalletSifIncentiveCell") as? WalletSifIncentiveCell
+            cell?.updateView(mainTabVC.mAccount, chainType)
+            return cell!
+            
+        } else if (indexPath.row == 3) {
             let cell = tableView.dequeueReusableCell(withIdentifier:"WalletPriceCell") as? WalletPriceCell
             cell?.updateView(mainTabVC.mAccount, chainType)
             cell?.actionTapPricel = { self.onClickMarketInfo() }

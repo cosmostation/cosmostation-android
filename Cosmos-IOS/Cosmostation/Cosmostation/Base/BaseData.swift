@@ -60,6 +60,9 @@ final class BaseData : NSObject{
     
     var mBandOracleStatus: BandOracleStatus?
     
+    var mSifVsIncentive: SifIncentive?
+    var mSifLmIncentive: SifIncentive?
+    
     
     //For ProtoBuf and gRPC
     var mVestingAccountInfoResult: VestingAccountInfo.VestingAccountInfoResult?

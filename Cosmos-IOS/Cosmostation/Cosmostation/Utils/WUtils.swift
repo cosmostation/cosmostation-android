@@ -402,6 +402,18 @@ class WUtils {
     }
     
     
+    static func sifNodeTimeToString(_ input: String) -> String {
+        let nodeFormatter = DateFormatter()
+        nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
+        nodeFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone!
+        
+        let localFormatter = DateFormatter()
+        localFormatter.dateFormat = NSLocalizedString("date_format", comment: "")
+        
+        let fullDate = nodeFormatter.date(from: input)
+        return localFormatter.string(from: fullDate!)
+    }
+    
     static func nodeTimeToInt64(input: String) -> Date {
         let nodeFormatter = DateFormatter()
         nodeFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS'Z'"
@@ -2964,7 +2976,7 @@ class WUtils {
     }
     
     static func getEstimateGasFeeAmount(_ chain:ChainType, _ type:String,  _ valCnt:Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
@@ -2987,6 +2999,11 @@ class WUtils {
             
         } else if (chain == ChainType.SENTINEL_MAIN) {
             let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_SENTINEL)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_OSMOSIS)
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
@@ -3048,7 +3065,7 @@ class WUtils {
     }
     
     static func getGasRate(_ chain:ChainType, _ position: Int) -> NSDecimalNumber {
-        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN || chain == ChainType.OSMOSIS_MAIN ||
+        if (chain == ChainType.COSMOS_MAIN || chain == ChainType.AKASH_MAIN ||
                 chain == ChainType.COSMOS_TEST || chain == ChainType.RIZON_TEST || chain == ChainType.ALTHEA_TEST) {
             if (position == 0) {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY)
@@ -3092,6 +3109,15 @@ class WUtils {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_SENTINEL)
             } else {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_SENTINEL)
+            }
+            
+        } else if (chain == ChainType.OSMOSIS_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_OSMOSIS)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_OSMOSIS)
+            } else {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_OSMOSIS)
             }
             
         }
@@ -4501,6 +4527,11 @@ class WUtils {
         } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
             let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
             return cancelProposal.title
+            
+        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
+            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
+            return PoolIncentiveProposal.title
+            
         }
         return ""
     }
@@ -4529,6 +4560,11 @@ class WUtils {
         } else if (proposal.content.typeURL.contains(Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.protoMessageName)) {
             let cancelProposal = try! Cosmos_Upgrade_V1beta1_CancelSoftwareUpgradeProposal.init(serializedData: proposal.content.value)
             return cancelProposal.description_p
+            
+        } else if (proposal.content.typeURL.contains(Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.protoMessageName)) {
+            let PoolIncentiveProposal = try! Osmosis_Poolincentives_V1beta1_UpdatePoolIncentivesProposal.init(serializedData: proposal.content.value)
+            return PoolIncentiveProposal.description_p
+            
         }
         return ""
     }
