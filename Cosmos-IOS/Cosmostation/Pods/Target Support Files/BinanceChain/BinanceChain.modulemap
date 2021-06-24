@@ -1,6 +1,0 @@
-framework module BinanceChain {
-  umbrella header "BinanceChain-umbrella.h"
-
-  export *
-  module * { export * }
-}
