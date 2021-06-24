@@ -3931,14 +3931,10 @@ class WUtils {
     }
     
     static func systemQuorum(_ chain: ChainType?) -> NSDecimalNumber {
-        if (chain == ChainType.IRIS_MAIN || chain == ChainType.IRIS_TEST) {
-            return NSDecimalNumber.init(string: "0.5")
-        } else if (chain == ChainType.AKASH_MAIN || chain == ChainType.SENTINEL_MAIN || chain == ChainType.IOV_MAIN ||
-                    chain == ChainType.CERTIK_MAIN || chain == ChainType.SECRET_MAIN || chain == ChainType.CRYPTO_MAIN ||
-                    chain == ChainType.SIF_MAIN || chain == ChainType.KI_MAIN) {
-            return NSDecimalNumber.init(string: "0.334")
+        if (BaseData.instance.mParam != nil) {
+            return BaseData.instance.mParam!.getQuorum()
         }
-        return NSDecimalNumber.init(string: "0.4")
+        return NSDecimalNumber.zero
     }
     
     static func getHardSuppliedAmountByDenom(_ denom: String, _ mydeposit: Array<HardMyDeposit>?) -> NSDecimalNumber {
