@@ -27,6 +27,7 @@ import akash.market.v1beta1.BidOuterClass;
 import akash.market.v1beta1.LeaseOuterClass;
 import cosmos.tx.v1beta1.ServiceGrpc;
 import cosmos.tx.v1beta1.ServiceOuterClass;
+import ibc.applications.transfer.v1.Tx;
 import io.grpc.stub.StreamObserver;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.base.BaseActivity;
@@ -43,6 +44,7 @@ import wannabit.io.cosmostaion.widget.txDetail.TxCreateDeploymentHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxCreateLeaseHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxHolder;
+import wannabit.io.cosmostaion.widget.txDetail.TxIBCSendHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxReDelegateHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxSetAddressHolder;
 import wannabit.io.cosmostaion.widget.txDetail.TxStakingRewardHolder;
@@ -193,6 +195,7 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
         private static final int TYPE_TX_WITHDRAW_LEASE = 13;
         private static final int TYPE_TX_CREATE_DEPLOYMENT = 14;
         private static final int TYPE_TX_CLOSE_DEPLOYMENT = 15;
+        private static final int TYPE_TX_IBC_SEND = 16;
         private static final int TYPE_TX_UNKNOWN = 999;
 
         @NonNull
@@ -245,6 +248,9 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
 
             } else if (viewType == TYPE_TX_CLOSE_DEPLOYMENT) {
                 return new TxCloseDeploymentHolder(getLayoutInflater().inflate(R.layout.item_tx_close_deployment, viewGroup, false));
+
+            } else if (viewType == TYPE_TX_IBC_SEND) {
+                return new TxIBCSendHolder(getLayoutInflater().inflate(R.layout.item_tx_ibc_send, viewGroup, false));
 
             }
             return new TxUnknownHolder(getLayoutInflater().inflate(R.layout.item_tx_unknown, viewGroup, false));
@@ -308,6 +314,8 @@ public class TxDetailgRPCActivity extends BaseActivity implements View.OnClickLi
                     return TYPE_TX_CREATE_DEPLOYMENT;
                 } else if (msg.getTypeUrl().contains(DeploymentOuterClass.MsgCloseDeployment.getDescriptor().getFullName())) {
                     return TYPE_TX_CLOSE_DEPLOYMENT;
+                } else if (msg.getTypeUrl().contains(Tx.MsgTransfer.getDescriptor().getFullName())) {
+                    return TYPE_TX_IBC_SEND;
                 }
                 return TYPE_TX_UNKNOWN;
             }

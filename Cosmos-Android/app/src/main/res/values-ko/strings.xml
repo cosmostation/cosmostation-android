@@ -1092,7 +1092,9 @@
     <string name="str_apply_estimate_gas_amount">예상 가스량을 사용합니다.</string>
     <string name="str_mnemonics_warning_title">니모닉을 넣지마세요.</string>
     <string name="str_mnemonics_warning_msg"><b>메모에 니모닉을 입력하면\n 당신의 자산을 잃어버리게 됩니다.</b>\n니모닉 문구를 절대로 공유하지 마십시오.\n노출 또는 분실에 대한 책임은 소유자에게 있습니다.</string>
-
+    <string name="str_ibc_sender">보내는 주소</string>
+    <string name="str_ibc_recipent">받는 주소</string>
+    <string name="str_ibc_send_amount">수량</string>
 
     <string name="error_invalid_mnemonic_count">부정확한 복구 문자 입니다. 정확한 복구 문자를 입력해 주세요.</string>
     <string name="error_msg_password_not_same">입력하신 PIN 번호가 다릅니다. \n다시 입력해 주세요.</string>
