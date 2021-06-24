@@ -459,7 +459,7 @@ public class WDp {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = param.getApr(chain);
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
         return getPercentDp(aprCommission);
     }
 

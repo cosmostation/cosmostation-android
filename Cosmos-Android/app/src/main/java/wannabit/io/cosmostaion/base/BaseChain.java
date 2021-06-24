@@ -250,7 +250,7 @@ public enum BaseChain {
 //        result.add(OK_TEST);
 //        result.add(CERTIK_TEST);
         result.add(RIZON_TEST);
-        result.add(MEDI_TEST);
+//        result.add(MEDI_TEST);
         result.add(ALTHEA_TEST);
         return result;
     }
