@@ -125,6 +125,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_CRO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_DVPN;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_FET;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_HARD;
+import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_ION;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseConstant.TOKEN_IRIS;
@@ -274,14 +275,14 @@ public class WDp {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             if (coin.denom.equals(TOKEN_OSMOSIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                if (coin.denom.startsWith("ibc")) {
-                    denomTv.setText("IBC (unknown)");
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                } else if (coin.denom.equals("uion")) {
-                    denomTv.setText(coin.denom.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
-                }
+
+            } else if (coin.denom.equals(TOKEN_ION)) {
+                denomTv.setText(coin.denom.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+
+            } else if (coin.denom.startsWith("ibc")) {
+                denomTv.setText("IBC (unknown)");
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
@@ -421,14 +422,14 @@ public class WDp {
         } else if (chain.equals(OSMOSIS_MAIN)) {
             if (symbol.equals(TOKEN_OSMOSIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
-            } else {
-                if (symbol.equals("uion")) {
-                    denomTv.setText(symbol.toUpperCase());
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
-                } else if (symbol.startsWith("ibc/")) {
-                    denomTv.setText("IBC");
-                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
-                }
+
+            } else if (symbol.equals(TOKEN_ION)) {
+                denomTv.setText(symbol.toUpperCase());
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+
+            } else if (symbol.startsWith("ibc/")) {
+                denomTv.setText("IBC");
+                denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 

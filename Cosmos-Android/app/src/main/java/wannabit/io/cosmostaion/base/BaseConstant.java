@@ -450,6 +450,7 @@ public class BaseConstant {
     public final static String TOKEN_MEDI           = "umed";
     public final static String TOKEN_ALTHEA         = "ualtg";
     public final static String TOKEN_OSMOSIS        = "uosmo";
+    public final static String TOKEN_ION            = "uion";
 
     public final static String TOKEN_IOV_TEST       = "uvoi";
     public final static String TOKEN_COSMOS_TEST    = "umuon";
