@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0497585826856DE30039872C /* oracle_v1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585226856DE20039872C /* oracle_v1_genesis.pb.swift */; };
+		0497585926856DE30039872C /* oracle_v1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585326856DE20039872C /* oracle_v1_query.pb.swift */; };
+		0497585A26856DE30039872C /* oracle_v1_tx.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585426856DE20039872C /* oracle_v1_tx.grpc.swift */; };
+		0497585B26856DE30039872C /* oracle_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585526856DE30039872C /* oracle_v1_tx.pb.swift */; };
+		0497585C26856DE30039872C /* oracle_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585626856DE30039872C /* oracle_v1_query.grpc.swift */; };
+		0497585D26856DE30039872C /* oracle_v1_oracle.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585726856DE30039872C /* oracle_v1_oracle.pb.swift */; };
 		2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF9524719EC4003C3EF1 /* Tally.swift */; };
 		2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF972471A004003C3EF1 /* CosmosProposer.swift */; };
 		280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */; };
@@ -879,6 +885,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0497585226856DE20039872C /* oracle_v1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_genesis.pb.swift; sourceTree = "<group>"; };
+		0497585326856DE20039872C /* oracle_v1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_query.pb.swift; sourceTree = "<group>"; };
+		0497585426856DE20039872C /* oracle_v1_tx.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_tx.grpc.swift; sourceTree = "<group>"; };
+		0497585526856DE30039872C /* oracle_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_tx.pb.swift; sourceTree = "<group>"; };
+		0497585626856DE30039872C /* oracle_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_query.grpc.swift; sourceTree = "<group>"; };
+		0497585726856DE30039872C /* oracle_v1_oracle.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_oracle.pb.swift; sourceTree = "<group>"; };
 		2800CF9524719EC4003C3EF1 /* Tally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tally.swift; sourceTree = "<group>"; };
 		2800CF972471A004003C3EF1 /* CosmosProposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosProposer.swift; sourceTree = "<group>"; };
 		280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarnameWalletConnectViewController.swift; sourceTree = "<group>"; };
@@ -1819,6 +1831,12 @@
 		282121BA25FDE71C0016ABFE /* ProtoBuff */ = {
 			isa = PBXGroup;
 			children = (
+				0497585226856DE20039872C /* oracle_v1_genesis.pb.swift */,
+				0497585726856DE30039872C /* oracle_v1_oracle.pb.swift */,
+				0497585626856DE30039872C /* oracle_v1_query.grpc.swift */,
+				0497585326856DE20039872C /* oracle_v1_query.pb.swift */,
+				0497585426856DE20039872C /* oracle_v1_tx.grpc.swift */,
+				0497585526856DE30039872C /* oracle_v1_tx.pb.swift */,
 				289EF81726824E4600F90AC1 /* osmosis_claim_v1beta1_claim.pb.swift */,
 				289EF81126824E4500F90AC1 /* osmosis_claim_v1beta1_genesis.pb.swift */,
 				289EF7F826824E3E00F90AC1 /* osmosis_claim_v1beta1_params.pb.swift */,
@@ -3367,6 +3385,7 @@
 				28AABEC525F8CB860019091F /* KavaHardModuleAccount.swift in Sources */,
 				E1FD232C233E1BDB009327FE /* WalletCosmosCell.swift in Sources */,
 				28A8401F2605A3D8008C2D61 /* NodeInfo.swift in Sources */,
+				0497585C26856DE30039872C /* oracle_v1_query.grpc.swift in Sources */,
 				287AC63525FDF7260070837E /* cosmos_genutil_v1beta1_genesis.pb.swift in Sources */,
 				28D7BE5A25F0FBB7006EECD7 /* KavaHardTotalDeposit.swift in Sources */,
 				282A9612260DE054000F4CE6 /* StepFeeGrpcViewController.swift in Sources */,
@@ -3376,6 +3395,7 @@
 				28B4303524F7766200BD7BB2 /* TxOkDirectVoteCell.swift in Sources */,
 				E16B89152341C558003E0922 /* TokenCell.swift in Sources */,
 				287AC63725FDF7260070837E /* akash_cert_v1beta1_cert.grpc.swift in Sources */,
+				0497585D26856DE30039872C /* oracle_v1_oracle.pb.swift in Sources */,
 				E151B6492248583F0026B8C0 /* StdTx.swift in Sources */,
 				E1D279632297B40D00C49B2D /* RedelegateCell.swift in Sources */,
 				28D7BE0725F0BBF7006EECD7 /* CollateralParam.swift in Sources */,
@@ -3463,6 +3483,7 @@
 				2812BE15261170810050AE7C /* WalletSentinelCell.swift in Sources */,
 				287AC64625FDF7260070837E /* ibc_core_types_v1_genesis.pb.swift in Sources */,
 				2842AB5D242C2D4D00248EEB /* Cdp.swift in Sources */,
+				0497585B26856DE30039872C /* oracle_v1_tx.pb.swift in Sources */,
 				288D2500268326060093121A /* NewHistoryCell.swift in Sources */,
 				2852EAF42681B92C003A5E74 /* TokenDetailOsmoCell.swift in Sources */,
 				287AC5BC25FDF7250070837E /* tendermint_crypto_proof.pb.swift in Sources */,
@@ -3603,6 +3624,7 @@
 				2868559324989AA50099D18F /* Bep3WarnPopup.swift in Sources */,
 				28CFB6AD2613422200A18634 /* TokenDetailAkashCell.swift in Sources */,
 				287AC64525FDF7260070837E /* tendermint_abci_types.pb.swift in Sources */,
+				0497585A26856DE30039872C /* oracle_v1_tx.grpc.swift in Sources */,
 				28DB571525FA3BEA00B2F0E5 /* HardPoolRepay3ViewController.swift in Sources */,
 				E19A322B2254AFE100A05E41 /* ManageAccountCell.swift in Sources */,
 				E1A82DEE2244DE680097CAEE /* MyValidatorViewController.swift in Sources */,
@@ -3684,6 +3706,7 @@
 				280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */,
 				283E94772549030C007A9291 /* TxReplaceResourceCell.swift in Sources */,
 				E123FD3D233DEFE1004EC348 /* BnbAccountInfo.swift in Sources */,
+				0497585926856DE30039872C /* oracle_v1_query.pb.swift in Sources */,
 				28617A7F24329433006D66EA /* StepDepositCdpAmountViewController.swift in Sources */,
 				28D7BE0425F0BBC1006EECD7 /* CdpParam.swift in Sources */,
 				283E945E254901E7007A9291 /* RegisterDomain3ViewController.swift in Sources */,
@@ -3945,6 +3968,7 @@
 				287AC5E225FDF7260070837E /* mint_mint.pb.swift in Sources */,
 				E12D6B8B226DF3A700D07CE4 /* StepSendAmountViewController.swift in Sources */,
 				287AC64D25FDF7260070837E /* record_tx.pb.swift in Sources */,
+				0497585826856DE30039872C /* oracle_v1_genesis.pb.swift in Sources */,
 				28474ECD241E06AF00AF5A81 /* TxCdpDepositCell.swift in Sources */,
 				287AC5BA25FDF7250070837E /* akash_cert_v1beta1_query.pb.swift in Sources */,
 				287AC60025FDF7260070837E /* guardian_query.grpc.swift in Sources */,
