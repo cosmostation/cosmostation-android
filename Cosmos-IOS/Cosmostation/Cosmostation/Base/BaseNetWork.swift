@@ -20,8 +20,6 @@ class BaseNetWork {
             return OKEX_URL + "node_info"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "node_info"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "node_info"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "node_info"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -40,8 +38,6 @@ class BaseNetWork {
             return OKEX_TEST_URL + "node_info"
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "node_info"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "node_info"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "node_info"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -57,8 +53,6 @@ class BaseNetWork {
             return OKEX_URL + "auth/accounts/" + address
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "auth/accounts/" + address
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "auth/accounts/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -77,8 +71,6 @@ class BaseNetWork {
             return OKEX_TEST_URL + "auth/accounts/" + address
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "auth/accounts/" + address
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "auth/accounts/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "auth/accounts/" + address
         } else if (chain == ChainType.MEDI_TEST) {
@@ -92,8 +84,6 @@ class BaseNetWork {
             return OKEX_URL + "staking/validators"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/validators"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/validators"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/validators"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -110,8 +100,6 @@ class BaseNetWork {
             return OKEX_URL + "staking/validators"
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/validators"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/validators"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/validators"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -123,8 +111,6 @@ class BaseNetWork {
     static func validatorUrl(_ chain: ChainType?, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/validators" + "/" + opAddress
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -139,8 +125,6 @@ class BaseNetWork {
         
         if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/validators" + "/" + opAddress
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/validators" + "/" + opAddress
         } else if (chain == ChainType.MEDI_TEST) {
@@ -152,8 +136,6 @@ class BaseNetWork {
     static func bondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/delegations"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -168,8 +150,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/delegators/" + address + "/delegations"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/delegations"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -181,8 +161,6 @@ class BaseNetWork {
     static func bondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/delegations/" + opAddress
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -197,8 +175,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/delegations/" + opAddress
         } else if (chain == ChainType.MEDI_TEST) {
@@ -210,8 +186,6 @@ class BaseNetWork {
     static func unbondingsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/unbonding_delegations"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -226,8 +200,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -239,8 +211,6 @@ class BaseNetWork {
     static func unbondingUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -255,8 +225,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/delegators/" + address + "/unbonding_delegations/" + opAddress
         } else if (chain == ChainType.MEDI_TEST) {
@@ -268,8 +236,6 @@ class BaseNetWork {
     static func redelegationsUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "staking/redelegations"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "staking/redelegations"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "staking/redelegations"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -284,8 +250,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "staking/redelegations"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "staking/redelegations"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "staking/redelegations"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -297,8 +261,6 @@ class BaseNetWork {
     static func rewardsUrl(_ chain: ChainType, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/rewards"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -313,8 +275,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "distribution/delegators/" + address + "/rewards"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/rewards"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -326,8 +286,6 @@ class BaseNetWork {
     static func rewardUrl(_ chain: ChainType?, _ address: String, _ opAddress: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -342,8 +300,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/rewards/" + opAddress
         } else if (chain == ChainType.MEDI_TEST) {
@@ -355,8 +311,6 @@ class BaseNetWork {
     static func rewardAddressUrl(_ chain: ChainType?, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "distribution/delegators/" + address + "/withdraw_address"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -371,8 +325,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "distribution/delegators/" + address + "/withdraw_address"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -384,8 +336,6 @@ class BaseNetWork {
     static func proposalsUrl(_ chain: ChainType?) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "gov/proposals"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -400,8 +350,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "gov/proposals"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -413,8 +361,6 @@ class BaseNetWork {
     static func proposalUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -429,8 +375,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "gov/proposals" + "/" + id
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id
         } else if (chain == ChainType.MEDI_TEST) {
@@ -442,8 +386,6 @@ class BaseNetWork {
     static func tallyUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id + "/tally"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -458,8 +400,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "gov/proposals" + "/" + id + "/tally"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/tally"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -471,8 +411,6 @@ class BaseNetWork {
     static func voteUrl(_ chain: ChainType?, _ id: String, _ address: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" +  "/" + id + "/votes/" + address
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -487,8 +425,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/votes/" + address
         } else if (chain == ChainType.MEDI_TEST) {
@@ -500,8 +436,6 @@ class BaseNetWork {
     static func proposerUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id + "/proposer"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -516,8 +450,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "gov/proposals" + "/" + id + "/proposer"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/proposer"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -529,8 +461,6 @@ class BaseNetWork {
     static func votesUrl(_ chain: ChainType?, _ id: String) -> String {
         if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "gov/proposals" + "/" + id + "/votes"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -545,8 +475,6 @@ class BaseNetWork {
         
         else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "gov/proposals" + "/" + id + "/votes"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "gov/proposals" + "/" + id + "/votes"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -563,8 +491,6 @@ class BaseNetWork {
             return OKEX_URL + "txs/" + txhash
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "txs/" + txhash
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "txs/" + txhash
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "txs/" + txhash
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -583,8 +509,6 @@ class BaseNetWork {
             return OKEX_TEST_URL + "txs/" + txhash
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "txs/" + txhash
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "txs/" + txhash
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "txs/" + txhash
         } else if (chain == ChainType.MEDI_TEST) {
@@ -598,8 +522,6 @@ class BaseNetWork {
             return OKEX_URL + "txs"
         } else if (chain == ChainType.KAVA_MAIN) {
             return KAVA_URL + "txs"
-        } else if (chain == ChainType.IOV_MAIN) {
-            return IOV_URL + "txs"
         } else if (chain == ChainType.CERTIK_MAIN) {
             return CERTIK_URL + "txs"
         } else if (chain == ChainType.SECRET_MAIN) {
@@ -616,8 +538,6 @@ class BaseNetWork {
             return OKEX_TEST_URL + "txs"
         } else if (chain == ChainType.KAVA_TEST) {
             return KAVA_TEST_URL + "txs"
-        } else if (chain == ChainType.IOV_TEST) {
-            return IOV_TEST_URL + "txs"
         } else if (chain == ChainType.CERTIK_TEST) {
             return CERTIK_TEST_URL + "txs"
         } else if (chain == ChainType.MEDI_TEST) {
@@ -1114,7 +1034,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-osmosis-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.IOV_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "api.cluster-stargatenet.iov.one", port: 9090)
+            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20600)
             
         } else if (chain == ChainType.BAND_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20200)
