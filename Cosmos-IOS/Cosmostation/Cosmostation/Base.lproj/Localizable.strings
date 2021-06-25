@@ -692,6 +692,9 @@
 "tx_kava_hard_hard_incentive" = "Incentive\nHard Pool";
 "tx_kava_hard_mint_incentive" = "Incentive\nUSDX Minting";
 "tx_ibc_send" = "IBC Send";
+"tx_ibc_receive" = "IBC Received";
+"tx_ibc_client_update" = "IBC Client\nUpdate";
+"tx_ibc_acknowledgement" = "IBC Acknowledgement";
 "tx_known" = "Unknown";
 
 "chain_title_cosmos" = "Cosmos Mainnet";

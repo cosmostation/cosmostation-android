@@ -72,6 +72,11 @@ public struct ApiHistoryNewCustom {
                 if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
                     return NSLocalizedString("tx_reinvest", comment: "")
                 }
+                
+                if (msgType1.contains("ibc") && msgType1.contains("MsgRecvPacket")) {
+                    return NSLocalizedString("tx_ibc_receive", comment: "")
+                }
+                
             }
             
             var msgType = ""
@@ -153,6 +158,15 @@ public struct ApiHistoryNewCustom {
             
             else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
                 result = NSLocalizedString("tx_ibc_send", comment: "")
+                
+            } else if (msgType.contains("ibc") && msgType.contains("MsgUpdateClient")) {
+                result = NSLocalizedString("tx_ibc_client_update", comment: "")
+                
+            } else if (msgType.contains("ibc") && msgType.contains("MsgAcknowledgement")) {
+                result = NSLocalizedString("tx_ibc_acknowledgement", comment: "")
+                
+            } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
+                result = NSLocalizedString("tx_ibc_receive", comment: "")
                 
             }
             
