@@ -29,6 +29,7 @@ import wannabit.io.cosmostaion.activities.TxDetailgRPCActivity;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.base.BaseFragment;
 import wannabit.io.cosmostaion.model.type.BnbHistory;
+import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
@@ -273,8 +274,15 @@ public class MainHistoryFragment extends BaseFragment implements TaskListener {
                     viewHolder.historyType.setText(history.getMsgType(getContext(), getMainActivity().mAccount.address));
                     viewHolder.history_time.setText(WDp.getTimeTxformat(getContext(), history.data.timestamp));
                     viewHolder.history_time_gap.setText(WDp.getTimeTxGap(getContext(), history.data.timestamp));
-                    if (history.getDpCoin().amount.isEmpty() || history.getDpCoin().denom.isEmpty()) { return; }
-                    WDp.showCoinDp(getMainActivity(), history.getDpCoin().denom, history.getDpCoin().amount, viewHolder.history_amount_symbol, viewHolder.history_amount, getMainActivity().mBaseChain);
+                    final Coin coin = history.getDpCoin();
+                    if (coin != null) {
+                        viewHolder.history_amount_symbol.setVisibility(View.VISIBLE);
+                        viewHolder.history_amount.setVisibility(View.VISIBLE);
+                        WDp.showCoinDp(getMainActivity(), history.getDpCoin().denom, history.getDpCoin().amount, viewHolder.history_amount_symbol, viewHolder.history_amount, getMainActivity().mBaseChain);
+                    } else {
+                        viewHolder.history_amount_symbol.setVisibility(View.GONE);
+                        viewHolder.history_amount.setVisibility(View.GONE);
+                    }
                     if (history.isSuccess()) {
                         viewHolder.historySuccess.setVisibility(View.GONE);
                     } else {
