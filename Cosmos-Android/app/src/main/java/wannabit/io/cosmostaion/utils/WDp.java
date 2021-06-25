@@ -275,8 +275,13 @@ public class WDp {
             if (coin.denom.equals(TOKEN_OSMOSIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denomTv.setText(coin.denom.toUpperCase());
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+                if (coin.denom.startsWith("ibc")) {
+                    denomTv.setText("IBC (unknown)");
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                } else if (coin.denom.equals("uion")) {
+                    denomTv.setText(coin.denom.toUpperCase());
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+                }
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(coin.amount), 6, 6));
 
@@ -417,8 +422,13 @@ public class WDp {
             if (symbol.equals(TOKEN_OSMOSIS)) {
                 DpMainDenom(c, chain.getChain(), denomTv);
             } else {
-                denomTv.setText(symbol.toUpperCase());
-                denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+                if (symbol.equals("uion")) {
+                    denomTv.setText(symbol.toUpperCase());
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorIon));
+                } else if (symbol.startsWith("ibc/")) {
+                    denomTv.setText("IBC");
+                    denomTv.setTextColor(c.getResources().getColor(R.color.colorWhite));
+                }
             }
             amountTv.setText(getDpAmount2(c, new BigDecimal(amount), 6, 6));
 
@@ -459,7 +469,7 @@ public class WDp {
         final ChainParam.Params param = baseData.mChainParam;
         BigDecimal apr = param.getApr(chain);
         BigDecimal calCommission = BigDecimal.ONE.subtract(commission);
-        BigDecimal aprCommission = apr.multiply(calCommission);
+        BigDecimal aprCommission = apr.multiply(calCommission).movePointRight(2);
         return getPercentDp(aprCommission);
     }
 
