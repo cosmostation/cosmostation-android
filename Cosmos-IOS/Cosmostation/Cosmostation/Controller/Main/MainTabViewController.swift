@@ -185,9 +185,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mOkUnbonding = nil
         BaseData.instance.mOkTokenList = nil
         BaseData.instance.mOkTickerList = nil
-        
-        BaseData.instance.mStarNameFee = nil
-        BaseData.instance.mStarNameConfig = nil
                 
         BaseData.instance.mSifVsIncentive = nil
         BaseData.instance.mSifLmIncentive = nil

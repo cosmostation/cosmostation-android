@@ -902,15 +902,18 @@ class BaseNetWork {
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = OSMOSIS_API + "v1/account/txs/" + address
         }
+        
+//        else if (chain == ChainType.BAND_MAIN) {
+//            result = BAND_API + "v1/account/txs/" + address
+//        } else if (chain == ChainType.IOV_MAIN) {
+//            result = IOV_API + "v1/account/txs/" + address
+//        }
+        
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/txs/" + address
-        } else if (chain == ChainType.BAND_MAIN) {
-            result = BAND_API + "v1/account/txs/" + address
-        } else if (chain == ChainType.CERTIK_MAIN) {
+        }  else if (chain == ChainType.CERTIK_MAIN) {
             result = CERTIK_API + "v1/account/txs/" + address
-        } else if (chain == ChainType.IOV_MAIN) {
-            result = IOV_API + "v1/account/txs/" + address
-        } else if (chain == ChainType.SENTINEL_MAIN) {
+        }  else if (chain == ChainType.SENTINEL_MAIN) {
             result = SENTINEL_API + "v1/account/txs/" + address
         } else if (chain == ChainType.FETCH_MAIN) {
             result = FETCH_API + "v1/account/txs/" + address
@@ -955,14 +958,17 @@ class BaseNetWork {
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = OSMOSIS_API + "v1/account/txs/" + address + "/" + valAddress
         }
+        
+//        else if (chain == ChainType.BAND_MAIN) {
+//            result = BAND_API + "v1/account/txs/" + address + "/" + valAddress
+//        } else if (chain == ChainType.IOV_MAIN) {
+//            result = IOV_API + "v1/account/txs/" + address + "/" + valAddress
+//        }
+        
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/txs/" + address + "/" + valAddress
-        } else if (chain == ChainType.BAND_MAIN) {
-            result = BAND_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.CERTIK_MAIN) {
             result = CERTIK_API + "v1/account/txs/" + address + "/" + valAddress
-        } else if (chain == ChainType.IOV_MAIN) {
-            result = IOV_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.SENTINEL_MAIN) {
             result = SENTINEL_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.FETCH_MAIN) {
@@ -1034,7 +1040,7 @@ class BaseNetWork {
             return ClientConnection.insecure(group: group).connect(host: "lcd-osmosis-app.cosmostation.io", port: 9090)
             
         } else if (chain == ChainType.IOV_MAIN) {
-            return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20600)
+            return ClientConnection.insecure(group: group).connect(host: "grpc.cluster-stargatenet.iov.one", port: 9090)
             
         } else if (chain == ChainType.BAND_MAIN) {
             return ClientConnection.insecure(group: group).connect(host: "lcd-office.cosmostation.io", port: 20200)

@@ -421,6 +421,10 @@ let GAS_FEE_RATE_TINY_BAND                  = "0.000"
 let GAS_FEE_RATE_LOW_BAND                   = "0.0025"
 let GAS_FEE_RATE_AVERAGE_BAND               = "0.025"
 
+let GAS_FEE_RATE_TINY_IOV                   = "1.00"
+let GAS_FEE_RATE_LOW_IOV                    = "1.00"
+let GAS_FEE_RATE_AVERAGE_IOV                = "1.00"
+
 let GAS_FEE_AMOUNT_LOW                      = "100000"
 let GAS_FEE_AMOUNT_MID                      = "200000"
 let GAS_FEE_AMOUNT_HIGH                     = "300000"
@@ -441,8 +445,7 @@ let KAVA_GAS_AMOUNT_CDP                         = "2000000";
 let KAVA_GAS_AMOUNT_HARD_POOL                   = "800000";
 let KAVA_GAS_AMOUNT_BEP3                        = "500000";
 
-//let BAND_GAS_RATE_LOW                           = "0.0025";
-//let BAND_GAS_RATE_AVERAGE                       = "0.025";
+
 let BAND_GAS_AMOUNT_SEND                        = "100000";
 let BAND_GAS_AMOUNT_STAKE                       = "200000";
 let BAND_GAS_AMOUNT_REDELEGATE                  = "240000";
@@ -450,7 +453,7 @@ let BAND_GAS_AMOUNT_REINVEST                    = "220000";
 let BAND_GAS_AMOUNT_ADDRESS_CHANGE              = "100000";
 let BAND_GAS_AMOUNT_VOTE                        = "100000";
 
-let IOV_GAS_RATE_AVERAGE                        = "1.00";
+
 let IOV_GAS_AMOUNT_SEND                         = "100000";
 let IOV_GAS_AMOUNT_STAKE                        = "200000";
 let IOV_GAS_AMOUNT_REDELEGATE                   = "300000";
