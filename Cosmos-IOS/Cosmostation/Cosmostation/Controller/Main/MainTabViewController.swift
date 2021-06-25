@@ -210,6 +210,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         BaseData.instance.mBandOracle_gRPC.removeAll()
         
+        BaseData.instance.mStarNameFee_gRPC = nil
+        BaseData.instance.mStarNameConfig_gRPC = nil
+        
         if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 6
             onFetchNodeInfo()
@@ -247,21 +250,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchAllReward(mAccount)
             
             self.onShowToast("Using Figment's Data Hub API for Secret Network.")
-            
-        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
-            self.mFetchCnt = 10
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchStarNameFees()
-            onFetchStarNameConfig()
             
         } else if (mChainType == ChainType.OKEX_MAIN || mChainType == ChainType.OKEX_TEST) {
             self.mFetchCnt = 8
@@ -347,7 +335,23 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             onFetchgRPCBandOracleStatus()
             
-        }  else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
+        } else if (mChainType == ChainType.IOV_MAIN || mChainType == ChainType.IOV_TEST) {
+            self.mFetchCnt = 11
+            onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+            
+            onFetchgRPCStarNameFees()
+            onFetchgRPCStarNameConfig()
+            
+        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
@@ -967,44 +971,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
     }
     
-    func onFetchStarNameFees() {
-        let request = Alamofire.request(BaseNetWork.feesStarnameUrl(mChainType), method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
-                }
-                BaseData.instance.mStarNameFee = IovStarNameFees.init(info).result.fees
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchStarNameFees ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    func onFetchStarNameConfig() {
-        let request = Alamofire.request(BaseNetWork.configStarnameUrl(mChainType), method: .post, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
-                }
-                BaseData.instance.mStarNameConfig = IovStarNameConfig.init(info).result.configuration
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchStarNameConfig ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
     func onFetchSifVsIncentive(_ address: String) {
-        print("onFetchSifVsIncentive ", BaseNetWork.vsIncentiveUrl(address))
         let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1014,7 +981,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 BaseData.instance.mSifVsIncentive = SifIncentive.init(resData)
-                print("mSifVsIncentive ", BaseData.instance.mSifVsIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
+//                print("mSifVsIncentive ", BaseData.instance.mSifVsIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
                 
             case .failure(let error):
                 print("onFetchSifVsIncentive ", error)
@@ -1025,7 +992,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
     }
     
     func onFetchSifLmIncentive(_ address: String) {
-        print("onFetchSifLmIncentive ", BaseNetWork.lmIncentiveUrl(address))
         let request = Alamofire.request(BaseNetWork.lmIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
         request.responseJSON { (response) in
             switch response.result {
@@ -1035,7 +1001,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
                     return
                 }
                 BaseData.instance.mSifLmIncentive = SifIncentive.init(resData)
-                print("mSifLmIncentive ", BaseData.instance.mSifLmIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
+//                print("mSifLmIncentive ", BaseData.instance.mSifLmIncentive?.user?.totalClaimableCommissionsAndClaimableRewards)
                 
             case .failure(let error):
                 print("onFetchSifLmIncentive ", error)
@@ -1305,8 +1271,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    
-    
     func onFetchgRPCBandOracleStatus() {
         DispatchQueue.global().async {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
@@ -1314,8 +1278,9 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             let channel = BaseNetWork.getConnection(self.mChainType, group)!
             defer { try! channel.close().wait() }
-            let req = Oracle_V1_QueryActiveValidatorsRequest.init()
+            
             do {
+                let req = Oracle_V1_QueryActiveValidatorsRequest.init()
                 let response = try Oracle_V1_QueryClient(channel: channel).activeValidators(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
                 response.validators.forEach { validator in
                     BaseData.instance.mBandOracle_gRPC.append(validator)
@@ -1326,9 +1291,53 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });
-            
         }
     }
+    
+    func onFetchgRPCStarNameFees() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Configuration_V1beta1_QueryFeesRequest.init()
+                let response = try Starnamed_X_Configuration_V1beta1_QueryClient(channel: channel).fees(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+                BaseData.instance.mStarNameFee_gRPC = response.fees
+//                print("mStarNameFee_gRPC ", BaseData.instance.mStarNameFee_gRPC)
+            } catch {
+                print("onFetchgRPCStarNameFees failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
+    func onFetchgRPCStarNameConfig() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Configuration_V1beta1_QueryConfigRequest.init()
+                let response = try Starnamed_X_Configuration_V1beta1_QueryClient(channel: channel).config(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+                BaseData.instance.mStarNameConfig_gRPC = response.config
+//                print("mStarNameConfig_gRPC ", BaseData.instance.mStarNameConfig_gRPC)
+            } catch {
+                print("onFetchgRPCStarNameConfig failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+        }
+    }
+    
     
     func onFetchPriceInfo(_ denoms: String) {
 //        print("onFetchPriceInfo ", denoms, "   ", BaseNetWork.getPrice(denoms))

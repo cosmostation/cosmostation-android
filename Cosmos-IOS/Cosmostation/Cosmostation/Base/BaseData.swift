@@ -79,6 +79,8 @@ final class BaseData : NSObject{
     
     var mBandOracle_gRPC = Array<Oracle_V1_ActiveValidator>()
     
+    var mStarNameFee_gRPC: Starnamed_X_Configuration_V1beta1_Fees?
+    var mStarNameConfig_gRPC: Starnamed_X_Configuration_V1beta1_Config?
     
     public override init() {
         super.init();
