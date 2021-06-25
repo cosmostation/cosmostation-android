@@ -100,6 +100,9 @@ public struct Param {
     }
     
     func getQuorum() -> NSDecimalNumber {
+        if let rawQuorum = params?.gov_tallying?.quorum {
+            return NSDecimalNumber.init(string: rawQuorum)
+        }
         if let rawQuorum = params?.gov_tallying?.tally_params?.quorum {
             return NSDecimalNumber.init(string: rawQuorum)
         }
