@@ -56,7 +56,6 @@ let IOV_TEST_URL                        = "https://api.cluster-stargatenet.iov.o
 let IOV_TEST_API                        = "";
 
 
-//let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
 

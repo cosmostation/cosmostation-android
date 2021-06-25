@@ -13,6 +13,8 @@
 		0497585B26856DE30039872C /* oracle_v1_tx.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585526856DE30039872C /* oracle_v1_tx.pb.swift */; };
 		0497585C26856DE30039872C /* oracle_v1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585626856DE30039872C /* oracle_v1_query.grpc.swift */; };
 		0497585D26856DE30039872C /* oracle_v1_oracle.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585726856DE30039872C /* oracle_v1_oracle.pb.swift */; };
+		049758602685902A0039872C /* TokenDetailBandCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497585E2685902A0039872C /* TokenDetailBandCell.swift */; };
+		049758612685902A0039872C /* TokenDetailBandCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0497585F2685902A0039872C /* TokenDetailBandCell.xib */; };
 		2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF9524719EC4003C3EF1 /* Tally.swift */; };
 		2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF972471A004003C3EF1 /* CosmosProposer.swift */; };
 		280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */; };
@@ -891,6 +893,8 @@
 		0497585526856DE30039872C /* oracle_v1_tx.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_tx.pb.swift; sourceTree = "<group>"; };
 		0497585626856DE30039872C /* oracle_v1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_query.grpc.swift; sourceTree = "<group>"; };
 		0497585726856DE30039872C /* oracle_v1_oracle.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = oracle_v1_oracle.pb.swift; sourceTree = "<group>"; };
+		0497585E2685902A0039872C /* TokenDetailBandCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailBandCell.swift; sourceTree = "<group>"; };
+		0497585F2685902A0039872C /* TokenDetailBandCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailBandCell.xib; sourceTree = "<group>"; };
 		2800CF9524719EC4003C3EF1 /* Tally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tally.swift; sourceTree = "<group>"; };
 		2800CF972471A004003C3EF1 /* CosmosProposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosProposer.swift; sourceTree = "<group>"; };
 		280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarnameWalletConnectViewController.swift; sourceTree = "<group>"; };
@@ -2129,6 +2133,8 @@
 				284291A3264B9E3F00130651 /* TokenDetailHardCell.xib */,
 				28CFB6AB2613422200A18634 /* TokenDetailAkashCell.swift */,
 				28CFB6AC2613422200A18634 /* TokenDetailAkashCell.xib */,
+				0497585E2685902A0039872C /* TokenDetailBandCell.swift */,
+				0497585F2685902A0039872C /* TokenDetailBandCell.xib */,
 				28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */,
 				28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */,
 				28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */,
@@ -3132,6 +3138,7 @@
 				28BB2A822533D9FB00CFF097 /* DomainPromotionCell.xib in Resources */,
 				280E1EFE254A7AD60007BA7D /* DeleteStarname3ViewController.xib in Resources */,
 				283850212448A6B000E5DEF2 /* TxHtlcClaimCell.xib in Resources */,
+				049758612685902A0039872C /* TokenDetailBandCell.xib in Resources */,
 				282BDFE324A5992600D3A5D4 /* WcTradePopup.xib in Resources */,
 				2877B8F8240E2A0200EFE369 /* TxDetailViewController.xib in Resources */,
 				28DB56F325FA3B7100B2F0E5 /* HardPoolDeposit0ViewController.xib in Resources */,
@@ -3745,6 +3752,7 @@
 				E17748E62282D782003D8CD1 /* BTCProtocolSerialization.m in Sources */,
 				28B4304024F7EE3B00BD7BB2 /* StepOkWithdrawAmountViewController.swift in Sources */,
 				280E1F02254A9B6B0007BA7D /* RenewStarname0ViewController.swift in Sources */,
+				049758602685902A0039872C /* TokenDetailBandCell.swift in Sources */,
 				28BB2A812533D9FB00CFF097 /* DomainPromotionCell.swift in Sources */,
 				280E1F16254ABB080007BA7D /* ResourceAddCell.swift in Sources */,
 				E1FD2334233E1C16009327FE /* WalletPriceCell.swift in Sources */,
