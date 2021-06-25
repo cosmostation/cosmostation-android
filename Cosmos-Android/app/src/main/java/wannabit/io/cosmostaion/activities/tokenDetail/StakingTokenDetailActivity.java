@@ -31,6 +31,7 @@ import wannabit.io.cosmostaion.widget.BaseHolder;
 import wannabit.io.cosmostaion.widget.HistoryHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenAkashHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenAltheaHolder;
+import wannabit.io.cosmostaion.widget.tokenDetail.TokenBandHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenBnbHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCosmosHolder;
 import wannabit.io.cosmostaion.widget.tokenDetail.TokenCrytoHolder;
@@ -46,6 +47,7 @@ import wannabit.io.cosmostaion.widget.tokenDetail.VestingHolder;
 
 import static wannabit.io.cosmostaion.base.BaseChain.AKASH_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.ALTHEA_TEST;
+import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.BNB_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
@@ -200,6 +202,7 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
     private static final int TYPE_RIZON                 = 6;
     private static final int TYPE_ALTHEA                = 7;
     private static final int TYPE_OSMOSIS               = 8;
+    private static final int TYPE_BAND                  = 9;
 
     private static final int TYPE_SIF                   = 31;
     private static final int TYPE_OKEX                  = 32;
@@ -232,6 +235,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 return new TokenAltheaHolder(getLayoutInflater().inflate(R.layout.layout_card_althea, viewGroup, false));
             } else if (viewType == TYPE_OSMOSIS) {
                 return new TokenOsmosisHolder(getLayoutInflater().inflate(R.layout.layout_card_osmosis, viewGroup, false));
+            } else if (viewType == TYPE_BAND) {
+                return new TokenBandHolder(getLayoutInflater().inflate(R.layout.layout_card_band_token, viewGroup, false));
             }
 
             else if (viewType == TYPE_SIF) {
@@ -279,6 +284,9 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             } else if (getItemViewType(position) == TYPE_OSMOSIS) {
+                holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
+
+            } else if (getItemViewType(position) == TYPE_BAND) {
                 holder.onBindTokenHolder(getBaseContext(), mBaseChain, getBaseDao(), WDp.mainDenom(mBaseChain));
 
             }
@@ -354,6 +362,8 @@ public class StakingTokenDetailActivity extends BaseActivity implements View.OnC
                     return TYPE_CRYPTO;
                 } else if (mBaseChain.equals(OSMOSIS_MAIN)) {
                     return TYPE_OSMOSIS;
+                } else if (mBaseChain.equals(BAND_MAIN)) {
+                    return TYPE_BAND;
                 } else if (mBaseChain.equals(RIZON_TEST)) {
                     return TYPE_RIZON;
                 } else if (mBaseChain.equals(ALTHEA_TEST)) {

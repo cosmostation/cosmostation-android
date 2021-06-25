@@ -848,7 +848,6 @@ public class MainTokensFragment extends BaseFragment implements View.OnClickList
     }
 
 
-
     private void onBindRizonItem(TokensAdapter.AssetHolder holder, final int position) {
         final Coin coin = getBaseDao().mGrpcBalance.get(position);
         if (coin.denom.equals(TOKEN_RIZON)) {
