@@ -112,7 +112,7 @@ public class Account {
         }
         for(Balance balance:balances) {
             if(balance.symbol.equals(BaseConstant.TOKEN_BNB)) {
-                result = balance.balance.movePointRight(8);
+                result = balance.balance;
                 break;
             }
         }
