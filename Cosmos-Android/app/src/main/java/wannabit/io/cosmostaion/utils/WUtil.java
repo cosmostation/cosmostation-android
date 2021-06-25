@@ -1111,6 +1111,8 @@ public class WUtil {
                 } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
                     if(o1.symbol.equals(TOKEN_KAVA)) return -1;
                     if(o2.symbol.equals(TOKEN_KAVA)) return 1;
+                    if(o1.symbol.equals("hard")) return -1;
+                    if(o2.symbol.equals("hard")) return 1;
                     return o2.balance.movePointLeft(WUtil.getKavaCoinDecimal(o2.symbol)).compareTo(o1.balance.movePointLeft(WUtil.getKavaCoinDecimal(o1.symbol)));
 
                 } else if (chain.equals(IOV_MAIN)) {
@@ -1207,6 +1209,8 @@ public class WUtil {
                 } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
                     if(o1.symbol.equals(TOKEN_KAVA)) return -1;
                     if(o2.symbol.equals(TOKEN_KAVA)) return 1;
+                    if(o1.symbol.equals("hard")) return -1;
+                    if(o2.symbol.equals("hard")) return 1;
 
                 } else if (chain.equals(IOV_MAIN)) {
                     if(o1.symbol.equals(TOKEN_IOV)) return -1;
@@ -1303,6 +1307,8 @@ public class WUtil {
                 } else if (chain.equals(KAVA_MAIN) || chain.equals(KAVA_TEST)) {
                     if(o1.symbol.equals(TOKEN_KAVA)) return -1;
                     if(o2.symbol.equals(TOKEN_KAVA)) return 1;
+                    if(o1.symbol.equals("hard")) return -1;
+                    if(o2.symbol.equals("hard")) return 1;
 
                 } else if (chain.equals(IOV_MAIN)) {
                     if(o1.symbol.equals(TOKEN_IOV)) return -1;

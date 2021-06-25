@@ -7,6 +7,7 @@ import wannabit.io.cosmostaion.base.BaseApplication;
 import wannabit.io.cosmostaion.base.BaseChain;
 import wannabit.io.cosmostaion.base.BaseConstant;
 import wannabit.io.cosmostaion.network.ApiClient;
+import wannabit.io.cosmostaion.network.res.ResApiNewTxListCustom;
 import wannabit.io.cosmostaion.network.res.ResApiTxList;
 import wannabit.io.cosmostaion.network.res.ResApiTxListCustom;
 import wannabit.io.cosmostaion.task.CommonTask;
@@ -130,7 +131,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
             }
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getCosmosApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosApi(mApp).getNewStakeTxs(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -183,7 +184,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(OSMOSIS_MAIN)) {
-                Response<ArrayList<ResApiTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getOsmoStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
