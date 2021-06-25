@@ -48,6 +48,7 @@ import cosmos.base.v1beta1.CoinOuterClass;
 import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import irismod.token.TokenOuterClass;
+import oracle.v1.Oracle;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.activities.AppLockActivity;
@@ -122,6 +123,7 @@ import wannabit.io.cosmostaion.task.TaskResult;
 import wannabit.io.cosmostaion.task.gRpcTask.AllRewardGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.AuthGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BalanceGrpcTask;
+import wannabit.io.cosmostaion.task.gRpcTask.BandOracleStatusGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.BondedValidatorsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.DelegationsGrpcTask;
 import wannabit.io.cosmostaion.task.gRpcTask.NodeInfoGrpcTask;
@@ -187,6 +189,7 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BAND_ORACLE_STATUS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_INFLATION;
@@ -565,6 +568,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mGrpcUndelegations.clear();
         getBaseDao().mGrpcRewards.clear();
 
+        getBaseDao().mGrpcBandOracles.clear();
+
         //kava-5
         getBaseDao().mMyHardDeposit.clear();
         getBaseDao().mMyHardBorrow.clear();
@@ -632,21 +637,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new StarNameFeeTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new StarNameConfigTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
-        } else if (mBaseChain.equals(BAND_MAIN)) {
-            mTaskCount = 9;
-            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-            new BandOracleStatusTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-
-        } else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
+        }  else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
             mTaskCount = 8;
             getBaseDao().mOkStaking = null;
             getBaseDao().mOkUnbonding = null;
@@ -692,7 +683,22 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         }
 
-          else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
+        else if (mBaseChain.equals(BAND_MAIN)) {
+            mTaskCount = 10;
+            new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AuthGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new BondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondedValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnBondingValidatorsGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new BalanceGrpcTask(getBaseApplication(), this, mBaseChain, mAccount.address).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new BandOracleStatusGrpcTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        } else if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(IRIS_MAIN) || mBaseChain.equals(AKASH_MAIN) || mBaseChain.equals(SENTINEL_MAIN) || mBaseChain.equals(PERSIS_MAIN) ||
                  mBaseChain.equals(CRYPTO_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(COSMOS_TEST) || mBaseChain.equals(IRIS_TEST) || mBaseChain.equals(RIZON_TEST) || mBaseChain.equals(ALTHEA_TEST)) {
             mTaskCount = 9;
             new NodeInfoGrpcTask(getBaseApplication(), this, mBaseChain).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
@@ -869,11 +875,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mStarNameConfig = ((ResIovConfig.IovConfig)result.resultData);
             }
 
-        } else if (result.taskType == TASK_FETCH_BAND_ORACLE_STATUS) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mBandOracles = ((ResBandOracleStatus)result.resultData);
-            }
-
         } else if (result.taskType == TASK_FETCH_SIF_INCENTIVE_VS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mSifVsIncentive = ((SifIncentive.User)result.resultData);
@@ -934,6 +935,10 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         } else if (result.taskType == TASK_GRPC_FETCH_ALL_REWARDS) {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
             if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_BAND_ORACLE_STATUS) {
+            ArrayList<Oracle.ActiveValidator> oracle = (ArrayList<Oracle.ActiveValidator>) result.resultData;
+            if (oracle != null) { getBaseDao().mGrpcBandOracles = oracle; }
 
         }
 

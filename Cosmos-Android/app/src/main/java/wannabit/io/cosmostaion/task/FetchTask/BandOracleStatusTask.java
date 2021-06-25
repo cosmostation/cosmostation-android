@@ -24,24 +24,6 @@ public class BandOracleStatusTask extends CommonTask {
 
     @Override
     protected TaskResult doInBackground(String... strings) {
-        try {
-            if (mChain.equals(BAND_MAIN)) {
-                Response<ResBandOracleStatus> response = ApiClient.getBandChain(mApp).getOracleStatus().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-                if(response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                }
-            }
-
-        } catch (Exception e) {
-            WLog.w("BandOracleStatusTask Error " + e.getMessage());
-        }
-
         return mResult;
     }
 }

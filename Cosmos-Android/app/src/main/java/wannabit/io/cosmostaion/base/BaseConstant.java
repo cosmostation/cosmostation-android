@@ -200,6 +200,7 @@ public class BaseConstant {
     public final static int TASK_GRPC_FETCH_PROPOSAL_MY_VOTE            = 4023;
     public final static int TASK_GRPC_FETCH_NODE_INFO                   = 4024;
     public final static int TASK_GRPC_FETCH_AUTH                        = 4025;
+    public final static int TASK_GRPC_FETCH_BAND_ORACLE_STATUS          = 4026;
 
     public final static int TASK_GRPC_BROAD_DELEGATE                    = 4300;
     public final static int TASK_GRPC_BROAD_UNDELEGATE                  = 4301;

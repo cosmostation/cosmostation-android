@@ -68,13 +68,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().mKavaAccount = response.body().result;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BAND_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getBandChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_MAIN)) {
                 Response<ResLcdAccountInfo> response = ApiClient.getIovChain(mApp).getAccountInfo(mAccount.address).execute();
                 if(response.isSuccessful()) {

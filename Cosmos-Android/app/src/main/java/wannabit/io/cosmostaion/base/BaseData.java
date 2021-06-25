@@ -26,6 +26,7 @@ import cosmos.distribution.v1beta1.Distribution;
 import cosmos.staking.v1beta1.Staking;
 import cosmos.vesting.v1beta1.Vesting;
 import irismod.token.TokenOuterClass;
+import oracle.v1.Oracle;
 import tendermint.p2p.Types;
 import wannabit.io.cosmostaion.R;
 import wannabit.io.cosmostaion.crypto.EncResult;
@@ -341,6 +342,9 @@ public class BaseData {
     public ArrayList<Staking.DelegationResponse>                mGrpcDelegations = new ArrayList<>();
     public ArrayList<Staking.UnbondingDelegation>               mGrpcUndelegations = new ArrayList<>();
     public ArrayList<Distribution.DelegationDelegatorReward>    mGrpcRewards = new ArrayList<>();
+
+    //COMMON DATA FOR BAND
+    public ArrayList<Oracle.ActiveValidator>                    mGrpcBandOracles = new ArrayList<>();
 
     public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
     public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();

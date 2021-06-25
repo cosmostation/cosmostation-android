@@ -47,13 +47,6 @@ public class AllRewardsTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(BAND_MAIN)) {
-                Response<ResLcdAllRewards> response = ApiClient.getBandChain(mApp).getAllRewards(mAccount.address).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body().result.rewards;
-                    mResult.isSuccess = true;
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(SECRET_MAIN)) {
                 Response<ResLcdAllRewards> response = ApiClient.getSecretChain(mApp).getAllRewards(mAccount.address).execute();
                 if (response.isSuccessful() && response.body() != null) {
