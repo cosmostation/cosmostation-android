@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
@@ -16,8 +18,11 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     var refresher: UIRefreshControl!
     var mFetchCnt = 0
-    var myDomains: Array<StarNameDomain> = Array<StarNameDomain>()
-    var myDomainResolves: Array<IovStarNameResolve.NameAccount> = Array<IovStarNameResolve.NameAccount>()
+    
+//    var myDomains: Array<StarNameDomain> = Array<StarNameDomain>()
+//    var myDomainResolves: Array<IovStarNameResolve.NameAccount> = Array<IovStarNameResolve.NameAccount>()
+    var myDomains_gRPC: Array<Starnamed_X_Starname_V1beta1_Domain> = Array<Starnamed_X_Starname_V1beta1_Domain>()
+    var myDomainResolves_gRPC: Array<Starnamed_X_Starname_V1beta1_Account> = Array<Starnamed_X_Starname_V1beta1_Account>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,25 +45,25 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
         self.myDomainTableView.isHidden = true
         
         self.showWaittingAlert()
-        self.onFetchMyDomain(self.account!)
+        self.onFetchgRPCMyDomain(self.account!)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (self.myDomains.count <= 0) {
+        if (self.myDomains_gRPC.count <= 0) {
             return 1
         } else {
-            return self.myDomains.count
+            return self.myDomains_gRPC.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (self.myDomains.count <= 0) {
+        if (self.myDomains_gRPC.count <= 0) {
             let cell:DomainPromotionCell? = tableView.dequeueReusableCell(withIdentifier:"DomainPromotionCell") as? DomainPromotionCell
             return cell!
             
         } else {
             let cell:DomainCell? = tableView.dequeueReusableCell(withIdentifier:"DomainCell") as? DomainCell
-            let starnameAccount = myDomains[indexPath.row]
+            let starnameAccount = myDomains_gRPC[indexPath.row]
             cell?.starNameLabel.text = "*" + starnameAccount.name
             cell?.domainTypeLabel.text = starnameAccount.type.uppercased()
             if (starnameAccount.type == "open") {
@@ -66,8 +71,8 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
             } else {
                 cell?.domainTypeLabel.textColor = .white
             }
-            cell?.domainExpireTime.text = WUtils.longTimetoString(input: starnameAccount.valid_until * 1000)
-            let resourceCnt = myDomainResolves.filter({ $0.domain == starnameAccount.name}).first?.resources.count ?? 0
+            cell?.domainExpireTime.text = WUtils.longTimetoString(input: starnameAccount.validUntil * 1000)
+            let resourceCnt = myDomainResolves_gRPC.filter({ $0.domain == starnameAccount.name}).first?.resources.count ?? 0
             cell?.domainResourcesLabel.text = String(resourceCnt)
             return cell!
         }
@@ -78,7 +83,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let starnameAccount = myDomains[indexPath.row]
+        let starnameAccount = myDomains_gRPC[indexPath.row]
         let domainDetailVC = DomainDetailViewController(nibName: "DomainDetailViewController", bundle: nil)
         domainDetailVC.mMyDomain = starnameAccount.name
         self.navigationItem.title = ""
@@ -86,9 +91,10 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     }
     
     func onFetchFinished() {
+//        print("onFetchFinished ", self.mFetchCnt)
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            self.myDomainCnt.text = String(myDomains.count)
+            self.myDomainCnt.text = String(myDomains_gRPC.count)
             self.myDomainTableView.reloadData()
             self.refresher.endRefreshing()
             self.hideWaittingAlert()
@@ -110,59 +116,74 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     @objc func onRequestFetch() {
         if (mFetchCnt > 0) { return }
-        self.myDomains.removeAll()
-        self.onFetchMyDomain(self.account!)
+        self.myDomains_gRPC.removeAll()
+        self.myDomainResolves_gRPC.removeAll()
+        self.mFetchCnt = 1
+        self.onFetchgRPCMyDomain(self.account!)
     }
     
-    var domainOffset = 1
-    func onFetchMyDomain(_ account:Account) {
-        let param = ["owner":account.account_address, "results_per_page": 100, "offset":domainOffset] as [String : Any]
-        let request = Alamofire.request(BaseNetWork.checkDomainStarnameUrl(chainType), method: .post, parameters: param, encoding: JSONEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCMyDomain(_ account: Account) {
+//        print("onFetchgRPCMyDomain ", account.account_address)
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let page = Cosmos_Base_Query_V1beta1_PageRequest.with {
+                    $0.limit = 30
                 }
-                let iovStarNameDomain = IovStarNameDomain.init(info)
-                self.myDomains.append(contentsOf: iovStarNameDomain.result.Domains)
-                
-                if (iovStarNameDomain.result.Domains.count == 100) {
-                    self.domainOffset = self.domainOffset + 1
-                    self.onFetchMyDomain(self.account!)
-                } else {
-                    self.mFetchCnt = self.mFetchCnt + self.myDomains.count
-                    self.myDomainResolves.removeAll()
-                    for domain in self.myDomains {
-                        self.onFetchResolve(domain.name)
-                    }
+                let req = Starnamed_X_Starname_V1beta1_QueryOwnerDomainsRequest.with {
+                    $0.owner = account.account_address
+                    $0.pagination = page
                 }
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).ownerDomains(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+                response.domains.forEach { domain in
+                    self.myDomains_gRPC.append(domain)
+                }
+                print("onFetchgRPCMyDomain myDomains_gRPC.count ", self.myDomains_gRPC.count)
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchMyDomain ", error) }
-                self.onFetchFinished()
+            } catch {
+                print("onFetchgRPCMyDomain failed: \(error)")
             }
+            DispatchQueue.main.async(execute: {
+                self.mFetchCnt = self.mFetchCnt + self.myDomains_gRPC.count
+//                print("onFetchgRPCMyDomain mFetchCnt ", self.mFetchCnt)
+                self.myDomains_gRPC.forEach { domain in
+                    self.onFetchgRPCResolve(domain.name)
+                }
+                self.onFetchFinished()
+            });
         }
     }
     
-    func onFetchResolve(_ starname: String) {
-        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : "*" + starname], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any], info["error"] == nil else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCResolve(_ domain: String) {
+//        print("onFetchgRPCResolve ", domain)
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
+                    $0.starname = "*" + domain
                 }
-                let nameResolve = IovStarNameResolve.init(info)
-                self.myDomainResolves.append(nameResolve.result.account)
-                self.onFetchFinished()
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchgRPCResolve ", domain, " ", response)
+                self.myDomainResolves_gRPC.append(response.account)
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchResolve ", error) }
-                self.onFetchFinished()
+            } catch {
+                print("onFetchgRPCResolve failed: \(error)")
             }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
+        
     }
+ 
 }
