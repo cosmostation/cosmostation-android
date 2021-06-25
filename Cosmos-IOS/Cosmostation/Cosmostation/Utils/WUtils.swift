@@ -3036,6 +3036,11 @@ class WUtils {
             let gasAmount = getEstimateGasAmount(chain, type, valCnt)
             return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
             
+        } else if (chain == ChainType.BAND_MAIN) {
+            let gasRate = NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_BAND)
+            let gasAmount = getEstimateGasAmount(chain, type, valCnt)
+            return gasRate.multiplying(by: gasAmount, withBehavior: handler0)
+            
         }
         
         else if (chain == ChainType.BINANCE_MAIN || chain == ChainType.BINANCE_TEST) {
@@ -3049,9 +3054,6 @@ class WUtils {
         }
         
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
-            return NSDecimalNumber.zero
-            
-        } else if (chain == ChainType.BAND_MAIN) {
             return NSDecimalNumber.zero
             
         } else if (chain == ChainType.IOV_MAIN || chain == ChainType.IOV_TEST) {
@@ -3149,6 +3151,15 @@ class WUtils {
                 return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_OSMOSIS)
             }
             
+        } else if (chain == ChainType.BAND_MAIN) {
+            if (position == 0) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_TINY_BAND)
+            } else if (position == 1) {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_LOW_BAND)
+            } else {
+                return NSDecimalNumber.init(string: GAS_FEE_RATE_AVERAGE_BAND)
+            }
+            
         }
         
         else if (chain == ChainType.KAVA_MAIN || chain == ChainType.KAVA_TEST) {
@@ -3158,15 +3169,6 @@ class WUtils {
                 return NSDecimalNumber.init(string: KAVA_GAS_RATE_LOW)
             } else {
                 return NSDecimalNumber.init(string: KAVA_GAS_RATE_AVERAGE)
-            }
-            
-        } else if (chain == ChainType.BAND_MAIN) {
-            if (position == 0) {
-                return NSDecimalNumber.zero
-            } else if (position == 1) {
-                return NSDecimalNumber.init(string: BAND_GAS_RATE_LOW)
-            } else {
-                return NSDecimalNumber.init(string: BAND_GAS_RATE_AVERAGE)
             }
             
         }
