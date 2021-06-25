@@ -79,6 +79,8 @@ final class BaseData : NSObject{
     var mMyVestings_gRPC = Array<Coin>()
     var mMyReward_gRPC = Array<Cosmos_Distribution_V1beta1_DelegationDelegatorReward>()
     
+    var mBandOracle_gRPC = Array<Oracle_V1_ActiveValidator>()
+    
     
     public override init() {
         super.init();

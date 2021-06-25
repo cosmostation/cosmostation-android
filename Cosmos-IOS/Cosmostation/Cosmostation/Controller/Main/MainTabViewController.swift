@@ -210,6 +210,8 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         BaseData.instance.mMyVestings_gRPC.removeAll()
         BaseData.instance.mMyReward_gRPC.removeAll()
         
+        BaseData.instance.mBandOracle_gRPC.removeAll()
+        
         if (mChainType == ChainType.BINANCE_MAIN || mChainType == ChainType.BINANCE_TEST) {
             self.mFetchCnt = 6
             onFetchNodeInfo()
@@ -233,20 +235,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             
             onFetchPriceFeedParam()
             onFetchIncentiveParam()
-            
-        } else if (mChainType == ChainType.BAND_MAIN) {
-            self.mFetchCnt = 9
-            onFetchNodeInfo()
-            onFetchTopValidatorsInfo()
-            onFetchUnbondedValidatorsInfo()
-            onFetchUnbondingValidatorsInfo()
-            
-            onFetchAccountInfo(mAccount)
-            onFetchBondingInfo(mAccount)
-            onFetchUnbondingInfo(mAccount)
-            onFetchAllReward(mAccount)
-            
-            onFetchBandOracleStatus()
             
         } else if (mChainType == ChainType.SECRET_MAIN) {
             self.mFetchCnt = 8
@@ -346,7 +334,22 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             onFetchgRPCUndelegations(mAccount.account_address, 0)
             onFetchgRPCRewards(mAccount.account_address, 0)
             
-        } else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
+        } else if (mChainType == ChainType.BAND_MAIN) {
+            self.mFetchCnt = 10
+            onFetchgRPCNodeInfo()
+            onFetchgRPCAuth(mAccount.account_address)
+            onFetchgRPCBondedValidators(0)
+            onFetchgRPCUnbondedValidators(0)
+            onFetchgRPCUnbondingValidators(0)
+
+            onFetchgRPCBalance(mAccount.account_address, 0)
+            onFetchgRPCDelegations(mAccount.account_address, 0)
+            onFetchgRPCUndelegations(mAccount.account_address, 0)
+            onFetchgRPCRewards(mAccount.account_address, 0)
+            
+            onFetchgRPCBandOracleStatus()
+            
+        }  else if (mChainType == ChainType.COSMOS_TEST || mChainType == ChainType.RIZON_TEST || mChainType == ChainType.ALTHEA_TEST || mChainType == ChainType.IRIS_TEST) {
             self.mFetchCnt = 9
             onFetchgRPCNodeInfo()
             onFetchgRPCAuth(mAccount.account_address)
@@ -1002,25 +1005,6 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         }
     }
     
-    func onFetchBandOracleStatus() {
-        let request = Alamofire.request(BaseNetWork.oracleBandUrl(), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
-                }
-                BaseData.instance.mBandOracleStatus = BandOracleStatus.init(info)
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchBandOracleStatus ", error) }
-            }
-            self.onFetchFinished()
-        }
-    }
-    
-    
     func onFetchSifVsIncentive(_ address: String) {
         print("onFetchSifVsIncentive ", BaseNetWork.vsIncentiveUrl(address))
         let request = Alamofire.request(BaseNetWork.vsIncentiveUrl(address), method: .get, parameters: [:], encoding: URLEncoding.default, headers: [:]);
@@ -1320,6 +1304,31 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });
+        }
+    }
+    
+    
+    
+    func onFetchgRPCBandOracleStatus() {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.mChainType, group)!
+            defer { try! channel.close().wait() }
+            let req = Oracle_V1_QueryActiveValidatorsRequest.init()
+            do {
+                let response = try Oracle_V1_QueryClient(channel: channel).activeValidators(req, callOptions: BaseNetWork.getCallOptions()).response.wait()
+                response.validators.forEach { validator in
+                    BaseData.instance.mBandOracle_gRPC.append(validator)
+                }
+            } catch {
+                print("onFetchgRPCBandOracleStatus failed: \(error)")
+            }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
+            
         }
     }
     

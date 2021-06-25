@@ -52,11 +52,11 @@ let KAVA_TEST_API                       = "https://api-office.cosmostation.io/ka
 let IOV_URL                             = "https://lcd-iov.cosmostation.io/";
 let IOV_API                             = "https://api-iov.cosmostation.io/";
 
-let IOV_TEST_URL                        = "https://iovnscli-rest-api.cluster-galaxynet.iov.one/";
+let IOV_TEST_URL                        = "https://api.cluster-stargatenet.iov.one/";
 let IOV_TEST_API                        = "";
 
 
-let BAND_URL                            = "https://lcd-band.cosmostation.io/";
+//let BAND_URL                            = "https://lcd-band.cosmostation.io/";
 let BAND_API                            = "https://api-band.cosmostation.io/";
 
 
