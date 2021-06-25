@@ -33,6 +33,8 @@
 		049758832685AA270039872C /* iov_starname_v1beta1_genesis.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049758792685AA240039872C /* iov_starname_v1beta1_genesis.pb.swift */; };
 		049758842685AA270039872C /* iov_starname_v1beta1_query.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497587A2685AA260039872C /* iov_starname_v1beta1_query.pb.swift */; };
 		049758852685AA270039872C /* iov_starname_v1beta1_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0497587B2685AA270039872C /* iov_starname_v1beta1_query.grpc.swift */; };
+		049758882685BF530039872C /* TokenDetailIovCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049758862685BF530039872C /* TokenDetailIovCell.swift */; };
+		049758892685BF530039872C /* TokenDetailIovCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049758872685BF530039872C /* TokenDetailIovCell.xib */; };
 		2800CF9624719EC4003C3EF1 /* Tally.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF9524719EC4003C3EF1 /* Tally.swift */; };
 		2800CF982471A004003C3EF1 /* CosmosProposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2800CF972471A004003C3EF1 /* CosmosProposer.swift */; };
 		280524B4255CDA7D004D6172 /* StarnameWalletConnectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */; };
@@ -930,6 +932,8 @@
 		049758792685AA240039872C /* iov_starname_v1beta1_genesis.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iov_starname_v1beta1_genesis.pb.swift; sourceTree = "<group>"; };
 		0497587A2685AA260039872C /* iov_starname_v1beta1_query.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iov_starname_v1beta1_query.pb.swift; sourceTree = "<group>"; };
 		0497587B2685AA270039872C /* iov_starname_v1beta1_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = iov_starname_v1beta1_query.grpc.swift; sourceTree = "<group>"; };
+		049758862685BF530039872C /* TokenDetailIovCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailIovCell.swift; sourceTree = "<group>"; };
+		049758872685BF530039872C /* TokenDetailIovCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailIovCell.xib; sourceTree = "<group>"; };
 		2800CF9524719EC4003C3EF1 /* Tally.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tally.swift; sourceTree = "<group>"; };
 		2800CF972471A004003C3EF1 /* CosmosProposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CosmosProposer.swift; sourceTree = "<group>"; };
 		280524B2255CDA7D004D6172 /* StarnameWalletConnectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarnameWalletConnectViewController.swift; sourceTree = "<group>"; };
@@ -2187,6 +2191,8 @@
 				28CFB6AC2613422200A18634 /* TokenDetailAkashCell.xib */,
 				0497585E2685902A0039872C /* TokenDetailBandCell.swift */,
 				0497585F2685902A0039872C /* TokenDetailBandCell.xib */,
+				049758862685BF530039872C /* TokenDetailIovCell.swift */,
+				049758872685BF530039872C /* TokenDetailIovCell.xib */,
 				28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */,
 				28BBAAC9264A2C1B0013A555 /* TokenDetailExCell.xib */,
 				28CFB6B52613594D00A18634 /* TokenDetailPersistenceCell.swift */,
@@ -3263,6 +3269,7 @@
 				282FF36223F532360028CC66 /* TxVoteCell.xib in Resources */,
 				E126CF8C2387A50E002A546F /* WalletBnbCell.xib in Resources */,
 				283E9459254901D9007A9291 /* RegisterDomain0ViewController.xib in Resources */,
+				049758892685BF530039872C /* TokenDetailIovCell.xib in Resources */,
 				280E1F17254ABB080007BA7D /* ResourceAddCell.xib in Resources */,
 				28474ECC241E06AF00AF5A81 /* TxCdpBorrowCell.xib in Resources */,
 				E1E251E122A671180008F0DB /* OtherValidatorCell.xib in Resources */,
@@ -3490,6 +3497,7 @@
 				28474ED5241E06AF00AF5A81 /* TxCdpRepayCell.swift in Sources */,
 				E171A075225B091300C5756C /* StepGenTxViewController.swift in Sources */,
 				283439A12531D1CF00CCFADE /* MyDomainViewController.swift in Sources */,
+				049758882685BF530039872C /* TokenDetailIovCell.swift in Sources */,
 				0497587E2685AA270039872C /* iov_starname_v1beta1_types.pb.swift in Sources */,
 				287AC5A925FDF7250070837E /* htlc_query.grpc.swift in Sources */,
 				287AC61025FDF7260070837E /* nft_genesis.pb.swift in Sources */,
