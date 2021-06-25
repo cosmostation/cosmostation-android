@@ -248,7 +248,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -416,6 +416,7 @@ public final class Genesis {
      * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
      * @return The startingProposalId.
      */
+    @java.lang.Override
     public long getStartingProposalId() {
       return startingProposalId_;
     }
@@ -429,6 +430,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Deposit deposits = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Deposits"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.gov.v1beta1.Gov.Deposit> getDepositsList() {
       return deposits_;
     }
@@ -439,6 +441,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Deposit deposits = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Deposits"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.gov.v1beta1.Gov.DepositOrBuilder> 
         getDepositsOrBuilderList() {
       return deposits_;
@@ -450,6 +453,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Deposit deposits = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Deposits"];</code>
      */
+    @java.lang.Override
     public int getDepositsCount() {
       return deposits_.size();
     }
@@ -460,6 +464,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Deposit deposits = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Deposits"];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.Deposit getDeposits(int index) {
       return deposits_.get(index);
     }
@@ -470,6 +475,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Deposit deposits = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Deposits"];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.DepositOrBuilder getDepositsOrBuilder(
         int index) {
       return deposits_.get(index);
@@ -484,6 +490,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Vote votes = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Votes"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.gov.v1beta1.Gov.Vote> getVotesList() {
       return votes_;
     }
@@ -494,6 +501,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Vote votes = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Votes"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.gov.v1beta1.Gov.VoteOrBuilder> 
         getVotesOrBuilderList() {
       return votes_;
@@ -505,6 +513,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Vote votes = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Votes"];</code>
      */
+    @java.lang.Override
     public int getVotesCount() {
       return votes_.size();
     }
@@ -515,6 +524,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Vote votes = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Votes"];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.Vote getVotes(int index) {
       return votes_.get(index);
     }
@@ -525,6 +535,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Vote votes = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Votes"];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.VoteOrBuilder getVotesOrBuilder(
         int index) {
       return votes_.get(index);
@@ -539,6 +550,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Proposal proposals = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Proposals"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.gov.v1beta1.Gov.Proposal> getProposalsList() {
       return proposals_;
     }
@@ -549,6 +561,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Proposal proposals = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Proposals"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.gov.v1beta1.Gov.ProposalOrBuilder> 
         getProposalsOrBuilderList() {
       return proposals_;
@@ -560,6 +573,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Proposal proposals = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Proposals"];</code>
      */
+    @java.lang.Override
     public int getProposalsCount() {
       return proposals_.size();
     }
@@ -570,6 +584,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Proposal proposals = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Proposals"];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.Proposal getProposals(int index) {
       return proposals_.get(index);
     }
@@ -580,6 +595,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.gov.v1beta1.Proposal proposals = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Proposals"];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.ProposalOrBuilder getProposalsOrBuilder(
         int index) {
       return proposals_.get(index);
@@ -595,6 +611,7 @@ public final class Genesis {
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
      * @return Whether the depositParams field is set.
      */
+    @java.lang.Override
     public boolean hasDepositParams() {
       return depositParams_ != null;
     }
@@ -606,6 +623,7 @@ public final class Genesis {
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
      * @return The depositParams.
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.DepositParams getDepositParams() {
       return depositParams_ == null ? cosmos.gov.v1beta1.Gov.DepositParams.getDefaultInstance() : depositParams_;
     }
@@ -616,6 +634,7 @@ public final class Genesis {
      *
      * <code>.cosmos.gov.v1beta1.DepositParams deposit_params = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_params&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.DepositParamsOrBuilder getDepositParamsOrBuilder() {
       return getDepositParams();
     }
@@ -630,6 +649,7 @@ public final class Genesis {
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
      * @return Whether the votingParams field is set.
      */
+    @java.lang.Override
     public boolean hasVotingParams() {
       return votingParams_ != null;
     }
@@ -641,6 +661,7 @@ public final class Genesis {
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
      * @return The votingParams.
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.VotingParams getVotingParams() {
       return votingParams_ == null ? cosmos.gov.v1beta1.Gov.VotingParams.getDefaultInstance() : votingParams_;
     }
@@ -651,6 +672,7 @@ public final class Genesis {
      *
      * <code>.cosmos.gov.v1beta1.VotingParams voting_params = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_params&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.VotingParamsOrBuilder getVotingParamsOrBuilder() {
       return getVotingParams();
     }
@@ -665,6 +687,7 @@ public final class Genesis {
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
      * @return Whether the tallyParams field is set.
      */
+    @java.lang.Override
     public boolean hasTallyParams() {
       return tallyParams_ != null;
     }
@@ -676,6 +699,7 @@ public final class Genesis {
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
      * @return The tallyParams.
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyParams getTallyParams() {
       return tallyParams_ == null ? cosmos.gov.v1beta1.Gov.TallyParams.getDefaultInstance() : tallyParams_;
     }
@@ -686,6 +710,7 @@ public final class Genesis {
      *
      * <code>.cosmos.gov.v1beta1.TallyParams tally_params = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"tally_params&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyParamsOrBuilder getTallyParamsOrBuilder() {
       return getTallyParams();
     }
@@ -1263,6 +1288,7 @@ public final class Genesis {
        * <code>uint64 starting_proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"starting_proposal_id&#92;""];</code>
        * @return The startingProposalId.
        */
+      @java.lang.Override
       public long getStartingProposalId() {
         return startingProposalId_;
       }

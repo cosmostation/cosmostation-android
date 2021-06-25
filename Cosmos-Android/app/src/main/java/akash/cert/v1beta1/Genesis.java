@@ -52,7 +52,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.cert.v1beta1.GenesisCertificate}
    */
-  public  static final class GenesisCertificate extends
+  public static final class GenesisCertificate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.GenesisCertificate)
       GenesisCertificateOrBuilder {
@@ -152,6 +152,7 @@ public final class Genesis {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -168,6 +169,7 @@ public final class Genesis {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -188,6 +190,7 @@ public final class Genesis {
      * <code>.akash.cert.v1beta1.Certificate certificate = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificate", (.gogoproto.moretags) = "yaml:&#92;"certificate&#92;""];</code>
      * @return Whether the certificate field is set.
      */
+    @java.lang.Override
     public boolean hasCertificate() {
       return certificate_ != null;
     }
@@ -195,12 +198,14 @@ public final class Genesis {
      * <code>.akash.cert.v1beta1.Certificate certificate = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificate", (.gogoproto.moretags) = "yaml:&#92;"certificate&#92;""];</code>
      * @return The certificate.
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.Certificate getCertificate() {
       return certificate_ == null ? akash.cert.v1beta1.Cert.Certificate.getDefaultInstance() : certificate_;
     }
     /**
      * <code>.akash.cert.v1beta1.Certificate certificate = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificate", (.gogoproto.moretags) = "yaml:&#92;"certificate&#92;""];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.CertificateOrBuilder getCertificateOrBuilder() {
       return getCertificate();
     }
@@ -823,7 +828,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.cert.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -916,12 +921,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.cert.v1beta1.GenesisCertificate certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificates", (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;"", (.gogoproto.castrepeated) = "GenesisCertificates"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.cert.v1beta1.Genesis.GenesisCertificate> getCertificatesList() {
       return certificates_;
     }
     /**
      * <code>repeated .akash.cert.v1beta1.GenesisCertificate certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificates", (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;"", (.gogoproto.castrepeated) = "GenesisCertificates"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.cert.v1beta1.Genesis.GenesisCertificateOrBuilder> 
         getCertificatesOrBuilderList() {
       return certificates_;
@@ -929,18 +936,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.cert.v1beta1.GenesisCertificate certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificates", (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;"", (.gogoproto.castrepeated) = "GenesisCertificates"];</code>
      */
+    @java.lang.Override
     public int getCertificatesCount() {
       return certificates_.size();
     }
     /**
      * <code>repeated .akash.cert.v1beta1.GenesisCertificate certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificates", (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;"", (.gogoproto.castrepeated) = "GenesisCertificates"];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Genesis.GenesisCertificate getCertificates(int index) {
       return certificates_.get(index);
     }
     /**
      * <code>repeated .akash.cert.v1beta1.GenesisCertificate certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificates", (.gogoproto.moretags) = "yaml:&#92;"certificates&#92;"", (.gogoproto.castrepeated) = "GenesisCertificates"];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Genesis.GenesisCertificateOrBuilder getCertificatesOrBuilder(
         int index) {
       return certificates_.get(index);

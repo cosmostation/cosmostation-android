@@ -86,7 +86,7 @@ public final class Params {
    *
    * Protobuf type {@code tendermint.types.ConsensusParams}
    */
-  public  static final class ConsensusParams extends
+  public static final class ConsensusParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.ConsensusParams)
       ConsensusParamsOrBuilder {
@@ -218,6 +218,7 @@ public final class Params {
      * <code>.tendermint.types.BlockParams block = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the block field is set.
      */
+    @java.lang.Override
     public boolean hasBlock() {
       return block_ != null;
     }
@@ -225,12 +226,14 @@ public final class Params {
      * <code>.tendermint.types.BlockParams block = 1 [(.gogoproto.nullable) = false];</code>
      * @return The block.
      */
+    @java.lang.Override
     public tendermint.types.Params.BlockParams getBlock() {
       return block_ == null ? tendermint.types.Params.BlockParams.getDefaultInstance() : block_;
     }
     /**
      * <code>.tendermint.types.BlockParams block = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Params.BlockParamsOrBuilder getBlockOrBuilder() {
       return getBlock();
     }
@@ -241,6 +244,7 @@ public final class Params {
      * <code>.tendermint.types.EvidenceParams evidence = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the evidence field is set.
      */
+    @java.lang.Override
     public boolean hasEvidence() {
       return evidence_ != null;
     }
@@ -248,12 +252,14 @@ public final class Params {
      * <code>.tendermint.types.EvidenceParams evidence = 2 [(.gogoproto.nullable) = false];</code>
      * @return The evidence.
      */
+    @java.lang.Override
     public tendermint.types.Params.EvidenceParams getEvidence() {
       return evidence_ == null ? tendermint.types.Params.EvidenceParams.getDefaultInstance() : evidence_;
     }
     /**
      * <code>.tendermint.types.EvidenceParams evidence = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Params.EvidenceParamsOrBuilder getEvidenceOrBuilder() {
       return getEvidence();
     }
@@ -264,6 +270,7 @@ public final class Params {
      * <code>.tendermint.types.ValidatorParams validator = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the validator field is set.
      */
+    @java.lang.Override
     public boolean hasValidator() {
       return validator_ != null;
     }
@@ -271,12 +278,14 @@ public final class Params {
      * <code>.tendermint.types.ValidatorParams validator = 3 [(.gogoproto.nullable) = false];</code>
      * @return The validator.
      */
+    @java.lang.Override
     public tendermint.types.Params.ValidatorParams getValidator() {
       return validator_ == null ? tendermint.types.Params.ValidatorParams.getDefaultInstance() : validator_;
     }
     /**
      * <code>.tendermint.types.ValidatorParams validator = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Params.ValidatorParamsOrBuilder getValidatorOrBuilder() {
       return getValidator();
     }
@@ -287,6 +296,7 @@ public final class Params {
      * <code>.tendermint.types.VersionParams version = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the version field is set.
      */
+    @java.lang.Override
     public boolean hasVersion() {
       return version_ != null;
     }
@@ -294,12 +304,14 @@ public final class Params {
      * <code>.tendermint.types.VersionParams version = 4 [(.gogoproto.nullable) = false];</code>
      * @return The version.
      */
+    @java.lang.Override
     public tendermint.types.Params.VersionParams getVersion() {
       return version_ == null ? tendermint.types.Params.VersionParams.getDefaultInstance() : version_;
     }
     /**
      * <code>.tendermint.types.VersionParams version = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.types.Params.VersionParamsOrBuilder getVersionOrBuilder() {
       return getVersion();
     }
@@ -1287,7 +1299,7 @@ public final class Params {
    *
    * Protobuf type {@code tendermint.types.BlockParams}
    */
-  public  static final class BlockParams extends
+  public static final class BlockParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.BlockParams)
       BlockParamsOrBuilder {
@@ -1387,6 +1399,7 @@ public final class Params {
      * <code>int64 max_bytes = 1;</code>
      * @return The maxBytes.
      */
+    @java.lang.Override
     public long getMaxBytes() {
       return maxBytes_;
     }
@@ -1402,6 +1415,7 @@ public final class Params {
      * <code>int64 max_gas = 2;</code>
      * @return The maxGas.
      */
+    @java.lang.Override
     public long getMaxGas() {
       return maxGas_;
     }
@@ -1418,6 +1432,7 @@ public final class Params {
      * <code>int64 time_iota_ms = 3;</code>
      * @return The timeIotaMs.
      */
+    @java.lang.Override
     public long getTimeIotaMs() {
       return timeIotaMs_;
     }
@@ -1775,6 +1790,7 @@ public final class Params {
        * <code>int64 max_bytes = 1;</code>
        * @return The maxBytes.
        */
+      @java.lang.Override
       public long getMaxBytes() {
         return maxBytes_;
       }
@@ -1820,6 +1836,7 @@ public final class Params {
        * <code>int64 max_gas = 2;</code>
        * @return The maxGas.
        */
+      @java.lang.Override
       public long getMaxGas() {
         return maxGas_;
       }
@@ -1866,6 +1883,7 @@ public final class Params {
        * <code>int64 time_iota_ms = 3;</code>
        * @return The timeIotaMs.
        */
+      @java.lang.Override
       public long getTimeIotaMs() {
         return timeIotaMs_;
       }
@@ -2026,7 +2044,7 @@ public final class Params {
    *
    * Protobuf type {@code tendermint.types.EvidenceParams}
    */
-  public  static final class EvidenceParams extends
+  public static final class EvidenceParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.EvidenceParams)
       EvidenceParamsOrBuilder {
@@ -2135,6 +2153,7 @@ public final class Params {
      * <code>int64 max_age_num_blocks = 1;</code>
      * @return The maxAgeNumBlocks.
      */
+    @java.lang.Override
     public long getMaxAgeNumBlocks() {
       return maxAgeNumBlocks_;
     }
@@ -2152,6 +2171,7 @@ public final class Params {
      * <code>.google.protobuf.Duration max_age_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
      * @return Whether the maxAgeDuration field is set.
      */
+    @java.lang.Override
     public boolean hasMaxAgeDuration() {
       return maxAgeDuration_ != null;
     }
@@ -2166,6 +2186,7 @@ public final class Params {
      * <code>.google.protobuf.Duration max_age_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
      * @return The maxAgeDuration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getMaxAgeDuration() {
       return maxAgeDuration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : maxAgeDuration_;
     }
@@ -2179,6 +2200,7 @@ public final class Params {
      *
      * <code>.google.protobuf.Duration max_age_duration = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getMaxAgeDurationOrBuilder() {
       return getMaxAgeDuration();
     }
@@ -2195,6 +2217,7 @@ public final class Params {
      * <code>int64 max_bytes = 3;</code>
      * @return The maxBytes.
      */
+    @java.lang.Override
     public long getMaxBytes() {
       return maxBytes_;
     }
@@ -2565,6 +2588,7 @@ public final class Params {
        * <code>int64 max_age_num_blocks = 1;</code>
        * @return The maxAgeNumBlocks.
        */
+      @java.lang.Override
       public long getMaxAgeNumBlocks() {
         return maxAgeNumBlocks_;
       }
@@ -2795,6 +2819,7 @@ public final class Params {
        * <code>int64 max_bytes = 3;</code>
        * @return The maxBytes.
        */
+      @java.lang.Override
       public long getMaxBytes() {
         return maxBytes_;
       }
@@ -2921,7 +2946,7 @@ public final class Params {
    *
    * Protobuf type {@code tendermint.types.ValidatorParams}
    */
-  public  static final class ValidatorParams extends
+  public static final class ValidatorParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.ValidatorParams)
       ValidatorParamsOrBuilder {
@@ -3549,7 +3574,7 @@ public final class Params {
    *
    * Protobuf type {@code tendermint.types.VersionParams}
    */
-  public  static final class VersionParams extends
+  public static final class VersionParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.VersionParams)
       VersionParamsOrBuilder {
@@ -3634,6 +3659,7 @@ public final class Params {
      * <code>uint64 app_version = 1;</code>
      * @return The appVersion.
      */
+    @java.lang.Override
     public long getAppVersion() {
       return appVersion_;
     }
@@ -3950,6 +3976,7 @@ public final class Params {
        * <code>uint64 app_version = 1;</code>
        * @return The appVersion.
        */
+      @java.lang.Override
       public long getAppVersion() {
         return appVersion_;
       }
@@ -4051,7 +4078,7 @@ public final class Params {
    *
    * Protobuf type {@code tendermint.types.HashedParams}
    */
-  public  static final class HashedParams extends
+  public static final class HashedParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.types.HashedParams)
       HashedParamsOrBuilder {
@@ -4141,6 +4168,7 @@ public final class Params {
      * <code>int64 block_max_bytes = 1;</code>
      * @return The blockMaxBytes.
      */
+    @java.lang.Override
     public long getBlockMaxBytes() {
       return blockMaxBytes_;
     }
@@ -4151,6 +4179,7 @@ public final class Params {
      * <code>int64 block_max_gas = 2;</code>
      * @return The blockMaxGas.
      */
+    @java.lang.Override
     public long getBlockMaxGas() {
       return blockMaxGas_;
     }
@@ -4486,6 +4515,7 @@ public final class Params {
        * <code>int64 block_max_bytes = 1;</code>
        * @return The blockMaxBytes.
        */
+      @java.lang.Override
       public long getBlockMaxBytes() {
         return blockMaxBytes_;
       }
@@ -4516,6 +4546,7 @@ public final class Params {
        * <code>int64 block_max_gas = 2;</code>
        * @return The blockMaxGas.
        */
+      @java.lang.Override
       public long getBlockMaxGas() {
         return blockMaxGas_;
       }

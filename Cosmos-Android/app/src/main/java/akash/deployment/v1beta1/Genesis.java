@@ -64,7 +64,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.deployment.v1beta1.GenesisDeployment}
    */
-  public  static final class GenesisDeployment extends
+  public static final class GenesisDeployment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.GenesisDeployment)
       GenesisDeploymentOrBuilder {
@@ -171,6 +171,7 @@ public final class Genesis {
      * <code>.akash.deployment.v1beta1.Deployment deployment = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployment", (.gogoproto.moretags) = "yaml:&#92;"deployment&#92;""];</code>
      * @return Whether the deployment field is set.
      */
+    @java.lang.Override
     public boolean hasDeployment() {
       return deployment_ != null;
     }
@@ -178,12 +179,14 @@ public final class Genesis {
      * <code>.akash.deployment.v1beta1.Deployment deployment = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployment", (.gogoproto.moretags) = "yaml:&#92;"deployment&#92;""];</code>
      * @return The deployment.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.Deployment getDeployment() {
       return deployment_ == null ? akash.deployment.v1beta1.DeploymentOuterClass.Deployment.getDefaultInstance() : deployment_;
     }
     /**
      * <code>.akash.deployment.v1beta1.Deployment deployment = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployment", (.gogoproto.moretags) = "yaml:&#92;"deployment&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.DeploymentOuterClass.DeploymentOrBuilder getDeploymentOrBuilder() {
       return getDeployment();
     }
@@ -193,12 +196,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.GroupOuterClass.Group> getGroupsList() {
       return groups_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.GroupOuterClass.GroupOrBuilder> 
         getGroupsOrBuilderList() {
       return groups_;
@@ -206,18 +211,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public int getGroupsCount() {
       return groups_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.Group getGroups(int index) {
       return groups_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.Group groups = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "groups", (.gogoproto.moretags) = "yaml:&#92;"groups&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.GroupOuterClass.GroupOrBuilder getGroupsOrBuilder(
         int index) {
       return groups_.get(index);
@@ -1060,7 +1068,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.deployment.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.deployment.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -1166,12 +1174,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.deployment.v1beta1.GenesisDeployment deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployments", (.gogoproto.moretags) = "yaml:&#92;"deployments&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.deployment.v1beta1.Genesis.GenesisDeployment> getDeploymentsList() {
       return deployments_;
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GenesisDeployment deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployments", (.gogoproto.moretags) = "yaml:&#92;"deployments&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.deployment.v1beta1.Genesis.GenesisDeploymentOrBuilder> 
         getDeploymentsOrBuilderList() {
       return deployments_;
@@ -1179,18 +1189,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.deployment.v1beta1.GenesisDeployment deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployments", (.gogoproto.moretags) = "yaml:&#92;"deployments&#92;""];</code>
      */
+    @java.lang.Override
     public int getDeploymentsCount() {
       return deployments_.size();
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GenesisDeployment deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployments", (.gogoproto.moretags) = "yaml:&#92;"deployments&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.Genesis.GenesisDeployment getDeployments(int index) {
       return deployments_.get(index);
     }
     /**
      * <code>repeated .akash.deployment.v1beta1.GenesisDeployment deployments = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "deployments", (.gogoproto.moretags) = "yaml:&#92;"deployments&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.Genesis.GenesisDeploymentOrBuilder getDeploymentsOrBuilder(
         int index) {
       return deployments_.get(index);
@@ -1202,6 +1215,7 @@ public final class Genesis {
      * <code>.akash.deployment.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "params", (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -1209,12 +1223,14 @@ public final class Genesis {
      * <code>.akash.deployment.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "params", (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      * @return The params.
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.ParamsOuterClass.Params getParams() {
       return params_ == null ? akash.deployment.v1beta1.ParamsOuterClass.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.akash.deployment.v1beta1.Params params = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "params", (.gogoproto.moretags) = "yaml:&#92;"params&#92;""];</code>
      */
+    @java.lang.Override
     public akash.deployment.v1beta1.ParamsOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

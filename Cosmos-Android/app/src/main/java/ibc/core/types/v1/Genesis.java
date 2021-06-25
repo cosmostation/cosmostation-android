@@ -106,7 +106,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.types.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.types.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -229,6 +229,7 @@ public final class Genesis {
      * <code>.ibc.core.client.v1.GenesisState client_genesis = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_genesis&#92;""];</code>
      * @return Whether the clientGenesis field is set.
      */
+    @java.lang.Override
     public boolean hasClientGenesis() {
       return clientGenesis_ != null;
     }
@@ -240,6 +241,7 @@ public final class Genesis {
      * <code>.ibc.core.client.v1.GenesisState client_genesis = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_genesis&#92;""];</code>
      * @return The clientGenesis.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Genesis.GenesisState getClientGenesis() {
       return clientGenesis_ == null ? ibc.core.client.v1.Genesis.GenesisState.getDefaultInstance() : clientGenesis_;
     }
@@ -250,6 +252,7 @@ public final class Genesis {
      *
      * <code>.ibc.core.client.v1.GenesisState client_genesis = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"client_genesis&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Genesis.GenesisStateOrBuilder getClientGenesisOrBuilder() {
       return getClientGenesis();
     }
@@ -264,6 +267,7 @@ public final class Genesis {
      * <code>.ibc.core.connection.v1.GenesisState connection_genesis = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"connection_genesis&#92;""];</code>
      * @return Whether the connectionGenesis field is set.
      */
+    @java.lang.Override
     public boolean hasConnectionGenesis() {
       return connectionGenesis_ != null;
     }
@@ -275,6 +279,7 @@ public final class Genesis {
      * <code>.ibc.core.connection.v1.GenesisState connection_genesis = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"connection_genesis&#92;""];</code>
      * @return The connectionGenesis.
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Genesis.GenesisState getConnectionGenesis() {
       return connectionGenesis_ == null ? ibc.core.connection.v1.Genesis.GenesisState.getDefaultInstance() : connectionGenesis_;
     }
@@ -285,6 +290,7 @@ public final class Genesis {
      *
      * <code>.ibc.core.connection.v1.GenesisState connection_genesis = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"connection_genesis&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Genesis.GenesisStateOrBuilder getConnectionGenesisOrBuilder() {
       return getConnectionGenesis();
     }
@@ -299,6 +305,7 @@ public final class Genesis {
      * <code>.ibc.core.channel.v1.GenesisState channel_genesis = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"channel_genesis&#92;""];</code>
      * @return Whether the channelGenesis field is set.
      */
+    @java.lang.Override
     public boolean hasChannelGenesis() {
       return channelGenesis_ != null;
     }
@@ -310,6 +317,7 @@ public final class Genesis {
      * <code>.ibc.core.channel.v1.GenesisState channel_genesis = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"channel_genesis&#92;""];</code>
      * @return The channelGenesis.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.GenesisState getChannelGenesis() {
       return channelGenesis_ == null ? ibc.core.channel.v1.Genesis.GenesisState.getDefaultInstance() : channelGenesis_;
     }
@@ -320,6 +328,7 @@ public final class Genesis {
      *
      * <code>.ibc.core.channel.v1.GenesisState channel_genesis = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"channel_genesis&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.GenesisStateOrBuilder getChannelGenesisOrBuilder() {
       return getChannelGenesis();
     }

@@ -97,7 +97,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgIssueToken}
    */
-  public  static final class MsgIssueToken extends
+  public static final class MsgIssueToken extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgIssueToken)
       MsgIssueTokenOrBuilder {
@@ -225,6 +225,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -241,6 +242,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -261,6 +263,7 @@ public final class Tx {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -277,6 +280,7 @@ public final class Tx {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -297,6 +301,7 @@ public final class Tx {
      * <code>uint32 scale = 3;</code>
      * @return The scale.
      */
+    @java.lang.Override
     public int getScale() {
       return scale_;
     }
@@ -307,6 +312,7 @@ public final class Tx {
      * <code>string min_unit = 4 [(.gogoproto.moretags) = "yaml:&#92;"min_unit&#92;""];</code>
      * @return The minUnit.
      */
+    @java.lang.Override
     public java.lang.String getMinUnit() {
       java.lang.Object ref = minUnit_;
       if (ref instanceof java.lang.String) {
@@ -323,6 +329,7 @@ public final class Tx {
      * <code>string min_unit = 4 [(.gogoproto.moretags) = "yaml:&#92;"min_unit&#92;""];</code>
      * @return The bytes for minUnit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinUnitBytes() {
       java.lang.Object ref = minUnit_;
@@ -343,6 +350,7 @@ public final class Tx {
      * <code>uint64 initial_supply = 5 [(.gogoproto.moretags) = "yaml:&#92;"initial_supply&#92;""];</code>
      * @return The initialSupply.
      */
+    @java.lang.Override
     public long getInitialSupply() {
       return initialSupply_;
     }
@@ -353,6 +361,7 @@ public final class Tx {
      * <code>uint64 max_supply = 6 [(.gogoproto.moretags) = "yaml:&#92;"max_supply&#92;""];</code>
      * @return The maxSupply.
      */
+    @java.lang.Override
     public long getMaxSupply() {
       return maxSupply_;
     }
@@ -363,6 +372,7 @@ public final class Tx {
      * <code>bool mintable = 7;</code>
      * @return The mintable.
      */
+    @java.lang.Override
     public boolean getMintable() {
       return mintable_;
     }
@@ -373,6 +383,7 @@ public final class Tx {
      * <code>string owner = 8;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -389,6 +400,7 @@ public final class Tx {
      * <code>string owner = 8;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -988,6 +1000,7 @@ public final class Tx {
        * <code>uint32 scale = 3;</code>
        * @return The scale.
        */
+      @java.lang.Override
       public int getScale() {
         return scale_;
       }
@@ -1094,6 +1107,7 @@ public final class Tx {
        * <code>uint64 initial_supply = 5 [(.gogoproto.moretags) = "yaml:&#92;"initial_supply&#92;""];</code>
        * @return The initialSupply.
        */
+      @java.lang.Override
       public long getInitialSupply() {
         return initialSupply_;
       }
@@ -1124,6 +1138,7 @@ public final class Tx {
        * <code>uint64 max_supply = 6 [(.gogoproto.moretags) = "yaml:&#92;"max_supply&#92;""];</code>
        * @return The maxSupply.
        */
+      @java.lang.Override
       public long getMaxSupply() {
         return maxSupply_;
       }
@@ -1154,6 +1169,7 @@ public final class Tx {
        * <code>bool mintable = 7;</code>
        * @return The mintable.
        */
+      @java.lang.Override
       public boolean getMintable() {
         return mintable_;
       }
@@ -1318,7 +1334,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgIssueTokenResponse}
    */
-  public  static final class MsgIssueTokenResponse extends
+  public static final class MsgIssueTokenResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgIssueTokenResponse)
       MsgIssueTokenResponseOrBuilder {
@@ -1780,7 +1796,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgTransferTokenOwner}
    */
-  public  static final class MsgTransferTokenOwner extends
+  public static final class MsgTransferTokenOwner extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgTransferTokenOwner)
       MsgTransferTokenOwnerOrBuilder {
@@ -1881,6 +1897,7 @@ public final class Tx {
      * <code>string src_owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"src_owner&#92;""];</code>
      * @return The srcOwner.
      */
+    @java.lang.Override
     public java.lang.String getSrcOwner() {
       java.lang.Object ref = srcOwner_;
       if (ref instanceof java.lang.String) {
@@ -1897,6 +1914,7 @@ public final class Tx {
      * <code>string src_owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"src_owner&#92;""];</code>
      * @return The bytes for srcOwner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSrcOwnerBytes() {
       java.lang.Object ref = srcOwner_;
@@ -1917,6 +1935,7 @@ public final class Tx {
      * <code>string dst_owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"dst_owner&#92;""];</code>
      * @return The dstOwner.
      */
+    @java.lang.Override
     public java.lang.String getDstOwner() {
       java.lang.Object ref = dstOwner_;
       if (ref instanceof java.lang.String) {
@@ -1933,6 +1952,7 @@ public final class Tx {
      * <code>string dst_owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"dst_owner&#92;""];</code>
      * @return The bytes for dstOwner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDstOwnerBytes() {
       java.lang.Object ref = dstOwner_;
@@ -1953,6 +1973,7 @@ public final class Tx {
      * <code>string symbol = 3;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -1969,6 +1990,7 @@ public final class Tx {
      * <code>string symbol = 3;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -2614,7 +2636,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgTransferTokenOwnerResponse}
    */
-  public  static final class MsgTransferTokenOwnerResponse extends
+  public static final class MsgTransferTokenOwnerResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgTransferTokenOwnerResponse)
       MsgTransferTokenOwnerResponseOrBuilder {
@@ -3094,7 +3116,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgEditToken}
    */
-  public  static final class MsgEditToken extends
+  public static final class MsgEditToken extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgEditToken)
       MsgEditTokenOrBuilder {
@@ -3207,6 +3229,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -3223,6 +3246,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -3243,6 +3267,7 @@ public final class Tx {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -3259,6 +3284,7 @@ public final class Tx {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -3279,6 +3305,7 @@ public final class Tx {
      * <code>uint64 max_supply = 3 [(.gogoproto.moretags) = "yaml:&#92;"max_supply&#92;""];</code>
      * @return The maxSupply.
      */
+    @java.lang.Override
     public long getMaxSupply() {
       return maxSupply_;
     }
@@ -3289,6 +3316,7 @@ public final class Tx {
      * <code>string mintable = 4 [(.gogoproto.casttype) = "Bool"];</code>
      * @return The mintable.
      */
+    @java.lang.Override
     public java.lang.String getMintable() {
       java.lang.Object ref = mintable_;
       if (ref instanceof java.lang.String) {
@@ -3305,6 +3333,7 @@ public final class Tx {
      * <code>string mintable = 4 [(.gogoproto.casttype) = "Bool"];</code>
      * @return The bytes for mintable.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMintableBytes() {
       java.lang.Object ref = mintable_;
@@ -3325,6 +3354,7 @@ public final class Tx {
      * <code>string owner = 5;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -3341,6 +3371,7 @@ public final class Tx {
      * <code>string owner = 5;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -3887,6 +3918,7 @@ public final class Tx {
        * <code>uint64 max_supply = 3 [(.gogoproto.moretags) = "yaml:&#92;"max_supply&#92;""];</code>
        * @return The maxSupply.
        */
+      @java.lang.Override
       public long getMaxSupply() {
         return maxSupply_;
       }
@@ -4127,7 +4159,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgEditTokenResponse}
    */
-  public  static final class MsgEditTokenResponse extends
+  public static final class MsgEditTokenResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgEditTokenResponse)
       MsgEditTokenResponseOrBuilder {
@@ -4595,7 +4627,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgMintToken}
    */
-  public  static final class MsgMintToken extends
+  public static final class MsgMintToken extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgMintToken)
       MsgMintTokenOrBuilder {
@@ -4701,6 +4733,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -4717,6 +4750,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -4737,6 +4771,7 @@ public final class Tx {
      * <code>uint64 amount = 2;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -4747,6 +4782,7 @@ public final class Tx {
      * <code>string to = 3;</code>
      * @return The to.
      */
+    @java.lang.Override
     public java.lang.String getTo() {
       java.lang.Object ref = to_;
       if (ref instanceof java.lang.String) {
@@ -4763,6 +4799,7 @@ public final class Tx {
      * <code>string to = 3;</code>
      * @return The bytes for to.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getToBytes() {
       java.lang.Object ref = to_;
@@ -4783,6 +4820,7 @@ public final class Tx {
      * <code>string owner = 4;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -4799,6 +4837,7 @@ public final class Tx {
      * <code>string owner = 4;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -5252,6 +5291,7 @@ public final class Tx {
        * <code>uint64 amount = 2;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -5492,7 +5532,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgMintTokenResponse}
    */
-  public  static final class MsgMintTokenResponse extends
+  public static final class MsgMintTokenResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgMintTokenResponse)
       MsgMintTokenResponseOrBuilder {
@@ -5948,7 +5988,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgBurnToken}
    */
-  public  static final class MsgBurnToken extends
+  public static final class MsgBurnToken extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgBurnToken)
       MsgBurnTokenOrBuilder {
@@ -6047,6 +6087,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -6063,6 +6104,7 @@ public final class Tx {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -6083,6 +6125,7 @@ public final class Tx {
      * <code>uint64 amount = 2;</code>
      * @return The amount.
      */
+    @java.lang.Override
     public long getAmount() {
       return amount_;
     }
@@ -6093,6 +6136,7 @@ public final class Tx {
      * <code>string sender = 3;</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -6109,6 +6153,7 @@ public final class Tx {
      * <code>string sender = 3;</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -6545,6 +6590,7 @@ public final class Tx {
        * <code>uint64 amount = 2;</code>
        * @return The amount.
        */
+      @java.lang.Override
       public long getAmount() {
         return amount_;
       }
@@ -6709,7 +6755,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.token.MsgBurnTokenResponse}
    */
-  public  static final class MsgBurnTokenResponse extends
+  public static final class MsgBurnTokenResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.MsgBurnTokenResponse)
       MsgBurnTokenResponseOrBuilder {

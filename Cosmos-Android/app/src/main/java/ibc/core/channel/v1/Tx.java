@@ -65,7 +65,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenInit}
    */
-  public  static final class MsgChannelOpenInit extends
+  public static final class MsgChannelOpenInit extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenInit)
       MsgChannelOpenInitOrBuilder {
@@ -172,6 +172,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -188,6 +189,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -208,6 +210,7 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Channel channel = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the channel field is set.
      */
+    @java.lang.Override
     public boolean hasChannel() {
       return channel_ != null;
     }
@@ -215,12 +218,14 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Channel channel = 2 [(.gogoproto.nullable) = false];</code>
      * @return The channel.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Channel getChannel() {
       return channel_ == null ? ibc.core.channel.v1.ChannelOuterClass.Channel.getDefaultInstance() : channel_;
     }
     /**
      * <code>.ibc.core.channel.v1.Channel channel = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.ChannelOrBuilder getChannelOrBuilder() {
       return getChannel();
     }
@@ -231,6 +236,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -247,6 +253,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -949,7 +956,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenInitResponse}
    */
-  public  static final class MsgChannelOpenInitResponse extends
+  public static final class MsgChannelOpenInitResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenInitResponse)
       MsgChannelOpenInitResponseOrBuilder {
@@ -1470,7 +1477,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenTry}
    */
-  public  static final class MsgChannelOpenTry extends
+  public static final class MsgChannelOpenTry extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenTry)
       MsgChannelOpenTryOrBuilder {
@@ -1610,6 +1617,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -1626,6 +1634,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -1651,6 +1660,7 @@ public final class Tx {
      * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
      * @return The previousChannelId.
      */
+    @java.lang.Override
     public java.lang.String getPreviousChannelId() {
       java.lang.Object ref = previousChannelId_;
       if (ref instanceof java.lang.String) {
@@ -1672,6 +1682,7 @@ public final class Tx {
      * <code>string previous_channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"previous_channel_id&#92;""];</code>
      * @return The bytes for previousChannelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPreviousChannelIdBytes() {
       java.lang.Object ref = previousChannelId_;
@@ -1692,6 +1703,7 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Channel channel = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the channel field is set.
      */
+    @java.lang.Override
     public boolean hasChannel() {
       return channel_ != null;
     }
@@ -1699,12 +1711,14 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Channel channel = 3 [(.gogoproto.nullable) = false];</code>
      * @return The channel.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Channel getChannel() {
       return channel_ == null ? ibc.core.channel.v1.ChannelOuterClass.Channel.getDefaultInstance() : channel_;
     }
     /**
      * <code>.ibc.core.channel.v1.Channel channel = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.ChannelOrBuilder getChannelOrBuilder() {
       return getChannel();
     }
@@ -1715,6 +1729,7 @@ public final class Tx {
      * <code>string counterparty_version = 4 [(.gogoproto.moretags) = "yaml:&#92;"counterparty_version&#92;""];</code>
      * @return The counterpartyVersion.
      */
+    @java.lang.Override
     public java.lang.String getCounterpartyVersion() {
       java.lang.Object ref = counterpartyVersion_;
       if (ref instanceof java.lang.String) {
@@ -1731,6 +1746,7 @@ public final class Tx {
      * <code>string counterparty_version = 4 [(.gogoproto.moretags) = "yaml:&#92;"counterparty_version&#92;""];</code>
      * @return The bytes for counterpartyVersion.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCounterpartyVersionBytes() {
       java.lang.Object ref = counterpartyVersion_;
@@ -1751,6 +1767,7 @@ public final class Tx {
      * <code>bytes proof_init = 5 [(.gogoproto.moretags) = "yaml:&#92;"proof_init&#92;""];</code>
      * @return The proofInit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofInit() {
       return proofInit_;
     }
@@ -1761,6 +1778,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -1768,12 +1786,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -1784,6 +1804,7 @@ public final class Tx {
      * <code>string signer = 7;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -1800,6 +1821,7 @@ public final class Tx {
      * <code>string signer = 7;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -2626,6 +2648,7 @@ public final class Tx {
        * <code>bytes proof_init = 5 [(.gogoproto.moretags) = "yaml:&#92;"proof_init&#92;""];</code>
        * @return The proofInit.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofInit() {
         return proofInit_;
       }
@@ -2912,7 +2935,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenTryResponse}
    */
-  public  static final class MsgChannelOpenTryResponse extends
+  public static final class MsgChannelOpenTryResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenTryResponse)
       MsgChannelOpenTryResponseOrBuilder {
@@ -3420,7 +3443,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenAck}
    */
-  public  static final class MsgChannelOpenAck extends
+  public static final class MsgChannelOpenAck extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenAck)
       MsgChannelOpenAckOrBuilder {
@@ -3554,6 +3577,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -3570,6 +3594,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -3590,6 +3615,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -3606,6 +3632,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -3626,6 +3653,7 @@ public final class Tx {
      * <code>string counterparty_channel_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"counterparty_channel_id&#92;""];</code>
      * @return The counterpartyChannelId.
      */
+    @java.lang.Override
     public java.lang.String getCounterpartyChannelId() {
       java.lang.Object ref = counterpartyChannelId_;
       if (ref instanceof java.lang.String) {
@@ -3642,6 +3670,7 @@ public final class Tx {
      * <code>string counterparty_channel_id = 3 [(.gogoproto.moretags) = "yaml:&#92;"counterparty_channel_id&#92;""];</code>
      * @return The bytes for counterpartyChannelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCounterpartyChannelIdBytes() {
       java.lang.Object ref = counterpartyChannelId_;
@@ -3662,6 +3691,7 @@ public final class Tx {
      * <code>string counterparty_version = 4 [(.gogoproto.moretags) = "yaml:&#92;"counterparty_version&#92;""];</code>
      * @return The counterpartyVersion.
      */
+    @java.lang.Override
     public java.lang.String getCounterpartyVersion() {
       java.lang.Object ref = counterpartyVersion_;
       if (ref instanceof java.lang.String) {
@@ -3678,6 +3708,7 @@ public final class Tx {
      * <code>string counterparty_version = 4 [(.gogoproto.moretags) = "yaml:&#92;"counterparty_version&#92;""];</code>
      * @return The bytes for counterpartyVersion.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCounterpartyVersionBytes() {
       java.lang.Object ref = counterpartyVersion_;
@@ -3698,6 +3729,7 @@ public final class Tx {
      * <code>bytes proof_try = 5 [(.gogoproto.moretags) = "yaml:&#92;"proof_try&#92;""];</code>
      * @return The proofTry.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofTry() {
       return proofTry_;
     }
@@ -3708,6 +3740,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -3715,12 +3748,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -3731,6 +3766,7 @@ public final class Tx {
      * <code>string signer = 7;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -3747,6 +3783,7 @@ public final class Tx {
      * <code>string signer = 7;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -4492,6 +4529,7 @@ public final class Tx {
        * <code>bytes proof_try = 5 [(.gogoproto.moretags) = "yaml:&#92;"proof_try&#92;""];</code>
        * @return The proofTry.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofTry() {
         return proofTry_;
       }
@@ -4778,7 +4816,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenAckResponse}
    */
-  public  static final class MsgChannelOpenAckResponse extends
+  public static final class MsgChannelOpenAckResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenAckResponse)
       MsgChannelOpenAckResponseOrBuilder {
@@ -5262,7 +5300,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenConfirm}
    */
-  public  static final class MsgChannelOpenConfirm extends
+  public static final class MsgChannelOpenConfirm extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenConfirm)
       MsgChannelOpenConfirmOrBuilder {
@@ -5382,6 +5420,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -5398,6 +5437,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -5418,6 +5458,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -5434,6 +5475,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -5454,6 +5496,7 @@ public final class Tx {
      * <code>bytes proof_ack = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_ack&#92;""];</code>
      * @return The proofAck.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofAck() {
       return proofAck_;
     }
@@ -5464,6 +5507,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -5471,12 +5515,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -5487,6 +5533,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -5503,6 +5550,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -6062,6 +6110,7 @@ public final class Tx {
        * <code>bytes proof_ack = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_ack&#92;""];</code>
        * @return The proofAck.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofAck() {
         return proofAck_;
       }
@@ -6348,7 +6397,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelOpenConfirmResponse}
    */
-  public  static final class MsgChannelOpenConfirmResponse extends
+  public static final class MsgChannelOpenConfirmResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelOpenConfirmResponse)
       MsgChannelOpenConfirmResponseOrBuilder {
@@ -6811,7 +6860,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelCloseInit}
    */
-  public  static final class MsgChannelCloseInit extends
+  public static final class MsgChannelCloseInit extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelCloseInit)
       MsgChannelCloseInitOrBuilder {
@@ -6912,6 +6961,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -6928,6 +6978,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -6948,6 +6999,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -6964,6 +7016,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -6984,6 +7037,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -7000,6 +7054,7 @@ public final class Tx {
      * <code>string signer = 3;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -7646,7 +7701,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelCloseInitResponse}
    */
-  public  static final class MsgChannelCloseInitResponse extends
+  public static final class MsgChannelCloseInitResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelCloseInitResponse)
       MsgChannelCloseInitResponseOrBuilder {
@@ -8130,7 +8185,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelCloseConfirm}
    */
-  public  static final class MsgChannelCloseConfirm extends
+  public static final class MsgChannelCloseConfirm extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelCloseConfirm)
       MsgChannelCloseConfirmOrBuilder {
@@ -8250,6 +8305,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -8266,6 +8322,7 @@ public final class Tx {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -8286,6 +8343,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -8302,6 +8360,7 @@ public final class Tx {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -8322,6 +8381,7 @@ public final class Tx {
      * <code>bytes proof_init = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_init&#92;""];</code>
      * @return The proofInit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofInit() {
       return proofInit_;
     }
@@ -8332,6 +8392,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -8339,12 +8400,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -8355,6 +8418,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -8371,6 +8435,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -8930,6 +8995,7 @@ public final class Tx {
        * <code>bytes proof_init = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_init&#92;""];</code>
        * @return The proofInit.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofInit() {
         return proofInit_;
       }
@@ -9216,7 +9282,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgChannelCloseConfirmResponse}
    */
-  public  static final class MsgChannelCloseConfirmResponse extends
+  public static final class MsgChannelCloseConfirmResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgChannelCloseConfirmResponse)
       MsgChannelCloseConfirmResponseOrBuilder {
@@ -9690,7 +9756,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgRecvPacket}
    */
-  public  static final class MsgRecvPacket extends
+  public static final class MsgRecvPacket extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgRecvPacket)
       MsgRecvPacketOrBuilder {
@@ -9809,6 +9875,7 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the packet field is set.
      */
+    @java.lang.Override
     public boolean hasPacket() {
       return packet_ != null;
     }
@@ -9816,12 +9883,14 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return The packet.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Packet getPacket() {
       return packet_ == null ? ibc.core.channel.v1.ChannelOuterClass.Packet.getDefaultInstance() : packet_;
     }
     /**
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketOrBuilder getPacketOrBuilder() {
       return getPacket();
     }
@@ -9832,6 +9901,7 @@ public final class Tx {
      * <code>bytes proof_commitment = 2 [(.gogoproto.moretags) = "yaml:&#92;"proof_commitment&#92;""];</code>
      * @return The proofCommitment.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofCommitment() {
       return proofCommitment_;
     }
@@ -9842,6 +9912,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -9849,12 +9920,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -9865,6 +9938,7 @@ public final class Tx {
      * <code>string signer = 4;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -9881,6 +9955,7 @@ public final class Tx {
      * <code>string signer = 4;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -10402,6 +10477,7 @@ public final class Tx {
        * <code>bytes proof_commitment = 2 [(.gogoproto.moretags) = "yaml:&#92;"proof_commitment&#92;""];</code>
        * @return The proofCommitment.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofCommitment() {
         return proofCommitment_;
       }
@@ -10688,7 +10764,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgRecvPacketResponse}
    */
-  public  static final class MsgRecvPacketResponse extends
+  public static final class MsgRecvPacketResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgRecvPacketResponse)
       MsgRecvPacketResponseOrBuilder {
@@ -11168,7 +11244,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgTimeout}
    */
-  public  static final class MsgTimeout extends
+  public static final class MsgTimeout extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgTimeout)
       MsgTimeoutOrBuilder {
@@ -11292,6 +11368,7 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the packet field is set.
      */
+    @java.lang.Override
     public boolean hasPacket() {
       return packet_ != null;
     }
@@ -11299,12 +11376,14 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return The packet.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Packet getPacket() {
       return packet_ == null ? ibc.core.channel.v1.ChannelOuterClass.Packet.getDefaultInstance() : packet_;
     }
     /**
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketOrBuilder getPacketOrBuilder() {
       return getPacket();
     }
@@ -11315,6 +11394,7 @@ public final class Tx {
      * <code>bytes proof_unreceived = 2 [(.gogoproto.moretags) = "yaml:&#92;"proof_unreceived&#92;""];</code>
      * @return The proofUnreceived.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofUnreceived() {
       return proofUnreceived_;
     }
@@ -11325,6 +11405,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -11332,12 +11413,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -11348,6 +11431,7 @@ public final class Tx {
      * <code>uint64 next_sequence_recv = 4 [(.gogoproto.moretags) = "yaml:&#92;"next_sequence_recv&#92;""];</code>
      * @return The nextSequenceRecv.
      */
+    @java.lang.Override
     public long getNextSequenceRecv() {
       return nextSequenceRecv_;
     }
@@ -11358,6 +11442,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -11374,6 +11459,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -11913,6 +11999,7 @@ public final class Tx {
        * <code>bytes proof_unreceived = 2 [(.gogoproto.moretags) = "yaml:&#92;"proof_unreceived&#92;""];</code>
        * @return The proofUnreceived.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofUnreceived() {
         return proofUnreceived_;
       }
@@ -12065,6 +12152,7 @@ public final class Tx {
        * <code>uint64 next_sequence_recv = 4 [(.gogoproto.moretags) = "yaml:&#92;"next_sequence_recv&#92;""];</code>
        * @return The nextSequenceRecv.
        */
+      @java.lang.Override
       public long getNextSequenceRecv() {
         return nextSequenceRecv_;
       }
@@ -12229,7 +12317,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgTimeoutResponse}
    */
-  public  static final class MsgTimeoutResponse extends
+  public static final class MsgTimeoutResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgTimeoutResponse)
       MsgTimeoutResponseOrBuilder {
@@ -12715,7 +12803,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgTimeoutOnClose}
    */
-  public  static final class MsgTimeoutOnClose extends
+  public static final class MsgTimeoutOnClose extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgTimeoutOnClose)
       MsgTimeoutOnCloseOrBuilder {
@@ -12845,6 +12933,7 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the packet field is set.
      */
+    @java.lang.Override
     public boolean hasPacket() {
       return packet_ != null;
     }
@@ -12852,12 +12941,14 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return The packet.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Packet getPacket() {
       return packet_ == null ? ibc.core.channel.v1.ChannelOuterClass.Packet.getDefaultInstance() : packet_;
     }
     /**
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketOrBuilder getPacketOrBuilder() {
       return getPacket();
     }
@@ -12868,6 +12959,7 @@ public final class Tx {
      * <code>bytes proof_unreceived = 2 [(.gogoproto.moretags) = "yaml:&#92;"proof_unreceived&#92;""];</code>
      * @return The proofUnreceived.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofUnreceived() {
       return proofUnreceived_;
     }
@@ -12878,6 +12970,7 @@ public final class Tx {
      * <code>bytes proof_close = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_close&#92;""];</code>
      * @return The proofClose.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofClose() {
       return proofClose_;
     }
@@ -12888,6 +12981,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -12895,12 +12989,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -12911,6 +13007,7 @@ public final class Tx {
      * <code>uint64 next_sequence_recv = 5 [(.gogoproto.moretags) = "yaml:&#92;"next_sequence_recv&#92;""];</code>
      * @return The nextSequenceRecv.
      */
+    @java.lang.Override
     public long getNextSequenceRecv() {
       return nextSequenceRecv_;
     }
@@ -12921,6 +13018,7 @@ public final class Tx {
      * <code>string signer = 6;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -12937,6 +13035,7 @@ public final class Tx {
      * <code>string signer = 6;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -13493,6 +13592,7 @@ public final class Tx {
        * <code>bytes proof_unreceived = 2 [(.gogoproto.moretags) = "yaml:&#92;"proof_unreceived&#92;""];</code>
        * @return The proofUnreceived.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofUnreceived() {
         return proofUnreceived_;
       }
@@ -13526,6 +13626,7 @@ public final class Tx {
        * <code>bytes proof_close = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_close&#92;""];</code>
        * @return The proofClose.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofClose() {
         return proofClose_;
       }
@@ -13678,6 +13779,7 @@ public final class Tx {
        * <code>uint64 next_sequence_recv = 5 [(.gogoproto.moretags) = "yaml:&#92;"next_sequence_recv&#92;""];</code>
        * @return The nextSequenceRecv.
        */
+      @java.lang.Override
       public long getNextSequenceRecv() {
         return nextSequenceRecv_;
       }
@@ -13842,7 +13944,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgTimeoutOnCloseResponse}
    */
-  public  static final class MsgTimeoutOnCloseResponse extends
+  public static final class MsgTimeoutOnCloseResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgTimeoutOnCloseResponse)
       MsgTimeoutOnCloseResponseOrBuilder {
@@ -14322,7 +14424,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgAcknowledgement}
    */
-  public  static final class MsgAcknowledgement extends
+  public static final class MsgAcknowledgement extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgAcknowledgement)
       MsgAcknowledgementOrBuilder {
@@ -14447,6 +14549,7 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the packet field is set.
      */
+    @java.lang.Override
     public boolean hasPacket() {
       return packet_ != null;
     }
@@ -14454,12 +14557,14 @@ public final class Tx {
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      * @return The packet.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Packet getPacket() {
       return packet_ == null ? ibc.core.channel.v1.ChannelOuterClass.Packet.getDefaultInstance() : packet_;
     }
     /**
      * <code>.ibc.core.channel.v1.Packet packet = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketOrBuilder getPacketOrBuilder() {
       return getPacket();
     }
@@ -14470,6 +14575,7 @@ public final class Tx {
      * <code>bytes acknowledgement = 2;</code>
      * @return The acknowledgement.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAcknowledgement() {
       return acknowledgement_;
     }
@@ -14480,6 +14586,7 @@ public final class Tx {
      * <code>bytes proof_acked = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_acked&#92;""];</code>
      * @return The proofAcked.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProofAcked() {
       return proofAcked_;
     }
@@ -14490,6 +14597,7 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -14497,12 +14605,14 @@ public final class Tx {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"proof_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -14513,6 +14623,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The signer.
      */
+    @java.lang.Override
     public java.lang.String getSigner() {
       java.lang.Object ref = signer_;
       if (ref instanceof java.lang.String) {
@@ -14529,6 +14640,7 @@ public final class Tx {
      * <code>string signer = 5;</code>
      * @return The bytes for signer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSignerBytes() {
       java.lang.Object ref = signer_;
@@ -15067,6 +15179,7 @@ public final class Tx {
        * <code>bytes acknowledgement = 2;</code>
        * @return The acknowledgement.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAcknowledgement() {
         return acknowledgement_;
       }
@@ -15100,6 +15213,7 @@ public final class Tx {
        * <code>bytes proof_acked = 3 [(.gogoproto.moretags) = "yaml:&#92;"proof_acked&#92;""];</code>
        * @return The proofAcked.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProofAcked() {
         return proofAcked_;
       }
@@ -15386,7 +15500,7 @@ public final class Tx {
    *
    * Protobuf type {@code ibc.core.channel.v1.MsgAcknowledgementResponse}
    */
-  public  static final class MsgAcknowledgementResponse extends
+  public static final class MsgAcknowledgementResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.MsgAcknowledgementResponse)
       MsgAcknowledgementResponseOrBuilder {

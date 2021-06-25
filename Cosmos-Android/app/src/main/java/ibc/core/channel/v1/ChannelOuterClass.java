@@ -160,6 +160,10 @@ public final class ChannelOuterClass {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -303,6 +307,10 @@ public final class ChannelOuterClass {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -480,7 +488,7 @@ public final class ChannelOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.Channel}
    */
-  public  static final class Channel extends
+  public static final class Channel extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.Channel)
       ChannelOrBuilder {
@@ -612,7 +620,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.State state = 1;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
@@ -623,7 +631,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.State state = 1;</code>
      * @return The state.
      */
-    public ibc.core.channel.v1.ChannelOuterClass.State getState() {
+    @java.lang.Override public ibc.core.channel.v1.ChannelOuterClass.State getState() {
       @SuppressWarnings("deprecation")
       ibc.core.channel.v1.ChannelOuterClass.State result = ibc.core.channel.v1.ChannelOuterClass.State.valueOf(state_);
       return result == null ? ibc.core.channel.v1.ChannelOuterClass.State.UNRECOGNIZED : result;
@@ -639,7 +647,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
      * @return The enum numeric value on the wire for ordering.
      */
-    public int getOrderingValue() {
+    @java.lang.Override public int getOrderingValue() {
       return ordering_;
     }
     /**
@@ -650,7 +658,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
      * @return The ordering.
      */
-    public ibc.core.channel.v1.ChannelOuterClass.Order getOrdering() {
+    @java.lang.Override public ibc.core.channel.v1.ChannelOuterClass.Order getOrdering() {
       @SuppressWarnings("deprecation")
       ibc.core.channel.v1.ChannelOuterClass.Order result = ibc.core.channel.v1.ChannelOuterClass.Order.valueOf(ordering_);
       return result == null ? ibc.core.channel.v1.ChannelOuterClass.Order.UNRECOGNIZED : result;
@@ -666,6 +674,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Counterparty counterparty = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the counterparty field is set.
      */
+    @java.lang.Override
     public boolean hasCounterparty() {
       return counterparty_ != null;
     }
@@ -677,6 +686,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Counterparty counterparty = 3 [(.gogoproto.nullable) = false];</code>
      * @return The counterparty.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Counterparty getCounterparty() {
       return counterparty_ == null ? ibc.core.channel.v1.ChannelOuterClass.Counterparty.getDefaultInstance() : counterparty_;
     }
@@ -687,6 +697,7 @@ public final class ChannelOuterClass {
      *
      * <code>.ibc.core.channel.v1.Counterparty counterparty = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.CounterpartyOrBuilder getCounterpartyOrBuilder() {
       return getCounterparty();
     }
@@ -756,6 +767,7 @@ public final class ChannelOuterClass {
      * <code>string version = 5;</code>
      * @return The version.
      */
+    @java.lang.Override
     public java.lang.String getVersion() {
       java.lang.Object ref = version_;
       if (ref instanceof java.lang.String) {
@@ -776,6 +788,7 @@ public final class ChannelOuterClass {
      * <code>string version = 5;</code>
      * @return The bytes for version.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVersionBytes() {
       java.lang.Object ref = version_;
@@ -1205,7 +1218,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.State state = 1;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1218,6 +1231,7 @@ public final class ChannelOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1230,6 +1244,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.State state = 1;</code>
        * @return The state.
        */
+      @java.lang.Override
       public ibc.core.channel.v1.ChannelOuterClass.State getState() {
         @SuppressWarnings("deprecation")
         ibc.core.channel.v1.ChannelOuterClass.State result = ibc.core.channel.v1.ChannelOuterClass.State.valueOf(state_);
@@ -1277,7 +1292,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
        * @return The enum numeric value on the wire for ordering.
        */
-      public int getOrderingValue() {
+      @java.lang.Override public int getOrderingValue() {
         return ordering_;
       }
       /**
@@ -1290,6 +1305,7 @@ public final class ChannelOuterClass {
        * @return This builder for chaining.
        */
       public Builder setOrderingValue(int value) {
+        
         ordering_ = value;
         onChanged();
         return this;
@@ -1302,6 +1318,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
        * @return The ordering.
        */
+      @java.lang.Override
       public ibc.core.channel.v1.ChannelOuterClass.Order getOrdering() {
         @SuppressWarnings("deprecation")
         ibc.core.channel.v1.ChannelOuterClass.Order result = ibc.core.channel.v1.ChannelOuterClass.Order.valueOf(ordering_);
@@ -1980,7 +1997,7 @@ public final class ChannelOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.IdentifiedChannel}
    */
-  public  static final class IdentifiedChannel extends
+  public static final class IdentifiedChannel extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.IdentifiedChannel)
       IdentifiedChannelOrBuilder {
@@ -2126,7 +2143,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.State state = 1;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
@@ -2137,7 +2154,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.State state = 1;</code>
      * @return The state.
      */
-    public ibc.core.channel.v1.ChannelOuterClass.State getState() {
+    @java.lang.Override public ibc.core.channel.v1.ChannelOuterClass.State getState() {
       @SuppressWarnings("deprecation")
       ibc.core.channel.v1.ChannelOuterClass.State result = ibc.core.channel.v1.ChannelOuterClass.State.valueOf(state_);
       return result == null ? ibc.core.channel.v1.ChannelOuterClass.State.UNRECOGNIZED : result;
@@ -2153,7 +2170,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
      * @return The enum numeric value on the wire for ordering.
      */
-    public int getOrderingValue() {
+    @java.lang.Override public int getOrderingValue() {
       return ordering_;
     }
     /**
@@ -2164,7 +2181,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
      * @return The ordering.
      */
-    public ibc.core.channel.v1.ChannelOuterClass.Order getOrdering() {
+    @java.lang.Override public ibc.core.channel.v1.ChannelOuterClass.Order getOrdering() {
       @SuppressWarnings("deprecation")
       ibc.core.channel.v1.ChannelOuterClass.Order result = ibc.core.channel.v1.ChannelOuterClass.Order.valueOf(ordering_);
       return result == null ? ibc.core.channel.v1.ChannelOuterClass.Order.UNRECOGNIZED : result;
@@ -2180,6 +2197,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Counterparty counterparty = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the counterparty field is set.
      */
+    @java.lang.Override
     public boolean hasCounterparty() {
       return counterparty_ != null;
     }
@@ -2191,6 +2209,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.channel.v1.Counterparty counterparty = 3 [(.gogoproto.nullable) = false];</code>
      * @return The counterparty.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Counterparty getCounterparty() {
       return counterparty_ == null ? ibc.core.channel.v1.ChannelOuterClass.Counterparty.getDefaultInstance() : counterparty_;
     }
@@ -2201,6 +2220,7 @@ public final class ChannelOuterClass {
      *
      * <code>.ibc.core.channel.v1.Counterparty counterparty = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.CounterpartyOrBuilder getCounterpartyOrBuilder() {
       return getCounterparty();
     }
@@ -2270,6 +2290,7 @@ public final class ChannelOuterClass {
      * <code>string version = 5;</code>
      * @return The version.
      */
+    @java.lang.Override
     public java.lang.String getVersion() {
       java.lang.Object ref = version_;
       if (ref instanceof java.lang.String) {
@@ -2290,6 +2311,7 @@ public final class ChannelOuterClass {
      * <code>string version = 5;</code>
      * @return The bytes for version.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVersionBytes() {
       java.lang.Object ref = version_;
@@ -2314,6 +2336,7 @@ public final class ChannelOuterClass {
      * <code>string port_id = 6;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -2334,6 +2357,7 @@ public final class ChannelOuterClass {
      * <code>string port_id = 6;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -2358,6 +2382,7 @@ public final class ChannelOuterClass {
      * <code>string channel_id = 7;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -2378,6 +2403,7 @@ public final class ChannelOuterClass {
      * <code>string channel_id = 7;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -2840,7 +2866,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.State state = 1;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -2853,6 +2879,7 @@ public final class ChannelOuterClass {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -2865,6 +2892,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.State state = 1;</code>
        * @return The state.
        */
+      @java.lang.Override
       public ibc.core.channel.v1.ChannelOuterClass.State getState() {
         @SuppressWarnings("deprecation")
         ibc.core.channel.v1.ChannelOuterClass.State result = ibc.core.channel.v1.ChannelOuterClass.State.valueOf(state_);
@@ -2912,7 +2940,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
        * @return The enum numeric value on the wire for ordering.
        */
-      public int getOrderingValue() {
+      @java.lang.Override public int getOrderingValue() {
         return ordering_;
       }
       /**
@@ -2925,6 +2953,7 @@ public final class ChannelOuterClass {
        * @return This builder for chaining.
        */
       public Builder setOrderingValue(int value) {
+        
         ordering_ = value;
         onChanged();
         return this;
@@ -2937,6 +2966,7 @@ public final class ChannelOuterClass {
        * <code>.ibc.core.channel.v1.Order ordering = 2;</code>
        * @return The ordering.
        */
+      @java.lang.Override
       public ibc.core.channel.v1.ChannelOuterClass.Order getOrdering() {
         @SuppressWarnings("deprecation")
         ibc.core.channel.v1.ChannelOuterClass.Order result = ibc.core.channel.v1.ChannelOuterClass.Order.valueOf(ordering_);
@@ -3676,7 +3706,7 @@ public final class ChannelOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.Counterparty}
    */
-  public  static final class Counterparty extends
+  public static final class Counterparty extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.Counterparty)
       CounterpartyOrBuilder {
@@ -3774,6 +3804,7 @@ public final class ChannelOuterClass {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -3794,6 +3825,7 @@ public final class ChannelOuterClass {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -3818,6 +3850,7 @@ public final class ChannelOuterClass {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -3838,6 +3871,7 @@ public final class ChannelOuterClass {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -4569,7 +4603,7 @@ public final class ChannelOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.Packet}
    */
-  public  static final class Packet extends
+  public static final class Packet extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.Packet)
       PacketOrBuilder {
@@ -4712,6 +4746,7 @@ public final class ChannelOuterClass {
      * <code>uint64 sequence = 1;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -4726,6 +4761,7 @@ public final class ChannelOuterClass {
      * <code>string source_port = 2 [(.gogoproto.moretags) = "yaml:&#92;"source_port&#92;""];</code>
      * @return The sourcePort.
      */
+    @java.lang.Override
     public java.lang.String getSourcePort() {
       java.lang.Object ref = sourcePort_;
       if (ref instanceof java.lang.String) {
@@ -4746,6 +4782,7 @@ public final class ChannelOuterClass {
      * <code>string source_port = 2 [(.gogoproto.moretags) = "yaml:&#92;"source_port&#92;""];</code>
      * @return The bytes for sourcePort.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSourcePortBytes() {
       java.lang.Object ref = sourcePort_;
@@ -4770,6 +4807,7 @@ public final class ChannelOuterClass {
      * <code>string source_channel = 3 [(.gogoproto.moretags) = "yaml:&#92;"source_channel&#92;""];</code>
      * @return The sourceChannel.
      */
+    @java.lang.Override
     public java.lang.String getSourceChannel() {
       java.lang.Object ref = sourceChannel_;
       if (ref instanceof java.lang.String) {
@@ -4790,6 +4828,7 @@ public final class ChannelOuterClass {
      * <code>string source_channel = 3 [(.gogoproto.moretags) = "yaml:&#92;"source_channel&#92;""];</code>
      * @return The bytes for sourceChannel.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSourceChannelBytes() {
       java.lang.Object ref = sourceChannel_;
@@ -4814,6 +4853,7 @@ public final class ChannelOuterClass {
      * <code>string destination_port = 4 [(.gogoproto.moretags) = "yaml:&#92;"destination_port&#92;""];</code>
      * @return The destinationPort.
      */
+    @java.lang.Override
     public java.lang.String getDestinationPort() {
       java.lang.Object ref = destinationPort_;
       if (ref instanceof java.lang.String) {
@@ -4834,6 +4874,7 @@ public final class ChannelOuterClass {
      * <code>string destination_port = 4 [(.gogoproto.moretags) = "yaml:&#92;"destination_port&#92;""];</code>
      * @return The bytes for destinationPort.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDestinationPortBytes() {
       java.lang.Object ref = destinationPort_;
@@ -4858,6 +4899,7 @@ public final class ChannelOuterClass {
      * <code>string destination_channel = 5 [(.gogoproto.moretags) = "yaml:&#92;"destination_channel&#92;""];</code>
      * @return The destinationChannel.
      */
+    @java.lang.Override
     public java.lang.String getDestinationChannel() {
       java.lang.Object ref = destinationChannel_;
       if (ref instanceof java.lang.String) {
@@ -4878,6 +4920,7 @@ public final class ChannelOuterClass {
      * <code>string destination_channel = 5 [(.gogoproto.moretags) = "yaml:&#92;"destination_channel&#92;""];</code>
      * @return The bytes for destinationChannel.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDestinationChannelBytes() {
       java.lang.Object ref = destinationChannel_;
@@ -4902,6 +4945,7 @@ public final class ChannelOuterClass {
      * <code>bytes data = 6;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -4916,6 +4960,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.client.v1.Height timeout_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timeout_height&#92;""];</code>
      * @return Whether the timeoutHeight field is set.
      */
+    @java.lang.Override
     public boolean hasTimeoutHeight() {
       return timeoutHeight_ != null;
     }
@@ -4927,6 +4972,7 @@ public final class ChannelOuterClass {
      * <code>.ibc.core.client.v1.Height timeout_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timeout_height&#92;""];</code>
      * @return The timeoutHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getTimeoutHeight() {
       return timeoutHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : timeoutHeight_;
     }
@@ -4937,6 +4983,7 @@ public final class ChannelOuterClass {
      *
      * <code>.ibc.core.client.v1.Height timeout_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timeout_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getTimeoutHeightOrBuilder() {
       return getTimeoutHeight();
     }
@@ -4951,6 +4998,7 @@ public final class ChannelOuterClass {
      * <code>uint64 timeout_timestamp = 8 [(.gogoproto.moretags) = "yaml:&#92;"timeout_timestamp&#92;""];</code>
      * @return The timeoutTimestamp.
      */
+    @java.lang.Override
     public long getTimeoutTimestamp() {
       return timeoutTimestamp_;
     }
@@ -5406,6 +5454,7 @@ public final class ChannelOuterClass {
        * <code>uint64 sequence = 1;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -5836,6 +5885,7 @@ public final class ChannelOuterClass {
        * <code>bytes data = 6;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -6036,6 +6086,7 @@ public final class ChannelOuterClass {
        * <code>uint64 timeout_timestamp = 8 [(.gogoproto.moretags) = "yaml:&#92;"timeout_timestamp&#92;""];</code>
        * @return The timeoutTimestamp.
        */
+      @java.lang.Override
       public long getTimeoutTimestamp() {
         return timeoutTimestamp_;
       }
@@ -6195,7 +6246,7 @@ public final class ChannelOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.PacketState}
    */
-  public  static final class PacketState extends
+  public static final class PacketState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.PacketState)
       PacketStateOrBuilder {
@@ -6304,6 +6355,7 @@ public final class ChannelOuterClass {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -6324,6 +6376,7 @@ public final class ChannelOuterClass {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -6348,6 +6401,7 @@ public final class ChannelOuterClass {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -6368,6 +6422,7 @@ public final class ChannelOuterClass {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -6392,6 +6447,7 @@ public final class ChannelOuterClass {
      * <code>uint64 sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -6406,6 +6462,7 @@ public final class ChannelOuterClass {
      * <code>bytes data = 4;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -6972,6 +7029,7 @@ public final class ChannelOuterClass {
        * <code>uint64 sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -7014,6 +7072,7 @@ public final class ChannelOuterClass {
        * <code>bytes data = 4;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -7108,10 +7167,20 @@ public final class ChannelOuterClass {
 
     /**
      * <code>bytes result = 21;</code>
+     * @return Whether the result field is set.
+     */
+    boolean hasResult();
+    /**
+     * <code>bytes result = 21;</code>
      * @return The result.
      */
     com.google.protobuf.ByteString getResult();
 
+    /**
+     * <code>string error = 22;</code>
+     * @return Whether the error field is set.
+     */
+    boolean hasError();
     /**
      * <code>string error = 22;</code>
      * @return The error.
@@ -7139,7 +7208,7 @@ public final class ChannelOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.Acknowledgement}
    */
-  public  static final class Acknowledgement extends
+  public static final class Acknowledgement extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.Acknowledgement)
       AcknowledgementOrBuilder {
@@ -7268,8 +7337,17 @@ public final class ChannelOuterClass {
     public static final int RESULT_FIELD_NUMBER = 21;
     /**
      * <code>bytes result = 21;</code>
+     * @return Whether the result field is set.
+     */
+    @java.lang.Override
+    public boolean hasResult() {
+      return responseCase_ == 21;
+    }
+    /**
+     * <code>bytes result = 21;</code>
      * @return The result.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getResult() {
       if (responseCase_ == 21) {
         return (com.google.protobuf.ByteString) response_;
@@ -7278,6 +7356,13 @@ public final class ChannelOuterClass {
     }
 
     public static final int ERROR_FIELD_NUMBER = 22;
+    /**
+     * <code>string error = 22;</code>
+     * @return Whether the error field is set.
+     */
+    public boolean hasError() {
+      return responseCase_ == 22;
+    }
     /**
      * <code>string error = 22;</code>
      * @return The error.
@@ -7698,6 +7783,13 @@ public final class ChannelOuterClass {
 
       /**
        * <code>bytes result = 21;</code>
+       * @return Whether the result field is set.
+       */
+      public boolean hasResult() {
+        return responseCase_ == 21;
+      }
+      /**
+       * <code>bytes result = 21;</code>
        * @return The result.
        */
       public com.google.protobuf.ByteString getResult() {
@@ -7735,8 +7827,17 @@ public final class ChannelOuterClass {
 
       /**
        * <code>string error = 22;</code>
+       * @return Whether the error field is set.
+       */
+      @java.lang.Override
+      public boolean hasError() {
+        return responseCase_ == 22;
+      }
+      /**
+       * <code>string error = 22;</code>
        * @return The error.
        */
+      @java.lang.Override
       public java.lang.String getError() {
         java.lang.Object ref = "";
         if (responseCase_ == 22) {
@@ -7758,6 +7859,7 @@ public final class ChannelOuterClass {
        * <code>string error = 22;</code>
        * @return The bytes for error.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString
           getErrorBytes() {
         java.lang.Object ref = "";

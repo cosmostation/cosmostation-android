@@ -64,7 +64,7 @@ public final class Resource {
    *
    * Protobuf type {@code akash.base.v1beta1.CPU}
    */
-  public  static final class CPU extends
+  public static final class CPU extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.CPU)
       CPUOrBuilder {
@@ -171,6 +171,7 @@ public final class Resource {
      * <code>.akash.base.v1beta1.ResourceValue units = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the units field is set.
      */
+    @java.lang.Override
     public boolean hasUnits() {
       return units_ != null;
     }
@@ -178,12 +179,14 @@ public final class Resource {
      * <code>.akash.base.v1beta1.ResourceValue units = 1 [(.gogoproto.nullable) = false];</code>
      * @return The units.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resourcevalue.ResourceValue getUnits() {
       return units_ == null ? akash.base.v1beta1.Resourcevalue.ResourceValue.getDefaultInstance() : units_;
     }
     /**
      * <code>.akash.base.v1beta1.ResourceValue units = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resourcevalue.ResourceValueOrBuilder getUnitsOrBuilder() {
       return getUnits();
     }
@@ -193,12 +196,14 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -206,18 +211,21 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -1060,7 +1068,7 @@ public final class Resource {
    *
    * Protobuf type {@code akash.base.v1beta1.Memory}
    */
-  public  static final class Memory extends
+  public static final class Memory extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.Memory)
       MemoryOrBuilder {
@@ -1167,6 +1175,7 @@ public final class Resource {
      * <code>.akash.base.v1beta1.ResourceValue quantity = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "size", (.gogoproto.moretags) = "yaml:&#92;"size&#92;""];</code>
      * @return Whether the quantity field is set.
      */
+    @java.lang.Override
     public boolean hasQuantity() {
       return quantity_ != null;
     }
@@ -1174,12 +1183,14 @@ public final class Resource {
      * <code>.akash.base.v1beta1.ResourceValue quantity = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "size", (.gogoproto.moretags) = "yaml:&#92;"size&#92;""];</code>
      * @return The quantity.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resourcevalue.ResourceValue getQuantity() {
       return quantity_ == null ? akash.base.v1beta1.Resourcevalue.ResourceValue.getDefaultInstance() : quantity_;
     }
     /**
      * <code>.akash.base.v1beta1.ResourceValue quantity = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "size", (.gogoproto.moretags) = "yaml:&#92;"size&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resourcevalue.ResourceValueOrBuilder getQuantityOrBuilder() {
       return getQuantity();
     }
@@ -1189,12 +1200,14 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -1202,18 +1215,21 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -2056,7 +2072,7 @@ public final class Resource {
    *
    * Protobuf type {@code akash.base.v1beta1.Storage}
    */
-  public  static final class Storage extends
+  public static final class Storage extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.Storage)
       StorageOrBuilder {
@@ -2163,6 +2179,7 @@ public final class Resource {
      * <code>.akash.base.v1beta1.ResourceValue quantity = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "size", (.gogoproto.moretags) = "yaml:&#92;"size&#92;""];</code>
      * @return Whether the quantity field is set.
      */
+    @java.lang.Override
     public boolean hasQuantity() {
       return quantity_ != null;
     }
@@ -2170,12 +2187,14 @@ public final class Resource {
      * <code>.akash.base.v1beta1.ResourceValue quantity = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "size", (.gogoproto.moretags) = "yaml:&#92;"size&#92;""];</code>
      * @return The quantity.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resourcevalue.ResourceValue getQuantity() {
       return quantity_ == null ? akash.base.v1beta1.Resourcevalue.ResourceValue.getDefaultInstance() : quantity_;
     }
     /**
      * <code>.akash.base.v1beta1.ResourceValue quantity = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "size", (.gogoproto.moretags) = "yaml:&#92;"size&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resourcevalue.ResourceValueOrBuilder getQuantityOrBuilder() {
       return getQuantity();
     }
@@ -2185,12 +2204,14 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.AttributeOuterClass.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -2198,18 +2219,21 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "attributes,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.AttributeOuterClass.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -3083,7 +3107,7 @@ public final class Resource {
    *
    * Protobuf type {@code akash.base.v1beta1.ResourceUnits}
    */
-  public  static final class ResourceUnits extends
+  public static final class ResourceUnits extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.base.v1beta1.ResourceUnits)
       ResourceUnitsOrBuilder {
@@ -3216,6 +3240,7 @@ public final class Resource {
      * <code>.akash.base.v1beta1.CPU cpu = 1 [(.gogoproto.nullable) = true, (.gogoproto.customname) = "CPU", (.gogoproto.jsontag) = "cpu,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      * @return Whether the cpu field is set.
      */
+    @java.lang.Override
     public boolean hasCpu() {
       return cpu_ != null;
     }
@@ -3223,12 +3248,14 @@ public final class Resource {
      * <code>.akash.base.v1beta1.CPU cpu = 1 [(.gogoproto.nullable) = true, (.gogoproto.customname) = "CPU", (.gogoproto.jsontag) = "cpu,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      * @return The cpu.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.CPU getCpu() {
       return cpu_ == null ? akash.base.v1beta1.Resource.CPU.getDefaultInstance() : cpu_;
     }
     /**
      * <code>.akash.base.v1beta1.CPU cpu = 1 [(.gogoproto.nullable) = true, (.gogoproto.customname) = "CPU", (.gogoproto.jsontag) = "cpu,omitempty", (.gogoproto.moretags) = "yaml:&#92;"cpu,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.CPUOrBuilder getCpuOrBuilder() {
       return getCpu();
     }
@@ -3239,6 +3266,7 @@ public final class Resource {
      * <code>.akash.base.v1beta1.Memory memory = 2 [(.gogoproto.nullable) = true, (.gogoproto.jsontag) = "memory,omitempty", (.gogoproto.moretags) = "yaml:&#92;"memory,omitempty&#92;""];</code>
      * @return Whether the memory field is set.
      */
+    @java.lang.Override
     public boolean hasMemory() {
       return memory_ != null;
     }
@@ -3246,12 +3274,14 @@ public final class Resource {
      * <code>.akash.base.v1beta1.Memory memory = 2 [(.gogoproto.nullable) = true, (.gogoproto.jsontag) = "memory,omitempty", (.gogoproto.moretags) = "yaml:&#92;"memory,omitempty&#92;""];</code>
      * @return The memory.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.Memory getMemory() {
       return memory_ == null ? akash.base.v1beta1.Resource.Memory.getDefaultInstance() : memory_;
     }
     /**
      * <code>.akash.base.v1beta1.Memory memory = 2 [(.gogoproto.nullable) = true, (.gogoproto.jsontag) = "memory,omitempty", (.gogoproto.moretags) = "yaml:&#92;"memory,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.MemoryOrBuilder getMemoryOrBuilder() {
       return getMemory();
     }
@@ -3262,6 +3292,7 @@ public final class Resource {
      * <code>.akash.base.v1beta1.Storage storage = 3 [(.gogoproto.nullable) = true, (.gogoproto.jsontag) = "storage,omitempty", (.gogoproto.moretags) = "yaml:&#92;"storage,omitempty&#92;""];</code>
      * @return Whether the storage field is set.
      */
+    @java.lang.Override
     public boolean hasStorage() {
       return storage_ != null;
     }
@@ -3269,12 +3300,14 @@ public final class Resource {
      * <code>.akash.base.v1beta1.Storage storage = 3 [(.gogoproto.nullable) = true, (.gogoproto.jsontag) = "storage,omitempty", (.gogoproto.moretags) = "yaml:&#92;"storage,omitempty&#92;""];</code>
      * @return The storage.
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.Storage getStorage() {
       return storage_ == null ? akash.base.v1beta1.Resource.Storage.getDefaultInstance() : storage_;
     }
     /**
      * <code>.akash.base.v1beta1.Storage storage = 3 [(.gogoproto.nullable) = true, (.gogoproto.jsontag) = "storage,omitempty", (.gogoproto.moretags) = "yaml:&#92;"storage,omitempty&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.Resource.StorageOrBuilder getStorageOrBuilder() {
       return getStorage();
     }
@@ -3284,12 +3317,14 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Endpoint endpoints = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "endpoints", (.gogoproto.moretags) = "yaml:&#92;"endpoints&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.base.v1beta1.EndpointOuterClass.Endpoint> getEndpointsList() {
       return endpoints_;
     }
     /**
      * <code>repeated .akash.base.v1beta1.Endpoint endpoints = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "endpoints", (.gogoproto.moretags) = "yaml:&#92;"endpoints&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.base.v1beta1.EndpointOuterClass.EndpointOrBuilder> 
         getEndpointsOrBuilderList() {
       return endpoints_;
@@ -3297,18 +3332,21 @@ public final class Resource {
     /**
      * <code>repeated .akash.base.v1beta1.Endpoint endpoints = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "endpoints", (.gogoproto.moretags) = "yaml:&#92;"endpoints&#92;""];</code>
      */
+    @java.lang.Override
     public int getEndpointsCount() {
       return endpoints_.size();
     }
     /**
      * <code>repeated .akash.base.v1beta1.Endpoint endpoints = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "endpoints", (.gogoproto.moretags) = "yaml:&#92;"endpoints&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.EndpointOuterClass.Endpoint getEndpoints(int index) {
       return endpoints_.get(index);
     }
     /**
      * <code>repeated .akash.base.v1beta1.Endpoint endpoints = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "endpoints", (.gogoproto.moretags) = "yaml:&#92;"endpoints&#92;""];</code>
      */
+    @java.lang.Override
     public akash.base.v1beta1.EndpointOuterClass.EndpointOrBuilder getEndpointsOrBuilder(
         int index) {
       return endpoints_.get(index);

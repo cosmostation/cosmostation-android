@@ -55,7 +55,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irishub.mint.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.mint.GenesisState)
       GenesisStateOrBuilder {
@@ -161,6 +161,7 @@ public final class Genesis {
      * <code>.irishub.mint.Minter minter = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the minter field is set.
      */
+    @java.lang.Override
     public boolean hasMinter() {
       return minter_ != null;
     }
@@ -168,12 +169,14 @@ public final class Genesis {
      * <code>.irishub.mint.Minter minter = 1 [(.gogoproto.nullable) = false];</code>
      * @return The minter.
      */
+    @java.lang.Override
     public irishub.mint.Mint.Minter getMinter() {
       return minter_ == null ? irishub.mint.Mint.Minter.getDefaultInstance() : minter_;
     }
     /**
      * <code>.irishub.mint.Minter minter = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.mint.Mint.MinterOrBuilder getMinterOrBuilder() {
       return getMinter();
     }
@@ -184,6 +187,7 @@ public final class Genesis {
      * <code>.irishub.mint.Params params = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -191,12 +195,14 @@ public final class Genesis {
      * <code>.irishub.mint.Params params = 2 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irishub.mint.Mint.Params getParams() {
       return params_ == null ? irishub.mint.Mint.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irishub.mint.Params params = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irishub.mint.Mint.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

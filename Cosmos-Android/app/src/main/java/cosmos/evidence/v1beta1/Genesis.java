@@ -69,7 +69,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -166,6 +166,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf2.Any> getEvidenceList() {
       return evidence_;
     }
@@ -176,6 +177,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getEvidenceOrBuilderList() {
       return evidence_;
@@ -187,6 +189,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public int getEvidenceCount() {
       return evidence_.size();
     }
@@ -197,6 +200,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getEvidence(int index) {
       return evidence_.get(index);
     }
@@ -207,6 +211,7 @@ public final class Genesis {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getEvidenceOrBuilder(
         int index) {
       return evidence_.get(index);

@@ -21,7 +21,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.epochs.v1beta1.QueryEpochsInfoRequest}
    */
-  public  static final class QueryEpochsInfoRequest extends
+  public static final class QueryEpochsInfoRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.epochs.v1beta1.QueryEpochsInfoRequest)
       QueryEpochsInfoRequestOrBuilder {
@@ -463,7 +463,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.epochs.v1beta1.QueryEpochsInfoResponse}
    */
-  public  static final class QueryEpochsInfoResponse extends
+  public static final class QueryEpochsInfoResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.epochs.v1beta1.QueryEpochsInfoResponse)
       QueryEpochsInfoResponseOrBuilder {
@@ -556,12 +556,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.epochs.v1beta1.Genesis.EpochInfo> getEpochsList() {
       return epochs_;
     }
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.epochs.v1beta1.Genesis.EpochInfoOrBuilder> 
         getEpochsOrBuilderList() {
       return epochs_;
@@ -569,18 +571,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getEpochsCount() {
       return epochs_.size();
     }
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.epochs.v1beta1.Genesis.EpochInfo getEpochs(int index) {
       return epochs_.get(index);
     }
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.epochs.v1beta1.Genesis.EpochInfoOrBuilder getEpochsOrBuilder(
         int index) {
       return epochs_.get(index);
@@ -1239,7 +1244,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.epochs.v1beta1.QueryCurrentEpochRequest}
    */
-  public  static final class QueryCurrentEpochRequest extends
+  public static final class QueryCurrentEpochRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.epochs.v1beta1.QueryCurrentEpochRequest)
       QueryCurrentEpochRequestOrBuilder {
@@ -1326,6 +1331,7 @@ public final class QueryOuterClass {
      * <code>string identifier = 1;</code>
      * @return The identifier.
      */
+    @java.lang.Override
     public java.lang.String getIdentifier() {
       java.lang.Object ref = identifier_;
       if (ref instanceof java.lang.String) {
@@ -1342,6 +1348,7 @@ public final class QueryOuterClass {
      * <code>string identifier = 1;</code>
      * @return The bytes for identifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdentifierBytes() {
       java.lang.Object ref = identifier_;
@@ -1799,7 +1806,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.epochs.v1beta1.QueryCurrentEpochResponse}
    */
-  public  static final class QueryCurrentEpochResponse extends
+  public static final class QueryCurrentEpochResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.epochs.v1beta1.QueryCurrentEpochResponse)
       QueryCurrentEpochResponseOrBuilder {
@@ -1884,6 +1891,7 @@ public final class QueryOuterClass {
      * <code>int64 current_epoch = 1;</code>
      * @return The currentEpoch.
      */
+    @java.lang.Override
     public long getCurrentEpoch() {
       return currentEpoch_;
     }
@@ -2196,6 +2204,7 @@ public final class QueryOuterClass {
        * <code>int64 current_epoch = 1;</code>
        * @return The currentEpoch.
        */
+      @java.lang.Override
       public long getCurrentEpoch() {
         return currentEpoch_;
       }

@@ -51,7 +51,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.p2p.NetAddress}
    */
-  public  static final class NetAddress extends
+  public static final class NetAddress extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.p2p.NetAddress)
       NetAddressOrBuilder {
@@ -150,6 +150,7 @@ public final class Types {
      * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -166,6 +167,7 @@ public final class Types {
      * <code>string id = 1 [(.gogoproto.customname) = "ID"];</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -186,6 +188,7 @@ public final class Types {
      * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
      * @return The ip.
      */
+    @java.lang.Override
     public java.lang.String getIp() {
       java.lang.Object ref = ip_;
       if (ref instanceof java.lang.String) {
@@ -202,6 +205,7 @@ public final class Types {
      * <code>string ip = 2 [(.gogoproto.customname) = "IP"];</code>
      * @return The bytes for ip.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIpBytes() {
       java.lang.Object ref = ip_;
@@ -222,6 +226,7 @@ public final class Types {
      * <code>uint32 port = 3;</code>
      * @return The port.
      */
+    @java.lang.Override
     public int getPort() {
       return port_;
     }
@@ -719,6 +724,7 @@ public final class Types {
        * <code>uint32 port = 3;</code>
        * @return The port.
        */
+      @java.lang.Override
       public int getPort() {
         return port_;
       }
@@ -821,7 +827,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.p2p.ProtocolVersion}
    */
-  public  static final class ProtocolVersion extends
+  public static final class ProtocolVersion extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.p2p.ProtocolVersion)
       ProtocolVersionOrBuilder {
@@ -916,6 +922,7 @@ public final class Types {
      * <code>uint64 p2p = 1 [(.gogoproto.customname) = "P2P"];</code>
      * @return The p2p.
      */
+    @java.lang.Override
     public long getP2P() {
       return p2P_;
     }
@@ -926,6 +933,7 @@ public final class Types {
      * <code>uint64 block = 2;</code>
      * @return The block.
      */
+    @java.lang.Override
     public long getBlock() {
       return block_;
     }
@@ -936,6 +944,7 @@ public final class Types {
      * <code>uint64 app = 3;</code>
      * @return The app.
      */
+    @java.lang.Override
     public long getApp() {
       return app_;
     }
@@ -1284,6 +1293,7 @@ public final class Types {
        * <code>uint64 p2p = 1 [(.gogoproto.customname) = "P2P"];</code>
        * @return The p2p.
        */
+      @java.lang.Override
       public long getP2P() {
         return p2P_;
       }
@@ -1314,6 +1324,7 @@ public final class Types {
        * <code>uint64 block = 2;</code>
        * @return The block.
        */
+      @java.lang.Override
       public long getBlock() {
         return block_;
       }
@@ -1344,6 +1355,7 @@ public final class Types {
        * <code>uint64 app = 3;</code>
        * @return The app.
        */
+      @java.lang.Override
       public long getApp() {
         return app_;
       }
@@ -1524,7 +1536,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.p2p.DefaultNodeInfo}
    */
-  public  static final class DefaultNodeInfo extends
+  public static final class DefaultNodeInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.p2p.DefaultNodeInfo)
       DefaultNodeInfoOrBuilder {
@@ -1671,6 +1683,7 @@ public final class Types {
      * <code>.tendermint.p2p.ProtocolVersion protocol_version = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the protocolVersion field is set.
      */
+    @java.lang.Override
     public boolean hasProtocolVersion() {
       return protocolVersion_ != null;
     }
@@ -1678,12 +1691,14 @@ public final class Types {
      * <code>.tendermint.p2p.ProtocolVersion protocol_version = 1 [(.gogoproto.nullable) = false];</code>
      * @return The protocolVersion.
      */
+    @java.lang.Override
     public tendermint.p2p.Types.ProtocolVersion getProtocolVersion() {
       return protocolVersion_ == null ? tendermint.p2p.Types.ProtocolVersion.getDefaultInstance() : protocolVersion_;
     }
     /**
      * <code>.tendermint.p2p.ProtocolVersion protocol_version = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.p2p.Types.ProtocolVersionOrBuilder getProtocolVersionOrBuilder() {
       return getProtocolVersion();
     }
@@ -1694,6 +1709,7 @@ public final class Types {
      * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
      * @return The defaultNodeId.
      */
+    @java.lang.Override
     public java.lang.String getDefaultNodeId() {
       java.lang.Object ref = defaultNodeId_;
       if (ref instanceof java.lang.String) {
@@ -1710,6 +1726,7 @@ public final class Types {
      * <code>string default_node_id = 2 [(.gogoproto.customname) = "DefaultNodeID"];</code>
      * @return The bytes for defaultNodeId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDefaultNodeIdBytes() {
       java.lang.Object ref = defaultNodeId_;
@@ -1730,6 +1747,7 @@ public final class Types {
      * <code>string listen_addr = 3;</code>
      * @return The listenAddr.
      */
+    @java.lang.Override
     public java.lang.String getListenAddr() {
       java.lang.Object ref = listenAddr_;
       if (ref instanceof java.lang.String) {
@@ -1746,6 +1764,7 @@ public final class Types {
      * <code>string listen_addr = 3;</code>
      * @return The bytes for listenAddr.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getListenAddrBytes() {
       java.lang.Object ref = listenAddr_;
@@ -1766,6 +1785,7 @@ public final class Types {
      * <code>string network = 4;</code>
      * @return The network.
      */
+    @java.lang.Override
     public java.lang.String getNetwork() {
       java.lang.Object ref = network_;
       if (ref instanceof java.lang.String) {
@@ -1782,6 +1802,7 @@ public final class Types {
      * <code>string network = 4;</code>
      * @return The bytes for network.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNetworkBytes() {
       java.lang.Object ref = network_;
@@ -1802,6 +1823,7 @@ public final class Types {
      * <code>string version = 5;</code>
      * @return The version.
      */
+    @java.lang.Override
     public java.lang.String getVersion() {
       java.lang.Object ref = version_;
       if (ref instanceof java.lang.String) {
@@ -1818,6 +1840,7 @@ public final class Types {
      * <code>string version = 5;</code>
      * @return The bytes for version.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVersionBytes() {
       java.lang.Object ref = version_;
@@ -1838,6 +1861,7 @@ public final class Types {
      * <code>bytes channels = 6;</code>
      * @return The channels.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getChannels() {
       return channels_;
     }
@@ -1848,6 +1872,7 @@ public final class Types {
      * <code>string moniker = 7;</code>
      * @return The moniker.
      */
+    @java.lang.Override
     public java.lang.String getMoniker() {
       java.lang.Object ref = moniker_;
       if (ref instanceof java.lang.String) {
@@ -1864,6 +1889,7 @@ public final class Types {
      * <code>string moniker = 7;</code>
      * @return The bytes for moniker.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMonikerBytes() {
       java.lang.Object ref = moniker_;
@@ -1884,6 +1910,7 @@ public final class Types {
      * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      * @return Whether the other field is set.
      */
+    @java.lang.Override
     public boolean hasOther() {
       return other_ != null;
     }
@@ -1891,12 +1918,14 @@ public final class Types {
      * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      * @return The other.
      */
+    @java.lang.Override
     public tendermint.p2p.Types.DefaultNodeInfoOther getOther() {
       return other_ == null ? tendermint.p2p.Types.DefaultNodeInfoOther.getDefaultInstance() : other_;
     }
     /**
      * <code>.tendermint.p2p.DefaultNodeInfoOther other = 8 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.p2p.Types.DefaultNodeInfoOtherOrBuilder getOtherOrBuilder() {
       return getOther();
     }
@@ -2776,6 +2805,7 @@ public final class Types {
        * <code>bytes channels = 6;</code>
        * @return The channels.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getChannels() {
         return channels_;
       }
@@ -3082,7 +3112,7 @@ public final class Types {
   /**
    * Protobuf type {@code tendermint.p2p.DefaultNodeInfoOther}
    */
-  public  static final class DefaultNodeInfoOther extends
+  public static final class DefaultNodeInfoOther extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:tendermint.p2p.DefaultNodeInfoOther)
       DefaultNodeInfoOtherOrBuilder {
@@ -3176,6 +3206,7 @@ public final class Types {
      * <code>string tx_index = 1;</code>
      * @return The txIndex.
      */
+    @java.lang.Override
     public java.lang.String getTxIndex() {
       java.lang.Object ref = txIndex_;
       if (ref instanceof java.lang.String) {
@@ -3192,6 +3223,7 @@ public final class Types {
      * <code>string tx_index = 1;</code>
      * @return The bytes for txIndex.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxIndexBytes() {
       java.lang.Object ref = txIndex_;
@@ -3212,6 +3244,7 @@ public final class Types {
      * <code>string rpc_address = 2 [(.gogoproto.customname) = "RPCAddress"];</code>
      * @return The rpcAddress.
      */
+    @java.lang.Override
     public java.lang.String getRpcAddress() {
       java.lang.Object ref = rpcAddress_;
       if (ref instanceof java.lang.String) {
@@ -3228,6 +3261,7 @@ public final class Types {
      * <code>string rpc_address = 2 [(.gogoproto.customname) = "RPCAddress"];</code>
      * @return The bytes for rpcAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRpcAddressBytes() {
       java.lang.Object ref = rpcAddress_;

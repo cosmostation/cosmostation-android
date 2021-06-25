@@ -49,7 +49,7 @@ public final class Types {
    *
    * Protobuf type {@code akash.escrow.v1beta1.AccountID}
    */
-  public  static final class AccountID extends
+  public static final class AccountID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.AccountID)
       AccountIDOrBuilder {
@@ -143,6 +143,7 @@ public final class Types {
      * <code>string scope = 1 [(.gogoproto.jsontag) = "scope", (.gogoproto.moretags) = "yaml:&#92;"scope&#92;""];</code>
      * @return The scope.
      */
+    @java.lang.Override
     public java.lang.String getScope() {
       java.lang.Object ref = scope_;
       if (ref instanceof java.lang.String) {
@@ -159,6 +160,7 @@ public final class Types {
      * <code>string scope = 1 [(.gogoproto.jsontag) = "scope", (.gogoproto.moretags) = "yaml:&#92;"scope&#92;""];</code>
      * @return The bytes for scope.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getScopeBytes() {
       java.lang.Object ref = scope_;
@@ -179,6 +181,7 @@ public final class Types {
      * <code>string xid = 2 [(.gogoproto.customname) = "XID", (.gogoproto.jsontag) = "xid", (.gogoproto.moretags) = "yaml:&#92;"xid&#92;""];</code>
      * @return The xid.
      */
+    @java.lang.Override
     public java.lang.String getXid() {
       java.lang.Object ref = xid_;
       if (ref instanceof java.lang.String) {
@@ -195,6 +198,7 @@ public final class Types {
      * <code>string xid = 2 [(.gogoproto.customname) = "XID", (.gogoproto.jsontag) = "xid", (.gogoproto.moretags) = "yaml:&#92;"xid&#92;""];</code>
      * @return The bytes for xid.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getXidBytes() {
       java.lang.Object ref = xid_;
@@ -821,7 +825,7 @@ public final class Types {
    *
    * Protobuf type {@code akash.escrow.v1beta1.Account}
    */
-  public  static final class Account extends
+  public static final class Account extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.Account)
       AccountOrBuilder {
@@ -1077,6 +1081,10 @@ public final class Types {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1117,6 +1125,7 @@ public final class Types {
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -1124,12 +1133,14 @@ public final class Types {
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountID getId() {
       return id_ == null ? akash.escrow.v1beta1.Types.AccountID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.escrow.v1beta1.AccountID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -1140,6 +1151,7 @@ public final class Types {
      * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1156,6 +1168,7 @@ public final class Types {
      * <code>string owner = 2 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -1176,14 +1189,14 @@ public final class Types {
      * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.escrow.v1beta1.Types.Account.State getState() {
+    @java.lang.Override public akash.escrow.v1beta1.Types.Account.State getState() {
       @SuppressWarnings("deprecation")
       akash.escrow.v1beta1.Types.Account.State result = akash.escrow.v1beta1.Types.Account.State.valueOf(state_);
       return result == null ? akash.escrow.v1beta1.Types.Account.State.UNRECOGNIZED : result;
@@ -1195,6 +1208,7 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return Whether the balance field is set.
      */
+    @java.lang.Override
     public boolean hasBalance() {
       return balance_ != null;
     }
@@ -1202,12 +1216,14 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return The balance.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBalance() {
       return balance_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : balance_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin balance = 4 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBalanceOrBuilder() {
       return getBalance();
     }
@@ -1218,6 +1234,7 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      * @return Whether the transferred field is set.
      */
+    @java.lang.Override
     public boolean hasTransferred() {
       return transferred_ != null;
     }
@@ -1225,12 +1242,14 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      * @return The transferred.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTransferred() {
       return transferred_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : transferred_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin transferred = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "transferred", (.gogoproto.moretags) = "yaml:&#92;"transferred&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTransferredOrBuilder() {
       return getTransferred();
     }
@@ -1241,6 +1260,7 @@ public final class Types {
      * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
      * @return The settledAt.
      */
+    @java.lang.Override
     public long getSettledAt() {
       return settledAt_;
     }
@@ -1875,7 +1895,7 @@ public final class Types {
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1884,6 +1904,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1892,6 +1913,7 @@ public final class Types {
        * <code>.akash.escrow.v1beta1.Account.State state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.escrow.v1beta1.Types.Account.State getState() {
         @SuppressWarnings("deprecation")
         akash.escrow.v1beta1.Types.Account.State result = akash.escrow.v1beta1.Types.Account.State.valueOf(state_);
@@ -2165,6 +2187,7 @@ public final class Types {
        * <code>int64 settled_at = 6 [(.gogoproto.customname) = "SettledAt", (.gogoproto.jsontag) = "settledAt", (.gogoproto.moretags) = "yaml:&#92;"settledAt&#92;""];</code>
        * @return The settledAt.
        */
+      @java.lang.Override
       public long getSettledAt() {
         return settledAt_;
       }
@@ -2348,7 +2371,7 @@ public final class Types {
    *
    * Protobuf type {@code akash.escrow.v1beta1.Payment}
    */
-  public  static final class Payment extends
+  public static final class Payment extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.escrow.v1beta1.Payment)
       PaymentOrBuilder {
@@ -2619,6 +2642,10 @@ public final class Types {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -2659,6 +2686,7 @@ public final class Types {
      * <code>.akash.escrow.v1beta1.AccountID account_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "AccountID", (.gogoproto.jsontag) = "accountID", (.gogoproto.moretags) = "yaml:&#92;"accountID&#92;""];</code>
      * @return Whether the accountId field is set.
      */
+    @java.lang.Override
     public boolean hasAccountId() {
       return accountId_ != null;
     }
@@ -2666,12 +2694,14 @@ public final class Types {
      * <code>.akash.escrow.v1beta1.AccountID account_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "AccountID", (.gogoproto.jsontag) = "accountID", (.gogoproto.moretags) = "yaml:&#92;"accountID&#92;""];</code>
      * @return The accountId.
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountID getAccountId() {
       return accountId_ == null ? akash.escrow.v1beta1.Types.AccountID.getDefaultInstance() : accountId_;
     }
     /**
      * <code>.akash.escrow.v1beta1.AccountID account_id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "AccountID", (.gogoproto.jsontag) = "accountID", (.gogoproto.moretags) = "yaml:&#92;"accountID&#92;""];</code>
      */
+    @java.lang.Override
     public akash.escrow.v1beta1.Types.AccountIDOrBuilder getAccountIdOrBuilder() {
       return getAccountId();
     }
@@ -2682,6 +2712,7 @@ public final class Types {
      * <code>string payment_id = 2 [(.gogoproto.customname) = "PaymentID", (.gogoproto.jsontag) = "paymentID", (.gogoproto.moretags) = "yaml:&#92;"paymentID&#92;""];</code>
      * @return The paymentId.
      */
+    @java.lang.Override
     public java.lang.String getPaymentId() {
       java.lang.Object ref = paymentId_;
       if (ref instanceof java.lang.String) {
@@ -2698,6 +2729,7 @@ public final class Types {
      * <code>string payment_id = 2 [(.gogoproto.customname) = "PaymentID", (.gogoproto.jsontag) = "paymentID", (.gogoproto.moretags) = "yaml:&#92;"paymentID&#92;""];</code>
      * @return The bytes for paymentId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPaymentIdBytes() {
       java.lang.Object ref = paymentId_;
@@ -2718,6 +2750,7 @@ public final class Types {
      * <code>string owner = 3 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2734,6 +2767,7 @@ public final class Types {
      * <code>string owner = 3 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2754,14 +2788,14 @@ public final class Types {
      * <code>.akash.escrow.v1beta1.Payment.State state = 4 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.escrow.v1beta1.Payment.State state = 4 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.escrow.v1beta1.Types.Payment.State getState() {
+    @java.lang.Override public akash.escrow.v1beta1.Types.Payment.State getState() {
       @SuppressWarnings("deprecation")
       akash.escrow.v1beta1.Types.Payment.State result = akash.escrow.v1beta1.Types.Payment.State.valueOf(state_);
       return result == null ? akash.escrow.v1beta1.Types.Payment.State.UNRECOGNIZED : result;
@@ -2773,6 +2807,7 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin rate = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "rate", (.gogoproto.moretags) = "yaml:&#92;"rate&#92;""];</code>
      * @return Whether the rate field is set.
      */
+    @java.lang.Override
     public boolean hasRate() {
       return rate_ != null;
     }
@@ -2780,12 +2815,14 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin rate = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "rate", (.gogoproto.moretags) = "yaml:&#92;"rate&#92;""];</code>
      * @return The rate.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getRate() {
       return rate_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : rate_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin rate = 5 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "rate", (.gogoproto.moretags) = "yaml:&#92;"rate&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRateOrBuilder() {
       return getRate();
     }
@@ -2796,6 +2833,7 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin balance = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return Whether the balance field is set.
      */
+    @java.lang.Override
     public boolean hasBalance() {
       return balance_ != null;
     }
@@ -2803,12 +2841,14 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin balance = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      * @return The balance.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBalance() {
       return balance_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : balance_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin balance = 6 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "balance", (.gogoproto.moretags) = "yaml:&#92;"balance&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBalanceOrBuilder() {
       return getBalance();
     }
@@ -2819,6 +2859,7 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin withdrawn = 7 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "withdrawn", (.gogoproto.moretags) = "yaml:&#92;"withdrawn&#92;""];</code>
      * @return Whether the withdrawn field is set.
      */
+    @java.lang.Override
     public boolean hasWithdrawn() {
       return withdrawn_ != null;
     }
@@ -2826,12 +2867,14 @@ public final class Types {
      * <code>.cosmos.base.v1beta1.Coin withdrawn = 7 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "withdrawn", (.gogoproto.moretags) = "yaml:&#92;"withdrawn&#92;""];</code>
      * @return The withdrawn.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getWithdrawn() {
       return withdrawn_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : withdrawn_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin withdrawn = 7 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "withdrawn", (.gogoproto.moretags) = "yaml:&#92;"withdrawn&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getWithdrawnOrBuilder() {
       return getWithdrawn();
     }
@@ -3571,7 +3614,7 @@ public final class Types {
        * <code>.akash.escrow.v1beta1.Payment.State state = 4 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -3580,6 +3623,7 @@ public final class Types {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -3588,6 +3632,7 @@ public final class Types {
        * <code>.akash.escrow.v1beta1.Payment.State state = 4 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.escrow.v1beta1.Types.Payment.State getState() {
         @SuppressWarnings("deprecation")
         akash.escrow.v1beta1.Types.Payment.State result = akash.escrow.v1beta1.Types.Payment.State.valueOf(state_);

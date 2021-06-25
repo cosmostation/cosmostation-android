@@ -159,7 +159,7 @@ public final class Upgrade {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.Plan}
    */
-  public  static final class Plan extends
+  public static final class Plan extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.Plan)
       PlanOrBuilder {
@@ -294,6 +294,7 @@ public final class Upgrade {
      * <code>string name = 1;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -320,6 +321,7 @@ public final class Upgrade {
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -345,6 +347,7 @@ public final class Upgrade {
      * <code>.google.protobuf.Timestamp time = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the time field is set.
      */
+    @java.lang.Override
     public boolean hasTime() {
       return time_ != null;
     }
@@ -357,6 +360,7 @@ public final class Upgrade {
      * <code>.google.protobuf.Timestamp time = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The time.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTime() {
       return time_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : time_;
     }
@@ -368,6 +372,7 @@ public final class Upgrade {
      *
      * <code>.google.protobuf.Timestamp time = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimeOrBuilder() {
       return getTime();
     }
@@ -383,6 +388,7 @@ public final class Upgrade {
      * <code>int64 height = 3;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -398,6 +404,7 @@ public final class Upgrade {
      * <code>string info = 4;</code>
      * @return The info.
      */
+    @java.lang.Override
     public java.lang.String getInfo() {
       java.lang.Object ref = info_;
       if (ref instanceof java.lang.String) {
@@ -419,6 +426,7 @@ public final class Upgrade {
      * <code>string info = 4;</code>
      * @return The bytes for info.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInfoBytes() {
       java.lang.Object ref = info_;
@@ -447,6 +455,7 @@ public final class Upgrade {
      * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      * @return Whether the upgradedClientState field is set.
      */
+    @java.lang.Override
     public boolean hasUpgradedClientState() {
       return upgradedClientState_ != null;
     }
@@ -462,6 +471,7 @@ public final class Upgrade {
      * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      * @return The upgradedClientState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getUpgradedClientState() {
       return upgradedClientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : upgradedClientState_;
     }
@@ -476,6 +486,7 @@ public final class Upgrade {
      *
      * <code>.google.protobuf2.Any upgraded_client_state = 5 [(.gogoproto.moretags) = "yaml:&#92;"upgraded_client_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getUpgradedClientStateOrBuilder() {
       return getUpgradedClientState();
     }
@@ -1181,6 +1192,7 @@ public final class Upgrade {
        * <code>int64 height = 3;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -1611,7 +1623,7 @@ public final class Upgrade {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.SoftwareUpgradeProposal}
    */
-  public  static final class SoftwareUpgradeProposal extends
+  public static final class SoftwareUpgradeProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.SoftwareUpgradeProposal)
       SoftwareUpgradeProposalOrBuilder {
@@ -1718,6 +1730,7 @@ public final class Upgrade {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -1734,6 +1747,7 @@ public final class Upgrade {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -1754,6 +1768,7 @@ public final class Upgrade {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -1770,6 +1785,7 @@ public final class Upgrade {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -1790,6 +1806,7 @@ public final class Upgrade {
      * <code>.cosmos.upgrade.v1beta1.Plan plan = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the plan field is set.
      */
+    @java.lang.Override
     public boolean hasPlan() {
       return plan_ != null;
     }
@@ -1797,12 +1814,14 @@ public final class Upgrade {
      * <code>.cosmos.upgrade.v1beta1.Plan plan = 3 [(.gogoproto.nullable) = false];</code>
      * @return The plan.
      */
+    @java.lang.Override
     public cosmos.upgrade.v1beta1.Upgrade.Plan getPlan() {
       return plan_ == null ? cosmos.upgrade.v1beta1.Upgrade.Plan.getDefaultInstance() : plan_;
     }
     /**
      * <code>.cosmos.upgrade.v1beta1.Plan plan = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.upgrade.v1beta1.Upgrade.PlanOrBuilder getPlanOrBuilder() {
       return getPlan();
     }
@@ -2520,7 +2539,7 @@ public final class Upgrade {
    *
    * Protobuf type {@code cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal}
    */
-  public  static final class CancelSoftwareUpgradeProposal extends
+  public static final class CancelSoftwareUpgradeProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.upgrade.v1beta1.CancelSoftwareUpgradeProposal)
       CancelSoftwareUpgradeProposalOrBuilder {
@@ -2614,6 +2633,7 @@ public final class Upgrade {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -2630,6 +2650,7 @@ public final class Upgrade {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -2650,6 +2671,7 @@ public final class Upgrade {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -2666,6 +2688,7 @@ public final class Upgrade {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;

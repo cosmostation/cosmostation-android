@@ -25,7 +25,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -478,7 +478,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -575,6 +575,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.mint.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -586,6 +587,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.mint.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.Params getParams() {
       return params_ == null ? osmosis.mint.v1beta1.Mint.Params.getDefaultInstance() : params_;
     }
@@ -596,6 +598,7 @@ public final class QueryOuterClass {
      *
      * <code>.osmosis.mint.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.mint.v1beta1.Mint.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -1138,7 +1141,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.QueryEpochProvisionsRequest}
    */
-  public  static final class QueryEpochProvisionsRequest extends
+  public static final class QueryEpochProvisionsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.QueryEpochProvisionsRequest)
       QueryEpochProvisionsRequestOrBuilder {
@@ -1576,7 +1579,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.mint.v1beta1.QueryEpochProvisionsResponse}
    */
-  public  static final class QueryEpochProvisionsResponse extends
+  public static final class QueryEpochProvisionsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.mint.v1beta1.QueryEpochProvisionsResponse)
       QueryEpochProvisionsResponseOrBuilder {
@@ -1666,6 +1669,7 @@ public final class QueryOuterClass {
      * <code>bytes epoch_provisions = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The epochProvisions.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getEpochProvisions() {
       return epochProvisions_;
     }
@@ -1986,6 +1990,7 @@ public final class QueryOuterClass {
        * <code>bytes epoch_provisions = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
        * @return The epochProvisions.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getEpochProvisions() {
         return epochProvisions_;
       }

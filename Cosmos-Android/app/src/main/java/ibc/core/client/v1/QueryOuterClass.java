@@ -46,7 +46,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryClientStateRequest}
    */
-  public  static final class QueryClientStateRequest extends
+  public static final class QueryClientStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientStateRequest)
       QueryClientStateRequestOrBuilder {
@@ -137,6 +137,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -157,6 +158,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -703,7 +705,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryClientStateResponse}
    */
-  public  static final class QueryClientStateResponse extends
+  public static final class QueryClientStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientStateResponse)
       QueryClientStateResponseOrBuilder {
@@ -819,6 +821,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any client_state = 1;</code>
      * @return Whether the clientState field is set.
      */
+    @java.lang.Override
     public boolean hasClientState() {
       return clientState_ != null;
     }
@@ -830,6 +833,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any client_state = 1;</code>
      * @return The clientState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getClientState() {
       return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
@@ -840,6 +844,7 @@ public final class QueryOuterClass {
      *
      * <code>.google.protobuf2.Any client_state = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
@@ -854,6 +859,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -868,6 +874,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -879,6 +886,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -889,6 +897,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -1425,6 +1434,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -1707,7 +1717,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryClientStatesRequest}
    */
-  public  static final class QueryClientStatesRequest extends
+  public static final class QueryClientStatesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientStatesRequest)
       QueryClientStatesRequestOrBuilder {
@@ -1804,6 +1814,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1815,6 +1826,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1825,6 +1837,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2439,7 +2452,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryClientStatesResponse}
    */
-  public  static final class QueryClientStatesResponse extends
+  public static final class QueryClientStatesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientStatesResponse)
       QueryClientStatesResponseOrBuilder {
@@ -2549,6 +2562,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState client_states = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Client.IdentifiedClientState> getClientStatesList() {
       return clientStates_;
     }
@@ -2559,6 +2573,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState client_states = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Client.IdentifiedClientStateOrBuilder> 
         getClientStatesOrBuilderList() {
       return clientStates_;
@@ -2570,6 +2585,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState client_states = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public int getClientStatesCount() {
       return clientStates_.size();
     }
@@ -2580,6 +2596,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState client_states = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientState getClientStates(int index) {
       return clientStates_.get(index);
     }
@@ -2590,6 +2607,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.IdentifiedClientState client_states = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "IdentifiedClientStates"];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientStateOrBuilder getClientStatesOrBuilder(
         int index) {
       return clientStates_.get(index);
@@ -2605,6 +2623,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2616,6 +2635,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2626,6 +2646,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3590,7 +3611,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryConsensusStateRequest}
    */
-  public  static final class QueryConsensusStateRequest extends
+  public static final class QueryConsensusStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryConsensusStateRequest)
       QueryConsensusStateRequestOrBuilder {
@@ -3696,6 +3717,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3716,6 +3738,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -3740,6 +3763,7 @@ public final class QueryOuterClass {
      * <code>uint64 revision_number = 2;</code>
      * @return The revisionNumber.
      */
+    @java.lang.Override
     public long getRevisionNumber() {
       return revisionNumber_;
     }
@@ -3754,6 +3778,7 @@ public final class QueryOuterClass {
      * <code>uint64 revision_height = 3;</code>
      * @return The revisionHeight.
      */
+    @java.lang.Override
     public long getRevisionHeight() {
       return revisionHeight_;
     }
@@ -3769,6 +3794,7 @@ public final class QueryOuterClass {
      * <code>bool latest_height = 4;</code>
      * @return The latestHeight.
      */
+    @java.lang.Override
     public boolean getLatestHeight() {
       return latestHeight_;
     }
@@ -4240,6 +4266,7 @@ public final class QueryOuterClass {
        * <code>uint64 revision_number = 2;</code>
        * @return The revisionNumber.
        */
+      @java.lang.Override
       public long getRevisionNumber() {
         return revisionNumber_;
       }
@@ -4282,6 +4309,7 @@ public final class QueryOuterClass {
        * <code>uint64 revision_height = 3;</code>
        * @return The revisionHeight.
        */
+      @java.lang.Override
       public long getRevisionHeight() {
         return revisionHeight_;
       }
@@ -4325,6 +4353,7 @@ public final class QueryOuterClass {
        * <code>bool latest_height = 4;</code>
        * @return The latestHeight.
        */
+      @java.lang.Override
       public boolean getLatestHeight() {
         return latestHeight_;
       }
@@ -4488,7 +4517,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryConsensusStateResponse}
    */
-  public  static final class QueryConsensusStateResponse extends
+  public static final class QueryConsensusStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryConsensusStateResponse)
       QueryConsensusStateResponseOrBuilder {
@@ -4604,6 +4633,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -4615,6 +4645,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
@@ -4625,6 +4656,7 @@ public final class QueryOuterClass {
      *
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -4639,6 +4671,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -4653,6 +4686,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -4664,6 +4698,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -4674,6 +4709,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -5209,6 +5245,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -5511,7 +5548,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryConsensusStatesRequest}
    */
-  public  static final class QueryConsensusStatesRequest extends
+  public static final class QueryConsensusStatesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryConsensusStatesRequest)
       QueryConsensusStatesRequestOrBuilder {
@@ -5615,6 +5652,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -5635,6 +5673,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 1;</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -5659,6 +5698,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -5670,6 +5710,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -5680,6 +5721,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -6407,7 +6449,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryConsensusStatesResponse}
    */
-  public  static final class QueryConsensusStatesResponse extends
+  public static final class QueryConsensusStatesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryConsensusStatesResponse)
       QueryConsensusStatesResponseOrBuilder {
@@ -6517,6 +6559,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.client.v1.Client.ConsensusStateWithHeight> getConsensusStatesList() {
       return consensusStates_;
     }
@@ -6527,6 +6570,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.client.v1.Client.ConsensusStateWithHeightOrBuilder> 
         getConsensusStatesOrBuilderList() {
       return consensusStates_;
@@ -6538,6 +6582,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getConsensusStatesCount() {
       return consensusStates_.size();
     }
@@ -6548,6 +6593,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ConsensusStateWithHeight getConsensusStates(int index) {
       return consensusStates_.get(index);
     }
@@ -6558,6 +6604,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.client.v1.ConsensusStateWithHeight consensus_states = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ConsensusStateWithHeightOrBuilder getConsensusStatesOrBuilder(
         int index) {
       return consensusStates_.get(index);
@@ -6573,6 +6620,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -6584,6 +6632,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -6594,6 +6643,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -7505,7 +7555,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryClientParamsRequest}
    */
-  public  static final class QueryClientParamsRequest extends
+  public static final class QueryClientParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientParamsRequest)
       QueryClientParamsRequestOrBuilder {
@@ -7958,7 +8008,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.client.v1.QueryClientParamsResponse}
    */
-  public  static final class QueryClientParamsResponse extends
+  public static final class QueryClientParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.client.v1.QueryClientParamsResponse)
       QueryClientParamsResponseOrBuilder {
@@ -8055,6 +8105,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Params params = 1;</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -8066,6 +8117,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Params params = 1;</code>
      * @return The params.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Params getParams() {
       return params_ == null ? ibc.core.client.v1.Client.Params.getDefaultInstance() : params_;
     }
@@ -8076,6 +8128,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Params params = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

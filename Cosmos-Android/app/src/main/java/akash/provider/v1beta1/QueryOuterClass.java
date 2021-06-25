@@ -40,7 +40,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.QueryProvidersRequest}
    */
-  public  static final class QueryProvidersRequest extends
+  public static final class QueryProvidersRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.QueryProvidersRequest)
       QueryProvidersRequestOrBuilder {
@@ -133,6 +133,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -140,12 +141,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -690,7 +693,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.QueryProvidersResponse}
    */
-  public  static final class QueryProvidersResponse extends
+  public static final class QueryProvidersResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.QueryProvidersResponse)
       QueryProvidersResponseOrBuilder {
@@ -796,12 +799,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Providers"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.provider.v1beta1.ProviderOuterClass.Provider> getProvidersList() {
       return providers_;
     }
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Providers"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.provider.v1beta1.ProviderOuterClass.ProviderOrBuilder> 
         getProvidersOrBuilderList() {
       return providers_;
@@ -809,18 +814,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Providers"];</code>
      */
+    @java.lang.Override
     public int getProvidersCount() {
       return providers_.size();
     }
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Providers"];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.Provider getProviders(int index) {
       return providers_.get(index);
     }
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Providers"];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderOrBuilder getProvidersOrBuilder(
         int index) {
       return providers_.get(index);
@@ -832,6 +840,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -839,12 +848,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1659,7 +1670,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.QueryProviderRequest}
    */
-  public  static final class QueryProviderRequest extends
+  public static final class QueryProviderRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.QueryProviderRequest)
       QueryProviderRequestOrBuilder {
@@ -1746,6 +1757,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1762,6 +1774,7 @@ public final class QueryOuterClass {
      * <code>string owner = 1;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2236,7 +2249,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.provider.v1beta1.QueryProviderResponse}
    */
-  public  static final class QueryProviderResponse extends
+  public static final class QueryProviderResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.QueryProviderResponse)
       QueryProviderResponseOrBuilder {
@@ -2329,6 +2342,7 @@ public final class QueryOuterClass {
      * <code>.akash.provider.v1beta1.Provider provider = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the provider field is set.
      */
+    @java.lang.Override
     public boolean hasProvider() {
       return provider_ != null;
     }
@@ -2336,12 +2350,14 @@ public final class QueryOuterClass {
      * <code>.akash.provider.v1beta1.Provider provider = 1 [(.gogoproto.nullable) = false];</code>
      * @return The provider.
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.Provider getProvider() {
       return provider_ == null ? akash.provider.v1beta1.ProviderOuterClass.Provider.getDefaultInstance() : provider_;
     }
     /**
      * <code>.akash.provider.v1beta1.Provider provider = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderOrBuilder getProviderOrBuilder() {
       return getProvider();
     }

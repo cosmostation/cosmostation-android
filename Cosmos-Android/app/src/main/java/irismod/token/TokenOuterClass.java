@@ -97,7 +97,7 @@ public final class TokenOuterClass {
    *
    * Protobuf type {@code irismod.token.Token}
    */
-  public  static final class Token extends
+  public static final class Token extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.Token)
       TokenOrBuilder {
@@ -225,6 +225,7 @@ public final class TokenOuterClass {
      * <code>string symbol = 1;</code>
      * @return The symbol.
      */
+    @java.lang.Override
     public java.lang.String getSymbol() {
       java.lang.Object ref = symbol_;
       if (ref instanceof java.lang.String) {
@@ -241,6 +242,7 @@ public final class TokenOuterClass {
      * <code>string symbol = 1;</code>
      * @return The bytes for symbol.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSymbolBytes() {
       java.lang.Object ref = symbol_;
@@ -261,6 +263,7 @@ public final class TokenOuterClass {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -277,6 +280,7 @@ public final class TokenOuterClass {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -297,6 +301,7 @@ public final class TokenOuterClass {
      * <code>uint32 scale = 3;</code>
      * @return The scale.
      */
+    @java.lang.Override
     public int getScale() {
       return scale_;
     }
@@ -307,6 +312,7 @@ public final class TokenOuterClass {
      * <code>string min_unit = 4 [(.gogoproto.moretags) = "yaml:&#92;"min_unit&#92;""];</code>
      * @return The minUnit.
      */
+    @java.lang.Override
     public java.lang.String getMinUnit() {
       java.lang.Object ref = minUnit_;
       if (ref instanceof java.lang.String) {
@@ -323,6 +329,7 @@ public final class TokenOuterClass {
      * <code>string min_unit = 4 [(.gogoproto.moretags) = "yaml:&#92;"min_unit&#92;""];</code>
      * @return The bytes for minUnit.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinUnitBytes() {
       java.lang.Object ref = minUnit_;
@@ -343,6 +350,7 @@ public final class TokenOuterClass {
      * <code>uint64 initial_supply = 5 [(.gogoproto.moretags) = "yaml:&#92;"initial_supply&#92;""];</code>
      * @return The initialSupply.
      */
+    @java.lang.Override
     public long getInitialSupply() {
       return initialSupply_;
     }
@@ -353,6 +361,7 @@ public final class TokenOuterClass {
      * <code>uint64 max_supply = 6 [(.gogoproto.moretags) = "yaml:&#92;"max_supply&#92;""];</code>
      * @return The maxSupply.
      */
+    @java.lang.Override
     public long getMaxSupply() {
       return maxSupply_;
     }
@@ -363,6 +372,7 @@ public final class TokenOuterClass {
      * <code>bool mintable = 7;</code>
      * @return The mintable.
      */
+    @java.lang.Override
     public boolean getMintable() {
       return mintable_;
     }
@@ -373,6 +383,7 @@ public final class TokenOuterClass {
      * <code>string owner = 8;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -389,6 +400,7 @@ public final class TokenOuterClass {
      * <code>string owner = 8;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -988,6 +1000,7 @@ public final class TokenOuterClass {
        * <code>uint32 scale = 3;</code>
        * @return The scale.
        */
+      @java.lang.Override
       public int getScale() {
         return scale_;
       }
@@ -1094,6 +1107,7 @@ public final class TokenOuterClass {
        * <code>uint64 initial_supply = 5 [(.gogoproto.moretags) = "yaml:&#92;"initial_supply&#92;""];</code>
        * @return The initialSupply.
        */
+      @java.lang.Override
       public long getInitialSupply() {
         return initialSupply_;
       }
@@ -1124,6 +1138,7 @@ public final class TokenOuterClass {
        * <code>uint64 max_supply = 6 [(.gogoproto.moretags) = "yaml:&#92;"max_supply&#92;""];</code>
        * @return The maxSupply.
        */
+      @java.lang.Override
       public long getMaxSupply() {
         return maxSupply_;
       }
@@ -1154,6 +1169,7 @@ public final class TokenOuterClass {
        * <code>bool mintable = 7;</code>
        * @return The mintable.
        */
+      @java.lang.Override
       public boolean getMintable() {
         return mintable_;
       }
@@ -1357,7 +1373,7 @@ public final class TokenOuterClass {
    *
    * Protobuf type {@code irismod.token.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.Params)
       ParamsOrBuilder {
@@ -1464,6 +1480,7 @@ public final class TokenOuterClass {
      * <code>string token_tax_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"token_tax_rate&#92;""];</code>
      * @return The tokenTaxRate.
      */
+    @java.lang.Override
     public java.lang.String getTokenTaxRate() {
       java.lang.Object ref = tokenTaxRate_;
       if (ref instanceof java.lang.String) {
@@ -1480,6 +1497,7 @@ public final class TokenOuterClass {
      * <code>string token_tax_rate = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"token_tax_rate&#92;""];</code>
      * @return The bytes for tokenTaxRate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenTaxRateBytes() {
       java.lang.Object ref = tokenTaxRate_;
@@ -1500,6 +1518,7 @@ public final class TokenOuterClass {
      * <code>.cosmos.base.v1beta1.Coin issue_token_base_fee = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"issue_token_base_fee&#92;""];</code>
      * @return Whether the issueTokenBaseFee field is set.
      */
+    @java.lang.Override
     public boolean hasIssueTokenBaseFee() {
       return issueTokenBaseFee_ != null;
     }
@@ -1507,12 +1526,14 @@ public final class TokenOuterClass {
      * <code>.cosmos.base.v1beta1.Coin issue_token_base_fee = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"issue_token_base_fee&#92;""];</code>
      * @return The issueTokenBaseFee.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getIssueTokenBaseFee() {
       return issueTokenBaseFee_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : issueTokenBaseFee_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin issue_token_base_fee = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"issue_token_base_fee&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getIssueTokenBaseFeeOrBuilder() {
       return getIssueTokenBaseFee();
     }
@@ -1523,6 +1544,7 @@ public final class TokenOuterClass {
      * <code>string mint_token_fee_ratio = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"mint_token_fee_ratio&#92;""];</code>
      * @return The mintTokenFeeRatio.
      */
+    @java.lang.Override
     public java.lang.String getMintTokenFeeRatio() {
       java.lang.Object ref = mintTokenFeeRatio_;
       if (ref instanceof java.lang.String) {
@@ -1539,6 +1561,7 @@ public final class TokenOuterClass {
      * <code>string mint_token_fee_ratio = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"mint_token_fee_ratio&#92;""];</code>
      * @return The bytes for mintTokenFeeRatio.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMintTokenFeeRatioBytes() {
       java.lang.Object ref = mintTokenFeeRatio_;

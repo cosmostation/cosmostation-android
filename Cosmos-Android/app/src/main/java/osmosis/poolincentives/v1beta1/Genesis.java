@@ -91,7 +91,7 @@ public final class Genesis {
    *
    * Protobuf type {@code osmosis.poolincentives.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.poolincentives.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -215,6 +215,7 @@ public final class Genesis {
      * <code>.osmosis.poolincentives.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -226,6 +227,7 @@ public final class Genesis {
      * <code>.osmosis.poolincentives.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.Params getParams() {
       return params_ == null ? osmosis.poolincentives.v1beta1.Incentives.Params.getDefaultInstance() : params_;
     }
@@ -236,6 +238,7 @@ public final class Genesis {
      *
      * <code>.osmosis.poolincentives.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -245,12 +248,14 @@ public final class Genesis {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.Duration> getLockableDurationsList() {
       return lockableDurations_;
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf.DurationOrBuilder> 
         getLockableDurationsOrBuilderList() {
       return lockableDurations_;
@@ -258,18 +263,21 @@ public final class Genesis {
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public int getLockableDurationsCount() {
       return lockableDurations_.size();
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getLockableDurations(int index) {
       return lockableDurations_.get(index);
     }
     /**
      * <code>repeated .google.protobuf.Duration lockable_durations = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"lockable_durations&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getLockableDurationsOrBuilder(
         int index) {
       return lockableDurations_.get(index);
@@ -281,6 +289,7 @@ public final class Genesis {
      * <code>.osmosis.poolincentives.v1beta1.DistrInfo distr_info = 3 [(.gogoproto.nullable) = true, (.gogoproto.moretags) = "yaml:&#92;"distr_info&#92;""];</code>
      * @return Whether the distrInfo field is set.
      */
+    @java.lang.Override
     public boolean hasDistrInfo() {
       return distrInfo_ != null;
     }
@@ -288,12 +297,14 @@ public final class Genesis {
      * <code>.osmosis.poolincentives.v1beta1.DistrInfo distr_info = 3 [(.gogoproto.nullable) = true, (.gogoproto.moretags) = "yaml:&#92;"distr_info&#92;""];</code>
      * @return The distrInfo.
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrInfo getDistrInfo() {
       return distrInfo_ == null ? osmosis.poolincentives.v1beta1.Incentives.DistrInfo.getDefaultInstance() : distrInfo_;
     }
     /**
      * <code>.osmosis.poolincentives.v1beta1.DistrInfo distr_info = 3 [(.gogoproto.nullable) = true, (.gogoproto.moretags) = "yaml:&#92;"distr_info&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.poolincentives.v1beta1.Incentives.DistrInfoOrBuilder getDistrInfoOrBuilder() {
       return getDistrInfo();
     }

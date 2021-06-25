@@ -263,7 +263,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.TxResponse}
    */
-  public  static final class TxResponse extends
+  public static final class TxResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.TxResponse)
       TxResponseOrBuilder {
@@ -436,6 +436,7 @@ public final class Abci {
      * <code>int64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -450,6 +451,7 @@ public final class Abci {
      * <code>string txhash = 2 [(.gogoproto.customname) = "TxHash"];</code>
      * @return The txhash.
      */
+    @java.lang.Override
     public java.lang.String getTxhash() {
       java.lang.Object ref = txhash_;
       if (ref instanceof java.lang.String) {
@@ -470,6 +472,7 @@ public final class Abci {
      * <code>string txhash = 2 [(.gogoproto.customname) = "TxHash"];</code>
      * @return The bytes for txhash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxhashBytes() {
       java.lang.Object ref = txhash_;
@@ -494,6 +497,7 @@ public final class Abci {
      * <code>string codespace = 3;</code>
      * @return The codespace.
      */
+    @java.lang.Override
     public java.lang.String getCodespace() {
       java.lang.Object ref = codespace_;
       if (ref instanceof java.lang.String) {
@@ -514,6 +518,7 @@ public final class Abci {
      * <code>string codespace = 3;</code>
      * @return The bytes for codespace.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCodespaceBytes() {
       java.lang.Object ref = codespace_;
@@ -538,6 +543,7 @@ public final class Abci {
      * <code>uint32 code = 4;</code>
      * @return The code.
      */
+    @java.lang.Override
     public int getCode() {
       return code_;
     }
@@ -552,6 +558,7 @@ public final class Abci {
      * <code>string data = 5;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -572,6 +579,7 @@ public final class Abci {
      * <code>string data = 5;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -597,6 +605,7 @@ public final class Abci {
      * <code>string raw_log = 6;</code>
      * @return The rawLog.
      */
+    @java.lang.Override
     public java.lang.String getRawLog() {
       java.lang.Object ref = rawLog_;
       if (ref instanceof java.lang.String) {
@@ -618,6 +627,7 @@ public final class Abci {
      * <code>string raw_log = 6;</code>
      * @return The bytes for rawLog.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRawLogBytes() {
       java.lang.Object ref = rawLog_;
@@ -641,6 +651,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.ABCIMessageLog logs = 7 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ABCIMessageLogs"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.abci.v1beta1.Abci.ABCIMessageLog> getLogsList() {
       return logs_;
     }
@@ -651,6 +662,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.ABCIMessageLog logs = 7 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ABCIMessageLogs"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.abci.v1beta1.Abci.ABCIMessageLogOrBuilder> 
         getLogsOrBuilderList() {
       return logs_;
@@ -662,6 +674,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.ABCIMessageLog logs = 7 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ABCIMessageLogs"];</code>
      */
+    @java.lang.Override
     public int getLogsCount() {
       return logs_.size();
     }
@@ -672,6 +685,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.ABCIMessageLog logs = 7 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ABCIMessageLogs"];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.ABCIMessageLog getLogs(int index) {
       return logs_.get(index);
     }
@@ -682,6 +696,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.ABCIMessageLog logs = 7 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "ABCIMessageLogs"];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.ABCIMessageLogOrBuilder getLogsOrBuilder(
         int index) {
       return logs_.get(index);
@@ -697,6 +712,7 @@ public final class Abci {
      * <code>string info = 8;</code>
      * @return The info.
      */
+    @java.lang.Override
     public java.lang.String getInfo() {
       java.lang.Object ref = info_;
       if (ref instanceof java.lang.String) {
@@ -717,6 +733,7 @@ public final class Abci {
      * <code>string info = 8;</code>
      * @return The bytes for info.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInfoBytes() {
       java.lang.Object ref = info_;
@@ -741,6 +758,7 @@ public final class Abci {
      * <code>int64 gas_wanted = 9;</code>
      * @return The gasWanted.
      */
+    @java.lang.Override
     public long getGasWanted() {
       return gasWanted_;
     }
@@ -755,6 +773,7 @@ public final class Abci {
      * <code>int64 gas_used = 10;</code>
      * @return The gasUsed.
      */
+    @java.lang.Override
     public long getGasUsed() {
       return gasUsed_;
     }
@@ -769,6 +788,7 @@ public final class Abci {
      * <code>.google.protobuf2.Any tx = 11;</code>
      * @return Whether the tx field is set.
      */
+    @java.lang.Override
     public boolean hasTx() {
       return tx_ != null;
     }
@@ -780,6 +800,7 @@ public final class Abci {
      * <code>.google.protobuf2.Any tx = 11;</code>
      * @return The tx.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getTx() {
       return tx_ == null ? com.google.protobuf2.Any.getDefaultInstance() : tx_;
     }
@@ -790,6 +811,7 @@ public final class Abci {
      *
      * <code>.google.protobuf2.Any tx = 11;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getTxOrBuilder() {
       return getTx();
     }
@@ -806,6 +828,7 @@ public final class Abci {
      * <code>string timestamp = 12;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public java.lang.String getTimestamp() {
       java.lang.Object ref = timestamp_;
       if (ref instanceof java.lang.String) {
@@ -828,6 +851,7 @@ public final class Abci {
      * <code>string timestamp = 12;</code>
      * @return The bytes for timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTimestampBytes() {
       java.lang.Object ref = timestamp_;
@@ -1401,6 +1425,7 @@ public final class Abci {
        * <code>int64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -1635,6 +1660,7 @@ public final class Abci {
        * <code>uint32 code = 4;</code>
        * @return The code.
        */
+      @java.lang.Override
       public int getCode() {
         return code_;
       }
@@ -2282,6 +2308,7 @@ public final class Abci {
        * <code>int64 gas_wanted = 9;</code>
        * @return The gasWanted.
        */
+      @java.lang.Override
       public long getGasWanted() {
         return gasWanted_;
       }
@@ -2324,6 +2351,7 @@ public final class Abci {
        * <code>int64 gas_used = 10;</code>
        * @return The gasUsed.
        */
+      @java.lang.Override
       public long getGasUsed() {
         return gasUsed_;
       }
@@ -2748,7 +2776,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.ABCIMessageLog}
    */
-  public  static final class ABCIMessageLog extends
+  public static final class ABCIMessageLog extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.ABCIMessageLog)
       ABCIMessageLogOrBuilder {
@@ -2854,6 +2882,7 @@ public final class Abci {
      * <code>uint32 msg_index = 1;</code>
      * @return The msgIndex.
      */
+    @java.lang.Override
     public int getMsgIndex() {
       return msgIndex_;
     }
@@ -2864,6 +2893,7 @@ public final class Abci {
      * <code>string log = 2;</code>
      * @return The log.
      */
+    @java.lang.Override
     public java.lang.String getLog() {
       java.lang.Object ref = log_;
       if (ref instanceof java.lang.String) {
@@ -2880,6 +2910,7 @@ public final class Abci {
      * <code>string log = 2;</code>
      * @return The bytes for log.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLogBytes() {
       java.lang.Object ref = log_;
@@ -2904,6 +2935,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.StringEvent events = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "StringEvents"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.abci.v1beta1.Abci.StringEvent> getEventsList() {
       return events_;
     }
@@ -2915,6 +2947,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.StringEvent events = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "StringEvents"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.abci.v1beta1.Abci.StringEventOrBuilder> 
         getEventsOrBuilderList() {
       return events_;
@@ -2927,6 +2960,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.StringEvent events = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "StringEvents"];</code>
      */
+    @java.lang.Override
     public int getEventsCount() {
       return events_.size();
     }
@@ -2938,6 +2972,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.StringEvent events = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "StringEvents"];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.StringEvent getEvents(int index) {
       return events_.get(index);
     }
@@ -2949,6 +2984,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.StringEvent events = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "StringEvents"];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.StringEventOrBuilder getEventsOrBuilder(
         int index) {
       return events_.get(index);
@@ -3339,6 +3375,7 @@ public final class Abci {
        * <code>uint32 msg_index = 1;</code>
        * @return The msgIndex.
        */
+      @java.lang.Override
       public int getMsgIndex() {
         return msgIndex_;
       }
@@ -3870,7 +3907,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.StringEvent}
    */
-  public  static final class StringEvent extends
+  public static final class StringEvent extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.StringEvent)
       StringEventOrBuilder {
@@ -3971,6 +4008,7 @@ public final class Abci {
      * <code>string type = 1;</code>
      * @return The type.
      */
+    @java.lang.Override
     public java.lang.String getType() {
       java.lang.Object ref = type_;
       if (ref instanceof java.lang.String) {
@@ -3987,6 +4025,7 @@ public final class Abci {
      * <code>string type = 1;</code>
      * @return The bytes for type.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTypeBytes() {
       java.lang.Object ref = type_;
@@ -4006,12 +4045,14 @@ public final class Abci {
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.abci.v1beta1.Abci.Attribute> getAttributesList() {
       return attributes_;
     }
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.abci.v1beta1.Abci.AttributeOrBuilder> 
         getAttributesOrBuilderList() {
       return attributes_;
@@ -4019,18 +4060,21 @@ public final class Abci {
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getAttributesCount() {
       return attributes_.size();
     }
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.Attribute getAttributes(int index) {
       return attributes_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.Attribute attributes = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.AttributeOrBuilder getAttributesOrBuilder(
         int index) {
       return attributes_.get(index);
@@ -4804,7 +4848,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.Attribute}
    */
-  public  static final class Attribute extends
+  public static final class Attribute extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.Attribute)
       AttributeOrBuilder {
@@ -4898,6 +4942,7 @@ public final class Abci {
      * <code>string key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -4914,6 +4959,7 @@ public final class Abci {
      * <code>string key = 1;</code>
      * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -4934,6 +4980,7 @@ public final class Abci {
      * <code>string value = 2;</code>
      * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -4950,6 +4997,7 @@ public final class Abci {
      * <code>string value = 2;</code>
      * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -5523,7 +5571,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.GasInfo}
    */
-  public  static final class GasInfo extends
+  public static final class GasInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.GasInfo)
       GasInfoOrBuilder {
@@ -5617,6 +5665,7 @@ public final class Abci {
      * <code>uint64 gas_wanted = 1 [(.gogoproto.moretags) = "yaml:&#92;"gas_wanted&#92;""];</code>
      * @return The gasWanted.
      */
+    @java.lang.Override
     public long getGasWanted() {
       return gasWanted_;
     }
@@ -5631,6 +5680,7 @@ public final class Abci {
      * <code>uint64 gas_used = 2 [(.gogoproto.moretags) = "yaml:&#92;"gas_used&#92;""];</code>
      * @return The gasUsed.
      */
+    @java.lang.Override
     public long getGasUsed() {
       return gasUsed_;
     }
@@ -5969,6 +6019,7 @@ public final class Abci {
        * <code>uint64 gas_wanted = 1 [(.gogoproto.moretags) = "yaml:&#92;"gas_wanted&#92;""];</code>
        * @return The gasWanted.
        */
+      @java.lang.Override
       public long getGasWanted() {
         return gasWanted_;
       }
@@ -6011,6 +6062,7 @@ public final class Abci {
        * <code>uint64 gas_used = 2 [(.gogoproto.moretags) = "yaml:&#92;"gas_used&#92;""];</code>
        * @return The gasUsed.
        */
+      @java.lang.Override
       public long getGasUsed() {
         return gasUsed_;
       }
@@ -6187,7 +6239,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.Result}
    */
-  public  static final class Result extends
+  public static final class Result extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.Result)
       ResultOrBuilder {
@@ -6299,6 +6351,7 @@ public final class Abci {
      * <code>bytes data = 1;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -6313,6 +6366,7 @@ public final class Abci {
      * <code>string log = 2;</code>
      * @return The log.
      */
+    @java.lang.Override
     public java.lang.String getLog() {
       java.lang.Object ref = log_;
       if (ref instanceof java.lang.String) {
@@ -6333,6 +6387,7 @@ public final class Abci {
      * <code>string log = 2;</code>
      * @return The bytes for log.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getLogBytes() {
       java.lang.Object ref = log_;
@@ -6357,6 +6412,7 @@ public final class Abci {
      *
      * <code>repeated .tendermint.abci.Event events = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<tendermint.abci.Types.Event> getEventsList() {
       return events_;
     }
@@ -6368,6 +6424,7 @@ public final class Abci {
      *
      * <code>repeated .tendermint.abci.Event events = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends tendermint.abci.Types.EventOrBuilder> 
         getEventsOrBuilderList() {
       return events_;
@@ -6380,6 +6437,7 @@ public final class Abci {
      *
      * <code>repeated .tendermint.abci.Event events = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getEventsCount() {
       return events_.size();
     }
@@ -6391,6 +6449,7 @@ public final class Abci {
      *
      * <code>repeated .tendermint.abci.Event events = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.abci.Types.Event getEvents(int index) {
       return events_.get(index);
     }
@@ -6402,6 +6461,7 @@ public final class Abci {
      *
      * <code>repeated .tendermint.abci.Event events = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public tendermint.abci.Types.EventOrBuilder getEventsOrBuilder(
         int index) {
       return events_.get(index);
@@ -6797,6 +6857,7 @@ public final class Abci {
        * <code>bytes data = 1;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -7355,7 +7416,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.SimulationResponse}
    */
-  public  static final class SimulationResponse extends
+  public static final class SimulationResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.SimulationResponse)
       SimulationResponseOrBuilder {
@@ -7461,6 +7522,7 @@ public final class Abci {
      * <code>.cosmos.base.abci.v1beta1.GasInfo gas_info = 1 [(.gogoproto.nullable) = false, (.gogoproto.embed) = true];</code>
      * @return Whether the gasInfo field is set.
      */
+    @java.lang.Override
     public boolean hasGasInfo() {
       return gasInfo_ != null;
     }
@@ -7468,12 +7530,14 @@ public final class Abci {
      * <code>.cosmos.base.abci.v1beta1.GasInfo gas_info = 1 [(.gogoproto.nullable) = false, (.gogoproto.embed) = true];</code>
      * @return The gasInfo.
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.GasInfo getGasInfo() {
       return gasInfo_ == null ? cosmos.base.abci.v1beta1.Abci.GasInfo.getDefaultInstance() : gasInfo_;
     }
     /**
      * <code>.cosmos.base.abci.v1beta1.GasInfo gas_info = 1 [(.gogoproto.nullable) = false, (.gogoproto.embed) = true];</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.GasInfoOrBuilder getGasInfoOrBuilder() {
       return getGasInfo();
     }
@@ -7484,6 +7548,7 @@ public final class Abci {
      * <code>.cosmos.base.abci.v1beta1.Result result = 2;</code>
      * @return Whether the result field is set.
      */
+    @java.lang.Override
     public boolean hasResult() {
       return result_ != null;
     }
@@ -7491,12 +7556,14 @@ public final class Abci {
      * <code>.cosmos.base.abci.v1beta1.Result result = 2;</code>
      * @return The result.
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.Result getResult() {
       return result_ == null ? cosmos.base.abci.v1beta1.Abci.Result.getDefaultInstance() : result_;
     }
     /**
      * <code>.cosmos.base.abci.v1beta1.Result result = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.ResultOrBuilder getResultOrBuilder() {
       return getResult();
     }
@@ -8171,7 +8238,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.MsgData}
    */
-  public  static final class MsgData extends
+  public static final class MsgData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.MsgData)
       MsgDataOrBuilder {
@@ -8264,6 +8331,7 @@ public final class Abci {
      * <code>string msg_type = 1;</code>
      * @return The msgType.
      */
+    @java.lang.Override
     public java.lang.String getMsgType() {
       java.lang.Object ref = msgType_;
       if (ref instanceof java.lang.String) {
@@ -8280,6 +8348,7 @@ public final class Abci {
      * <code>string msg_type = 1;</code>
      * @return The bytes for msgType.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMsgTypeBytes() {
       java.lang.Object ref = msgType_;
@@ -8300,6 +8369,7 @@ public final class Abci {
      * <code>bytes data = 2;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -8709,6 +8779,7 @@ public final class Abci {
        * <code>bytes data = 2;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -8825,7 +8896,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.TxMsgData}
    */
-  public  static final class TxMsgData extends
+  public static final class TxMsgData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.TxMsgData)
       TxMsgDataOrBuilder {
@@ -8918,12 +8989,14 @@ public final class Abci {
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.MsgData data = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.abci.v1beta1.Abci.MsgData> getDataList() {
       return data_;
     }
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.MsgData data = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.abci.v1beta1.Abci.MsgDataOrBuilder> 
         getDataOrBuilderList() {
       return data_;
@@ -8931,18 +9004,21 @@ public final class Abci {
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.MsgData data = 1;</code>
      */
+    @java.lang.Override
     public int getDataCount() {
       return data_.size();
     }
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.MsgData data = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.MsgData getData(int index) {
       return data_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.abci.v1beta1.MsgData data = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.MsgDataOrBuilder getDataOrBuilder(
         int index) {
       return data_.get(index);
@@ -9692,7 +9768,7 @@ public final class Abci {
    *
    * Protobuf type {@code cosmos.base.abci.v1beta1.SearchTxsResult}
    */
-  public  static final class SearchTxsResult extends
+  public static final class SearchTxsResult extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.abci.v1beta1.SearchTxsResult)
       SearchTxsResultOrBuilder {
@@ -9815,6 +9891,7 @@ public final class Abci {
      * <code>uint64 total_count = 1 [(.gogoproto.jsontag) = "total_count", (.gogoproto.moretags) = "yaml:&#92;"total_count&#92;""];</code>
      * @return The totalCount.
      */
+    @java.lang.Override
     public long getTotalCount() {
       return totalCount_;
     }
@@ -9829,6 +9906,7 @@ public final class Abci {
      * <code>uint64 count = 2;</code>
      * @return The count.
      */
+    @java.lang.Override
     public long getCount() {
       return count_;
     }
@@ -9843,6 +9921,7 @@ public final class Abci {
      * <code>uint64 page_number = 3 [(.gogoproto.jsontag) = "page_number", (.gogoproto.moretags) = "yaml:&#92;"page_number&#92;""];</code>
      * @return The pageNumber.
      */
+    @java.lang.Override
     public long getPageNumber() {
       return pageNumber_;
     }
@@ -9857,6 +9936,7 @@ public final class Abci {
      * <code>uint64 page_total = 4 [(.gogoproto.jsontag) = "page_total", (.gogoproto.moretags) = "yaml:&#92;"page_total&#92;""];</code>
      * @return The pageTotal.
      */
+    @java.lang.Override
     public long getPageTotal() {
       return pageTotal_;
     }
@@ -9871,6 +9951,7 @@ public final class Abci {
      * <code>uint64 limit = 5;</code>
      * @return The limit.
      */
+    @java.lang.Override
     public long getLimit() {
       return limit_;
     }
@@ -9884,6 +9965,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse txs = 6;</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.abci.v1beta1.Abci.TxResponse> getTxsList() {
       return txs_;
     }
@@ -9894,6 +9976,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse txs = 6;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.abci.v1beta1.Abci.TxResponseOrBuilder> 
         getTxsOrBuilderList() {
       return txs_;
@@ -9905,6 +9988,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse txs = 6;</code>
      */
+    @java.lang.Override
     public int getTxsCount() {
       return txs_.size();
     }
@@ -9915,6 +9999,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse txs = 6;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponse getTxs(int index) {
       return txs_.get(index);
     }
@@ -9925,6 +10010,7 @@ public final class Abci {
      *
      * <code>repeated .cosmos.base.abci.v1beta1.TxResponse txs = 6;</code>
      */
+    @java.lang.Override
     public cosmos.base.abci.v1beta1.Abci.TxResponseOrBuilder getTxsOrBuilder(
         int index) {
       return txs_.get(index);
@@ -10375,6 +10461,7 @@ public final class Abci {
        * <code>uint64 total_count = 1 [(.gogoproto.jsontag) = "total_count", (.gogoproto.moretags) = "yaml:&#92;"total_count&#92;""];</code>
        * @return The totalCount.
        */
+      @java.lang.Override
       public long getTotalCount() {
         return totalCount_;
       }
@@ -10417,6 +10504,7 @@ public final class Abci {
        * <code>uint64 count = 2;</code>
        * @return The count.
        */
+      @java.lang.Override
       public long getCount() {
         return count_;
       }
@@ -10459,6 +10547,7 @@ public final class Abci {
        * <code>uint64 page_number = 3 [(.gogoproto.jsontag) = "page_number", (.gogoproto.moretags) = "yaml:&#92;"page_number&#92;""];</code>
        * @return The pageNumber.
        */
+      @java.lang.Override
       public long getPageNumber() {
         return pageNumber_;
       }
@@ -10501,6 +10590,7 @@ public final class Abci {
        * <code>uint64 page_total = 4 [(.gogoproto.jsontag) = "page_total", (.gogoproto.moretags) = "yaml:&#92;"page_total&#92;""];</code>
        * @return The pageTotal.
        */
+      @java.lang.Override
       public long getPageTotal() {
         return pageTotal_;
       }
@@ -10543,6 +10633,7 @@ public final class Abci {
        * <code>uint64 limit = 5;</code>
        * @return The limit.
        */
+      @java.lang.Override
       public long getLimit() {
         return limit_;
       }

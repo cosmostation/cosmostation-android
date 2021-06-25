@@ -65,7 +65,7 @@ public final class Evidence {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.Equivocation}
    */
-  public  static final class Equivocation extends
+  public static final class Equivocation extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.Equivocation)
       EquivocationOrBuilder {
@@ -175,6 +175,7 @@ public final class Evidence {
      * <code>int64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -185,6 +186,7 @@ public final class Evidence {
      * <code>.google.protobuf.Timestamp time = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the time field is set.
      */
+    @java.lang.Override
     public boolean hasTime() {
       return time_ != null;
     }
@@ -192,12 +194,14 @@ public final class Evidence {
      * <code>.google.protobuf.Timestamp time = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The time.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTime() {
       return time_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : time_;
     }
     /**
      * <code>.google.protobuf.Timestamp time = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimeOrBuilder() {
       return getTime();
     }
@@ -208,6 +212,7 @@ public final class Evidence {
      * <code>int64 power = 3;</code>
      * @return The power.
      */
+    @java.lang.Override
     public long getPower() {
       return power_;
     }
@@ -218,6 +223,7 @@ public final class Evidence {
      * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
      * @return The consensusAddress.
      */
+    @java.lang.Override
     public java.lang.String getConsensusAddress() {
       java.lang.Object ref = consensusAddress_;
       if (ref instanceof java.lang.String) {
@@ -234,6 +240,7 @@ public final class Evidence {
      * <code>string consensus_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"consensus_address&#92;""];</code>
      * @return The bytes for consensusAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConsensusAddressBytes() {
       java.lang.Object ref = consensusAddress_;
@@ -626,6 +633,7 @@ public final class Evidence {
        * <code>int64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -775,6 +783,7 @@ public final class Evidence {
        * <code>int64 power = 3;</code>
        * @return The power.
        */
+      @java.lang.Override
       public long getPower() {
         return power_;
       }

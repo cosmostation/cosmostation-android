@@ -314,7 +314,7 @@ public final class Tendermint {
    *
    * Protobuf type {@code ibc.lightclients.tendermint.v1.ClientState}
    */
-  public  static final class ClientState extends
+  public static final class ClientState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.tendermint.v1.ClientState)
       ClientStateOrBuilder {
@@ -516,6 +516,7 @@ public final class Tendermint {
      * <code>string chain_id = 1;</code>
      * @return The chainId.
      */
+    @java.lang.Override
     public java.lang.String getChainId() {
       java.lang.Object ref = chainId_;
       if (ref instanceof java.lang.String) {
@@ -532,6 +533,7 @@ public final class Tendermint {
      * <code>string chain_id = 1;</code>
      * @return The bytes for chainId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChainIdBytes() {
       java.lang.Object ref = chainId_;
@@ -552,6 +554,7 @@ public final class Tendermint {
      * <code>.ibc.lightclients.tendermint.v1.Fraction trust_level = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trust_level&#92;""];</code>
      * @return Whether the trustLevel field is set.
      */
+    @java.lang.Override
     public boolean hasTrustLevel() {
       return trustLevel_ != null;
     }
@@ -559,12 +562,14 @@ public final class Tendermint {
      * <code>.ibc.lightclients.tendermint.v1.Fraction trust_level = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trust_level&#92;""];</code>
      * @return The trustLevel.
      */
+    @java.lang.Override
     public ibc.lightclients.tendermint.v1.Tendermint.Fraction getTrustLevel() {
       return trustLevel_ == null ? ibc.lightclients.tendermint.v1.Tendermint.Fraction.getDefaultInstance() : trustLevel_;
     }
     /**
      * <code>.ibc.lightclients.tendermint.v1.Fraction trust_level = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trust_level&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.lightclients.tendermint.v1.Tendermint.FractionOrBuilder getTrustLevelOrBuilder() {
       return getTrustLevel();
     }
@@ -580,6 +585,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Duration trusting_period = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trusting_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the trustingPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasTrustingPeriod() {
       return trustingPeriod_ != null;
     }
@@ -592,6 +598,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Duration trusting_period = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trusting_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The trustingPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getTrustingPeriod() {
       return trustingPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : trustingPeriod_;
     }
@@ -603,6 +610,7 @@ public final class Tendermint {
      *
      * <code>.google.protobuf.Duration trusting_period = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trusting_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getTrustingPeriodOrBuilder() {
       return getTrustingPeriod();
     }
@@ -617,6 +625,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Duration unbonding_period = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the unbondingPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasUnbondingPeriod() {
       return unbondingPeriod_ != null;
     }
@@ -628,6 +637,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Duration unbonding_period = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The unbondingPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getUnbondingPeriod() {
       return unbondingPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : unbondingPeriod_;
     }
@@ -638,6 +648,7 @@ public final class Tendermint {
      *
      * <code>.google.protobuf.Duration unbonding_period = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"unbonding_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getUnbondingPeriodOrBuilder() {
       return getUnbondingPeriod();
     }
@@ -652,6 +663,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Duration max_clock_drift = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"max_clock_drift&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the maxClockDrift field is set.
      */
+    @java.lang.Override
     public boolean hasMaxClockDrift() {
       return maxClockDrift_ != null;
     }
@@ -663,6 +675,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Duration max_clock_drift = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"max_clock_drift&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The maxClockDrift.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getMaxClockDrift() {
       return maxClockDrift_ == null ? com.google.protobuf.Duration.getDefaultInstance() : maxClockDrift_;
     }
@@ -673,6 +686,7 @@ public final class Tendermint {
      *
      * <code>.google.protobuf.Duration max_clock_drift = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"max_clock_drift&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getMaxClockDriftOrBuilder() {
       return getMaxClockDrift();
     }
@@ -687,6 +701,7 @@ public final class Tendermint {
      * <code>.ibc.core.client.v1.Height frozen_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"frozen_height&#92;""];</code>
      * @return Whether the frozenHeight field is set.
      */
+    @java.lang.Override
     public boolean hasFrozenHeight() {
       return frozenHeight_ != null;
     }
@@ -698,6 +713,7 @@ public final class Tendermint {
      * <code>.ibc.core.client.v1.Height frozen_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"frozen_height&#92;""];</code>
      * @return The frozenHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getFrozenHeight() {
       return frozenHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : frozenHeight_;
     }
@@ -708,6 +724,7 @@ public final class Tendermint {
      *
      * <code>.ibc.core.client.v1.Height frozen_height = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"frozen_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getFrozenHeightOrBuilder() {
       return getFrozenHeight();
     }
@@ -722,6 +739,7 @@ public final class Tendermint {
      * <code>.ibc.core.client.v1.Height latest_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"latest_height&#92;""];</code>
      * @return Whether the latestHeight field is set.
      */
+    @java.lang.Override
     public boolean hasLatestHeight() {
       return latestHeight_ != null;
     }
@@ -733,6 +751,7 @@ public final class Tendermint {
      * <code>.ibc.core.client.v1.Height latest_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"latest_height&#92;""];</code>
      * @return The latestHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getLatestHeight() {
       return latestHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : latestHeight_;
     }
@@ -743,6 +762,7 @@ public final class Tendermint {
      *
      * <code>.ibc.core.client.v1.Height latest_height = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"latest_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getLatestHeightOrBuilder() {
       return getLatestHeight();
     }
@@ -756,6 +776,7 @@ public final class Tendermint {
      *
      * <code>repeated .ics23.ProofSpec proof_specs = 8 [(.gogoproto.moretags) = "yaml:&#92;"proof_specs&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ics23.Proofs.ProofSpec> getProofSpecsList() {
       return proofSpecs_;
     }
@@ -766,6 +787,7 @@ public final class Tendermint {
      *
      * <code>repeated .ics23.ProofSpec proof_specs = 8 [(.gogoproto.moretags) = "yaml:&#92;"proof_specs&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ics23.Proofs.ProofSpecOrBuilder> 
         getProofSpecsOrBuilderList() {
       return proofSpecs_;
@@ -777,6 +799,7 @@ public final class Tendermint {
      *
      * <code>repeated .ics23.ProofSpec proof_specs = 8 [(.gogoproto.moretags) = "yaml:&#92;"proof_specs&#92;""];</code>
      */
+    @java.lang.Override
     public int getProofSpecsCount() {
       return proofSpecs_.size();
     }
@@ -787,6 +810,7 @@ public final class Tendermint {
      *
      * <code>repeated .ics23.ProofSpec proof_specs = 8 [(.gogoproto.moretags) = "yaml:&#92;"proof_specs&#92;""];</code>
      */
+    @java.lang.Override
     public ics23.Proofs.ProofSpec getProofSpecs(int index) {
       return proofSpecs_.get(index);
     }
@@ -797,6 +821,7 @@ public final class Tendermint {
      *
      * <code>repeated .ics23.ProofSpec proof_specs = 8 [(.gogoproto.moretags) = "yaml:&#92;"proof_specs&#92;""];</code>
      */
+    @java.lang.Override
     public ics23.Proofs.ProofSpecOrBuilder getProofSpecsOrBuilder(
         int index) {
       return proofSpecs_.get(index);
@@ -880,6 +905,7 @@ public final class Tendermint {
      * <code>bool allow_update_after_expiry = 10 [(.gogoproto.moretags) = "yaml:&#92;"allow_update_after_expiry&#92;""];</code>
      * @return The allowUpdateAfterExpiry.
      */
+    @java.lang.Override
     public boolean getAllowUpdateAfterExpiry() {
       return allowUpdateAfterExpiry_;
     }
@@ -895,6 +921,7 @@ public final class Tendermint {
      * <code>bool allow_update_after_misbehaviour = 11 [(.gogoproto.moretags) = "yaml:&#92;"allow_update_after_misbehaviour&#92;""];</code>
      * @return The allowUpdateAfterMisbehaviour.
      */
+    @java.lang.Override
     public boolean getAllowUpdateAfterMisbehaviour() {
       return allowUpdateAfterMisbehaviour_;
     }
@@ -2996,6 +3023,7 @@ public final class Tendermint {
        * <code>bool allow_update_after_expiry = 10 [(.gogoproto.moretags) = "yaml:&#92;"allow_update_after_expiry&#92;""];</code>
        * @return The allowUpdateAfterExpiry.
        */
+      @java.lang.Override
       public boolean getAllowUpdateAfterExpiry() {
         return allowUpdateAfterExpiry_;
       }
@@ -3041,6 +3069,7 @@ public final class Tendermint {
        * <code>bool allow_update_after_misbehaviour = 11 [(.gogoproto.moretags) = "yaml:&#92;"allow_update_after_misbehaviour&#92;""];</code>
        * @return The allowUpdateAfterMisbehaviour.
        */
+      @java.lang.Override
       public boolean getAllowUpdateAfterMisbehaviour() {
         return allowUpdateAfterMisbehaviour_;
       }
@@ -3202,7 +3231,7 @@ public final class Tendermint {
    *
    * Protobuf type {@code ibc.lightclients.tendermint.v1.ConsensusState}
    */
-  public  static final class ConsensusState extends
+  public static final class ConsensusState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.tendermint.v1.ConsensusState)
       ConsensusStateOrBuilder {
@@ -3319,6 +3348,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Timestamp timestamp = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -3331,6 +3361,7 @@ public final class Tendermint {
      * <code>.google.protobuf.Timestamp timestamp = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
@@ -3342,6 +3373,7 @@ public final class Tendermint {
      *
      * <code>.google.protobuf.Timestamp timestamp = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -3356,6 +3388,7 @@ public final class Tendermint {
      * <code>.ibc.core.commitment.v1.MerkleRoot root = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the root field is set.
      */
+    @java.lang.Override
     public boolean hasRoot() {
       return root_ != null;
     }
@@ -3367,6 +3400,7 @@ public final class Tendermint {
      * <code>.ibc.core.commitment.v1.MerkleRoot root = 2 [(.gogoproto.nullable) = false];</code>
      * @return The root.
      */
+    @java.lang.Override
     public ibc.core.commitment.v1.Commitment.MerkleRoot getRoot() {
       return root_ == null ? ibc.core.commitment.v1.Commitment.MerkleRoot.getDefaultInstance() : root_;
     }
@@ -3377,6 +3411,7 @@ public final class Tendermint {
      *
      * <code>.ibc.core.commitment.v1.MerkleRoot root = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.commitment.v1.Commitment.MerkleRootOrBuilder getRootOrBuilder() {
       return getRoot();
     }
@@ -3387,6 +3422,7 @@ public final class Tendermint {
      * <code>bytes next_validators_hash = 3 [(.gogoproto.moretags) = "yaml:&#92;"next_validators_hash&#92;"", (.gogoproto.casttype) = "github.com/tendermint/tendermint/libs/bytes.HexBytes"];</code>
      * @return The nextValidatorsHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getNextValidatorsHash() {
       return nextValidatorsHash_;
     }
@@ -4081,6 +4117,7 @@ public final class Tendermint {
        * <code>bytes next_validators_hash = 3 [(.gogoproto.moretags) = "yaml:&#92;"next_validators_hash&#92;"", (.gogoproto.casttype) = "github.com/tendermint/tendermint/libs/bytes.HexBytes"];</code>
        * @return The nextValidatorsHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getNextValidatorsHash() {
         return nextValidatorsHash_;
       }
@@ -4215,7 +4252,7 @@ public final class Tendermint {
    *
    * Protobuf type {@code ibc.lightclients.tendermint.v1.Misbehaviour}
    */
-  public  static final class Misbehaviour extends
+  public static final class Misbehaviour extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.tendermint.v1.Misbehaviour)
       MisbehaviourOrBuilder {
@@ -4328,6 +4365,7 @@ public final class Tendermint {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -4344,6 +4382,7 @@ public final class Tendermint {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -4364,6 +4403,7 @@ public final class Tendermint {
      * <code>.ibc.lightclients.tendermint.v1.Header header_1 = 2 [(.gogoproto.customname) = "Header1", (.gogoproto.moretags) = "yaml:&#92;"header_1&#92;""];</code>
      * @return Whether the header1 field is set.
      */
+    @java.lang.Override
     public boolean hasHeader1() {
       return header1_ != null;
     }
@@ -4371,12 +4411,14 @@ public final class Tendermint {
      * <code>.ibc.lightclients.tendermint.v1.Header header_1 = 2 [(.gogoproto.customname) = "Header1", (.gogoproto.moretags) = "yaml:&#92;"header_1&#92;""];</code>
      * @return The header1.
      */
+    @java.lang.Override
     public ibc.lightclients.tendermint.v1.Tendermint.Header getHeader1() {
       return header1_ == null ? ibc.lightclients.tendermint.v1.Tendermint.Header.getDefaultInstance() : header1_;
     }
     /**
      * <code>.ibc.lightclients.tendermint.v1.Header header_1 = 2 [(.gogoproto.customname) = "Header1", (.gogoproto.moretags) = "yaml:&#92;"header_1&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.lightclients.tendermint.v1.Tendermint.HeaderOrBuilder getHeader1OrBuilder() {
       return getHeader1();
     }
@@ -4387,6 +4429,7 @@ public final class Tendermint {
      * <code>.ibc.lightclients.tendermint.v1.Header header_2 = 3 [(.gogoproto.customname) = "Header2", (.gogoproto.moretags) = "yaml:&#92;"header_2&#92;""];</code>
      * @return Whether the header2 field is set.
      */
+    @java.lang.Override
     public boolean hasHeader2() {
       return header2_ != null;
     }
@@ -4394,12 +4437,14 @@ public final class Tendermint {
      * <code>.ibc.lightclients.tendermint.v1.Header header_2 = 3 [(.gogoproto.customname) = "Header2", (.gogoproto.moretags) = "yaml:&#92;"header_2&#92;""];</code>
      * @return The header2.
      */
+    @java.lang.Override
     public ibc.lightclients.tendermint.v1.Tendermint.Header getHeader2() {
       return header2_ == null ? ibc.lightclients.tendermint.v1.Tendermint.Header.getDefaultInstance() : header2_;
     }
     /**
      * <code>.ibc.lightclients.tendermint.v1.Header header_2 = 3 [(.gogoproto.customname) = "Header2", (.gogoproto.moretags) = "yaml:&#92;"header_2&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.lightclients.tendermint.v1.Tendermint.HeaderOrBuilder getHeader2OrBuilder() {
       return getHeader2();
     }
@@ -5219,7 +5264,7 @@ public final class Tendermint {
    *
    * Protobuf type {@code ibc.lightclients.tendermint.v1.Header}
    */
-  public  static final class Header extends
+  public static final class Header extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.tendermint.v1.Header)
       HeaderOrBuilder {
@@ -5351,6 +5396,7 @@ public final class Tendermint {
      * <code>.tendermint.types.SignedHeader signed_header = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"signed_header&#92;""];</code>
      * @return Whether the signedHeader field is set.
      */
+    @java.lang.Override
     public boolean hasSignedHeader() {
       return signedHeader_ != null;
     }
@@ -5358,12 +5404,14 @@ public final class Tendermint {
      * <code>.tendermint.types.SignedHeader signed_header = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"signed_header&#92;""];</code>
      * @return The signedHeader.
      */
+    @java.lang.Override
     public tendermint.types.Types.SignedHeader getSignedHeader() {
       return signedHeader_ == null ? tendermint.types.Types.SignedHeader.getDefaultInstance() : signedHeader_;
     }
     /**
      * <code>.tendermint.types.SignedHeader signed_header = 1 [(.gogoproto.embed) = true, (.gogoproto.moretags) = "yaml:&#92;"signed_header&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.types.Types.SignedHeaderOrBuilder getSignedHeaderOrBuilder() {
       return getSignedHeader();
     }
@@ -5374,6 +5422,7 @@ public final class Tendermint {
      * <code>.tendermint.types.ValidatorSet validator_set = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_set&#92;""];</code>
      * @return Whether the validatorSet field is set.
      */
+    @java.lang.Override
     public boolean hasValidatorSet() {
       return validatorSet_ != null;
     }
@@ -5381,12 +5430,14 @@ public final class Tendermint {
      * <code>.tendermint.types.ValidatorSet validator_set = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_set&#92;""];</code>
      * @return The validatorSet.
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorSet getValidatorSet() {
       return validatorSet_ == null ? tendermint.types.ValidatorOuterClass.ValidatorSet.getDefaultInstance() : validatorSet_;
     }
     /**
      * <code>.tendermint.types.ValidatorSet validator_set = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_set&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorSetOrBuilder getValidatorSetOrBuilder() {
       return getValidatorSet();
     }
@@ -5397,6 +5448,7 @@ public final class Tendermint {
      * <code>.ibc.core.client.v1.Height trusted_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trusted_height&#92;""];</code>
      * @return Whether the trustedHeight field is set.
      */
+    @java.lang.Override
     public boolean hasTrustedHeight() {
       return trustedHeight_ != null;
     }
@@ -5404,12 +5456,14 @@ public final class Tendermint {
      * <code>.ibc.core.client.v1.Height trusted_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trusted_height&#92;""];</code>
      * @return The trustedHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getTrustedHeight() {
       return trustedHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : trustedHeight_;
     }
     /**
      * <code>.ibc.core.client.v1.Height trusted_height = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"trusted_height&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getTrustedHeightOrBuilder() {
       return getTrustedHeight();
     }
@@ -5420,6 +5474,7 @@ public final class Tendermint {
      * <code>.tendermint.types.ValidatorSet trusted_validators = 4 [(.gogoproto.moretags) = "yaml:&#92;"trusted_validators&#92;""];</code>
      * @return Whether the trustedValidators field is set.
      */
+    @java.lang.Override
     public boolean hasTrustedValidators() {
       return trustedValidators_ != null;
     }
@@ -5427,12 +5482,14 @@ public final class Tendermint {
      * <code>.tendermint.types.ValidatorSet trusted_validators = 4 [(.gogoproto.moretags) = "yaml:&#92;"trusted_validators&#92;""];</code>
      * @return The trustedValidators.
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorSet getTrustedValidators() {
       return trustedValidators_ == null ? tendermint.types.ValidatorOuterClass.ValidatorSet.getDefaultInstance() : trustedValidators_;
     }
     /**
      * <code>.tendermint.types.ValidatorSet trusted_validators = 4 [(.gogoproto.moretags) = "yaml:&#92;"trusted_validators&#92;""];</code>
      */
+    @java.lang.Override
     public tendermint.types.ValidatorOuterClass.ValidatorSetOrBuilder getTrustedValidatorsOrBuilder() {
       return getTrustedValidators();
     }
@@ -6408,7 +6465,7 @@ public final class Tendermint {
    *
    * Protobuf type {@code ibc.lightclients.tendermint.v1.Fraction}
    */
-  public  static final class Fraction extends
+  public static final class Fraction extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.tendermint.v1.Fraction)
       FractionOrBuilder {
@@ -6498,6 +6555,7 @@ public final class Tendermint {
      * <code>uint64 numerator = 1;</code>
      * @return The numerator.
      */
+    @java.lang.Override
     public long getNumerator() {
       return numerator_;
     }
@@ -6508,6 +6566,7 @@ public final class Tendermint {
      * <code>uint64 denominator = 2;</code>
      * @return The denominator.
      */
+    @java.lang.Override
     public long getDenominator() {
       return denominator_;
     }
@@ -6842,6 +6901,7 @@ public final class Tendermint {
        * <code>uint64 numerator = 1;</code>
        * @return The numerator.
        */
+      @java.lang.Override
       public long getNumerator() {
         return numerator_;
       }
@@ -6872,6 +6932,7 @@ public final class Tendermint {
        * <code>uint64 denominator = 2;</code>
        * @return The denominator.
        */
+      @java.lang.Override
       public long getDenominator() {
         return denominator_;
       }

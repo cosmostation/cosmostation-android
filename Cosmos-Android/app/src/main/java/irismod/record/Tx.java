@@ -61,7 +61,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.record.MsgCreateRecord}
    */
-  public  static final class MsgCreateRecord extends
+  public static final class MsgCreateRecord extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.MsgCreateRecord)
       MsgCreateRecordOrBuilder {
@@ -161,12 +161,14 @@ public final class Tx {
     /**
      * <code>repeated .irismod.record.Content contents = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.record.RecordOuterClass.Content> getContentsList() {
       return contents_;
     }
     /**
      * <code>repeated .irismod.record.Content contents = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.record.RecordOuterClass.ContentOrBuilder> 
         getContentsOrBuilderList() {
       return contents_;
@@ -174,18 +176,21 @@ public final class Tx {
     /**
      * <code>repeated .irismod.record.Content contents = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getContentsCount() {
       return contents_.size();
     }
     /**
      * <code>repeated .irismod.record.Content contents = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.Content getContents(int index) {
       return contents_.get(index);
     }
     /**
      * <code>repeated .irismod.record.Content contents = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.ContentOrBuilder getContentsOrBuilder(
         int index) {
       return contents_.get(index);
@@ -197,6 +202,7 @@ public final class Tx {
      * <code>string creator = 2;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -213,6 +219,7 @@ public final class Tx {
      * <code>string creator = 2;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -981,7 +988,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.record.MsgCreateRecordResponse}
    */
-  public  static final class MsgCreateRecordResponse extends
+  public static final class MsgCreateRecordResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.MsgCreateRecordResponse)
       MsgCreateRecordResponseOrBuilder {
@@ -1068,6 +1075,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1084,6 +1092,7 @@ public final class Tx {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;

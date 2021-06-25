@@ -85,7 +85,7 @@ public final class Nft {
    *
    * Protobuf type {@code irismod.nft.BaseNFT}
    */
-  public  static final class BaseNFT extends
+  public static final class BaseNFT extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.BaseNFT)
       BaseNFTOrBuilder {
@@ -200,6 +200,7 @@ public final class Nft {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -216,6 +217,7 @@ public final class Nft {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -236,6 +238,7 @@ public final class Nft {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -252,6 +255,7 @@ public final class Nft {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -272,6 +276,7 @@ public final class Nft {
      * <code>string uri = 3 [(.gogoproto.customname) = "URI"];</code>
      * @return The uri.
      */
+    @java.lang.Override
     public java.lang.String getUri() {
       java.lang.Object ref = uri_;
       if (ref instanceof java.lang.String) {
@@ -288,6 +293,7 @@ public final class Nft {
      * <code>string uri = 3 [(.gogoproto.customname) = "URI"];</code>
      * @return The bytes for uri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUriBytes() {
       java.lang.Object ref = uri_;
@@ -308,6 +314,7 @@ public final class Nft {
      * <code>string data = 4;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -324,6 +331,7 @@ public final class Nft {
      * <code>string data = 4;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -344,6 +352,7 @@ public final class Nft {
      * <code>string owner = 5;</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -360,6 +369,7 @@ public final class Nft {
      * <code>string owner = 5;</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -1239,7 +1249,7 @@ public final class Nft {
    *
    * Protobuf type {@code irismod.nft.Denom}
    */
-  public  static final class Denom extends
+  public static final class Denom extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.Denom)
       DenomOrBuilder {
@@ -1347,6 +1357,7 @@ public final class Nft {
      * <code>string id = 1;</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -1363,6 +1374,7 @@ public final class Nft {
      * <code>string id = 1;</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -1383,6 +1395,7 @@ public final class Nft {
      * <code>string name = 2;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1399,6 +1412,7 @@ public final class Nft {
      * <code>string name = 2;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1419,6 +1433,7 @@ public final class Nft {
      * <code>string schema = 3;</code>
      * @return The schema.
      */
+    @java.lang.Override
     public java.lang.String getSchema() {
       java.lang.Object ref = schema_;
       if (ref instanceof java.lang.String) {
@@ -1435,6 +1450,7 @@ public final class Nft {
      * <code>string schema = 3;</code>
      * @return The bytes for schema.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSchemaBytes() {
       java.lang.Object ref = schema_;
@@ -1455,6 +1471,7 @@ public final class Nft {
      * <code>string creator = 4;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -1471,6 +1488,7 @@ public final class Nft {
      * <code>string creator = 4;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -2246,7 +2264,7 @@ public final class Nft {
    *
    * Protobuf type {@code irismod.nft.IDCollection}
    */
-  public  static final class IDCollection extends
+  public static final class IDCollection extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.IDCollection)
       IDCollectionOrBuilder {
@@ -2347,6 +2365,7 @@ public final class Nft {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The denomId.
      */
+    @java.lang.Override
     public java.lang.String getDenomId() {
       java.lang.Object ref = denomId_;
       if (ref instanceof java.lang.String) {
@@ -2363,6 +2382,7 @@ public final class Nft {
      * <code>string denom_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"denom_id&#92;""];</code>
      * @return The bytes for denomId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomIdBytes() {
       java.lang.Object ref = denomId_;
@@ -3039,7 +3059,7 @@ public final class Nft {
    *
    * Protobuf type {@code irismod.nft.Owner}
    */
-  public  static final class Owner extends
+  public static final class Owner extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.Owner)
       OwnerOrBuilder {
@@ -3140,6 +3160,7 @@ public final class Nft {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -3156,6 +3177,7 @@ public final class Nft {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -3175,12 +3197,14 @@ public final class Nft {
     /**
      * <code>repeated .irismod.nft.IDCollection id_collections = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "IDCollections", (.gogoproto.moretags) = "yaml:&#92;"idcs&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.nft.Nft.IDCollection> getIdCollectionsList() {
       return idCollections_;
     }
     /**
      * <code>repeated .irismod.nft.IDCollection id_collections = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "IDCollections", (.gogoproto.moretags) = "yaml:&#92;"idcs&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.nft.Nft.IDCollectionOrBuilder> 
         getIdCollectionsOrBuilderList() {
       return idCollections_;
@@ -3188,18 +3212,21 @@ public final class Nft {
     /**
      * <code>repeated .irismod.nft.IDCollection id_collections = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "IDCollections", (.gogoproto.moretags) = "yaml:&#92;"idcs&#92;""];</code>
      */
+    @java.lang.Override
     public int getIdCollectionsCount() {
       return idCollections_.size();
     }
     /**
      * <code>repeated .irismod.nft.IDCollection id_collections = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "IDCollections", (.gogoproto.moretags) = "yaml:&#92;"idcs&#92;""];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.IDCollection getIdCollections(int index) {
       return idCollections_.get(index);
     }
     /**
      * <code>repeated .irismod.nft.IDCollection id_collections = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "IDCollections", (.gogoproto.moretags) = "yaml:&#92;"idcs&#92;""];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.IDCollectionOrBuilder getIdCollectionsOrBuilder(
         int index) {
       return idCollections_.get(index);
@@ -3986,7 +4013,7 @@ public final class Nft {
    *
    * Protobuf type {@code irismod.nft.Collection}
    */
-  public  static final class Collection extends
+  public static final class Collection extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.Collection)
       CollectionOrBuilder {
@@ -4093,6 +4120,7 @@ public final class Nft {
      * <code>.irismod.nft.Denom denom = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the denom field is set.
      */
+    @java.lang.Override
     public boolean hasDenom() {
       return denom_ != null;
     }
@@ -4100,12 +4128,14 @@ public final class Nft {
      * <code>.irismod.nft.Denom denom = 1 [(.gogoproto.nullable) = false];</code>
      * @return The denom.
      */
+    @java.lang.Override
     public irismod.nft.Nft.Denom getDenom() {
       return denom_ == null ? irismod.nft.Nft.Denom.getDefaultInstance() : denom_;
     }
     /**
      * <code>.irismod.nft.Denom denom = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.DenomOrBuilder getDenomOrBuilder() {
       return getDenom();
     }
@@ -4115,12 +4145,14 @@ public final class Nft {
     /**
      * <code>repeated .irismod.nft.BaseNFT nfts = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "NFTs"];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.nft.Nft.BaseNFT> getNftsList() {
       return nfts_;
     }
     /**
      * <code>repeated .irismod.nft.BaseNFT nfts = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "NFTs"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.nft.Nft.BaseNFTOrBuilder> 
         getNftsOrBuilderList() {
       return nfts_;
@@ -4128,18 +4160,21 @@ public final class Nft {
     /**
      * <code>repeated .irismod.nft.BaseNFT nfts = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "NFTs"];</code>
      */
+    @java.lang.Override
     public int getNftsCount() {
       return nfts_.size();
     }
     /**
      * <code>repeated .irismod.nft.BaseNFT nfts = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "NFTs"];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.BaseNFT getNfts(int index) {
       return nfts_.get(index);
     }
     /**
      * <code>repeated .irismod.nft.BaseNFT nfts = 2 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "NFTs"];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.BaseNFTOrBuilder getNftsOrBuilder(
         int index) {
       return nfts_.get(index);

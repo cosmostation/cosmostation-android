@@ -55,7 +55,7 @@ public final class RandomOuterClass {
    *
    * Protobuf type {@code irismod.random.Random}
    */
-  public  static final class Random extends
+  public static final class Random extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.Random)
       RandomOrBuilder {
@@ -154,6 +154,7 @@ public final class RandomOuterClass {
      * <code>string request_tx_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"request_tx_hash&#92;""];</code>
      * @return The requestTxHash.
      */
+    @java.lang.Override
     public java.lang.String getRequestTxHash() {
       java.lang.Object ref = requestTxHash_;
       if (ref instanceof java.lang.String) {
@@ -170,6 +171,7 @@ public final class RandomOuterClass {
      * <code>string request_tx_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"request_tx_hash&#92;""];</code>
      * @return The bytes for requestTxHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestTxHashBytes() {
       java.lang.Object ref = requestTxHash_;
@@ -190,6 +192,7 @@ public final class RandomOuterClass {
      * <code>int64 height = 2;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -200,6 +203,7 @@ public final class RandomOuterClass {
      * <code>string value = 3;</code>
      * @return The value.
      */
+    @java.lang.Override
     public java.lang.String getValue() {
       java.lang.Object ref = value_;
       if (ref instanceof java.lang.String) {
@@ -216,6 +220,7 @@ public final class RandomOuterClass {
      * <code>string value = 3;</code>
      * @return The bytes for value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueBytes() {
       java.lang.Object ref = value_;
@@ -652,6 +657,7 @@ public final class RandomOuterClass {
        * <code>int64 height = 2;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -888,7 +894,7 @@ public final class RandomOuterClass {
    *
    * Protobuf type {@code irismod.random.Request}
    */
-  public  static final class Request extends
+  public static final class Request extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.Request)
       RequestOrBuilder {
@@ -1013,6 +1019,7 @@ public final class RandomOuterClass {
      * <code>int64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -1023,6 +1030,7 @@ public final class RandomOuterClass {
      * <code>string consumer = 2;</code>
      * @return The consumer.
      */
+    @java.lang.Override
     public java.lang.String getConsumer() {
       java.lang.Object ref = consumer_;
       if (ref instanceof java.lang.String) {
@@ -1039,6 +1047,7 @@ public final class RandomOuterClass {
      * <code>string consumer = 2;</code>
      * @return The bytes for consumer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConsumerBytes() {
       java.lang.Object ref = consumer_;
@@ -1059,6 +1068,7 @@ public final class RandomOuterClass {
      * <code>string tx_hash = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_hash&#92;""];</code>
      * @return The txHash.
      */
+    @java.lang.Override
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
       if (ref instanceof java.lang.String) {
@@ -1075,6 +1085,7 @@ public final class RandomOuterClass {
      * <code>string tx_hash = 3 [(.gogoproto.moretags) = "yaml:&#92;"tx_hash&#92;""];</code>
      * @return The bytes for txHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxHashBytes() {
       java.lang.Object ref = txHash_;
@@ -1095,6 +1106,7 @@ public final class RandomOuterClass {
      * <code>bool oracle = 4;</code>
      * @return The oracle.
      */
+    @java.lang.Override
     public boolean getOracle() {
       return oracle_;
     }
@@ -1104,12 +1116,14 @@ public final class RandomOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getServiceFeeCapList() {
       return serviceFeeCap_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getServiceFeeCapOrBuilderList() {
       return serviceFeeCap_;
@@ -1117,18 +1131,21 @@ public final class RandomOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getServiceFeeCapCount() {
       return serviceFeeCap_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getServiceFeeCap(int index) {
       return serviceFeeCap_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getServiceFeeCapOrBuilder(
         int index) {
       return serviceFeeCap_.get(index);
@@ -1140,6 +1157,7 @@ public final class RandomOuterClass {
      * <code>string service_context_id = 6 [(.gogoproto.customname) = "ServiceContextID", (.gogoproto.moretags) = "yaml:&#92;"service_context_id&#92;""];</code>
      * @return The serviceContextId.
      */
+    @java.lang.Override
     public java.lang.String getServiceContextId() {
       java.lang.Object ref = serviceContextId_;
       if (ref instanceof java.lang.String) {
@@ -1156,6 +1174,7 @@ public final class RandomOuterClass {
      * <code>string service_context_id = 6 [(.gogoproto.customname) = "ServiceContextID", (.gogoproto.moretags) = "yaml:&#92;"service_context_id&#92;""];</code>
      * @return The bytes for serviceContextId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getServiceContextIdBytes() {
       java.lang.Object ref = serviceContextId_;
@@ -1608,6 +1627,7 @@ public final class RandomOuterClass {
        * <code>int64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -1790,6 +1810,7 @@ public final class RandomOuterClass {
        * <code>bool oracle = 4;</code>
        * @return The oracle.
        */
+      @java.lang.Override
       public boolean getOracle() {
         return oracle_;
       }

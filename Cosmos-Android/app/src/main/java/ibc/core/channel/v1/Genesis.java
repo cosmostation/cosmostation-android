@@ -203,7 +203,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.channel.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -379,12 +379,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "IdentifiedChannel"];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannel> getChannelsList() {
       return channels_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "IdentifiedChannel"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannelOrBuilder> 
         getChannelsOrBuilderList() {
       return channels_;
@@ -392,18 +394,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "IdentifiedChannel"];</code>
      */
+    @java.lang.Override
     public int getChannelsCount() {
       return channels_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "IdentifiedChannel"];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannel getChannels(int index) {
       return channels_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1 [(.gogoproto.nullable) = false, (.gogoproto.casttype) = "IdentifiedChannel"];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannelOrBuilder getChannelsOrBuilder(
         int index) {
       return channels_.get(index);
@@ -414,12 +419,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.PacketState> getAcknowledgementsList() {
       return acknowledgements_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder> 
         getAcknowledgementsOrBuilderList() {
       return acknowledgements_;
@@ -427,18 +434,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getAcknowledgementsCount() {
       return acknowledgements_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketState getAcknowledgements(int index) {
       return acknowledgements_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder getAcknowledgementsOrBuilder(
         int index) {
       return acknowledgements_.get(index);
@@ -449,12 +459,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.PacketState> getCommitmentsList() {
       return commitments_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder> 
         getCommitmentsOrBuilderList() {
       return commitments_;
@@ -462,18 +474,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getCommitmentsCount() {
       return commitments_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketState getCommitments(int index) {
       return commitments_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder getCommitmentsOrBuilder(
         int index) {
       return commitments_.get(index);
@@ -484,12 +499,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState receipts = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.PacketState> getReceiptsList() {
       return receipts_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState receipts = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder> 
         getReceiptsOrBuilderList() {
       return receipts_;
@@ -497,18 +514,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState receipts = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getReceiptsCount() {
       return receipts_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState receipts = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketState getReceipts(int index) {
       return receipts_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState receipts = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder getReceiptsOrBuilder(
         int index) {
       return receipts_.get(index);
@@ -519,12 +539,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence send_sequences = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"send_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.Genesis.PacketSequence> getSendSequencesList() {
       return sendSequences_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence send_sequences = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"send_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.Genesis.PacketSequenceOrBuilder> 
         getSendSequencesOrBuilderList() {
       return sendSequences_;
@@ -532,18 +554,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence send_sequences = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"send_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public int getSendSequencesCount() {
       return sendSequences_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence send_sequences = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"send_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.PacketSequence getSendSequences(int index) {
       return sendSequences_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence send_sequences = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"send_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.PacketSequenceOrBuilder getSendSequencesOrBuilder(
         int index) {
       return sendSequences_.get(index);
@@ -554,12 +579,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence recv_sequences = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"recv_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.Genesis.PacketSequence> getRecvSequencesList() {
       return recvSequences_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence recv_sequences = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"recv_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.Genesis.PacketSequenceOrBuilder> 
         getRecvSequencesOrBuilderList() {
       return recvSequences_;
@@ -567,18 +594,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence recv_sequences = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"recv_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public int getRecvSequencesCount() {
       return recvSequences_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence recv_sequences = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"recv_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.PacketSequence getRecvSequences(int index) {
       return recvSequences_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence recv_sequences = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"recv_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.PacketSequenceOrBuilder getRecvSequencesOrBuilder(
         int index) {
       return recvSequences_.get(index);
@@ -589,12 +619,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence ack_sequences = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"ack_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.Genesis.PacketSequence> getAckSequencesList() {
       return ackSequences_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence ack_sequences = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"ack_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.Genesis.PacketSequenceOrBuilder> 
         getAckSequencesOrBuilderList() {
       return ackSequences_;
@@ -602,18 +634,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence ack_sequences = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"ack_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public int getAckSequencesCount() {
       return ackSequences_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence ack_sequences = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"ack_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.PacketSequence getAckSequences(int index) {
       return ackSequences_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketSequence ack_sequences = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"ack_sequences&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.Genesis.PacketSequenceOrBuilder getAckSequencesOrBuilder(
         int index) {
       return ackSequences_.get(index);
@@ -629,6 +664,7 @@ public final class Genesis {
      * <code>uint64 next_channel_sequence = 8 [(.gogoproto.moretags) = "yaml:&#92;"next_channel_sequence&#92;""];</code>
      * @return The nextChannelSequence.
      */
+    @java.lang.Override
     public long getNextChannelSequence() {
       return nextChannelSequence_;
     }
@@ -3016,6 +3052,7 @@ public final class Genesis {
        * <code>uint64 next_channel_sequence = 8 [(.gogoproto.moretags) = "yaml:&#92;"next_channel_sequence&#92;""];</code>
        * @return The nextChannelSequence.
        */
+      @java.lang.Override
       public long getNextChannelSequence() {
         return nextChannelSequence_;
       }
@@ -3143,7 +3180,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.core.channel.v1.PacketSequence}
    */
-  public  static final class PacketSequence extends
+  public static final class PacketSequence extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.PacketSequence)
       PacketSequenceOrBuilder {
@@ -3242,6 +3279,7 @@ public final class Genesis {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -3258,6 +3296,7 @@ public final class Genesis {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -3278,6 +3317,7 @@ public final class Genesis {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -3294,6 +3334,7 @@ public final class Genesis {
      * <code>string channel_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"channel_id&#92;""];</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -3314,6 +3355,7 @@ public final class Genesis {
      * <code>uint64 sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -3817,6 +3859,7 @@ public final class Genesis {
        * <code>uint64 sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }

@@ -90,7 +90,7 @@ public final class ParamsOuterClass {
    *
    * Protobuf type {@code osmosis.claim.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.claim.v1beta1.Params)
       ParamsOrBuilder {
@@ -216,6 +216,7 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Timestamp airdrop_start_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"airdrop_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the airdropStartTime field is set.
      */
+    @java.lang.Override
     public boolean hasAirdropStartTime() {
       return airdropStartTime_ != null;
     }
@@ -223,12 +224,14 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Timestamp airdrop_start_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"airdrop_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The airdropStartTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getAirdropStartTime() {
       return airdropStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : airdropStartTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp airdrop_start_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"airdrop_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getAirdropStartTimeOrBuilder() {
       return getAirdropStartTime();
     }
@@ -239,6 +242,7 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_until_decay = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_until_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_until_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the durationUntilDecay field is set.
      */
+    @java.lang.Override
     public boolean hasDurationUntilDecay() {
       return durationUntilDecay_ != null;
     }
@@ -246,12 +250,14 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_until_decay = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_until_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_until_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The durationUntilDecay.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDurationUntilDecay() {
       return durationUntilDecay_ == null ? com.google.protobuf.Duration.getDefaultInstance() : durationUntilDecay_;
     }
     /**
      * <code>.google.protobuf.Duration duration_until_decay = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_until_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_until_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationUntilDecayOrBuilder() {
       return getDurationUntilDecay();
     }
@@ -262,6 +268,7 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_of_decay = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_of_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_of_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the durationOfDecay field is set.
      */
+    @java.lang.Override
     public boolean hasDurationOfDecay() {
       return durationOfDecay_ != null;
     }
@@ -269,12 +276,14 @@ public final class ParamsOuterClass {
      * <code>.google.protobuf.Duration duration_of_decay = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_of_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_of_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The durationOfDecay.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDurationOfDecay() {
       return durationOfDecay_ == null ? com.google.protobuf.Duration.getDefaultInstance() : durationOfDecay_;
     }
     /**
      * <code>.google.protobuf.Duration duration_of_decay = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration_of_decay,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration_of_decay&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOfDecayOrBuilder() {
       return getDurationOfDecay();
     }
@@ -289,6 +298,7 @@ public final class ParamsOuterClass {
      * <code>string claim_denom = 4;</code>
      * @return The claimDenom.
      */
+    @java.lang.Override
     public java.lang.String getClaimDenom() {
       java.lang.Object ref = claimDenom_;
       if (ref instanceof java.lang.String) {
@@ -309,6 +319,7 @@ public final class ParamsOuterClass {
      * <code>string claim_denom = 4;</code>
      * @return The bytes for claimDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClaimDenomBytes() {
       java.lang.Object ref = claimDenom_;

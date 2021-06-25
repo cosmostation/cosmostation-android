@@ -73,7 +73,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.random.MsgRequestRandom}
    */
-  public  static final class MsgRequestRandom extends
+  public static final class MsgRequestRandom extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.MsgRequestRandom)
       MsgRequestRandomOrBuilder {
@@ -184,6 +184,7 @@ public final class Tx {
      * <code>uint64 block_interval = 1 [(.gogoproto.moretags) = "yaml:&#92;"block_interval&#92;""];</code>
      * @return The blockInterval.
      */
+    @java.lang.Override
     public long getBlockInterval() {
       return blockInterval_;
     }
@@ -194,6 +195,7 @@ public final class Tx {
      * <code>string consumer = 2;</code>
      * @return The consumer.
      */
+    @java.lang.Override
     public java.lang.String getConsumer() {
       java.lang.Object ref = consumer_;
       if (ref instanceof java.lang.String) {
@@ -210,6 +212,7 @@ public final class Tx {
      * <code>string consumer = 2;</code>
      * @return The bytes for consumer.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConsumerBytes() {
       java.lang.Object ref = consumer_;
@@ -230,6 +233,7 @@ public final class Tx {
      * <code>bool oracle = 3;</code>
      * @return The oracle.
      */
+    @java.lang.Override
     public boolean getOracle() {
       return oracle_;
     }
@@ -239,12 +243,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getServiceFeeCapList() {
       return serviceFeeCap_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getServiceFeeCapOrBuilderList() {
       return serviceFeeCap_;
@@ -252,18 +258,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getServiceFeeCapCount() {
       return serviceFeeCap_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getServiceFeeCap(int index) {
       return serviceFeeCap_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin service_fee_cap = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"service_fee_cap&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getServiceFeeCapOrBuilder(
         int index) {
       return serviceFeeCap_.get(index);
@@ -673,6 +682,7 @@ public final class Tx {
        * <code>uint64 block_interval = 1 [(.gogoproto.moretags) = "yaml:&#92;"block_interval&#92;""];</code>
        * @return The blockInterval.
        */
+      @java.lang.Override
       public long getBlockInterval() {
         return blockInterval_;
       }
@@ -779,6 +789,7 @@ public final class Tx {
        * <code>bool oracle = 3;</code>
        * @return The oracle.
        */
+      @java.lang.Override
       public boolean getOracle() {
         return oracle_;
       }
@@ -1107,7 +1118,7 @@ public final class Tx {
    *
    * Protobuf type {@code irismod.random.MsgRequestRandomResponse}
    */
-  public  static final class MsgRequestRandomResponse extends
+  public static final class MsgRequestRandomResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.random.MsgRequestRandomResponse)
       MsgRequestRandomResponseOrBuilder {

@@ -88,7 +88,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.token.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.token.GenesisState)
       GenesisStateOrBuilder {
@@ -208,6 +208,7 @@ public final class Genesis {
      * <code>.irismod.token.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -215,12 +216,14 @@ public final class Genesis {
      * <code>.irismod.token.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public irismod.token.TokenOuterClass.Params getParams() {
       return params_ == null ? irismod.token.TokenOuterClass.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.irismod.token.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.token.TokenOuterClass.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -230,12 +233,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.token.Token tokens = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.token.TokenOuterClass.Token> getTokensList() {
       return tokens_;
     }
     /**
      * <code>repeated .irismod.token.Token tokens = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.token.TokenOuterClass.TokenOrBuilder> 
         getTokensOrBuilderList() {
       return tokens_;
@@ -243,18 +248,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.token.Token tokens = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getTokensCount() {
       return tokens_.size();
     }
     /**
      * <code>repeated .irismod.token.Token tokens = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.token.TokenOuterClass.Token getTokens(int index) {
       return tokens_.get(index);
     }
     /**
      * <code>repeated .irismod.token.Token tokens = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.token.TokenOuterClass.TokenOrBuilder getTokensOrBuilder(
         int index) {
       return tokens_.get(index);
@@ -265,12 +273,14 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getBurnedCoinsList() {
       return burnedCoins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getBurnedCoinsOrBuilderList() {
       return burnedCoins_;
@@ -278,18 +288,21 @@ public final class Genesis {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getBurnedCoinsCount() {
       return burnedCoins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getBurnedCoins(int index) {
       return burnedCoins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin burned_coins = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getBurnedCoinsOrBuilder(
         int index) {
       return burnedCoins_.get(index);

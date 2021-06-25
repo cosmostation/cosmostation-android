@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code akash.provider.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.provider.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "providers", (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.provider.v1beta1.ProviderOuterClass.Provider> getProvidersList() {
       return providers_;
     }
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "providers", (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.provider.v1beta1.ProviderOuterClass.ProviderOrBuilder> 
         getProvidersOrBuilderList() {
       return providers_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "providers", (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public int getProvidersCount() {
       return providers_.size();
     }
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "providers", (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.Provider getProviders(int index) {
       return providers_.get(index);
     }
     /**
      * <code>repeated .akash.provider.v1beta1.Provider providers = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "providers", (.gogoproto.moretags) = "yaml:&#92;"providers&#92;""];</code>
      */
+    @java.lang.Override
     public akash.provider.v1beta1.ProviderOuterClass.ProviderOrBuilder getProvidersOrBuilder(
         int index) {
       return providers_.get(index);

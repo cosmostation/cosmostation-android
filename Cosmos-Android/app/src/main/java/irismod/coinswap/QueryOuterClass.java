@@ -37,7 +37,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.coinswap.QueryLiquidityRequest}
    */
-  public  static final class QueryLiquidityRequest extends
+  public static final class QueryLiquidityRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityRequest)
       QueryLiquidityRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>string denom = 1;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class QueryOuterClass {
      * <code>string denom = 1;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -656,7 +658,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.coinswap.QueryLiquidityResponse}
    */
-  public  static final class QueryLiquidityResponse extends
+  public static final class QueryLiquidityResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.QueryLiquidityResponse)
       QueryLiquidityResponseOrBuilder {
@@ -782,6 +784,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the standard field is set.
      */
+    @java.lang.Override
     public boolean hasStandard() {
       return standard_ != null;
     }
@@ -789,12 +792,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
      * @return The standard.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getStandard() {
       return standard_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : standard_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin standard = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getStandardOrBuilder() {
       return getStandard();
     }
@@ -805,6 +810,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the token field is set.
      */
+    @java.lang.Override
     public boolean hasToken() {
       return token_ != null;
     }
@@ -812,12 +818,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
      * @return The token.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getToken() {
       return token_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : token_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin token = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTokenOrBuilder() {
       return getToken();
     }
@@ -828,6 +836,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the liquidity field is set.
      */
+    @java.lang.Override
     public boolean hasLiquidity() {
       return liquidity_ != null;
     }
@@ -835,12 +844,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
      * @return The liquidity.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getLiquidity() {
       return liquidity_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : liquidity_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin liquidity = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLiquidityOrBuilder() {
       return getLiquidity();
     }
@@ -851,6 +862,7 @@ public final class QueryOuterClass {
      * <code>string fee = 4;</code>
      * @return The fee.
      */
+    @java.lang.Override
     public java.lang.String getFee() {
       java.lang.Object ref = fee_;
       if (ref instanceof java.lang.String) {
@@ -867,6 +879,7 @@ public final class QueryOuterClass {
      * <code>string fee = 4;</code>
      * @return The bytes for fee.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeeBytes() {
       java.lang.Object ref = fee_;

@@ -96,7 +96,7 @@ public final class Genesis {
   /**
    * Protobuf type {@code osmosis.epochs.v1beta1.EpochInfo}
    */
-  public  static final class EpochInfo extends
+  public static final class EpochInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.epochs.v1beta1.EpochInfo)
       EpochInfoOrBuilder {
@@ -237,6 +237,7 @@ public final class Genesis {
      * <code>string identifier = 1;</code>
      * @return The identifier.
      */
+    @java.lang.Override
     public java.lang.String getIdentifier() {
       java.lang.Object ref = identifier_;
       if (ref instanceof java.lang.String) {
@@ -253,6 +254,7 @@ public final class Genesis {
      * <code>string identifier = 1;</code>
      * @return The bytes for identifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdentifierBytes() {
       java.lang.Object ref = identifier_;
@@ -273,6 +275,7 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp start_time = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the startTime field is set.
      */
+    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -280,12 +283,14 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp start_time = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The startTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getStartTime() {
       return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp start_time = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -296,6 +301,7 @@ public final class Genesis {
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -303,12 +309,14 @@ public final class Genesis {
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
     /**
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -319,6 +327,7 @@ public final class Genesis {
      * <code>int64 current_epoch = 4;</code>
      * @return The currentEpoch.
      */
+    @java.lang.Override
     public long getCurrentEpoch() {
       return currentEpoch_;
     }
@@ -329,6 +338,7 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp current_epoch_start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"current_epoch_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the currentEpochStartTime field is set.
      */
+    @java.lang.Override
     public boolean hasCurrentEpochStartTime() {
       return currentEpochStartTime_ != null;
     }
@@ -336,12 +346,14 @@ public final class Genesis {
      * <code>.google.protobuf.Timestamp current_epoch_start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"current_epoch_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The currentEpochStartTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getCurrentEpochStartTime() {
       return currentEpochStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : currentEpochStartTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp current_epoch_start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"current_epoch_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getCurrentEpochStartTimeOrBuilder() {
       return getCurrentEpochStartTime();
     }
@@ -352,6 +364,7 @@ public final class Genesis {
      * <code>bool epoch_counting_started = 6;</code>
      * @return The epochCountingStarted.
      */
+    @java.lang.Override
     public boolean getEpochCountingStarted() {
       return epochCountingStarted_;
     }
@@ -362,6 +375,7 @@ public final class Genesis {
      * <code>bool current_epoch_ended = 7;</code>
      * @return The currentEpochEnded.
      */
+    @java.lang.Override
     public boolean getCurrentEpochEnded() {
       return currentEpochEnded_;
     }
@@ -1131,6 +1145,7 @@ public final class Genesis {
        * <code>int64 current_epoch = 4;</code>
        * @return The currentEpoch.
        */
+      @java.lang.Override
       public long getCurrentEpoch() {
         return currentEpoch_;
       }
@@ -1280,6 +1295,7 @@ public final class Genesis {
        * <code>bool epoch_counting_started = 6;</code>
        * @return The epochCountingStarted.
        */
+      @java.lang.Override
       public boolean getEpochCountingStarted() {
         return epochCountingStarted_;
       }
@@ -1310,6 +1326,7 @@ public final class Genesis {
        * <code>bool current_epoch_ended = 7;</code>
        * @return The currentEpochEnded.
        */
+      @java.lang.Override
       public boolean getCurrentEpochEnded() {
         return currentEpochEnded_;
       }
@@ -1422,7 +1439,7 @@ public final class Genesis {
    *
    * Protobuf type {@code osmosis.epochs.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.epochs.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -1515,12 +1532,14 @@ public final class Genesis {
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.epochs.v1beta1.Genesis.EpochInfo> getEpochsList() {
       return epochs_;
     }
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.epochs.v1beta1.Genesis.EpochInfoOrBuilder> 
         getEpochsOrBuilderList() {
       return epochs_;
@@ -1528,18 +1547,21 @@ public final class Genesis {
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getEpochsCount() {
       return epochs_.size();
     }
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.epochs.v1beta1.Genesis.EpochInfo getEpochs(int index) {
       return epochs_.get(index);
     }
     /**
      * <code>repeated .osmosis.epochs.v1beta1.EpochInfo epochs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.epochs.v1beta1.Genesis.EpochInfoOrBuilder getEpochsOrBuilder(
         int index) {
       return epochs_.get(index);

@@ -65,7 +65,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelRequest}
    */
-  public  static final class QueryChannelRequest extends
+  public static final class QueryChannelRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelRequest)
       QueryChannelRequestOrBuilder {
@@ -163,6 +163,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -183,6 +184,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -207,6 +209,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -227,6 +230,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -885,7 +889,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelResponse}
    */
-  public  static final class QueryChannelResponse extends
+  public static final class QueryChannelResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelResponse)
       QueryChannelResponseOrBuilder {
@@ -1001,6 +1005,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.channel.v1.Channel channel = 1;</code>
      * @return Whether the channel field is set.
      */
+    @java.lang.Override
     public boolean hasChannel() {
       return channel_ != null;
     }
@@ -1012,6 +1017,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.channel.v1.Channel channel = 1;</code>
      * @return The channel.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Channel getChannel() {
       return channel_ == null ? ibc.core.channel.v1.ChannelOuterClass.Channel.getDefaultInstance() : channel_;
     }
@@ -1022,6 +1028,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.channel.v1.Channel channel = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.ChannelOrBuilder getChannelOrBuilder() {
       return getChannel();
     }
@@ -1036,6 +1043,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -1050,6 +1058,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -1061,6 +1070,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -1071,6 +1081,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -1607,6 +1618,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -1888,7 +1900,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelsRequest}
    */
-  public  static final class QueryChannelsRequest extends
+  public static final class QueryChannelsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelsRequest)
       QueryChannelsRequestOrBuilder {
@@ -1985,6 +1997,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1996,6 +2009,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -2006,6 +2020,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2645,7 +2660,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelsResponse}
    */
-  public  static final class QueryChannelsResponse extends
+  public static final class QueryChannelsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelsResponse)
       QueryChannelsResponseOrBuilder {
@@ -2768,6 +2783,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannel> getChannelsList() {
       return channels_;
     }
@@ -2778,6 +2794,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannelOrBuilder> 
         getChannelsOrBuilderList() {
       return channels_;
@@ -2789,6 +2806,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public int getChannelsCount() {
       return channels_.size();
     }
@@ -2799,6 +2817,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannel getChannels(int index) {
       return channels_.get(index);
     }
@@ -2809,6 +2828,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannelOrBuilder getChannelsOrBuilder(
         int index) {
       return channels_.get(index);
@@ -2824,6 +2844,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2835,6 +2856,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2845,6 +2867,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2859,6 +2882,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -2870,6 +2894,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -2880,6 +2905,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -4023,7 +4049,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryConnectionChannelsRequest}
    */
-  public  static final class QueryConnectionChannelsRequest extends
+  public static final class QueryConnectionChannelsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryConnectionChannelsRequest)
       QueryConnectionChannelsRequestOrBuilder {
@@ -4127,6 +4153,7 @@ public final class QueryOuterClass {
      * <code>string connection = 1;</code>
      * @return The connection.
      */
+    @java.lang.Override
     public java.lang.String getConnection() {
       java.lang.Object ref = connection_;
       if (ref instanceof java.lang.String) {
@@ -4147,6 +4174,7 @@ public final class QueryOuterClass {
      * <code>string connection = 1;</code>
      * @return The bytes for connection.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConnectionBytes() {
       java.lang.Object ref = connection_;
@@ -4171,6 +4199,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -4182,6 +4211,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -4192,6 +4222,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -4946,7 +4977,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryConnectionChannelsResponse}
    */
-  public  static final class QueryConnectionChannelsResponse extends
+  public static final class QueryConnectionChannelsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryConnectionChannelsResponse)
       QueryConnectionChannelsResponseOrBuilder {
@@ -5069,6 +5100,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannel> getChannelsList() {
       return channels_;
     }
@@ -5079,6 +5111,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannelOrBuilder> 
         getChannelsOrBuilderList() {
       return channels_;
@@ -5090,6 +5123,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public int getChannelsCount() {
       return channels_.size();
     }
@@ -5100,6 +5134,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannel getChannels(int index) {
       return channels_.get(index);
     }
@@ -5110,6 +5145,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.core.channel.v1.IdentifiedChannel channels = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.IdentifiedChannelOrBuilder getChannelsOrBuilder(
         int index) {
       return channels_.get(index);
@@ -5125,6 +5161,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -5136,6 +5173,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -5146,6 +5184,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -5160,6 +5199,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -5171,6 +5211,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -5181,6 +5222,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -6318,7 +6360,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelClientStateRequest}
    */
-  public  static final class QueryChannelClientStateRequest extends
+  public static final class QueryChannelClientStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelClientStateRequest)
       QueryChannelClientStateRequestOrBuilder {
@@ -6416,6 +6458,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -6436,6 +6479,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -6460,6 +6504,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -6480,6 +6525,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -7138,7 +7184,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelClientStateResponse}
    */
-  public  static final class QueryChannelClientStateResponse extends
+  public static final class QueryChannelClientStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelClientStateResponse)
       QueryChannelClientStateResponseOrBuilder {
@@ -7254,6 +7300,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.IdentifiedClientState identified_client_state = 1;</code>
      * @return Whether the identifiedClientState field is set.
      */
+    @java.lang.Override
     public boolean hasIdentifiedClientState() {
       return identifiedClientState_ != null;
     }
@@ -7265,6 +7312,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.IdentifiedClientState identified_client_state = 1;</code>
      * @return The identifiedClientState.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientState getIdentifiedClientState() {
       return identifiedClientState_ == null ? ibc.core.client.v1.Client.IdentifiedClientState.getDefaultInstance() : identifiedClientState_;
     }
@@ -7275,6 +7323,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.IdentifiedClientState identified_client_state = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.IdentifiedClientStateOrBuilder getIdentifiedClientStateOrBuilder() {
       return getIdentifiedClientState();
     }
@@ -7289,6 +7338,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -7303,6 +7353,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -7314,6 +7365,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -7324,6 +7376,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -7859,6 +7912,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -8174,7 +8228,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelConsensusStateRequest}
    */
-  public  static final class QueryChannelConsensusStateRequest extends
+  public static final class QueryChannelConsensusStateRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelConsensusStateRequest)
       QueryChannelConsensusStateRequestOrBuilder {
@@ -8282,6 +8336,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -8302,6 +8357,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -8326,6 +8382,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -8346,6 +8403,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -8370,6 +8428,7 @@ public final class QueryOuterClass {
      * <code>uint64 revision_number = 3;</code>
      * @return The revisionNumber.
      */
+    @java.lang.Override
     public long getRevisionNumber() {
       return revisionNumber_;
     }
@@ -8384,6 +8443,7 @@ public final class QueryOuterClass {
      * <code>uint64 revision_height = 4;</code>
      * @return The revisionHeight.
      */
+    @java.lang.Override
     public long getRevisionHeight() {
       return revisionHeight_;
     }
@@ -8949,6 +9009,7 @@ public final class QueryOuterClass {
        * <code>uint64 revision_number = 3;</code>
        * @return The revisionNumber.
        */
+      @java.lang.Override
       public long getRevisionNumber() {
         return revisionNumber_;
       }
@@ -8991,6 +9052,7 @@ public final class QueryOuterClass {
        * <code>uint64 revision_height = 4;</code>
        * @return The revisionHeight.
        */
+      @java.lang.Override
       public long getRevisionHeight() {
         return revisionHeight_;
       }
@@ -9172,7 +9234,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryChannelConsensusStateResponse}
    */
-  public  static final class QueryChannelConsensusStateResponse extends
+  public static final class QueryChannelConsensusStateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryChannelConsensusStateResponse)
       QueryChannelConsensusStateResponseOrBuilder {
@@ -9295,6 +9357,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -9306,6 +9369,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
@@ -9316,6 +9380,7 @@ public final class QueryOuterClass {
      *
      * <code>.google.protobuf2.Any consensus_state = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -9330,6 +9395,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 2;</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -9350,6 +9416,7 @@ public final class QueryOuterClass {
      * <code>string client_id = 2;</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -9374,6 +9441,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 3;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -9388,6 +9456,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -9399,6 +9468,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -9409,6 +9479,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -10057,6 +10128,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 3;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -10362,7 +10434,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketCommitmentRequest}
    */
-  public  static final class QueryPacketCommitmentRequest extends
+  public static final class QueryPacketCommitmentRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketCommitmentRequest)
       QueryPacketCommitmentRequestOrBuilder {
@@ -10465,6 +10537,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -10485,6 +10558,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -10509,6 +10583,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -10529,6 +10604,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -10553,6 +10629,7 @@ public final class QueryOuterClass {
      * <code>uint64 sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -11100,6 +11177,7 @@ public final class QueryOuterClass {
        * <code>uint64 sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -11245,7 +11323,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketCommitmentResponse}
    */
-  public  static final class QueryPacketCommitmentResponse extends
+  public static final class QueryPacketCommitmentResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketCommitmentResponse)
       QueryPacketCommitmentResponseOrBuilder {
@@ -11354,6 +11432,7 @@ public final class QueryOuterClass {
      * <code>bytes commitment = 1;</code>
      * @return The commitment.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCommitment() {
       return commitment_;
     }
@@ -11368,6 +11447,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -11382,6 +11462,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -11393,6 +11474,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -11403,6 +11485,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -11771,6 +11854,7 @@ public final class QueryOuterClass {
        * <code>bytes commitment = 1;</code>
        * @return The commitment.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCommitment() {
         return commitment_;
       }
@@ -11816,6 +11900,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -12138,7 +12223,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketCommitmentsRequest}
    */
-  public  static final class QueryPacketCommitmentsRequest extends
+  public static final class QueryPacketCommitmentsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketCommitmentsRequest)
       QueryPacketCommitmentsRequestOrBuilder {
@@ -12249,6 +12334,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -12269,6 +12355,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -12293,6 +12380,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -12313,6 +12401,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -12337,6 +12426,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -12348,6 +12438,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -12358,6 +12449,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -13205,7 +13297,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketCommitmentsResponse}
    */
-  public  static final class QueryPacketCommitmentsResponse extends
+  public static final class QueryPacketCommitmentsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketCommitmentsResponse)
       QueryPacketCommitmentsResponseOrBuilder {
@@ -13324,12 +13416,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.PacketState> getCommitmentsList() {
       return commitments_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder> 
         getCommitmentsOrBuilderList() {
       return commitments_;
@@ -13337,18 +13431,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 1;</code>
      */
+    @java.lang.Override
     public int getCommitmentsCount() {
       return commitments_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketState getCommitments(int index) {
       return commitments_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState commitments = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder getCommitmentsOrBuilder(
         int index) {
       return commitments_.get(index);
@@ -13364,6 +13461,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -13375,6 +13473,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -13385,6 +13484,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -13399,6 +13499,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -13410,6 +13511,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -13420,6 +13522,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -14495,7 +14598,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketReceiptRequest}
    */
-  public  static final class QueryPacketReceiptRequest extends
+  public static final class QueryPacketReceiptRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketReceiptRequest)
       QueryPacketReceiptRequestOrBuilder {
@@ -14598,6 +14701,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -14618,6 +14722,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -14642,6 +14747,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -14662,6 +14768,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -14686,6 +14793,7 @@ public final class QueryOuterClass {
      * <code>uint64 sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -15233,6 +15341,7 @@ public final class QueryOuterClass {
        * <code>uint64 sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -15378,7 +15487,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketReceiptResponse}
    */
-  public  static final class QueryPacketReceiptResponse extends
+  public static final class QueryPacketReceiptResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketReceiptResponse)
       QueryPacketReceiptResponseOrBuilder {
@@ -15486,6 +15595,7 @@ public final class QueryOuterClass {
      * <code>bool received = 2;</code>
      * @return The received.
      */
+    @java.lang.Override
     public boolean getReceived() {
       return received_;
     }
@@ -15500,6 +15610,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 3;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -15514,6 +15625,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -15525,6 +15637,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -15535,6 +15648,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -15904,6 +16018,7 @@ public final class QueryOuterClass {
        * <code>bool received = 2;</code>
        * @return The received.
        */
+      @java.lang.Override
       public boolean getReceived() {
         return received_;
       }
@@ -15946,6 +16061,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 3;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -16251,7 +16367,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketAcknowledgementRequest}
    */
-  public  static final class QueryPacketAcknowledgementRequest extends
+  public static final class QueryPacketAcknowledgementRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketAcknowledgementRequest)
       QueryPacketAcknowledgementRequestOrBuilder {
@@ -16354,6 +16470,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -16374,6 +16491,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -16398,6 +16516,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -16418,6 +16537,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -16442,6 +16562,7 @@ public final class QueryOuterClass {
      * <code>uint64 sequence = 3;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -16989,6 +17110,7 @@ public final class QueryOuterClass {
        * <code>uint64 sequence = 3;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -17134,7 +17256,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketAcknowledgementResponse}
    */
-  public  static final class QueryPacketAcknowledgementResponse extends
+  public static final class QueryPacketAcknowledgementResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketAcknowledgementResponse)
       QueryPacketAcknowledgementResponseOrBuilder {
@@ -17243,6 +17365,7 @@ public final class QueryOuterClass {
      * <code>bytes acknowledgement = 1;</code>
      * @return The acknowledgement.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAcknowledgement() {
       return acknowledgement_;
     }
@@ -17257,6 +17380,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -17271,6 +17395,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -17282,6 +17407,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -17292,6 +17418,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -17660,6 +17787,7 @@ public final class QueryOuterClass {
        * <code>bytes acknowledgement = 1;</code>
        * @return The acknowledgement.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAcknowledgement() {
         return acknowledgement_;
       }
@@ -17705,6 +17833,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }
@@ -18027,7 +18156,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketAcknowledgementsRequest}
    */
-  public  static final class QueryPacketAcknowledgementsRequest extends
+  public static final class QueryPacketAcknowledgementsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketAcknowledgementsRequest)
       QueryPacketAcknowledgementsRequestOrBuilder {
@@ -18138,6 +18267,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -18158,6 +18288,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -18182,6 +18313,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -18202,6 +18334,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -18226,6 +18359,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -18237,6 +18371,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -18247,6 +18382,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 3;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -19094,7 +19230,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryPacketAcknowledgementsResponse}
    */
-  public  static final class QueryPacketAcknowledgementsResponse extends
+  public static final class QueryPacketAcknowledgementsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryPacketAcknowledgementsResponse)
       QueryPacketAcknowledgementsResponseOrBuilder {
@@ -19213,12 +19349,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.channel.v1.ChannelOuterClass.PacketState> getAcknowledgementsList() {
       return acknowledgements_;
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder> 
         getAcknowledgementsOrBuilderList() {
       return acknowledgements_;
@@ -19226,18 +19364,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 1;</code>
      */
+    @java.lang.Override
     public int getAcknowledgementsCount() {
       return acknowledgements_.size();
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketState getAcknowledgements(int index) {
       return acknowledgements_.get(index);
     }
     /**
      * <code>repeated .ibc.core.channel.v1.PacketState acknowledgements = 1;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.PacketStateOrBuilder getAcknowledgementsOrBuilder(
         int index) {
       return acknowledgements_.get(index);
@@ -19253,6 +19394,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -19264,6 +19406,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -19274,6 +19417,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -19288,6 +19432,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -19299,6 +19444,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -19309,6 +19455,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -20403,7 +20550,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryUnreceivedPacketsRequest}
    */
-  public  static final class QueryUnreceivedPacketsRequest extends
+  public static final class QueryUnreceivedPacketsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryUnreceivedPacketsRequest)
       QueryUnreceivedPacketsRequestOrBuilder {
@@ -20527,6 +20674,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -20547,6 +20695,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -20571,6 +20720,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -20591,6 +20741,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -20615,6 +20766,7 @@ public final class QueryOuterClass {
      * <code>repeated uint64 packet_commitment_sequences = 3;</code>
      * @return A list containing the packetCommitmentSequences.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getPacketCommitmentSequencesList() {
       return packetCommitmentSequences_;
@@ -21434,7 +21586,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryUnreceivedPacketsResponse}
    */
-  public  static final class QueryUnreceivedPacketsResponse extends
+  public static final class QueryUnreceivedPacketsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryUnreceivedPacketsResponse)
       QueryUnreceivedPacketsResponseOrBuilder {
@@ -21557,6 +21709,7 @@ public final class QueryOuterClass {
      * <code>repeated uint64 sequences = 1;</code>
      * @return A list containing the sequences.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getSequencesList() {
       return sequences_;
@@ -21596,6 +21749,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -21607,6 +21761,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -21617,6 +21772,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -22383,7 +22539,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryUnreceivedAcksRequest}
    */
-  public  static final class QueryUnreceivedAcksRequest extends
+  public static final class QueryUnreceivedAcksRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryUnreceivedAcksRequest)
       QueryUnreceivedAcksRequestOrBuilder {
@@ -22507,6 +22663,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -22527,6 +22684,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -22551,6 +22709,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -22571,6 +22730,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -22595,6 +22755,7 @@ public final class QueryOuterClass {
      * <code>repeated uint64 packet_ack_sequences = 3;</code>
      * @return A list containing the packetAckSequences.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getPacketAckSequencesList() {
       return packetAckSequences_;
@@ -23414,7 +23575,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryUnreceivedAcksResponse}
    */
-  public  static final class QueryUnreceivedAcksResponse extends
+  public static final class QueryUnreceivedAcksResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryUnreceivedAcksResponse)
       QueryUnreceivedAcksResponseOrBuilder {
@@ -23537,6 +23698,7 @@ public final class QueryOuterClass {
      * <code>repeated uint64 sequences = 1;</code>
      * @return A list containing the sequences.
      */
+    @java.lang.Override
     public java.util.List<java.lang.Long>
         getSequencesList() {
       return sequences_;
@@ -23576,6 +23738,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the height field is set.
      */
+    @java.lang.Override
     public boolean hasHeight() {
       return height_ != null;
     }
@@ -23587,6 +23750,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      * @return The height.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getHeight() {
       return height_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : height_;
     }
@@ -23597,6 +23761,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height height = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getHeightOrBuilder() {
       return getHeight();
     }
@@ -24334,7 +24499,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryNextSequenceReceiveRequest}
    */
-  public  static final class QueryNextSequenceReceiveRequest extends
+  public static final class QueryNextSequenceReceiveRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryNextSequenceReceiveRequest)
       QueryNextSequenceReceiveRequestOrBuilder {
@@ -24432,6 +24597,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -24452,6 +24618,7 @@ public final class QueryOuterClass {
      * <code>string port_id = 1;</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -24476,6 +24643,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The channelId.
      */
+    @java.lang.Override
     public java.lang.String getChannelId() {
       java.lang.Object ref = channelId_;
       if (ref instanceof java.lang.String) {
@@ -24496,6 +24664,7 @@ public final class QueryOuterClass {
      * <code>string channel_id = 2;</code>
      * @return The bytes for channelId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getChannelIdBytes() {
       java.lang.Object ref = channelId_;
@@ -25137,7 +25306,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.core.channel.v1.QueryNextSequenceReceiveResponse}
    */
-  public  static final class QueryNextSequenceReceiveResponse extends
+  public static final class QueryNextSequenceReceiveResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.channel.v1.QueryNextSequenceReceiveResponse)
       QueryNextSequenceReceiveResponseOrBuilder {
@@ -25245,6 +25414,7 @@ public final class QueryOuterClass {
      * <code>uint64 next_sequence_receive = 1;</code>
      * @return The nextSequenceReceive.
      */
+    @java.lang.Override
     public long getNextSequenceReceive() {
       return nextSequenceReceive_;
     }
@@ -25259,6 +25429,7 @@ public final class QueryOuterClass {
      * <code>bytes proof = 2;</code>
      * @return The proof.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getProof() {
       return proof_;
     }
@@ -25273,6 +25444,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the proofHeight field is set.
      */
+    @java.lang.Override
     public boolean hasProofHeight() {
       return proofHeight_ != null;
     }
@@ -25284,6 +25456,7 @@ public final class QueryOuterClass {
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      * @return The proofHeight.
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.Height getProofHeight() {
       return proofHeight_ == null ? ibc.core.client.v1.Client.Height.getDefaultInstance() : proofHeight_;
     }
@@ -25294,6 +25467,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.core.client.v1.Height proof_height = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.client.v1.Client.HeightOrBuilder getProofHeightOrBuilder() {
       return getProofHeight();
     }
@@ -25662,6 +25836,7 @@ public final class QueryOuterClass {
        * <code>uint64 next_sequence_receive = 1;</code>
        * @return The nextSequenceReceive.
        */
+      @java.lang.Override
       public long getNextSequenceReceive() {
         return nextSequenceReceive_;
       }
@@ -25704,6 +25879,7 @@ public final class QueryOuterClass {
        * <code>bytes proof = 2;</code>
        * @return The proof.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getProof() {
         return proof_;
       }

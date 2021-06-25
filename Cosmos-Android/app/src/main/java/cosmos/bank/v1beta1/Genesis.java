@@ -184,7 +184,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.bank.v1beta1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.GenesisState)
       GenesisStateOrBuilder {
@@ -321,6 +321,7 @@ public final class Genesis {
      * <code>.cosmos.bank.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -332,6 +333,7 @@ public final class Genesis {
      * <code>.cosmos.bank.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.Params getParams() {
       return params_ == null ? cosmos.bank.v1beta1.Bank.Params.getDefaultInstance() : params_;
     }
@@ -342,6 +344,7 @@ public final class Genesis {
      *
      * <code>.cosmos.bank.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -355,6 +358,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Balance balances = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.bank.v1beta1.Genesis.Balance> getBalancesList() {
       return balances_;
     }
@@ -365,6 +369,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Balance balances = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.bank.v1beta1.Genesis.BalanceOrBuilder> 
         getBalancesOrBuilderList() {
       return balances_;
@@ -376,6 +381,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Balance balances = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getBalancesCount() {
       return balances_.size();
     }
@@ -386,6 +392,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Balance balances = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Genesis.Balance getBalances(int index) {
       return balances_.get(index);
     }
@@ -396,6 +403,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Balance balances = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Genesis.BalanceOrBuilder getBalancesOrBuilder(
         int index) {
       return balances_.get(index);
@@ -410,6 +418,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getSupplyList() {
       return supply_;
     }
@@ -420,6 +429,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getSupplyOrBuilderList() {
       return supply_;
@@ -431,6 +441,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getSupplyCount() {
       return supply_.size();
     }
@@ -441,6 +452,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getSupply(int index) {
       return supply_.get(index);
     }
@@ -451,6 +463,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin supply = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getSupplyOrBuilder(
         int index) {
       return supply_.get(index);
@@ -465,6 +478,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.bank.v1beta1.Bank.Metadata> getDenomMetadataList() {
       return denomMetadata_;
     }
@@ -475,6 +489,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.bank.v1beta1.Bank.MetadataOrBuilder> 
         getDenomMetadataOrBuilderList() {
       return denomMetadata_;
@@ -486,6 +501,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public int getDenomMetadataCount() {
       return denomMetadata_.size();
     }
@@ -496,6 +512,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.Metadata getDenomMetadata(int index) {
       return denomMetadata_.get(index);
     }
@@ -506,6 +523,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.bank.v1beta1.Metadata denom_metadata = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_metadata&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.MetadataOrBuilder getDenomMetadataOrBuilder(
         int index) {
       return denomMetadata_.get(index);
@@ -2216,7 +2234,7 @@ public final class Genesis {
    *
    * Protobuf type {@code cosmos.bank.v1beta1.Balance}
    */
-  public  static final class Balance extends
+  public static final class Balance extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.Balance)
       BalanceOrBuilder {
@@ -2321,6 +2339,7 @@ public final class Genesis {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -2341,6 +2360,7 @@ public final class Genesis {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -2364,6 +2384,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
@@ -2374,6 +2395,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -2385,6 +2407,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
@@ -2395,6 +2418,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
@@ -2405,6 +2429,7 @@ public final class Genesis {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 2 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);

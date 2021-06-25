@@ -121,7 +121,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgCreateValidator}
    */
-  public  static final class MsgCreateValidator extends
+  public static final class MsgCreateValidator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgCreateValidator)
       MsgCreateValidatorOrBuilder {
@@ -274,6 +274,7 @@ public final class Tx {
      * <code>.cosmos.staking.v1beta1.Description description = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the description field is set.
      */
+    @java.lang.Override
     public boolean hasDescription() {
       return description_ != null;
     }
@@ -281,12 +282,14 @@ public final class Tx {
      * <code>.cosmos.staking.v1beta1.Description description = 1 [(.gogoproto.nullable) = false];</code>
      * @return The description.
      */
+    @java.lang.Override
     public cosmos.staking.v1beta1.Staking.Description getDescription() {
       return description_ == null ? cosmos.staking.v1beta1.Staking.Description.getDefaultInstance() : description_;
     }
     /**
      * <code>.cosmos.staking.v1beta1.Description description = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.staking.v1beta1.Staking.DescriptionOrBuilder getDescriptionOrBuilder() {
       return getDescription();
     }
@@ -297,6 +300,7 @@ public final class Tx {
      * <code>.cosmos.staking.v1beta1.CommissionRates commission = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the commission field is set.
      */
+    @java.lang.Override
     public boolean hasCommission() {
       return commission_ != null;
     }
@@ -304,12 +308,14 @@ public final class Tx {
      * <code>.cosmos.staking.v1beta1.CommissionRates commission = 2 [(.gogoproto.nullable) = false];</code>
      * @return The commission.
      */
+    @java.lang.Override
     public cosmos.staking.v1beta1.Staking.CommissionRates getCommission() {
       return commission_ == null ? cosmos.staking.v1beta1.Staking.CommissionRates.getDefaultInstance() : commission_;
     }
     /**
      * <code>.cosmos.staking.v1beta1.CommissionRates commission = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.staking.v1beta1.Staking.CommissionRatesOrBuilder getCommissionOrBuilder() {
       return getCommission();
     }
@@ -320,6 +326,7 @@ public final class Tx {
      * <code>string min_self_delegation = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_self_delegation&#92;""];</code>
      * @return The minSelfDelegation.
      */
+    @java.lang.Override
     public java.lang.String getMinSelfDelegation() {
       java.lang.Object ref = minSelfDelegation_;
       if (ref instanceof java.lang.String) {
@@ -336,6 +343,7 @@ public final class Tx {
      * <code>string min_self_delegation = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_self_delegation&#92;""];</code>
      * @return The bytes for minSelfDelegation.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinSelfDelegationBytes() {
       java.lang.Object ref = minSelfDelegation_;
@@ -356,6 +364,7 @@ public final class Tx {
      * <code>string delegator_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -372,6 +381,7 @@ public final class Tx {
      * <code>string delegator_address = 4 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -392,6 +402,7 @@ public final class Tx {
      * <code>string validator_address = 5 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -408,6 +419,7 @@ public final class Tx {
      * <code>string validator_address = 5 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -428,6 +440,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return Whether the pubkey field is set.
      */
+    @java.lang.Override
     public boolean hasPubkey() {
       return pubkey_ != null;
     }
@@ -435,12 +448,14 @@ public final class Tx {
      * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      * @return The pubkey.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPubkey() {
       return pubkey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pubkey_;
     }
     /**
      * <code>.google.protobuf2.Any pubkey = 6 [(.cosmos_proto.accepts_interface) = "cosmos.crypto.PubKey"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPubkeyOrBuilder() {
       return getPubkey();
     }
@@ -451,6 +466,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin value = 7 [(.gogoproto.nullable) = false];</code>
      * @return Whether the value field is set.
      */
+    @java.lang.Override
     public boolean hasValue() {
       return value_ != null;
     }
@@ -458,12 +474,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin value = 7 [(.gogoproto.nullable) = false];</code>
      * @return The value.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getValue() {
       return value_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : value_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin value = 7 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getValueOrBuilder() {
       return getValue();
     }
@@ -1695,7 +1713,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgCreateValidatorResponse}
    */
-  public  static final class MsgCreateValidatorResponse extends
+  public static final class MsgCreateValidatorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgCreateValidatorResponse)
       MsgCreateValidatorResponseOrBuilder {
@@ -2186,7 +2204,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgEditValidator}
    */
-  public  static final class MsgEditValidator extends
+  public static final class MsgEditValidator extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgEditValidator)
       MsgEditValidatorOrBuilder {
@@ -2300,6 +2318,7 @@ public final class Tx {
      * <code>.cosmos.staking.v1beta1.Description description = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the description field is set.
      */
+    @java.lang.Override
     public boolean hasDescription() {
       return description_ != null;
     }
@@ -2307,12 +2326,14 @@ public final class Tx {
      * <code>.cosmos.staking.v1beta1.Description description = 1 [(.gogoproto.nullable) = false];</code>
      * @return The description.
      */
+    @java.lang.Override
     public cosmos.staking.v1beta1.Staking.Description getDescription() {
       return description_ == null ? cosmos.staking.v1beta1.Staking.Description.getDefaultInstance() : description_;
     }
     /**
      * <code>.cosmos.staking.v1beta1.Description description = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.staking.v1beta1.Staking.DescriptionOrBuilder getDescriptionOrBuilder() {
       return getDescription();
     }
@@ -2323,6 +2344,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -2339,6 +2361,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -2366,6 +2389,7 @@ public final class Tx {
      * <code>string commission_rate = 3 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"commission_rate&#92;""];</code>
      * @return The commissionRate.
      */
+    @java.lang.Override
     public java.lang.String getCommissionRate() {
       java.lang.Object ref = commissionRate_;
       if (ref instanceof java.lang.String) {
@@ -2389,6 +2413,7 @@ public final class Tx {
      * <code>string commission_rate = 3 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"commission_rate&#92;""];</code>
      * @return The bytes for commissionRate.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCommissionRateBytes() {
       java.lang.Object ref = commissionRate_;
@@ -2409,6 +2434,7 @@ public final class Tx {
      * <code>string min_self_delegation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_self_delegation&#92;""];</code>
      * @return The minSelfDelegation.
      */
+    @java.lang.Override
     public java.lang.String getMinSelfDelegation() {
       java.lang.Object ref = minSelfDelegation_;
       if (ref instanceof java.lang.String) {
@@ -2425,6 +2451,7 @@ public final class Tx {
      * <code>string min_self_delegation = 4 [(.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"min_self_delegation&#92;""];</code>
      * @return The bytes for minSelfDelegation.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMinSelfDelegationBytes() {
       java.lang.Object ref = minSelfDelegation_;
@@ -3254,7 +3281,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgEditValidatorResponse}
    */
-  public  static final class MsgEditValidatorResponse extends
+  public static final class MsgEditValidatorResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgEditValidatorResponse)
       MsgEditValidatorResponseOrBuilder {
@@ -3720,7 +3747,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgDelegate}
    */
-  public  static final class MsgDelegate extends
+  public static final class MsgDelegate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgDelegate)
       MsgDelegateOrBuilder {
@@ -3827,6 +3854,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -3843,6 +3871,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -3863,6 +3892,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -3879,6 +3909,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -3899,6 +3930,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the amount field is set.
      */
+    @java.lang.Override
     public boolean hasAmount() {
       return amount_ != null;
     }
@@ -3906,12 +3938,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount() {
       return amount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : amount_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder() {
       return getAmount();
     }
@@ -4604,7 +4638,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgDelegateResponse}
    */
-  public  static final class MsgDelegateResponse extends
+  public static final class MsgDelegateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgDelegateResponse)
       MsgDelegateResponseOrBuilder {
@@ -5082,7 +5116,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgBeginRedelegate}
    */
-  public  static final class MsgBeginRedelegate extends
+  public static final class MsgBeginRedelegate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgBeginRedelegate)
       MsgBeginRedelegateOrBuilder {
@@ -5196,6 +5230,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -5212,6 +5247,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -5232,6 +5268,7 @@ public final class Tx {
      * <code>string validator_src_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_src_address&#92;""];</code>
      * @return The validatorSrcAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorSrcAddress() {
       java.lang.Object ref = validatorSrcAddress_;
       if (ref instanceof java.lang.String) {
@@ -5248,6 +5285,7 @@ public final class Tx {
      * <code>string validator_src_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_src_address&#92;""];</code>
      * @return The bytes for validatorSrcAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorSrcAddressBytes() {
       java.lang.Object ref = validatorSrcAddress_;
@@ -5268,6 +5306,7 @@ public final class Tx {
      * <code>string validator_dst_address = 3 [(.gogoproto.moretags) = "yaml:&#92;"validator_dst_address&#92;""];</code>
      * @return The validatorDstAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorDstAddress() {
       java.lang.Object ref = validatorDstAddress_;
       if (ref instanceof java.lang.String) {
@@ -5284,6 +5323,7 @@ public final class Tx {
      * <code>string validator_dst_address = 3 [(.gogoproto.moretags) = "yaml:&#92;"validator_dst_address&#92;""];</code>
      * @return The bytes for validatorDstAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorDstAddressBytes() {
       java.lang.Object ref = validatorDstAddress_;
@@ -5304,6 +5344,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the amount field is set.
      */
+    @java.lang.Override
     public boolean hasAmount() {
       return amount_ != null;
     }
@@ -5311,12 +5352,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount() {
       return amount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : amount_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin amount = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder() {
       return getAmount();
     }
@@ -6117,7 +6160,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgBeginRedelegateResponse}
    */
-  public  static final class MsgBeginRedelegateResponse extends
+  public static final class MsgBeginRedelegateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgBeginRedelegateResponse)
       MsgBeginRedelegateResponseOrBuilder {
@@ -6210,6 +6253,7 @@ public final class Tx {
      * <code>.google.protobuf.Timestamp completion_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the completionTime field is set.
      */
+    @java.lang.Override
     public boolean hasCompletionTime() {
       return completionTime_ != null;
     }
@@ -6217,12 +6261,14 @@ public final class Tx {
      * <code>.google.protobuf.Timestamp completion_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The completionTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getCompletionTime() {
       return completionTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : completionTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp completion_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getCompletionTimeOrBuilder() {
       return getCompletionTime();
     }
@@ -6768,7 +6814,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgUndelegate}
    */
-  public  static final class MsgUndelegate extends
+  public static final class MsgUndelegate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgUndelegate)
       MsgUndelegateOrBuilder {
@@ -6875,6 +6921,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The delegatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getDelegatorAddress() {
       java.lang.Object ref = delegatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -6891,6 +6938,7 @@ public final class Tx {
      * <code>string delegator_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"delegator_address&#92;""];</code>
      * @return The bytes for delegatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDelegatorAddressBytes() {
       java.lang.Object ref = delegatorAddress_;
@@ -6911,6 +6959,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The validatorAddress.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddress() {
       java.lang.Object ref = validatorAddress_;
       if (ref instanceof java.lang.String) {
@@ -6927,6 +6976,7 @@ public final class Tx {
      * <code>string validator_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"validator_address&#92;""];</code>
      * @return The bytes for validatorAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddressBytes() {
       java.lang.Object ref = validatorAddress_;
@@ -6947,6 +6997,7 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the amount field is set.
      */
+    @java.lang.Override
     public boolean hasAmount() {
       return amount_ != null;
     }
@@ -6954,12 +7005,14 @@ public final class Tx {
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      * @return The amount.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount() {
       return amount_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : amount_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder() {
       return getAmount();
     }
@@ -7667,7 +7720,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.staking.v1beta1.MsgUndelegateResponse}
    */
-  public  static final class MsgUndelegateResponse extends
+  public static final class MsgUndelegateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.staking.v1beta1.MsgUndelegateResponse)
       MsgUndelegateResponseOrBuilder {
@@ -7760,6 +7813,7 @@ public final class Tx {
      * <code>.google.protobuf.Timestamp completion_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the completionTime field is set.
      */
+    @java.lang.Override
     public boolean hasCompletionTime() {
       return completionTime_ != null;
     }
@@ -7767,12 +7821,14 @@ public final class Tx {
      * <code>.google.protobuf.Timestamp completion_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The completionTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getCompletionTime() {
       return completionTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : completionTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp completion_time = 1 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getCompletionTimeOrBuilder() {
       return getCompletionTime();
     }

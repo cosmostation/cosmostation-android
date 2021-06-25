@@ -241,6 +241,10 @@ public final class Solomachine {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -333,7 +337,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ClientState}
    */
-  public  static final class ClientState extends
+  public static final class ClientState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.ClientState)
       ClientStateOrBuilder {
@@ -445,6 +449,7 @@ public final class Solomachine {
      * <code>uint64 sequence = 1;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -459,6 +464,7 @@ public final class Solomachine {
      * <code>uint64 frozen_sequence = 2 [(.gogoproto.moretags) = "yaml:&#92;"frozen_sequence&#92;""];</code>
      * @return The frozenSequence.
      */
+    @java.lang.Override
     public long getFrozenSequence() {
       return frozenSequence_;
     }
@@ -469,6 +475,7 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.ConsensusState consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -476,12 +483,14 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.ConsensusState consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public ibc.lightclients.solomachine.v1.Solomachine.ConsensusState getConsensusState() {
       return consensusState_ == null ? ibc.lightclients.solomachine.v1.Solomachine.ConsensusState.getDefaultInstance() : consensusState_;
     }
     /**
      * <code>.ibc.lightclients.solomachine.v1.ConsensusState consensus_state = 3 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.lightclients.solomachine.v1.Solomachine.ConsensusStateOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -497,6 +506,7 @@ public final class Solomachine {
      * <code>bool allow_update_after_proposal = 4 [(.gogoproto.moretags) = "yaml:&#92;"allow_update_after_proposal&#92;""];</code>
      * @return The allowUpdateAfterProposal.
      */
+    @java.lang.Override
     public boolean getAllowUpdateAfterProposal() {
       return allowUpdateAfterProposal_;
     }
@@ -884,6 +894,7 @@ public final class Solomachine {
        * <code>uint64 sequence = 1;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -926,6 +937,7 @@ public final class Solomachine {
        * <code>uint64 frozen_sequence = 2 [(.gogoproto.moretags) = "yaml:&#92;"frozen_sequence&#92;""];</code>
        * @return The frozenSequence.
        */
+      @java.lang.Override
       public long getFrozenSequence() {
         return frozenSequence_;
       }
@@ -1088,6 +1100,7 @@ public final class Solomachine {
        * <code>bool allow_update_after_proposal = 4 [(.gogoproto.moretags) = "yaml:&#92;"allow_update_after_proposal&#92;""];</code>
        * @return The allowUpdateAfterProposal.
        */
+      @java.lang.Override
       public boolean getAllowUpdateAfterProposal() {
         return allowUpdateAfterProposal_;
       }
@@ -1242,7 +1255,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ConsensusState}
    */
-  public  static final class ConsensusState extends
+  public static final class ConsensusState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.ConsensusState)
       ConsensusStateOrBuilder {
@@ -1351,6 +1364,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return Whether the publicKey field is set.
      */
+    @java.lang.Override
     public boolean hasPublicKey() {
       return publicKey_ != null;
     }
@@ -1362,6 +1376,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      * @return The publicKey.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPublicKey() {
       return publicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : publicKey_;
     }
@@ -1372,6 +1387,7 @@ public final class Solomachine {
      *
      * <code>.google.protobuf2.Any public_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"public_key&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPublicKeyOrBuilder() {
       return getPublicKey();
     }
@@ -1387,6 +1403,7 @@ public final class Solomachine {
      * <code>string diversifier = 2;</code>
      * @return The diversifier.
      */
+    @java.lang.Override
     public java.lang.String getDiversifier() {
       java.lang.Object ref = diversifier_;
       if (ref instanceof java.lang.String) {
@@ -1408,6 +1425,7 @@ public final class Solomachine {
      * <code>string diversifier = 2;</code>
      * @return The bytes for diversifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDiversifierBytes() {
       java.lang.Object ref = diversifier_;
@@ -1428,6 +1446,7 @@ public final class Solomachine {
      * <code>uint64 timestamp = 3;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -2048,6 +2067,7 @@ public final class Solomachine {
        * <code>uint64 timestamp = 3;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -2185,7 +2205,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.Header}
    */
-  public  static final class Header extends
+  public static final class Header extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.Header)
       HeaderOrBuilder {
@@ -2305,6 +2325,7 @@ public final class Solomachine {
      * <code>uint64 sequence = 1;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -2315,6 +2336,7 @@ public final class Solomachine {
      * <code>uint64 timestamp = 2;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -2325,6 +2347,7 @@ public final class Solomachine {
      * <code>bytes signature = 3;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }
@@ -2335,6 +2358,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      * @return Whether the newPublicKey field is set.
      */
+    @java.lang.Override
     public boolean hasNewPublicKey() {
       return newPublicKey_ != null;
     }
@@ -2342,12 +2366,14 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      * @return The newPublicKey.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getNewPublicKey() {
       return newPublicKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : newPublicKey_;
     }
     /**
      * <code>.google.protobuf2.Any new_public_key = 4 [(.gogoproto.moretags) = "yaml:&#92;"new_public_key&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getNewPublicKeyOrBuilder() {
       return getNewPublicKey();
     }
@@ -2358,6 +2384,7 @@ public final class Solomachine {
      * <code>string new_diversifier = 5 [(.gogoproto.moretags) = "yaml:&#92;"new_diversifier&#92;""];</code>
      * @return The newDiversifier.
      */
+    @java.lang.Override
     public java.lang.String getNewDiversifier() {
       java.lang.Object ref = newDiversifier_;
       if (ref instanceof java.lang.String) {
@@ -2374,6 +2401,7 @@ public final class Solomachine {
      * <code>string new_diversifier = 5 [(.gogoproto.moretags) = "yaml:&#92;"new_diversifier&#92;""];</code>
      * @return The bytes for newDiversifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNewDiversifierBytes() {
       java.lang.Object ref = newDiversifier_;
@@ -2786,6 +2814,7 @@ public final class Solomachine {
        * <code>uint64 sequence = 1;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -2824,6 +2853,7 @@ public final class Solomachine {
        * <code>uint64 timestamp = 2;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -2854,6 +2884,7 @@ public final class Solomachine {
        * <code>bytes signature = 3;</code>
        * @return The signature.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
@@ -3189,7 +3220,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.Misbehaviour}
    */
-  public  static final class Misbehaviour extends
+  public static final class Misbehaviour extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.Misbehaviour)
       MisbehaviourOrBuilder {
@@ -3307,6 +3338,7 @@ public final class Solomachine {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3323,6 +3355,7 @@ public final class Solomachine {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -3343,6 +3376,7 @@ public final class Solomachine {
      * <code>uint64 sequence = 2;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -3353,6 +3387,7 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.SignatureAndData signature_one = 3 [(.gogoproto.moretags) = "yaml:&#92;"signature_one&#92;""];</code>
      * @return Whether the signatureOne field is set.
      */
+    @java.lang.Override
     public boolean hasSignatureOne() {
       return signatureOne_ != null;
     }
@@ -3360,12 +3395,14 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.SignatureAndData signature_one = 3 [(.gogoproto.moretags) = "yaml:&#92;"signature_one&#92;""];</code>
      * @return The signatureOne.
      */
+    @java.lang.Override
     public ibc.lightclients.solomachine.v1.Solomachine.SignatureAndData getSignatureOne() {
       return signatureOne_ == null ? ibc.lightclients.solomachine.v1.Solomachine.SignatureAndData.getDefaultInstance() : signatureOne_;
     }
     /**
      * <code>.ibc.lightclients.solomachine.v1.SignatureAndData signature_one = 3 [(.gogoproto.moretags) = "yaml:&#92;"signature_one&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.lightclients.solomachine.v1.Solomachine.SignatureAndDataOrBuilder getSignatureOneOrBuilder() {
       return getSignatureOne();
     }
@@ -3376,6 +3413,7 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.SignatureAndData signature_two = 4 [(.gogoproto.moretags) = "yaml:&#92;"signature_two&#92;""];</code>
      * @return Whether the signatureTwo field is set.
      */
+    @java.lang.Override
     public boolean hasSignatureTwo() {
       return signatureTwo_ != null;
     }
@@ -3383,12 +3421,14 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.SignatureAndData signature_two = 4 [(.gogoproto.moretags) = "yaml:&#92;"signature_two&#92;""];</code>
      * @return The signatureTwo.
      */
+    @java.lang.Override
     public ibc.lightclients.solomachine.v1.Solomachine.SignatureAndData getSignatureTwo() {
       return signatureTwo_ == null ? ibc.lightclients.solomachine.v1.Solomachine.SignatureAndData.getDefaultInstance() : signatureTwo_;
     }
     /**
      * <code>.ibc.lightclients.solomachine.v1.SignatureAndData signature_two = 4 [(.gogoproto.moretags) = "yaml:&#92;"signature_two&#92;""];</code>
      */
+    @java.lang.Override
     public ibc.lightclients.solomachine.v1.Solomachine.SignatureAndDataOrBuilder getSignatureTwoOrBuilder() {
       return getSignatureTwo();
     }
@@ -3859,6 +3899,7 @@ public final class Solomachine {
        * <code>uint64 sequence = 2;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -4215,7 +4256,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.SignatureAndData}
    */
-  public  static final class SignatureAndData extends
+  public static final class SignatureAndData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.SignatureAndData)
       SignatureAndDataOrBuilder {
@@ -4319,6 +4360,7 @@ public final class Solomachine {
      * <code>bytes signature = 1;</code>
      * @return The signature.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignature() {
       return signature_;
     }
@@ -4329,14 +4371,14 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
      * @return The enum numeric value on the wire for dataType.
      */
-    public int getDataTypeValue() {
+    @java.lang.Override public int getDataTypeValue() {
       return dataType_;
     }
     /**
      * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
      * @return The dataType.
      */
-    public ibc.lightclients.solomachine.v1.Solomachine.DataType getDataType() {
+    @java.lang.Override public ibc.lightclients.solomachine.v1.Solomachine.DataType getDataType() {
       @SuppressWarnings("deprecation")
       ibc.lightclients.solomachine.v1.Solomachine.DataType result = ibc.lightclients.solomachine.v1.Solomachine.DataType.valueOf(dataType_);
       return result == null ? ibc.lightclients.solomachine.v1.Solomachine.DataType.UNRECOGNIZED : result;
@@ -4348,6 +4390,7 @@ public final class Solomachine {
      * <code>bytes data = 3;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -4358,6 +4401,7 @@ public final class Solomachine {
      * <code>uint64 timestamp = 4;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -4725,6 +4769,7 @@ public final class Solomachine {
        * <code>bytes signature = 1;</code>
        * @return The signature.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignature() {
         return signature_;
       }
@@ -4758,7 +4803,7 @@ public final class Solomachine {
        * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
        * @return The enum numeric value on the wire for dataType.
        */
-      public int getDataTypeValue() {
+      @java.lang.Override public int getDataTypeValue() {
         return dataType_;
       }
       /**
@@ -4767,6 +4812,7 @@ public final class Solomachine {
        * @return This builder for chaining.
        */
       public Builder setDataTypeValue(int value) {
+        
         dataType_ = value;
         onChanged();
         return this;
@@ -4775,6 +4821,7 @@ public final class Solomachine {
        * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 2 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
        * @return The dataType.
        */
+      @java.lang.Override
       public ibc.lightclients.solomachine.v1.Solomachine.DataType getDataType() {
         @SuppressWarnings("deprecation")
         ibc.lightclients.solomachine.v1.Solomachine.DataType result = ibc.lightclients.solomachine.v1.Solomachine.DataType.valueOf(dataType_);
@@ -4810,6 +4857,7 @@ public final class Solomachine {
        * <code>bytes data = 3;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -4843,6 +4891,7 @@ public final class Solomachine {
        * <code>uint64 timestamp = 4;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -4944,7 +4993,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.TimestampedSignatureData}
    */
-  public  static final class TimestampedSignatureData extends
+  public static final class TimestampedSignatureData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.TimestampedSignatureData)
       TimestampedSignatureDataOrBuilder {
@@ -5035,6 +5084,7 @@ public final class Solomachine {
      * <code>bytes signature_data = 1 [(.gogoproto.moretags) = "yaml:&#92;"signature_data&#92;""];</code>
      * @return The signatureData.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getSignatureData() {
       return signatureData_;
     }
@@ -5045,6 +5095,7 @@ public final class Solomachine {
      * <code>uint64 timestamp = 2;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -5379,6 +5430,7 @@ public final class Solomachine {
        * <code>bytes signature_data = 1 [(.gogoproto.moretags) = "yaml:&#92;"signature_data&#92;""];</code>
        * @return The signatureData.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getSignatureData() {
         return signatureData_;
       }
@@ -5412,6 +5464,7 @@ public final class Solomachine {
        * <code>uint64 timestamp = 2;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -5553,7 +5606,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.SignBytes}
    */
-  public  static final class SignBytes extends
+  public static final class SignBytes extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.SignBytes)
       SignBytesOrBuilder {
@@ -5663,6 +5716,7 @@ public final class Solomachine {
      * <code>uint64 sequence = 1;</code>
      * @return The sequence.
      */
+    @java.lang.Override
     public long getSequence() {
       return sequence_;
     }
@@ -5673,6 +5727,7 @@ public final class Solomachine {
      * <code>uint64 timestamp = 2;</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public long getTimestamp() {
       return timestamp_;
     }
@@ -5683,6 +5738,7 @@ public final class Solomachine {
      * <code>string diversifier = 3;</code>
      * @return The diversifier.
      */
+    @java.lang.Override
     public java.lang.String getDiversifier() {
       java.lang.Object ref = diversifier_;
       if (ref instanceof java.lang.String) {
@@ -5699,6 +5755,7 @@ public final class Solomachine {
      * <code>string diversifier = 3;</code>
      * @return The bytes for diversifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDiversifierBytes() {
       java.lang.Object ref = diversifier_;
@@ -5723,7 +5780,7 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 4 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
      * @return The enum numeric value on the wire for dataType.
      */
-    public int getDataTypeValue() {
+    @java.lang.Override public int getDataTypeValue() {
       return dataType_;
     }
     /**
@@ -5734,7 +5791,7 @@ public final class Solomachine {
      * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 4 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
      * @return The dataType.
      */
-    public ibc.lightclients.solomachine.v1.Solomachine.DataType getDataType() {
+    @java.lang.Override public ibc.lightclients.solomachine.v1.Solomachine.DataType getDataType() {
       @SuppressWarnings("deprecation")
       ibc.lightclients.solomachine.v1.Solomachine.DataType result = ibc.lightclients.solomachine.v1.Solomachine.DataType.valueOf(dataType_);
       return result == null ? ibc.lightclients.solomachine.v1.Solomachine.DataType.UNRECOGNIZED : result;
@@ -5750,6 +5807,7 @@ public final class Solomachine {
      * <code>bytes data = 5;</code>
      * @return The data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getData() {
       return data_;
     }
@@ -6134,6 +6192,7 @@ public final class Solomachine {
        * <code>uint64 sequence = 1;</code>
        * @return The sequence.
        */
+      @java.lang.Override
       public long getSequence() {
         return sequence_;
       }
@@ -6164,6 +6223,7 @@ public final class Solomachine {
        * <code>uint64 timestamp = 2;</code>
        * @return The timestamp.
        */
+      @java.lang.Override
       public long getTimestamp() {
         return timestamp_;
       }
@@ -6274,7 +6334,7 @@ public final class Solomachine {
        * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 4 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
        * @return The enum numeric value on the wire for dataType.
        */
-      public int getDataTypeValue() {
+      @java.lang.Override public int getDataTypeValue() {
         return dataType_;
       }
       /**
@@ -6287,6 +6347,7 @@ public final class Solomachine {
        * @return This builder for chaining.
        */
       public Builder setDataTypeValue(int value) {
+        
         dataType_ = value;
         onChanged();
         return this;
@@ -6299,6 +6360,7 @@ public final class Solomachine {
        * <code>.ibc.lightclients.solomachine.v1.DataType data_type = 4 [(.gogoproto.moretags) = "yaml:&#92;"data_type&#92;""];</code>
        * @return The dataType.
        */
+      @java.lang.Override
       public ibc.lightclients.solomachine.v1.Solomachine.DataType getDataType() {
         @SuppressWarnings("deprecation")
         ibc.lightclients.solomachine.v1.Solomachine.DataType result = ibc.lightclients.solomachine.v1.Solomachine.DataType.valueOf(dataType_);
@@ -6346,6 +6408,7 @@ public final class Solomachine {
        * <code>bytes data = 5;</code>
        * @return The data.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getData() {
         return data_;
       }
@@ -6492,7 +6555,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.HeaderData}
    */
-  public  static final class HeaderData extends
+  public static final class HeaderData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.HeaderData)
       HeaderDataOrBuilder {
@@ -6596,6 +6659,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      * @return Whether the newPubKey field is set.
      */
+    @java.lang.Override
     public boolean hasNewPubKey() {
       return newPubKey_ != null;
     }
@@ -6607,6 +6671,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      * @return The newPubKey.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getNewPubKey() {
       return newPubKey_ == null ? com.google.protobuf2.Any.getDefaultInstance() : newPubKey_;
     }
@@ -6617,6 +6682,7 @@ public final class Solomachine {
      *
      * <code>.google.protobuf2.Any new_pub_key = 1 [(.gogoproto.moretags) = "yaml:&#92;"new_pub_key&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getNewPubKeyOrBuilder() {
       return getNewPubKey();
     }
@@ -6631,6 +6697,7 @@ public final class Solomachine {
      * <code>string new_diversifier = 2 [(.gogoproto.moretags) = "yaml:&#92;"new_diversifier&#92;""];</code>
      * @return The newDiversifier.
      */
+    @java.lang.Override
     public java.lang.String getNewDiversifier() {
       java.lang.Object ref = newDiversifier_;
       if (ref instanceof java.lang.String) {
@@ -6651,6 +6718,7 @@ public final class Solomachine {
      * <code>string new_diversifier = 2 [(.gogoproto.moretags) = "yaml:&#92;"new_diversifier&#92;""];</code>
      * @return The bytes for newDiversifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNewDiversifierBytes() {
       java.lang.Object ref = newDiversifier_;
@@ -7336,7 +7404,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ClientStateData}
    */
-  public  static final class ClientStateData extends
+  public static final class ClientStateData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.ClientStateData)
       ClientStateDataOrBuilder {
@@ -7435,6 +7503,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -7445,6 +7514,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return Whether the clientState field is set.
      */
+    @java.lang.Override
     public boolean hasClientState() {
       return clientState_ != null;
     }
@@ -7452,12 +7522,14 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      * @return The clientState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getClientState() {
       return clientState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : clientState_;
     }
     /**
      * <code>.google.protobuf2.Any client_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getClientStateOrBuilder() {
       return getClientState();
     }
@@ -7803,6 +7875,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -8035,7 +8108,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ConsensusStateData}
    */
-  public  static final class ConsensusStateData extends
+  public static final class ConsensusStateData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.ConsensusStateData)
       ConsensusStateDataOrBuilder {
@@ -8134,6 +8207,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -8144,6 +8218,7 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return Whether the consensusState field is set.
      */
+    @java.lang.Override
     public boolean hasConsensusState() {
       return consensusState_ != null;
     }
@@ -8151,12 +8226,14 @@ public final class Solomachine {
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      * @return The consensusState.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getConsensusState() {
       return consensusState_ == null ? com.google.protobuf2.Any.getDefaultInstance() : consensusState_;
     }
     /**
      * <code>.google.protobuf2.Any consensus_state = 2 [(.gogoproto.moretags) = "yaml:&#92;"consensus_state&#92;""];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getConsensusStateOrBuilder() {
       return getConsensusState();
     }
@@ -8503,6 +8580,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -8735,7 +8813,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ConnectionStateData}
    */
-  public  static final class ConnectionStateData extends
+  public static final class ConnectionStateData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.ConnectionStateData)
       ConnectionStateDataOrBuilder {
@@ -8834,6 +8912,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -8844,6 +8923,7 @@ public final class Solomachine {
      * <code>.ibc.core.connection.v1.ConnectionEnd connection = 2;</code>
      * @return Whether the connection field is set.
      */
+    @java.lang.Override
     public boolean hasConnection() {
       return connection_ != null;
     }
@@ -8851,12 +8931,14 @@ public final class Solomachine {
      * <code>.ibc.core.connection.v1.ConnectionEnd connection = 2;</code>
      * @return The connection.
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.ConnectionEnd getConnection() {
       return connection_ == null ? ibc.core.connection.v1.Connection.ConnectionEnd.getDefaultInstance() : connection_;
     }
     /**
      * <code>.ibc.core.connection.v1.ConnectionEnd connection = 2;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.ConnectionEndOrBuilder getConnectionOrBuilder() {
       return getConnection();
     }
@@ -9203,6 +9285,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -9435,7 +9518,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.ChannelStateData}
    */
-  public  static final class ChannelStateData extends
+  public static final class ChannelStateData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.ChannelStateData)
       ChannelStateDataOrBuilder {
@@ -9534,6 +9617,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -9544,6 +9628,7 @@ public final class Solomachine {
      * <code>.ibc.core.channel.v1.Channel channel = 2;</code>
      * @return Whether the channel field is set.
      */
+    @java.lang.Override
     public boolean hasChannel() {
       return channel_ != null;
     }
@@ -9551,12 +9636,14 @@ public final class Solomachine {
      * <code>.ibc.core.channel.v1.Channel channel = 2;</code>
      * @return The channel.
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.Channel getChannel() {
       return channel_ == null ? ibc.core.channel.v1.ChannelOuterClass.Channel.getDefaultInstance() : channel_;
     }
     /**
      * <code>.ibc.core.channel.v1.Channel channel = 2;</code>
      */
+    @java.lang.Override
     public ibc.core.channel.v1.ChannelOuterClass.ChannelOrBuilder getChannelOrBuilder() {
       return getChannel();
     }
@@ -9903,6 +9990,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -10126,7 +10214,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.PacketCommitmentData}
    */
-  public  static final class PacketCommitmentData extends
+  public static final class PacketCommitmentData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.PacketCommitmentData)
       PacketCommitmentDataOrBuilder {
@@ -10218,6 +10306,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -10228,6 +10317,7 @@ public final class Solomachine {
      * <code>bytes commitment = 2;</code>
      * @return The commitment.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCommitment() {
       return commitment_;
     }
@@ -10561,6 +10651,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -10594,6 +10685,7 @@ public final class Solomachine {
        * <code>bytes commitment = 2;</code>
        * @return The commitment.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCommitment() {
         return commitment_;
       }
@@ -10698,7 +10790,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.PacketAcknowledgementData}
    */
-  public  static final class PacketAcknowledgementData extends
+  public static final class PacketAcknowledgementData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.PacketAcknowledgementData)
       PacketAcknowledgementDataOrBuilder {
@@ -10790,6 +10882,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -10800,6 +10893,7 @@ public final class Solomachine {
      * <code>bytes acknowledgement = 2;</code>
      * @return The acknowledgement.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getAcknowledgement() {
       return acknowledgement_;
     }
@@ -11133,6 +11227,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -11166,6 +11261,7 @@ public final class Solomachine {
        * <code>bytes acknowledgement = 2;</code>
        * @return The acknowledgement.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getAcknowledgement() {
         return acknowledgement_;
       }
@@ -11264,7 +11360,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.PacketReceiptAbsenceData}
    */
-  public  static final class PacketReceiptAbsenceData extends
+  public static final class PacketReceiptAbsenceData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.PacketReceiptAbsenceData)
       PacketReceiptAbsenceDataOrBuilder {
@@ -11350,6 +11446,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -11666,6 +11763,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -11770,7 +11868,7 @@ public final class Solomachine {
    *
    * Protobuf type {@code ibc.lightclients.solomachine.v1.NextSequenceRecvData}
    */
-  public  static final class NextSequenceRecvData extends
+  public static final class NextSequenceRecvData extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.lightclients.solomachine.v1.NextSequenceRecvData)
       NextSequenceRecvDataOrBuilder {
@@ -11861,6 +11959,7 @@ public final class Solomachine {
      * <code>bytes path = 1;</code>
      * @return The path.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPath() {
       return path_;
     }
@@ -11871,6 +11970,7 @@ public final class Solomachine {
      * <code>uint64 next_seq_recv = 2 [(.gogoproto.moretags) = "yaml:&#92;"next_seq_recv&#92;""];</code>
      * @return The nextSeqRecv.
      */
+    @java.lang.Override
     public long getNextSeqRecv() {
       return nextSeqRecv_;
     }
@@ -12205,6 +12305,7 @@ public final class Solomachine {
        * <code>bytes path = 1;</code>
        * @return The path.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPath() {
         return path_;
       }
@@ -12238,6 +12339,7 @@ public final class Solomachine {
        * <code>uint64 next_seq_recv = 2 [(.gogoproto.moretags) = "yaml:&#92;"next_seq_recv&#92;""];</code>
        * @return The nextSeqRecv.
        */
+      @java.lang.Override
       public long getNextSeqRecv() {
         return nextSeqRecv_;
       }

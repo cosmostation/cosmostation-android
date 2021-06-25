@@ -73,7 +73,7 @@ public final class RecordOuterClass {
    *
    * Protobuf type {@code irismod.record.Content}
    */
-  public  static final class Content extends
+  public static final class Content extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.Content)
       ContentOrBuilder {
@@ -181,6 +181,7 @@ public final class RecordOuterClass {
      * <code>string digest = 1;</code>
      * @return The digest.
      */
+    @java.lang.Override
     public java.lang.String getDigest() {
       java.lang.Object ref = digest_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class RecordOuterClass {
      * <code>string digest = 1;</code>
      * @return The bytes for digest.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDigestBytes() {
       java.lang.Object ref = digest_;
@@ -217,6 +219,7 @@ public final class RecordOuterClass {
      * <code>string digest_algo = 2 [(.gogoproto.moretags) = "yaml:&#92;"digest_algo&#92;""];</code>
      * @return The digestAlgo.
      */
+    @java.lang.Override
     public java.lang.String getDigestAlgo() {
       java.lang.Object ref = digestAlgo_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +236,7 @@ public final class RecordOuterClass {
      * <code>string digest_algo = 2 [(.gogoproto.moretags) = "yaml:&#92;"digest_algo&#92;""];</code>
      * @return The bytes for digestAlgo.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDigestAlgoBytes() {
       java.lang.Object ref = digestAlgo_;
@@ -253,6 +257,7 @@ public final class RecordOuterClass {
      * <code>string uri = 3 [(.gogoproto.customname) = "URI"];</code>
      * @return The uri.
      */
+    @java.lang.Override
     public java.lang.String getUri() {
       java.lang.Object ref = uri_;
       if (ref instanceof java.lang.String) {
@@ -269,6 +274,7 @@ public final class RecordOuterClass {
      * <code>string uri = 3 [(.gogoproto.customname) = "URI"];</code>
      * @return The bytes for uri.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getUriBytes() {
       java.lang.Object ref = uri_;
@@ -289,6 +295,7 @@ public final class RecordOuterClass {
      * <code>string meta = 4;</code>
      * @return The meta.
      */
+    @java.lang.Override
     public java.lang.String getMeta() {
       java.lang.Object ref = meta_;
       if (ref instanceof java.lang.String) {
@@ -305,6 +312,7 @@ public final class RecordOuterClass {
      * <code>string meta = 4;</code>
      * @return The bytes for meta.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMetaBytes() {
       java.lang.Object ref = meta_;
@@ -1091,7 +1099,7 @@ public final class RecordOuterClass {
    *
    * Protobuf type {@code irismod.record.Record}
    */
-  public  static final class Record extends
+  public static final class Record extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.Record)
       RecordOrBuilder {
@@ -1199,6 +1207,7 @@ public final class RecordOuterClass {
      * <code>string tx_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"tx_hash&#92;""];</code>
      * @return The txHash.
      */
+    @java.lang.Override
     public java.lang.String getTxHash() {
       java.lang.Object ref = txHash_;
       if (ref instanceof java.lang.String) {
@@ -1215,6 +1224,7 @@ public final class RecordOuterClass {
      * <code>string tx_hash = 1 [(.gogoproto.moretags) = "yaml:&#92;"tx_hash&#92;""];</code>
      * @return The bytes for txHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTxHashBytes() {
       java.lang.Object ref = txHash_;
@@ -1234,12 +1244,14 @@ public final class RecordOuterClass {
     /**
      * <code>repeated .irismod.record.Content contents = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.record.RecordOuterClass.Content> getContentsList() {
       return contents_;
     }
     /**
      * <code>repeated .irismod.record.Content contents = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.record.RecordOuterClass.ContentOrBuilder> 
         getContentsOrBuilderList() {
       return contents_;
@@ -1247,18 +1259,21 @@ public final class RecordOuterClass {
     /**
      * <code>repeated .irismod.record.Content contents = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getContentsCount() {
       return contents_.size();
     }
     /**
      * <code>repeated .irismod.record.Content contents = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.Content getContents(int index) {
       return contents_.get(index);
     }
     /**
      * <code>repeated .irismod.record.Content contents = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.ContentOrBuilder getContentsOrBuilder(
         int index) {
       return contents_.get(index);
@@ -1270,6 +1285,7 @@ public final class RecordOuterClass {
      * <code>string creator = 3;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -1286,6 +1302,7 @@ public final class RecordOuterClass {
      * <code>string creator = 3;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;

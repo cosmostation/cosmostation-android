@@ -73,7 +73,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.bank.v1beta1.MsgSend}
    */
-  public  static final class MsgSend extends
+  public static final class MsgSend extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.MsgSend)
       MsgSendOrBuilder {
@@ -181,6 +181,7 @@ public final class Tx {
      * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
      * @return The fromAddress.
      */
+    @java.lang.Override
     public java.lang.String getFromAddress() {
       java.lang.Object ref = fromAddress_;
       if (ref instanceof java.lang.String) {
@@ -197,6 +198,7 @@ public final class Tx {
      * <code>string from_address = 1 [(.gogoproto.moretags) = "yaml:&#92;"from_address&#92;""];</code>
      * @return The bytes for fromAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFromAddressBytes() {
       java.lang.Object ref = fromAddress_;
@@ -217,6 +219,7 @@ public final class Tx {
      * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
      * @return The toAddress.
      */
+    @java.lang.Override
     public java.lang.String getToAddress() {
       java.lang.Object ref = toAddress_;
       if (ref instanceof java.lang.String) {
@@ -233,6 +236,7 @@ public final class Tx {
      * <code>string to_address = 2 [(.gogoproto.moretags) = "yaml:&#92;"to_address&#92;""];</code>
      * @return The bytes for toAddress.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getToAddressBytes() {
       java.lang.Object ref = toAddress_;
@@ -252,12 +256,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -265,18 +271,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -1117,7 +1126,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.bank.v1beta1.MsgSendResponse}
    */
-  public  static final class MsgSendResponse extends
+  public static final class MsgSendResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.MsgSendResponse)
       MsgSendResponseOrBuilder {
@@ -1591,7 +1600,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.bank.v1beta1.MsgMultiSend}
    */
-  public  static final class MsgMultiSend extends
+  public static final class MsgMultiSend extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.MsgMultiSend)
       MsgMultiSendOrBuilder {
@@ -1697,12 +1706,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.bank.v1beta1.Input inputs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.bank.v1beta1.Bank.Input> getInputsList() {
       return inputs_;
     }
     /**
      * <code>repeated .cosmos.bank.v1beta1.Input inputs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.bank.v1beta1.Bank.InputOrBuilder> 
         getInputsOrBuilderList() {
       return inputs_;
@@ -1710,18 +1721,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.bank.v1beta1.Input inputs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getInputsCount() {
       return inputs_.size();
     }
     /**
      * <code>repeated .cosmos.bank.v1beta1.Input inputs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.Input getInputs(int index) {
       return inputs_.get(index);
     }
     /**
      * <code>repeated .cosmos.bank.v1beta1.Input inputs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.InputOrBuilder getInputsOrBuilder(
         int index) {
       return inputs_.get(index);
@@ -1732,12 +1746,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.bank.v1beta1.Output outputs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.bank.v1beta1.Bank.Output> getOutputsList() {
       return outputs_;
     }
     /**
      * <code>repeated .cosmos.bank.v1beta1.Output outputs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.bank.v1beta1.Bank.OutputOrBuilder> 
         getOutputsOrBuilderList() {
       return outputs_;
@@ -1745,18 +1761,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.bank.v1beta1.Output outputs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getOutputsCount() {
       return outputs_.size();
     }
     /**
      * <code>repeated .cosmos.bank.v1beta1.Output outputs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.Output getOutputs(int index) {
       return outputs_.get(index);
     }
     /**
      * <code>repeated .cosmos.bank.v1beta1.Output outputs = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.bank.v1beta1.Bank.OutputOrBuilder getOutputsOrBuilder(
         int index) {
       return outputs_.get(index);
@@ -2706,7 +2725,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.bank.v1beta1.MsgMultiSendResponse}
    */
-  public  static final class MsgMultiSendResponse extends
+  public static final class MsgMultiSendResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.bank.v1beta1.MsgMultiSendResponse)
       MsgMultiSendResponseOrBuilder {

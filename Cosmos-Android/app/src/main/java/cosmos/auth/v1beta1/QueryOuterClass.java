@@ -45,7 +45,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.QueryAccountRequest}
    */
-  public  static final class QueryAccountRequest extends
+  public static final class QueryAccountRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.QueryAccountRequest)
       QueryAccountRequestOrBuilder {
@@ -136,6 +136,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -156,6 +157,7 @@ public final class QueryOuterClass {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -662,7 +664,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.QueryAccountResponse}
    */
-  public  static final class QueryAccountResponse extends
+  public static final class QueryAccountResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.QueryAccountResponse)
       QueryAccountResponseOrBuilder {
@@ -759,6 +761,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return Whether the account field is set.
      */
+    @java.lang.Override
     public boolean hasAccount() {
       return account_ != null;
     }
@@ -770,6 +773,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      * @return The account.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getAccount() {
       return account_ == null ? com.google.protobuf2.Any.getDefaultInstance() : account_;
     }
@@ -780,6 +784,7 @@ public final class QueryOuterClass {
      *
      * <code>.google.protobuf2.Any account = 1 [(.cosmos_proto.accepts_interface) = "AccountI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getAccountOrBuilder() {
       return getAccount();
     }
@@ -1321,7 +1326,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -1774,7 +1779,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.auth.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.auth.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -1871,6 +1876,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.auth.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -1882,6 +1888,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.auth.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.Params getParams() {
       return params_ == null ? cosmos.auth.v1beta1.Auth.Params.getDefaultInstance() : params_;
     }
@@ -1892,6 +1899,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.auth.v1beta1.Params params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.auth.v1beta1.Auth.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

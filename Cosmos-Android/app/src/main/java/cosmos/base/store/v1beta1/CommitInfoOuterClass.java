@@ -56,7 +56,7 @@ public final class CommitInfoOuterClass {
    *
    * Protobuf type {@code cosmos.base.store.v1beta1.CommitInfo}
    */
-  public  static final class CommitInfo extends
+  public static final class CommitInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.store.v1beta1.CommitInfo)
       CommitInfoOrBuilder {
@@ -155,6 +155,7 @@ public final class CommitInfoOuterClass {
      * <code>int64 version = 1;</code>
      * @return The version.
      */
+    @java.lang.Override
     public long getVersion() {
       return version_;
     }
@@ -164,12 +165,14 @@ public final class CommitInfoOuterClass {
     /**
      * <code>repeated .cosmos.base.store.v1beta1.StoreInfo store_infos = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.store.v1beta1.CommitInfoOuterClass.StoreInfo> getStoreInfosList() {
       return storeInfos_;
     }
     /**
      * <code>repeated .cosmos.base.store.v1beta1.StoreInfo store_infos = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.store.v1beta1.CommitInfoOuterClass.StoreInfoOrBuilder> 
         getStoreInfosOrBuilderList() {
       return storeInfos_;
@@ -177,18 +180,21 @@ public final class CommitInfoOuterClass {
     /**
      * <code>repeated .cosmos.base.store.v1beta1.StoreInfo store_infos = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getStoreInfosCount() {
       return storeInfos_.size();
     }
     /**
      * <code>repeated .cosmos.base.store.v1beta1.StoreInfo store_infos = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.CommitInfoOuterClass.StoreInfo getStoreInfos(int index) {
       return storeInfos_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.store.v1beta1.StoreInfo store_infos = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.CommitInfoOuterClass.StoreInfoOrBuilder getStoreInfosOrBuilder(
         int index) {
       return storeInfos_.get(index);
@@ -564,6 +570,7 @@ public final class CommitInfoOuterClass {
        * <code>int64 version = 1;</code>
        * @return The version.
        */
+      @java.lang.Override
       public long getVersion() {
         return version_;
       }
@@ -920,7 +927,7 @@ public final class CommitInfoOuterClass {
    *
    * Protobuf type {@code cosmos.base.store.v1beta1.StoreInfo}
    */
-  public  static final class StoreInfo extends
+  public static final class StoreInfo extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.store.v1beta1.StoreInfo)
       StoreInfoOrBuilder {
@@ -1020,6 +1027,7 @@ public final class CommitInfoOuterClass {
      * <code>string name = 1;</code>
      * @return The name.
      */
+    @java.lang.Override
     public java.lang.String getName() {
       java.lang.Object ref = name_;
       if (ref instanceof java.lang.String) {
@@ -1036,6 +1044,7 @@ public final class CommitInfoOuterClass {
      * <code>string name = 1;</code>
      * @return The bytes for name.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNameBytes() {
       java.lang.Object ref = name_;
@@ -1056,6 +1065,7 @@ public final class CommitInfoOuterClass {
      * <code>.cosmos.base.store.v1beta1.CommitID commit_id = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the commitId field is set.
      */
+    @java.lang.Override
     public boolean hasCommitId() {
       return commitId_ != null;
     }
@@ -1063,12 +1073,14 @@ public final class CommitInfoOuterClass {
      * <code>.cosmos.base.store.v1beta1.CommitID commit_id = 2 [(.gogoproto.nullable) = false];</code>
      * @return The commitId.
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.CommitInfoOuterClass.CommitID getCommitId() {
       return commitId_ == null ? cosmos.base.store.v1beta1.CommitInfoOuterClass.CommitID.getDefaultInstance() : commitId_;
     }
     /**
      * <code>.cosmos.base.store.v1beta1.CommitID commit_id = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.store.v1beta1.CommitInfoOuterClass.CommitIDOrBuilder getCommitIdOrBuilder() {
       return getCommitId();
     }
@@ -1681,7 +1693,7 @@ public final class CommitInfoOuterClass {
    *
    * Protobuf type {@code cosmos.base.store.v1beta1.CommitID}
    */
-  public  static final class CommitID extends
+  public static final class CommitID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.store.v1beta1.CommitID)
       CommitIDOrBuilder {
@@ -1772,6 +1784,7 @@ public final class CommitInfoOuterClass {
      * <code>int64 version = 1;</code>
      * @return The version.
      */
+    @java.lang.Override
     public long getVersion() {
       return version_;
     }
@@ -1782,6 +1795,7 @@ public final class CommitInfoOuterClass {
      * <code>bytes hash = 2;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -2116,6 +2130,7 @@ public final class CommitInfoOuterClass {
        * <code>int64 version = 1;</code>
        * @return The version.
        */
+      @java.lang.Override
       public long getVersion() {
         return version_;
       }
@@ -2146,6 +2161,7 @@ public final class CommitInfoOuterClass {
        * <code>bytes hash = 2;</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }

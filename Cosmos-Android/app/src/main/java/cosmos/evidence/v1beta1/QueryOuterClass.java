@@ -35,7 +35,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.QueryEvidenceRequest}
    */
-  public  static final class QueryEvidenceRequest extends
+  public static final class QueryEvidenceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.QueryEvidenceRequest)
       QueryEvidenceRequestOrBuilder {
@@ -125,6 +125,7 @@ public final class QueryOuterClass {
      * <code>bytes evidence_hash = 1 [(.gogoproto.casttype) = "github.com/tendermint/tendermint/libs/bytes.HexBytes"];</code>
      * @return The evidenceHash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getEvidenceHash() {
       return evidenceHash_;
     }
@@ -444,6 +445,7 @@ public final class QueryOuterClass {
        * <code>bytes evidence_hash = 1 [(.gogoproto.casttype) = "github.com/tendermint/tendermint/libs/bytes.HexBytes"];</code>
        * @return The evidenceHash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getEvidenceHash() {
         return evidenceHash_;
       }
@@ -570,7 +572,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.QueryEvidenceResponse}
    */
-  public  static final class QueryEvidenceResponse extends
+  public static final class QueryEvidenceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.QueryEvidenceResponse)
       QueryEvidenceResponseOrBuilder {
@@ -667,6 +669,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any evidence = 1;</code>
      * @return Whether the evidence field is set.
      */
+    @java.lang.Override
     public boolean hasEvidence() {
       return evidence_ != null;
     }
@@ -678,6 +681,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any evidence = 1;</code>
      * @return The evidence.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getEvidence() {
       return evidence_ == null ? com.google.protobuf2.Any.getDefaultInstance() : evidence_;
     }
@@ -688,6 +692,7 @@ public final class QueryOuterClass {
      *
      * <code>.google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getEvidenceOrBuilder() {
       return getEvidence();
     }
@@ -1257,7 +1262,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.QueryAllEvidenceRequest}
    */
-  public  static final class QueryAllEvidenceRequest extends
+  public static final class QueryAllEvidenceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.QueryAllEvidenceRequest)
       QueryAllEvidenceRequestOrBuilder {
@@ -1354,6 +1359,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1365,6 +1371,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1375,6 +1382,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1989,7 +1997,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.QueryAllEvidenceResponse}
    */
-  public  static final class QueryAllEvidenceResponse extends
+  public static final class QueryAllEvidenceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.QueryAllEvidenceResponse)
       QueryAllEvidenceResponseOrBuilder {
@@ -2099,6 +2107,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf2.Any> getEvidenceList() {
       return evidence_;
     }
@@ -2109,6 +2118,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getEvidenceOrBuilderList() {
       return evidence_;
@@ -2120,6 +2130,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public int getEvidenceCount() {
       return evidence_.size();
     }
@@ -2130,6 +2141,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getEvidence(int index) {
       return evidence_.get(index);
     }
@@ -2140,6 +2152,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .google.protobuf2.Any evidence = 1;</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getEvidenceOrBuilder(
         int index) {
       return evidence_.get(index);
@@ -2155,6 +2168,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2166,6 +2180,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2176,6 +2191,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }

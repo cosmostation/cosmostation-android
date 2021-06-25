@@ -31,7 +31,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolRequest}
    */
-  public  static final class QueryPoolRequest extends
+  public static final class QueryPoolRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolRequest)
       QueryPoolRequestOrBuilder {
@@ -116,6 +116,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -432,6 +433,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -531,7 +533,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolResponse}
    */
-  public  static final class QueryPoolResponse extends
+  public static final class QueryPoolResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolResponse)
       QueryPoolResponseOrBuilder {
@@ -624,6 +626,7 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      * @return Whether the pool field is set.
      */
+    @java.lang.Override
     public boolean hasPool() {
       return pool_ != null;
     }
@@ -631,12 +634,14 @@ public final class QueryOuterClass {
      * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      * @return The pool.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPool() {
       return pool_ == null ? com.google.protobuf2.Any.getDefaultInstance() : pool_;
     }
     /**
      * <code>.google.protobuf2.Any pool = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPoolOrBuilder() {
       return getPool();
     }
@@ -1165,7 +1170,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolsRequest}
    */
-  public  static final class QueryPoolsRequest extends
+  public static final class QueryPoolsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolsRequest)
       QueryPoolsRequestOrBuilder {
@@ -1262,6 +1267,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1273,6 +1279,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1283,6 +1290,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1871,7 +1879,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolsResponse}
    */
-  public  static final class QueryPoolsResponse extends
+  public static final class QueryPoolsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolsResponse)
       QueryPoolsResponseOrBuilder {
@@ -1977,12 +1985,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf2.Any> getPoolsList() {
       return pools_;
     }
     /**
      * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends com.google.protobuf2.AnyOrBuilder> 
         getPoolsOrBuilderList() {
       return pools_;
@@ -1990,18 +2000,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
+    @java.lang.Override
     public int getPoolsCount() {
       return pools_.size();
     }
     /**
      * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getPools(int index) {
       return pools_.get(index);
     }
     /**
      * <code>repeated .google.protobuf2.Any pools = 1 [(.cosmos_proto.accepts_interface) = "PoolI"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getPoolsOrBuilder(
         int index) {
       return pools_.get(index);
@@ -2017,6 +2030,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2028,6 +2042,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2038,6 +2053,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2872,7 +2888,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryNumPoolsRequest}
    */
-  public  static final class QueryNumPoolsRequest extends
+  public static final class QueryNumPoolsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryNumPoolsRequest)
       QueryNumPoolsRequestOrBuilder {
@@ -3300,7 +3316,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryNumPoolsResponse}
    */
-  public  static final class QueryNumPoolsResponse extends
+  public static final class QueryNumPoolsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryNumPoolsResponse)
       QueryNumPoolsResponseOrBuilder {
@@ -3385,6 +3401,7 @@ public final class QueryOuterClass {
      * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
      * @return The numPools.
      */
+    @java.lang.Override
     public long getNumPools() {
       return numPools_;
     }
@@ -3697,6 +3714,7 @@ public final class QueryOuterClass {
        * <code>uint64 numPools = 1 [(.gogoproto.moretags) = "yaml:&#92;"num_pools&#92;""];</code>
        * @return The numPools.
        */
+      @java.lang.Override
       public long getNumPools() {
         return numPools_;
       }
@@ -3791,7 +3809,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolParamsRequest}
    */
-  public  static final class QueryPoolParamsRequest extends
+  public static final class QueryPoolParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolParamsRequest)
       QueryPoolParamsRequestOrBuilder {
@@ -3876,6 +3894,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -4192,6 +4211,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -4291,7 +4311,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolParamsResponse}
    */
-  public  static final class QueryPoolParamsResponse extends
+  public static final class QueryPoolParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolParamsResponse)
       QueryPoolParamsResponseOrBuilder {
@@ -4384,6 +4404,7 @@ public final class QueryOuterClass {
      * <code>.osmosis.gamm.v1beta1.PoolParams params = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -4391,12 +4412,14 @@ public final class QueryOuterClass {
      * <code>.osmosis.gamm.v1beta1.PoolParams params = 1 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolParams getParams() {
       return params_ == null ? osmosis.gamm.v1beta1.PoolOuterClass.PoolParams.getDefaultInstance() : params_;
     }
     /**
      * <code>.osmosis.gamm.v1beta1.PoolParams params = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }
@@ -4904,7 +4927,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryTotalSharesRequest}
    */
-  public  static final class QueryTotalSharesRequest extends
+  public static final class QueryTotalSharesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryTotalSharesRequest)
       QueryTotalSharesRequestOrBuilder {
@@ -4989,6 +5012,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -5305,6 +5329,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -5404,7 +5429,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryTotalSharesResponse}
    */
-  public  static final class QueryTotalSharesResponse extends
+  public static final class QueryTotalSharesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryTotalSharesResponse)
       QueryTotalSharesResponseOrBuilder {
@@ -5497,6 +5522,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return Whether the totalShares field is set.
      */
+    @java.lang.Override
     public boolean hasTotalShares() {
       return totalShares_ != null;
     }
@@ -5504,12 +5530,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      * @return The totalShares.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalShares() {
       return totalShares_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : totalShares_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin totalShares = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_shares&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalSharesOrBuilder() {
       return getTotalShares();
     }
@@ -6017,7 +6045,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolAssetsRequest}
    */
-  public  static final class QueryPoolAssetsRequest extends
+  public static final class QueryPoolAssetsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolAssetsRequest)
       QueryPoolAssetsRequestOrBuilder {
@@ -6102,6 +6130,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -6418,6 +6447,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -6526,7 +6556,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryPoolAssetsResponse}
    */
-  public  static final class QueryPoolAssetsResponse extends
+  public static final class QueryPoolAssetsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryPoolAssetsResponse)
       QueryPoolAssetsResponseOrBuilder {
@@ -6619,12 +6649,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset> getPoolAssetsList() {
       return poolAssets_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder> 
         getPoolAssetsOrBuilderList() {
       return poolAssets_;
@@ -6632,18 +6664,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPoolAssetsCount() {
       return poolAssets_.size();
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAsset getPoolAssets(int index) {
       return poolAssets_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.PoolAsset poolAssets = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.PoolOuterClass.PoolAssetOrBuilder getPoolAssetsOrBuilder(
         int index) {
       return poolAssets_.get(index);
@@ -7330,7 +7365,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QuerySpotPriceRequest}
    */
-  public  static final class QuerySpotPriceRequest extends
+  public static final class QuerySpotPriceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QuerySpotPriceRequest)
       QuerySpotPriceRequestOrBuilder {
@@ -7434,6 +7469,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -7444,6 +7480,7 @@ public final class QueryOuterClass {
      * <code>string tokenInDenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_in_denom&#92;""];</code>
      * @return The tokenInDenom.
      */
+    @java.lang.Override
     public java.lang.String getTokenInDenom() {
       java.lang.Object ref = tokenInDenom_;
       if (ref instanceof java.lang.String) {
@@ -7460,6 +7497,7 @@ public final class QueryOuterClass {
      * <code>string tokenInDenom = 2 [(.gogoproto.moretags) = "yaml:&#92;"token_in_denom&#92;""];</code>
      * @return The bytes for tokenInDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInDenomBytes() {
       java.lang.Object ref = tokenInDenom_;
@@ -7480,6 +7518,7 @@ public final class QueryOuterClass {
      * <code>string tokenOutDenom = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The tokenOutDenom.
      */
+    @java.lang.Override
     public java.lang.String getTokenOutDenom() {
       java.lang.Object ref = tokenOutDenom_;
       if (ref instanceof java.lang.String) {
@@ -7496,6 +7535,7 @@ public final class QueryOuterClass {
      * <code>string tokenOutDenom = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_out_denom&#92;""];</code>
      * @return The bytes for tokenOutDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutDenomBytes() {
       java.lang.Object ref = tokenOutDenom_;
@@ -7516,6 +7556,7 @@ public final class QueryOuterClass {
      * <code>bool withSwapFee = 4 [(.gogoproto.moretags) = "yaml:&#92;"with_swap_fee&#92;""];</code>
      * @return The withSwapFee.
      */
+    @java.lang.Override
     public boolean getWithSwapFee() {
       return withSwapFee_;
     }
@@ -7884,6 +7925,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 1 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -8066,6 +8108,7 @@ public final class QueryOuterClass {
        * <code>bool withSwapFee = 4 [(.gogoproto.moretags) = "yaml:&#92;"with_swap_fee&#92;""];</code>
        * @return The withSwapFee.
        */
+      @java.lang.Override
       public boolean getWithSwapFee() {
         return withSwapFee_;
       }
@@ -8170,7 +8213,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QuerySpotPriceResponse}
    */
-  public  static final class QuerySpotPriceResponse extends
+  public static final class QuerySpotPriceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QuerySpotPriceResponse)
       QuerySpotPriceResponseOrBuilder {
@@ -8261,6 +8304,7 @@ public final class QueryOuterClass {
      * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
      * @return The spotPrice.
      */
+    @java.lang.Override
     public java.lang.String getSpotPrice() {
       java.lang.Object ref = spotPrice_;
       if (ref instanceof java.lang.String) {
@@ -8281,6 +8325,7 @@ public final class QueryOuterClass {
      * <code>string spotPrice = 1 [(.gogoproto.moretags) = "yaml:&#92;"spot_price&#92;""];</code>
      * @return The bytes for spotPrice.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSpotPriceBytes() {
       java.lang.Object ref = spotPrice_;
@@ -8810,7 +8855,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QuerySwapExactAmountInRequest}
    */
-  public  static final class QuerySwapExactAmountInRequest extends
+  public static final class QuerySwapExactAmountInRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QuerySwapExactAmountInRequest)
       QuerySwapExactAmountInRequestOrBuilder {
@@ -8923,6 +8968,7 @@ public final class QueryOuterClass {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -8939,6 +8985,7 @@ public final class QueryOuterClass {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -8959,6 +9006,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -8969,6 +9017,7 @@ public final class QueryOuterClass {
      * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The tokenIn.
      */
+    @java.lang.Override
     public java.lang.String getTokenIn() {
       java.lang.Object ref = tokenIn_;
       if (ref instanceof java.lang.String) {
@@ -8985,6 +9034,7 @@ public final class QueryOuterClass {
      * <code>string tokenIn = 3 [(.gogoproto.moretags) = "yaml:&#92;"token_in&#92;""];</code>
      * @return The bytes for tokenIn.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInBytes() {
       java.lang.Object ref = tokenIn_;
@@ -9004,12 +9054,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.Tx.SwapAmountInRoute> getRoutesList() {
       return routes_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.Tx.SwapAmountInRouteOrBuilder> 
         getRoutesOrBuilderList() {
       return routes_;
@@ -9017,18 +9069,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public int getRoutesCount() {
       return routes_.size();
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountInRoute getRoutes(int index) {
       return routes_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountInRoute routes = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountInRouteOrBuilder getRoutesOrBuilder(
         int index) {
       return routes_.get(index);
@@ -9513,6 +9568,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -9925,7 +9981,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QuerySwapExactAmountInResponse}
    */
-  public  static final class QuerySwapExactAmountInResponse extends
+  public static final class QuerySwapExactAmountInResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QuerySwapExactAmountInResponse)
       QuerySwapExactAmountInResponseOrBuilder {
@@ -10012,6 +10068,7 @@ public final class QueryOuterClass {
      * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
      * @return The tokenOutAmount.
      */
+    @java.lang.Override
     public java.lang.String getTokenOutAmount() {
       java.lang.Object ref = tokenOutAmount_;
       if (ref instanceof java.lang.String) {
@@ -10028,6 +10085,7 @@ public final class QueryOuterClass {
      * <code>string tokenOutAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_out_amount&#92;""];</code>
      * @return The bytes for tokenOutAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutAmountBytes() {
       java.lang.Object ref = tokenOutAmount_;
@@ -10537,7 +10595,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code osmosis.gamm.v1beta1.QuerySwapExactAmountOutRequest}
    */
-  public  static final class QuerySwapExactAmountOutRequest extends
+  public static final class QuerySwapExactAmountOutRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QuerySwapExactAmountOutRequest)
       QuerySwapExactAmountOutRequestOrBuilder {
@@ -10650,6 +10708,7 @@ public final class QueryOuterClass {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The sender.
      */
+    @java.lang.Override
     public java.lang.String getSender() {
       java.lang.Object ref = sender_;
       if (ref instanceof java.lang.String) {
@@ -10666,6 +10725,7 @@ public final class QueryOuterClass {
      * <code>string sender = 1 [(.gogoproto.moretags) = "yaml:&#92;"sender&#92;""];</code>
      * @return The bytes for sender.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSenderBytes() {
       java.lang.Object ref = sender_;
@@ -10686,6 +10746,7 @@ public final class QueryOuterClass {
      * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
      * @return The poolId.
      */
+    @java.lang.Override
     public long getPoolId() {
       return poolId_;
     }
@@ -10695,12 +10756,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<osmosis.gamm.v1beta1.Tx.SwapAmountOutRoute> getRoutesList() {
       return routes_;
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends osmosis.gamm.v1beta1.Tx.SwapAmountOutRouteOrBuilder> 
         getRoutesOrBuilderList() {
       return routes_;
@@ -10708,18 +10771,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public int getRoutesCount() {
       return routes_.size();
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountOutRoute getRoutes(int index) {
       return routes_.get(index);
     }
     /**
      * <code>repeated .osmosis.gamm.v1beta1.SwapAmountOutRoute routes = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"routes&#92;""];</code>
      */
+    @java.lang.Override
     public osmosis.gamm.v1beta1.Tx.SwapAmountOutRouteOrBuilder getRoutesOrBuilder(
         int index) {
       return routes_.get(index);
@@ -10731,6 +10797,7 @@ public final class QueryOuterClass {
      * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The tokenOut.
      */
+    @java.lang.Override
     public java.lang.String getTokenOut() {
       java.lang.Object ref = tokenOut_;
       if (ref instanceof java.lang.String) {
@@ -10747,6 +10814,7 @@ public final class QueryOuterClass {
      * <code>string tokenOut = 4 [(.gogoproto.moretags) = "yaml:&#92;"token_out&#92;""];</code>
      * @return The bytes for tokenOut.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenOutBytes() {
       java.lang.Object ref = tokenOut_;
@@ -11240,6 +11308,7 @@ public final class QueryOuterClass {
        * <code>uint64 poolId = 2 [(.gogoproto.moretags) = "yaml:&#92;"pool_id&#92;""];</code>
        * @return The poolId.
        */
+      @java.lang.Override
       public long getPoolId() {
         return poolId_;
       }
@@ -11652,7 +11721,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QuerySwapExactAmountOutResponse}
    */
-  public  static final class QuerySwapExactAmountOutResponse extends
+  public static final class QuerySwapExactAmountOutResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QuerySwapExactAmountOutResponse)
       QuerySwapExactAmountOutResponseOrBuilder {
@@ -11739,6 +11808,7 @@ public final class QueryOuterClass {
      * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
      * @return The tokenInAmount.
      */
+    @java.lang.Override
     public java.lang.String getTokenInAmount() {
       java.lang.Object ref = tokenInAmount_;
       if (ref instanceof java.lang.String) {
@@ -11755,6 +11825,7 @@ public final class QueryOuterClass {
      * <code>string tokenInAmount = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"token_in_amount&#92;""];</code>
      * @return The bytes for tokenInAmount.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTokenInAmountBytes() {
       java.lang.Object ref = tokenInAmount_;
@@ -12206,7 +12277,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryTotalLiquidityRequest}
    */
-  public  static final class QueryTotalLiquidityRequest extends
+  public static final class QueryTotalLiquidityRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryTotalLiquidityRequest)
       QueryTotalLiquidityRequestOrBuilder {
@@ -12648,7 +12719,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code osmosis.gamm.v1beta1.QueryTotalLiquidityResponse}
    */
-  public  static final class QueryTotalLiquidityResponse extends
+  public static final class QueryTotalLiquidityResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.gamm.v1beta1.QueryTotalLiquidityResponse)
       QueryTotalLiquidityResponseOrBuilder {
@@ -12741,12 +12812,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"liquidity&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getLiquidityList() {
       return liquidity_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"liquidity&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getLiquidityOrBuilderList() {
       return liquidity_;
@@ -12754,18 +12827,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"liquidity&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getLiquidityCount() {
       return liquidity_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"liquidity&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getLiquidity(int index) {
       return liquidity_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin liquidity = 1 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"liquidity&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getLiquidityOrBuilder(
         int index) {
       return liquidity_.get(index);

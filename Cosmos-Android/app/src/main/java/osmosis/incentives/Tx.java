@@ -159,7 +159,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.incentives.MsgCreateGauge}
    */
-  public  static final class MsgCreateGauge extends
+  public static final class MsgCreateGauge extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.MsgCreateGauge)
       MsgCreateGaugeOrBuilder {
@@ -300,6 +300,7 @@ public final class Tx {
      * <code>bool is_perpetual = 1;</code>
      * @return The isPerpetual.
      */
+    @java.lang.Override
     public boolean getIsPerpetual() {
       return isPerpetual_;
     }
@@ -314,6 +315,7 @@ public final class Tx {
      * <code>string owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -334,6 +336,7 @@ public final class Tx {
      * <code>string owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -358,6 +361,7 @@ public final class Tx {
      * <code>.osmosis.lockup.QueryCondition distribute_to = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the distributeTo field is set.
      */
+    @java.lang.Override
     public boolean hasDistributeTo() {
       return distributeTo_ != null;
     }
@@ -369,6 +373,7 @@ public final class Tx {
      * <code>.osmosis.lockup.QueryCondition distribute_to = 3 [(.gogoproto.nullable) = false];</code>
      * @return The distributeTo.
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.QueryCondition getDistributeTo() {
       return distributeTo_ == null ? osmosis.lockup.Lock.QueryCondition.getDefaultInstance() : distributeTo_;
     }
@@ -379,6 +384,7 @@ public final class Tx {
      *
      * <code>.osmosis.lockup.QueryCondition distribute_to = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public osmosis.lockup.Lock.QueryConditionOrBuilder getDistributeToOrBuilder() {
       return getDistributeTo();
     }
@@ -392,6 +398,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
@@ -402,6 +409,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -413,6 +421,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
@@ -423,6 +432,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
@@ -433,6 +443,7 @@ public final class Tx {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 4 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -448,6 +459,7 @@ public final class Tx {
      * <code>.google.protobuf.Timestamp start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the startTime field is set.
      */
+    @java.lang.Override
     public boolean hasStartTime() {
       return startTime_ != null;
     }
@@ -459,6 +471,7 @@ public final class Tx {
      * <code>.google.protobuf.Timestamp start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The startTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getStartTime() {
       return startTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : startTime_;
     }
@@ -469,6 +482,7 @@ public final class Tx {
      *
      * <code>.google.protobuf.Timestamp start_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getStartTimeOrBuilder() {
       return getStartTime();
     }
@@ -483,6 +497,7 @@ public final class Tx {
      * <code>uint64 num_epochs_paid_over = 6;</code>
      * @return The numEpochsPaidOver.
      */
+    @java.lang.Override
     public long getNumEpochsPaidOver() {
       return numEpochsPaidOver_;
     }
@@ -951,6 +966,7 @@ public final class Tx {
        * <code>bool is_perpetual = 1;</code>
        * @return The isPerpetual.
        */
+      @java.lang.Override
       public boolean getIsPerpetual() {
         return isPerpetual_;
       }
@@ -1711,6 +1727,7 @@ public final class Tx {
        * <code>uint64 num_epochs_paid_over = 6;</code>
        * @return The numEpochsPaidOver.
        */
+      @java.lang.Override
       public long getNumEpochsPaidOver() {
         return numEpochsPaidOver_;
       }
@@ -1803,7 +1820,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.incentives.MsgCreateGaugeResponse}
    */
-  public  static final class MsgCreateGaugeResponse extends
+  public static final class MsgCreateGaugeResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.MsgCreateGaugeResponse)
       MsgCreateGaugeResponseOrBuilder {
@@ -2263,7 +2280,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.incentives.MsgAddToGauge}
    */
-  public  static final class MsgAddToGauge extends
+  public static final class MsgAddToGauge extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.MsgAddToGauge)
       MsgAddToGaugeOrBuilder {
@@ -2369,6 +2386,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2385,6 +2403,7 @@ public final class Tx {
      * <code>string owner = 1 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2405,6 +2424,7 @@ public final class Tx {
      * <code>uint64 gauge_id = 2;</code>
      * @return The gaugeId.
      */
+    @java.lang.Override
     public long getGaugeId() {
       return gaugeId_;
     }
@@ -2414,12 +2434,14 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getRewardsList() {
       return rewards_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getRewardsOrBuilderList() {
       return rewards_;
@@ -2427,18 +2449,21 @@ public final class Tx {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getRewardsCount() {
       return rewards_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getRewards(int index) {
       return rewards_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin rewards = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getRewardsOrBuilder(
         int index) {
       return rewards_.get(index);
@@ -2902,6 +2927,7 @@ public final class Tx {
        * <code>uint64 gauge_id = 2;</code>
        * @return The gaugeId.
        */
+      @java.lang.Override
       public long getGaugeId() {
         return gaugeId_;
       }
@@ -3226,7 +3252,7 @@ public final class Tx {
   /**
    * Protobuf type {@code osmosis.incentives.MsgAddToGaugeResponse}
    */
-  public  static final class MsgAddToGaugeResponse extends
+  public static final class MsgAddToGaugeResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.incentives.MsgAddToGaugeResponse)
       MsgAddToGaugeResponseOrBuilder {

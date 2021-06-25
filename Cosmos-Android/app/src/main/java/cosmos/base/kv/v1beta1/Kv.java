@@ -49,7 +49,7 @@ public final class Kv {
    *
    * Protobuf type {@code cosmos.base.kv.v1beta1.Pairs}
    */
-  public  static final class Pairs extends
+  public static final class Pairs extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.kv.v1beta1.Pairs)
       PairsOrBuilder {
@@ -142,12 +142,14 @@ public final class Kv {
     /**
      * <code>repeated .cosmos.base.kv.v1beta1.Pair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.kv.v1beta1.Kv.Pair> getPairsList() {
       return pairs_;
     }
     /**
      * <code>repeated .cosmos.base.kv.v1beta1.Pair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.kv.v1beta1.Kv.PairOrBuilder> 
         getPairsOrBuilderList() {
       return pairs_;
@@ -155,18 +157,21 @@ public final class Kv {
     /**
      * <code>repeated .cosmos.base.kv.v1beta1.Pair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getPairsCount() {
       return pairs_.size();
     }
     /**
      * <code>repeated .cosmos.base.kv.v1beta1.Pair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.kv.v1beta1.Kv.Pair getPairs(int index) {
       return pairs_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.kv.v1beta1.Pair pairs = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.kv.v1beta1.Kv.PairOrBuilder getPairsOrBuilder(
         int index) {
       return pairs_.get(index);
@@ -833,7 +838,7 @@ public final class Kv {
    *
    * Protobuf type {@code cosmos.base.kv.v1beta1.Pair}
    */
-  public  static final class Pair extends
+  public static final class Pair extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.kv.v1beta1.Pair)
       PairOrBuilder {
@@ -925,6 +930,7 @@ public final class Kv {
      * <code>bytes key = 1;</code>
      * @return The key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getKey() {
       return key_;
     }
@@ -935,6 +941,7 @@ public final class Kv {
      * <code>bytes value = 2;</code>
      * @return The value.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getValue() {
       return value_;
     }
@@ -1267,6 +1274,7 @@ public final class Kv {
        * <code>bytes key = 1;</code>
        * @return The key.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getKey() {
         return key_;
       }
@@ -1300,6 +1308,7 @@ public final class Kv {
        * <code>bytes value = 2;</code>
        * @return The value.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getValue() {
         return value_;
       }

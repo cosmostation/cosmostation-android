@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.nft.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.nft.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.nft.Collection collections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.nft.Nft.Collection> getCollectionsList() {
       return collections_;
     }
     /**
      * <code>repeated .irismod.nft.Collection collections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.nft.Nft.CollectionOrBuilder> 
         getCollectionsOrBuilderList() {
       return collections_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.nft.Collection collections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getCollectionsCount() {
       return collections_.size();
     }
     /**
      * <code>repeated .irismod.nft.Collection collections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.Collection getCollections(int index) {
       return collections_.get(index);
     }
     /**
      * <code>repeated .irismod.nft.Collection collections = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.nft.Nft.CollectionOrBuilder getCollectionsOrBuilder(
         int index) {
       return collections_.get(index);

@@ -37,7 +37,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.record.QueryRecordRequest}
    */
-  public  static final class QueryRecordRequest extends
+  public static final class QueryRecordRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.QueryRecordRequest)
       QueryRecordRequestOrBuilder {
@@ -124,6 +124,7 @@ public final class QueryOuterClass {
      * <code>string record_id = 1;</code>
      * @return The recordId.
      */
+    @java.lang.Override
     public java.lang.String getRecordId() {
       java.lang.Object ref = recordId_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class QueryOuterClass {
      * <code>string record_id = 1;</code>
      * @return The bytes for recordId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRecordIdBytes() {
       java.lang.Object ref = recordId_;
@@ -614,7 +616,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.record.QueryRecordResponse}
    */
-  public  static final class QueryRecordResponse extends
+  public static final class QueryRecordResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.QueryRecordResponse)
       QueryRecordResponseOrBuilder {
@@ -707,6 +709,7 @@ public final class QueryOuterClass {
      * <code>.irismod.record.Record record = 1;</code>
      * @return Whether the record field is set.
      */
+    @java.lang.Override
     public boolean hasRecord() {
       return record_ != null;
     }
@@ -714,12 +717,14 @@ public final class QueryOuterClass {
      * <code>.irismod.record.Record record = 1;</code>
      * @return The record.
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.Record getRecord() {
       return record_ == null ? irismod.record.RecordOuterClass.Record.getDefaultInstance() : record_;
     }
     /**
      * <code>.irismod.record.Record record = 1;</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.RecordOrBuilder getRecordOrBuilder() {
       return getRecord();
     }

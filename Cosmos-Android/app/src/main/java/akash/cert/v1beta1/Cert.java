@@ -49,7 +49,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.CertificateID}
    */
-  public  static final class CertificateID extends
+  public static final class CertificateID extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.CertificateID)
       CertificateIDOrBuilder {
@@ -143,6 +143,7 @@ public final class Cert {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -159,6 +160,7 @@ public final class Cert {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -179,6 +181,7 @@ public final class Cert {
      * <code>string serial = 2 [(.gogoproto.jsontag) = "serial", (.gogoproto.moretags) = "yaml:&#92;"serial&#92;""];</code>
      * @return The serial.
      */
+    @java.lang.Override
     public java.lang.String getSerial() {
       java.lang.Object ref = serial_;
       if (ref instanceof java.lang.String) {
@@ -195,6 +198,7 @@ public final class Cert {
      * <code>string serial = 2 [(.gogoproto.jsontag) = "serial", (.gogoproto.moretags) = "yaml:&#92;"serial&#92;""];</code>
      * @return The bytes for serial.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSerialBytes() {
       java.lang.Object ref = serial_;
@@ -770,7 +774,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.Certificate}
    */
-  public  static final class Certificate extends
+  public static final class Certificate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.Certificate)
       CertificateOrBuilder {
@@ -970,6 +974,10 @@ public final class Cert {
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalStateException(
+              "Can't get the descriptor of an unrecognized enum value.");
+        }
         return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -1010,14 +1018,14 @@ public final class Cert {
      * <code>.akash.cert.v1beta1.Certificate.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
      * <code>.akash.cert.v1beta1.Certificate.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
-    public akash.cert.v1beta1.Cert.Certificate.State getState() {
+    @java.lang.Override public akash.cert.v1beta1.Cert.Certificate.State getState() {
       @SuppressWarnings("deprecation")
       akash.cert.v1beta1.Cert.Certificate.State result = akash.cert.v1beta1.Cert.Certificate.State.valueOf(state_);
       return result == null ? akash.cert.v1beta1.Cert.Certificate.State.UNRECOGNIZED : result;
@@ -1029,6 +1037,7 @@ public final class Cert {
      * <code>bytes cert = 3 [(.gogoproto.jsontag) = "cert", (.gogoproto.moretags) = "yaml:&#92;"cert&#92;""];</code>
      * @return The cert.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCert() {
       return cert_;
     }
@@ -1039,6 +1048,7 @@ public final class Cert {
      * <code>bytes pubkey = 4 [(.gogoproto.jsontag) = "pubkey", (.gogoproto.moretags) = "yaml:&#92;"pubkey&#92;""];</code>
      * @return The pubkey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPubkey() {
       return pubkey_;
     }
@@ -1387,7 +1397,7 @@ public final class Cert {
        * <code>.akash.cert.v1beta1.Certificate.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1396,6 +1406,7 @@ public final class Cert {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1404,6 +1415,7 @@ public final class Cert {
        * <code>.akash.cert.v1beta1.Certificate.State state = 2 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
        * @return The state.
        */
+      @java.lang.Override
       public akash.cert.v1beta1.Cert.Certificate.State getState() {
         @SuppressWarnings("deprecation")
         akash.cert.v1beta1.Cert.Certificate.State result = akash.cert.v1beta1.Cert.Certificate.State.valueOf(state_);
@@ -1439,6 +1451,7 @@ public final class Cert {
        * <code>bytes cert = 3 [(.gogoproto.jsontag) = "cert", (.gogoproto.moretags) = "yaml:&#92;"cert&#92;""];</code>
        * @return The cert.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCert() {
         return cert_;
       }
@@ -1472,6 +1485,7 @@ public final class Cert {
        * <code>bytes pubkey = 4 [(.gogoproto.jsontag) = "pubkey", (.gogoproto.moretags) = "yaml:&#92;"pubkey&#92;""];</code>
        * @return The pubkey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPubkey() {
         return pubkey_;
       }
@@ -1599,7 +1613,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.CertificateFilter}
    */
-  public  static final class CertificateFilter extends
+  public static final class CertificateFilter extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.CertificateFilter)
       CertificateFilterOrBuilder {
@@ -1700,6 +1714,7 @@ public final class Cert {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -1716,6 +1731,7 @@ public final class Cert {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -1736,6 +1752,7 @@ public final class Cert {
      * <code>string serial = 2 [(.gogoproto.jsontag) = "serial", (.gogoproto.moretags) = "yaml:&#92;"serial&#92;""];</code>
      * @return The serial.
      */
+    @java.lang.Override
     public java.lang.String getSerial() {
       java.lang.Object ref = serial_;
       if (ref instanceof java.lang.String) {
@@ -1752,6 +1769,7 @@ public final class Cert {
      * <code>string serial = 2 [(.gogoproto.jsontag) = "serial", (.gogoproto.moretags) = "yaml:&#92;"serial&#92;""];</code>
      * @return The bytes for serial.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSerialBytes() {
       java.lang.Object ref = serial_;
@@ -1772,6 +1790,7 @@ public final class Cert {
      * <code>string state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The state.
      */
+    @java.lang.Override
     public java.lang.String getState() {
       java.lang.Object ref = state_;
       if (ref instanceof java.lang.String) {
@@ -1788,6 +1807,7 @@ public final class Cert {
      * <code>string state = 3 [(.gogoproto.jsontag) = "state", (.gogoproto.moretags) = "yaml:&#92;"state&#92;""];</code>
      * @return The bytes for state.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getStateBytes() {
       java.lang.Object ref = state_;
@@ -2457,7 +2477,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.MsgCreateCertificate}
    */
-  public  static final class MsgCreateCertificate extends
+  public static final class MsgCreateCertificate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.MsgCreateCertificate)
       MsgCreateCertificateOrBuilder {
@@ -2556,6 +2576,7 @@ public final class Cert {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -2572,6 +2593,7 @@ public final class Cert {
      * <code>string owner = 1 [(.gogoproto.jsontag) = "owner", (.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -2592,6 +2614,7 @@ public final class Cert {
      * <code>bytes cert = 2 [(.gogoproto.jsontag) = "cert", (.gogoproto.moretags) = "yaml:&#92;"cert&#92;""];</code>
      * @return The cert.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getCert() {
       return cert_;
     }
@@ -2602,6 +2625,7 @@ public final class Cert {
      * <code>bytes pubkey = 3 [(.gogoproto.jsontag) = "pubkey", (.gogoproto.moretags) = "yaml:&#92;"pubkey&#92;""];</code>
      * @return The pubkey.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getPubkey() {
       return pubkey_;
     }
@@ -3027,6 +3051,7 @@ public final class Cert {
        * <code>bytes cert = 2 [(.gogoproto.jsontag) = "cert", (.gogoproto.moretags) = "yaml:&#92;"cert&#92;""];</code>
        * @return The cert.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getCert() {
         return cert_;
       }
@@ -3060,6 +3085,7 @@ public final class Cert {
        * <code>bytes pubkey = 3 [(.gogoproto.jsontag) = "pubkey", (.gogoproto.moretags) = "yaml:&#92;"pubkey&#92;""];</code>
        * @return The pubkey.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getPubkey() {
         return pubkey_;
       }
@@ -3151,7 +3177,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.MsgCreateCertificateResponse}
    */
-  public  static final class MsgCreateCertificateResponse extends
+  public static final class MsgCreateCertificateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.MsgCreateCertificateResponse)
       MsgCreateCertificateResponseOrBuilder {
@@ -3592,7 +3618,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.MsgRevokeCertificate}
    */
-  public  static final class MsgRevokeCertificate extends
+  public static final class MsgRevokeCertificate extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.MsgRevokeCertificate)
       MsgRevokeCertificateOrBuilder {
@@ -3685,6 +3711,7 @@ public final class Cert {
      * <code>.akash.cert.v1beta1.CertificateID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return Whether the id field is set.
      */
+    @java.lang.Override
     public boolean hasId() {
       return id_ != null;
     }
@@ -3692,12 +3719,14 @@ public final class Cert {
      * <code>.akash.cert.v1beta1.CertificateID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.CertificateID getId() {
       return id_ == null ? akash.cert.v1beta1.Cert.CertificateID.getDefaultInstance() : id_;
     }
     /**
      * <code>.akash.cert.v1beta1.CertificateID id = 1 [(.gogoproto.nullable) = false, (.gogoproto.customname) = "ID", (.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.CertificateIDOrBuilder getIdOrBuilder() {
       return getId();
     }
@@ -4203,7 +4232,7 @@ public final class Cert {
    *
    * Protobuf type {@code akash.cert.v1beta1.MsgRevokeCertificateResponse}
    */
-  public  static final class MsgRevokeCertificateResponse extends
+  public static final class MsgRevokeCertificateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.MsgRevokeCertificateResponse)
       MsgRevokeCertificateResponseOrBuilder {

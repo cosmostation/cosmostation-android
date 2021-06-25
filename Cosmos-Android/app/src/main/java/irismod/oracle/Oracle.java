@@ -103,7 +103,7 @@ public final class Oracle {
    *
    * Protobuf type {@code irismod.oracle.Feed}
    */
-  public  static final class Feed extends
+  public static final class Feed extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.Feed)
       FeedOrBuilder {
@@ -230,6 +230,7 @@ public final class Oracle {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The feedName.
      */
+    @java.lang.Override
     public java.lang.String getFeedName() {
       java.lang.Object ref = feedName_;
       if (ref instanceof java.lang.String) {
@@ -246,6 +247,7 @@ public final class Oracle {
      * <code>string feed_name = 1 [(.gogoproto.moretags) = "yaml:&#92;"feed_name&#92;""];</code>
      * @return The bytes for feedName.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getFeedNameBytes() {
       java.lang.Object ref = feedName_;
@@ -266,6 +268,7 @@ public final class Oracle {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -282,6 +285,7 @@ public final class Oracle {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -302,6 +306,7 @@ public final class Oracle {
      * <code>string aggregate_func = 3 [(.gogoproto.moretags) = "yaml:&#92;"aggregate_func&#92;""];</code>
      * @return The aggregateFunc.
      */
+    @java.lang.Override
     public java.lang.String getAggregateFunc() {
       java.lang.Object ref = aggregateFunc_;
       if (ref instanceof java.lang.String) {
@@ -318,6 +323,7 @@ public final class Oracle {
      * <code>string aggregate_func = 3 [(.gogoproto.moretags) = "yaml:&#92;"aggregate_func&#92;""];</code>
      * @return The bytes for aggregateFunc.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAggregateFuncBytes() {
       java.lang.Object ref = aggregateFunc_;
@@ -338,6 +344,7 @@ public final class Oracle {
      * <code>string value_json_path = 4 [(.gogoproto.moretags) = "yaml:&#92;"value_json_path&#92;""];</code>
      * @return The valueJsonPath.
      */
+    @java.lang.Override
     public java.lang.String getValueJsonPath() {
       java.lang.Object ref = valueJsonPath_;
       if (ref instanceof java.lang.String) {
@@ -354,6 +361,7 @@ public final class Oracle {
      * <code>string value_json_path = 4 [(.gogoproto.moretags) = "yaml:&#92;"value_json_path&#92;""];</code>
      * @return The bytes for valueJsonPath.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValueJsonPathBytes() {
       java.lang.Object ref = valueJsonPath_;
@@ -374,6 +382,7 @@ public final class Oracle {
      * <code>uint64 latest_history = 5 [(.gogoproto.moretags) = "yaml:&#92;"latest_history&#92;""];</code>
      * @return The latestHistory.
      */
+    @java.lang.Override
     public long getLatestHistory() {
       return latestHistory_;
     }
@@ -384,6 +393,7 @@ public final class Oracle {
      * <code>string request_context_id = 6 [(.gogoproto.customname) = "RequestContextID", (.gogoproto.moretags) = "yaml:&#92;"request_context_id&#92;""];</code>
      * @return The requestContextId.
      */
+    @java.lang.Override
     public java.lang.String getRequestContextId() {
       java.lang.Object ref = requestContextId_;
       if (ref instanceof java.lang.String) {
@@ -400,6 +410,7 @@ public final class Oracle {
      * <code>string request_context_id = 6 [(.gogoproto.customname) = "RequestContextID", (.gogoproto.moretags) = "yaml:&#92;"request_context_id&#92;""];</code>
      * @return The bytes for requestContextId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getRequestContextIdBytes() {
       java.lang.Object ref = requestContextId_;
@@ -420,6 +431,7 @@ public final class Oracle {
      * <code>string creator = 7;</code>
      * @return The creator.
      */
+    @java.lang.Override
     public java.lang.String getCreator() {
       java.lang.Object ref = creator_;
       if (ref instanceof java.lang.String) {
@@ -436,6 +448,7 @@ public final class Oracle {
      * <code>string creator = 7;</code>
      * @return The bytes for creator.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getCreatorBytes() {
       java.lang.Object ref = creator_;
@@ -1168,6 +1181,7 @@ public final class Oracle {
        * <code>uint64 latest_history = 5 [(.gogoproto.moretags) = "yaml:&#92;"latest_history&#92;""];</code>
        * @return The latestHistory.
        */
+      @java.lang.Override
       public long getLatestHistory() {
         return latestHistory_;
       }
@@ -1435,7 +1449,7 @@ public final class Oracle {
    *
    * Protobuf type {@code irismod.oracle.FeedValue}
    */
-  public  static final class FeedValue extends
+  public static final class FeedValue extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.oracle.FeedValue)
       FeedValueOrBuilder {
@@ -1535,6 +1549,7 @@ public final class Oracle {
      * <code>string data = 1;</code>
      * @return The data.
      */
+    @java.lang.Override
     public java.lang.String getData() {
       java.lang.Object ref = data_;
       if (ref instanceof java.lang.String) {
@@ -1551,6 +1566,7 @@ public final class Oracle {
      * <code>string data = 1;</code>
      * @return The bytes for data.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDataBytes() {
       java.lang.Object ref = data_;
@@ -1571,6 +1587,7 @@ public final class Oracle {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -1578,12 +1595,14 @@ public final class Oracle {
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
     /**
      * <code>.google.protobuf.Timestamp timestamp = 2 [(.gogoproto.nullable) = false, (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }

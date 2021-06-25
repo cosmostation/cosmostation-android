@@ -65,7 +65,7 @@ public final class Mint {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.Minter}
    */
-  public  static final class Minter extends
+  public static final class Minter extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.Minter)
       MinterOrBuilder {
@@ -163,6 +163,7 @@ public final class Mint {
      * <code>string inflation = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The inflation.
      */
+    @java.lang.Override
     public java.lang.String getInflation() {
       java.lang.Object ref = inflation_;
       if (ref instanceof java.lang.String) {
@@ -183,6 +184,7 @@ public final class Mint {
      * <code>string inflation = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The bytes for inflation.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInflationBytes() {
       java.lang.Object ref = inflation_;
@@ -207,6 +209,7 @@ public final class Mint {
      * <code>string annual_provisions = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"annual_provisions&#92;""];</code>
      * @return The annualProvisions.
      */
+    @java.lang.Override
     public java.lang.String getAnnualProvisions() {
       java.lang.Object ref = annualProvisions_;
       if (ref instanceof java.lang.String) {
@@ -227,6 +230,7 @@ public final class Mint {
      * <code>string annual_provisions = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"annual_provisions&#92;""];</code>
      * @return The bytes for annualProvisions.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAnnualProvisionsBytes() {
       java.lang.Object ref = annualProvisions_;
@@ -929,7 +933,7 @@ public final class Mint {
    *
    * Protobuf type {@code cosmos.mint.v1beta1.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.mint.v1beta1.Params)
       ParamsOrBuilder {
@@ -1053,6 +1057,7 @@ public final class Mint {
      * <code>string mint_denom = 1;</code>
      * @return The mintDenom.
      */
+    @java.lang.Override
     public java.lang.String getMintDenom() {
       java.lang.Object ref = mintDenom_;
       if (ref instanceof java.lang.String) {
@@ -1073,6 +1078,7 @@ public final class Mint {
      * <code>string mint_denom = 1;</code>
      * @return The bytes for mintDenom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getMintDenomBytes() {
       java.lang.Object ref = mintDenom_;
@@ -1097,6 +1103,7 @@ public final class Mint {
      * <code>string inflation_rate_change = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"inflation_rate_change&#92;""];</code>
      * @return The inflationRateChange.
      */
+    @java.lang.Override
     public java.lang.String getInflationRateChange() {
       java.lang.Object ref = inflationRateChange_;
       if (ref instanceof java.lang.String) {
@@ -1117,6 +1124,7 @@ public final class Mint {
      * <code>string inflation_rate_change = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"inflation_rate_change&#92;""];</code>
      * @return The bytes for inflationRateChange.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInflationRateChangeBytes() {
       java.lang.Object ref = inflationRateChange_;
@@ -1141,6 +1149,7 @@ public final class Mint {
      * <code>string inflation_max = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"inflation_max&#92;""];</code>
      * @return The inflationMax.
      */
+    @java.lang.Override
     public java.lang.String getInflationMax() {
       java.lang.Object ref = inflationMax_;
       if (ref instanceof java.lang.String) {
@@ -1161,6 +1170,7 @@ public final class Mint {
      * <code>string inflation_max = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"inflation_max&#92;""];</code>
      * @return The bytes for inflationMax.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInflationMaxBytes() {
       java.lang.Object ref = inflationMax_;
@@ -1185,6 +1195,7 @@ public final class Mint {
      * <code>string inflation_min = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"inflation_min&#92;""];</code>
      * @return The inflationMin.
      */
+    @java.lang.Override
     public java.lang.String getInflationMin() {
       java.lang.Object ref = inflationMin_;
       if (ref instanceof java.lang.String) {
@@ -1205,6 +1216,7 @@ public final class Mint {
      * <code>string inflation_min = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"inflation_min&#92;""];</code>
      * @return The bytes for inflationMin.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getInflationMinBytes() {
       java.lang.Object ref = inflationMin_;
@@ -1229,6 +1241,7 @@ public final class Mint {
      * <code>string goal_bonded = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"goal_bonded&#92;""];</code>
      * @return The goalBonded.
      */
+    @java.lang.Override
     public java.lang.String getGoalBonded() {
       java.lang.Object ref = goalBonded_;
       if (ref instanceof java.lang.String) {
@@ -1249,6 +1262,7 @@ public final class Mint {
      * <code>string goal_bonded = 5 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.moretags) = "yaml:&#92;"goal_bonded&#92;""];</code>
      * @return The bytes for goalBonded.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getGoalBondedBytes() {
       java.lang.Object ref = goalBonded_;
@@ -1273,6 +1287,7 @@ public final class Mint {
      * <code>uint64 blocks_per_year = 6 [(.gogoproto.moretags) = "yaml:&#92;"blocks_per_year&#92;""];</code>
      * @return The blocksPerYear.
      */
+    @java.lang.Override
     public long getBlocksPerYear() {
       return blocksPerYear_;
     }
@@ -2158,6 +2173,7 @@ public final class Mint {
        * <code>uint64 blocks_per_year = 6 [(.gogoproto.moretags) = "yaml:&#92;"blocks_per_year&#92;""];</code>
        * @return The blocksPerYear.
        */
+      @java.lang.Override
       public long getBlocksPerYear() {
         return blocksPerYear_;
       }

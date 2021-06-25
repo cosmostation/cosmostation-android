@@ -46,7 +46,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTraceRequest}
    */
-  public  static final class QueryDenomTraceRequest extends
+  public static final class QueryDenomTraceRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTraceRequest)
       QueryDenomTraceRequestOrBuilder {
@@ -137,6 +137,7 @@ public final class QueryOuterClass {
      * <code>string hash = 1;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public java.lang.String getHash() {
       java.lang.Object ref = hash_;
       if (ref instanceof java.lang.String) {
@@ -157,6 +158,7 @@ public final class QueryOuterClass {
      * <code>string hash = 1;</code>
      * @return The bytes for hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashBytes() {
       java.lang.Object ref = hash_;
@@ -665,7 +667,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTraceResponse}
    */
-  public  static final class QueryDenomTraceResponse extends
+  public static final class QueryDenomTraceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTraceResponse)
       QueryDenomTraceResponseOrBuilder {
@@ -762,6 +764,7 @@ public final class QueryOuterClass {
      * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1;</code>
      * @return Whether the denomTrace field is set.
      */
+    @java.lang.Override
     public boolean hasDenomTrace() {
       return denomTrace_ != null;
     }
@@ -773,6 +776,7 @@ public final class QueryOuterClass {
      * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1;</code>
      * @return The denomTrace.
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.DenomTrace getDenomTrace() {
       return denomTrace_ == null ? ibc.applications.transfer.v1.Transfer.DenomTrace.getDefaultInstance() : denomTrace_;
     }
@@ -783,6 +787,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.applications.transfer.v1.DenomTrace denom_trace = 1;</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.DenomTraceOrBuilder getDenomTraceOrBuilder() {
       return getDenomTrace();
     }
@@ -1353,7 +1358,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTracesRequest}
    */
-  public  static final class QueryDenomTracesRequest extends
+  public static final class QueryDenomTracesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTracesRequest)
       QueryDenomTracesRequestOrBuilder {
@@ -1450,6 +1455,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1461,6 +1467,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
@@ -1471,6 +1478,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 1;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -2085,7 +2093,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.QueryDenomTracesResponse}
    */
-  public  static final class QueryDenomTracesResponse extends
+  public static final class QueryDenomTracesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryDenomTracesResponse)
       QueryDenomTracesResponseOrBuilder {
@@ -2195,6 +2203,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.applications.transfer.v1.Transfer.DenomTrace> getDenomTracesList() {
       return denomTraces_;
     }
@@ -2205,6 +2214,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.applications.transfer.v1.Transfer.DenomTraceOrBuilder> 
         getDenomTracesOrBuilderList() {
       return denomTraces_;
@@ -2216,6 +2226,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public int getDenomTracesCount() {
       return denomTraces_.size();
     }
@@ -2226,6 +2237,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.DenomTrace getDenomTraces(int index) {
       return denomTraces_.get(index);
     }
@@ -2236,6 +2248,7 @@ public final class QueryOuterClass {
      *
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.DenomTraceOrBuilder getDenomTracesOrBuilder(
         int index) {
       return denomTraces_.get(index);
@@ -2251,6 +2264,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -2262,6 +2276,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
@@ -2272,6 +2287,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -3183,7 +3199,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -3636,7 +3652,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -3733,6 +3749,7 @@ public final class QueryOuterClass {
      * <code>.ibc.applications.transfer.v1.Params params = 1;</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -3744,6 +3761,7 @@ public final class QueryOuterClass {
      * <code>.ibc.applications.transfer.v1.Params params = 1;</code>
      * @return The params.
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.Params getParams() {
       return params_ == null ? ibc.applications.transfer.v1.Transfer.Params.getDefaultInstance() : params_;
     }
@@ -3754,6 +3772,7 @@ public final class QueryOuterClass {
      *
      * <code>.ibc.applications.transfer.v1.Params params = 1;</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

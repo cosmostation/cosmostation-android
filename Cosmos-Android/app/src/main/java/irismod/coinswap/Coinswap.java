@@ -52,7 +52,7 @@ public final class Coinswap {
    *
    * Protobuf type {@code irismod.coinswap.Input}
    */
-  public  static final class Input extends
+  public static final class Input extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.Input)
       InputOrBuilder {
@@ -152,6 +152,7 @@ public final class Coinswap {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -168,6 +169,7 @@ public final class Coinswap {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -188,6 +190,7 @@ public final class Coinswap {
      * <code>.cosmos.base.v1beta1.Coin coin = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the coin field is set.
      */
+    @java.lang.Override
     public boolean hasCoin() {
       return coin_ != null;
     }
@@ -195,12 +198,14 @@ public final class Coinswap {
      * <code>.cosmos.base.v1beta1.Coin coin = 2 [(.gogoproto.nullable) = false];</code>
      * @return The coin.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoin() {
       return coin_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : coin_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin coin = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinOrBuilder() {
       return getCoin();
     }
@@ -826,7 +831,7 @@ public final class Coinswap {
    *
    * Protobuf type {@code irismod.coinswap.Output}
    */
-  public  static final class Output extends
+  public static final class Output extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.Output)
       OutputOrBuilder {
@@ -926,6 +931,7 @@ public final class Coinswap {
      * <code>string address = 1;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -942,6 +948,7 @@ public final class Coinswap {
      * <code>string address = 1;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -962,6 +969,7 @@ public final class Coinswap {
      * <code>.cosmos.base.v1beta1.Coin coin = 2 [(.gogoproto.nullable) = false];</code>
      * @return Whether the coin field is set.
      */
+    @java.lang.Override
     public boolean hasCoin() {
       return coin_ != null;
     }
@@ -969,12 +977,14 @@ public final class Coinswap {
      * <code>.cosmos.base.v1beta1.Coin coin = 2 [(.gogoproto.nullable) = false];</code>
      * @return The coin.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoin() {
       return coin_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : coin_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin coin = 2 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinOrBuilder() {
       return getCoin();
     }
@@ -1588,7 +1598,7 @@ public final class Coinswap {
    *
    * Protobuf type {@code irismod.coinswap.Params}
    */
-  public  static final class Params extends
+  public static final class Params extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.coinswap.Params)
       ParamsOrBuilder {
@@ -1681,6 +1691,7 @@ public final class Coinswap {
      * <code>.cosmos.base.v1beta1.Coin fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return Whether the fee field is set.
      */
+    @java.lang.Override
     public boolean hasFee() {
       return fee_ != null;
     }
@@ -1688,12 +1699,14 @@ public final class Coinswap {
      * <code>.cosmos.base.v1beta1.Coin fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      * @return The fee.
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getFee() {
       return fee_ == null ? cosmos.base.v1beta1.CoinOuterClass.Coin.getDefaultInstance() : fee_;
     }
     /**
      * <code>.cosmos.base.v1beta1.Coin fee = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getFeeOrBuilder() {
       return getFee();
     }

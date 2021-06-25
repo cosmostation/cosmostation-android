@@ -100,6 +100,10 @@ public final class Lock {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -219,7 +223,7 @@ public final class Lock {
    *
    * Protobuf type {@code osmosis.lockup.PeriodLock}
    */
-  public  static final class PeriodLock extends
+  public static final class PeriodLock extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.PeriodLock)
       PeriodLockOrBuilder {
@@ -351,6 +355,7 @@ public final class Lock {
      * <code>uint64 ID = 1;</code>
      * @return The iD.
      */
+    @java.lang.Override
     public long getID() {
       return iD_;
     }
@@ -361,6 +366,7 @@ public final class Lock {
      * <code>string owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The owner.
      */
+    @java.lang.Override
     public java.lang.String getOwner() {
       java.lang.Object ref = owner_;
       if (ref instanceof java.lang.String) {
@@ -377,6 +383,7 @@ public final class Lock {
      * <code>string owner = 2 [(.gogoproto.moretags) = "yaml:&#92;"owner&#92;""];</code>
      * @return The bytes for owner.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getOwnerBytes() {
       java.lang.Object ref = owner_;
@@ -397,6 +404,7 @@ public final class Lock {
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -404,12 +412,14 @@ public final class Lock {
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
     /**
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "duration,omitempty", (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -420,6 +430,7 @@ public final class Lock {
      * <code>.google.protobuf.Timestamp end_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the endTime field is set.
      */
+    @java.lang.Override
     public boolean hasEndTime() {
       return endTime_ != null;
     }
@@ -427,12 +438,14 @@ public final class Lock {
      * <code>.google.protobuf.Timestamp end_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The endTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getEndTime() {
       return endTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : endTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp end_time = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getEndTimeOrBuilder() {
       return getEndTime();
     }
@@ -442,12 +455,14 @@ public final class Lock {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getCoinsList() {
       return coins_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getCoinsOrBuilderList() {
       return coins_;
@@ -455,18 +470,21 @@ public final class Lock {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getCoinsCount() {
       return coins_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getCoins(int index) {
       return coins_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin coins = 5 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getCoinsOrBuilder(
         int index) {
       return coins_.get(index);
@@ -920,6 +938,7 @@ public final class Lock {
        * <code>uint64 ID = 1;</code>
        * @return The iD.
        */
+      @java.lang.Override
       public long getID() {
         return iD_;
       }
@@ -1651,7 +1670,7 @@ public final class Lock {
   /**
    * Protobuf type {@code osmosis.lockup.QueryCondition}
    */
-  public  static final class QueryCondition extends
+  public static final class QueryCondition extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:osmosis.lockup.QueryCondition)
       QueryConditionOrBuilder {
@@ -1775,7 +1794,7 @@ public final class Lock {
      * <code>.osmosis.lockup.LockQueryType lock_query_type = 1;</code>
      * @return The enum numeric value on the wire for lockQueryType.
      */
-    public int getLockQueryTypeValue() {
+    @java.lang.Override public int getLockQueryTypeValue() {
       return lockQueryType_;
     }
     /**
@@ -1786,7 +1805,7 @@ public final class Lock {
      * <code>.osmosis.lockup.LockQueryType lock_query_type = 1;</code>
      * @return The lockQueryType.
      */
-    public osmosis.lockup.Lock.LockQueryType getLockQueryType() {
+    @java.lang.Override public osmosis.lockup.Lock.LockQueryType getLockQueryType() {
       @SuppressWarnings("deprecation")
       osmosis.lockup.Lock.LockQueryType result = osmosis.lockup.Lock.LockQueryType.valueOf(lockQueryType_);
       return result == null ? osmosis.lockup.Lock.LockQueryType.UNRECOGNIZED : result;
@@ -1802,6 +1821,7 @@ public final class Lock {
      * <code>string denom = 2;</code>
      * @return The denom.
      */
+    @java.lang.Override
     public java.lang.String getDenom() {
       java.lang.Object ref = denom_;
       if (ref instanceof java.lang.String) {
@@ -1822,6 +1842,7 @@ public final class Lock {
      * <code>string denom = 2;</code>
      * @return The bytes for denom.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDenomBytes() {
       java.lang.Object ref = denom_;
@@ -1846,6 +1867,7 @@ public final class Lock {
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the duration field is set.
      */
+    @java.lang.Override
     public boolean hasDuration() {
       return duration_ != null;
     }
@@ -1857,6 +1879,7 @@ public final class Lock {
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The duration.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getDuration() {
       return duration_ == null ? com.google.protobuf.Duration.getDefaultInstance() : duration_;
     }
@@ -1867,6 +1890,7 @@ public final class Lock {
      *
      * <code>.google.protobuf.Duration duration = 3 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"duration&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getDurationOrBuilder() {
       return getDuration();
     }
@@ -1881,6 +1905,7 @@ public final class Lock {
      * <code>.google.protobuf.Timestamp timestamp = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the timestamp field is set.
      */
+    @java.lang.Override
     public boolean hasTimestamp() {
       return timestamp_ != null;
     }
@@ -1892,6 +1917,7 @@ public final class Lock {
      * <code>.google.protobuf.Timestamp timestamp = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The timestamp.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getTimestamp() {
       return timestamp_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : timestamp_;
     }
@@ -1902,6 +1928,7 @@ public final class Lock {
      *
      * <code>.google.protobuf.Timestamp timestamp = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"timestamp&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getTimestampOrBuilder() {
       return getTimestamp();
     }
@@ -2293,7 +2320,7 @@ public final class Lock {
        * <code>.osmosis.lockup.LockQueryType lock_query_type = 1;</code>
        * @return The enum numeric value on the wire for lockQueryType.
        */
-      public int getLockQueryTypeValue() {
+      @java.lang.Override public int getLockQueryTypeValue() {
         return lockQueryType_;
       }
       /**
@@ -2306,6 +2333,7 @@ public final class Lock {
        * @return This builder for chaining.
        */
       public Builder setLockQueryTypeValue(int value) {
+        
         lockQueryType_ = value;
         onChanged();
         return this;
@@ -2318,6 +2346,7 @@ public final class Lock {
        * <code>.osmosis.lockup.LockQueryType lock_query_type = 1;</code>
        * @return The lockQueryType.
        */
+      @java.lang.Override
       public osmosis.lockup.Lock.LockQueryType getLockQueryType() {
         @SuppressWarnings("deprecation")
         osmosis.lockup.Lock.LockQueryType result = osmosis.lockup.Lock.LockQueryType.valueOf(lockQueryType_);

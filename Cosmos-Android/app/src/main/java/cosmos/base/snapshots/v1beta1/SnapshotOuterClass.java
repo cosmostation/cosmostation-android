@@ -64,7 +64,7 @@ public final class SnapshotOuterClass {
    *
    * Protobuf type {@code cosmos.base.snapshots.v1beta1.Snapshot}
    */
-  public  static final class Snapshot extends
+  public static final class Snapshot extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.snapshots.v1beta1.Snapshot)
       SnapshotOrBuilder {
@@ -178,6 +178,7 @@ public final class SnapshotOuterClass {
      * <code>uint64 height = 1;</code>
      * @return The height.
      */
+    @java.lang.Override
     public long getHeight() {
       return height_;
     }
@@ -188,6 +189,7 @@ public final class SnapshotOuterClass {
      * <code>uint32 format = 2;</code>
      * @return The format.
      */
+    @java.lang.Override
     public int getFormat() {
       return format_;
     }
@@ -198,6 +200,7 @@ public final class SnapshotOuterClass {
      * <code>uint32 chunks = 3;</code>
      * @return The chunks.
      */
+    @java.lang.Override
     public int getChunks() {
       return chunks_;
     }
@@ -208,6 +211,7 @@ public final class SnapshotOuterClass {
      * <code>bytes hash = 4;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -218,6 +222,7 @@ public final class SnapshotOuterClass {
      * <code>.cosmos.base.snapshots.v1beta1.Metadata metadata = 5 [(.gogoproto.nullable) = false];</code>
      * @return Whether the metadata field is set.
      */
+    @java.lang.Override
     public boolean hasMetadata() {
       return metadata_ != null;
     }
@@ -225,12 +230,14 @@ public final class SnapshotOuterClass {
      * <code>.cosmos.base.snapshots.v1beta1.Metadata metadata = 5 [(.gogoproto.nullable) = false];</code>
      * @return The metadata.
      */
+    @java.lang.Override
     public cosmos.base.snapshots.v1beta1.SnapshotOuterClass.Metadata getMetadata() {
       return metadata_ == null ? cosmos.base.snapshots.v1beta1.SnapshotOuterClass.Metadata.getDefaultInstance() : metadata_;
     }
     /**
      * <code>.cosmos.base.snapshots.v1beta1.Metadata metadata = 5 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.base.snapshots.v1beta1.SnapshotOuterClass.MetadataOrBuilder getMetadataOrBuilder() {
       return getMetadata();
     }
@@ -628,6 +635,7 @@ public final class SnapshotOuterClass {
        * <code>uint64 height = 1;</code>
        * @return The height.
        */
+      @java.lang.Override
       public long getHeight() {
         return height_;
       }
@@ -658,6 +666,7 @@ public final class SnapshotOuterClass {
        * <code>uint32 format = 2;</code>
        * @return The format.
        */
+      @java.lang.Override
       public int getFormat() {
         return format_;
       }
@@ -688,6 +697,7 @@ public final class SnapshotOuterClass {
        * <code>uint32 chunks = 3;</code>
        * @return The chunks.
        */
+      @java.lang.Override
       public int getChunks() {
         return chunks_;
       }
@@ -718,6 +728,7 @@ public final class SnapshotOuterClass {
        * <code>bytes hash = 4;</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }
@@ -957,7 +968,7 @@ public final class SnapshotOuterClass {
    *
    * Protobuf type {@code cosmos.base.snapshots.v1beta1.Metadata}
    */
-  public  static final class Metadata extends
+  public static final class Metadata extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.base.snapshots.v1beta1.Metadata)
       MetadataOrBuilder {
@@ -1054,6 +1065,7 @@ public final class SnapshotOuterClass {
      * <code>repeated bytes chunk_hashes = 1;</code>
      * @return A list containing the chunkHashes.
      */
+    @java.lang.Override
     public java.util.List<com.google.protobuf.ByteString>
         getChunkHashesList() {
       return chunkHashes_;

@@ -37,7 +37,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.MsgUnjail}
    */
-  public  static final class MsgUnjail extends
+  public static final class MsgUnjail extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.MsgUnjail)
       MsgUnjailOrBuilder {
@@ -124,6 +124,7 @@ public final class Tx {
      * <code>string validator_addr = 1 [(.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The validatorAddr.
      */
+    @java.lang.Override
     public java.lang.String getValidatorAddr() {
       java.lang.Object ref = validatorAddr_;
       if (ref instanceof java.lang.String) {
@@ -140,6 +141,7 @@ public final class Tx {
      * <code>string validator_addr = 1 [(.gogoproto.jsontag) = "address", (.gogoproto.moretags) = "yaml:&#92;"address&#92;""];</code>
      * @return The bytes for validatorAddr.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getValidatorAddrBytes() {
       java.lang.Object ref = validatorAddr_;
@@ -599,7 +601,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.slashing.v1beta1.MsgUnjailResponse}
    */
-  public  static final class MsgUnjailResponse extends
+  public static final class MsgUnjailResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.slashing.v1beta1.MsgUnjailResponse)
       MsgUnjailResponseOrBuilder {

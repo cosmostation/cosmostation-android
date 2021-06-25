@@ -48,7 +48,7 @@ public final class QueryOuterClass {
   /**
    * Protobuf type {@code akash.cert.v1beta1.CertificateResponse}
    */
-  public  static final class CertificateResponse extends
+  public static final class CertificateResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.CertificateResponse)
       CertificateResponseOrBuilder {
@@ -148,6 +148,7 @@ public final class QueryOuterClass {
      * <code>.akash.cert.v1beta1.Certificate certificate = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificate", (.gogoproto.moretags) = "yaml:&#92;"certificate&#92;""];</code>
      * @return Whether the certificate field is set.
      */
+    @java.lang.Override
     public boolean hasCertificate() {
       return certificate_ != null;
     }
@@ -155,12 +156,14 @@ public final class QueryOuterClass {
      * <code>.akash.cert.v1beta1.Certificate certificate = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificate", (.gogoproto.moretags) = "yaml:&#92;"certificate&#92;""];</code>
      * @return The certificate.
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.Certificate getCertificate() {
       return certificate_ == null ? akash.cert.v1beta1.Cert.Certificate.getDefaultInstance() : certificate_;
     }
     /**
      * <code>.akash.cert.v1beta1.Certificate certificate = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "certificate", (.gogoproto.moretags) = "yaml:&#92;"certificate&#92;""];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.CertificateOrBuilder getCertificateOrBuilder() {
       return getCertificate();
     }
@@ -171,6 +174,7 @@ public final class QueryOuterClass {
      * <code>string serial = 2 [(.gogoproto.jsontag) = "serial", (.gogoproto.moretags) = "yaml:&#92;"serial&#92;""];</code>
      * @return The serial.
      */
+    @java.lang.Override
     public java.lang.String getSerial() {
       java.lang.Object ref = serial_;
       if (ref instanceof java.lang.String) {
@@ -187,6 +191,7 @@ public final class QueryOuterClass {
      * <code>string serial = 2 [(.gogoproto.jsontag) = "serial", (.gogoproto.moretags) = "yaml:&#92;"serial&#92;""];</code>
      * @return The bytes for serial.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSerialBytes() {
       java.lang.Object ref = serial_;
@@ -821,7 +826,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.cert.v1beta1.QueryCertificatesRequest}
    */
-  public  static final class QueryCertificatesRequest extends
+  public static final class QueryCertificatesRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.QueryCertificatesRequest)
       QueryCertificatesRequestOrBuilder {
@@ -927,6 +932,7 @@ public final class QueryOuterClass {
      * <code>.akash.cert.v1beta1.CertificateFilter filter = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the filter field is set.
      */
+    @java.lang.Override
     public boolean hasFilter() {
       return filter_ != null;
     }
@@ -934,12 +940,14 @@ public final class QueryOuterClass {
      * <code>.akash.cert.v1beta1.CertificateFilter filter = 1 [(.gogoproto.nullable) = false];</code>
      * @return The filter.
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.CertificateFilter getFilter() {
       return filter_ == null ? akash.cert.v1beta1.Cert.CertificateFilter.getDefaultInstance() : filter_;
     }
     /**
      * <code>.akash.cert.v1beta1.CertificateFilter filter = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.Cert.CertificateFilterOrBuilder getFilterOrBuilder() {
       return getFilter();
     }
@@ -950,6 +958,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -957,12 +966,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequest getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageRequest.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageRequest pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageRequestOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }
@@ -1656,7 +1667,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code akash.cert.v1beta1.QueryCertificatesResponse}
    */
-  public  static final class QueryCertificatesResponse extends
+  public static final class QueryCertificatesResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:akash.cert.v1beta1.QueryCertificatesResponse)
       QueryCertificatesResponseOrBuilder {
@@ -1762,12 +1773,14 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.cert.v1beta1.CertificateResponse certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CertificatesResponse"];</code>
      */
+    @java.lang.Override
     public java.util.List<akash.cert.v1beta1.QueryOuterClass.CertificateResponse> getCertificatesList() {
       return certificates_;
     }
     /**
      * <code>repeated .akash.cert.v1beta1.CertificateResponse certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CertificatesResponse"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends akash.cert.v1beta1.QueryOuterClass.CertificateResponseOrBuilder> 
         getCertificatesOrBuilderList() {
       return certificates_;
@@ -1775,18 +1788,21 @@ public final class QueryOuterClass {
     /**
      * <code>repeated .akash.cert.v1beta1.CertificateResponse certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CertificatesResponse"];</code>
      */
+    @java.lang.Override
     public int getCertificatesCount() {
       return certificates_.size();
     }
     /**
      * <code>repeated .akash.cert.v1beta1.CertificateResponse certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CertificatesResponse"];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.QueryOuterClass.CertificateResponse getCertificates(int index) {
       return certificates_.get(index);
     }
     /**
      * <code>repeated .akash.cert.v1beta1.CertificateResponse certificates = 1 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "CertificatesResponse"];</code>
      */
+    @java.lang.Override
     public akash.cert.v1beta1.QueryOuterClass.CertificateResponseOrBuilder getCertificatesOrBuilder(
         int index) {
       return certificates_.get(index);
@@ -1798,6 +1814,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return Whether the pagination field is set.
      */
+    @java.lang.Override
     public boolean hasPagination() {
       return pagination_ != null;
     }
@@ -1805,12 +1822,14 @@ public final class QueryOuterClass {
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      * @return The pagination.
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponse getPagination() {
       return pagination_ == null ? cosmos.base.query.v1beta1.Pagination.PageResponse.getDefaultInstance() : pagination_;
     }
     /**
      * <code>.cosmos.base.query.v1beta1.PageResponse pagination = 2;</code>
      */
+    @java.lang.Override
     public cosmos.base.query.v1beta1.Pagination.PageResponseOrBuilder getPaginationOrBuilder() {
       return getPagination();
     }

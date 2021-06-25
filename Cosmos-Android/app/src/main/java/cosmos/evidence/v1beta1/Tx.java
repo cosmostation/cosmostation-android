@@ -53,7 +53,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.MsgSubmitEvidence}
    */
-  public  static final class MsgSubmitEvidence extends
+  public static final class MsgSubmitEvidence extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.MsgSubmitEvidence)
       MsgSubmitEvidenceOrBuilder {
@@ -153,6 +153,7 @@ public final class Tx {
      * <code>string submitter = 1;</code>
      * @return The submitter.
      */
+    @java.lang.Override
     public java.lang.String getSubmitter() {
       java.lang.Object ref = submitter_;
       if (ref instanceof java.lang.String) {
@@ -169,6 +170,7 @@ public final class Tx {
      * <code>string submitter = 1;</code>
      * @return The bytes for submitter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSubmitterBytes() {
       java.lang.Object ref = submitter_;
@@ -189,6 +191,7 @@ public final class Tx {
      * <code>.google.protobuf2.Any evidence = 2 [(.cosmos_proto.accepts_interface) = "Evidence"];</code>
      * @return Whether the evidence field is set.
      */
+    @java.lang.Override
     public boolean hasEvidence() {
       return evidence_ != null;
     }
@@ -196,12 +199,14 @@ public final class Tx {
      * <code>.google.protobuf2.Any evidence = 2 [(.cosmos_proto.accepts_interface) = "Evidence"];</code>
      * @return The evidence.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getEvidence() {
       return evidence_ == null ? com.google.protobuf2.Any.getDefaultInstance() : evidence_;
     }
     /**
      * <code>.google.protobuf2.Any evidence = 2 [(.cosmos_proto.accepts_interface) = "Evidence"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getEvidenceOrBuilder() {
       return getEvidence();
     }
@@ -811,7 +816,7 @@ public final class Tx {
    *
    * Protobuf type {@code cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse}
    */
-  public  static final class MsgSubmitEvidenceResponse extends
+  public static final class MsgSubmitEvidenceResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.evidence.v1beta1.MsgSubmitEvidenceResponse)
       MsgSubmitEvidenceResponseOrBuilder {
@@ -901,6 +906,7 @@ public final class Tx {
      * <code>bytes hash = 4;</code>
      * @return The hash.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getHash() {
       return hash_;
     }
@@ -1220,6 +1226,7 @@ public final class Tx {
        * <code>bytes hash = 4;</code>
        * @return The hash.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getHash() {
         return hash_;
       }

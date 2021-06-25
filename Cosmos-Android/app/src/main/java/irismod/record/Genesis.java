@@ -49,7 +49,7 @@ public final class Genesis {
    *
    * Protobuf type {@code irismod.record.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.record.GenesisState)
       GenesisStateOrBuilder {
@@ -142,12 +142,14 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.record.Record records = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<irismod.record.RecordOuterClass.Record> getRecordsList() {
       return records_;
     }
     /**
      * <code>repeated .irismod.record.Record records = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends irismod.record.RecordOuterClass.RecordOrBuilder> 
         getRecordsOrBuilderList() {
       return records_;
@@ -155,18 +157,21 @@ public final class Genesis {
     /**
      * <code>repeated .irismod.record.Record records = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public int getRecordsCount() {
       return records_.size();
     }
     /**
      * <code>repeated .irismod.record.Record records = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.Record getRecords(int index) {
       return records_.get(index);
     }
     /**
      * <code>repeated .irismod.record.Record records = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public irismod.record.RecordOuterClass.RecordOrBuilder getRecordsOrBuilder(
         int index) {
       return records_.get(index);

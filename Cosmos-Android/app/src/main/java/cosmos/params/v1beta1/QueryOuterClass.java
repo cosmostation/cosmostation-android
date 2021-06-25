@@ -65,7 +65,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.params.v1beta1.QueryParamsRequest}
    */
-  public  static final class QueryParamsRequest extends
+  public static final class QueryParamsRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.QueryParamsRequest)
       QueryParamsRequestOrBuilder {
@@ -163,6 +163,7 @@ public final class QueryOuterClass {
      * <code>string subspace = 1;</code>
      * @return The subspace.
      */
+    @java.lang.Override
     public java.lang.String getSubspace() {
       java.lang.Object ref = subspace_;
       if (ref instanceof java.lang.String) {
@@ -183,6 +184,7 @@ public final class QueryOuterClass {
      * <code>string subspace = 1;</code>
      * @return The bytes for subspace.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getSubspaceBytes() {
       java.lang.Object ref = subspace_;
@@ -207,6 +209,7 @@ public final class QueryOuterClass {
      * <code>string key = 2;</code>
      * @return The key.
      */
+    @java.lang.Override
     public java.lang.String getKey() {
       java.lang.Object ref = key_;
       if (ref instanceof java.lang.String) {
@@ -227,6 +230,7 @@ public final class QueryOuterClass {
      * <code>string key = 2;</code>
      * @return The bytes for key.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getKeyBytes() {
       java.lang.Object ref = key_;
@@ -846,7 +850,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code cosmos.params.v1beta1.QueryParamsResponse}
    */
-  public  static final class QueryParamsResponse extends
+  public static final class QueryParamsResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.params.v1beta1.QueryParamsResponse)
       QueryParamsResponseOrBuilder {
@@ -943,6 +947,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.params.v1beta1.ParamChange param = 1 [(.gogoproto.nullable) = false];</code>
      * @return Whether the param field is set.
      */
+    @java.lang.Override
     public boolean hasParam() {
       return param_ != null;
     }
@@ -954,6 +959,7 @@ public final class QueryOuterClass {
      * <code>.cosmos.params.v1beta1.ParamChange param = 1 [(.gogoproto.nullable) = false];</code>
      * @return The param.
      */
+    @java.lang.Override
     public cosmos.params.v1beta1.Params.ParamChange getParam() {
       return param_ == null ? cosmos.params.v1beta1.Params.ParamChange.getDefaultInstance() : param_;
     }
@@ -964,6 +970,7 @@ public final class QueryOuterClass {
      *
      * <code>.cosmos.params.v1beta1.ParamChange param = 1 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public cosmos.params.v1beta1.Params.ParamChangeOrBuilder getParamOrBuilder() {
       return getParam();
     }

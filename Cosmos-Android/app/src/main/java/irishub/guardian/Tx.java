@@ -61,7 +61,7 @@ public final class Tx {
    *
    * Protobuf type {@code irishub.guardian.MsgAddSuper}
    */
-  public  static final class MsgAddSuper extends
+  public static final class MsgAddSuper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.MsgAddSuper)
       MsgAddSuperOrBuilder {
@@ -162,6 +162,7 @@ public final class Tx {
      * <code>string description = 1;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -178,6 +179,7 @@ public final class Tx {
      * <code>string description = 1;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -198,6 +200,7 @@ public final class Tx {
      * <code>string address = 2;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -214,6 +217,7 @@ public final class Tx {
      * <code>string address = 2;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -234,6 +238,7 @@ public final class Tx {
      * <code>string added_by = 3;</code>
      * @return The addedBy.
      */
+    @java.lang.Override
     public java.lang.String getAddedBy() {
       java.lang.Object ref = addedBy_;
       if (ref instanceof java.lang.String) {
@@ -250,6 +255,7 @@ public final class Tx {
      * <code>string added_by = 3;</code>
      * @return The bytes for addedBy.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddedByBytes() {
       java.lang.Object ref = addedBy_;
@@ -895,7 +901,7 @@ public final class Tx {
    *
    * Protobuf type {@code irishub.guardian.MsgAddSuperResponse}
    */
-  public  static final class MsgAddSuperResponse extends
+  public static final class MsgAddSuperResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.MsgAddSuperResponse)
       MsgAddSuperResponseOrBuilder {
@@ -1345,7 +1351,7 @@ public final class Tx {
    *
    * Protobuf type {@code irishub.guardian.MsgDeleteSuper}
    */
-  public  static final class MsgDeleteSuper extends
+  public static final class MsgDeleteSuper extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.MsgDeleteSuper)
       MsgDeleteSuperOrBuilder {
@@ -1439,6 +1445,7 @@ public final class Tx {
      * <code>string address = 2;</code>
      * @return The address.
      */
+    @java.lang.Override
     public java.lang.String getAddress() {
       java.lang.Object ref = address_;
       if (ref instanceof java.lang.String) {
@@ -1455,6 +1462,7 @@ public final class Tx {
      * <code>string address = 2;</code>
      * @return The bytes for address.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAddressBytes() {
       java.lang.Object ref = address_;
@@ -1475,6 +1483,7 @@ public final class Tx {
      * <code>string deleted_by = 3;</code>
      * @return The deletedBy.
      */
+    @java.lang.Override
     public java.lang.String getDeletedBy() {
       java.lang.Object ref = deletedBy_;
       if (ref instanceof java.lang.String) {
@@ -1491,6 +1500,7 @@ public final class Tx {
      * <code>string deleted_by = 3;</code>
      * @return The bytes for deletedBy.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDeletedByBytes() {
       java.lang.Object ref = deletedBy_;
@@ -2043,7 +2053,7 @@ public final class Tx {
    *
    * Protobuf type {@code irishub.guardian.MsgDeleteSuperResponse}
    */
-  public  static final class MsgDeleteSuperResponse extends
+  public static final class MsgDeleteSuperResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irishub.guardian.MsgDeleteSuperResponse)
       MsgDeleteSuperResponseOrBuilder {

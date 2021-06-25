@@ -141,6 +141,10 @@ public final class Connection {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -315,7 +319,7 @@ public final class Connection {
    *
    * Protobuf type {@code ibc.core.connection.v1.ConnectionEnd}
    */
-  public  static final class ConnectionEnd extends
+  public static final class ConnectionEnd extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.ConnectionEnd)
       ConnectionEndOrBuilder {
@@ -445,6 +449,7 @@ public final class Connection {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -465,6 +470,7 @@ public final class Connection {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -489,6 +495,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.connection.v1.Connection.Version> getVersionsList() {
       return versions_;
     }
@@ -500,6 +507,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 2;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.connection.v1.Connection.VersionOrBuilder> 
         getVersionsOrBuilderList() {
       return versions_;
@@ -512,6 +520,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 2;</code>
      */
+    @java.lang.Override
     public int getVersionsCount() {
       return versions_.size();
     }
@@ -523,6 +532,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 2;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.Version getVersions(int index) {
       return versions_.get(index);
     }
@@ -534,6 +544,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 2;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.VersionOrBuilder getVersionsOrBuilder(
         int index) {
       return versions_.get(index);
@@ -549,7 +560,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.State state = 3;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
@@ -560,7 +571,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.State state = 3;</code>
      * @return The state.
      */
-    public ibc.core.connection.v1.Connection.State getState() {
+    @java.lang.Override public ibc.core.connection.v1.Connection.State getState() {
       @SuppressWarnings("deprecation")
       ibc.core.connection.v1.Connection.State result = ibc.core.connection.v1.Connection.State.valueOf(state_);
       return result == null ? ibc.core.connection.v1.Connection.State.UNRECOGNIZED : result;
@@ -576,6 +587,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 4 [(.gogoproto.nullable) = false];</code>
      * @return Whether the counterparty field is set.
      */
+    @java.lang.Override
     public boolean hasCounterparty() {
       return counterparty_ != null;
     }
@@ -587,6 +599,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 4 [(.gogoproto.nullable) = false];</code>
      * @return The counterparty.
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.Counterparty getCounterparty() {
       return counterparty_ == null ? ibc.core.connection.v1.Connection.Counterparty.getDefaultInstance() : counterparty_;
     }
@@ -597,6 +610,7 @@ public final class Connection {
      *
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 4 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.CounterpartyOrBuilder getCounterpartyOrBuilder() {
       return getCounterparty();
     }
@@ -612,6 +626,7 @@ public final class Connection {
      * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
      * @return The delayPeriod.
      */
+    @java.lang.Override
     public long getDelayPeriod() {
       return delayPeriod_;
     }
@@ -1481,7 +1496,7 @@ public final class Connection {
        * <code>.ibc.core.connection.v1.State state = 3;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -1494,6 +1509,7 @@ public final class Connection {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -1506,6 +1522,7 @@ public final class Connection {
        * <code>.ibc.core.connection.v1.State state = 3;</code>
        * @return The state.
        */
+      @java.lang.Override
       public ibc.core.connection.v1.Connection.State getState() {
         @SuppressWarnings("deprecation")
         ibc.core.connection.v1.Connection.State result = ibc.core.connection.v1.Connection.State.valueOf(state_);
@@ -1709,6 +1726,7 @@ public final class Connection {
        * <code>uint64 delay_period = 5 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
        * @return The delayPeriod.
        */
+      @java.lang.Override
       public long getDelayPeriod() {
         return delayPeriod_;
       }
@@ -1953,7 +1971,7 @@ public final class Connection {
    *
    * Protobuf type {@code ibc.core.connection.v1.IdentifiedConnection}
    */
-  public  static final class IdentifiedConnection extends
+  public static final class IdentifiedConnection extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.IdentifiedConnection)
       IdentifiedConnectionOrBuilder {
@@ -2090,6 +2108,7 @@ public final class Connection {
      * <code>string id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The id.
      */
+    @java.lang.Override
     public java.lang.String getId() {
       java.lang.Object ref = id_;
       if (ref instanceof java.lang.String) {
@@ -2110,6 +2129,7 @@ public final class Connection {
      * <code>string id = 1 [(.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The bytes for id.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdBytes() {
       java.lang.Object ref = id_;
@@ -2134,6 +2154,7 @@ public final class Connection {
      * <code>string client_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -2154,6 +2175,7 @@ public final class Connection {
      * <code>string client_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -2178,6 +2200,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.core.connection.v1.Connection.Version> getVersionsList() {
       return versions_;
     }
@@ -2189,6 +2212,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 3;</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.core.connection.v1.Connection.VersionOrBuilder> 
         getVersionsOrBuilderList() {
       return versions_;
@@ -2201,6 +2225,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 3;</code>
      */
+    @java.lang.Override
     public int getVersionsCount() {
       return versions_.size();
     }
@@ -2212,6 +2237,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 3;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.Version getVersions(int index) {
       return versions_.get(index);
     }
@@ -2223,6 +2249,7 @@ public final class Connection {
      *
      * <code>repeated .ibc.core.connection.v1.Version versions = 3;</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.VersionOrBuilder getVersionsOrBuilder(
         int index) {
       return versions_.get(index);
@@ -2238,7 +2265,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.State state = 4;</code>
      * @return The enum numeric value on the wire for state.
      */
-    public int getStateValue() {
+    @java.lang.Override public int getStateValue() {
       return state_;
     }
     /**
@@ -2249,7 +2276,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.State state = 4;</code>
      * @return The state.
      */
-    public ibc.core.connection.v1.Connection.State getState() {
+    @java.lang.Override public ibc.core.connection.v1.Connection.State getState() {
       @SuppressWarnings("deprecation")
       ibc.core.connection.v1.Connection.State result = ibc.core.connection.v1.Connection.State.valueOf(state_);
       return result == null ? ibc.core.connection.v1.Connection.State.UNRECOGNIZED : result;
@@ -2265,6 +2292,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 5 [(.gogoproto.nullable) = false];</code>
      * @return Whether the counterparty field is set.
      */
+    @java.lang.Override
     public boolean hasCounterparty() {
       return counterparty_ != null;
     }
@@ -2276,6 +2304,7 @@ public final class Connection {
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 5 [(.gogoproto.nullable) = false];</code>
      * @return The counterparty.
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.Counterparty getCounterparty() {
       return counterparty_ == null ? ibc.core.connection.v1.Connection.Counterparty.getDefaultInstance() : counterparty_;
     }
@@ -2286,6 +2315,7 @@ public final class Connection {
      *
      * <code>.ibc.core.connection.v1.Counterparty counterparty = 5 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.connection.v1.Connection.CounterpartyOrBuilder getCounterpartyOrBuilder() {
       return getCounterparty();
     }
@@ -2300,6 +2330,7 @@ public final class Connection {
      * <code>uint64 delay_period = 6 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
      * @return The delayPeriod.
      */
+    @java.lang.Override
     public long getDelayPeriod() {
       return delayPeriod_;
     }
@@ -3280,7 +3311,7 @@ public final class Connection {
        * <code>.ibc.core.connection.v1.State state = 4;</code>
        * @return The enum numeric value on the wire for state.
        */
-      public int getStateValue() {
+      @java.lang.Override public int getStateValue() {
         return state_;
       }
       /**
@@ -3293,6 +3324,7 @@ public final class Connection {
        * @return This builder for chaining.
        */
       public Builder setStateValue(int value) {
+        
         state_ = value;
         onChanged();
         return this;
@@ -3305,6 +3337,7 @@ public final class Connection {
        * <code>.ibc.core.connection.v1.State state = 4;</code>
        * @return The state.
        */
+      @java.lang.Override
       public ibc.core.connection.v1.Connection.State getState() {
         @SuppressWarnings("deprecation")
         ibc.core.connection.v1.Connection.State result = ibc.core.connection.v1.Connection.State.valueOf(state_);
@@ -3507,6 +3540,7 @@ public final class Connection {
        * <code>uint64 delay_period = 6 [(.gogoproto.moretags) = "yaml:&#92;"delay_period&#92;""];</code>
        * @return The delayPeriod.
        */
+      @java.lang.Override
       public long getDelayPeriod() {
         return delayPeriod_;
       }
@@ -3674,7 +3708,7 @@ public final class Connection {
    *
    * Protobuf type {@code ibc.core.connection.v1.Counterparty}
    */
-  public  static final class Counterparty extends
+  public static final class Counterparty extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.Counterparty)
       CounterpartyOrBuilder {
@@ -3786,6 +3820,7 @@ public final class Connection {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -3807,6 +3842,7 @@ public final class Connection {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -3832,6 +3868,7 @@ public final class Connection {
      * <code>string connection_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"connection_id&#92;""];</code>
      * @return The connectionId.
      */
+    @java.lang.Override
     public java.lang.String getConnectionId() {
       java.lang.Object ref = connectionId_;
       if (ref instanceof java.lang.String) {
@@ -3853,6 +3890,7 @@ public final class Connection {
      * <code>string connection_id = 2 [(.gogoproto.moretags) = "yaml:&#92;"connection_id&#92;""];</code>
      * @return The bytes for connectionId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getConnectionIdBytes() {
       java.lang.Object ref = connectionId_;
@@ -3877,6 +3915,7 @@ public final class Connection {
      * <code>.ibc.core.commitment.v1.MerklePrefix prefix = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the prefix field is set.
      */
+    @java.lang.Override
     public boolean hasPrefix() {
       return prefix_ != null;
     }
@@ -3888,6 +3927,7 @@ public final class Connection {
      * <code>.ibc.core.commitment.v1.MerklePrefix prefix = 3 [(.gogoproto.nullable) = false];</code>
      * @return The prefix.
      */
+    @java.lang.Override
     public ibc.core.commitment.v1.Commitment.MerklePrefix getPrefix() {
       return prefix_ == null ? ibc.core.commitment.v1.Commitment.MerklePrefix.getDefaultInstance() : prefix_;
     }
@@ -3898,6 +3938,7 @@ public final class Connection {
      *
      * <code>.ibc.core.commitment.v1.MerklePrefix prefix = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.core.commitment.v1.Commitment.MerklePrefixOrBuilder getPrefixOrBuilder() {
       return getPrefix();
     }
@@ -4716,7 +4757,7 @@ public final class Connection {
    *
    * Protobuf type {@code ibc.core.connection.v1.ClientPaths}
    */
-  public  static final class ClientPaths extends
+  public static final class ClientPaths extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.ClientPaths)
       ClientPathsOrBuilder {
@@ -5450,7 +5491,7 @@ public final class Connection {
    *
    * Protobuf type {@code ibc.core.connection.v1.ConnectionPaths}
    */
-  public  static final class ConnectionPaths extends
+  public static final class ConnectionPaths extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.ConnectionPaths)
       ConnectionPathsOrBuilder {
@@ -5555,6 +5596,7 @@ public final class Connection {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The clientId.
      */
+    @java.lang.Override
     public java.lang.String getClientId() {
       java.lang.Object ref = clientId_;
       if (ref instanceof java.lang.String) {
@@ -5575,6 +5617,7 @@ public final class Connection {
      * <code>string client_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"client_id&#92;""];</code>
      * @return The bytes for clientId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getClientIdBytes() {
       java.lang.Object ref = clientId_;
@@ -6349,7 +6392,7 @@ public final class Connection {
    *
    * Protobuf type {@code ibc.core.connection.v1.Version}
    */
-  public  static final class Version extends
+  public static final class Version extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.core.connection.v1.Version)
       VersionOrBuilder {
@@ -6454,6 +6497,7 @@ public final class Connection {
      * <code>string identifier = 1;</code>
      * @return The identifier.
      */
+    @java.lang.Override
     public java.lang.String getIdentifier() {
       java.lang.Object ref = identifier_;
       if (ref instanceof java.lang.String) {
@@ -6474,6 +6518,7 @@ public final class Connection {
      * <code>string identifier = 1;</code>
      * @return The bytes for identifier.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getIdentifierBytes() {
       java.lang.Object ref = identifier_;

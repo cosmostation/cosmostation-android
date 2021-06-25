@@ -45,7 +45,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.htlc.QueryHTLCRequest}
    */
-  public  static final class QueryHTLCRequest extends
+  public static final class QueryHTLCRequest extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.QueryHTLCRequest)
       QueryHTLCRequestOrBuilder {
@@ -136,6 +136,7 @@ public final class QueryOuterClass {
      * <code>string hash_lock = 1;</code>
      * @return The hashLock.
      */
+    @java.lang.Override
     public java.lang.String getHashLock() {
       java.lang.Object ref = hashLock_;
       if (ref instanceof java.lang.String) {
@@ -156,6 +157,7 @@ public final class QueryOuterClass {
      * <code>string hash_lock = 1;</code>
      * @return The bytes for hashLock.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getHashLockBytes() {
       java.lang.Object ref = hashLock_;
@@ -650,7 +652,7 @@ public final class QueryOuterClass {
    *
    * Protobuf type {@code irismod.htlc.QueryHTLCResponse}
    */
-  public  static final class QueryHTLCResponse extends
+  public static final class QueryHTLCResponse extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:irismod.htlc.QueryHTLCResponse)
       QueryHTLCResponseOrBuilder {
@@ -743,6 +745,7 @@ public final class QueryOuterClass {
      * <code>.irismod.htlc.HTLC htlc = 1;</code>
      * @return Whether the htlc field is set.
      */
+    @java.lang.Override
     public boolean hasHtlc() {
       return htlc_ != null;
     }
@@ -750,12 +753,14 @@ public final class QueryOuterClass {
      * <code>.irismod.htlc.HTLC htlc = 1;</code>
      * @return The htlc.
      */
+    @java.lang.Override
     public irismod.htlc.Htlc.HTLC getHtlc() {
       return htlc_ == null ? irismod.htlc.Htlc.HTLC.getDefaultInstance() : htlc_;
     }
     /**
      * <code>.irismod.htlc.HTLC htlc = 1;</code>
      */
+    @java.lang.Override
     public irismod.htlc.Htlc.HTLCOrBuilder getHtlcOrBuilder() {
       return getHtlc();
     }

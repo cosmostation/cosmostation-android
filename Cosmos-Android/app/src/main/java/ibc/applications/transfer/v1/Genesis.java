@@ -76,7 +76,7 @@ public final class Genesis {
    *
    * Protobuf type {@code ibc.applications.transfer.v1.GenesisState}
    */
-  public  static final class GenesisState extends
+  public static final class GenesisState extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:ibc.applications.transfer.v1.GenesisState)
       GenesisStateOrBuilder {
@@ -190,6 +190,7 @@ public final class Genesis {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The portId.
      */
+    @java.lang.Override
     public java.lang.String getPortId() {
       java.lang.Object ref = portId_;
       if (ref instanceof java.lang.String) {
@@ -206,6 +207,7 @@ public final class Genesis {
      * <code>string port_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"port_id&#92;""];</code>
      * @return The bytes for portId.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getPortIdBytes() {
       java.lang.Object ref = portId_;
@@ -225,12 +227,14 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_traces&#92;"", (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public java.util.List<ibc.applications.transfer.v1.Transfer.DenomTrace> getDenomTracesList() {
       return denomTraces_;
     }
     /**
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_traces&#92;"", (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends ibc.applications.transfer.v1.Transfer.DenomTraceOrBuilder> 
         getDenomTracesOrBuilderList() {
       return denomTraces_;
@@ -238,18 +242,21 @@ public final class Genesis {
     /**
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_traces&#92;"", (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public int getDenomTracesCount() {
       return denomTraces_.size();
     }
     /**
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_traces&#92;"", (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.DenomTrace getDenomTraces(int index) {
       return denomTraces_.get(index);
     }
     /**
      * <code>repeated .ibc.applications.transfer.v1.DenomTrace denom_traces = 2 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"denom_traces&#92;"", (.gogoproto.castrepeated) = "Traces"];</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.DenomTraceOrBuilder getDenomTracesOrBuilder(
         int index) {
       return denomTraces_.get(index);
@@ -261,6 +268,7 @@ public final class Genesis {
      * <code>.ibc.applications.transfer.v1.Params params = 3 [(.gogoproto.nullable) = false];</code>
      * @return Whether the params field is set.
      */
+    @java.lang.Override
     public boolean hasParams() {
       return params_ != null;
     }
@@ -268,12 +276,14 @@ public final class Genesis {
      * <code>.ibc.applications.transfer.v1.Params params = 3 [(.gogoproto.nullable) = false];</code>
      * @return The params.
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.Params getParams() {
       return params_ == null ? ibc.applications.transfer.v1.Transfer.Params.getDefaultInstance() : params_;
     }
     /**
      * <code>.ibc.applications.transfer.v1.Params params = 3 [(.gogoproto.nullable) = false];</code>
      */
+    @java.lang.Override
     public ibc.applications.transfer.v1.Transfer.ParamsOrBuilder getParamsOrBuilder() {
       return getParams();
     }

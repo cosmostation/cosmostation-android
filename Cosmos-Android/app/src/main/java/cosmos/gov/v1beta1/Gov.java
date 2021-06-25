@@ -155,6 +155,10 @@ public final class Gov {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -357,6 +361,10 @@ public final class Gov {
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalStateException(
+            "Can't get the descriptor of an unrecognized enum value.");
+      }
       return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
@@ -427,7 +435,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.TextProposal}
    */
-  public  static final class TextProposal extends
+  public static final class TextProposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.TextProposal)
       TextProposalOrBuilder {
@@ -521,6 +529,7 @@ public final class Gov {
      * <code>string title = 1;</code>
      * @return The title.
      */
+    @java.lang.Override
     public java.lang.String getTitle() {
       java.lang.Object ref = title_;
       if (ref instanceof java.lang.String) {
@@ -537,6 +546,7 @@ public final class Gov {
      * <code>string title = 1;</code>
      * @return The bytes for title.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getTitleBytes() {
       java.lang.Object ref = title_;
@@ -557,6 +567,7 @@ public final class Gov {
      * <code>string description = 2;</code>
      * @return The description.
      */
+    @java.lang.Override
     public java.lang.String getDescription() {
       java.lang.Object ref = description_;
       if (ref instanceof java.lang.String) {
@@ -573,6 +584,7 @@ public final class Gov {
      * <code>string description = 2;</code>
      * @return The bytes for description.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDescriptionBytes() {
       java.lang.Object ref = description_;
@@ -1169,7 +1181,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.Deposit}
    */
-  public  static final class Deposit extends
+  public static final class Deposit extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.Deposit)
       DepositOrBuilder {
@@ -1275,6 +1287,7 @@ public final class Gov {
      * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -1285,6 +1298,7 @@ public final class Gov {
      * <code>string depositor = 2;</code>
      * @return The depositor.
      */
+    @java.lang.Override
     public java.lang.String getDepositor() {
       java.lang.Object ref = depositor_;
       if (ref instanceof java.lang.String) {
@@ -1301,6 +1315,7 @@ public final class Gov {
      * <code>string depositor = 2;</code>
      * @return The bytes for depositor.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getDepositorBytes() {
       java.lang.Object ref = depositor_;
@@ -1320,12 +1335,14 @@ public final class Gov {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getAmountList() {
       return amount_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getAmountOrBuilderList() {
       return amount_;
@@ -1333,18 +1350,21 @@ public final class Gov {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getAmountCount() {
       return amount_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getAmount(int index) {
       return amount_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin amount = 3 [(.gogoproto.nullable) = false, (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getAmountOrBuilder(
         int index) {
       return amount_.get(index);
@@ -1737,6 +1757,7 @@ public final class Gov {
        * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -2272,7 +2293,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.Proposal}
    */
-  public  static final class Proposal extends
+  public static final class Proposal extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.Proposal)
       ProposalOrBuilder {
@@ -2456,6 +2477,7 @@ public final class Gov {
      * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -2466,6 +2488,7 @@ public final class Gov {
      * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return Whether the content field is set.
      */
+    @java.lang.Override
     public boolean hasContent() {
       return content_ != null;
     }
@@ -2473,12 +2496,14 @@ public final class Gov {
      * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      * @return The content.
      */
+    @java.lang.Override
     public com.google.protobuf2.Any getContent() {
       return content_ == null ? com.google.protobuf2.Any.getDefaultInstance() : content_;
     }
     /**
      * <code>.google.protobuf2.Any content = 2 [(.cosmos_proto.accepts_interface) = "Content"];</code>
      */
+    @java.lang.Override
     public com.google.protobuf2.AnyOrBuilder getContentOrBuilder() {
       return getContent();
     }
@@ -2489,14 +2514,14 @@ public final class Gov {
      * <code>.cosmos.gov.v1beta1.ProposalStatus status = 3 [(.gogoproto.moretags) = "yaml:&#92;"proposal_status&#92;""];</code>
      * @return The enum numeric value on the wire for status.
      */
-    public int getStatusValue() {
+    @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
      * <code>.cosmos.gov.v1beta1.ProposalStatus status = 3 [(.gogoproto.moretags) = "yaml:&#92;"proposal_status&#92;""];</code>
      * @return The status.
      */
-    public cosmos.gov.v1beta1.Gov.ProposalStatus getStatus() {
+    @java.lang.Override public cosmos.gov.v1beta1.Gov.ProposalStatus getStatus() {
       @SuppressWarnings("deprecation")
       cosmos.gov.v1beta1.Gov.ProposalStatus result = cosmos.gov.v1beta1.Gov.ProposalStatus.valueOf(status_);
       return result == null ? cosmos.gov.v1beta1.Gov.ProposalStatus.UNRECOGNIZED : result;
@@ -2508,6 +2533,7 @@ public final class Gov {
      * <code>.cosmos.gov.v1beta1.TallyResult final_tally_result = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"final_tally_result&#92;""];</code>
      * @return Whether the finalTallyResult field is set.
      */
+    @java.lang.Override
     public boolean hasFinalTallyResult() {
       return finalTallyResult_ != null;
     }
@@ -2515,12 +2541,14 @@ public final class Gov {
      * <code>.cosmos.gov.v1beta1.TallyResult final_tally_result = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"final_tally_result&#92;""];</code>
      * @return The finalTallyResult.
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyResult getFinalTallyResult() {
       return finalTallyResult_ == null ? cosmos.gov.v1beta1.Gov.TallyResult.getDefaultInstance() : finalTallyResult_;
     }
     /**
      * <code>.cosmos.gov.v1beta1.TallyResult final_tally_result = 4 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"final_tally_result&#92;""];</code>
      */
+    @java.lang.Override
     public cosmos.gov.v1beta1.Gov.TallyResultOrBuilder getFinalTallyResultOrBuilder() {
       return getFinalTallyResult();
     }
@@ -2531,6 +2559,7 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp submit_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"submit_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the submitTime field is set.
      */
+    @java.lang.Override
     public boolean hasSubmitTime() {
       return submitTime_ != null;
     }
@@ -2538,12 +2567,14 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp submit_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"submit_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The submitTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getSubmitTime() {
       return submitTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : submitTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp submit_time = 5 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"submit_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getSubmitTimeOrBuilder() {
       return getSubmitTime();
     }
@@ -2554,6 +2585,7 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp deposit_end_time = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the depositEndTime field is set.
      */
+    @java.lang.Override
     public boolean hasDepositEndTime() {
       return depositEndTime_ != null;
     }
@@ -2561,12 +2593,14 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp deposit_end_time = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The depositEndTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getDepositEndTime() {
       return depositEndTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : depositEndTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp deposit_end_time = 6 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"deposit_end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getDepositEndTimeOrBuilder() {
       return getDepositEndTime();
     }
@@ -2576,12 +2610,14 @@ public final class Gov {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_deposit = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getTotalDepositList() {
       return totalDeposit_;
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_deposit = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getTotalDepositOrBuilderList() {
       return totalDeposit_;
@@ -2589,18 +2625,21 @@ public final class Gov {
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_deposit = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getTotalDepositCount() {
       return totalDeposit_.size();
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_deposit = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getTotalDeposit(int index) {
       return totalDeposit_.get(index);
     }
     /**
      * <code>repeated .cosmos.base.v1beta1.Coin total_deposit = 7 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"total_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getTotalDepositOrBuilder(
         int index) {
       return totalDeposit_.get(index);
@@ -2612,6 +2651,7 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp voting_start_time = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the votingStartTime field is set.
      */
+    @java.lang.Override
     public boolean hasVotingStartTime() {
       return votingStartTime_ != null;
     }
@@ -2619,12 +2659,14 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp voting_start_time = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The votingStartTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getVotingStartTime() {
       return votingStartTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : votingStartTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp voting_start_time = 8 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_start_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getVotingStartTimeOrBuilder() {
       return getVotingStartTime();
     }
@@ -2635,6 +2677,7 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp voting_end_time = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return Whether the votingEndTime field is set.
      */
+    @java.lang.Override
     public boolean hasVotingEndTime() {
       return votingEndTime_ != null;
     }
@@ -2642,12 +2685,14 @@ public final class Gov {
      * <code>.google.protobuf.Timestamp voting_end_time = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      * @return The votingEndTime.
      */
+    @java.lang.Override
     public com.google.protobuf.Timestamp getVotingEndTime() {
       return votingEndTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : votingEndTime_;
     }
     /**
      * <code>.google.protobuf.Timestamp voting_end_time = 9 [(.gogoproto.nullable) = false, (.gogoproto.moretags) = "yaml:&#92;"voting_end_time&#92;"", (.gogoproto.stdtime) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.TimestampOrBuilder getVotingEndTimeOrBuilder() {
       return getVotingEndTime();
     }
@@ -3217,6 +3262,7 @@ public final class Gov {
        * <code>uint64 proposal_id = 1 [(.gogoproto.jsontag) = "id", (.gogoproto.moretags) = "yaml:&#92;"id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -3366,7 +3412,7 @@ public final class Gov {
        * <code>.cosmos.gov.v1beta1.ProposalStatus status = 3 [(.gogoproto.moretags) = "yaml:&#92;"proposal_status&#92;""];</code>
        * @return The enum numeric value on the wire for status.
        */
-      public int getStatusValue() {
+      @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
@@ -3375,6 +3421,7 @@ public final class Gov {
        * @return This builder for chaining.
        */
       public Builder setStatusValue(int value) {
+        
         status_ = value;
         onChanged();
         return this;
@@ -3383,6 +3430,7 @@ public final class Gov {
        * <code>.cosmos.gov.v1beta1.ProposalStatus status = 3 [(.gogoproto.moretags) = "yaml:&#92;"proposal_status&#92;""];</code>
        * @return The status.
        */
+      @java.lang.Override
       public cosmos.gov.v1beta1.Gov.ProposalStatus getStatus() {
         @SuppressWarnings("deprecation")
         cosmos.gov.v1beta1.Gov.ProposalStatus result = cosmos.gov.v1beta1.Gov.ProposalStatus.valueOf(status_);
@@ -4359,7 +4407,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.TallyResult}
    */
-  public  static final class TallyResult extends
+  public static final class TallyResult extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.TallyResult)
       TallyResultOrBuilder {
@@ -4467,6 +4515,7 @@ public final class Gov {
      * <code>string yes = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The yes.
      */
+    @java.lang.Override
     public java.lang.String getYes() {
       java.lang.Object ref = yes_;
       if (ref instanceof java.lang.String) {
@@ -4483,6 +4532,7 @@ public final class Gov {
      * <code>string yes = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for yes.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getYesBytes() {
       java.lang.Object ref = yes_;
@@ -4503,6 +4553,7 @@ public final class Gov {
      * <code>string abstain = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The abstain.
      */
+    @java.lang.Override
     public java.lang.String getAbstain() {
       java.lang.Object ref = abstain_;
       if (ref instanceof java.lang.String) {
@@ -4519,6 +4570,7 @@ public final class Gov {
      * <code>string abstain = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for abstain.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getAbstainBytes() {
       java.lang.Object ref = abstain_;
@@ -4539,6 +4591,7 @@ public final class Gov {
      * <code>string no = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The no.
      */
+    @java.lang.Override
     public java.lang.String getNo() {
       java.lang.Object ref = no_;
       if (ref instanceof java.lang.String) {
@@ -4555,6 +4608,7 @@ public final class Gov {
      * <code>string no = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int"];</code>
      * @return The bytes for no.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNoBytes() {
       java.lang.Object ref = no_;
@@ -4575,6 +4629,7 @@ public final class Gov {
      * <code>string no_with_veto = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"no_with_veto&#92;""];</code>
      * @return The noWithVeto.
      */
+    @java.lang.Override
     public java.lang.String getNoWithVeto() {
       java.lang.Object ref = noWithVeto_;
       if (ref instanceof java.lang.String) {
@@ -4591,6 +4646,7 @@ public final class Gov {
      * <code>string no_with_veto = 4 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Int", (.gogoproto.moretags) = "yaml:&#92;"no_with_veto&#92;""];</code>
      * @return The bytes for noWithVeto.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getNoWithVetoBytes() {
       java.lang.Object ref = noWithVeto_;
@@ -5359,7 +5415,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.Vote}
    */
-  public  static final class Vote extends
+  public static final class Vote extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.Vote)
       VoteOrBuilder {
@@ -5458,6 +5514,7 @@ public final class Gov {
      * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
      * @return The proposalId.
      */
+    @java.lang.Override
     public long getProposalId() {
       return proposalId_;
     }
@@ -5468,6 +5525,7 @@ public final class Gov {
      * <code>string voter = 2;</code>
      * @return The voter.
      */
+    @java.lang.Override
     public java.lang.String getVoter() {
       java.lang.Object ref = voter_;
       if (ref instanceof java.lang.String) {
@@ -5484,6 +5542,7 @@ public final class Gov {
      * <code>string voter = 2;</code>
      * @return The bytes for voter.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString
         getVoterBytes() {
       java.lang.Object ref = voter_;
@@ -5504,14 +5563,14 @@ public final class Gov {
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
      * @return The enum numeric value on the wire for option.
      */
-    public int getOptionValue() {
+    @java.lang.Override public int getOptionValue() {
       return option_;
     }
     /**
      * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
      * @return The option.
      */
-    public cosmos.gov.v1beta1.Gov.VoteOption getOption() {
+    @java.lang.Override public cosmos.gov.v1beta1.Gov.VoteOption getOption() {
       @SuppressWarnings("deprecation")
       cosmos.gov.v1beta1.Gov.VoteOption result = cosmos.gov.v1beta1.Gov.VoteOption.valueOf(option_);
       return result == null ? cosmos.gov.v1beta1.Gov.VoteOption.UNRECOGNIZED : result;
@@ -5863,6 +5922,7 @@ public final class Gov {
        * <code>uint64 proposal_id = 1 [(.gogoproto.moretags) = "yaml:&#92;"proposal_id&#92;""];</code>
        * @return The proposalId.
        */
+      @java.lang.Override
       public long getProposalId() {
         return proposalId_;
       }
@@ -5969,7 +6029,7 @@ public final class Gov {
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
        * @return The enum numeric value on the wire for option.
        */
-      public int getOptionValue() {
+      @java.lang.Override public int getOptionValue() {
         return option_;
       }
       /**
@@ -5978,6 +6038,7 @@ public final class Gov {
        * @return This builder for chaining.
        */
       public Builder setOptionValue(int value) {
+        
         option_ = value;
         onChanged();
         return this;
@@ -5986,6 +6047,7 @@ public final class Gov {
        * <code>.cosmos.gov.v1beta1.VoteOption option = 3;</code>
        * @return The option.
        */
+      @java.lang.Override
       public cosmos.gov.v1beta1.Gov.VoteOption getOption() {
         @SuppressWarnings("deprecation")
         cosmos.gov.v1beta1.Gov.VoteOption result = cosmos.gov.v1beta1.Gov.VoteOption.valueOf(option_);
@@ -6153,7 +6215,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.DepositParams}
    */
-  public  static final class DepositParams extends
+  public static final class DepositParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.DepositParams)
       DepositParamsOrBuilder {
@@ -6263,6 +6325,7 @@ public final class Gov {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "min_deposit,omitempty", (.gogoproto.moretags) = "yaml:&#92;"min_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<cosmos.base.v1beta1.CoinOuterClass.Coin> getMinDepositList() {
       return minDeposit_;
     }
@@ -6273,6 +6336,7 @@ public final class Gov {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "min_deposit,omitempty", (.gogoproto.moretags) = "yaml:&#92;"min_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public java.util.List<? extends cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder> 
         getMinDepositOrBuilderList() {
       return minDeposit_;
@@ -6284,6 +6348,7 @@ public final class Gov {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "min_deposit,omitempty", (.gogoproto.moretags) = "yaml:&#92;"min_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public int getMinDepositCount() {
       return minDeposit_.size();
     }
@@ -6294,6 +6359,7 @@ public final class Gov {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "min_deposit,omitempty", (.gogoproto.moretags) = "yaml:&#92;"min_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.Coin getMinDeposit(int index) {
       return minDeposit_.get(index);
     }
@@ -6304,6 +6370,7 @@ public final class Gov {
      *
      * <code>repeated .cosmos.base.v1beta1.Coin min_deposit = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "min_deposit,omitempty", (.gogoproto.moretags) = "yaml:&#92;"min_deposit&#92;"", (.gogoproto.castrepeated) = "github.com/cosmos/cosmos-sdk/types.Coins"];</code>
      */
+    @java.lang.Override
     public cosmos.base.v1beta1.CoinOuterClass.CoinOrBuilder getMinDepositOrBuilder(
         int index) {
       return minDeposit_.get(index);
@@ -6320,6 +6387,7 @@ public final class Gov {
      * <code>.google.protobuf.Duration max_deposit_period = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "max_deposit_period,omitempty", (.gogoproto.moretags) = "yaml:&#92;"max_deposit_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the maxDepositPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasMaxDepositPeriod() {
       return maxDepositPeriod_ != null;
     }
@@ -6332,6 +6400,7 @@ public final class Gov {
      * <code>.google.protobuf.Duration max_deposit_period = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "max_deposit_period,omitempty", (.gogoproto.moretags) = "yaml:&#92;"max_deposit_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The maxDepositPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getMaxDepositPeriod() {
       return maxDepositPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : maxDepositPeriod_;
     }
@@ -6343,6 +6412,7 @@ public final class Gov {
      *
      * <code>.google.protobuf.Duration max_deposit_period = 2 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "max_deposit_period,omitempty", (.gogoproto.moretags) = "yaml:&#92;"max_deposit_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getMaxDepositPeriodOrBuilder() {
       return getMaxDepositPeriod();
     }
@@ -7289,7 +7359,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.VotingParams}
    */
-  public  static final class VotingParams extends
+  public static final class VotingParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.VotingParams)
       VotingParamsOrBuilder {
@@ -7386,6 +7456,7 @@ public final class Gov {
      * <code>.google.protobuf.Duration voting_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "voting_period,omitempty", (.gogoproto.moretags) = "yaml:&#92;"voting_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return Whether the votingPeriod field is set.
      */
+    @java.lang.Override
     public boolean hasVotingPeriod() {
       return votingPeriod_ != null;
     }
@@ -7397,6 +7468,7 @@ public final class Gov {
      * <code>.google.protobuf.Duration voting_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "voting_period,omitempty", (.gogoproto.moretags) = "yaml:&#92;"voting_period&#92;"", (.gogoproto.stdduration) = true];</code>
      * @return The votingPeriod.
      */
+    @java.lang.Override
     public com.google.protobuf.Duration getVotingPeriod() {
       return votingPeriod_ == null ? com.google.protobuf.Duration.getDefaultInstance() : votingPeriod_;
     }
@@ -7407,6 +7479,7 @@ public final class Gov {
      *
      * <code>.google.protobuf.Duration voting_period = 1 [(.gogoproto.nullable) = false, (.gogoproto.jsontag) = "voting_period,omitempty", (.gogoproto.moretags) = "yaml:&#92;"voting_period&#92;"", (.gogoproto.stdduration) = true];</code>
      */
+    @java.lang.Override
     public com.google.protobuf.DurationOrBuilder getVotingPeriodOrBuilder() {
       return getVotingPeriod();
     }
@@ -7980,7 +8053,7 @@ public final class Gov {
    *
    * Protobuf type {@code cosmos.gov.v1beta1.TallyParams}
    */
-  public  static final class TallyParams extends
+  public static final class TallyParams extends
       com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:cosmos.gov.v1beta1.TallyParams)
       TallyParamsOrBuilder {
@@ -8083,6 +8156,7 @@ public final class Gov {
      * <code>bytes quorum = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
      * @return The quorum.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getQuorum() {
       return quorum_;
     }
@@ -8097,6 +8171,7 @@ public final class Gov {
      * <code>bytes threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
      * @return The threshold.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getThreshold() {
       return threshold_;
     }
@@ -8112,6 +8187,7 @@ public final class Gov {
      * <code>bytes veto_threshold = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.gogoproto.moretags) = "yaml:&#92;"veto_threshold&#92;""];</code>
      * @return The vetoThreshold.
      */
+    @java.lang.Override
     public com.google.protobuf.ByteString getVetoThreshold() {
       return vetoThreshold_;
     }
@@ -8466,6 +8542,7 @@ public final class Gov {
        * <code>bytes quorum = 1 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "quorum,omitempty"];</code>
        * @return The quorum.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getQuorum() {
         return quorum_;
       }
@@ -8513,6 +8590,7 @@ public final class Gov {
        * <code>bytes threshold = 2 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "threshold,omitempty"];</code>
        * @return The threshold.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getThreshold() {
         return threshold_;
       }
@@ -8559,6 +8637,7 @@ public final class Gov {
        * <code>bytes veto_threshold = 3 [(.gogoproto.nullable) = false, (.gogoproto.customtype) = "github.com/cosmos/cosmos-sdk/types.Dec", (.gogoproto.jsontag) = "veto_threshold,omitempty", (.gogoproto.moretags) = "yaml:&#92;"veto_threshold&#92;""];</code>
        * @return The vetoThreshold.
        */
+      @java.lang.Override
       public com.google.protobuf.ByteString getVetoThreshold() {
         return vetoThreshold_;
       }
