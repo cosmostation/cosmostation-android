@@ -254,17 +254,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         
-        if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) {
-                if (oracle) {
-                    cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
-                } else {
-                    cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                    cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-                }
-                cell?.bandOracleImg.isHidden = false
-            }
-        }
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"
@@ -313,17 +302,6 @@ class VaildatorDetailViewController: BaseViewController, UITableViewDelegate, UI
             cell!.avergaeYield.textColor = UIColor.init(hexString: "f31963")
         }
         
-        if (chainType == ChainType.BAND_MAIN) {
-            if let oracle = BaseData.instance.mBandOracleStatus?.isEnable(mValidator!.operator_address) {
-                if (oracle) {
-                    cell?.bandOracleImg.image = UIImage(named: "bandoracleonl")
-                } else {
-                    cell?.bandOracleImg.image = UIImage(named: "bandoracleoffl")
-                    cell?.avergaeYield.textColor = UIColor.init(hexString: "f31963")
-                }
-                cell?.bandOracleImg.isHidden = false
-            }
-        }
         //temp hide apr for no mint param chain
         if (chainType == ChainType.SIF_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.ALTHEA_TEST) {
             cell!.avergaeYield.text = "--"

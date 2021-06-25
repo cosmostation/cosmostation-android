@@ -57,9 +57,7 @@ final class BaseData : NSObject{
     
     var mStarNameFee: IovStarNameFees.IovFee?
     var mStarNameConfig: IovStarNameConfig.IovConfig?
-    
-    var mBandOracleStatus: BandOracleStatus?
-    
+        
     var mSifVsIncentive: SifIncentive?
     var mSifLmIncentive: SifIncentive?
     

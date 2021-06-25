@@ -188,9 +188,7 @@ class MainTabViewController: UITabBarController, UITabBarControllerDelegate, SBC
         
         BaseData.instance.mStarNameFee = nil
         BaseData.instance.mStarNameConfig = nil
-        
-        BaseData.instance.mBandOracleStatus = nil
-        
+                
         BaseData.instance.mSifVsIncentive = nil
         BaseData.instance.mSifLmIncentive = nil
         

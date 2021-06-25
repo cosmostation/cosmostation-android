@@ -269,7 +269,6 @@
 		2868559C24989ACD0099D18F /* DelegateWarnPopup.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */; };
 		286855A02498DBBF0099D18F /* KavaSupply.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2868559F2498DBBF0099D18F /* KavaSupply.swift */; };
 		286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A47CE261D790500F29C5A /* RewardInfo.swift */; };
-		286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286A9914253ECA0600306417 /* BandOracleStatus.swift */; };
 		286AFF0E2660BC9100014355 /* TokenDetailSentinelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286AFF0C2660BC9100014355 /* TokenDetailSentinelCell.swift */; };
 		286AFF0F2660BC9100014355 /* TokenDetailSentinelCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 286AFF0D2660BC9100014355 /* TokenDetailSentinelCell.xib */; };
 		286EB38626035FB00021C79D /* TxCdpLiquidateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */; };
@@ -1157,7 +1156,6 @@
 		2868559A24989ACD0099D18F /* DelegateWarnPopup.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DelegateWarnPopup.xib; sourceTree = "<group>"; };
 		2868559F2498DBBF0099D18F /* KavaSupply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KavaSupply.swift; sourceTree = "<group>"; };
 		286A47CE261D790500F29C5A /* RewardInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RewardInfo.swift; sourceTree = "<group>"; };
-		286A9914253ECA0600306417 /* BandOracleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BandOracleStatus.swift; sourceTree = "<group>"; };
 		286AFF0C2660BC9100014355 /* TokenDetailSentinelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailSentinelCell.swift; sourceTree = "<group>"; };
 		286AFF0D2660BC9100014355 /* TokenDetailSentinelCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TokenDetailSentinelCell.xib; sourceTree = "<group>"; };
 		286EB38426035FB00021C79D /* TxCdpLiquidateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TxCdpLiquidateCell.swift; sourceTree = "<group>"; };
@@ -2890,7 +2888,6 @@
 				28BB2A9C2534171700CFF097 /* StarNameDomain.swift */,
 				28BB2A9F2534173200CFF097 /* StarNameAccount.swift */,
 				28BB2AA2253417CE00CFF097 /* StarNameResource.swift */,
-				286A9914253ECA0600306417 /* BandOracleStatus.swift */,
 				280524B7255CEEC7004D6172 /* ExportStarname.swift */,
 				28A8401E2605A3D8008C2D61 /* NodeInfo.swift */,
 				2852EAF826821084003A5E74 /* SifIncentive.swift */,
@@ -3352,7 +3349,6 @@
 				289EF82826824E4700F90AC1 /* osmosis_gamm_v1beta1_tx.grpc.swift in Sources */,
 				E1FEE45B225B1AEF0040FAFD /* MemoTextView.swift in Sources */,
 				287AC5D225FDF7250070837E /* akash_provider_v1beta1_provider.pb.swift in Sources */,
-				286A9915253ECA0600306417 /* BandOracleStatus.swift in Sources */,
 				2829CEA72627080C0048B52A /* WalletCrytoCell.swift in Sources */,
 				287AC5B925FDF7250070837E /* cosmos_base_tendermint_v1beta1_query.pb.swift in Sources */,
 				286A47CF261D790500F29C5A /* RewardInfo.swift in Sources */,
