@@ -3636,6 +3636,25 @@ class WUtils {
         return result
     }
     
+    static func checkStarnameWithResource(_ chainType: ChainType, _ response: Starnamed_X_Starname_V1beta1_QueryStarnameResponse) -> String? {
+        for resource in response.account.resources {
+            if (chainType == ChainType.COSMOS_MAIN && resource.uri == "asset:atom" && resource.resource.starts(with: "cosmos1")) {
+                return resource.resource
+            } else if (chainType == ChainType.IRIS_MAIN && resource.uri == "asset:iris" && resource.resource.starts(with: "iaa1")) {
+                return resource.resource
+            } else if (chainType == ChainType.BINANCE_MAIN && resource.uri == "asset:bnb" && resource.resource.starts(with: "bnb1")) {
+                return resource.resource
+            } else if (chainType == ChainType.KAVA_MAIN && resource.uri == "asset:kava" && resource.resource.starts(with: "kava1")) {
+                return resource.resource
+            } else if (chainType == ChainType.IOV_MAIN && resource.uri == "asset:iov" && resource.resource.starts(with: "star1")) {
+                return resource.resource
+            } else if (chainType == ChainType.BAND_MAIN && resource.uri == "asset:band" && resource.resource.starts(with: "band1")) {
+                return resource.resource
+            }
+        }
+        return nil
+    }
+    
     static func getChainTypeWithUri(_ uri: String?) -> ChainType? {
         if (uri == COSMOS) {
             return ChainType.COSMOS_MAIN
