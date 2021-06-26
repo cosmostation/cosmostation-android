@@ -15,8 +15,6 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     @IBOutlet weak var replaceResourceTableView: UITableView!
     
     var pageHolderVC: StepGenTxViewController!
-//    var mStarnameResources: Array<StarNameResource> = Array<StarNameResource>()
-//    var mStarnameResources_gRPC: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,9 +37,8 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func onInitData() {
-        print("pageHolderVC.mStarnameResources_gRPC ", pageHolderVC.mStarnameResources_gRPC.count)
+//        print("pageHolderVC.mStarnameResources_gRPC ", pageHolderVC.mStarnameResources_gRPC.count)
         if (pageHolderVC.mStarnameResources_gRPC.count == 0) {
-//            let initResource = StarNameResource.init(STARNAME, self.account!.account_address)
             let initResource = Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = STARNAME; $0.resource = self.account!.account_address }
             pageHolderVC.mStarnameResources_gRPC.append(initResource)
         }
@@ -124,7 +121,6 @@ class ReplaceResource0ViewController: BaseViewController, UITableViewDelegate, U
             }
         }
         
-//        let newResource = StarNameResource.init(chain, address)
         let newResource = Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = chain; $0.resource = address }
         if (already >= 0) {
             self.pageHolderVC.mStarnameResources_gRPC[already] = newResource

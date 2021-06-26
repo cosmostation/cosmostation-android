@@ -54,9 +54,6 @@ final class BaseData : NSObject{
     var mOkStaking: OkStaking?
     var mOkUnbonding: OkUnbonding?
     var mOKBPrice: NSDecimalNumber = NSDecimalNumber.zero
-    
-    var mStarNameFee: IovStarNameFees.IovFee?
-    var mStarNameConfig: IovStarNameConfig.IovConfig?
         
     var mSifVsIncentive: SifIncentive?
     var mSifLmIncentive: SifIncentive?

@@ -22,10 +22,6 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     var mMyDomain: String?
     var mMyAccount: String?
-    
-//    var mMyDomainInfo: IovStarNameDomainInfo?
-//    var mMyAccountResolve: IovStarNameResolve?
-    
     var mMyDomainInfo_gRPC: Starnamed_X_Starname_V1beta1_Domain?
     var mMyAccountResolve_gRPC: Starnamed_X_Starname_V1beta1_QueryStarnameResponse?
 
@@ -130,9 +126,9 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
         let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE, 0)
         let starnameFee = WUtils.getReplaceFee()
-        print("userAvailable ", userAvailable)
-        print("txFee ", txFee)
-        print("starnameFee ", starnameFee)
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
         
         if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))

@@ -57,7 +57,6 @@ class RegisterDomain0ViewController: BaseViewController {
     func onUpdateStarnameFee() {
         let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
         let domainType = typeSwitch.isOn ? "open" : "closed"
-//        let starnameFee = BaseData.instance.mStarNameFee!.getDomainFee(userInputData!, domainType)
         let starnameFee = WUtils.getStarNameRegisterDomainFee(userInputData!, domainType)
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
@@ -128,7 +127,7 @@ class RegisterDomain0ViewController: BaseViewController {
                     $0.name = domain
                 }
                 let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).domain(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
-                print("onFetchgRPCDomainInfo ", response)
+//                print("onFetchgRPCDomainInfo ", response)
                 DispatchQueue.main.async(execute: {
                     self.onShowToast(NSLocalizedString("error_already_registered_domain", comment: ""))
                     return

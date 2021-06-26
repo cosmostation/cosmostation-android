@@ -52,7 +52,6 @@ class RegisterAccount0ViewController: BaseViewController {
     }
     
     func onUpdateStarnameFee() {
-//        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
         let starnameFee = WUtils.getStarNameRegisterAccountFee("open")
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
@@ -95,32 +94,6 @@ class RegisterAccount0ViewController: BaseViewController {
         pageHolderVC.onNextPage()
     }
     
-//    func onFetchResolve(_ account: String, _ doamin: String) {
-//        self.showWaittingAlert()
-//        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
-//        request.responseJSON { (response) in
-//            switch response.result {
-//            case .success(let res):
-//                self.hideWaittingAlert()
-//                guard let info = res as? [String : Any] else {
-//                    self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
-//                    return
-//                }
-//                if (info["error"] == nil) {
-//                    self.onShowToast(NSLocalizedString("error_already_registered_account", comment: ""))
-//                    return
-//                } else {
-//                    self.onGoNextPage()
-//                }
-//
-//            case .failure(let error):
-//                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
-//                self.hideWaittingAlert()
-//                self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
-//            }
-//        }
-//    }
-    
     func onFetchgRPCResolve(_ account: String, _ doamin: String) {
         DispatchQueue.global().async {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
@@ -145,8 +118,6 @@ class RegisterAccount0ViewController: BaseViewController {
                     self.onGoNextPage()
                 });
             }
-
-            
         }
     }
 }

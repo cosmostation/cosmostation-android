@@ -21,10 +21,6 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
     @IBOutlet weak var myDomainEmptyView: UIView!
     
     var mMyDomain: String?
-    
-//    var mMyDomainInfo: IovStarNameDomainInfo?
-//    var mMyDomainResolve: IovStarNameResolve?
-    
     var mMyDomainInfo_gRPC: Starnamed_X_Starname_V1beta1_Domain?
     var mMyDomainResolve_gRPC: Starnamed_X_Starname_V1beta1_QueryStarnameResponse?
     
@@ -131,9 +127,9 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
         let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE, 0)
         let starnameFee = WUtils.getReplaceFee()
-        print("userAvailable ", userAvailable)
-        print("txFee ", txFee)
-        print("starnameFee ", starnameFee)
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
         
         if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))

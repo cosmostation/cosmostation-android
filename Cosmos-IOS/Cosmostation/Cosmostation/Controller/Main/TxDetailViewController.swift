@@ -849,33 +849,33 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindRegisterDomain(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
         let cell:TxRegisterDomainCell? = tableView.dequeueReusableCell(withIdentifier:"TxRegisterDomainCell") as? TxRegisterDomainCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        cell?.domainLabel.text = "*" + msg!.value.domain!
-        cell?.adminLabel.text = msg?.value.admin
-        cell?.domainTypeLabel.text = msg?.value.type
-        
-        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
-        if let starnameFee = BaseData.instance.mStarNameFee?.getDomainFee(msg!.value.domain!, msg!.value.type!) {
-            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
-        }
+//        let msg = mTxInfo?.getMsg(position - 1)
+//        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+//        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+//        cell?.domainLabel.text = "*" + msg!.value.domain!
+//        cell?.adminLabel.text = msg?.value.admin
+//        cell?.domainTypeLabel.text = msg?.value.type
+//
+//        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+//        if let starnameFee = BaseData.instance.mStarNameFee?.getDomainFee(msg!.value.domain!, msg!.value.type!) {
+//            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+//        }
         return cell!
     }
     
     func onBindRegisterAccount(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
         let cell:TxRegisterAccountCell? = tableView.dequeueReusableCell(withIdentifier:"TxRegisterAccountCell") as? TxRegisterAccountCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        cell?.accountLabel.text = msg!.value.name! + "*" + msg!.value.domain!
-        cell?.owenerLabel.text = msg?.value.owner
-        cell?.registerLabel.text = msg?.value.registerer
-        
-        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
-        if let starnameFee = BaseData.instance.mStarNameFee?.getAccountFee("open") {
-            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
-        }
+//        let msg = mTxInfo?.getMsg(position - 1)
+//        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+//        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+//        cell?.accountLabel.text = msg!.value.name! + "*" + msg!.value.domain!
+//        cell?.owenerLabel.text = msg?.value.owner
+//        cell?.registerLabel.text = msg?.value.registerer
+//
+//        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+//        if let starnameFee = BaseData.instance.mStarNameFee?.getAccountFee("open") {
+//            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+//        }
         return cell!
     }
     
@@ -901,32 +901,32 @@ class TxDetailViewController: BaseViewController, UITableViewDelegate, UITableVi
     
     func onBindReplaceResource(_ tableView: UITableView, _ position:Int) -> UITableViewCell {
         let cell:TxReplaceResourceCell? = tableView.dequeueReusableCell(withIdentifier:"TxReplaceResourceCell") as? TxReplaceResourceCell
-        let msg = mTxInfo?.getMsg(position - 1)
-        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
-        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
-        if let dpName = msg?.value.name {
-            cell?.starnameLabel.text = dpName + "*" + msg!.value.domain!
-        } else {
-            cell?.starnameLabel.text = "*" + msg!.value.domain!
-        }
-        
-        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
-        if let starnameFee = BaseData.instance.mStarNameFee?.getReplaceFee() {
-            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
-        }
-        
-        let resources = msg?.value.new_resources
-        if (resources == nil || resources?.count == 0) {
-            cell?.resourceCntLabel.text = "0"
-            cell?.resourceLabel.text = ""
-        } else {
-            cell?.resourceCntLabel.text = String(resources!.count)
-            var resourceString = ""
-            for resource in resources! {
-                resourceString.append(resource.uri + "\n" + resource.resource + "\n")
-            }
-            cell?.resourceLabel.text = resourceString
-        }
+//        let msg = mTxInfo?.getMsg(position - 1)
+//        cell?.txIcon.image = cell?.txIcon.image?.withRenderingMode(.alwaysTemplate)
+//        cell?.txIcon.tintColor = WUtils.getChainColor(chainType!)
+//        if let dpName = msg?.value.name {
+//            cell?.starnameLabel.text = dpName + "*" + msg!.value.domain!
+//        } else {
+//            cell?.starnameLabel.text = "*" + msg!.value.domain!
+//        }
+//        
+//        WUtils.showCoinDp(IOV_MAIN_DENOM, "0", cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+//        if let starnameFee = BaseData.instance.mStarNameFee?.getReplaceFee() {
+//            WUtils.showCoinDp(IOV_MAIN_DENOM, starnameFee.stringValue, cell!.starnameFeeDenomLabel, cell!.starnameFeeAmountLabel, chainType!)
+//        }
+//        
+//        let resources = msg?.value.new_resources
+//        if (resources == nil || resources?.count == 0) {
+//            cell?.resourceCntLabel.text = "0"
+//            cell?.resourceLabel.text = ""
+//        } else {
+//            cell?.resourceCntLabel.text = String(resources!.count)
+//            var resourceString = ""
+//            for resource in resources! {
+//                resourceString.append(resource.uri + "\n" + resource.resource + "\n")
+//            }
+//            cell?.resourceLabel.text = resourceString
+//        }
         return cell!
     }
     

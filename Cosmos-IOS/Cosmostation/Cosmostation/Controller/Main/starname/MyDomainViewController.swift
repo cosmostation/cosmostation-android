@@ -20,8 +20,6 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
     var refresher: UIRefreshControl!
     var mFetchCnt = 0
     
-//    var myDomains: Array<StarNameDomain> = Array<StarNameDomain>()
-//    var myDomainResolves: Array<IovStarNameResolve.NameAccount> = Array<IovStarNameResolve.NameAccount>()
     var myDomains_gRPC: Array<Starnamed_X_Starname_V1beta1_Domain> = Array<Starnamed_X_Starname_V1beta1_Domain>()
     var myDomainResolves_gRPC: Array<Starnamed_X_Starname_V1beta1_Account> = Array<Starnamed_X_Starname_V1beta1_Account>()
     
@@ -144,7 +142,7 @@ class MyDomainViewController: BaseViewController, UITableViewDelegate, UITableVi
                 response.domains.forEach { domain in
                     self.myDomains_gRPC.append(domain)
                 }
-                print("onFetchgRPCMyDomain myDomains_gRPC.count ", self.myDomains_gRPC.count)
+//                print("onFetchgRPCMyDomain myDomains_gRPC.count ", self.myDomains_gRPC.count)
                 
             } catch {
                 print("onFetchgRPCMyDomain failed: \(error)")

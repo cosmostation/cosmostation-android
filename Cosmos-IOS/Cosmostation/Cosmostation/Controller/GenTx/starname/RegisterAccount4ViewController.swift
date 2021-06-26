@@ -45,13 +45,11 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:RegistAccountCheckCell? = tableView.dequeueReusableCell(withIdentifier:"RegistAccountCheckCell") as? RegistAccountCheckCell
         
-//        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
         let starnameFee = WUtils.getStarNameRegisterAccountFee("open")
         cell?.feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, cell!.feeAmountLabel.font, 6, 6)
         cell?.starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, cell!.starnameFeeAmount.font, 6, 6)
         cell?.starnameLabel.text = pageHolderVC.mStarnameAccount! + "*iov"
         
-//        let extendTime = BaseData.instance.mStarNameConfig!.getRegisterDomainExpireTime()
         let extendTime = WUtils.getStarNameRegisterDomainExpireTime()
         cell?.expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
         cell?.memoLabel.text = pageHolderVC.mMemo
@@ -120,8 +118,7 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
                 return
             }
             let reqTx = Signer.genSignedRegisterAccountMsgTxgRPC(auth!,
-                                                                 "station",
-//                                                                 self.pageHolderVC.mStarnameDomain!,
+                                                                 self.pageHolderVC.mStarnameDomain!,
                                                                  self.pageHolderVC.mStarnameAccount!,
                                                                  self.pageHolderVC.mAccount!.account_address,
                                                                  self.pageHolderVC.mAccount!.account_address,

@@ -18,7 +18,6 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     
     var refresher: UIRefreshControl!
     
-//    var myAccounts: Array<StarNameAccount> = Array<StarNameAccount>()
     var myAccounts_gRPC: Array<Starnamed_X_Starname_V1beta1_Account> = Array<Starnamed_X_Starname_V1beta1_Account>()
     
     override func viewDidLoad() {
@@ -106,7 +105,7 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
     }
     
     func onFetchgRPCMyAccount(_ account:Account) {
-        print("onFetchgRPCMyAccount ", account.account_address)
+//        print("onFetchgRPCMyAccount ", account.account_address)
         DispatchQueue.global().async {
             let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
             defer { try! group.syncShutdownGracefully() }
@@ -129,7 +128,7 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
                         self.myAccounts_gRPC.append(rawAccount)
                     }
                 }
-                print("onFetchgRPCMyAccount myAccounts_gRPC ", self.myAccounts_gRPC.count)
+//                print("onFetchgRPCMyAccount myAccounts_gRPC ", self.myAccounts_gRPC.count)
                 
             } catch {
                 print("onFetchgRPCMyAccount failed: \(error)")

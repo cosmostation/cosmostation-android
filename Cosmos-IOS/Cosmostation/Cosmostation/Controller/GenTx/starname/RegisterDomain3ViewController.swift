@@ -42,12 +42,10 @@ class RegisterDomain3ViewController: BaseViewController, PasswordViewDelegate {
     }
     
     func onUpdateView() {
-//        let starnameFee = BaseData.instance.mStarNameFee!.getDomainFee(pageHolderVC.mStarnameDomain!, pageHolderVC.mStarnameDomainType!)
         let starnameFee = WUtils.getStarNameRegisterDomainFee(pageHolderVC.mStarnameDomain!, pageHolderVC.mStarnameDomainType!)
         feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, feeAmountLabel.font, 6, 6)
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
         
-//        let extendTime = BaseData.instance.mStarNameConfig!.getRegisterDomainExpireTime()
         let extendTime = WUtils.getStarNameRegisterDomainExpireTime()
         expireDate.text = WUtils.longTimetoString(input: Date().millisecondsSince1970 + extendTime)
         starnameLabel.text = "*" + pageHolderVC.mStarnameDomain!
