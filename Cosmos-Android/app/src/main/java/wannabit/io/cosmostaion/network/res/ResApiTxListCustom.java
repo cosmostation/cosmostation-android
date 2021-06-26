@@ -174,7 +174,7 @@ public class ResApiTxListCustom {
                     result = c.getString(R.string.tx_ibc_update_client);
 
                 } else if (msgType.contains("MsgTransfer")) {
-                    result = c.getString(R.string.tx_ibc_transfer);
+                    result = c.getString(R.string.tx_ibc_send);
 
                 }
 

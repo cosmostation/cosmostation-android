@@ -132,6 +132,11 @@ public class ResApiNewTxListCustom {
                     if (msgType0.contains("MsgWithdrawDelegatorReward") && msgType1.contains("MsgDelegate")) {
                         return c.getString(R.string.tx_reinvest);
                     }
+
+                    if (msgType1.contains("ibc") && msgType1.contains("MsgRecvPacket")) {
+                        return c.getString(R.string.tx_ibc_receive);
+                    }
+
                 }
                 String msgType = "";
                 try {
@@ -200,8 +205,12 @@ public class ResApiNewTxListCustom {
                     result = c.getString(R.string.tx_revoke_certificate);
                 } else if (msgType.contains("MsgUpdateClient")) {
                     result = c.getString(R.string.tx_ibc_update_client);
-                } else if (msgType.contains("MsgTransfer") || msgType.contains("ibc")) {
-                    result = c.getString(R.string.tx_ibc_transfer);
+                } else if (msgType.contains("ibc") && msgType.contains("MsgTransfer")) {
+                    result = c.getString(R.string.tx_ibc_send);
+                } else if (msgType.contains("ibc") && msgType.contains("MsgAcknowledgement")) {
+                    result = c.getString(R.string.tx_ibc_acknowledgement);
+                } else if (msgType.contains("ibc") && msgType.contains("MsgRecvPacket")) {
+                    result = c.getString(R.string.tx_ibc_receive);
                 } else if (msgType.contains("MsgMintNFT")) {
                     result = "NFT Mint";
                 } else if (msgType.contains("MsgTransferNFT")) {
@@ -214,7 +223,7 @@ public class ResApiNewTxListCustom {
                     result = "Random Request";
                 }
                 if (getMsgCnt() > 1) {
-                    result = result + "\n+ " + (getMsgCnt() - 1);
+                    result = result + " + " + (getMsgCnt() - 1);
                 }
                 return result;
             } catch (Exception e) {
