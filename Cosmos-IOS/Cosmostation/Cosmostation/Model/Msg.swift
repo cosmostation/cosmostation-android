@@ -146,8 +146,8 @@ public struct Msg: Codable {
         var broker: String?
         var fee_payer: String?
         var signer: String?
-        var new_resources: Array<StarNameResource>?
-        var resources: Array<StarNameResource>?
+//        var new_resources: Array<StarNameResource>?
+//        var resources: Array<StarNameResource>?
         
         
         enum CodingKeys: String, CodingKey {
@@ -215,8 +215,8 @@ public struct Msg: Codable {
             case broker
             case fee_payer
             case signer
-            case new_resources
-            case resources
+//            case new_resources
+//            case resources
         }
         
         public func getAmount() -> Coin? {
@@ -529,18 +529,18 @@ public struct Msg: Codable {
             if let signer =  dictionary["signer"] as? String {
                 self.signer = signer
             }
-            if let rawNewResources = dictionary["new_resources"] as? Array<NSDictionary> {
-                self.new_resources =  Array<StarNameResource>()
-                for rawNewResource in rawNewResources {
-                    self.new_resources?.append(StarNameResource(rawNewResource as! [String : Any]))
-                }
-            }
-            if let rawResources = dictionary["resources"] as? Array<NSDictionary> {
-                self.resources =  Array<StarNameResource>()
-                for rawResource in rawResources {
-                    self.resources?.append(StarNameResource(rawResource as! [String : Any]))
-                }
-            }
+//            if let rawNewResources = dictionary["new_resources"] as? Array<NSDictionary> {
+//                self.new_resources =  Array<StarNameResource>()
+//                for rawNewResource in rawNewResources {
+//                    self.new_resources?.append(StarNameResource(rawNewResource as! [String : Any]))
+//                }
+//            }
+//            if let rawResources = dictionary["resources"] as? Array<NSDictionary> {
+//                self.resources =  Array<StarNameResource>()
+//                for rawResource in rawResources {
+//                    self.resources?.append(StarNameResource(rawResource as! [String : Any]))
+//                }
+//            }
         }
         
     }

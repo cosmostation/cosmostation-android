@@ -42,7 +42,6 @@
 		280524B8255CEEC7004D6172 /* ExportStarname.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280524B7255CEEC7004D6172 /* ExportStarname.swift */; };
 		28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28060E7525427F2C00F13510 /* EventStakeDropCell.swift */; };
 		28060E7825427F2C00F13510 /* EventStakeDropCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28060E7625427F2C00F13510 /* EventStakeDropCell.xib */; };
-		28089AA424FF8FC4007E9C40 /* IovStarNameResolve.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28089AA324FF8FC4007E9C40 /* IovStarNameResolve.swift */; };
 		280E1EF8254A7AC80007BA7D /* DeleteStarname0ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */; };
 		280E1EF9254A7AC80007BA7D /* DeleteStarname0ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */; };
 		280E1EFD254A7AD60007BA7D /* DeleteStarname3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */; };
@@ -173,7 +172,6 @@
 		283E94822549331D007A9291 /* DomainDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283E94802549331D007A9291 /* DomainDetailViewController.xib */; };
 		283E94862549333B007A9291 /* AccountDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283E94842549333B007A9291 /* AccountDetailViewController.swift */; };
 		283E94872549333B007A9291 /* AccountDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283E94852549333B007A9291 /* AccountDetailViewController.xib */; };
-		283E948A2549434F007A9291 /* IovStarNameDomainInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283E94892549434F007A9291 /* IovStarNameDomainInfo.swift */; };
 		283E948F25494896007A9291 /* ResourceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283E948D25494896007A9291 /* ResourceCell.swift */; };
 		283E949025494896007A9291 /* ResourceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 283E948E25494896007A9291 /* ResourceCell.xib */; };
 		283F3ADA265E283800DF1D93 /* tokenswap_query.grpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 283F3ACC265E283400DF1D93 /* tokenswap_query.grpc.swift */; };
@@ -625,13 +623,6 @@
 		28BB2A8D2533DA1C00CFF097 /* DomainCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BB2A8B2533DA1C00CFF097 /* DomainCell.xib */; };
 		28BB2A912533DA2D00CFF097 /* AccountCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A8F2533DA2D00CFF097 /* AccountCell.swift */; };
 		28BB2A922533DA2D00CFF097 /* AccountCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BB2A902533DA2D00CFF097 /* AccountCell.xib */; };
-		28BB2A962533FA0B00CFF097 /* IovStarNameFees.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A952533FA0B00CFF097 /* IovStarNameFees.swift */; };
-		28BB2A992533FA2400CFF097 /* IovStarNameConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A982533FA2400CFF097 /* IovStarNameConfig.swift */; };
-		28BB2A9D2534171700CFF097 /* StarNameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A9C2534171700CFF097 /* StarNameDomain.swift */; };
-		28BB2AA02534173200CFF097 /* StarNameAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2A9F2534173200CFF097 /* StarNameAccount.swift */; };
-		28BB2AA3253417CE00CFF097 /* StarNameResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AA2253417CE00CFF097 /* StarNameResource.swift */; };
-		28BB2AA825341A4C00CFF097 /* IovStarNameAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AA725341A4C00CFF097 /* IovStarNameAccount.swift */; };
-		28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */; };
 		28BBAAC6264945890013A555 /* WalletOkAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */; };
 		28BBAAC7264945890013A555 /* WalletOkAddressCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */; };
 		28BBAACA264A2C1B0013A555 /* TokenDetailExCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */; };
@@ -941,7 +932,6 @@
 		280524B7255CEEC7004D6172 /* ExportStarname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportStarname.swift; sourceTree = "<group>"; };
 		28060E7525427F2C00F13510 /* EventStakeDropCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventStakeDropCell.swift; sourceTree = "<group>"; };
 		28060E7625427F2C00F13510 /* EventStakeDropCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EventStakeDropCell.xib; sourceTree = "<group>"; };
-		28089AA324FF8FC4007E9C40 /* IovStarNameResolve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameResolve.swift; sourceTree = "<group>"; };
 		280E1EF6254A7AC80007BA7D /* DeleteStarname0ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname0ViewController.swift; sourceTree = "<group>"; };
 		280E1EF7254A7AC80007BA7D /* DeleteStarname0ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DeleteStarname0ViewController.xib; sourceTree = "<group>"; };
 		280E1EFB254A7AD60007BA7D /* DeleteStarname3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteStarname3ViewController.swift; sourceTree = "<group>"; };
@@ -1080,7 +1070,6 @@
 		283E94802549331D007A9291 /* DomainDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainDetailViewController.xib; sourceTree = "<group>"; };
 		283E94842549333B007A9291 /* AccountDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountDetailViewController.swift; sourceTree = "<group>"; };
 		283E94852549333B007A9291 /* AccountDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountDetailViewController.xib; sourceTree = "<group>"; };
-		283E94892549434F007A9291 /* IovStarNameDomainInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameDomainInfo.swift; sourceTree = "<group>"; };
 		283E948D25494896007A9291 /* ResourceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceCell.swift; sourceTree = "<group>"; };
 		283E948E25494896007A9291 /* ResourceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ResourceCell.xib; sourceTree = "<group>"; };
 		283F3ACC265E283400DF1D93 /* tokenswap_query.grpc.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = tokenswap_query.grpc.swift; sourceTree = "<group>"; };
@@ -1536,13 +1525,6 @@
 		28BB2A8B2533DA1C00CFF097 /* DomainCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DomainCell.xib; sourceTree = "<group>"; };
 		28BB2A8F2533DA2D00CFF097 /* AccountCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountCell.swift; sourceTree = "<group>"; };
 		28BB2A902533DA2D00CFF097 /* AccountCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AccountCell.xib; sourceTree = "<group>"; };
-		28BB2A952533FA0B00CFF097 /* IovStarNameFees.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameFees.swift; sourceTree = "<group>"; };
-		28BB2A982533FA2400CFF097 /* IovStarNameConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameConfig.swift; sourceTree = "<group>"; };
-		28BB2A9C2534171700CFF097 /* StarNameDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameDomain.swift; sourceTree = "<group>"; };
-		28BB2A9F2534173200CFF097 /* StarNameAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameAccount.swift; sourceTree = "<group>"; };
-		28BB2AA2253417CE00CFF097 /* StarNameResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarNameResource.swift; sourceTree = "<group>"; };
-		28BB2AA725341A4C00CFF097 /* IovStarNameAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameAccount.swift; sourceTree = "<group>"; };
-		28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IovStarNameDomain.swift; sourceTree = "<group>"; };
 		28BBAAC4264945890013A555 /* WalletOkAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WalletOkAddressCell.swift; sourceTree = "<group>"; };
 		28BBAAC5264945890013A555 /* WalletOkAddressCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WalletOkAddressCell.xib; sourceTree = "<group>"; };
 		28BBAAC8264A2C1B0013A555 /* TokenDetailExCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenDetailExCell.swift; sourceTree = "<group>"; };
@@ -2939,15 +2921,6 @@
 				283D2EA924F56AEE00247424 /* OkStaking.swift */,
 				283D2EAB24F56AFF00247424 /* OkUnbonding.swift */,
 				28B4302924F76AD500BD7BB2 /* OkTransfer.swift */,
-				28089AA324FF8FC4007E9C40 /* IovStarNameResolve.swift */,
-				28BB2A952533FA0B00CFF097 /* IovStarNameFees.swift */,
-				28BB2A982533FA2400CFF097 /* IovStarNameConfig.swift */,
-				28BB2AAA25341A6E00CFF097 /* IovStarNameDomain.swift */,
-				28BB2AA725341A4C00CFF097 /* IovStarNameAccount.swift */,
-				283E94892549434F007A9291 /* IovStarNameDomainInfo.swift */,
-				28BB2A9C2534171700CFF097 /* StarNameDomain.swift */,
-				28BB2A9F2534173200CFF097 /* StarNameAccount.swift */,
-				28BB2AA2253417CE00CFF097 /* StarNameResource.swift */,
 				280524B7255CEEC7004D6172 /* ExportStarname.swift */,
 				28A8401E2605A3D8008C2D61 /* NodeInfo.swift */,
 				2852EAF826821084003A5E74 /* SifIncentive.swift */,
@@ -3386,7 +3359,6 @@
 				E1406FC422607B8500D9440C /* LoadingImageView.swift in Sources */,
 				289EF82E26824E4700F90AC1 /* osmosis_lockup_tx.pb.swift in Sources */,
 				0497586A2685AA0E0039872C /* cosmwasm_wasm_v1beta1_query.grpc.swift in Sources */,
-				28BB2AA825341A4C00CFF097 /* IovStarNameAccount.swift in Sources */,
 				E19A321E22547DF400A05E41 /* SBCardPopupViewController.swift in Sources */,
 				28D7BE6C25F0FD4F006EECD7 /* KavaHardMyBorrow.swift in Sources */,
 				280E1F2A254AD3A80007BA7D /* ResourceChainCell.swift in Sources */,
@@ -3561,7 +3533,6 @@
 				283E9468254902D4007A9291 /* TxRegisterAccountCell.swift in Sources */,
 				E1E251DF22A66FC30008F0DB /* OtherValidatorCell.swift in Sources */,
 				285A33D12446CDAB0052BD3D /* StepHtlcSend2ViewController.swift in Sources */,
-				28BB2A992533FA2400CFF097 /* IovStarNameConfig.swift in Sources */,
 				284FF3C225A6C13E00505E7A /* OkAccountInfo.swift in Sources */,
 				2845D884246FAEED007CD497 /* VoteTallyTableViewCell.swift in Sources */,
 				284B0F02247D5FD800B5A2D0 /* StepUSDXMintingIncentive0ViewController.swift in Sources */,
@@ -3647,7 +3618,6 @@
 				28A209DF248897F400C2C078 /* TokenDetailVestingDetailCell.swift in Sources */,
 				28DB570B25FA3BC900B2F0E5 /* HardPoolBorrow3ViewController.swift in Sources */,
 				2877013A25F78E4500E9663F /* CdpDeposit.swift in Sources */,
-				283E948A2549434F007A9291 /* IovStarNameDomainInfo.swift in Sources */,
 				286AFF0E2660BC9100014355 /* TokenDetailSentinelCell.swift in Sources */,
 				28474ED2241E06AF00AF5A81 /* TxPostPriceCell.swift in Sources */,
 				282BDFE624A5BCCB00D3A5D4 /* WcCancelPopup.swift in Sources */,
@@ -3689,7 +3659,6 @@
 				287AC58325FDF7250070837E /* nft_query.grpc.swift in Sources */,
 				287AC5B725FDF7250070837E /* oracle_query.grpc.swift in Sources */,
 				28B4303924F7996C00BD7BB2 /* TxOkStakeCell.swift in Sources */,
-				28BB2AAB25341A6E00CFF097 /* IovStarNameDomain.swift in Sources */,
 				282BDFE224A5992500D3A5D4 /* WcTradePopup.swift in Sources */,
 				28D7BE0A25F0BCF0006EECD7 /* DebtParam.swift in Sources */,
 				28D7BE1025F0CE61006EECD7 /* MyCdp.swift in Sources */,
@@ -3786,7 +3755,6 @@
 				28617A7F24329433006D66EA /* StepDepositCdpAmountViewController.swift in Sources */,
 				28D7BE0425F0BBC1006EECD7 /* CdpParam.swift in Sources */,
 				283E945E254901E7007A9291 /* RegisterDomain3ViewController.swift in Sources */,
-				28089AA424FF8FC4007E9C40 /* IovStarNameResolve.swift in Sources */,
 				E10492132347B41000A2980F /* WalletConnectViewController.swift in Sources */,
 				28E3E374266DD72900BA89C2 /* HdacUtxo.swift in Sources */,
 				287AC5B125FDF7250070837E /* ibc_applications_transfer_v1_tx.pb.swift in Sources */,
@@ -3892,7 +3860,6 @@
 				28CAAB6C25AC414A00416AA5 /* OkHistory.swift in Sources */,
 				287AC64A25FDF7260070837E /* akash_market_v1beta1_query.pb.swift in Sources */,
 				28BB2A872533DA0B00CFF097 /* AccountPromotionCell.swift in Sources */,
-				28BB2AA02534173200CFF097 /* StarNameAccount.swift in Sources */,
 				E16D9B1D2248E6A60019B7BB /* WKey.swift in Sources */,
 				287AC5CA25FDF7250070837E /* cosmos_staking_v1beta1_query.pb.swift in Sources */,
 				287AC65F25FDF7260070837E /* token_query.grpc.swift in Sources */,
@@ -3957,7 +3924,6 @@
 				E191A5812379091A002577BC /* TokenDetailKavaCell.swift in Sources */,
 				287AC5C525FDF7250070837E /* htlc_genesis.pb.swift in Sources */,
 				287AC59025FDF7250070837E /* ibc_applications_transfer_v1_genesis.pb.swift in Sources */,
-				28BB2A9D2534171700CFF097 /* StarNameDomain.swift in Sources */,
 				289EF82426824E4700F90AC1 /* osmosis_incentives_params.pb.swift in Sources */,
 				E123FD3F233E0161004EC348 /* MainTabWalletViewController.swift in Sources */,
 				28060E7725427F2C00F13510 /* EventStakeDropCell.swift in Sources */,
@@ -4005,7 +3971,6 @@
 				E1945E3E222E7E2900A1436F /* SegwitAddrCoder.swift in Sources */,
 				E1827E1B225628FF00BC0350 /* ValidatorDetailMyDetailCell.swift in Sources */,
 				28D7BE5D25F0FC11006EECD7 /* KavaHardTotalBorrow.swift in Sources */,
-				28BB2A962533FA0B00CFF097 /* IovStarNameFees.swift in Sources */,
 				287AC62125FDF7260070837E /* cosmos_vesting_v1beta1_tx.pb.swift in Sources */,
 				E14FDC842373C52C00095C06 /* KavaAccountInfo.swift in Sources */,
 				285A33EA24486DB60052BD3D /* HtlcResultClaimCell.swift in Sources */,
@@ -4026,7 +3991,6 @@
 				049758812685AA270039872C /* iov_configuration_v1beta1_types.pb.swift in Sources */,
 				287AC5D825FDF7260070837E /* cosmos_mint_v1beta1_query.pb.swift in Sources */,
 				E13696592292499400F3D5E2 /* OtherValidatorViewController.swift in Sources */,
-				28BB2AA3253417CE00CFF097 /* StarNameResource.swift in Sources */,
 				287AC5F125FDF7260070837E /* akash_deployment_v1beta1_query.pb.swift in Sources */,
 				28B4304424F8B34100BD7BB2 /* OkValidatorListViewController.swift in Sources */,
 				2888B802246CE35D00B2EB4A /* StepHtlcRefund0ViewController.swift in Sources */,

@@ -552,20 +552,20 @@ class MsgGenerator {
         return msg
     }
     
-    static func genRegisterAccountMsg(_ domain: String, _ name: String, _ owner: String?, _ registerer: String?, _ resources: Array<StarNameResource>, _ chain: ChainType) -> Msg {
-        var msg = Msg.init()
-        var value = Msg.Value.init()
-        value.domain = domain
-        value.name = name
-        value.owner = owner
-        value.registerer = registerer
-        value.resources = resources
-        value.broker = ""
-        value.fee_payer = ""
-        msg.type = IOV_MSG_TYPE_REGISTER_ACCOUNT
-        msg.value = value
-        return msg
-    }
+//    static func genRegisterAccountMsg(_ domain: String, _ name: String, _ owner: String?, _ registerer: String?, _ resources: Array<StarNameResource>, _ chain: ChainType) -> Msg {
+//        var msg = Msg.init()
+//        var value = Msg.Value.init()
+//        value.domain = domain
+//        value.name = name
+//        value.owner = owner
+//        value.registerer = registerer
+//        value.resources = resources
+//        value.broker = ""
+//        value.fee_payer = ""
+//        msg.type = IOV_MSG_TYPE_REGISTER_ACCOUNT
+//        msg.value = value
+//        return msg
+//    }
     
     static func genDeleteStarnameMsg(_ type: String, _ domain: String, _ name: String?, _ owner: String, _ chain: ChainType) -> Msg {
         var msg = Msg.init()
@@ -601,22 +601,22 @@ class MsgGenerator {
         return msg
     }
     
-    static func genReplaceStarnameMsg(_ domain: String, _ name: String?, _ owner: String, _ resources: Array<StarNameResource>, _ chain: ChainType) -> Msg {
-        var msg = Msg.init()
-        var value = Msg.Value.init()
-        if (name != nil) {
-            value.name = name
-        } else {
-            value.name = ""
-        }
-        value.domain = domain
-        value.owner = owner;
-        value.new_resources = resources;
-        value.fee_payer = ""
-        msg.type = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE;
-        msg.value = value;
-        return msg
-    }
+//    static func genReplaceStarnameMsg(_ domain: String, _ name: String?, _ owner: String, _ resources: Array<StarNameResource>, _ chain: ChainType) -> Msg {
+//        var msg = Msg.init()
+//        var value = Msg.Value.init()
+//        if (name != nil) {
+//            value.name = name
+//        } else {
+//            value.name = ""
+//        }
+//        value.domain = domain
+//        value.owner = owner;
+//        value.new_resources = resources;
+//        value.fee_payer = ""
+//        msg.type = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE;
+//        msg.value = value;
+//        return msg
+//    }
     
     
     static func genSignedTx(_ msgs: Array<Msg>, _ fee: Fee, _ memo: String, _ signatures: Array<Signature>) -> StdTx {
