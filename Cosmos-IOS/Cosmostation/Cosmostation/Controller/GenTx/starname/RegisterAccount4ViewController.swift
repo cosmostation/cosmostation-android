@@ -120,8 +120,8 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
                 return
             }
             let reqTx = Signer.genSignedRegisterAccountMsgTxgRPC(auth!,
-//                                                                 "station",
-                                                                 self.pageHolderVC.mStarnameDomain!,
+                                                                 "station",
+//                                                                 self.pageHolderVC.mStarnameDomain!,
                                                                  self.pageHolderVC.mStarnameAccount!,
                                                                  self.pageHolderVC.mAccount!.account_address,
                                                                  self.pageHolderVC.mAccount!.account_address,

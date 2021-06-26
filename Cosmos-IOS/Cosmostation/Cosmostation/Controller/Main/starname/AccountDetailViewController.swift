@@ -77,22 +77,21 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-//        let needFee = NSDecimalNumber.init(string: "150000")
-//        if (chainType == ChainType.IOV_MAIN) {
-//            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-//                return
-//            }
-//        } else if (chainType == ChainType.IOV_TEST) {
-//            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-//                return
-//            }
-//        } else {
-//            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
-//            return
-//        }
-//
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_DELETE_DOMAIN, 0)
+        if (userAvailable.compare(txFee).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameAccount = mMyAccount
+        txVC.mStarnameTime = mMyAccountResolve_gRPC!.account.validUntil
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
+        
 //        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
 //        txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
 //        txVC.mStarnameDomain = mMyDomain
