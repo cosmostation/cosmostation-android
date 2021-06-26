@@ -58,7 +58,7 @@ class RegisterDomain0ViewController: BaseViewController {
         let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
         let domainType = typeSwitch.isOn ? "open" : "closed"
 //        let starnameFee = BaseData.instance.mStarNameFee!.getDomainFee(userInputData!, domainType)
-        let starnameFee = WUtils.getStarNameDomainFee(userInputData!, domainType)
+        let starnameFee = WUtils.getStarNameRegisterDomainFee(userInputData!, domainType)
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
     
@@ -92,7 +92,7 @@ class RegisterDomain0ViewController: BaseViewController {
         
         let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
         let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REGISTER_DOMAIN, 0)
-        let starnameFee = WUtils.getStarNameDomainFee(userInputData!, domainType)
+        let starnameFee = WUtils.getStarNameRegisterDomainFee(userInputData!, domainType)
 //        print("userAvailable ", userAvailable)
 //        print("txFee ", txFee)
 //        print("starnameFee ", starnameFee)

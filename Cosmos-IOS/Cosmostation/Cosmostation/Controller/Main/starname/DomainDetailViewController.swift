@@ -67,7 +67,6 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
         cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
         cell?.chainName.text = WUtils.getStarNameChainName2(resource)
         cell?.chainAddress.text = resource?.resource
-        
         return cell!
     }
 
@@ -101,6 +100,26 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             self.onShowAddMenomicDialog()
             return
         }
+        
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_RENEW_DOMAIN, 0)
+        let starnameFee = WUtils.getStarNameRenewDomainFee(mMyDomain!, mMyDomainInfo_gRPC!.type)
+        print("type ", mMyDomainInfo_gRPC!.type)
+        print("userAvailable ", userAvailable)
+        print("txFee ", txFee)
+        print("starnameFee ", starnameFee)
+        if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_RENEW_DOMAIN
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameTime = mMyDomainInfo_gRPC?.validUntil
+        txVC.mStarnameDomainType = mMyDomainInfo_gRPC?.type
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
         
 //        let needFee = BaseData.instance.mStarNameFee!.getDomainRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "300000"))
 //        if (chainType == ChainType.IOV_MAIN) {

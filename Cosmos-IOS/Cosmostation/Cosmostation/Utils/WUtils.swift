@@ -3472,7 +3472,7 @@ class WUtils {
         return starNamePred.evaluate(with: starname)
     }
     
-    static public func getStarNameDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
+    static public func getStarNameRegisterDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
         let starNameFee = BaseData.instance.mStarNameFee_gRPC
         if (starNameFee == nil) { return NSDecimalNumber.zero }
         
@@ -3493,7 +3493,7 @@ class WUtils {
         return feeResult
     }
     
-    static public func getStarNameAccountFee(_ type: String) -> NSDecimalNumber {
+    static public func getStarNameRegisterAccountFee(_ type: String) -> NSDecimalNumber {
         let starNameFee = BaseData.instance.mStarNameFee_gRPC
         if (starNameFee == nil) { return NSDecimalNumber.zero }
         if (type == "open") {
@@ -3501,6 +3501,43 @@ class WUtils {
         } else {
             return NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
         }
+    }
+    
+    static public func getStarNameRenewDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        if (type == "open") {
+            return NSDecimalNumber.init(string: starNameFee?.renewDomainOpen).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            let registerFee = getStarNameRegisterDomainFee(domain, "closed")
+            let addtionalFee = NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+            return registerFee.adding(addtionalFee)
+        }
+    }
+    
+    static public func getStarNameRenewAccountFee(_ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        if (type == "open") {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountOpen).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        }
+    }
+    
+    static public func getRenewPeriod(_ type: String) -> Int64 {
+        let starNameConfig = BaseData.instance.mStarNameConfig_gRPC
+        if (type == IOV_MSG_TYPE_RENEW_DOMAIN) {
+            if let seconds = starNameConfig?.domainRenewalPeriod.seconds {
+                return seconds * 1000
+            }
+            
+        } else if (type == IOV_MSG_TYPE_RENEW_ACCOUNT) {
+            if let seconds = starNameConfig?.accountRenewalPeriod.seconds {
+                return seconds * 1000
+            }
+        }
+        return 0
     }
     
     static func getStarNameRegisterDomainExpireTime() -> Int64 {

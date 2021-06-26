@@ -46,7 +46,7 @@ class RegisterAccount4ViewController: BaseViewController, UITableViewDelegate, U
         let cell:RegistAccountCheckCell? = tableView.dequeueReusableCell(withIdentifier:"RegistAccountCheckCell") as? RegistAccountCheckCell
         
 //        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
-        let starnameFee = WUtils.getStarNameAccountFee("open")
+        let starnameFee = WUtils.getStarNameRegisterAccountFee("open")
         cell?.feeAmountLabel.attributedText = WUtils.displayAmount2((pageHolderVC.mFee?.amount[0].amount)!, cell!.feeAmountLabel.font, 6, 6)
         cell?.starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, cell!.starnameFeeAmount.font, 6, 6)
         cell?.starnameLabel.text = pageHolderVC.mStarnameAccount! + "*iov"

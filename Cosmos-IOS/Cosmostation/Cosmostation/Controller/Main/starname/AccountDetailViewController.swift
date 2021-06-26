@@ -91,14 +91,6 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         txVC.mStarnameTime = mMyAccountResolve_gRPC!.account.validUntil
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
-        
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
-//        txVC.mStarnameDomain = mMyDomain
-//        txVC.mStarnameAccount = mMyAccount
-//        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickRenew(_ sender: UIButton) {
@@ -106,6 +98,26 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             self.onShowAddMenomicDialog()
             return
         }
+        
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_RENEW_ACCOUNT, 0)
+        let starnameFee = WUtils.getStarNameRenewAccountFee(mMyDomainInfo_gRPC!.type)
+        print("userAvailable ", userAvailable)
+        print("txFee ", txFee)
+        print("starnameFee ", starnameFee)
+        if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_RENEW_ACCOUNT
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameAccount = mMyAccount
+        txVC.mStarnameTime = mMyAccountResolve_gRPC?.account.validUntil
+        txVC.mStarnameDomainType = mMyDomainInfo_gRPC?.type
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
         
 //        if (mMyDomainInfo?.result.domain?.type != "open") {
 //            self.onShowToast(NSLocalizedString("error_can_not_extend_close_domain", comment: ""))

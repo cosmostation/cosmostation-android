@@ -53,7 +53,7 @@ class RegisterAccount0ViewController: BaseViewController {
     
     func onUpdateStarnameFee() {
 //        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
-        let starnameFee = WUtils.getStarNameAccountFee("open")
+        let starnameFee = WUtils.getStarNameRegisterAccountFee("open")
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
     
@@ -72,7 +72,7 @@ class RegisterAccount0ViewController: BaseViewController {
         
         let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
         let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REGISTER_ACCOUNT, 0)
-        let starnameFee = WUtils.getStarNameAccountFee("open")
+        let starnameFee = WUtils.getStarNameRegisterAccountFee("open")
 //        print("userAvailable ", userAvailable)
 //        print("txFee ", txFee)
 //        print("starnameFee ", starnameFee)

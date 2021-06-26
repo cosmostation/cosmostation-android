@@ -877,7 +877,6 @@ class Signer {
             $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
             $0.txBytes = try! rawTx.serializedData()
         }
-
     }
 
     static func genSimulateDeleteAccountMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
@@ -902,6 +901,100 @@ class Signer {
         }
     }
      
+    static func genSignedRenewDomainMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                              _ domain: String, _ signer: String,
+                                              _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let renewDomainMsg =  Starnamed_X_Starname_V1beta1_MsgRenewDomain.with {
+            $0.domain = domain
+            $0.signer = signer
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRenewDomain"
+            $0.value = try! renewDomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateRenewDomainMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                _ domain: String, _ signer: String,
+                                                _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let renewDomainMsg = Starnamed_X_Starname_V1beta1_MsgRenewDomain.with {
+            $0.domain = domain
+            $0.signer = signer
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRenewDomain"
+            $0.value = try! renewDomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    static func genSignedRenewAccountMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                              _ domain: String, _ name: String, _ signer: String,
+                                              _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let renewAccountMsg = Starnamed_X_Starname_V1beta1_MsgRenewAccount.with {
+            $0.domain = domain
+            $0.name = name
+            $0.signer = signer
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRenewAccount"
+            $0.value = try! renewAccountMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateRenewAccountMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                _ domain: String, _ name: String, _ signer: String,
+                                                _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let renewAccountMsg = Starnamed_X_Starname_V1beta1_MsgRenewAccount.with {
+            $0.domain = domain
+            $0.name = name
+            $0.signer = signer
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRenewAccount"
+            $0.value = try! renewAccountMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
     
     
     static func getGrpcTxBody(_ msgAnys: Array<Google_Protobuf2_Any>, _ memo: String) -> Cosmos_Tx_V1beta1_TxBody {
