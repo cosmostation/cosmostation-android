@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class RegisterAccount0ViewController: BaseViewController {
     
@@ -40,7 +42,7 @@ class RegisterAccount0ViewController: BaseViewController {
     @objc func textFieldDidChange(_ textField: UITextField) {
         if (textField == userInput) {
             let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
-            if (userInputData!.count > 0 && !WUtils.isValidAccount(userInputData!)) {
+            if (userInputData!.count > 0 && !WUtils.isStarnameValidAccount(userInputData!)) {
                 valideMsg.textColor = UIColor.init(hexString: "f31963")
             } else {
                 valideMsg.textColor = .white
@@ -50,7 +52,8 @@ class RegisterAccount0ViewController: BaseViewController {
     }
     
     func onUpdateStarnameFee() {
-        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
+//        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
+        let starnameFee = WUtils.getStarNameAccountFee("open")
         starnameFeeAmount.attributedText = WUtils.displayAmount2(starnameFee.stringValue, starnameFeeAmount.font, 6, 6)
     }
     
@@ -62,24 +65,25 @@ class RegisterAccount0ViewController: BaseViewController {
     
     @IBAction func onClickNext(_ sender: UIButton) {
         let userInputData = self.userInput.text?.trimmingCharacters(in: .whitespaces)
-        let starnameFee = BaseData.instance.mStarNameFee!.getAccountFee("open")
-        if (!WUtils.isValidAccount(userInputData!)) {
+        if (!WUtils.isStarnameValidAccount(userInputData!)) {
             self.onShowToast(NSLocalizedString("error_invalid_account_format", comment: ""))
             return
         }
         
-        var myAvailable = NSDecimalNumber.zero
-        if (chainType == ChainType.IOV_MAIN) {
-            myAvailable = WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).subtracting(NSDecimalNumber.init(string: "300000"))
-        } else if (chainType == ChainType.IOV_TEST) {
-            myAvailable = WUtils.getTokenAmount(balances, IOV_TEST_DENOM).subtracting(NSDecimalNumber.init(string: "300000"))
-        }
-        if (myAvailable.compare(starnameFee).rawValue < 0) {
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REGISTER_ACCOUNT, 0)
+        let starnameFee = WUtils.getStarNameAccountFee("open")
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
+        
+        if (userAvailable.compare(starnameFee.adding(txFee)).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
         }
+        
         self.view.endEditing(true)
-        self.onFetchResolve(userInputData!, "iov")
+        self.onFetchgRPCResolve(userInputData!, "iov")
         
     }
     
@@ -91,29 +95,58 @@ class RegisterAccount0ViewController: BaseViewController {
         pageHolderVC.onNextPage()
     }
     
-    func onFetchResolve(_ account: String, _ doamin: String) {
-        self.showWaittingAlert()
-        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                self.hideWaittingAlert()
-                guard let info = res as? [String : Any] else {
-                    self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
-                    return
+//    func onFetchResolve(_ account: String, _ doamin: String) {
+//        self.showWaittingAlert()
+//        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
+//        request.responseJSON { (response) in
+//            switch response.result {
+//            case .success(let res):
+//                self.hideWaittingAlert()
+//                guard let info = res as? [String : Any] else {
+//                    self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
+//                    return
+//                }
+//                if (info["error"] == nil) {
+//                    self.onShowToast(NSLocalizedString("error_already_registered_account", comment: ""))
+//                    return
+//                } else {
+//                    self.onGoNextPage()
+//                }
+//
+//            case .failure(let error):
+//                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
+//                self.hideWaittingAlert()
+//                self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
+//            }
+//        }
+//    }
+    
+    func onFetchgRPCResolve(_ account: String, _ doamin: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
+                    $0.starname = account + "*" + doamin
                 }
-                if (info["error"] == nil) {
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+                DispatchQueue.main.async(execute: {
                     self.onShowToast(NSLocalizedString("error_already_registered_account", comment: ""))
                     return
-                } else {
+                });
+
+            } catch {
+                print("onFetchgRPCResolve failed: \(error)")
+                DispatchQueue.main.async(execute: {
                     self.onGoNextPage()
-                }
-                
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
-                self.hideWaittingAlert()
-                self.onShowToast(NSLocalizedString("error_network_msg", comment: ""))
+                });
             }
+
+            
         }
     }
 }

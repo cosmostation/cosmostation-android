@@ -224,6 +224,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             } catch {
                 print("onFetchDomainInfo_gRPC failed: \(error)")
             }
+            
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });
@@ -249,6 +250,7 @@ class DomainDetailViewController: BaseViewController, UITableViewDelegate, UITab
             } catch {
                 print("onFetchgRPCResolve failed: \(error)")
             }
+            
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });

@@ -2722,25 +2722,6 @@ class WUtils {
         return ""
     }
     
-    //TODO check confirm starname regular express
-    static func isValidStarName(_ starname: String) -> Bool {
-        let starNameRegEx = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}"
-        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
-        return starNamePred.evaluate(with: starname)
-    }
-    
-    static func isValidDomain(_ starname: String) -> Bool {
-        let starNameRegEx = "[a-z0-9]{4,32}"
-        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
-        return starNamePred.evaluate(with: starname)
-    }
-    
-    static func isValidAccount(_ starname: String) -> Bool {
-        let starNameRegEx = "[0-9a-z.-]{1,63}"
-        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
-        return starNamePred.evaluate(with: starname)
-    }
-    
     static func clearBackgroundColor(of view: UIView) {
         if let effectsView = view as? UIVisualEffectView {
             effectsView.removeFromSuperview()
@@ -3469,6 +3450,67 @@ class WUtils {
         return false
     }
     
+    
+    
+    
+    //TODO check confirm starname regular express
+    static func isStarnameValidStarName(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{0,64}+\\*[a-z0-9.-]{3,16}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static func isStarnameValidDomain(_ starname: String) -> Bool {
+        let starNameRegEx = "[a-z0-9]{4,32}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static func isStarnameValidAccount(_ starname: String) -> Bool {
+        let starNameRegEx = "[0-9a-z.-]{1,63}"
+        let starNamePred = NSPredicate(format:"SELF MATCHES %@", starNameRegEx)
+        return starNamePred.evaluate(with: starname)
+    }
+    
+    static public func getStarNameDomainFee(_ domain: String, _ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        
+        var feeResult = NSDecimalNumber.zero
+        if (domain.isEmpty || domain.count <= 3) {
+            return feeResult
+        } else if (domain.count == 4) {
+            feeResult = NSDecimalNumber.init(string: starNameFee?.registerDomain4).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else if (domain.count == 5) {
+            feeResult = NSDecimalNumber.init(string: starNameFee?.registerDomain5).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            feeResult = NSDecimalNumber.init(string: starNameFee?.registerDomainDefault).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        }
+
+        if (type == "open") {
+            feeResult = feeResult.multiplying(by: NSDecimalNumber.init(string: starNameFee?.registerOpenDomainMultiplier).multiplying(byPowerOf10: -18))
+        }
+        return feeResult
+    }
+    
+    static public func getStarNameAccountFee(_ type: String) -> NSDecimalNumber {
+        let starNameFee = BaseData.instance.mStarNameFee_gRPC
+        if (starNameFee == nil) { return NSDecimalNumber.zero }
+        if (type == "open") {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountOpen).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        } else {
+            return NSDecimalNumber.init(string: starNameFee?.registerAccountClosed).dividing(by: NSDecimalNumber.init(string: starNameFee?.feeCoinPrice), withBehavior: WUtils.handler0Down)
+        }
+    }
+    
+    static func getStarNameRegisterDomainExpireTime() -> Int64 {
+        let starNameConfig = BaseData.instance.mStarNameConfig_gRPC
+        if let seconds = starNameConfig?.domainRenewalPeriod.seconds {
+            return seconds * 1000
+        }
+        return 0
+    }
+    
     static func getStarNameChainImg(_ resource: StarNameResource) -> UIImage? {
         if (resource.uri == BITCOINCASH) {
             return UIImage.init(named: "bcashChainImg")
@@ -3621,6 +3663,25 @@ class WUtils {
         result.append(StarNameResource.init(TEZOS))
         result.append(StarNameResource.init(LISK))
         result.append(StarNameResource.init(LUNA))
+        return result
+    }
+    
+    static func getStarNameAllResources2() -> Array<Starnamed_X_Starname_V1beta1_Resource> {
+        var result: Array<Starnamed_X_Starname_V1beta1_Resource> = Array<Starnamed_X_Starname_V1beta1_Resource>()
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = STARNAME; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = COSMOS; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BITCOIN; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = ETHEREUM; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BINANCE; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = IRIS; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = KAVA; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BAND; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = BITCOINCASH; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LITECOIN; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = EMONEY; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = TEZOS; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LISK; $0.resource = "" })
+        result.append(Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = LUNA; $0.resource = "" })
         return result
     }
     

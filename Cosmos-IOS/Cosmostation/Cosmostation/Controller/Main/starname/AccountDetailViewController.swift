@@ -223,6 +223,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             } catch {
                 print("onFetchDomainInfo_gRPC failed: \(error)")
             }
+            
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });
@@ -248,6 +249,7 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             } catch {
                 print("onFetchgRPCResolve failed: \(error)")
             }
+            
             DispatchQueue.main.async(execute: {
                 self.onFetchFinished()
             });

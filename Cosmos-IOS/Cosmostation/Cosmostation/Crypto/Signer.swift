@@ -713,6 +713,107 @@ class Signer {
     }
     
     
+    //for Starname custom msgs
+    static func genSignedRegisterDomainMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                 _ domain: String, _ admin: String, _ type: String,
+                                                 _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let rgisterdomainMsg = Starnamed_X_Starname_V1beta1_MsgRegisterDomain.with {
+            $0.name = domain
+            $0.admin = admin
+            $0.domainType = type
+            $0.broker = ""
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRegisterDomain"
+            $0.value = try! rgisterdomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+        
+    }
+    
+    static func genSimulateRegisterDomainMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                   _ domain: String, _ admin: String, _ type: String,
+                                                   _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let rgisterdomainMsg = Starnamed_X_Starname_V1beta1_MsgRegisterDomain.with {
+            $0.name = domain
+            $0.admin = admin
+            $0.domainType = type
+            $0.broker = ""
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRegisterDomain"
+            $0.value = try! rgisterdomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    static func genSignedRegisterAccountMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                  _ domain: String, _ name: String, _ owner: String, _ registerer: String, _ resources: Array<Starnamed_X_Starname_V1beta1_Resource>,
+                                                  _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let rgisterdomainMsg = Starnamed_X_Starname_V1beta1_MsgRegisterAccount.with {
+            $0.domain = domain
+            $0.name = name
+            $0.owner = owner
+            $0.registerer = registerer
+            $0.resources = resources
+            $0.broker = ""
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRegisterAccount"
+            $0.value = try! rgisterdomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+    }
+    
+    static func genSimulateRegisterAccountMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                    _ domain: String, _ name: String, _ owner: String, _ registerer: String, _ resources: Array<Starnamed_X_Starname_V1beta1_Resource>,
+                                                    _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let rgisterdomainMsg = Starnamed_X_Starname_V1beta1_MsgRegisterAccount.with {
+            $0.domain = domain
+            $0.name = name
+            $0.owner = owner
+            $0.registerer = registerer
+            $0.resources = resources
+            $0.broker = ""
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgRegisterAccount"
+            $0.value = try! rgisterdomainMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
+    
+    
     
     
     static func getGrpcTxBody(_ msgAnys: Array<Google_Protobuf2_Any>, _ memo: String) -> Cosmos_Tx_V1beta1_TxBody {
