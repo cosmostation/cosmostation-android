@@ -41,8 +41,9 @@ class ReplaceEditAddressViewController: BaseViewController, QrScannerDelegate, S
         self.btnPaste.setImage(pasteImg, for: .normal)
         self.btnPaste.tintColor = UIColor.init(hexString: "222222")
         
-        chainImg.image = WUtils.getStarNameChainImg(StarNameResource.init(chainNameResource!))
-        chainNameLabel.text = WUtils.getStarNameChainName(StarNameResource.init(chainNameResource!))
+        let initResource = Starnamed_X_Starname_V1beta1_Resource.with { $0.uri = chainNameResource! }
+        chainImg.image = WUtils.getStarNameChainImg2(initResource)
+        chainNameLabel.text = WUtils.getStarNameChainName2(initResource)
         addressInput.text = addressResource
         
     }

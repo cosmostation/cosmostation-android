@@ -102,9 +102,10 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
         let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_RENEW_ACCOUNT, 0)
         let starnameFee = WUtils.getStarNameRenewAccountFee(mMyDomainInfo_gRPC!.type)
-        print("userAvailable ", userAvailable)
-        print("txFee ", txFee)
-        print("starnameFee ", starnameFee)
+//        print("userAvailable ", userAvailable)
+//        print("txFee ", txFee)
+//        print("starnameFee ", starnameFee)
+        
         if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
             self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
             return
@@ -118,37 +119,6 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
         txVC.mStarnameDomainType = mMyDomainInfo_gRPC?.type
         self.navigationItem.title = ""
         self.navigationController?.pushViewController(txVC, animated: true)
-        
-//        if (mMyDomainInfo?.result.domain?.type != "open") {
-//            self.onShowToast(NSLocalizedString("error_can_not_extend_close_domain", comment: ""))
-//            return
-//        }
-//
-//        let needFee = BaseData.instance.mStarNameFee!.getAccountRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "300000"))
-//        if (chainType == ChainType.IOV_MAIN) {
-//            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-//                return
-//            }
-//        } else if (chainType == ChainType.IOV_TEST) {
-//            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-//                return
-//            }
-//        } else {
-//            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
-//            return
-//        }
-//
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = IOV_MSG_TYPE_RENEW_ACCOUNT
-//        txVC.mStarnameDomain = mMyDomain
-//        txVC.mStarnameAccount = mMyAccount
-//        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
-//        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
-        
     }
     
     @IBAction func onClickReplace(_ sender: UIButton) {
@@ -157,31 +127,27 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-//        let needFee = BaseData.instance.mStarNameFee!.getReplaceFee().adding(NSDecimalNumber.init(string: "300000"))
-//        if (chainType == ChainType.IOV_MAIN) {
-//            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-//                return
-//            }
-//        } else if (chainType == ChainType.IOV_TEST) {
-//            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-//                return
-//            }
-//        } else {
-//            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
-//            return
-//        }
-//
-//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-//        txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
-//        txVC.mStarnameDomain = mMyDomain
-//        txVC.mStarnameAccount = mMyAccount
-//        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
-//        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
-//        txVC.mStarnameResources = mMyAccountResolve!.result.account.resources
-//        self.navigationItem.title = ""
-//        self.navigationController?.pushViewController(txVC, animated: true)
+        let userAvailable = BaseData.instance.getAvailableAmount_gRPC(IOV_MAIN_DENOM)
+        let txFee = WUtils.getEstimateGasFeeAmount(chainType!, IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE, 0)
+        let starnameFee = WUtils.getReplaceFee()
+        print("userAvailable ", userAvailable)
+        print("txFee ", txFee)
+        print("starnameFee ", starnameFee)
+        
+        if (userAvailable.compare(txFee.adding(starnameFee)).rawValue < 0) {
+            self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+            return
+        }
+        
+        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+        txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
+        txVC.mStarnameDomain = mMyDomain
+        txVC.mStarnameAccount = mMyAccount
+        txVC.mStarnameTime = mMyAccountResolve_gRPC?.account.validUntil
+        txVC.mStarnameDomainType = mMyDomainInfo_gRPC?.type
+        txVC.mStarnameResources_gRPC = mMyAccountResolve_gRPC?.account.resources ?? Array<Starnamed_X_Starname_V1beta1_Resource>()
+        self.navigationItem.title = ""
+        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickProfile(_ sender: UIButton) {

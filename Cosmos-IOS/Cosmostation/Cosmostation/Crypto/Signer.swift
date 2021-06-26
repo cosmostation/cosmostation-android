@@ -968,8 +968,8 @@ class Signer {
     }
     
     static func genSimulateRenewAccountMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
-                                                _ domain: String, _ name: String, _ signer: String,
-                                                _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+                                                 _ domain: String, _ name: String, _ signer: String,
+                                                 _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
         let renewAccountMsg = Starnamed_X_Starname_V1beta1_MsgRenewAccount.with {
             $0.domain = domain
             $0.name = name
@@ -989,7 +989,55 @@ class Signer {
         }
     }
     
+    static func genSignedReplaceResourceMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                  _ domain: String, _ name: String?, _ owner: String, _ resources: Array<Starnamed_X_Starname_V1beta1_Resource>,
+                                                  _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_BroadcastTxRequest {
+        let replaceResourceMsg = Starnamed_X_Starname_V1beta1_MsgReplaceAccountResources.with {
+            if (name != nil) { $0.name = name! }
+            else { $0.name = "" }
+            $0.domain = domain
+            $0.owner = owner
+            $0.newResources = resources
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgReplaceAccountResources"
+            $0.value = try! replaceResourceMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let rawTx = getGrpcRawTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_BroadcastTxRequest.with {
+            $0.mode = Cosmos_Tx_V1beta1_BroadcastMode.async
+            $0.txBytes = try! rawTx.serializedData()
+        }
+        
+    }
     
+    static func genSimulateReplaceResourceMsgTxgRPC(_ auth: Cosmos_Auth_V1beta1_QueryAccountResponse,
+                                                    _ domain: String, _ name: String?, _ owner: String, _ resources: Array<Starnamed_X_Starname_V1beta1_Resource>,
+                                                    _ fee: Fee, _ memo: String, _ pKey: PrivateKey, _ chainId: String) -> Cosmos_Tx_V1beta1_SimulateRequest {
+        let replaceResourceMsg = Starnamed_X_Starname_V1beta1_MsgReplaceAccountResources.with {
+            if (name != nil) { $0.name = name! }
+            else { $0.name = "" }
+            $0.domain = domain
+            $0.owner = owner
+            $0.newResources = resources
+            $0.payer = ""
+        }
+        let anyMsg = Google_Protobuf2_Any.with {
+            $0.typeURL = "/starnamed.x.starname.v1beta1.MsgReplaceAccountResources"
+            $0.value = try! replaceResourceMsg.serializedData()
+        }
+        let txBody = getGrpcTxBody([anyMsg], memo);
+        let signerInfo = getGrpcSignerInfo(auth, pKey);
+        let authInfo = getGrpcAuthInfo(signerInfo, fee);
+        let simulateTx = getGrpcSimulTx(auth, txBody, authInfo, pKey, chainId);
+        return Cosmos_Tx_V1beta1_SimulateRequest.with {
+            $0.tx = simulateTx
+        }
+    }
     
     
     
