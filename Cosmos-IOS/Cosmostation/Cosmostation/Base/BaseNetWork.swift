@@ -901,13 +901,11 @@ class BaseNetWork {
             result = CRYTO_API + "v1/account/txs/" + address
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = OSMOSIS_API + "v1/account/txs/" + address
+        } else if (chain == ChainType.BAND_MAIN) {
+            result = BAND_API + "v1/account/new_txs/" + address
+        } else if (chain == ChainType.IOV_MAIN) {
+            result = IOV_API + "v1/account/new_txs/" + address
         }
-        
-//        else if (chain == ChainType.BAND_MAIN) {
-//            result = BAND_API + "v1/account/txs/" + address
-//        } else if (chain == ChainType.IOV_MAIN) {
-//            result = IOV_API + "v1/account/txs/" + address
-//        }
         
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/txs/" + address
@@ -957,13 +955,11 @@ class BaseNetWork {
             result = CRYTO_API + "v1/account/txs/" + address + "/" + valAddress
         } else if (chain == ChainType.OSMOSIS_MAIN) {
             result = OSMOSIS_API + "v1/account/txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.BAND_MAIN) {
+            result = BAND_API + "v1/account/new_txs/" + address + "/" + valAddress
+        } else if (chain == ChainType.IOV_MAIN) {
+            result = IOV_API + "v1/account/new_txs/" + address + "/" + valAddress
         }
-        
-//        else if (chain == ChainType.BAND_MAIN) {
-//            result = BAND_API + "v1/account/txs/" + address + "/" + valAddress
-//        } else if (chain == ChainType.IOV_MAIN) {
-//            result = IOV_API + "v1/account/txs/" + address + "/" + valAddress
-//        }
         
         else if (chain == ChainType.KAVA_MAIN) {
             result = KAVA_API + "v1/account/txs/" + address + "/" + valAddress

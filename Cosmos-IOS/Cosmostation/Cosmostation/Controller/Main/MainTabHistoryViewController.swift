@@ -52,6 +52,19 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
         self.historyTableView.addSubview(refresher)
         
         self.onRequestFetch()
+        
+        self.emptyLabel.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(testClick(tapGestureRecognizer:)))
+        self.emptyLabel.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func testClick(tapGestureRecognizer: UITapGestureRecognizer) {
+//        let txDetailVC = TxDetailgRPCViewController(nibName: "TxDetailgRPCViewController", bundle: nil)
+//        txDetailVC.mIsGen = false
+//        txDetailVC.mTxHash = "9F452C80639D4D22DB6F777111C1524F48EA0AEEB032011C0689DDCFC37C5BDE"
+//        txDetailVC.hidesBottomBarWhenPushed = true
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txDetailVC, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -198,7 +211,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     @objc func onRequestFetch() {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN) {
             onFetchNewApiHistoryCustom(mainTabVC.mAccount.account_address)
             return
             
@@ -219,7 +232,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN) {
             return self.mApiCustomNewHistories.count
         } else  if (chainType == ChainType.BINANCE_MAIN || chainType == ChainType.BINANCE_TEST) {
             return self.mBnbHistories.count
@@ -233,7 +246,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+        if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN) {
             return onSetCustomNewHistoryItems(tableView, indexPath);
         } else if (WUtils.isGRPC(chainType!)) {
             return onSetCustomHistoryItems(tableView, indexPath);
@@ -357,7 +370,7 @@ class MainTabHistoryViewController: BaseViewController, UITableViewDelegate, UIT
             
         }
         
-        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN) {
+        else if (chainType == ChainType.COSMOS_MAIN || chainType == ChainType.OSMOSIS_MAIN || chainType == ChainType.BAND_MAIN || chainType == ChainType.IOV_MAIN) {
             let history = mApiCustomNewHistories[indexPath.row]
             if (history.header?.chain_id != BaseData.instance.getChainId_gRPC()) {
                 let link = WUtils.getTxExplorer(self.chainType!, history.data!.txhash!)
