@@ -125,7 +125,9 @@ class MyAccountViewController: BaseViewController, UITableViewDelegate, UITableV
                 let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).ownerAccounts(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
 //                print("onFetchgRPCMyAccount response ", response)
                 response.accounts.forEach { rawAccount in
-                    self.myAccounts_gRPC.append(rawAccount)
+                    if (!rawAccount.name.value.isEmpty) {
+                        self.myAccounts_gRPC.append(rawAccount)
+                    }
                 }
                 print("onFetchgRPCMyAccount myAccounts_gRPC ", self.myAccounts_gRPC.count)
                 

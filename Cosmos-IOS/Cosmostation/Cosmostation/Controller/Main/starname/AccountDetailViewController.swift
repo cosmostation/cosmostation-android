@@ -7,7 +7,9 @@
 //
 
 import UIKit
-import Alamofire
+import GRPC
+import NIO
+import SwiftProtobuf
 
 class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -20,8 +22,12 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     
     var mMyDomain: String?
     var mMyAccount: String?
-    var mMyDomainInfo: IovStarNameDomainInfo?
-    var mMyAccountResolve: IovStarNameResolve?
+    
+//    var mMyDomainInfo: IovStarNameDomainInfo?
+//    var mMyAccountResolve: IovStarNameResolve?
+    
+    var mMyDomainInfo_gRPC: Starnamed_X_Starname_V1beta1_Domain?
+    var mMyAccountResolve_gRPC: Starnamed_X_Starname_V1beta1_QueryStarnameResponse?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,18 +58,14 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if (mMyAccountResolve != nil && mMyAccountResolve?.result.account.resources != nil) {
-            return mMyAccountResolve!.result.account.resources.count
-        } else {
-            return 0
-        }
+        return mMyAccountResolve_gRPC?.account.resources.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell:ResourceCell? = tableView.dequeueReusableCell(withIdentifier:"ResourceCell") as? ResourceCell
-        let resource = mMyAccountResolve?.result.account.resources[indexPath.row]
-        cell?.chainImg.image = WUtils.getStarNameChainImg(resource!)
-        cell?.chainName.text = WUtils.getStarNameChainName(resource!)
+        let resource = mMyAccountResolve_gRPC?.account.resources[indexPath.row]
+        cell?.chainImg.image = WUtils.getStarNameChainImg2(resource)
+        cell?.chainName.text = WUtils.getStarNameChainName2(resource)
         cell?.chainAddress.text = resource?.resource
         return cell!
     }
@@ -75,29 +77,29 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-        let needFee = NSDecimalNumber.init(string: "150000")
-        if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
-        txVC.mStarnameDomain = mMyDomain
-        txVC.mStarnameAccount = mMyAccount
-        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+//        let needFee = NSDecimalNumber.init(string: "150000")
+//        if (chainType == ChainType.IOV_MAIN) {
+//            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+//                return
+//            }
+//        } else if (chainType == ChainType.IOV_TEST) {
+//            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+//                return
+//            }
+//        } else {
+//            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+//            return
+//        }
+//
+//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mType = IOV_MSG_TYPE_DELETE_ACCOUNT
+//        txVC.mStarnameDomain = mMyDomain
+//        txVC.mStarnameAccount = mMyAccount
+//        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickRenew(_ sender: UIButton) {
@@ -106,35 +108,35 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-        if (mMyDomainInfo?.result.domain?.type != "open") {
-            self.onShowToast(NSLocalizedString("error_can_not_extend_close_domain", comment: ""))
-            return
-        }
-        
-        let needFee = BaseData.instance.mStarNameFee!.getAccountRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "300000"))
-        if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = IOV_MSG_TYPE_RENEW_ACCOUNT
-        txVC.mStarnameDomain = mMyDomain
-        txVC.mStarnameAccount = mMyAccount
-        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
-        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+//        if (mMyDomainInfo?.result.domain?.type != "open") {
+//            self.onShowToast(NSLocalizedString("error_can_not_extend_close_domain", comment: ""))
+//            return
+//        }
+//
+//        let needFee = BaseData.instance.mStarNameFee!.getAccountRenewFee(mMyDomainInfo!.result.domain!.type).adding(NSDecimalNumber.init(string: "300000"))
+//        if (chainType == ChainType.IOV_MAIN) {
+//            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+//                return
+//            }
+//        } else if (chainType == ChainType.IOV_TEST) {
+//            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+//                return
+//            }
+//        } else {
+//            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+//            return
+//        }
+//
+//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mType = IOV_MSG_TYPE_RENEW_ACCOUNT
+//        txVC.mStarnameDomain = mMyDomain
+//        txVC.mStarnameAccount = mMyAccount
+//        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
+//        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txVC, animated: true)
         
     }
     
@@ -144,31 +146,31 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         
-        let needFee = BaseData.instance.mStarNameFee!.getReplaceFee().adding(NSDecimalNumber.init(string: "300000"))
-        if (chainType == ChainType.IOV_MAIN) {
-            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else if (chainType == ChainType.IOV_TEST) {
-            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
-                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
-                return
-            }
-        } else {
-            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
-            return
-        }
-        
-        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
-        txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
-        txVC.mStarnameDomain = mMyDomain
-        txVC.mStarnameAccount = mMyAccount
-        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
-        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
-        txVC.mStarnameResources = mMyAccountResolve!.result.account.resources
-        self.navigationItem.title = ""
-        self.navigationController?.pushViewController(txVC, animated: true)
+//        let needFee = BaseData.instance.mStarNameFee!.getReplaceFee().adding(NSDecimalNumber.init(string: "300000"))
+//        if (chainType == ChainType.IOV_MAIN) {
+//            if (WUtils.getTokenAmount(balances, IOV_MAIN_DENOM).compare(needFee).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+//                return
+//            }
+//        } else if (chainType == ChainType.IOV_TEST) {
+//            if (WUtils.getTokenAmount(balances, IOV_TEST_DENOM).compare(needFee).rawValue < 0) {
+//                self.onShowToast(NSLocalizedString("error_not_enough_starname_fee", comment: ""))
+//                return
+//            }
+//        } else {
+//            self.onShowToast(NSLocalizedString("error_disable", comment: ""))
+//            return
+//        }
+//
+//        let txVC = UIStoryboard(name: "GenTx", bundle: nil).instantiateViewController(withIdentifier: "TransactionViewController") as! TransactionViewController
+//        txVC.mType = IOV_MSG_TYPE_REPLACE_ACCOUNT_RESOURCE
+//        txVC.mStarnameDomain = mMyDomain
+//        txVC.mStarnameAccount = mMyAccount
+//        txVC.mStarnameTime = mMyAccountResolve?.result.account.valid_until
+//        txVC.mStarnameDomainType = mMyDomainInfo?.result.domain?.type
+//        txVC.mStarnameResources = mMyAccountResolve!.result.account.resources
+//        self.navigationItem.title = ""
+//        self.navigationController?.pushViewController(txVC, animated: true)
     }
     
     @IBAction func onClickProfile(_ sender: UIButton) {
@@ -182,63 +184,73 @@ class AccountDetailViewController: BaseViewController, UITableViewDelegate, UITa
             return
         }
         self.mFetchCnt = 2
-        self.onFetchDomainInfo(mMyDomain!)
-        self.onFetchResolve(mMyAccount!, mMyDomain!)
+        self.onFetchgRPCDomainInfo(mMyDomain!)
+        self.onFetchgRPCResolve(mMyAccount!, mMyDomain!)
     }
     
     func onFetchFinished() {
         self.mFetchCnt = self.mFetchCnt - 1
         if (mFetchCnt <= 0) {
-            if (mMyAccountResolve != nil && mMyAccountResolve?.result.account.resources != nil &&  mMyAccountResolve!.result.account.resources.count > 0) {
+            if (mMyAccountResolve_gRPC?.hasAccount ?? false &&  mMyAccountResolve_gRPC?.account.resources.count ?? 0 > 0) {
                 self.myAccountResourceTableView.reloadData()
                 self.myAccountEmptyView.isHidden = true
-                self.myAccountAddressCntLabel.text = String(mMyAccountResolve!.result.account.resources.count)
+                self.myAccountAddressCntLabel.text = String(mMyAccountResolve_gRPC!.account.resources.count)
             } else {
                 self.myAccountResourceTableView.isHidden = true
                 self.myAccountEmptyView.isHidden = false
                 self.myAccountAddressCntLabel.text = "0"
             }
-            myAccountExpireTimeLabel.text = WUtils.longTimetoString(input: mMyAccountResolve!.result.account.valid_until * 1000)
+            myAccountExpireTimeLabel.text = WUtils.longTimetoString(input: mMyAccountResolve_gRPC!.account.validUntil * 1000)
         }
     }
     
-    
-    func onFetchDomainInfo(_ domain: String) {
-        let request = Alamofire.request(BaseNetWork.domainInfoStarnameUrl(chainType), method: .post, parameters: ["name" : domain], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any] else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCDomainInfo(_ domain: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryDomainRequest.with {
+                    $0.name = domain
                 }
-                self.mMyDomainInfo = IovStarNameDomainInfo.init(info)
-                self.onFetchFinished()
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).domain(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchDomainInfo_gRPC ", domain, " ", response)
+                self.mMyDomainInfo_gRPC = response.domain
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchDomainInfo ", error) }
-                self.onFetchFinished()
+            } catch {
+                print("onFetchDomainInfo_gRPC failed: \(error)")
             }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
     
-    
-    func onFetchResolve(_ account: String, _ doamin: String) {
-        let request = Alamofire.request(BaseNetWork.resolveStarnameUrl(chainType), method: .post, parameters: ["starname" : account + "*" + doamin], encoding: JSONEncoding.default, headers: [:])
-        request.responseJSON { (response) in
-            switch response.result {
-            case .success(let res):
-                guard let info = res as? [String : Any], info["error"] == nil else {
-                    self.onFetchFinished()
-                    return
+    func onFetchgRPCResolve(_ account: String, _ doamin: String) {
+        DispatchQueue.global().async {
+            let group = MultiThreadedEventLoopGroup(numberOfThreads: 1)
+            defer { try! group.syncShutdownGracefully() }
+            
+            let channel = BaseNetWork.getConnection(self.chainType!, group)!
+            defer { try! channel.close().wait() }
+            
+            do {
+                let req = Starnamed_X_Starname_V1beta1_QueryStarnameRequest.with {
+                    $0.starname = account + "*" + doamin
                 }
-                self.mMyAccountResolve = IovStarNameResolve.init(info)
-                self.onFetchFinished()
+                let response = try Starnamed_X_Starname_V1beta1_QueryClient(channel: channel).starname(req, callOptions:BaseNetWork.getCallOptions()).response.wait()
+//                print("onFetchgRPCResolve ", response)
+                self.mMyAccountResolve_gRPC = response
                 
-            case .failure(let error):
-                if (SHOW_LOG) { print("onFetchResolve ", error) }
-                self.onFetchFinished()
+            } catch {
+                print("onFetchgRPCResolve failed: \(error)")
             }
+            DispatchQueue.main.async(execute: {
+                self.onFetchFinished()
+            });
         }
     }
 }

@@ -3503,6 +3503,40 @@ class WUtils {
         }
     }
     
+    static func getStarNameChainImg2(_ resource: Starnamed_X_Starname_V1beta1_Resource?) -> UIImage? {
+        if (resource?.uri == BITCOINCASH) {
+            return UIImage.init(named: "bcashChainImg")
+        } else if (resource?.uri == BITCOIN) {
+            return UIImage.init(named: "bitcoinChainImg")
+        } else if (resource?.uri == LITECOIN) {
+            return UIImage.init(named: "liteChainImg")
+        } else if (resource?.uri == BINANCE) {
+            return UIImage.init(named: "binanceChImg")
+        } else if (resource?.uri == LUNA) {
+            return UIImage.init(named: "terraChainImg")
+        } else if (resource?.uri == COSMOS) {
+            return UIImage.init(named: "cosmosWhMain")
+        } else if (resource?.uri == EMONEY) {
+            return UIImage.init(named: "emoneyChainImg")
+        } else if (resource?.uri == IRIS) {
+            return UIImage.init(named: "irisWh")
+        } else if (resource?.uri == KAVA) {
+            return UIImage.init(named: "kavaImg")
+        } else if (resource?.uri == ETHEREUM) {
+            return UIImage.init(named: "ethereumChainImg")
+        } else if (resource?.uri == STARNAME) {
+            return UIImage.init(named: "iovChainImg")
+        } else if (resource?.uri == BAND) {
+            return UIImage.init(named: "bandChainImg")
+        } else if (resource?.uri == TEZOS) {
+            return UIImage.init(named: "tezosChainImg")
+        } else if (resource?.uri == LISK) {
+            return UIImage.init(named: "liskChainImg")
+        } else {
+            return UIImage.init(named: "defaultChainImg")
+        }
+    }
+    
     static func getStarNameChainName(_ resource: StarNameResource) -> String? {
         if (resource.uri == BITCOINCASH) {
             return "Bitcoin Cash";
@@ -3534,6 +3568,40 @@ class WUtils {
             return "Lisk";
         } else {
             return resource.uri;
+        }
+    }
+
+    static func getStarNameChainName2(_ resource: Starnamed_X_Starname_V1beta1_Resource?) -> String? {
+        if (resource?.uri == BITCOINCASH) {
+            return "Bitcoin Cash";
+        } else if (resource?.uri == BITCOIN) {
+            return "Bitcoin";
+        } else if (resource?.uri == LITECOIN) {
+            return "Litecoin";
+        } else if (resource?.uri == BINANCE) {
+            return "Binance";
+        } else if (resource?.uri == LUNA) {
+            return "Terra";
+        } else if (resource?.uri == COSMOS) {
+            return "Cosmos";
+        } else if (resource?.uri == EMONEY) {
+            return "E-Money";
+        } else if (resource?.uri == IRIS) {
+            return "Iris";
+        } else if (resource?.uri == KAVA) {
+            return "Kava";
+        } else if (resource?.uri == ETHEREUM) {
+            return "Ethereum";
+        } else if (resource?.uri == STARNAME) {
+            return "Starname";
+        } else if (resource?.uri == BAND) {
+            return "Band";
+        } else if (resource?.uri == TEZOS) {
+            return "Tezos";
+        } else if (resource?.uri == LISK) {
+            return "Lisk";
+        } else {
+            return resource?.uri;
         }
     }
     
