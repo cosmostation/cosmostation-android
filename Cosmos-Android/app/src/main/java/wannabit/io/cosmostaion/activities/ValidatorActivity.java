@@ -72,6 +72,7 @@ import wannabit.io.cosmostaion.utils.WUtil;
 import static cosmos.staking.v1beta1.Staking.BondStatus.BOND_STATUS_BONDED;
 import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.SECRET_MAIN;
@@ -582,7 +583,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         } else if (result.taskType == BaseConstant.TASK_FETCH_API_STAKE_HISTORY) {
             if (isGRPC(mBaseChain)) {
-                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
+                if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN)) {
                     ArrayList<ResApiNewTxListCustom> hits = (ArrayList<ResApiNewTxListCustom>)result.resultData;
                     if (hits != null && hits.size() > 0) {
                         mApiNewTxCustomHistory = hits;
@@ -1096,7 +1097,7 @@ public class ValidatorActivity extends BaseActivity implements TaskListener {
 
         private void onBindApiHistoryGrpc(RecyclerView.ViewHolder viewHolder, int position) {
             final HistoryHolder holder = (HistoryHolder) viewHolder;
-            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(OSMOSIS_MAIN)) {
+            if (mBaseChain.equals(COSMOS_MAIN) || mBaseChain.equals(OSMOSIS_MAIN) || mBaseChain.equals(BAND_MAIN) || mBaseChain.equals(IOV_MAIN)) {
                 final ResApiNewTxListCustom history;
                 if (mGrpcMyDelegation == null && mGrpcMyUndelegation == null) {
                     history = mApiNewTxCustomHistory.get(position - 2);

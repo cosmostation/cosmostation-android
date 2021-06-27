@@ -34,13 +34,5 @@ public interface HistoryApi {
     Call<ArrayList<ResApiNewTxListCustom>> getNewAccountTxCustom(@Path("address") String address, @Query("limit") String limit);
 
     @GET("v1/account/new_txs/{address}/{valAddress}")
-    Call<ArrayList<ResApiNewTxListCustom>> getNewStakeTxs(@Path("address") String address, @Path("valAddress") String valAddress, @Query("limit") String limit);
-
-    // osmosis api
-    @GET("v1/account/txs/{address}")
-    Call<ArrayList<ResApiNewTxListCustom>> getOsmoAccountTxsCustom(@Path("address") String address, @Query("limit") String limit);
-
-    // osmosis api
-    @GET("v1/account/txs/{address}/{valAddress}")
-    Call<ArrayList<ResApiNewTxListCustom>> getOsmoStakeTxsCustom(@Path("address") String address, @Path("valAddress") String valAddress, @Query("limit") String limit);
+    Call<ArrayList<ResApiNewTxListCustom>> getNewStakeTxsCustom(@Path("address") String address, @Path("valAddress") String valAddress, @Query("limit") String limit);
 }

@@ -47,24 +47,6 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                     WLog.w("HistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getIovApi(mApp).getAccountTxs(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getBandApi(mApp).getAccountTxs(mAddress, "50").execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("HistoryTask : NOk");
-                }
-
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCertikApi(mApp).getAccountTxs(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -190,13 +172,27 @@ public class ApiAccountTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(BaseChain.OSMOSIS_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getOsmoAccountTxsCustom(mAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 } else {
                     WLog.w("HistoryTask : NOk");
                 }
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewAccountTxCustom(mAddress, "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
             }
 
 

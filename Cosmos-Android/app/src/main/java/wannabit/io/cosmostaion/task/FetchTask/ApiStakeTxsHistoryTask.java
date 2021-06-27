@@ -56,24 +56,6 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
                 }
 
-            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getIovApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
-            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
-                Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getBandApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
-                if (response.isSuccessful() && response.body() != null) {
-                    mResult.resultData = response.body();
-                    mResult.isSuccess = true;
-                } else {
-                    WLog.w("ApiStakeTxsHistoryTask : NOk");
-                }
-
             } else if (mChain.equals(BaseChain.CERTIK_MAIN)) {
                 Response<ArrayList<ResApiTxList.Data>> response = ApiClient.getCertikApi(mApp).getStakeTxs(mAddress, mValOpAddress).execute();
                 if (response.isSuccessful() && response.body() != null) {
@@ -131,7 +113,7 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
             }
 
             if (mChain.equals(BaseChain.COSMOS_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosApi(mApp).getNewStakeTxs(mAddress, mValOpAddress, "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getCosmosApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress, "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
@@ -184,12 +166,26 @@ public class ApiStakeTxsHistoryTask extends CommonTask {
                 }
 
             } else if (mChain.equals(OSMOSIS_MAIN)) {
-                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getOsmoStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getOsmosisApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
                 if (response.isSuccessful() && response.body() != null) {
                     mResult.resultData = response.body();
                     mResult.isSuccess = true;
                 } else {
                     WLog.w("ApiStakeTxsHistoryTask : NOk");
+                }
+
+            } else if (mChain.equals(BaseChain.BAND_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getBandApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
+                }
+
+            } else if (mChain.equals(BaseChain.IOV_MAIN)) {
+                Response<ArrayList<ResApiNewTxListCustom>> response = ApiClient.getIovApi(mApp).getNewStakeTxsCustom(mAddress, mValOpAddress,  "50").execute();
+                if (response.isSuccessful() && response.body() != null) {
+                    mResult.resultData = response.body();
+                    mResult.isSuccess = true;
                 }
 
             }
