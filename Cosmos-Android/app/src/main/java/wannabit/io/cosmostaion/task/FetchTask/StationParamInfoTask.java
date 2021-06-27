@@ -25,6 +25,7 @@ public class StationParamInfoTask extends CommonTask {
     @Override
     protected TaskResult doInBackground(String... strings) {
         try {
+            WLog.w("chain param URL " +  ApiClient.getChainParam(mApp).getParam(mChainId).request().url());
             Response<ChainParam> response = ApiClient.getChainParam(mApp).getParam(mChainId).execute();
             if(!response.isSuccessful()) {
                 mResult.isSuccess = false;

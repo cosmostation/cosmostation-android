@@ -10,6 +10,7 @@ import static wannabit.io.cosmostaion.base.BaseChain.BAND_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
+import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.OSMOSIS_MAIN;
@@ -41,6 +42,10 @@ public class ChannelBuilder {
 
     private final static String GRPC_BAND_MAIN = "lcd-office.cosmostation.io";
     private final static int PORT_BAND_MAIN = 20200;
+
+    private final static String GRPC_STARNAME_MAIN = "grpc.cluster-stargatenet.iov.one";
+    private final static int PORT_STARNAME_MAIN = 9090;
+
 
 
     private final static String GRPC_COSMOS_TEST = "lcd-office.cosmostation.io";
@@ -76,6 +81,8 @@ public class ChannelBuilder {
             return getOsmosisMain();
         } else if (chain.equals(BAND_MAIN)) {
             return getBandMain();
+        } else if (chain.equals(IOV_MAIN)) {
+            return getStarnameMain();
         }
 
         else if (chain.equals(COSMOS_TEST)) {
@@ -194,6 +201,19 @@ public class ChannelBuilder {
             }
         }
         return channel_band_main;
+    }
+
+    //Channel for starname main
+    private static ManagedChannel channel_starname_main = null;
+    public static ManagedChannel getStarnameMain() {
+        if (channel_starname_main == null) {
+            synchronized (ChannelBuilder.class) {
+                channel_starname_main = ManagedChannelBuilder.forAddress(GRPC_STARNAME_MAIN, PORT_STARNAME_MAIN)
+                        .usePlaintext()
+                        .build();
+            }
+        }
+        return channel_starname_main;
     }
 
 

@@ -128,6 +128,7 @@
     <string name="str_medi_c" translatable="false">MED</string>
     <string name="str_althea_c" translatable="false">ALTG</string>
     <string name="str_osmosis_c" translatable="false">OSMO</string>
+    <string name="str_uion_c" translatable="false">ION</string>
     <string name="str_muon_c" translatable="false">MUON</string>
     <string name="str_bif_c" translatable="false">BIF</string>
 
