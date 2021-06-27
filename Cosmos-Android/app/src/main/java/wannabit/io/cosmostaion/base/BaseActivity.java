@@ -78,8 +78,6 @@ import wannabit.io.cosmostaion.model.kava.MarketPrice;
 import wannabit.io.cosmostaion.model.type.Coin;
 import wannabit.io.cosmostaion.model.type.Validator;
 import wannabit.io.cosmostaion.network.res.ResBnbFee;
-import wannabit.io.cosmostaion.network.res.ResIovConfig;
-import wannabit.io.cosmostaion.network.res.ResIovFee;
 import wannabit.io.cosmostaion.network.res.ResKavaPriceFeedParam;
 import wannabit.io.cosmostaion.network.res.ResOkStaking;
 import wannabit.io.cosmostaion.network.res.ResOkTickersList;
@@ -104,8 +102,8 @@ import wannabit.io.cosmostaion.task.FetchTask.OkUnbondingInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.PushUpdateTask;
 import wannabit.io.cosmostaion.task.FetchTask.SifLmIncentiveTask;
 import wannabit.io.cosmostaion.task.FetchTask.SifVsIncentiveTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameConfigTask;
-import wannabit.io.cosmostaion.task.FetchTask.StarNameFeeTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcConfigTask;
+import wannabit.io.cosmostaion.task.FetchTask.StarNameGrpcFeeTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationParamInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.StationPriceInfoTask;
 import wannabit.io.cosmostaion.task.FetchTask.UnBondingStateTask;
@@ -141,7 +139,6 @@ import static wannabit.io.cosmostaion.base.BaseChain.COSMOS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.CRYPTO_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.FETCHAI_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IOV_MAIN;
-import static wannabit.io.cosmostaion.base.BaseChain.IOV_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_MAIN;
 import static wannabit.io.cosmostaion.base.BaseChain.IRIS_TEST;
 import static wannabit.io.cosmostaion.base.BaseChain.KAVA_MAIN;
@@ -175,8 +172,6 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_TOKEN_LIST
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_OK_UNBONDING_INFO;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE_LM;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_SIF_INCENTIVE_VS;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_CONFIG;
-import static wannabit.io.cosmostaion.base.BaseConstant.TASK_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_ALL_REWARDS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_AUTH;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BALANCE;
@@ -184,6 +179,8 @@ import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BAND_ORA
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_BONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_DELEGATIONS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_NODE_INFO;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_CONFIG;
+import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_STARNAME_FEE;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDED_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNBONDING_VALIDATORS;
 import static wannabit.io.cosmostaion.base.BaseConstant.TASK_GRPC_FETCH_UNDELEGATIONS;
@@ -539,6 +536,19 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
         getBaseDao().mMyUnbondings.clear();
         getBaseDao().mMyRewards.clear();
 
+        //kava-5
+        getBaseDao().mMyHardDeposit.clear();
+        getBaseDao().mMyHardBorrow.clear();
+        getBaseDao().mModuleCoins.clear();
+        getBaseDao().mReserveCoins.clear();
+
+
+        //binance
+        getBaseDao().mBnbTokens.clear();
+        getBaseDao().mBnbTickers.clear();
+
+
+
         //gRPC
         getBaseDao().mGRpcNodeInfo = null;
         getBaseDao().mGRpcAccount = null;
@@ -555,16 +565,8 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
 
         getBaseDao().mGrpcBandOracles.clear();
 
-        //kava-5
-        getBaseDao().mMyHardDeposit.clear();
-        getBaseDao().mMyHardBorrow.clear();
-        getBaseDao().mModuleCoins.clear();
-        getBaseDao().mReserveCoins.clear();
-
-
-        //binance
-        getBaseDao().mBnbTokens.clear();
-        getBaseDao().mBnbTickers.clear();
+        getBaseDao().mGrpcStarNameFee = null;
+        getBaseDao().mGrpcStarNameConfig = null;
 
 
         if (mBaseChain.equals(BNB_MAIN) || mBaseChain.equals(BNB_TEST) ) {
@@ -608,23 +610,7 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new KavaPriceFeedParamTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
 
-        }
-//        else if (mBaseChain.equals(IOV_MAIN) || mBaseChain.equals(IOV_TEST)) {
-//            mTaskCount = 10;
-//            new NodeInfoTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new ValidatorInfoBondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new ValidatorInfoUnbondingTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new ValidatorInfoUnbondedTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new AccountInfoTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new BondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new AllRewardsTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//
-//            new UnBondingStateTask(getBaseApplication(), this, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new StarNameFeeTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//            new StarNameConfigTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
-//
-//        }
-        else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
+        } else if (mBaseChain.equals(BaseChain.OKEX_MAIN) || mBaseChain.equals(BaseChain.OK_TEST)) {
             mTaskCount = 8;
             getBaseDao().mOkStaking = null;
             getBaseDao().mOkUnbonding = null;
@@ -711,6 +697,9 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             new DelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new UnDelegationsGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
             new AllRewardGrpcTask(getBaseApplication(), this, mBaseChain, mAccount).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+            new StarNameGrpcFeeTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+            new StarNameGrpcConfigTask(getBaseApplication(), this, BaseChain.getChain(mAccount.baseChain)).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         }
 
@@ -865,16 +854,6 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
                 getBaseDao().mOkTickersList = ((ResOkTickersList)result.resultData);
             }
 
-        } else if (result.taskType == TASK_FETCH_STARNAME_FEE) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mStarNameFee = ((ResIovFee.IovFee)result.resultData);
-            }
-
-        } else if (result.taskType == TASK_FETCH_STARNAME_CONFIG) {
-            if (result.isSuccess && result.resultData != null) {
-                getBaseDao().mStarNameConfig = ((ResIovConfig.IovConfig)result.resultData);
-            }
-
         } else if (result.taskType == TASK_FETCH_SIF_INCENTIVE_VS) {
             if (result.isSuccess && result.resultData != null) {
                 getBaseDao().mSifVsIncentive = ((SifIncentive.User)result.resultData);
@@ -936,9 +915,21 @@ public class BaseActivity extends AppCompatActivity implements TaskListener {
             ArrayList<Distribution.DelegationDelegatorReward> rewards = (ArrayList<Distribution.DelegationDelegatorReward>) result.resultData;
             if (rewards != null) { getBaseDao().mGrpcRewards = rewards; }
 
-        } else if (result.taskType == TASK_GRPC_FETCH_BAND_ORACLE_STATUS) {
+        }
+
+        else if (result.taskType == TASK_GRPC_FETCH_BAND_ORACLE_STATUS) {
             ArrayList<Oracle.ActiveValidator> validators = (ArrayList<Oracle.ActiveValidator>) result.resultData;
             if (validators != null) { getBaseDao().mGrpcBandOracles = validators; }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_FEE) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mGrpcStarNameFee = ((starnamed.x.configuration.v1beta1.Types.Fees)result.resultData);
+            }
+
+        } else if (result.taskType == TASK_GRPC_FETCH_STARNAME_CONFIG) {
+            if (result.isSuccess && result.resultData != null) {
+                getBaseDao().mGrpcStarNameConfig = ((starnamed.x.configuration.v1beta1.Types.Config )result.resultData);
+            }
 
         }
 

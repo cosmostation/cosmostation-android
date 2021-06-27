@@ -340,6 +340,12 @@ public class BaseData {
     //COMMON DATA FOR BAND
     public ArrayList<Oracle.ActiveValidator>                    mGrpcBandOracles = new ArrayList<>();
 
+    //COMMON DATA FOR STARNAME
+    public starnamed.x.configuration.v1beta1.Types.Fees         mGrpcStarNameFee;
+    public starnamed.x.configuration.v1beta1.Types.Config       mGrpcStarNameConfig;
+
+
+
     public irishub.mint.Mint.Params                             mGrpcIrisParamMint;
     public ArrayList<TokenOuterClass.Token>                     mGrpcIrisTokens = new ArrayList<>();
 
