@@ -50,16 +50,6 @@ public class NodeInfoTask extends CommonTask {
                     WLog.w("NodeInfoTask : NOk");
                 }
 
-            } else if (mChain.equals(IOV_MAIN)) {
-                Response<ResNodeInfo> response =  ApiClient.getIovChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
-
             } else if (mChain.equals(CERTIK_MAIN)) {
                 Response<ResNodeInfo> response =  ApiClient.getCertikChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
@@ -143,15 +133,6 @@ public class NodeInfoTask extends CommonTask {
                     WLog.w("NodeInfoTask : NOk");
                 }
 
-            } else if (mChain.equals(IOV_TEST)) {
-                Response<ResNodeInfo> response =  ApiClient.getIovTestChain(mApp).getNodeInfo().execute();
-                if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {
-                    mResult.resultData = response.body().node_info;
-                    mResult.isSuccess = true;
-
-                } else {
-                    WLog.w("NodeInfoTask : NOk");
-                }
             } else if (mChain.equals(CERTIK_TEST)) {
                 Response<ResNodeInfo> response =  ApiClient.getCertikTestChain(mApp).getNodeInfo().execute();
                 if(response.isSuccessful() && response.body() != null&& response.body().node_info != null) {

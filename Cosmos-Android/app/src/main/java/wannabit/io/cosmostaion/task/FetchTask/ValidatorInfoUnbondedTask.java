@@ -57,19 +57,6 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
                     mResult.isSuccess = true;
                 }
 
-            } else if (mChain.equals(IOV_MAIN)) {
-                Response<ResLcdValidators> response = ApiClient.getIovChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
             } else if (mChain.equals(OKEX_MAIN)) {
                 Response<ArrayList<Validator>> response = ApiClient.getOkexChain(mApp).getUnBondedValidatorDetailList().execute();
                 if (!response.isSuccessful()) {
@@ -152,19 +139,6 @@ public class ValidatorInfoUnbondedTask extends CommonTask {
 
             else if (mChain.equals(KAVA_TEST)) {
                 Response<ResLcdValidators> response = ApiClient.getKavaTestChain(mApp).getUnBondedValidatorDetailList().execute();
-                if(!response.isSuccessful()) {
-                    mResult.isSuccess = false;
-                    mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;
-                    return mResult;
-                }
-
-                if(response.body() != null && response.body().result != null && response.body().result.size() > 0) {
-                    mResult.resultData = response.body().result;
-                    mResult.isSuccess = true;
-                }
-
-            } else if (mChain.equals(IOV_TEST)) {
-                Response<ResLcdValidators> response = ApiClient.getIovTestChain(mApp).getUnBondedValidatorDetailList().execute();
                 if(!response.isSuccessful()) {
                     mResult.isSuccess = false;
                     mResult.errorCode = BaseConstant.ERROR_CODE_NETWORK;

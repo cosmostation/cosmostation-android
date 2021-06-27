@@ -68,13 +68,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().mKavaAccount = response.body().result;
                 }
 
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_MAIN)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getIovChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
-                }
-
             } else if (BaseChain.getChain(mAccount.baseChain).equals(OKEX_MAIN)) {
                 Response<ResOkAccountInfo> response = ApiClient.getOkexChain(mApp).getAccountInfo(mAccount.address).execute();
                 if (response.isSuccessful()) {
@@ -134,13 +127,6 @@ public class AccountInfoTask extends CommonTask {
                     mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromBnbLcd(mAccount.id, response.body()));
                 } else {
                     mApp.getBaseDao().onDeleteBalance(""+mAccount.id);
-                }
-
-            } else if (BaseChain.getChain(mAccount.baseChain).equals(IOV_TEST)) {
-                Response<ResLcdAccountInfo> response = ApiClient.getIovTestChain(mApp).getAccountInfo(mAccount.address).execute();
-                if(response.isSuccessful()) {
-                    mApp.getBaseDao().onUpdateAccount(WUtil.getAccountFromLcd(mAccount.id, response.body()));
-                    mApp.getBaseDao().onUpdateBalances(mAccount.id, WUtil.getBalancesFromLcd(mAccount.id, response.body()));
                 }
 
             } else if (BaseChain.getChain(mAccount.baseChain).equals(OK_TEST)) {
